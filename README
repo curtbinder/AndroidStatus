@@ -1,0 +1,10 @@
+Android Status application
+
+Status application for Android powered devices
+* Targeted towards phones but will work with other devices
+* Display status of controller
+* Ability to update internal memory values
+* Ability to send some specific wifi commands (feeding / water change mode)
+
+Targeted towards Android 2.2 or later
+Project created using Eclipse IDE with ADT plugin
