@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="updated_text">#00FF00</color>
+	<color name="t1">#fe0000</color>
+	<color name="t2">#d3691f</color>
+	<color name="t3">#ba56d4</color>
+	<color name="ph">#2e8a57</color>
+	<color name="dp">#8b4512</color>
+	<color name="ap">#483d8b</color>
+</resources>

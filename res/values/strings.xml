@@ -1,5 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">ReefAngel Status</string>
-    <string name="app_name">ReefAngel Status</string>
+    <string name="app_name">Reef Angel Status</string>
+
+<!-- Menu Labels -->
+    <string name="settings_menu">Settings</string>
+    <string name="about_menu">About</string>
+    <string name="memory_menu">Memory</string>
+    
+<!--  Shortcut Keys -->
+    <string name="settings_shortcut">s</string>
+    <string name="about_shortcut">a</string>
+    <string name="refresh_shortcut">r</string>
+    <string name="memory_shortcut">m</string>
+    
+<!-- About Box Information -->
+    <string name="about_title">About Reef Angel Status</string>
+    <string name="about_text">\
+This is about the Reef Angel Status Android App.  Monitors the status of your Reef Angel
+ Controller and displays the values.
+</string>
+
+<!-- Main Display Labels -->
+    <string name="last_updated">Last Updated:</string>
+    <string name="refresh_label">Refresh</string>
+	<string name="never">Never</string>
+	<string name="status_label">Status</string>
+	<string name="temp1_label">T1:</string>
+	<string name="temp2_label">T2:</string>
+	<string name="temp3_label">T3:</string>
+	<string name="ph_label">PH:</string>
+	<string name="dp_label">DP:</string>
+	<string name="ap_label">AP:</string>
+	<string name="salinity_label">Salinity:</string>
+	<string name="ato_low_label">ATO Low:</string>
+	<string name="ato_high_label">ATO High:</string>
+	<string name="main_relay_label">Main Relay</string>
+	<string name="box0_port1_label">Port 1:</string>
+	<string name="box0_port2_label">Port 2:</string>
+	<string name="box0_port3_label">Port 3:</string>
+	<string name="box0_port4_label">Port 4:</string>
+	<string name="box0_port5_label">Port 5:</string>
+	<string name="box0_port6_label">Port 6:</string>
+	<string name="box0_port7_label">Port 7:</string>
+	<string name="box0_port8_label">Port 8:</string>
+	
+<!-- Settings / Preference Labels -->
+
 </resources>

@@ -10,14 +10,80 @@ package info.curtbinder.reefangel.phone;
 public final class R {
     public static final class attr {
     }
+    public static final class color {
+        public static final int ap=0x7f040006;
+        public static final int dp=0x7f040005;
+        public static final int ph=0x7f040004;
+        public static final int t1=0x7f040001;
+        public static final int t2=0x7f040002;
+        public static final int t3=0x7f040003;
+        public static final int updated_text=0x7f040000;
+    }
     public static final class drawable {
         public static final int icon=0x7f020000;
     }
+    public static final class id {
+        public static final int about=0x7f07000c;
+        public static final int about_content=0x7f070000;
+        public static final int ap=0x7f070008;
+        public static final int dp=0x7f070007;
+        public static final int memory=0x7f07000b;
+        public static final int ph=0x7f070006;
+        public static final int refresh_button=0x7f070002;
+        public static final int salinity=0x7f070009;
+        public static final int settings=0x7f07000a;
+        public static final int temp1=0x7f070003;
+        public static final int temp2=0x7f070004;
+        public static final int temp3=0x7f070005;
+        public static final int updated=0x7f070001;
+    }
     public static final class layout {
-        public static final int main=0x7f030000;
+        public static final int about=0x7f030000;
+        public static final int main=0x7f030001;
+    }
+    public static final class menu {
+        public static final int main_menu=0x7f060000;
     }
     public static final class string {
-        public static final int app_name=0x7f040001;
-        public static final int hello=0x7f040000;
+        public static final int about_menu=0x7f050002;
+        public static final int about_shortcut=0x7f050005;
+        public static final int about_text=0x7f050009;
+        /**  About Box Information 
+         */
+        public static final int about_title=0x7f050008;
+        public static final int ap_label=0x7f050013;
+        public static final int app_name=0x7f050000;
+        public static final int ato_high_label=0x7f050016;
+        public static final int ato_low_label=0x7f050015;
+        public static final int box0_port1_label=0x7f050018;
+        public static final int box0_port2_label=0x7f050019;
+        public static final int box0_port3_label=0x7f05001a;
+        public static final int box0_port4_label=0x7f05001b;
+        public static final int box0_port5_label=0x7f05001c;
+        public static final int box0_port6_label=0x7f05001d;
+        public static final int box0_port7_label=0x7f05001e;
+        public static final int box0_port8_label=0x7f05001f;
+        public static final int dp_label=0x7f050012;
+        /**  Main Display Labels 
+         */
+        public static final int last_updated=0x7f05000a;
+        public static final int main_relay_label=0x7f050017;
+        public static final int memory_menu=0x7f050003;
+        public static final int memory_shortcut=0x7f050007;
+        public static final int never=0x7f05000c;
+        public static final int ph_label=0x7f050011;
+        public static final int refresh_label=0x7f05000b;
+        public static final int refresh_shortcut=0x7f050006;
+        public static final int salinity_label=0x7f050014;
+        /**  Menu Labels 
+         */
+        public static final int settings_menu=0x7f050001;
+        /**   Shortcut Keys 
+         */
+        public static final int settings_shortcut=0x7f050004;
+        public static final int status_label=0x7f05000d;
+        public static final int temp1_label=0x7f05000e;
+        public static final int temp2_label=0x7f05000f;
+        public static final int temp3_label=0x7f050010;
     }
 }

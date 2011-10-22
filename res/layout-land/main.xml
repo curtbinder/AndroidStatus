@@ -15,10 +15,10 @@
 			android:id="@+id/updated"
 			android:textColor="@color/updated_text"
 			android:padding="10dip"/>
+		<Button 
+			android:id="@+id/refresh_button"
+			android:text="@string/refresh_label" />
 	</TableRow>
-	<Button 
-		android:id="@+id/refresh_button"
-		android:text="@string/refresh_label" />
 		
 	<ScrollView
 		android:layout_width="fill_parent"
@@ -43,6 +43,16 @@
 					android:textStyle="bold"
 					android:textColor="@color/t1"
 					/>
+				<TextView 
+					android:gravity="right"
+					android:textColor="@color/ph"
+					android:text="@string/ph_label" />
+				<TextView 
+					android:layout_marginLeft="15dip"
+					android:id="@+id/ph"
+					android:textStyle="bold"
+					android:textColor="@color/ph"
+					/>
 			</TableRow>
 			<TableRow
 				android:gravity="center"
@@ -56,6 +66,17 @@
 					android:id="@+id/temp2"
 					android:textStyle="bold"
 					android:textColor="@color/t2"
+					/>
+				<TextView
+					android:gravity="right"
+					android:layout_marginLeft="30dip" 
+					android:textColor="@color/dp" 
+					android:text="@string/dp_label" />
+				<TextView
+					android:layout_marginLeft="15dip" 
+					android:id="@+id/dp"
+					android:textStyle="bold"
+					android:textColor="@color/dp"
 					/>
 			</TableRow>
 			<TableRow
@@ -71,40 +92,9 @@
 					android:textStyle="bold"
 					android:textColor="@color/t3"
 					/>
-			</TableRow>
-			<TableRow
-				android:gravity="center"
-				android:padding="10dip">
-				<TextView 
-					android:gravity="right"
-					android:textColor="@color/ph"
-					android:text="@string/ph_label" />
-				<TextView 
-					android:layout_marginLeft="15dip"
-					android:id="@+id/ph"
-					android:textStyle="bold"
-					android:textColor="@color/ph"
-					/>
-			</TableRow>
-			<TableRow
-				android:gravity="center"
-				android:padding="10dip">
 				<TextView
 					android:gravity="right"
-					android:textColor="@color/dp" 
-					android:text="@string/dp_label" />
-				<TextView
-					android:layout_marginLeft="15dip" 
-					android:id="@+id/dp"
-					android:textStyle="bold"
-					android:textColor="@color/dp"
-					/>
-			</TableRow>
-			<TableRow
-				android:gravity="center"
-				android:padding="10dip">
-				<TextView
-					android:gravity="right" 
+					android:layout_marginLeft="30dip" 
 					android:textColor="@color/ap"
 					android:text="@string/ap_label" />
 				<TextView
