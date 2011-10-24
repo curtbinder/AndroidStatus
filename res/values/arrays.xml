@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+	<array name="memory_names">
+		<item>MH On Hour</item>
+		<item>MH On Minute</item>
+		<item>MH Off Hour</item>
+		<item>MH Off Minute</item>
+		<item>StdLights On Hour</item>
+		<item>StdLights On Minute</item>
+		<item>StdLights Off Hour</item>
+		<item>StdLights Off Minute</item>
+		<item>Wavemaker 1 Timer</item>
+		<item>Wavemaker 2 Timer</item>
+		<item>Dosing Pump 1 Timer</item>
+		<item>Dosing Pump 2 Timer</item>
+		<item>Feeding Mode Timer</item>
+		<item>LCD Timeout</item>
+		<item>Overheat Temp</item>
+		<item>Daylight PWM Value</item>
+		<item>Actinic PWM Value</item>
+		<item>Heater On Temp</item>
+		<item>Heater Off Temp</item>
+		<item>Chiller On Temp</item>
+		<item>Chiller Off Temp</item>
+		<item>ATO Timeout</item>
+		<item>PH Max value (PH10)</item>
+		<item>PH Min value (PH7)</item>
+		<item>MH Delay</item>
+		<item>Dosing Pump 1 On Hour</item>
+		<item>Dosing Pump 1 On Minute</item>
+		<item>Dosing Pump 2 On Hour</item>
+		<item>Dosing Pump 2 On Minute</item>
+		<item>ATO Hour Interval</item>
+		<item>ATO High Hour Interval</item>
+		<item>ATO High Timeout</item>
+		<item>Dosing Pump 1 Repeat Interval</item>
+		<item>Dosing Pump 2 Repeat Interval</item>
+		<item>Salinity Max</item>
+		<item>PWM Slope Daylight Start %</item>
+		<item>PWM Slope Daylight End %</item>
+		<item>PWM Slope Daylight Duration</item>
+		<item>PWM Slope Actinic Start %</item>
+		<item>PWM Slope Actinic End %</item>
+		<item>PWM Slope Actinic Duration</item>
+		<item>RF Mode</item>
+		<item>RF Speed</item>
+		<item>RF Duration</item>
+	</array>
+</resources>
