@@ -4,12 +4,6 @@
 		android:id="@+id/settings"
 	    android:title="@string/settings_menu"
 	    android:alphabeticShortcut="@string/settings_shortcut" />
-<!--
-	<item
-		android:id="@+id/memory"
-		android:title="@string/memory_menu"
-		android:alphabeticShortcut="@string/memory_shortcut" />
--->
 	<item 
 		android:id="@+id/about"
 	    android:title="@string/about_menu"

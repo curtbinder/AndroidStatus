@@ -26,11 +26,10 @@ public final class R {
         public static final int ic_icon=0x7f020000;
     }
     public static final class id {
-        public static final int about=0x7f08000c;
+        public static final int about=0x7f08000b;
         public static final int about_content=0x7f080000;
         public static final int ap=0x7f080008;
         public static final int dp=0x7f080007;
-        public static final int memory=0x7f08000b;
         public static final int ph=0x7f080006;
         public static final int refresh_button=0x7f080002;
         public static final int salinity=0x7f080009;
