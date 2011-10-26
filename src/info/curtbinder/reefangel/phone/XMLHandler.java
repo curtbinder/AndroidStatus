@@ -56,14 +56,14 @@ public class XMLHandler extends DefaultHandler {
 	@Override
 	public void endElement ( String uri, String localName, String qName )
 			throws SAXException {
-		if ( requestType.equals( "@string/requestStatus" ) ) {
-			if ( qName.equals( "@string/xmlStatus" ) ) {
+		if ( requestType.equals( Globals.requestStatus ) ) {
+			if ( qName.equals( Globals.xmlStatus ) ) {
 				return;
 			} else {
 				processStatusXml( qName );
 			}
-		} else if ( requestType.equals( "@string/requestMemoryByte" ) ) {
-			if ( qName.equals( "@string/xmlMemory" ) ) {
+		} else if ( requestType.equals( Globals.requestMemoryByte ) ) {
+			if ( qName.equals( Globals.xmlMemory ) ) {
 				return;
 			} else {
 				processMemoryXml( qName );
@@ -81,7 +81,7 @@ public class XMLHandler extends DefaultHandler {
 				processDateTimeXml( qName );
 			}
 */
-		} else if ( requestType.equals( "@string/requestVersion" ) ) {
+		} else if ( requestType.equals( Globals.requestVersion ) ) {
 			processVersionXml( qName );
 		}
 		currentElementText = "";
@@ -95,51 +95,51 @@ public class XMLHandler extends DefaultHandler {
 			Attributes attributes ) throws SAXException {
 		if ( requestType.equals("") ) {
 			// no request type, so set it based on the first element we process
-			if ( qName.equals( "@string/xmlStatus" ) ) {
-				requestType = "@string/requestStatus";
-//			} else if ( qName.equals( "@string/xmlDateTime" ) ) {
-//				requestType = "@string/requestDateTime";
-			} else if ( qName.equals( "@string/xmlVersion" ) ) {
-				requestType = "@string/requestVersion";
-			} else if ( qName.startsWith( "@string/xmlMemorySingle" ) ) {
+			if ( qName.equals( Globals.xmlStatus ) ) {
+				requestType = Globals.requestStatus;
+//			} else if ( qName.equals( Globals.xmlDateTime ) ) {
+//				requestType = Globals.requestDateTime;
+			} else if ( qName.equals( Globals.xmlVersion ) ) {
+				requestType = Globals.requestVersion;
+			} else if ( qName.startsWith( Globals.xmlMemorySingle ) ) {
 				// can be either type, just chose to use Bytes
-				requestType = "@string/requestMemoryByte";
+				requestType = Globals.requestMemoryByte;
 			}
 		}
 	}
 
 	private void processStatusXml ( String tag ) {
-		if ( tag.equals( "@string/xmlT1" ) ) {
+		if ( tag.equals( Globals.xmlT1 ) ) {
 			ra.setTemp1( Integer.parseInt( currentElementText ) );
-		} else if ( tag.equals( "@string/xmlT2" ) ) {
+		} else if ( tag.equals( Globals.xmlT2 ) ) {
 			ra.setTemp2( Integer.parseInt( currentElementText ) );
-		} else if ( tag.equals( "@string/xmlT3" ) ) {
+		} else if ( tag.equals( Globals.xmlT3 ) ) {
 			ra.setTemp3( Integer.parseInt( currentElementText ) );
-		} else if ( tag.equals( "@string/xmlPH" ) ) {
+		} else if ( tag.equals( Globals.xmlPH ) ) {
 			ra.setPH( Integer.parseInt( currentElementText ) );
-		} else if ( tag.equals( "@string/xmlATOLow" ) ) {
+		} else if ( tag.equals( Globals.xmlATOLow ) ) {
 			boolean f = false;
 			if ( Integer.parseInt( currentElementText ) == 1 ) {
 				f = true;
 			}
 			ra.setAtoLow( f );
-		} else if ( tag.equals( "@string/xmlATOHigh" ) ) {
+		} else if ( tag.equals( Globals.xmlATOHigh ) ) {
 			boolean f = false;
 			if ( Integer.parseInt( currentElementText ) == 1 ) {
 				f = true;
 			}
 			ra.setAtoHigh( f );
-		} else if ( tag.equals( "@string/xmlPWMActinic" ) ) {
+		} else if ( tag.equals( Globals.xmlPWMActinic ) ) {
 			ra.setPwmA( Byte.parseByte( currentElementText ) );
-		} else if ( tag.equals( "@string/xmlPWMDaylight" ) ) {
+		} else if ( tag.equals( Globals.xmlPWMDaylight ) ) {
 			ra.setPwmD( Byte.parseByte( currentElementText ) );
-		} else if ( tag.equals( "@string/xmlSalinity" ) ) {
+		} else if ( tag.equals( Globals.xmlSalinity ) ) {
 			ra.setSalinity( Byte.parseByte( currentElementText ) );
-		} else if ( tag.equals( "@string/xmlRelay" ) ) {
+		} else if ( tag.equals( Globals.xmlRelay ) ) {
 			ra.setMainRelayData( Short.parseShort( currentElementText ) );
-		} else if ( tag.equals( "@string/xmlRelayMaskOn" ) ) {
+		} else if ( tag.equals( Globals.xmlRelayMaskOn ) ) {
 			ra.setMainRelayDataMaskOn( Short.parseShort( currentElementText ) );
-		} else if ( tag.equals( "@string/xmlRelayMaskOff" ) ) {
+		} else if ( tag.equals( Globals.xmlRelayMaskOff ) ) {
 			ra.setMainRelayDataMaskOff( Short.parseShort( currentElementText ) );
 		}
 		// TODO process expansion relays
@@ -169,7 +169,7 @@ public class XMLHandler extends DefaultHandler {
 		/*
 		 * Response will be the Version
 		 */
-		if ( tag.equals( "@string/xmlVersion" ) ) {
+		if ( tag.equals( Globals.xmlVersion ) ) {
 			version = currentElementText;
 		}
 	}
@@ -178,7 +178,7 @@ public class XMLHandler extends DefaultHandler {
 		/*
 		 * Responses will be either: OK, value, ERR
 		 */
-		if ( tag.startsWith( "@string/xmlMemorySingle" ) ) {
+		if ( tag.startsWith( Globals.xmlMemorySingle ) ) {
 			memoryResponse = currentElementText;
 		}
 	}

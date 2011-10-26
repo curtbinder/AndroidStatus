@@ -58,7 +58,7 @@ public class Number {
 		computeNumber();
 	}
 
-	public String getNumberString ( ) {
+	public String toString ( ) {
 		String s = "";
 		switch ( decimalPlaces ) {
 		case 2:

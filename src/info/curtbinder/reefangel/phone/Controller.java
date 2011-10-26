@@ -58,7 +58,7 @@ public class Controller {
 	}
 
 	public String getTemp1 ( ) {
-		return t1.getNumberString();
+		return t1.toString();
 	}
 
 	public void setTemp2 ( int value ) {
@@ -66,7 +66,7 @@ public class Controller {
 	}
 
 	public String getTemp2 ( ) {
-		return t2.getNumberString();
+		return t2.toString();
 	}
 
 	public void setTemp3 ( int value ) {
@@ -74,7 +74,7 @@ public class Controller {
 	}
 
 	public String getTemp3 ( ) {
-		return t3.getNumberString();
+		return t3.toString();
 	}
 
 	public void setPH ( int value ) {
@@ -82,7 +82,7 @@ public class Controller {
 	}
 
 	public String getPH ( ) {
-		return pH.getNumberString();
+		return pH.toString();
 	}
 
 	public void setAtoLow ( boolean v ) {

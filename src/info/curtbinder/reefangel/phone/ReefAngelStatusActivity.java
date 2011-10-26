@@ -3,10 +3,15 @@ package info.curtbinder.reefangel.phone;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.RejectedExecutionException;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -19,6 +24,7 @@ import android.widget.TextView;
 public class ReefAngelStatusActivity extends Activity implements OnClickListener {
 	private static final String TAG = "RAStatus";
 	
+	// Display views
 	private View refreshButton;
 	private TextView updateTime;
 	private TextView t1Text;
@@ -29,6 +35,13 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 	private TextView apText;
 	private TextView salinityText;
 	
+	// Threading
+	private Handler guiThread;
+	private ExecutorService statusThread;
+	private Runnable updateTask;
+	@SuppressWarnings("rawtypes")
+	private Future statusPending;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,9 +49,10 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
         setContentView(R.layout.main);
         
         findViews();
+        initThreading();
         
         refreshButton.setOnClickListener(this);
-        updateTime.setText( R.string.never );
+        updateTime.setText( R.string.messageNever );
     }
     
 	@Override
@@ -91,29 +105,81 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 		return true;
 	}
 	
-	public void launchStatusTask() {
+	private void initThreading() {
+		guiThread = new Handler();
+		statusThread = Executors.newSingleThreadExecutor();
+		updateTask = new Runnable() {
+			public void run() {
+				// Task to be run
+				
+				// Cancel any previous status check if exists
+				if ( statusPending != null )
+					statusPending.cancel(true);
+
+				try {
+					// Get IP & Port
+					Host h = new Host(
+							getString(R.string.defaultHost), 
+							getString(R.string.defaultPort),
+							Globals.requestStatusOld);
+					Log.d(TAG, h.toString());
+					// Create ControllerTask
+					ControllerTask cTask = new ControllerTask(
+							ReefAngelStatusActivity.this,
+							h,
+							true);
+					statusPending = statusThread.submit(cTask);
+					// Add ControllerTask to statusThread to be run
+				} catch ( RejectedExecutionException e) {
+					Log.d(TAG, "initThreading RejectedExecution");
+					updateTime.setText(R.string.messageError);
+				}
+			}
+		};
+	}
+	
+	private void launchStatusTask() {
 		// TODO launch task
+		/**
+		 * Creates the thread that communicates with the controller
+		 * Then that function calls updateDisplay when it finishes
+		 */
 		Log.d(TAG, "launchStatusTask");
+		/*
 		Controller r = new Controller();
 		r.setTemp1(780);
 		r.setTemp2(900);
 		r.setTemp3(760);
-		updateDisplay(r);
+		guiUpdateDisplay(r);
+		*/
+		// cancel any previous update if it hasn't started yet
+		guiThread.removeCallbacks(updateTask);
+		// start an update
+		guiThread.post(updateTask);
 	}
 	
-	public void updateDisplay(Controller ra) {
-		Log.d(TAG, "updateDisplay");
-		DateFormat dft =
-				DateFormat.getDateTimeInstance( DateFormat.DEFAULT,
-												DateFormat.DEFAULT, Locale.getDefault() );
-		updateTime.setText(dft.format(new Date()));
-		t1Text.setText(ra.getTemp1());
-		t2Text.setText(ra.getTemp2());
-		t3Text.setText(ra.getTemp3());
-		phText.setText(ra.getPH());
-		dpText.setText(ra.getPwmD());
-		apText.setText(ra.getPwmA());
-		salinityText.setText(ra.getSalinity());
+	public void guiUpdateDisplay(final Controller ra) {
+		/**
+		 * Updates the display with the values from the Controller
+		 * 
+		 * Called from other threads
+		 */
+		guiThread.post(new Runnable() {
+			public void run() {
+				Log.d(TAG, "updateDisplay");
+				DateFormat dft =
+						DateFormat.getDateTimeInstance( DateFormat.DEFAULT,
+														DateFormat.DEFAULT, Locale.getDefault() );
+				updateTime.setText(dft.format(new Date()));
+				t1Text.setText(ra.getTemp1());
+				t2Text.setText(ra.getTemp2());
+				t3Text.setText(ra.getTemp3());
+				phText.setText(ra.getPH());
+				dpText.setText(ra.getPwmD());
+				apText.setText(ra.getPwmA());
+				salinityText.setText(ra.getSalinity());
+			}
+		});
 	}
 
 	@Override

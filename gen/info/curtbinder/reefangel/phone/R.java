@@ -54,77 +54,45 @@ public final class R {
         /**  About Box Information 
          */
         public static final int about_title=0x7f060008;
-        public static final int ap_label=0x7f060013;
+        public static final int ap_label=0x7f060012;
         public static final int app_name=0x7f060000;
-        public static final int ato_high_label=0x7f060016;
-        public static final int ato_low_label=0x7f060015;
-        public static final int box0_port1_label=0x7f060018;
-        public static final int box0_port2_label=0x7f060019;
-        public static final int box0_port3_label=0x7f06001a;
-        public static final int box0_port4_label=0x7f06001b;
-        public static final int box0_port5_label=0x7f06001c;
-        public static final int box0_port6_label=0x7f06001d;
-        public static final int box0_port7_label=0x7f06001e;
-        public static final int box0_port8_label=0x7f06001f;
+        public static final int ato_high_label=0x7f060015;
+        public static final int ato_low_label=0x7f060014;
+        public static final int box0_port1_label=0x7f060017;
+        public static final int box0_port2_label=0x7f060018;
+        public static final int box0_port3_label=0x7f060019;
+        public static final int box0_port4_label=0x7f06001a;
+        public static final int box0_port5_label=0x7f06001b;
+        public static final int box0_port6_label=0x7f06001c;
+        public static final int box0_port7_label=0x7f06001d;
+        public static final int box0_port8_label=0x7f06001e;
         /**  Constants 
          */
-        public static final int defaultIP=0x7f06003b;
-        public static final int defaultPort=0x7f06003c;
-        public static final int defaultStatusText=0x7f06003d;
-        public static final int dp_label=0x7f060012;
+        public static final int defaultHost=0x7f06001f;
+        public static final int defaultPort=0x7f060020;
+        public static final int defaultStatusText=0x7f060021;
+        public static final int dp_label=0x7f060011;
         /**  Main Display Labels 
          */
         public static final int last_updated=0x7f06000a;
-        public static final int main_relay_label=0x7f060017;
+        public static final int main_relay_label=0x7f060016;
         public static final int memory_menu=0x7f060003;
         public static final int memory_shortcut=0x7f060007;
-        public static final int messageError=0x7f06003e;
-        public static final int messageNever=0x7f06003f;
-        public static final int never=0x7f06000c;
-        public static final int ph_label=0x7f060011;
+        public static final int messageError=0x7f060022;
+        public static final int messageNever=0x7f060023;
+        public static final int ph_label=0x7f060010;
         public static final int refresh_label=0x7f06000b;
         public static final int refresh_shortcut=0x7f060006;
-        public static final int requestDateTime=0x7f060024;
-        public static final int requestExitMode=0x7f060028;
-        public static final int requestFeedingMode=0x7f060026;
-        /**  Controller Commands  
-         */
-        public static final int requestMemoryByte=0x7f060020;
-        public static final int requestMemoryInt=0x7f060021;
-        public static final int requestStatus=0x7f060023;
-        public static final int requestStatusOld=0x7f060022;
-        public static final int requestVersion=0x7f060025;
-        public static final int requestWaterMode=0x7f060027;
-        public static final int salinity_label=0x7f060014;
+        public static final int salinity_label=0x7f060013;
         /**  Menu Labels 
          */
         public static final int settings_menu=0x7f060001;
         /**   Shortcut Keys 
          */
         public static final int settings_shortcut=0x7f060004;
-        public static final int status_label=0x7f06000d;
-        public static final int temp1_label=0x7f06000e;
-        public static final int temp2_label=0x7f06000f;
-        public static final int temp3_label=0x7f060010;
-        public static final int xmlATOHigh=0x7f060034;
-        public static final int xmlATOLow=0x7f060033;
-        public static final int xmlDateTime=0x7f06002c;
-        public static final int xmlMemory=0x7f06002a;
-        public static final int xmlMemorySingle=0x7f06002b;
-        public static final int xmlMode=0x7f06002e;
-        public static final int xmlPH=0x7f060032;
-        public static final int xmlPWMActinic=0x7f060037;
-        public static final int xmlPWMDaylight=0x7f060036;
-        public static final int xmlRelay=0x7f060038;
-        public static final int xmlRelayMaskOff=0x7f06003a;
-        public static final int xmlRelayMaskOn=0x7f060039;
-        public static final int xmlSalinity=0x7f060035;
-        /**  XML tags 
-         */
-        public static final int xmlStatus=0x7f060029;
-        public static final int xmlT1=0x7f06002f;
-        public static final int xmlT2=0x7f060030;
-        public static final int xmlT3=0x7f060031;
-        public static final int xmlVersion=0x7f06002d;
+        public static final int status_label=0x7f06000c;
+        public static final int temp1_label=0x7f06000d;
+        public static final int temp2_label=0x7f06000e;
+        public static final int temp3_label=0x7f06000f;
     }
 }

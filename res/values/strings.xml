@@ -23,7 +23,6 @@ This is about the Reef Angel Status Android App.  Monitors the status of your Re
 <!-- Main Display Labels -->
     <string name="last_updated">Last Updated:</string>
     <string name="refresh_label">Refresh</string>
-	<string name="never">Never</string>
 	<string name="status_label">Status</string>
 	<string name="temp1_label">T1:</string>
 	<string name="temp2_label">T2:</string>
@@ -44,39 +43,8 @@ This is about the Reef Angel Status Android App.  Monitors the status of your Re
 	<string name="box0_port7_label">Port 7:</string>
 	<string name="box0_port8_label">Port 8:</string>
 	
-<!-- Controller Commands  -->
-	<string name="requestMemoryByte">/mb</string>
-	<string name="requestMemoryInt">/mi</string>
-	<string name="requestStatusOld">/r99</string>
-	<string name="requestStatus">/sr</string>
-	<string name="requestDateTime">/d</string>
-	<string name="requestVersion">/v</string>
-	<string name="requestFeedingMode">/mf</string>
-	<string name="requestWaterMode">/mw</string>
-	<string name="requestExitMode">/bp</string>
-	
-<!-- XML tags -->
-	<string name="xmlStatus">RA</string>
-	<string name="xmlMemory">MEM</string>
-	<string name="xmlMemorySingle">M</string>
-	<string name="xmlDateTime">D</string>
-	<string name="xmlVersion">V</string>
-	<string name="xmlMode">MODE</string>
-	<string name="xmlT1">T1</string>
-	<string name="xmlT2">T2</string>
-	<string name="xmlT3">T3</string>
-	<string name="xmlPH">PH</string>
-	<string name="xmlATOLow">ATOLOW</string>
-	<string name="xmlATOHigh">ATOHIGH</string>
-	<string name="xmlSalinity">SAL</string>
-	<string name="xmlPWMDaylight">PWMD</string>
-	<string name="xmlPWMActinic">PWMA</string>
-	<string name="xmlRelay">R</string>
-	<string name="xmlRelayMaskOn">RON</string>
-	<string name="xmlRelayMaskOff">ROFF</string>
-	
 <!-- Constants -->
-	<string name="defaultIP">10.0.42.40</string>
+	<string name="defaultHost">curtbinder.dyndns.info</string>
 	<string name="defaultPort">2000</string>
 	<string name="defaultStatusText">-</string>
 	<string name="messageError">Error</string>
