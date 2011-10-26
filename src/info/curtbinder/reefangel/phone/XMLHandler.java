@@ -12,6 +12,7 @@ public class XMLHandler extends DefaultHandler {
 	private Controller ra;
 	private String version = "";
 	private String memoryResponse = "";
+	private String modeResponse = "";
 	//private DateTime dt;
 
 	public Controller getRa ( ) {
@@ -34,6 +35,10 @@ public class XMLHandler extends DefaultHandler {
 
 	public String getMemoryResponse ( ) {
 		return memoryResponse;
+	}
+	
+	public String getModeResponse ( ) {
+		return modeResponse;
 	}
 
 	public String getRequestType ( ) {
@@ -83,6 +88,8 @@ public class XMLHandler extends DefaultHandler {
 */
 		} else if ( requestType.equals( Globals.requestVersion ) ) {
 			processVersionXml( qName );
+		} else if ( requestType.equals( Globals.requestExitMode ) ) {
+			processModeXml( qName );
 		}
 		currentElementText = "";
 	}
@@ -104,6 +111,9 @@ public class XMLHandler extends DefaultHandler {
 			} else if ( qName.startsWith( Globals.xmlMemorySingle ) ) {
 				// can be either type, just chose to use Bytes
 				requestType = Globals.requestMemoryByte;
+			} else if ( qName.equals( Globals.xmlMode ) ) {
+				// all modes return the same response, just chose to use Exit Mode
+				requestType = Globals.requestExitMode;
 			}
 		}
 	}
@@ -180,6 +190,15 @@ public class XMLHandler extends DefaultHandler {
 		 */
 		if ( tag.startsWith( Globals.xmlMemorySingle ) ) {
 			memoryResponse = currentElementText;
+		}
+	}
+	
+	private void processModeXml ( String tag ) {
+		/*
+		 * Response will be either:  OK or ERR
+		 */
+		if ( tag.startsWith( Globals.xmlMode ) ) {
+			modeResponse = currentElementText;
 		}
 	}
 }
