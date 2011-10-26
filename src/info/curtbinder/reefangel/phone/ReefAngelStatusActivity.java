@@ -181,6 +181,20 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 			}
 		});
 	}
+	
+	public void guiUpdateTimeText(final String msg) {
+		/**
+		 * Updates the UpdatedTime text box only
+		 * 
+		 * Called from other threads to indicate an error or interruption
+		 */
+		guiThread.post(new Runnable() {
+			public void run() {
+				Log.d(TAG, "updateTimeText");
+				updateTime.setText(msg);
+			}
+		});
+	}
 
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
