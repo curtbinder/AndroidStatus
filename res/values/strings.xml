@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Reef Angel Status</string>
+    <string name="app_version">0.1 beta</string>
 
 <!-- Menu Labels -->
     <string name="settings_menu">Settings</string>
@@ -44,8 +45,6 @@ This is about the Reef Angel Status Android App.  Monitors the status of your Re
 	<string name="box0_port8_label">Port 8:</string>
 	
 <!-- Constants -->
-	<string name="defaultHost">curtbinder.dyndns.info</string>
-	<string name="defaultPort">2000</string>
 	<string name="defaultStatusText">-</string>
 	<string name="messageError">Error</string>
 	<string name="messageNever">Never</string>
@@ -57,5 +56,12 @@ This is about the Reef Angel Status Android App.  Monitors the status of your Re
 -->
 	
 <!-- Settings / Preference Labels -->
+	<string name="prefs_title">Status Settings</string>
+	<string name="prefHostTitle">Hostname</string>
+	<string name="prefHostSummary">Enter the hostname or ip address of the controller</string>
+	<string name="defaultHost">curtbinder.dyndns.info</string>
+	<string name="prefPortTitle">Port</string>
+	<string name="prefPortSummary">Enter the port for the controller</string>
+	<string name="defaultPort">2000</string>
 
 </resources>

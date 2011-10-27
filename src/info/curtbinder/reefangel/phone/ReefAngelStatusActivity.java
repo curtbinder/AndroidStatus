@@ -27,6 +27,7 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 	// Display views
 	private View refreshButton;
 	private TextView updateTime;
+	private TextView messageText;
 	private TextView t1Text;
 	private TextView t2Text;
 	private TextView t3Text;
@@ -42,6 +43,14 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 	@SuppressWarnings("rawtypes")
 	private Future statusPending;
 	
+	// View visibility
+	private boolean showT2;
+	private boolean showT3;
+	private boolean showDP;
+	private boolean showAP;
+	private boolean showSalinity;
+	private boolean showMessageText;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +59,7 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
         
         findViews();
         initThreading();
+        updateViewsVisibility();
         
         refreshButton.setOnClickListener(this);
         updateTime.setText( R.string.messageNever );
@@ -78,6 +88,30 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 		dpText = (TextView) findViewById(R.id.dp);
 		apText = (TextView) findViewById(R.id.ap);
 		salinityText = (TextView) findViewById(R.id.salinity);
+	}
+	
+	private void updateViewsVisibility() {
+		// updates all the views visibility based on user settings
+		// get values from Preferences
+        showT2 = true;
+        showT3 = true;
+        showDP = true;
+        showAP = true;
+        showSalinity = true;
+        showMessageText = false;
+        
+		if ( ! showT2 )
+			t2Text.setVisibility(View.GONE);
+		if ( ! showT3 )
+			t3Text.setVisibility(View.GONE);
+		if ( ! showDP )
+			dpText.setVisibility(View.GONE);
+		if ( ! showAP )
+			apText.setVisibility(View.GONE);
+		if ( ! showSalinity )
+			salinityText.setVisibility(View.GONE);
+		//if ( ! showMessageText )
+		//	messageText.setVisibility(View.GONE);
 	}
 	
 	@Override
@@ -119,8 +153,8 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 				try {
 					// Get IP & Port
 					Host h = new Host(
-							getString(R.string.defaultHost), 
-							getString(R.string.defaultPort),
+							Prefs.getHost(getBaseContext()),
+							Prefs.getPort(getBaseContext()),
 							Globals.requestStatusOld);
 					Log.d(TAG, h.toString());
 					// Create ControllerTask
@@ -131,7 +165,7 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 					statusPending = statusThread.submit(cTask);
 					// Add ControllerTask to statusThread to be run
 				} catch ( RejectedExecutionException e) {
-					Log.d(TAG, "initThreading RejectedExecution");
+					Log.e(TAG, "initThreading RejectedExecution");
 					updateTime.setText(R.string.messageError);
 				}
 			}
@@ -145,13 +179,6 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 		 * Then that function calls updateDisplay when it finishes
 		 */
 		Log.d(TAG, "launchStatusTask");
-		/*
-		Controller r = new Controller();
-		r.setTemp1(780);
-		r.setTemp2(900);
-		r.setTemp3(760);
-		guiUpdateDisplay(r);
-		*/
 		// cancel any previous update if it hasn't started yet
 		guiThread.removeCallbacks(updateTask);
 		// start an update
@@ -183,6 +210,7 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 	}
 	
 	public void guiUpdateTimeText(final String msg) {
+		// TODO change to message text
 		/**
 		 * Updates the UpdatedTime text box only
 		 * 
@@ -209,7 +237,7 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
         case R.id.settings:
         	// launch settings
         	Log.d(TAG, "Menu Settings clicked");
-        	//startActivity(new Intent(this, Prefs.class));
+        	startActivity(new Intent(this, Prefs.class));
             break;
         case R.id.about:
         	// launch about box

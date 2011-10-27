@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	
+	<EditTextPreference
+		android:key="host"
+		android:title="@string/prefHostTitle"
+		android:summary="@string/prefHostSummary"
+		android:defaultValue="@string/defaultHost"
+		/>
+	<EditTextPreference
+		android:key="port"
+		android:title="@string/prefPortTitle"
+		android:summary="@string/prefPortSummary"
+		android:defaultValue="@string/defaultPort"
+		/>
+		
+	<PreferenceScreen
+		android:key="version"
+		android:title="Version"
+		android:summary="@string/app_version"
+		android:selectable="false"
+		/>
+</PreferenceScreen>
