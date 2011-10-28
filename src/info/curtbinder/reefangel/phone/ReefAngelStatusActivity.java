@@ -76,6 +76,7 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		updateViewsVisibility();
 	}
 
 	private void findViews() {
@@ -93,11 +94,11 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 	private void updateViewsVisibility() {
 		// updates all the views visibility based on user settings
 		// get values from Preferences
-        showT2 = true;
-        showT3 = true;
-        showDP = true;
-        showAP = true;
-        showSalinity = true;
+        showT2 = Prefs.getT2Visibility(getBaseContext());
+        showT3 = Prefs.getT3Visibility(getBaseContext());
+        showDP = Prefs.getDPVisibility(getBaseContext());
+        showAP = Prefs.getAPVisibility(getBaseContext());
+        showSalinity = Prefs.getSalinityVisibility(getBaseContext());
         showMessageText = false;
         
 		if ( ! showT2 )

@@ -63,5 +63,18 @@ This is about the Reef Angel Status Android App.  Monitors the status of your Re
 	<string name="prefPortTitle">Port</string>
 	<string name="prefPortSummary">Enter the port for the controller</string>
 	<string name="defaultPort">2000</string>
+	<string name="prefVersionTitle">Version</string>
+	<string name="prefControllerTitle">Controller Information</string>
+	<string name="prefControllerSummary">Update labels, Toggle visibility</string>
+	<string name="prefT2VisibilityTitle">Display T2</string>
+	<string name="prefT2VisibilitySummary">Displays temp sensor 2</string>
+	<string name="prefT3VisibilityTitle">Display T3</string>
+	<string name="prefT3VisibilitySummary">Displays temp sensor 3</string>
+	<string name="prefDPVisibilityTitle">Display DP</string>
+	<string name="prefDPVisibilitySummary">Displays daylight channel percentage</string>
+	<string name="prefAPVisibilityTitle">Display AP</string>
+	<string name="prefAPVisibilitySummary">Displays actinic channel percentage</string>
+	<string name="prefSalinityVisibilityTitle">Display Salinity</string>
+	<string name="prefSalinityVisibilitySummary">Displays the salinity</string>
 
 </resources>

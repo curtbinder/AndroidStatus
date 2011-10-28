@@ -14,10 +14,39 @@
 		android:summary="@string/prefPortSummary"
 		android:defaultValue="@string/defaultPort"
 		/>
-		
+	<PreferenceScreen
+		android:key="controller"
+		android:title="@string/prefControllerTitle"
+		android:summary="@string/prefControllerSummary">
+		<CheckBoxPreference
+			android:key="t2_visibility"
+			android:title="@string/prefT2VisibilityTitle"
+			android:summary="@string/prefT2VisibilitySummary"
+			android:defaultValue="true"/>
+		<CheckBoxPreference
+			android:key="t3_visibility"
+			android:title="@string/prefT3VisibilityTitle"
+			android:summary="@string/prefT3VisibilitySummary"
+			android:defaultValue="true"/>
+		<CheckBoxPreference
+			android:key="dp_visibility"
+			android:title="@string/prefDPVisibilityTitle"
+			android:summary="@string/prefDPVisibilitySummary"
+			android:defaultValue="true"/>
+		<CheckBoxPreference
+			android:key="ap_visibility"
+			android:title="@string/prefAPVisibilityTitle"
+			android:summary="@string/prefAPVisibilitySummary"
+			android:defaultValue="true"/>
+		<CheckBoxPreference
+			android:key="salinity_visibility"
+			android:title="@string/prefSalinityVisibilityTitle"
+			android:summary="@string/prefSalinityVisibilitySummary"
+			android:defaultValue="false"/>
+	</PreferenceScreen>
 	<PreferenceScreen
 		android:key="version"
-		android:title="Version"
+		android:title="@string/prefVersionTitle"
 		android:summary="@string/app_version"
 		android:selectable="false"
 		/>

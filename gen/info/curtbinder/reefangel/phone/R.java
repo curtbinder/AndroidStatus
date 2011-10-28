@@ -81,10 +81,23 @@ public final class R {
         public static final int messageError=0x7f070021;
         public static final int messageNever=0x7f070022;
         public static final int ph_label=0x7f070011;
+        public static final int prefAPVisibilitySummary=0x7f070034;
+        public static final int prefAPVisibilityTitle=0x7f070033;
+        public static final int prefControllerSummary=0x7f07002c;
+        public static final int prefControllerTitle=0x7f07002b;
+        public static final int prefDPVisibilitySummary=0x7f070032;
+        public static final int prefDPVisibilityTitle=0x7f070031;
         public static final int prefHostSummary=0x7f070025;
         public static final int prefHostTitle=0x7f070024;
         public static final int prefPortSummary=0x7f070028;
         public static final int prefPortTitle=0x7f070027;
+        public static final int prefSalinityVisibilitySummary=0x7f070036;
+        public static final int prefSalinityVisibilityTitle=0x7f070035;
+        public static final int prefT2VisibilitySummary=0x7f07002e;
+        public static final int prefT2VisibilityTitle=0x7f07002d;
+        public static final int prefT3VisibilitySummary=0x7f070030;
+        public static final int prefT3VisibilityTitle=0x7f07002f;
+        public static final int prefVersionTitle=0x7f07002a;
         /** 
 	// Minimum Versions
 	//public static final String minModesVersion = "0.8.5.19";
