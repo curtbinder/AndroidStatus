@@ -17,9 +17,10 @@
 <!-- About Box Information -->
     <string name="about_title">About Reef Angel Status</string>
     <string name="about_text">\
-This is about the Reef Angel Status Android App.  Monitors the status of your Reef Angel
- Controller and displays the values.
+Monitors the status of your Reef Angel Controller and displays the values.  Created and
+maintained by <i>Curt Binder</i>.
 </string>
+	<string name="about_button">OK</string>
 
 <!-- Main Display Labels -->
     <string name="last_updated">Last Updated:</string>
@@ -48,6 +49,7 @@ This is about the Reef Angel Status Android App.  Monitors the status of your Re
 	<string name="defaultStatusText">-</string>
 	<string name="messageError">Error</string>
 	<string name="messageNever">Never</string>
+	<string name="messageCancelled">Cancelled</string>
 
 <!--
 	// Minimum Versions
@@ -57,24 +59,48 @@ This is about the Reef Angel Status Android App.  Monitors the status of your Re
 	
 <!-- Settings / Preference Labels -->
 	<string name="prefs_title">Status Settings</string>
+	<string name="prefHostKey">host</string>
 	<string name="prefHostTitle">Hostname</string>
-	<string name="prefHostSummary">Enter the hostname or ip address of the controller</string>
-	<string name="defaultHost">curtbinder.dyndns.info</string>
+	<string name="prefHostSummary">Enter the hostname or IP address of the controller</string>
+	<string name="prefHostDefault">curtbinder.dyndns.info</string>
+	<string name="prefPortKey">port</string>
 	<string name="prefPortTitle">Port</string>
 	<string name="prefPortSummary">Enter the port for the controller</string>
-	<string name="defaultPort">2000</string>
+	<string name="prefPortDefault">2000</string>
 	<string name="prefVersionTitle">Version</string>
 	<string name="prefControllerTitle">Controller Information</string>
 	<string name="prefControllerSummary">Update labels, Toggle visibility</string>
+	<string name="prefControllerSummaryVisibilityCategory">Visibility Settings</string>
+	<string name="prefT2VisibilityKey">t2_visibility</string>
 	<string name="prefT2VisibilityTitle">Display T2</string>
 	<string name="prefT2VisibilitySummary">Displays temp sensor 2</string>
+	<string name="prefT3VisibilityKey">t3_visibility</string>
 	<string name="prefT3VisibilityTitle">Display T3</string>
 	<string name="prefT3VisibilitySummary">Displays temp sensor 3</string>
+	<string name="prefDPVisibilityKey">dp_visibility</string>
 	<string name="prefDPVisibilityTitle">Display DP</string>
 	<string name="prefDPVisibilitySummary">Displays daylight channel percentage</string>
+	<string name="prefAPVisibilityKey">ap_visibility</string>
 	<string name="prefAPVisibilityTitle">Display AP</string>
 	<string name="prefAPVisibilitySummary">Displays actinic channel percentage</string>
+	<string name="prefSalinityVisibilityKey">salinity_visibility</string>
 	<string name="prefSalinityVisibilityTitle">Display Salinity</string>
 	<string name="prefSalinityVisibilitySummary">Displays the salinity</string>
+	<string name="prefControllerSummaryLabelsCategory">Label Settings</string>
+	<string name="prefT1LabelKey">t1_label</string>
+	<string name="prefT1LabelTitle">T1 Label</string>
+	<string name="prefT1LabelSummary">Temp sensor 1 label</string>
+	<string name="prefT2LabelKey">t2_label</string>
+	<string name="prefT2LabelTitle">T2 Label</string>
+	<string name="prefT2LabelSummary">Temp sensor 2 label</string>
+	<string name="prefT3LabelKey">t3_label</string>
+	<string name="prefT3LabelTitle">T3 Label</string>
+	<string name="prefT3LabelSummary">Temp sensor 3 label</string>
+	<string name="prefDPLabelKey">dp_label</string>
+	<string name="prefDPLabelTitle">DP Label</string>
+	<string name="prefDPLabelSummary">Daylight PWM label</string>
+	<string name="prefAPLabelKey">ap_label</string>
+	<string name="prefAPLabelTitle">AP Label</string>
+	<string name="prefAPLabelSummary">Actinic PWM label</string>
 
 </resources>

@@ -34,9 +34,10 @@
 				android:gravity="center"
 				android:padding="10dip">
 				<TextView
+					android:id="@+id/t1_label"
 					android:gravity="right"
 					android:textColor="@color/t1"
-					android:text="@string/temp1_label" />
+					/>
 				<TextView 
 					android:layout_marginLeft="15dip"
 					android:id="@+id/temp1"
@@ -58,9 +59,10 @@
 				android:gravity="center"
 				android:padding="10dip">
 				<TextView 
+					android:id="@+id/t2_label"
 					android:gravity="right"
 					android:textColor="@color/t2"
-					android:text="@string/temp2_label" />
+					/>
 				<TextView 
 					android:layout_marginLeft="15dip"
 					android:id="@+id/temp2"
@@ -68,10 +70,11 @@
 					android:textColor="@color/t2"
 					/>
 				<TextView
+					android:id="@+id/dp_label"
 					android:gravity="right"
 					android:layout_marginLeft="30dip" 
 					android:textColor="@color/dp" 
-					android:text="@string/dp_label" />
+					/>
 				<TextView
 					android:layout_marginLeft="15dip" 
 					android:id="@+id/dp"
@@ -83,9 +86,10 @@
 				android:gravity="center"
 				android:padding="10dip">
 				<TextView
+					android:id="@+id/t3_label"
 					android:gravity="right"
 					android:textColor="@color/t3" 
-					android:text="@string/temp3_label" />
+					/>
 				<TextView 
 					android:layout_marginLeft="15dip"
 					android:id="@+id/temp3"
@@ -93,10 +97,11 @@
 					android:textColor="@color/t3"
 					/>
 				<TextView
+					android:id="@+id/ap_label"
 					android:gravity="right"
 					android:layout_marginLeft="30dip" 
 					android:textColor="@color/ap"
-					android:text="@string/ap_label" />
+					/>
 				<TextView
 					android:layout_marginLeft="15dip" 
 					android:id="@+id/ap"
@@ -108,6 +113,7 @@
 				android:gravity="center"
 				android:padding="10dip">
 				<TextView 
+					android:id="@+id/salinity_label"
 					android:gravity="right"
 					android:text="@string/salinity_label" />
 				<TextView

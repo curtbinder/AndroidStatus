@@ -3,46 +3,82 @@
 	xmlns:android="http://schemas.android.com/apk/res/android">
 	
 	<EditTextPreference
-		android:key="host"
+		android:key="@string/prefHostKey"
 		android:title="@string/prefHostTitle"
 		android:summary="@string/prefHostSummary"
-		android:defaultValue="@string/defaultHost"
+		android:defaultValue="@string/prefHostDefault"
 		/>
 	<EditTextPreference
-		android:key="port"
+		android:key="@string/prefPortKey"
 		android:title="@string/prefPortTitle"
 		android:summary="@string/prefPortSummary"
-		android:defaultValue="@string/defaultPort"
+		android:defaultValue="@string/prefPortDefault"
 		/>
 	<PreferenceScreen
 		android:key="controller"
 		android:title="@string/prefControllerTitle"
 		android:summary="@string/prefControllerSummary">
-		<CheckBoxPreference
-			android:key="t2_visibility"
-			android:title="@string/prefT2VisibilityTitle"
-			android:summary="@string/prefT2VisibilitySummary"
-			android:defaultValue="true"/>
-		<CheckBoxPreference
-			android:key="t3_visibility"
-			android:title="@string/prefT3VisibilityTitle"
-			android:summary="@string/prefT3VisibilitySummary"
-			android:defaultValue="true"/>
-		<CheckBoxPreference
-			android:key="dp_visibility"
-			android:title="@string/prefDPVisibilityTitle"
-			android:summary="@string/prefDPVisibilitySummary"
-			android:defaultValue="true"/>
-		<CheckBoxPreference
-			android:key="ap_visibility"
-			android:title="@string/prefAPVisibilityTitle"
-			android:summary="@string/prefAPVisibilitySummary"
-			android:defaultValue="true"/>
-		<CheckBoxPreference
-			android:key="salinity_visibility"
-			android:title="@string/prefSalinityVisibilityTitle"
-			android:summary="@string/prefSalinityVisibilitySummary"
-			android:defaultValue="false"/>
+		<PreferenceCategory
+			android:title="@string/prefControllerSummaryVisibilityCategory">
+			<CheckBoxPreference
+				android:key="t2_visibility"
+				android:title="@string/prefT2VisibilityTitle"
+				android:summary="@string/prefT2VisibilitySummary"
+				android:defaultValue="true"/>
+			<CheckBoxPreference
+				android:key="t3_visibility"
+				android:title="@string/prefT3VisibilityTitle"
+				android:summary="@string/prefT3VisibilitySummary"
+				android:defaultValue="true"/>
+			<CheckBoxPreference
+				android:key="dp_visibility"
+				android:title="@string/prefDPVisibilityTitle"
+				android:summary="@string/prefDPVisibilitySummary"
+				android:defaultValue="true"/>
+			<CheckBoxPreference
+				android:key="ap_visibility"
+				android:title="@string/prefAPVisibilityTitle"
+				android:summary="@string/prefAPVisibilitySummary"
+				android:defaultValue="true"/>
+			<CheckBoxPreference
+				android:key="salinity_visibility"
+				android:title="@string/prefSalinityVisibilityTitle"
+				android:summary="@string/prefSalinityVisibilitySummary"
+				android:defaultValue="false"/>
+		</PreferenceCategory>
+		<PreferenceCategory
+			android:title="@string/prefControllerSummaryLabelsCategory">
+			<EditTextPreference
+				android:key="t1_label"
+				android:title="@string/prefT1LabelTitle"
+				android:summary="@string/prefT1LabelSummary"
+				android:defaultValue="@string/temp1_label"
+				/>
+			<EditTextPreference
+				android:key="t2_label"
+				android:title="@string/prefT2LabelTitle"
+				android:summary="@string/prefT2LabelSummary"
+				android:defaultValue="@string/temp2_label"
+				/>
+			<EditTextPreference
+				android:key="t3_label"
+				android:title="@string/prefT3LabelTitle"
+				android:summary="@string/prefT3LabelSummary"
+				android:defaultValue="@string/temp3_label"
+				/>
+			<EditTextPreference
+				android:key="dp_label"
+				android:title="@string/prefDPLabelTitle"
+				android:summary="@string/prefDPLabelSummary"
+				android:defaultValue="@string/dp_label"
+				/>
+			<EditTextPreference
+				android:key="ap_label"
+				android:title="@string/prefAPLabelTitle"
+				android:summary="@string/prefAPLabelSummary"
+				android:defaultValue="@string/ap_label"
+				/>
+		</PreferenceCategory>
 	</PreferenceScreen>
 	<PreferenceScreen
 		android:key="version"

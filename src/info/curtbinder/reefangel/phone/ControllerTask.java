@@ -15,7 +15,6 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
-//import org.xml.sax.helpers.XMLReaderFactory;
 
 import android.util.Log;
 
@@ -56,17 +55,17 @@ public class ControllerTask implements Runnable {
 		Log.d(TAG, new String(String.format("sendCommand (%d ms)", end - start )));
 
 		// check if there was an error
-		if ( res.equals( Globals.messageError ) ) {
+		if ( res.equals( (String) ra.getResources().getText(R.string.messageError) ) ) {
 			// TODO log the actual error message
 			// encountered an error, display an error on screen
 			Log.d(TAG, sendCmdErrorMessage);
-			String er = new String(String.format("%s: %d", Globals.messageError, errorCode));
+			String er = new String(String.format("%s: %d", (String) ra.getResources().getText(R.string.messageError), errorCode));
 			Log.d(TAG, er);
 			ra.guiUpdateTimeText(er);
-		} else if ( res.equals( Globals.messageInterrupted ) ) {
+		} else if ( res.equals( (String) ra.getResources().getText(R.string.messageCancelled) ) ) {
 			// Interrupted 
 			Log.d(TAG, "sendCommand Interrupted");
-			ra.guiUpdateTimeText(Globals.messageInterrupted);
+			ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.messageCancelled));
 		} else {
 			XMLHandler h = new XMLHandler();
 			if ( !parseXML( h, res ) ) {
@@ -99,14 +98,14 @@ public class ControllerTask implements Runnable {
 			}
 		} catch ( InterruptedException e ) {
 			Log.d(TAG, "sendCommand: InterruptedException", e);
-			s = Globals.messageInterrupted;
+			s = (String) ra.getResources().getText(R.string.messageCancelled);
 		} catch ( ConnectException e ) {
 			Log.e(TAG, "sendCommand: ConnectException", e);
-			s = Globals.messageError;
+			s = (String) ra.getResources().getText(R.string.messageError);
 			errorCode = Globals.errorSendCmdConnect;
 		} catch ( Exception e ) {
 			Log.e(TAG, "sendCommand: Exception", e);
-			s = Globals.messageError;
+			s = (String) ra.getResources().getText(R.string.messageError);
 			errorCode = Globals.errorSendCmdException;
 		}
 		return s;

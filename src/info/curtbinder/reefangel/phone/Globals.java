@@ -1,9 +1,6 @@
 package info.curtbinder.reefangel.phone;
 
 public class Globals {
-	public static final String messageError = "Error";
-	public static final String messageInterrupted = "Cancelled";
-	
 	// Requests
 	public static final String requestMemoryByte = "/mb";
 	public static final String requestMemoryInt = "/mi";

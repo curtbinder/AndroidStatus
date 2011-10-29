@@ -6,15 +6,6 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 
 public class Prefs extends PreferenceActivity {
-	private static final String OPT_HOST = "host";
-	private static final String OPT_HOST_DEF = "curtbinder.dyndns.info";
-	private static final String OPT_PORT = "port";
-	private static final String OPT_PORT_DEF = "2000";
-	private static final String OPT_T2_VIS = "t2_visibility";
-	private static final String OPT_T3_VIS = "t3_visibility";
-	private static final String OPT_DP_VIS = "dp_visibility";
-	private static final String OPT_AP_VIS = "ap_visibility";
-	private static final String OPT_SALINITY_VIS = "salinity_visibility";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,30 +14,74 @@ public class Prefs extends PreferenceActivity {
 	}
 	
 	public static String getHost(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context).getString(OPT_HOST, OPT_HOST_DEF);
+		return PreferenceManager.getDefaultSharedPreferences(context).getString(
+				context.getString(R.string.prefHostKey), 
+				context.getString(R.string.prefHostDefault));
 	}
 	
 	public static String getPort(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context).getString(OPT_PORT, OPT_PORT_DEF);
+		return PreferenceManager.getDefaultSharedPreferences(context).getString(
+				context.getString(R.string.prefPortKey), 
+				context.getString(R.string.prefPortDefault));
 	}
 	
 	public static boolean getT2Visibility(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(OPT_T2_VIS, true);
+		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+				context.getString(R.string.prefT2VisibilityKey), 
+				true);
 	}
 	
 	public static boolean getT3Visibility(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(OPT_T3_VIS, true);
+		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+				context.getString(R.string.prefT3VisibilityKey), 
+				true);
 	}
 	
 	public static boolean getDPVisibility(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(OPT_DP_VIS, true);
+		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+				context.getString(R.string.prefDPVisibilityKey),
+				true);
 	}
 	
 	public static boolean getAPVisibility(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(OPT_AP_VIS, true);
+		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+				context.getString(R.string.prefAPVisibilityKey),
+				true);
 	}
 	
 	public static boolean getSalinityVisibility(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(OPT_SALINITY_VIS, false);
+		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+				context.getString(R.string.prefSalinityVisibilityKey),
+				false);
+	}
+	
+	public static String getT1Label(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context).getString(
+				context.getString(R.string.prefT1LabelKey), 
+				context.getString(R.string.temp1_label));
+	}
+	
+	public static String getT2Label(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context).getString(
+				context.getString(R.string.prefT2LabelKey), 
+				context.getString(R.string.temp2_label));
+	}
+	
+	public static String getT3Label(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context).getString(
+				context.getString(R.string.prefT3LabelKey), 
+				context.getString(R.string.temp3_label));
+	}
+	
+	public static String getDPLabel(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context).getString(
+				context.getString(R.string.prefDPLabelKey), 
+				context.getString(R.string.dp_label));
+	}
+	
+	public static String getAPLabel(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context).getString(
+				context.getString(R.string.prefAPLabelKey), 
+				context.getString(R.string.ap_label));
 	}
 }
