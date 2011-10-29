@@ -73,7 +73,16 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
         if ( values != null ) {
         	loadDisplayedControllerValues(values);
         } else {
-        	updateTime.setText( R.string.messageNever );
+        	loadDisplayedControllerValues(new String[] {
+        		getString(R.string.messageNever),
+        		getString(R.string.defaultStatusText),
+        		getString(R.string.defaultStatusText),
+        		getString(R.string.defaultStatusText),
+        		getString(R.string.defaultStatusText),
+        		getString(R.string.defaultStatusText),
+        		getString(R.string.defaultStatusText),
+        		getString(R.string.defaultStatusText)
+        	});
         }
         updateViewsVisibility();
         

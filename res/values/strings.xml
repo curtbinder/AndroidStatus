@@ -36,14 +36,14 @@ maintained by <i>Curt Binder</i>.
 	<string name="ato_low_label">ATO Low:</string>
 	<string name="ato_high_label">ATO High:</string>
 	<string name="main_relay_label">Main Relay</string>
-	<string name="box0_port1_label">Port 1:</string>
-	<string name="box0_port2_label">Port 2:</string>
-	<string name="box0_port3_label">Port 3:</string>
-	<string name="box0_port4_label">Port 4:</string>
-	<string name="box0_port5_label">Port 5:</string>
-	<string name="box0_port6_label">Port 6:</string>
-	<string name="box0_port7_label">Port 7:</string>
-	<string name="box0_port8_label">Port 8:</string>
+	<string name="port1_label">Port 1:</string>
+	<string name="port2_label">Port 2:</string>
+	<string name="port3_label">Port 3:</string>
+	<string name="port4_label">Port 4:</string>
+	<string name="port5_label">Port 5:</string>
+	<string name="port6_label">Port 6:</string>
+	<string name="port7_label">Port 7:</string>
+	<string name="port8_label">Port 8:</string>
 	
 <!-- Constants -->
 	<string name="defaultStatusText">-</string>
@@ -51,11 +51,9 @@ maintained by <i>Curt Binder</i>.
 	<string name="messageNever">Never</string>
 	<string name="messageCancelled">Cancelled</string>
 
-<!--
-	// Minimum Versions
-	//public static final String minModesVersion = "0.8.5.19";
-	//public static final String minNewStatus = "0.8.5.17";
--->
+<!-- Minimum Versions -->
+	<string name="minModesVersion">0.8.5.19</string>
+	<string name="minNewStatus">0.8.5.17</string>
 	
 <!-- Settings / Preference Labels -->
 	<string name="prefs_title">Status Settings</string>
