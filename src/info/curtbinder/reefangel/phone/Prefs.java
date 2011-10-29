@@ -13,6 +13,7 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 
 	private static final String TAG = "RAPrefs";
 	private static final String NUMBER_PATTERN = "\\d+";
+	private static final String HOST_PATTERN = "^(?i:[[0-9][a-z]]+)(?i:[\\w\\.\\-]*)(?i:[[0-9][a-z]]+)$";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,64 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 		
 		Preference portkey = getPreferenceScreen().findPreference(getBaseContext().getString(R.string.prefPortKey));
 		portkey.setOnPreferenceChangeListener(this);
+		Preference hostkey = getPreferenceScreen().findPreference(getBaseContext().getString(R.string.prefHostKey));
+		hostkey.setOnPreferenceChangeListener(this);
+	}
+	
+	@Override
+	public boolean onPreferenceChange(Preference preference, Object newValue) {
+		// return true to change, false to not
+		if ( preference.getKey().equals(preference.getContext().getString(R.string.prefPortKey))) {
+			Log.d(TAG, "Validate entered port");
+			if ( ! isNumber(newValue) ) {
+				// not a number
+				Log.d(TAG, "Invalid port");
+				Toast.makeText(preference.getContext(), getResources().getString(R.string.messageNotNumber) + ": " + newValue.toString(), Toast.LENGTH_SHORT).show();				
+				return false;
+			} else {
+				// it's a number, verify it's within range
+				int min = Integer.parseInt((String)preference.getContext().getString(R.string.prefPortMin));
+				int max = Integer.parseInt((String)preference.getContext().getString(R.string.prefPortMax));
+				int v = Integer.parseInt((String)newValue.toString());
+				
+				// check if it's less than the min value or if it's greater than the max value
+				if ( (v < min) || (v > max) ) {
+					Log.d(TAG, "Invalid port range");
+					Toast.makeText(preference.getContext(), getResources().getString(R.string.prefPortInvalidPort) + ": " + newValue.toString(), Toast.LENGTH_SHORT).show();
+					return false;
+				}
+			}
+		}
+		if ( preference.getKey().equals(preference.getContext().getString(R.string.prefHostKey))) {
+			// host validation here
+			Log.d(TAG, "Validate entered host");
+			String h = newValue.toString();
+			/**
+			 * Hosts must:
+			 *  - not start with 'http://'
+			 *  - only contain:  alpha, number, _, -, .
+			 *  - end with: alpha or number
+			 */
+			if ( ! h.matches(HOST_PATTERN) )
+			{
+				// invalid host
+				Log.d(TAG, "Invalid host");
+				Toast.makeText(preference.getContext(), 
+						getResources().getString(R.string.prefHostInvalidHost) + ": " + newValue.toString(), 
+						Toast.LENGTH_SHORT).show();
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private boolean isNumber(Object value) {
+		if ( (! value.toString().equals("")) &&
+			 ( value.toString().matches(NUMBER_PATTERN)) )
+		{
+			return true;
+		}
+		return false;
 	}
 	
 	public static String getHost(Context context) {
@@ -93,44 +152,5 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 		return PreferenceManager.getDefaultSharedPreferences(context).getString(
 				context.getString(R.string.prefAPLabelKey), 
 				context.getString(R.string.ap_label));
-	}
-
-	@Override
-	public boolean onPreferenceChange(Preference preference, Object newValue) {
-		// return true to change, false to not
-		if ( preference.getKey().equals(preference.getContext().getString(R.string.prefPortKey))) {
-			Log.d(TAG, "Validate entered port");
-			if ( ! isNumber(newValue) ) {
-				// not a number
-				Toast.makeText(preference.getContext(), getResources().getString(R.string.messageNotNumber) + ": " + newValue.toString(), Toast.LENGTH_SHORT).show();				
-				return false;
-			} else {
-				// it's a number, verify it's within range
-				int min = Integer.parseInt((String)preference.getContext().getString(R.string.prefPortMin));
-				int max = Integer.parseInt((String)preference.getContext().getString(R.string.prefPortMax));
-				int v = Integer.parseInt((String)newValue.toString());
-				
-				// check if it's less than the min value or if it's greater than the max value
-				if ( (v < min) || (v > max) ) {
-					Toast.makeText(preference.getContext(), getResources().getString(R.string.prefPortInvalidPort) + ": " + newValue.toString(), Toast.LENGTH_SHORT).show();
-					return false;
-				}
-			}
-		}
-		if ( preference.getKey().equals(preference.getContext().getString(R.string.prefHostKey))) {
-			// host validation here
-			Log.d(TAG, "Validate entered host");
-		}
-		return true;
-	}
-	
-	private boolean isNumber(Object value) {
-		if ( (! value.toString().equals("")) &&
-			 ( value.toString().matches(NUMBER_PATTERN)) )
-		{
-			// we have a number
-			return true;
-		}
-		return false;
 	}
 }

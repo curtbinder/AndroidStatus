@@ -140,7 +140,7 @@ public class Controller {
 	}
 	
 	public String getSalinity ( ) {
-		return new String(String.format("%d ppm", salinity));
+		return new String(String.format("%d ppt", salinity));
 	}
 
 	public void setMainRelayData ( short data, short maskOn, short maskOff ) {
