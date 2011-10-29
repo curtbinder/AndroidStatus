@@ -6,7 +6,7 @@ TODO
 * Toggle ability to restore values on configuration chanegs - when switching to db the values will be stored but give user option to always open/show previous/last values
 * update the screen after changing preferences
 * fix layouts for hiding text:  switch to relative layout for better control over display
-* validation of host & port on configuration page (better validation of preferences)
+* validation of host on configuration page (better validation of preferences)
 * store controller values inside a database
 * consider passing in a Controller type to the XML handler
 * add in an error status line with error displaying
