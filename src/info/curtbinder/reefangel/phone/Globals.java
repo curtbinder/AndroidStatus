@@ -37,6 +37,7 @@ public class Globals {
 	public static final int errorSendCmdBadUrl = 11;
 	public static final int errorSendCmdException = 12;
 	public static final int errorSendCmdConnect = 13;
+	public static final int errorSendCmdUnknownHost = 14;
 	public static final int errorParseXml = 20;
 	public static final int errorParseXmlParseConfig = 21;
 	public static final int errorParseXmlIO = 22;

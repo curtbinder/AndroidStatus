@@ -7,6 +7,7 @@ import java.io.StringReader;
 import java.net.ConnectException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -19,7 +20,7 @@ import org.xml.sax.XMLReader;
 import android.util.Log;
 
 public class ControllerTask implements Runnable {
-	private static final String TAG = "ControllerTask";
+	private static final String TAG = "RAControllerTask";
 	private final ReefAngelStatusActivity ra;
 	private final Host host;
 	private boolean status;
@@ -101,13 +102,19 @@ public class ControllerTask implements Runnable {
 			s = (String) ra.getResources().getText(R.string.messageCancelled);
 		} catch ( ConnectException e ) {
 			Log.e(TAG, "sendCommand: ConnectException", e);
-			s = (String) ra.getResources().getText(R.string.messageError);
 			errorCode = Globals.errorSendCmdConnect;
+		} catch ( UnknownHostException e ) {
+			Log.e(TAG, "sendCommand: UnknownHostException", e);
+			errorCode = Globals.errorSendCmdUnknownHost;			
 		} catch ( Exception e ) {
 			Log.e(TAG, "sendCommand: Exception", e);
-			s = (String) ra.getResources().getText(R.string.messageError);
 			errorCode = Globals.errorSendCmdException;
 		}
+		
+		// if we encountered an error, set the error text
+		if ( errorCode > 0 )
+			s = (String) ra.getResources().getText(R.string.messageError);
+		
 		return s;
 	}
 	
