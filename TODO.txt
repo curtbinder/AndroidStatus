@@ -1,0 +1,16 @@
+AndroidStatus todo list
+
+TODO
+----
+* use bufferedReader explicit 8K-char buffer required/requested
+* Toggle ability to restore values on configuration chanegs - when switching to db the values will be stored but give user option to always open/show previous/last values
+* update the screen after changing preferences
+* fix layouts for hiding text:  switch to relative layout for better control over display
+* validation of host & port on configuration page (better validation of preferences)
+* store controller values inside a database
+* consider passing in a Controller type to the XML handler
+* add in an error status line with error displaying
+* add in memory page
+* display relay status information
+* allow for toggling relay port status
+* add in ability to label relay ports
