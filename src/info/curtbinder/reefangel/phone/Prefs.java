@@ -2,15 +2,25 @@ package info.curtbinder.reefangel.phone;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.util.Log;
+import android.widget.Toast;
 
-public class Prefs extends PreferenceActivity {
+public class Prefs extends PreferenceActivity implements OnPreferenceChangeListener {
 
+	private static final String TAG = "RAPrefs";
+	private static final String NUMBER_PATTERN = "\\d+";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.settings);
+		
+		Preference portkey = getPreferenceScreen().findPreference(getBaseContext().getString(R.string.prefPortKey));
+		portkey.setOnPreferenceChangeListener(this);
 	}
 	
 	public static String getHost(Context context) {
@@ -83,5 +93,44 @@ public class Prefs extends PreferenceActivity {
 		return PreferenceManager.getDefaultSharedPreferences(context).getString(
 				context.getString(R.string.prefAPLabelKey), 
 				context.getString(R.string.ap_label));
+	}
+
+	@Override
+	public boolean onPreferenceChange(Preference preference, Object newValue) {
+		// return true to change, false to not
+		if ( preference.getKey().equals(preference.getContext().getString(R.string.prefPortKey))) {
+			Log.d(TAG, "Validate entered port");
+			if ( ! isNumber(newValue) ) {
+				// not a number
+				Toast.makeText(preference.getContext(), getResources().getString(R.string.messageNotNumber) + ": " + newValue.toString(), Toast.LENGTH_SHORT).show();				
+				return false;
+			} else {
+				// it's a number, verify it's within range
+				int min = Integer.parseInt((String)preference.getContext().getString(R.string.prefPortMin));
+				int max = Integer.parseInt((String)preference.getContext().getString(R.string.prefPortMax));
+				int v = Integer.parseInt((String)newValue.toString());
+				
+				// check if it's less than the min value or if it's greater than the max value
+				if ( (v < min) || (v > max) ) {
+					Toast.makeText(preference.getContext(), getResources().getString(R.string.prefPortInvalidPort) + ": " + newValue.toString(), Toast.LENGTH_SHORT).show();
+					return false;
+				}
+			}
+		}
+		if ( preference.getKey().equals(preference.getContext().getString(R.string.prefHostKey))) {
+			// host validation here
+			Log.d(TAG, "Validate entered host");
+		}
+		return true;
+	}
+	
+	private boolean isNumber(Object value) {
+		if ( (! value.toString().equals("")) &&
+			 ( value.toString().matches(NUMBER_PATTERN)) )
+		{
+			// we have a number
+			return true;
+		}
+		return false;
 	}
 }

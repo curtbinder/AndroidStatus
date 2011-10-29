@@ -50,6 +50,7 @@ maintained by <i>Curt Binder</i>.
 	<string name="messageError">Error</string>
 	<string name="messageNever">Never</string>
 	<string name="messageCancelled">Cancelled</string>
+	<string name="messageNotNumber">Value is not a number</string>
 
 <!-- Minimum Versions -->
 	<string name="minModesVersion">0.8.5.19</string>
@@ -63,8 +64,11 @@ maintained by <i>Curt Binder</i>.
 	<string name="prefHostDefault">curtbinder.dyndns.info</string>
 	<string name="prefPortKey">port</string>
 	<string name="prefPortTitle">Port</string>
-	<string name="prefPortSummary">Enter the port for the controller</string>
+	<string name="prefPortSummary">Enter the port for the controller between 1 and 65535  (default: 2000)</string>
 	<string name="prefPortDefault">2000</string>
+	<string name="prefPortMin">1</string>
+	<string name="prefPortMax">65535</string>
+	<string name="prefPortInvalidPort">Invalid port, must be a number between 1 and 65535</string>
 	<string name="prefVersionTitle">Version</string>
 	<string name="prefControllerTitle">Controller Information</string>
 	<string name="prefControllerSummary">Update labels, Toggle visibility</string>
