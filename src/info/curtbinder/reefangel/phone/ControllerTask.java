@@ -21,16 +21,16 @@ import android.util.Log;
 public class ControllerTask implements Runnable {
 	private static final String TAG = "ControllerTask";
 	private final ReefAngelStatusActivity ra;
-	private final Host h;
+	private final Host host;
 	private boolean status;
 	
 	// TODO add in error codes to be associated with error messages
 	// and locations in the code
 	private int errorCode;
 	
-	ControllerTask(ReefAngelStatusActivity ra, Host h, boolean statusScreen) {
+	ControllerTask(ReefAngelStatusActivity ra, Host host, boolean statusScreen) {
 		this.ra = ra;
-		this.h = h;
+		this.host = host;
 		this.status = statusScreen;
 		this.errorCode = 0;
 	}
@@ -45,7 +45,7 @@ public class ControllerTask implements Runnable {
 		String sendCmdErrorMessage = "";
 		long start = System.currentTimeMillis();
 		try {
-			res = sendCommand( new URL( h.toString() ) );
+			res = sendCommand( new URL( host.toString() ) );
 		} catch ( MalformedURLException e ) {
 			sendCmdErrorMessage = "Error sending command";
 			errorCode = Globals.errorSendCmdBadUrl;
@@ -67,14 +67,14 @@ public class ControllerTask implements Runnable {
 			Log.d(TAG, "sendCommand Interrupted");
 			ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.messageCancelled));
 		} else {
-			XMLHandler h = new XMLHandler();
-			if ( !parseXML( h, res ) ) {
+			XMLHandler xml = new XMLHandler();
+			if ( !parseXML( xml, res ) ) {
 				// error parsing
 				return;
 			}
 			
 			if ( status )
-				ra.guiUpdateDisplay(h.getRa());
+				ra.guiUpdateDisplay(xml.getRa());
 			// else handle updating memory display 
 		}
 	}
@@ -111,7 +111,7 @@ public class ControllerTask implements Runnable {
 		return s;
 	}
 	
-	private boolean parseXML ( XMLHandler h, String res ) {
+	private boolean parseXML ( XMLHandler xml, String res ) {
 		SAXParserFactory spf = SAXParserFactory.newInstance();
 		SAXParser sp = null;
 		XMLReader xr = null;
@@ -125,8 +125,8 @@ public class ControllerTask implements Runnable {
 			Log.d(TAG, "Parsing" );
 			sp = spf.newSAXParser();
 			xr = sp.getXMLReader();
-			xr.setContentHandler( h );
-			xr.setErrorHandler( h );
+			xr.setContentHandler( xml );
+			xr.setErrorHandler( xml );
 			
 			// Check for an interruption
 			if ( Thread.interrupted() )

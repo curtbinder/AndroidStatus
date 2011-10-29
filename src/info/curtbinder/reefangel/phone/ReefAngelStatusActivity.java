@@ -230,7 +230,6 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 	}
 	
 	private void launchStatusTask() {
-		// TODO launch task
 		/**
 		 * Creates the thread that communicates with the controller
 		 * Then that function calls updateDisplay when it finishes
@@ -267,7 +266,6 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 	}
 	
 	public void guiUpdateTimeText(final String msg) {
-		// TODO change to message text
 		/**
 		 * Updates the UpdatedTime text box only
 		 * 
