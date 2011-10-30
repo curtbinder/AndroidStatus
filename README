@@ -7,4 +7,5 @@ Status application for Android powered devices
 * Ability to send some specific wifi commands (feeding / water change mode)
 
 Targeted towards Android 2.2 or later
+Will run on Android 1.5 and later
 Project created using Eclipse IDE with ADT plugin
