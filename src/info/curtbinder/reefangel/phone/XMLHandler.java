@@ -61,17 +61,18 @@ public class XMLHandler extends DefaultHandler {
 	@Override
 	public void endElement ( String uri, String localName, String qName )
 			throws SAXException {
+		String tag = localName;
 		if ( requestType.equals( Globals.requestStatus ) ) {
-			if ( qName.equals( Globals.xmlStatus ) ) {
+			if ( tag.equals( Globals.xmlStatus ) ) {
 				return;
 			} else {
-				processStatusXml( qName );
+				processStatusXml( tag );
 			}
 		} else if ( requestType.equals( Globals.requestMemoryByte ) ) {
-			if ( qName.equals( Globals.xmlMemory ) ) {
+			if ( tag.equals( Globals.xmlMemory ) ) {
 				return;
 			} else {
-				processMemoryXml( qName );
+				processMemoryXml( tag );
 			}
 /*
 		} else if ( requestType.equals( Globals.requestDateTime ) ) {
@@ -87,9 +88,9 @@ public class XMLHandler extends DefaultHandler {
 			}
 */
 		} else if ( requestType.equals( Globals.requestVersion ) ) {
-			processVersionXml( qName );
+			processVersionXml( tag );
 		} else if ( requestType.equals( Globals.requestExitMode ) ) {
-			processModeXml( qName );
+			processModeXml( tag );
 		}
 		currentElementText = "";
 	}
@@ -100,18 +101,19 @@ public class XMLHandler extends DefaultHandler {
 			String localName,
 			String qName,
 			Attributes attributes ) throws SAXException {
+		String tag = localName;
 		if ( requestType.equals("") ) {
 			// no request type, so set it based on the first element we process
-			if ( qName.equals( Globals.xmlStatus ) ) {
+			if ( tag.equals( Globals.xmlStatus ) ) {
 				requestType = Globals.requestStatus;
 //			} else if ( qName.equals( Globals.xmlDateTime ) ) {
 //				requestType = Globals.requestDateTime;
-			} else if ( qName.equals( Globals.xmlVersion ) ) {
+			} else if ( tag.equals( Globals.xmlVersion ) ) {
 				requestType = Globals.requestVersion;
-			} else if ( qName.startsWith( Globals.xmlMemorySingle ) ) {
+			} else if ( tag.startsWith( Globals.xmlMemorySingle ) ) {
 				// can be either type, just chose to use Bytes
 				requestType = Globals.requestMemoryByte;
-			} else if ( qName.equals( Globals.xmlMode ) ) {
+			} else if ( tag.equals( Globals.xmlMode ) ) {
 				// all modes return the same response, just chose to use Exit Mode
 				requestType = Globals.requestExitMode;
 			}

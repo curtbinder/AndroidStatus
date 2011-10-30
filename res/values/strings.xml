@@ -17,8 +17,8 @@
 <!-- About Box Information -->
     <string name="about_title">About Reef Angel Status</string>
     <string name="about_text">\
-Monitors the status of your Reef Angel Controller and displays the values.  Created and
-maintained by <i>Curt Binder</i>.
+Monitors the status of your Reef Angel Controller and displays the values.  You must have a wifi attachment installed on
+your controller to use this app.
 </string>
 	<string name="about_button">OK</string>
 

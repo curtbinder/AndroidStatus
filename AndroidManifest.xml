@@ -3,7 +3,7 @@
       package="info.curtbinder.reefangel.phone"
       android:versionCode="1"
       android:versionName="@string/app_version">
-    <uses-sdk android:minSdkVersion="8" />
+    <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="8" />
 
 	<uses-permission android:name="android.permission.INTERNET" />
     <application android:icon="@drawable/ic_icon" 
