@@ -123,6 +123,11 @@
 				android:summary="@string/prefLicenseSummary"
 				android:selectable="false"
 				/>
+			<PreferenceScreen
+				android:key="reefangel"
+				android:title="@string/prefReefAngelTitle"
+				android:summary="@string/prefReefAngelSummary"
+				/>
 		</PreferenceScreen>
 	</PreferenceCategory>
 </PreferenceScreen>

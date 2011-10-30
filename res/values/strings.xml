@@ -85,6 +85,9 @@ your controller to use this app.
 	<string name="prefCopyrightSummary">Copyright 2011 Curt Binder</string>
 	<string name="prefLicenseTitle">License</string>
 	<string name="prefLicenseSummary">This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</string>
+	<string name="prefReefAngelKey">reefangel</string>
+	<string name="prefReefAngelTitle">Reef Angel Controller</string>
+	<string name="prefReefAngelSummary">http://www.reefangel.com/</string>
 	
 	<string name="prefControllerTitle">Controller Information</string>
 	<string name="prefControllerSummary">Update labels, Toggle visibility</string>

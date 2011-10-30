@@ -1,9 +1,12 @@
 package info.curtbinder.reefangel.phone;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -24,6 +27,15 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 		portkey.setOnPreferenceChangeListener(this);
 		Preference hostkey = getPreferenceScreen().findPreference(getBaseContext().getString(R.string.prefHostKey));
 		hostkey.setOnPreferenceChangeListener(this);
+		Preference raWebsite = getPreferenceScreen().findPreference(getBaseContext().getString(R.string.prefReefAngelKey));
+		raWebsite.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.reefangel.com/"));
+				startActivity(browserIntent);
+				return true;
+			}
+		});
 	}
 	
 	@Override
