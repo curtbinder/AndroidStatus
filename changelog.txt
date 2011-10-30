@@ -1,5 +1,5 @@
 Changelog of all the versions of AndroidStatus
 ----------------------------------------------
 
-0.1 beta
+0.1
  * Initial release
