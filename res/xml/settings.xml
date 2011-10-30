@@ -94,6 +94,12 @@
 			android:summary="@string/prefAppSummary"
 			>
 			<PreferenceScreen
+				android:key="version"
+				android:title="@string/prefVersionTitle"
+				android:summary="@string/app_version"
+				android:selectable="false"
+				/>
+			<PreferenceScreen
 				android:key="author"
 				android:title="@string/prefAuthorTitle"
 				android:summary="@string/prefAuthorSummary"
