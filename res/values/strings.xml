@@ -20,7 +20,14 @@
 Monitors the status of your Reef Angel Controller and displays the values.  You must have a wifi attachment installed on
 your controller to use this app.
 </string>
-	<string name="about_button">OK</string>
+	<string name="okButton">OK</string>
+	
+<!-- License Box Information -->
+	<string name="license_title">License Information</string>
+	<string name="license_text">\
+Reef Angel Status by Curt Binder is licensed under a 
+Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+</string>
 
 <!-- Main Display Labels -->
     <string name="last_updated">Last Updated:</string>
@@ -83,6 +90,7 @@ your controller to use this app.
 	<string name="prefContributorSummary">Roberto Imai</string>
 	<string name="prefCopyrightTitle">Copyright</string>
 	<string name="prefCopyrightSummary">Copyright 2011 Curt Binder</string>
+	<string name="prefLicenseKey">license</string>
 	<string name="prefLicenseTitle">License</string>
 	<string name="prefLicenseSummary">This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</string>
 	<string name="prefReefAngelKey">reefangel</string>

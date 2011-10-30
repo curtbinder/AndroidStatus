@@ -118,13 +118,12 @@
 				android:selectable="false"
 				/>
 			<PreferenceScreen
-				android:key="license"
+				android:key="@string/prefLicenseKey"
 				android:title="@string/prefLicenseTitle"
 				android:summary="@string/prefLicenseSummary"
-				android:selectable="false"
 				/>
 			<PreferenceScreen
-				android:key="reefangel"
+				android:key="@string/prefReefAngelKey"
 				android:title="@string/prefReefAngelTitle"
 				android:summary="@string/prefReefAngelSummary"
 				/>

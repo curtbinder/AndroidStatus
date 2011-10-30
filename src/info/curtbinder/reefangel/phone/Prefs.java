@@ -29,10 +29,20 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 		hostkey.setOnPreferenceChangeListener(this);
 		Preference raWebsite = getPreferenceScreen().findPreference(getBaseContext().getString(R.string.prefReefAngelKey));
 		raWebsite.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.reefangel.com/"));
 				startActivity(browserIntent);
+				return true;
+			}
+		});
+		Preference license = getPreferenceScreen().findPreference(getBaseContext().getString(R.string.prefLicenseKey));
+		license.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				startActivity(new Intent(getBaseContext(), License.class));
 				return true;
 			}
 		});
