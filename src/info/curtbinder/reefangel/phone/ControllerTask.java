@@ -2,10 +2,13 @@ package info.curtbinder.reefangel.phone;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.ConnectException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.net.UnknownHostException;
 
@@ -42,17 +45,48 @@ public class ControllerTask implements Runnable {
 		
 		// clear out the error code on run
 		errorCode = 0;
+		HttpURLConnection con = null;
 		String res = "";
 		String sendCmdErrorMessage = "";
 		ra.guiUpdateTimeText(new String("Starting update"));
 		long start = System.currentTimeMillis();
 		try {
 			// TODO switch to use HttpURLConnection for timeouts and for authentication
-			res = sendCommand( new URL( host.toString() ) );
+			URL url = new URL( host.toString() );
+			con = (HttpURLConnection) url.openConnection();
+			con.setReadTimeout(10000 /*milliseconds*/);
+			con.setConnectTimeout(15000 /*milliseconds*/);
+			con.setRequestMethod("GET");
+			con.setDoInput(true);
+			
+			ra.guiUpdateTimeText(new String("Connecting"));
+			con.connect();
+			
+			if ( Thread.interrupted() )
+				throw new InterruptedException();
+			
+			res = sendCommand( con.getInputStream() );
+			//res = sendCommand( new URL( host.toString() ) );
 		} catch ( MalformedURLException e ) {
 			sendCmdErrorMessage = "Error sending command";
 			errorCode = Globals.errorSendCmdBadUrl;
 			Log.e(TAG, "MalformedURLException", e);
+		} catch (ProtocolException e) {
+			sendCmdErrorMessage = "Error sending command";
+			errorCode = Globals.errorSendCmdBadUrl;
+			Log.e(TAG, "ProtocolException", e);
+		} catch (IOException e) {
+			sendCmdErrorMessage = "Error sending command";
+			errorCode = Globals.errorSendCmdBadUrl;
+			Log.e(TAG, "IOException", e);
+		} catch (InterruptedException e) {
+			Log.d(TAG, "InterruptedException", e);
+			res = (String) ra.getResources().getText(R.string.messageCancelled);
+		} finally {
+			if ( con != null ) {
+				con.disconnect();
+				ra.guiUpdateTimeText(new String("Disconnected"));
+			}
 		}
 		long end = System.currentTimeMillis();
 		Log.d(TAG, new String(String.format("sendCommand (%d ms)", end - start )));
@@ -83,7 +117,7 @@ public class ControllerTask implements Runnable {
 		}
 	}
 
-	private String sendCommand ( URL u ) {
+	private String sendCommand ( /*URL u*/ InputStream i ) {
 		String s = "";
 		try {
 			// Check for an interruption
@@ -92,7 +126,7 @@ public class ControllerTask implements Runnable {
 			
 			ra.guiUpdateTimeText(new String("Sending command"));
 			BufferedReader bin =
-					new BufferedReader( new InputStreamReader( u.openStream() ) );
+					new BufferedReader( new InputStreamReader( /*u.openStream()*/ i ) );
 			String line;
 			ra.guiUpdateTimeText(new String("Reading response"));
 			while ( (line = bin.readLine()) != null ) {
