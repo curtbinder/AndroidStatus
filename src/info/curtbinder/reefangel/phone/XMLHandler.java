@@ -5,8 +5,11 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import android.util.Log;
+
 public class XMLHandler extends DefaultHandler {
 
+	private static final String TAG = "RAXml";
 	private String currentElementText = "";
 	private String requestType = "";
 	private Controller ra;
@@ -61,7 +64,14 @@ public class XMLHandler extends DefaultHandler {
 	@Override
 	public void endElement ( String uri, String localName, String qName )
 			throws SAXException {
-		String tag = localName;
+		String tag;
+		if ( ! qName.equals("") ) {
+			Log.d(TAG, "end xml: qName");
+			tag = qName;
+		} else {
+			Log.d(TAG, "end xml: localName");
+			tag = localName;
+		}
 		if ( requestType.equals( Globals.requestStatus ) ) {
 			if ( tag.equals( Globals.xmlStatus ) ) {
 				return;
@@ -91,6 +101,8 @@ public class XMLHandler extends DefaultHandler {
 			processVersionXml( tag );
 		} else if ( requestType.equals( Globals.requestExitMode ) ) {
 			processModeXml( tag );
+		} else {
+			// TODO request none, set an error?
 		}
 		currentElementText = "";
 	}
@@ -101,7 +113,14 @@ public class XMLHandler extends DefaultHandler {
 			String localName,
 			String qName,
 			Attributes attributes ) throws SAXException {
-		String tag = localName;
+		String tag;
+		if ( ! qName.equals("") ) {
+			Log.d(TAG, "start xml: qName");
+			tag = qName;
+		} else {
+			Log.d(TAG, "start xml: localName");
+			tag = localName;
+		}
 		if ( requestType.equals("") ) {
 			// no request type, so set it based on the first element we process
 			if ( tag.equals( Globals.xmlStatus ) ) {
@@ -116,6 +135,8 @@ public class XMLHandler extends DefaultHandler {
 			} else if ( tag.equals( Globals.xmlMode ) ) {
 				// all modes return the same response, just chose to use Exit Mode
 				requestType = Globals.requestExitMode;
+			} else {
+				requestType = Globals.requestNone;
 			}
 		}
 	}

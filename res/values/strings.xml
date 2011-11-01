@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Reef Angel Status</string>
-    <string name="app_version">0.1</string>
+    <string name="app_version">0.2</string>
 
 <!-- Menu Labels -->
     <string name="settings_menu">Settings</string>

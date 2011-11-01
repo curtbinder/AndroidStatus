@@ -44,8 +44,10 @@ public class ControllerTask implements Runnable {
 		errorCode = 0;
 		String res = "";
 		String sendCmdErrorMessage = "";
+		ra.guiUpdateTimeText(new String("Starting update"));
 		long start = System.currentTimeMillis();
 		try {
+			// TODO switch to use HttpURLConnection for timeouts and for authentication
 			res = sendCommand( new URL( host.toString() ) );
 		} catch ( MalformedURLException e ) {
 			sendCmdErrorMessage = "Error sending command";
@@ -54,6 +56,7 @@ public class ControllerTask implements Runnable {
 		}
 		long end = System.currentTimeMillis();
 		Log.d(TAG, new String(String.format("sendCommand (%d ms)", end - start )));
+		ra.guiUpdateTimeText(new String("Read response"));
 
 		// check if there was an error
 		if ( res.equals( (String) ra.getResources().getText(R.string.messageError) ) ) {
@@ -73,7 +76,7 @@ public class ControllerTask implements Runnable {
 				// error parsing
 				return;
 			}
-			
+			ra.guiUpdateTimeText(new String("Updating display"));
 			if ( status )
 				ra.guiUpdateDisplay(xml.getRa());
 			// else handle updating memory display 
@@ -87,9 +90,11 @@ public class ControllerTask implements Runnable {
 			if ( Thread.interrupted() )
 				throw new InterruptedException();
 			
+			ra.guiUpdateTimeText(new String("Sending command"));
 			BufferedReader bin =
 					new BufferedReader( new InputStreamReader( u.openStream() ) );
 			String line;
+			ra.guiUpdateTimeText(new String("Reading response"));
 			while ( (line = bin.readLine()) != null ) {
 				// Check for an interruption
 				if ( Thread.interrupted() )
@@ -129,6 +134,7 @@ public class ControllerTask implements Runnable {
 			if ( Thread.interrupted() )
 				throw new InterruptedException();
 			
+			ra.guiUpdateTimeText(new String("Init parser"));
 			Log.d(TAG, "Parsing" );
 			sp = spf.newSAXParser();
 			xr = sp.getXMLReader();
@@ -140,9 +146,11 @@ public class ControllerTask implements Runnable {
 				throw new InterruptedException();
 			
 			start = System.currentTimeMillis();
+			ra.guiUpdateTimeText(new String("Parsing"));
 			xr.parse( new InputSource( new StringReader( res ) ) );
 			end = System.currentTimeMillis();
 			Log.d(TAG, new String(String.format("Parsed (%d ms)", end - start )));
+			ra.guiUpdateTimeText(new String("Finished"));
 			result = true;
 		} catch (ParserConfigurationException e) {
 			Log.e(TAG, "parseXML: ParserConfigurationException", e);
