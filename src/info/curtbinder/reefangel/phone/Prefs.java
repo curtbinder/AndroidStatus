@@ -17,6 +17,7 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 	private static final String TAG = "RAPrefs";
 	private static final String NUMBER_PATTERN = "\\d+";
 	private static final String HOST_PATTERN = "^(?i:[[0-9][a-z]]+)(?i:[\\w\\.\\-]*)(?i:[[0-9][a-z]]+)$";
+	private static final String USERID_PATTERN = "[\\w\\-\\.]+";
 	
 	private Preference portkey;
 	private Preference hostkey;
@@ -93,8 +94,7 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 			 *  - only contain:  alpha, number, _, -, .
 			 *  - end with: alpha or number
 			 */
-			if ( ! h.matches(HOST_PATTERN) )
-			{
+			if ( ! h.matches(HOST_PATTERN) ) {
 				// invalid host
 				Log.d(TAG, "Invalid host");
 				Toast.makeText(preference.getContext(), 
@@ -108,6 +108,15 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 			toggleDevicePrefVisibility(Integer.parseInt(newValue.toString()));
 		} else if ( preference.getKey().equals(preference.getContext().getString(R.string.prefUserIdKey)) ) {
 			// TODO userid validation here
+			String u = newValue.toString();
+			if ( ! u.matches(USERID_PATTERN) ) {
+				// invalid userid
+				Log.d(TAG, "Invalid userid");
+				Toast.makeText(preference.getContext(), 
+						getResources().getString(R.string.prefUserIdInvalid) + ": " + newValue.toString(), 
+						Toast.LENGTH_SHORT).show();	
+				return false;
+			}
 		}
 		return true;
 	}
