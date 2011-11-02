@@ -6,6 +6,7 @@ TODO
 * Toggle ability to restore values on configuration chanegs - when switching to db the values will be stored but give user option to always open/show previous/last values
 * update the screen after changing preferences
 * fix layouts for hiding text:  switch to relative layout for better control over display
+* use styles with the layout
 * validation of host on configuration page (better validation of preferences)
 * store controller values inside a database
 * consider passing in a Controller type to the XML handler
@@ -14,4 +15,5 @@ TODO
 * display relay status information
 * allow for toggling relay port status
 * add in ability to label relay ports
+* error lookup activity - to lookup error code or display error code
 
