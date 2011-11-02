@@ -53,6 +53,7 @@ public class ControllerTask implements Runnable {
 		try {
 			// TODO switch to use HttpURLConnection for timeouts and for authentication
 			URL url = new URL( host.toString() );
+			//URL url = new URL ( "http://www.reefangel.com/status/xml.aspx?id=binder" );
 			con = (HttpURLConnection) url.openConnection();
 			con.setReadTimeout(10000 /*milliseconds*/);
 			con.setConnectTimeout(15000 /*milliseconds*/);
