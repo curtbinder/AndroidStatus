@@ -1,6 +1,12 @@
 package info.curtbinder.reefangel.phone;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
+import android.util.Log;
+
 public class Host {
+	private static final String TAG = "RAHost";
 	private String host;
 	private int port;
 	private String command;
@@ -96,7 +102,14 @@ public class Host {
 						host, port, command, location));
 			}
 		} else if ( command.equals( Globals.requestReefAngel ) ) {
-			s = RAHOST + raUserid;
+			String encodedId;
+			try {
+				encodedId = URLEncoder.encode(raUserid, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				Log.e(TAG, "Failed URL encoder");
+				encodedId = "";
+			}
+			s = RAHOST + encodedId;
 		}
 		return s;
 	}
