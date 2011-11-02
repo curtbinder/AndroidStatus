@@ -1,8 +1,5 @@
 package info.curtbinder.reefangel.phone;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -259,10 +256,7 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 		guiThread.post(new Runnable() {
 			public void run() {
 				Log.d(TAG, "updateDisplay");
-				DateFormat dft =
-						DateFormat.getDateTimeInstance( DateFormat.DEFAULT,
-														DateFormat.DEFAULT, Locale.getDefault() );
-				updateTime.setText(dft.format(new Date()));
+				updateTime.setText(ra.getLogDate());
 				t1Text.setText(ra.getTemp1());
 				t2Text.setText(ra.getTemp2());
 				t3Text.setText(ra.getTemp3());

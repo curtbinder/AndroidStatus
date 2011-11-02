@@ -5,6 +5,7 @@ package info.curtbinder.reefangel.phone;
 public class Controller {
 	public static final byte MAX_EXPANSION_RELAYS = 8;
 
+	private String updateLogDate;
 	private Number t1;
 	private Number t2;
 	private Number t3;
@@ -28,6 +29,7 @@ public class Controller {
 	}
 
 	private void init ( ) {
+		updateLogDate = "";
 		t1 = new Number((byte) 1);
 		t2 = new Number((byte) 1);
 		t3 = new Number((byte) 1);
@@ -53,6 +55,14 @@ public class Controller {
 		return qtyExpansionRelays;
 	}
 
+	public void setLogDate ( String date ) {
+		updateLogDate = date;
+	}
+	
+	public String getLogDate ( ) {
+		return updateLogDate;
+	}
+	
 	public void setTemp1 ( int value ) {
 		t1.setValue(value);
 	}

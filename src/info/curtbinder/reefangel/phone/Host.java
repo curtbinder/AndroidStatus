@@ -4,6 +4,8 @@ public class Host {
 	private String host;
 	private int port;
 	private String command;
+	private int timeoutConnect;
+	private int timeoutRead;
 	
 	// for memory reading/writing
 	private int location;
@@ -22,9 +24,19 @@ public class Host {
 		this.host = host;
 		this.port = port;
 		this.command = command;
+		timeoutConnect = 15000;  // milliseconds
+		timeoutRead = 10000;  // milliseconds
 		location = 0;
 		value = 0;
 		write = false;
+	}
+	
+	public int getConnectTimeout() {
+		return timeoutConnect;
+	}
+	
+	public int getReadTimeout() {
+		return timeoutRead;
 	}
 	
 	public void setReadLocation(int location) {

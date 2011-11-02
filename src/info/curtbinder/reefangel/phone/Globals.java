@@ -32,6 +32,7 @@ public class Globals {
 	public static final String xmlRelay = "R";
 	public static final String xmlRelayMaskOn = "RON";
 	public static final String xmlRelayMaskOff = "ROFF";
+	public static final String xmlLogDate = "LOGDATE";
 	
 	// Error Codes for ControllerTask
 	public static final int errorSendCmd = 10;

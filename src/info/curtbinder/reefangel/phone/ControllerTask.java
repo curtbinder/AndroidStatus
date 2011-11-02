@@ -55,8 +55,8 @@ public class ControllerTask implements Runnable {
 			URL url = new URL( host.toString() );
 			//URL url = new URL ( "http://www.reefangel.com/status/xml.aspx?id=binder" );
 			con = (HttpURLConnection) url.openConnection();
-			con.setReadTimeout(10000 /*milliseconds*/);
-			con.setConnectTimeout(15000 /*milliseconds*/);
+			con.setReadTimeout(host.getReadTimeout());
+			con.setConnectTimeout(host.getConnectTimeout());
 			con.setRequestMethod("GET");
 			con.setDoInput(true);
 			

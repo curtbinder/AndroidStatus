@@ -1,6 +1,10 @@
 package info.curtbinder.reefangel.phone;
 
 
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -52,6 +56,17 @@ public class XMLHandler extends DefaultHandler {
 		super();
 		this.ra = new Controller();
 		//this.dt = new DateTime();
+	}
+
+	@Override
+	public void endDocument() throws SAXException {
+		if ( ra.getLogDate().equals("") ) {
+			// No log date found, set the date to be the current date/time
+			DateFormat dft =
+					DateFormat.getDateTimeInstance( DateFormat.DEFAULT,
+													DateFormat.DEFAULT, Locale.getDefault() );
+			ra.setLogDate(dft.format(new Date()));
+		}
 	}
 
 	@Override
@@ -174,6 +189,8 @@ public class XMLHandler extends DefaultHandler {
 			ra.setMainRelayDataMaskOn( Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRelayMaskOff ) ) {
 			ra.setMainRelayDataMaskOff( Short.parseShort( currentElementText ) );
+		} else if ( tag.equals( Globals.xmlLogDate ) ) {
+			ra.setLogDate(currentElementText);
 		}
 		// TODO process expansion relays
 	}
