@@ -6,11 +6,18 @@ public class Host {
 	private String command;
 	private int timeoutConnect;
 	private int timeoutRead;
+	private String raUserid;
+	private final String RAHOST = "http://www.reefangel.com/status/xml.aspx?id=";
 	
 	// for memory reading/writing
 	private int location;
 	private int value;
 	private boolean write;
+	
+	Host(String userid) {
+		setDefaults("", 80, Globals.requestReefAngel);
+		raUserid = userid;
+	}
 	
 	Host(String host, int port, String command) {
 		setDefaults(host, port, command);
@@ -29,6 +36,7 @@ public class Host {
 		location = 0;
 		value = 0;
 		write = false;
+		raUserid = "";
 	}
 	
 	public int getConnectTimeout() {
@@ -66,6 +74,8 @@ public class Host {
 				s = new String(String.format("http://%s:%d%s%d", 
 						host, port, command, location));
 			}
+		} else if ( command.equals( Globals.requestReefAngel ) ) {
+			s = RAHOST + raUserid;
 		}
 		return s;
 	}

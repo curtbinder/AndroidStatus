@@ -12,6 +12,7 @@ public class Globals {
 	public static final String requestWaterMode = "/mw";
 	public static final String requestExitMode = "/bp";
 	public static final String requestNone = "";
+	public static final String requestReefAngel = "ra";
 	
 	// XML tags
 	public static final String xmlStatus = "RA";

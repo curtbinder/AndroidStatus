@@ -14,8 +14,6 @@ TODO
 * display relay status information
 * allow for toggling relay port status
 * add in ability to label relay ports
-* consider storing connection & read timeouts in Host class
-** timeouts configurable via preferences
 * add ability to pull values from reefangel.com
 ** prompt for user id
 * add ability to choose to query from device or reefangel.com
