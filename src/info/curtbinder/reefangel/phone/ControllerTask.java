@@ -48,7 +48,7 @@ public class ControllerTask implements Runnable {
 		HttpURLConnection con = null;
 		String res = "";
 		String sendCmdErrorMessage = "";
-		ra.guiUpdateTimeText(new String("Starting update"));
+		ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusStart));
 		long start = System.currentTimeMillis();
 		try {
 			// TODO switch to use HttpURLConnection for timeouts and for authentication
@@ -59,7 +59,7 @@ public class ControllerTask implements Runnable {
 			con.setRequestMethod("GET");
 			con.setDoInput(true);
 			
-			ra.guiUpdateTimeText(new String("Connecting"));
+			ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusConnect));
 			con.connect();
 			
 			if ( Thread.interrupted() )
@@ -85,12 +85,12 @@ public class ControllerTask implements Runnable {
 		} finally {
 			if ( con != null ) {
 				con.disconnect();
-				ra.guiUpdateTimeText(new String("Disconnected"));
+				ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusDisconnected));
 			}
 		}
 		long end = System.currentTimeMillis();
 		Log.d(TAG, new String(String.format("sendCommand (%d ms)", end - start )));
-		ra.guiUpdateTimeText(new String("Read response"));
+		ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusReadResponse));
 
 		// check if there was an error
 		if ( res.equals( (String) ra.getResources().getText(R.string.messageError) ) ) {
@@ -110,7 +110,7 @@ public class ControllerTask implements Runnable {
 				// error parsing
 				return;
 			}
-			ra.guiUpdateTimeText(new String("Updating display"));
+			ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusUpdatingDisplay));
 			if ( status )
 				ra.guiUpdateDisplay(xml.getRa());
 			// else handle updating memory display 
@@ -124,11 +124,11 @@ public class ControllerTask implements Runnable {
 			if ( Thread.interrupted() )
 				throw new InterruptedException();
 			
-			ra.guiUpdateTimeText(new String("Sending command"));
+			ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusSendingCommand));
 			BufferedReader bin =
 					new BufferedReader( new InputStreamReader( /*u.openStream()*/ i ) );
 			String line;
-			ra.guiUpdateTimeText(new String("Reading response"));
+			ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusReadResponse));
 			while ( (line = bin.readLine()) != null ) {
 				// Check for an interruption
 				if ( Thread.interrupted() )
@@ -168,7 +168,7 @@ public class ControllerTask implements Runnable {
 			if ( Thread.interrupted() )
 				throw new InterruptedException();
 			
-			ra.guiUpdateTimeText(new String("Init parser"));
+			ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusInitParser));
 			Log.d(TAG, "Parsing" );
 			sp = spf.newSAXParser();
 			xr = sp.getXMLReader();
@@ -180,11 +180,11 @@ public class ControllerTask implements Runnable {
 				throw new InterruptedException();
 			
 			start = System.currentTimeMillis();
-			ra.guiUpdateTimeText(new String("Parsing"));
+			ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusParsing));
 			xr.parse( new InputSource( new StringReader( res ) ) );
 			end = System.currentTimeMillis();
 			Log.d(TAG, new String(String.format("Parsed (%d ms)", end - start )));
-			ra.guiUpdateTimeText(new String("Finished"));
+			ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusFinished));
 			result = true;
 		} catch (ParserConfigurationException e) {
 			Log.e(TAG, "parseXML: ParserConfigurationException", e);

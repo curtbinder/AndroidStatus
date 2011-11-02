@@ -58,6 +58,17 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 	<string name="messageNever">Never</string>
 	<string name="messageCancelled">Cancelled</string>
 	<string name="messageNotNumber">Value is not a number</string>
+	
+<!-- Status strings -->
+	<string name="statusStart">Starting update</string>
+	<string name="statusConnect">Connecting</string>
+	<string name="statusDisconnected">Disconnected</string>
+	<string name="statusReadResponse">Read response</string>
+	<string name="statusUpdatingDisplay">Updating display</string>
+	<string name="statusSendingCommand">Sending command</string>
+	<string name="statusInitParser">Init parser</string>
+	<string name="statusParsing">Parsing</string>
+	<string name="statusFinished">Finished</string>
 
 <!-- Minimum Versions -->
 	<string name="minModesVersion">0.8.5.19</string>
