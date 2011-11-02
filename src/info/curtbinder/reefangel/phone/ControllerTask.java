@@ -66,7 +66,6 @@ public class ControllerTask implements Runnable {
 				throw new InterruptedException();
 			
 			res = sendCommand( con.getInputStream() );
-			//res = sendCommand( new URL( host.toString() ) );
 		} catch ( MalformedURLException e ) {
 			sendCmdErrorMessage = "Error sending command";
 			errorCode = Globals.errorSendCmdBadUrl;
@@ -117,7 +116,7 @@ public class ControllerTask implements Runnable {
 		}
 	}
 
-	private String sendCommand ( /*URL u*/ InputStream i ) {
+	private String sendCommand ( InputStream i ) {
 		String s = "";
 		try {
 			// Check for an interruption
@@ -126,7 +125,7 @@ public class ControllerTask implements Runnable {
 			
 			ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusSendingCommand));
 			BufferedReader bin =
-					new BufferedReader( new InputStreamReader( /*u.openStream()*/ i ) );
+					new BufferedReader( new InputStreamReader( i ) );
 			String line;
 			ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusReadResponse));
 			while ( (line = bin.readLine()) != null ) {
