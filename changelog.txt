@@ -3,3 +3,13 @@ Changelog of all the versions of AndroidStatus
 
 0.1
  * Initial release
+
+0.2
+ * Improved XML parsing
+ * Added more status text updates
+ * Switched to use HttpURLConnection, allows for read and connect timeouts
+ * Moved status strings to strings.xml
+ * Added connect & read timeouts to host class
+ * Added ability to enter in userid for web banner on reefangel.com
+ * Added ability to choose to query controller directly or reefangel.com for values
+ 

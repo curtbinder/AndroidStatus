@@ -14,6 +14,10 @@ public class Host {
 	private int value;
 	private boolean write;
 	
+	Host() {
+		setDefaults("", 80, Globals.requestNone);
+	}
+	
 	Host(String userid) {
 		setDefaults("", 80, Globals.requestReefAngel);
 		raUserid = userid;
@@ -37,6 +41,23 @@ public class Host {
 		value = 0;
 		write = false;
 		raUserid = "";
+	}
+	
+	public void setHost(String host) {
+		this.host = host;
+	}
+	
+	public void setPort(String port) {
+		this.port = Integer.parseInt(port);
+	}
+	
+	public void setCommand(String command) {
+		this.command = command;
+	}
+	
+	public void setUserId(String userid) {
+		raUserid = userid;
+		setCommand(Globals.requestReefAngel);
 	}
 	
 	public int getConnectTimeout() {

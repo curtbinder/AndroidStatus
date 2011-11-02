@@ -51,9 +51,7 @@ public class ControllerTask implements Runnable {
 		ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusStart));
 		long start = System.currentTimeMillis();
 		try {
-			// TODO switch to use HttpURLConnection for timeouts and for authentication
 			URL url = new URL( host.toString() );
-			//URL url = new URL ( "http://www.reefangel.com/status/xml.aspx?id=binder" );
 			con = (HttpURLConnection) url.openConnection();
 			con.setReadTimeout(host.getReadTimeout());
 			con.setConnectTimeout(host.getConnectTimeout());

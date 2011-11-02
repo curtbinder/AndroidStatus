@@ -18,21 +18,30 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 	private static final String NUMBER_PATTERN = "\\d+";
 	private static final String HOST_PATTERN = "^(?i:[[0-9][a-z]]+)(?i:[\\w\\.\\-]*)(?i:[[0-9][a-z]]+)$";
 	
+	private Preference portkey;
+	private Preference hostkey;
+	private Preference useridkey;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.settings);
 		
-		Preference portkey = getPreferenceScreen().findPreference(getBaseContext().getString(R.string.prefPortKey));
+		portkey = getPreferenceScreen().findPreference(getBaseContext().getString(R.string.prefPortKey));
 		portkey.setOnPreferenceChangeListener(this);
-		Preference hostkey = getPreferenceScreen().findPreference(getBaseContext().getString(R.string.prefHostKey));
+		hostkey = getPreferenceScreen().findPreference(getBaseContext().getString(R.string.prefHostKey));
 		hostkey.setOnPreferenceChangeListener(this);
+		useridkey = getPreferenceScreen().findPreference(getBaseContext().getString(R.string.prefUserIdKey));
+		useridkey.setOnPreferenceChangeListener(this);
+		Preference devicekey = getPreferenceScreen().findPreference(getBaseContext().getString(R.string.prefDeviceKey));
+		devicekey.setOnPreferenceChangeListener(this);
 		Preference raWebsite = getPreferenceScreen().findPreference(getBaseContext().getString(R.string.prefReefAngelKey));
 		raWebsite.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.reefangel.com/"));
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, 
+						Uri.parse(getBaseContext().getString(R.string.websiteReefangel)));
 				startActivity(browserIntent);
 				return true;
 			}
@@ -46,6 +55,9 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 				return true;
 			}
 		});
+
+		// toggle the visibility of preferences based on device selection
+		toggleDevicePrefVisibility(Integer.parseInt(getDevice(getBaseContext())));
 	}
 	
 	@Override
@@ -71,8 +83,7 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 					return false;
 				}
 			}
-		}
-		if ( preference.getKey().equals(preference.getContext().getString(R.string.prefHostKey))) {
+		} else if ( preference.getKey().equals(preference.getContext().getString(R.string.prefHostKey))) {
 			// host validation here
 			Log.d(TAG, "Validate entered host");
 			String h = newValue.toString();
@@ -91,6 +102,12 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 						Toast.LENGTH_SHORT).show();
 				return false;
 			}
+		} else if ( preference.getKey().equals(preference.getContext().getString(R.string.prefDeviceKey)) ) {
+			// enable / disable categories based on what the user selected
+			Log.d(TAG, "Update enabled prefs");
+			toggleDevicePrefVisibility(Integer.parseInt(newValue.toString()));
+		} else if ( preference.getKey().equals(preference.getContext().getString(R.string.prefUserIdKey)) ) {
+			// TODO userid validation here
 		}
 		return true;
 	}
@@ -102,6 +119,18 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 			return true;
 		}
 		return false;
+	}
+	
+	private void toggleDevicePrefVisibility(int d) {
+		String[] devicesArray = getBaseContext().getResources().getStringArray(R.array.devicesValues);
+		int devReefAngel = Integer.parseInt(devicesArray[1]);
+		boolean boolEnableReefAngel = false;
+		if ( d == devReefAngel ) {
+			boolEnableReefAngel = true;
+		}
+		useridkey.setEnabled(boolEnableReefAngel);
+		portkey.setEnabled(!boolEnableReefAngel);
+		hostkey.setEnabled(!boolEnableReefAngel);
 	}
 	
 	public static String getHost(Context context) {
@@ -174,5 +203,17 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 		return PreferenceManager.getDefaultSharedPreferences(context).getString(
 				context.getString(R.string.prefAPLabelKey), 
 				context.getString(R.string.ap_label));
+	}
+	
+	public static String getDevice(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context).getString(
+				context.getString(R.string.prefDeviceKey),
+				context.getString(R.string.prefDeviceDefault));
+	}
+	
+	public static String getUserId(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context).getString(
+				context.getString(R.string.prefUserIdKey),
+				context.getString(R.string.prefUserIdDefault));
 	}
 }

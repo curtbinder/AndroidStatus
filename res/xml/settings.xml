@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <PreferenceScreen
 	xmlns:android="http://schemas.android.com/apk/res/android">
-	
+	<PreferenceCategory
+		android:title="@string/prefs_categoryDevice">
+		<ListPreference
+			android:key="@string/prefDeviceKey"
+			android:title="@string/prefDeviceTitle"
+			android:summary="@string/prefDeviceSummary"
+			android:defaultValue="@string/prefDeviceDefault"
+			android:entries="@array/devices"
+			android:entryValues="@array/devicesValues" />
+	</PreferenceCategory>
 	<PreferenceCategory
 		android:title="@string/prefs_categoryHost">
 		<EditTextPreference
@@ -16,6 +25,15 @@
 			android:summary="@string/prefPortSummary"
 			android:defaultValue="@string/prefPortDefault"
 			/>
+	</PreferenceCategory>
+	<PreferenceCategory
+		android:title="@string/prefs_categoryRA">
+		<EditTextPreference
+			android:key="@string/prefUserIdKey"
+			android:title="@string/prefUserIdTitle"
+			android:summary="@string/prefUserIdSummary"
+			android:defaultValue="@string/prefUserIdDefault"
+			/>	
 	</PreferenceCategory>
 	<PreferenceCategory
 		android:title="@string/prefs_categoryController">

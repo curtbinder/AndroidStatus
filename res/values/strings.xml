@@ -53,6 +53,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 	<string name="port8_label">Port 8:</string>
 	
 <!-- Constants -->
+	<string name="websiteReefangel">http://www.reefangel.com/</string>
 	<string name="defaultStatusText">-</string>
 	<string name="messageError">Error</string>
 	<string name="messageNever">Never</string>
@@ -76,9 +77,15 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 	
 <!-- Settings / Preference Labels -->
 	<string name="prefs_title">Status Settings</string>
+	<string name="prefs_categoryDevice">Device</string>
 	<string name="prefs_categoryHost">Host</string>
+	<string name="prefs_categoryRA">ReefAngel.com</string>
 	<string name="prefs_categoryController">Controller</string>
 	<string name="prefs_categoryApp">Application</string>
+	<string name="prefDeviceKey">device</string>
+	<string name="prefDeviceTitle">Device</string>
+	<string name="prefDeviceSummary">Select to query data from your controller directly or your web banner on reefangel.com</string>
+	<string name="prefDeviceDefault">0</string>
 	<string name="prefHostKey">host</string>
 	<string name="prefHostTitle">Hostname</string>
 	<string name="prefHostSummary">Enter the hostname or IP address of the controller</string>
@@ -91,6 +98,10 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 	<string name="prefPortMin">1</string>
 	<string name="prefPortMax">65535</string>
 	<string name="prefPortInvalidPort">Invalid port</string>
+	<string name="prefUserIdKey">userid</string>
+	<string name="prefUserIdTitle">User ID</string>
+	<string name="prefUserIdSummary">Enter your userid for your web banner</string>
+	<string name="prefUserIdDefault">rimai</string>
 	
 	<string name="prefAppTitle">Application Info</string>
 	<string name="prefAppSummary">Additional information about Reef Angel Status for Android</string>

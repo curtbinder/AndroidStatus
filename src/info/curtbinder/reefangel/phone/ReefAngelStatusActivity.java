@@ -208,10 +208,25 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 
 				try {
 					// Get IP & Port
+					String[] devicesArray = getBaseContext().getResources().getStringArray(R.array.devicesValues);
+					String device = Prefs.getDevice(getBaseContext());
+					/*
 					Host h = new Host(
 							Prefs.getHost(getBaseContext()),
 							Prefs.getPort(getBaseContext()),
 							Globals.requestStatusOld);
+					*/
+					Host h = new Host();
+					if ( device.equals(devicesArray[0]) ) {
+						// controller
+						h.setHost(Prefs.getHost(getBaseContext()));
+						h.setPort(Prefs.getPort(getBaseContext()));
+						h.setCommand(Globals.requestStatusOld);
+					} else {
+						// reeefangel.com
+						h.setUserId(Prefs.getUserId(getBaseContext()));
+						h.setCommand(Globals.requestReefAngel);
+					}
 					Log.d(TAG, h.toString());
 					// Create ControllerTask
 					ControllerTask cTask = new ControllerTask(
