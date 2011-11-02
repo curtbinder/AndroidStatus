@@ -47,13 +47,6 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 	private Future statusPending;
 	
 	// View visibility
-	/*
-	private boolean showT2;
-	private boolean showT3;
-	private boolean showDP;
-	private boolean showAP;
-	private boolean showSalinity;
-	*/
 	//private boolean showMessageText;
 	
     /** Called when the activity is first created. */
