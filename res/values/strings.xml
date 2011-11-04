@@ -101,7 +101,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 	<string name="prefUserIdKey">userid</string>
 	<string name="prefUserIdTitle">User ID</string>
 	<string name="prefUserIdSummary">Enter your userid for your web banner</string>
-	<string name="prefUserIdDefault">rimai</string>
+	<string name="prefUserIdDefault">reefangel</string>
 	<string name="prefUserIdInvalid">Invalid userid</string>
 	
 	<string name="prefAppTitle">Application Info</string>
