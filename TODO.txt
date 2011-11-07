@@ -10,10 +10,6 @@ TODO
 * fix layouts for hiding text:  switch to relative layout for better control over display
 * use styles with the layout for consistent look and easier to update values instead of repeating for all the labels
 * validation of host on configuration page (better validation of preferences)
-* store controller values inside a database
-** create database for controller values and they get updated / added each time
-** the app pulls the most recent ones to display
-** all the labels get stored in database too instead of preferences?  or not?  have to investigate the simplicity of this
 * add labels to preferences
 ** labels category
 ** controller labels screen

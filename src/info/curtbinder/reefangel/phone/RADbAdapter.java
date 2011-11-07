@@ -59,11 +59,13 @@ public class RADbAdapter {
 	public static final String PCOL_R8ONMASK = "r8onmask";
 	public static final String PCOL_R8OFFMASK = "r8offmask";
 	
+	/*
 	public static final String LTABLE_NAME = "labels";
 	// columns in labels table
 	public static final String LCOL_ROWID = "_id";
 	public static final String LCOL_ID = "id";
 	public static final String LCOL_LABEL = "label";
+	*/
 		
 	private static class DbHelper extends SQLiteOpenHelper {
 
@@ -75,7 +77,7 @@ public class RADbAdapter {
 		public void onCreate(SQLiteDatabase db) {
 			// create the tables here
 			createParamsTable(db);
-			createLabelsTable(db);
+			//createLabelsTable(db);
 		}
 
 		@Override
@@ -84,7 +86,7 @@ public class RADbAdapter {
 					", which will destroy all old data");
 			// initially, just drop tables and create new ones
 			db.execSQL("DROP TABLE IF EXISTS " + PTABLE_NAME);
-			db.execSQL("DROP TABLE IF EXISTS " + LTABLE_NAME);
+			//db.execSQL("DROP TABLE IF EXISTS " + LTABLE_NAME);
 			onCreate(db);
 		}
 
@@ -133,6 +135,7 @@ public class RADbAdapter {
 					);		
 		}
 		
+		/*
 		private void createLabelsTable(SQLiteDatabase db) {
 			// create labels table
 			db.execSQL("CREATE TABLE " + LTABLE_NAME + " (" +
@@ -142,6 +145,7 @@ public class RADbAdapter {
 					");"
 					);
 		}
+		*/
 	}
 	
 	public RADbAdapter(Context ctx) { 
