@@ -188,7 +188,7 @@ public class RADbAdapter {
 				null, 
 				null, 
 				PCOL_ID + " DESC", 
-				null);
+				"1");
 		return mCursor;
 	}
 	
