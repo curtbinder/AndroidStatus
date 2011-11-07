@@ -186,9 +186,9 @@ public class XMLHandler extends DefaultHandler {
 		} else if ( tag.equals( Globals.xmlRelay ) ) {
 			ra.setMainRelayData( Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRelayMaskOn ) ) {
-			ra.setMainRelayDataMaskOn( Short.parseShort( currentElementText ) );
+			ra.setMainRelayOnMask( Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRelayMaskOff ) ) {
-			ra.setMainRelayDataMaskOff( Short.parseShort( currentElementText ) );
+			ra.setMainRelayOffMask( Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlLogDate ) ) {
 			ra.setLogDate(currentElementText);
 		}

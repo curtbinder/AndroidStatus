@@ -37,12 +37,24 @@ public class Relay {
 		this.data = data;
 	}
 
-	public void setRelayDataMaskOn ( short maskOn ) {
+	public void setRelayOnMask ( short maskOn ) {
 		this.maskOn = maskOn;
 	}
 
-	public void setRelayDataMaskOff ( short maskOff ) {
+	public void setRelayOffMask ( short maskOff ) {
 		this.maskOff = maskOff;
+	}
+	
+	public short getRelayData ( ) {
+		return this.data;
+	}
+	
+	public short getRelayOnMask ( ) {
+		return this.maskOn;
+	}
+	
+	public short getRelayOffMask ( ) {
+		return this.maskOff;
 	}
 
 	// Get port statuses

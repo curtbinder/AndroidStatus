@@ -13,3 +13,6 @@ Changelog of all the versions of AndroidStatus
  * Added ability to enter in userid for web banner on reefangel.com
  * Added ability to choose to query controller directly or reefangel.com for values
  
+ 0.3
+ * store controller values inside a database
+ 

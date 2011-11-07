@@ -109,8 +109,10 @@ public class ControllerTask implements Runnable {
 				return;
 			}
 			ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusUpdatingDisplay));
-			if ( status )
-				ra.guiUpdateDisplay(xml.getRa());
+			if ( status ) {
+				ra.guiAddParamsEntry(xml.getRa());
+				ra.guiUpdateDisplay();
+			}
 			// else handle updating memory display 
 		}
 	}

@@ -7,6 +7,9 @@ import java.util.concurrent.RejectedExecutionException;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -20,7 +23,7 @@ import android.widget.TextView;
 
 public class ReefAngelStatusActivity extends Activity implements OnClickListener {
 	private static final String TAG = "RAStatus";
-	
+		
 	// Display views
 	private View refreshButton;
 	private TextView updateTime;
@@ -57,23 +60,7 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
         
         findViews();
         initThreading();
-        
-        // restore values if restarted due to configuration change
-        final String[] values = (String []) getLastNonConfigurationInstance();
-        if ( values != null ) {
-        	loadDisplayedControllerValues(values);
-        } else {
-        	loadDisplayedControllerValues(new String[] {
-        		getString(R.string.messageNever),
-        		getString(R.string.defaultStatusText),
-        		getString(R.string.defaultStatusText),
-        		getString(R.string.defaultStatusText),
-        		getString(R.string.defaultStatusText),
-        		getString(R.string.defaultStatusText),
-        		getString(R.string.defaultStatusText),
-        		getString(R.string.defaultStatusText)
-        	});
-        }
+               
         updateViewsVisibility();
         
         refreshButton.setOnClickListener(this);
@@ -87,7 +74,8 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 
 	@Override
 	protected void onResume() {
-		super.onResume();
+		super.onResume();   
+        guiUpdateDisplay();
 	}
 
 	private void findViews() {
@@ -249,7 +237,21 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 		guiThread.post(updateTask);
 	}
 	
-	public void guiUpdateDisplay(final Controller ra) {
+	private RADbAdapter openDatabase() {
+		// open the database
+		Log.d(TAG, "Open database");
+		RADbAdapter dbAdapter = new RADbAdapter(this);
+        dbAdapter.open();
+        return dbAdapter;
+	}
+	
+	private void closeDatabase(RADbAdapter db) {
+		// close the database
+		Log.d(TAG, "Close database");
+		db.close();
+	}
+	
+	public void guiUpdateDisplay() {
 		/**
 		 * Updates the display with the values from the Controller
 		 * 
@@ -258,17 +260,62 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 		guiThread.post(new Runnable() {
 			public void run() {
 				Log.d(TAG, "updateDisplay");
-				updateTime.setText(ra.getLogDate());
-				t1Text.setText(ra.getTemp1());
-				t2Text.setText(ra.getTemp2());
-				t3Text.setText(ra.getTemp3());
-				phText.setText(ra.getPH());
-				dpText.setText(ra.getPwmD());
-				apText.setText(ra.getPwmA());
-				salinityText.setText(ra.getSalinity());
+				try {
+					RADbAdapter dbAdapter = openDatabase();
+					Cursor c = dbAdapter.getLatestParams();
+					String [] values;
+					
+					if ( c.moveToFirst() ) {
+						/*
+						Log.d(TAG, "Cursor Column Count: " + c.getColumnCount());
+						StringBuilder builder = new StringBuilder();
+						for ( int i = 1; i < c.getColumnCount(); i++ ) {
+							builder.append(c.getColumnName(i)).append(": ");
+							builder.append(c.getString(i)).append(", ");
+						}
+						Log.d(TAG, "Columns: " + builder);
+						*/
+						values = new String [] {
+							c.getString(c.getColumnIndex(RADbAdapter.PCOL_LOGDATE)),
+							c.getString(c.getColumnIndex(RADbAdapter.PCOL_T1)),
+							c.getString(c.getColumnIndex(RADbAdapter.PCOL_T2)),
+							c.getString(c.getColumnIndex(RADbAdapter.PCOL_T3)),
+							c.getString(c.getColumnIndex(RADbAdapter.PCOL_PH)),
+							c.getString(c.getColumnIndex(RADbAdapter.PCOL_DP)),
+							c.getString(c.getColumnIndex(RADbAdapter.PCOL_AP)),
+							c.getString(c.getColumnIndex(RADbAdapter.PCOL_SAL))
+						};
+					} else {
+						values = getNeverValues();
+					}
+					c.close();
+					closeDatabase(dbAdapter);
+					loadDisplayedControllerValues(values);
+				} catch ( SQLException e ) {
+					Log.d(TAG, "SQLException: " + e.getMessage());
+				} catch ( CursorIndexOutOfBoundsException e ) {
+					Log.d(TAG, "CursorIndex out of bounds: " + e.getMessage());
+				}
 			}
 		});
 	}
+	
+	public void guiAddParamsEntry(final Controller ra) {
+		/** 
+		 * Adds parameters entry to database
+		 * 
+		 * Called from other threads
+		 */
+		guiThread.post(new Runnable() {
+			public void run() {
+				Log.d(TAG, "addParamsEntry");
+				RADbAdapter dbAdapter = openDatabase();
+				dbAdapter.addParamsEntry(ra);
+				closeDatabase(dbAdapter);
+			}
+		});
+	}
+	
 	
 	public void guiUpdateTimeText(final String msg) {
 		/**
@@ -283,26 +330,7 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 			}
 		});
 	}
-
-	@Override
-	public Object onRetainNonConfigurationInstance() {
-		final String[] controllerValues = getDisplayedControllerValues();
-		return controllerValues;
-	}
 	
-	private String[] getDisplayedControllerValues() {
-		// The order must match with the order in loadDisplayedControllerValues
-		return new String[] {
-				(String) updateTime.getText(),
-				(String) t1Text.getText(),
-				(String) t2Text.getText(),
-				(String) t3Text.getText(),
-				(String) phText.getText(),
-				(String) dpText.getText(),
-				(String) apText.getText(),
-				(String) salinityText.getText()
-		};
-	}
 	
 	private void loadDisplayedControllerValues(String[] v) {
 		// The order must match with the order in getDisplayedControllerValues
@@ -314,6 +342,19 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 		dpText.setText(v[5]);
 		apText.setText(v[6]);
 		salinityText.setText(v[7]);
+	}
+	
+	private String[] getNeverValues() {
+		return new String[] {
+        		getString(R.string.messageNever),
+        		getString(R.string.defaultStatusText),
+        		getString(R.string.defaultStatusText),
+        		getString(R.string.defaultStatusText),
+        		getString(R.string.defaultStatusText),
+        		getString(R.string.defaultStatusText),
+        		getString(R.string.defaultStatusText),
+        		getString(R.string.defaultStatusText)
+        	};
 	}
 	
 	@Override

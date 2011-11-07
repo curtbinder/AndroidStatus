@@ -161,12 +161,12 @@ public class Controller {
 		main.setRelayData(data);
 	}
 
-	public void setMainRelayDataMaskOn ( short maskOn ) {
-		main.setRelayDataMaskOn(maskOn);
+	public void setMainRelayOnMask ( short maskOn ) {
+		main.setRelayOnMask(maskOn);
 	}
 
-	public void setMainRelayDataMaskOff ( short maskOff ) {
-		main.setRelayDataMaskOff(maskOff);
+	public void setMainRelayOffMask ( short maskOff ) {
+		main.setRelayOffMask(maskOff);
 	}
 
 	public Relay getMainRelay ( ) {
