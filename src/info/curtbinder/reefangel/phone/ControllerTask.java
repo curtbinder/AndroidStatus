@@ -114,6 +114,7 @@ public class ControllerTask implements Runnable {
 				ra.guiUpdateDisplay();
 			}
 			// else handle updating memory display 
+			// else handle updating the labels from reefangel.com
 		}
 	}
 

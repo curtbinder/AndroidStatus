@@ -59,14 +59,6 @@ public class RADbAdapter {
 	public static final String PCOL_R8DATA = "r8data";
 	public static final String PCOL_R8ONMASK = "r8onmask";
 	public static final String PCOL_R8OFFMASK = "r8offmask";
-	
-	/*
-	public static final String LTABLE_NAME = "labels";
-	// columns in labels table
-	public static final String LCOL_ROWID = "_id";
-	public static final String LCOL_ID = "id";
-	public static final String LCOL_LABEL = "label";
-	*/
 		
 	private static class DbHelper extends SQLiteOpenHelper {
 
@@ -78,7 +70,6 @@ public class RADbAdapter {
 		public void onCreate(SQLiteDatabase db) {
 			// create the tables here
 			createParamsTable(db);
-			//createLabelsTable(db);
 		}
 
 		@Override
@@ -87,7 +78,6 @@ public class RADbAdapter {
 					", which will destroy all old data");
 			// initially, just drop tables and create new ones
 			db.execSQL("DROP TABLE IF EXISTS " + PTABLE_NAME);
-			//db.execSQL("DROP TABLE IF EXISTS " + LTABLE_NAME);
 			onCreate(db);
 		}
 
@@ -144,18 +134,6 @@ public class RADbAdapter {
 					"END;"
 					);
 		}
-		
-		/*
-		private void createLabelsTable(SQLiteDatabase db) {
-			// create labels table
-			db.execSQL("CREATE TABLE " + LTABLE_NAME + " (" +
-					LCOL_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-					LCOL_ID + " INTEGER, " + 
-					LCOL_LABEL + " TEXT" +
-					");"
-					);
-		}
-		*/
 	}
 	
 	public RADbAdapter(Context ctx) { 
@@ -218,15 +196,4 @@ public class RADbAdapter {
 				PCOL_LOGDATE, PCOL_RDATA, PCOL_RONMASK, PCOL_ROFFMASK
 		};
 	}
-	
-	/*
-	public void pruneParams() {
-		// prunes the database to only the maximum amount of entries
-		// select the latest max entries
-		// get the minimum value stored in the ID field
-		// delete all entries before that entry
-		String sqlPrune = "DELETE FROM params WHERE _id NOT IN (SELECT _id FROM params ORDER BY _id DESC LIMIT 10);";
-		mDb.execSQL(sqlPrune);
-	}
-	*/
 }

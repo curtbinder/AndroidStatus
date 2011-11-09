@@ -266,15 +266,6 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 					String [] values;
 					
 					if ( c.moveToFirst() ) {
-						/*
-						Log.d(TAG, "Cursor Column Count: " + c.getColumnCount());
-						StringBuilder builder = new StringBuilder();
-						for ( int i = 1; i < c.getColumnCount(); i++ ) {
-							builder.append(c.getColumnName(i)).append(": ");
-							builder.append(c.getString(i)).append(", ");
-						}
-						Log.d(TAG, "Columns: " + builder);
-						*/
 						values = new String [] {
 							c.getString(c.getColumnIndex(RADbAdapter.PCOL_LOGDATE)),
 							c.getString(c.getColumnIndex(RADbAdapter.PCOL_T1)),
