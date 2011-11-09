@@ -107,7 +107,6 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 			Log.d(TAG, "Update enabled prefs");
 			toggleDevicePrefVisibility(Integer.parseInt(newValue.toString()));
 		} else if ( preference.getKey().equals(preference.getContext().getString(R.string.prefUserIdKey)) ) {
-			// TODO userid validation here
 			String u = newValue.toString();
 			if ( ! u.matches(USERID_PATTERN) ) {
 				// invalid userid

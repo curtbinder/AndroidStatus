@@ -8,6 +8,30 @@
         <item>0</item>
         <item>1</item>
     </string-array>
+    <string-array name="errorCodes">
+    	<item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+    </string-array>
+    <string-array name="errorCodesStrings">
+    	<item>Send Command</item>
+        <item>Bad URL</item>
+        <item>Generic Send Exception</item>
+        <item>Connection failed</item>
+        <item>Unknown Host</item>
+        <item>Timeout</item>
+        <item>XML</item>
+        <item>Parser Configuration</item>
+        <item>XML I/O</item>
+        <item>XML SAX Parser</item>
+    </string-array>
 	<string-array name="memory_names">
 		<item>MH On Hour</item>
 		<item>MH On Minute</item>

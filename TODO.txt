@@ -21,5 +21,8 @@ TODO
 * display relay status information
 * allow for toggling relay port status
 * add in ability to label relay ports
-* error lookup activity - to lookup error code or display error code
-
+* add in error log
+** logs errors to database
+** new activity for displaying errors
+** error logger is a content provider for all activities
+* parameters activity allows for clicking on item and displaying all info in poppup window

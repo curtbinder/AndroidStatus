@@ -9,6 +9,7 @@ import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.UnknownHostException;
 
@@ -28,8 +29,6 @@ public class ControllerTask implements Runnable {
 	private final Host host;
 	private boolean status;
 	
-	// TODO add in error codes to be associated with error messages
-	// and locations in the code
 	private int errorCode;
 	
 	ControllerTask(ReefAngelStatusActivity ra, Host host, boolean statusScreen) {
@@ -37,6 +36,31 @@ public class ControllerTask implements Runnable {
 		this.host = host;
 		this.status = statusScreen;
 		this.errorCode = 0;
+	}
+	
+	private void Error(int errorCodeIndex, Throwable t, String msg) {
+		String[] errorCodes = ra.getResources().getStringArray(R.array.errorCodes);
+		this.errorCode = Integer.parseInt(errorCodes[errorCodeIndex]);
+		Log.e(TAG, msg, t);
+	}
+	
+	private String getErrorMessage() {
+		String[] errorCodesStrings = ra.getResources().getStringArray(R.array.errorCodesStrings);
+		String[] errorCodes = ra.getResources().getStringArray(R.array.errorCodes);
+		String s = "Unknown error";
+		
+		// loop through array of errorcodes and match with the current code
+		for ( int i = 0; i < errorCodes.length; i++ ){
+			if ( Integer.parseInt(errorCodes[i]) == errorCode ) {
+				// found code
+				s = String.format("%s %d: %s", 
+						(String) ra.getResources().getText(R.string.messageError), 
+						errorCode, 
+						errorCodesStrings[i]);
+				break;
+			}
+		}
+		return s;
 	}
 	
 	@Override
@@ -47,7 +71,6 @@ public class ControllerTask implements Runnable {
 		errorCode = 0;
 		HttpURLConnection con = null;
 		String res = "";
-		String sendCmdErrorMessage = "";
 		ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusStart));
 		long start = System.currentTimeMillis();
 		try {
@@ -66,18 +89,16 @@ public class ControllerTask implements Runnable {
 			
 			res = sendCommand( con.getInputStream() );
 		} catch ( MalformedURLException e ) {
-			sendCmdErrorMessage = "Error sending command";
-			errorCode = Globals.errorSendCmdBadUrl;
-			Log.e(TAG, "MalformedURLException", e);
-		} catch (ProtocolException e) {
-			sendCmdErrorMessage = "Error sending command";
-			errorCode = Globals.errorSendCmdBadUrl;
-			Log.e(TAG, "ProtocolException", e);
-		} catch (IOException e) {
-			sendCmdErrorMessage = "Error sending command";
-			errorCode = Globals.errorSendCmdBadUrl;
-			Log.e(TAG, "IOException", e);
-		} catch (InterruptedException e) {
+			Error(1, e, "MalformedURLException");
+		} catch ( ProtocolException e ) {
+			Error(1, e, "ProtocolException");
+		} catch ( SocketTimeoutException e ) {
+			Error(5, e, "SocketTimeoutException");
+		} catch ( ConnectException e ) {
+			Error(3, e, "ConnectException");
+		} catch ( IOException e ) {
+			Error(1, e, "IOException");
+		} catch ( InterruptedException e ) {
 			Log.d(TAG, "InterruptedException", e);
 			res = (String) ra.getResources().getText(R.string.messageCancelled);
 		} finally {
@@ -91,11 +112,9 @@ public class ControllerTask implements Runnable {
 		ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusReadResponse));
 
 		// check if there was an error
-		if ( res.equals( (String) ra.getResources().getText(R.string.messageError) ) ) {
-			// TODO log the actual error message
+		if ( errorCode > 0 ) {
 			// encountered an error, display an error on screen
-			Log.d(TAG, sendCmdErrorMessage);
-			String er = new String(String.format("%s: %d", (String) ra.getResources().getText(R.string.messageError), errorCode));
+			String er = getErrorMessage();
 			Log.d(TAG, er);
 			ra.guiUpdateTimeText(er);
 		} else if ( res.equals( (String) ra.getResources().getText(R.string.messageCancelled) ) ) {
@@ -106,6 +125,9 @@ public class ControllerTask implements Runnable {
 			XMLHandler xml = new XMLHandler();
 			if ( !parseXML( xml, res ) ) {
 				// error parsing
+				String er = getErrorMessage();
+				Log.d(TAG, er);
+				ra.guiUpdateTimeText(er);
 				return;
 			}
 			ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusUpdatingDisplay));
@@ -141,14 +163,11 @@ public class ControllerTask implements Runnable {
 			Log.d(TAG, "sendCommand: InterruptedException", e);
 			s = new StringBuilder((String) ra.getResources().getText(R.string.messageCancelled));
 		} catch ( ConnectException e ) {
-			Log.e(TAG, "sendCommand: ConnectException", e);
-			errorCode = Globals.errorSendCmdConnect;
+			Error(3, e, "sendCommand: ConnectException");
 		} catch ( UnknownHostException e ) {
-			Log.e(TAG, "sendCommand: UnknownHostException", e);
-			errorCode = Globals.errorSendCmdUnknownHost;			
+			Error(4, e, "sendCommand: UnknownHostException");
 		} catch ( Exception e ) {
-			Log.e(TAG, "sendCommand: Exception", e);
-			errorCode = Globals.errorSendCmdException;
+			Error(2, e, "sendCommand: Exception");
 		}
 		
 		// if we encountered an error, set the error text
@@ -188,14 +207,11 @@ public class ControllerTask implements Runnable {
 			ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusFinished));
 			result = true;
 		} catch (ParserConfigurationException e) {
-			Log.e(TAG, "parseXML: ParserConfigurationException", e);
-			errorCode = Globals.errorParseXmlParseConfig;
+			Error(7, e, "parseXML: ParserConfigurationException");
 		} catch ( IOException e ) {
-			Log.e(TAG, "parseXML: IOException", e);
-			errorCode = Globals.errorParseXmlIO;
+			Error(8, e, "parseXML: IOException");
 		} catch (SAXException e) {
-			Log.e(TAG, "parseXML: SAXException", e);
-			errorCode = Globals.errorParseXmlSAX;
+			Error(9, e, "parseXML: SAXException");
 		} catch (InterruptedException e) {
 			// Not a true error, so only for debugging
 			Log.d(TAG, "parseXML: InterruptedException", e);
