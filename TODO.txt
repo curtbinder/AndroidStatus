@@ -2,7 +2,6 @@ AndroidStatus todo list
 
 TODO
 ----
-* use bufferedReader explicit 8K-char buffer required/requested
 * Toggle ability to restore values on configuration changes
 ** when switching to db the values will be stored but give user option to always open/show previous/last values
 * update the screen after changing preferences

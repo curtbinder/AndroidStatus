@@ -119,7 +119,7 @@ public class ControllerTask implements Runnable {
 	}
 
 	private String sendCommand ( InputStream i ) {
-		String s = "";
+		StringBuilder s = new StringBuilder(8192);
 		try {
 			// Check for an interruption
 			if ( Thread.interrupted() )
@@ -127,7 +127,7 @@ public class ControllerTask implements Runnable {
 			
 			ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusSendingCommand));
 			BufferedReader bin =
-					new BufferedReader( new InputStreamReader( i ) );
+					new BufferedReader( new InputStreamReader( i ) , 8192 );
 			String line;
 			ra.guiUpdateTimeText((String) ra.getResources().getText(R.string.statusReadResponse));
 			while ( (line = bin.readLine()) != null ) {
@@ -135,11 +135,11 @@ public class ControllerTask implements Runnable {
 				if ( Thread.interrupted() )
 					throw new InterruptedException();
 				
-				s += line;
+				s.append(line);
 			}
 		} catch ( InterruptedException e ) {
 			Log.d(TAG, "sendCommand: InterruptedException", e);
-			s = (String) ra.getResources().getText(R.string.messageCancelled);
+			s = new StringBuilder((String) ra.getResources().getText(R.string.messageCancelled));
 		} catch ( ConnectException e ) {
 			Log.e(TAG, "sendCommand: ConnectException", e);
 			errorCode = Globals.errorSendCmdConnect;
@@ -153,9 +153,9 @@ public class ControllerTask implements Runnable {
 		
 		// if we encountered an error, set the error text
 		if ( errorCode > 0 )
-			s = (String) ra.getResources().getText(R.string.messageError);
+			s = new StringBuilder((String) ra.getResources().getText(R.string.messageError));
 		
-		return s;
+		return s.toString();
 	}
 	
 	private boolean parseXML ( XMLHandler xml, String res ) {

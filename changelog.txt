@@ -17,3 +17,6 @@ Changelog of all the versions of AndroidStatus
  * store controller values inside a database
  * added history menu that displays previous 30 status updates
  * database is limited to only keeping 30 status updates
+ * BufferedReader has 8K initialization
+ * Switched connection reader to use StringBuilder instead of just appending to a single String
+ 
