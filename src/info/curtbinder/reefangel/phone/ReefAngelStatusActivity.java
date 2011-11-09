@@ -241,7 +241,7 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 		// open the database
 		Log.d(TAG, "Open database");
 		RADbAdapter dbAdapter = new RADbAdapter(this);
-        dbAdapter.open();
+		dbAdapter.open();
         return dbAdapter;
 	}
 	
@@ -378,6 +378,10 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
         	Log.d(TAG, "Menu About clicked");
         	startActivity(new Intent(this, About.class));
             break;
+        case R.id.params:
+        	Log.d(TAG, "Menu Parameters clicked");
+        	startActivity(new Intent(this, ParamsListActivity.class));
+        	break;
         //case R.id.memory:
         	// launch memory
         //	break;

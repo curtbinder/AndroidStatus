@@ -18,6 +18,7 @@ public class RADbAdapter {
 	private SQLiteDatabase mDb;
 	private final Context mCtx;
 	
+	public static final String PTABLE_MAX_COUNT = "30";
 	public static final String PTABLE_NAME = "params";
 	// columns in params table
 	public static final String PCOL_ID = "_id";
@@ -132,7 +133,16 @@ public class RADbAdapter {
 					PCOL_R8ONMASK + " INTEGER, " +
 					PCOL_R8OFFMASK + " INTEGER " + 
 					");"
-					);		
+					);
+			
+			// create TRIGGER for params table
+			db.execSQL("CREATE TRIGGER prune_params_entries INSERT ON " + PTABLE_NAME +
+					" BEGIN DELETE FROM " + PTABLE_NAME +
+					" WHERE " + PCOL_ID + " NOT IN " +
+					"(SELECT " + PCOL_ID + " FROM " + PTABLE_NAME + " ORDER BY " + PCOL_ID +
+					" DESC LIMIT " + PTABLE_MAX_COUNT + ");" +
+					"END;"
+					);
 		}
 		
 		/*
@@ -180,19 +190,27 @@ public class RADbAdapter {
 		return mDb.insert(PTABLE_NAME, null, v);
 	}
 	
-	public Cursor getLatestParams() throws SQLException {
+	private Cursor getParams(String limit) throws SQLException {
 		Cursor mCursor = mDb.query(PTABLE_NAME, 
-				getColumns(), 
+				getAllColumns(), 
 				null, 
 				null, 
 				null, 
 				null, 
 				PCOL_ID + " DESC", 
-				"1");
+				limit);
 		return mCursor;
 	}
 	
-	private String[] getColumns() {
+	public Cursor getLatestParams() throws SQLException {
+		return getParams("1");
+	}
+	
+	public Cursor getAllParams() throws SQLException {
+		return getParams(null);
+	}
+
+	public String[] getAllColumns() {
 		// returns a string list of all the columns
 		return new String [] {
 				PCOL_ID, PCOL_T1, PCOL_T2, PCOL_T3, PCOL_PH, PCOL_DP,
@@ -200,4 +218,15 @@ public class RADbAdapter {
 				PCOL_LOGDATE, PCOL_RDATA, PCOL_RONMASK, PCOL_ROFFMASK
 		};
 	}
+	
+	/*
+	public void pruneParams() {
+		// prunes the database to only the maximum amount of entries
+		// select the latest max entries
+		// get the minimum value stored in the ID field
+		// delete all entries before that entry
+		String sqlPrune = "DELETE FROM params WHERE _id NOT IN (SELECT _id FROM params ORDER BY _id DESC LIMIT 10);";
+		mDb.execSQL(sqlPrune);
+	}
+	*/
 }

@@ -23,4 +23,7 @@ TODO
 * allow for toggling relay port status
 * add in ability to label relay ports
 * error lookup activity - to lookup error code or display error code
-
+* clean params values database to only have 100 entries
+** possibly prompt how many to keep:  45, 90, 180, 365, always (days)
+** cleanup on app startup
+** give user ability to clean / remove database values

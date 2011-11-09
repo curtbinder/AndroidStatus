@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Reef Angel Status</string>
-    <string name="app_version">0.2</string>
+    <string name="app_version">0.3</string>
 
 <!-- Menu Labels -->
     <string name="settings_menu">Settings</string>
     <string name="about_menu">About</string>
     <string name="memory_menu">Memory</string>
+    <string name="params_menu">History</string>
+    
+    <string name="params_title">Parameters History</string>
     
 <!--  Shortcut Keys -->
     <string name="settings_shortcut">s</string>
     <string name="about_shortcut">a</string>
     <string name="refresh_shortcut">r</string>
     <string name="memory_shortcut">m</string>
+    <string name="params_shortcut">p</string>
     
 <!-- About Box Information -->
     <string name="about_title">About Reef Angel Status</string>
@@ -55,6 +59,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 <!-- Constants -->
 	<string name="websiteReefangel">http://www.reefangel.com/</string>
 	<string name="defaultStatusText">-</string>
+	<string name="messageEmptyParams">No parameters logged</string>
 	<string name="messageError">Error</string>
 	<string name="messageNever">Never</string>
 	<string name="messageCancelled">Cancelled</string>

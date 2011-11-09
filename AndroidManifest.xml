@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="info.curtbinder.reefangel.phone"
-      android:versionCode="2"
+      android:versionCode="3"
       android:versionName="@string/app_version">
     <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="8" />
 
@@ -25,6 +25,9 @@
 		</activity>
 		<activity android:name=".Prefs"
 				  android:label="@string/prefs_title">
+		</activity>
+		<activity android:name=".ParamsListActivity"
+		    	  android:label="@string/params_title">
 		</activity>
 
     </application>
