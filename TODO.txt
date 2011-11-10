@@ -5,7 +5,6 @@ TODO
 * Toggle ability to restore values on configuration changes
 ** when switching to db the values will be stored but give user option to always open/show previous/last values
 * fix layouts for hiding text:  switch to relative layout for better control over display
-* use styles with the layout for consistent look and easier to update values instead of repeating for all the labels
 * validation of host on configuration page (better validation of preferences)
 * add in ability to label relay ports
 * add labels to preferences

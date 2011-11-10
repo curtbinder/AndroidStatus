@@ -10,11 +10,11 @@
 
 	<TableRow>
 		<TextView   
-		    android:text="@string/last_updated" />
+		    android:text="@string/last_updated"
+		    style="@style/UpdateText" />
 		<TextView
 			android:id="@+id/updated"
-			android:textColor="@color/updated_text"
-			android:padding="10dp"/>
+			style="@style/UpdateText.Status" />
 	</TableRow>
 	<Button 
 		android:id="@+id/refresh_button"
@@ -29,123 +29,95 @@
 			android:layout_gravity="top">
 			<TextView 
 				android:text="@string/status_label"
-				android:textSize="24sp" />
+				style="@style/ParamsText" />
 			<TableRow
-				android:gravity="center"
-				android:padding="10dp">
+				style="@style/RARow">
 				<TextView
 					android:id="@+id/t1_label"
-					android:gravity="right"
 					android:textColor="@color/t1"
-					android:textSize="24sp"
+					style="@style/ParamsText.Labels"
 					/>
 				<TextView 
-					android:layout_marginLeft="15dp"
 					android:id="@+id/temp1"
-					android:textStyle="bold"
 					android:textColor="@color/t1"
-					android:textSize="24sp"
+					style="@style/ParamsText.Values"
 					/>
 			</TableRow>
 			<TableRow
-				android:gravity="center"
-				android:padding="10dp">
+				style="@style/RARow">
 				<TextView 
 					android:id="@+id/t2_label"
-					android:gravity="right"
 					android:textColor="@color/t2"
-					android:textSize="24sp"
+					style="@style/ParamsText.Labels"
 					/>
 				<TextView 
-					android:layout_marginLeft="15dp"
 					android:id="@+id/temp2"
-					android:textStyle="bold"
 					android:textColor="@color/t2"
-					android:textSize="24sp"
+					style="@style/ParamsText.Values"
 					/>
 			</TableRow>
 			<TableRow
-				android:gravity="center"
-				android:padding="10dp">
+				style="@style/RARow">
 				<TextView
 					android:id="@+id/t3_label"
-					android:gravity="right"
 					android:textColor="@color/t3"
-					android:textSize="24sp"
+					style="@style/ParamsText.Labels"
 					/>
 				<TextView 
-					android:layout_marginLeft="15dp"
 					android:id="@+id/temp3"
-					android:textStyle="bold"
 					android:textColor="@color/t3"
-					android:textSize="24sp"
+					style="@style/ParamsText.Values"
 					/>
 			</TableRow>
 			<TableRow
-				android:gravity="center"
-				android:padding="10dp">
+				style="@style/RARow">
 				<TextView 
-					android:gravity="right"
 					android:textColor="@color/ph"
 					android:text="@string/ph_label"
-					android:textSize="24sp" 
+					style="@style/ParamsText.Labels" 
 					/>
 				<TextView 
-					android:layout_marginLeft="15dp"
 					android:id="@+id/ph"
-					android:textStyle="bold"
 					android:textColor="@color/ph"
-					android:textSize="24sp"
+					style="@style/ParamsText.Values"
 					/>
 			</TableRow>
 			<TableRow
-				android:gravity="center"
-				android:padding="10dp">
+				style="@style/RARow">
 				<TextView
 					android:id="@+id/dp_label"
-					android:gravity="right"
 					android:textColor="@color/dp" 
-					android:textSize="24sp"
+					style="@style/ParamsText.Labels"
 					/>
 				<TextView
-					android:layout_marginLeft="15dp" 
 					android:id="@+id/dp"
-					android:textStyle="bold"
 					android:textColor="@color/dp"
-					android:textSize="24sp"
+					style="@style/ParamsText.Values"
 					/>
 			</TableRow>
 			<TableRow
-				android:gravity="center"
-				android:padding="10dp">
+				style="@style/RARow">
 				<TextView
 					android:id="@+id/ap_label"
-					android:gravity="right" 
 					android:textColor="@color/ap"
-					android:textSize="24sp"
+					style="@style/ParamsText.Labels"
 					/>
 				<TextView
-					android:layout_marginLeft="15dp" 
 					android:id="@+id/ap"
-					android:textStyle="bold"
 					android:textColor="@color/ap"
-					android:textSize="24sp"
+					style="@style/ParamsText.Values"
 					/>
 			</TableRow>
 			<TableRow
-				android:gravity="center"
-				android:padding="10dp">
+				style="@style/RARow">
 				<TextView 
 					android:id="@+id/salinity_label"
-					android:gravity="right"
 					android:text="@string/salinity_label"
-					android:textSize="24sp" 
+					style="@style/ParamsText.Labels"
 					/>
 				<TextView
-					android:layout_marginLeft="15dp" 
 					android:id="@+id/salinity"
-					android:textStyle="bold"
-					android:textSize="24sp"
+					style="@style/ParamsText.Values"
 					/>
 			</TableRow>
 		</TableLayout>

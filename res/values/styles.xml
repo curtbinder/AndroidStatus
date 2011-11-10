@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="UpdateText" parent="@android:style/TextAppearance">
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="UpdateText.Status">
+        <item name="android:textColor">@color/updated_text</item>
+        <item name="android:padding">10dp</item>
+    </style>
+    <style name="ParamsText" parent="@android:style/TextAppearance">
+        <item name="android:textSize">24sp</item>
+    </style>
+    <style name="ParamsText.Labels">
+        <item name="android:gravity">right</item>
+    </style>
+    <style name="ParamsText.Labels.RightColumn">
+        <item name="android:layout_marginLeft">30sp</item>
+    </style>
+    <style name="ParamsText.Values">
+        <item name="android:layout_marginLeft">15sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="RARow">
+        <item name="android:gravity">center</item>
+        <item name="android:padding">10sp</item>
+    </style>
+</resources>

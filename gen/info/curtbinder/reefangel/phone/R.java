@@ -33,33 +33,33 @@ public final class R {
         public static final int ic_icon=0x7f020000;
     }
     public static final class id {
-        public static final int about=0x7f09001a;
-        public static final int ap=0x7f09000c;
-        public static final int ap_label=0x7f09000b;
-        public static final int dp=0x7f09000a;
-        public static final int dp_label=0x7f090009;
-        public static final int params=0x7f090019;
-        public static final int ph=0x7f090008;
-        public static final int plog=0x7f09000f;
-        public static final int plogcolon=0x7f090010;
-        public static final int popupButton=0x7f090017;
-        public static final int popupContent=0x7f090016;
-        public static final int pt1=0x7f090011;
-        public static final int pt1comma=0x7f090012;
-        public static final int pt2=0x7f090013;
-        public static final int pt2comma=0x7f090014;
-        public static final int pt3=0x7f090015;
-        public static final int refresh_button=0x7f090001;
-        public static final int salinity=0x7f09000e;
-        public static final int salinity_label=0x7f09000d;
-        public static final int settings=0x7f090018;
-        public static final int t1_label=0x7f090002;
-        public static final int t2_label=0x7f090004;
-        public static final int t3_label=0x7f090006;
-        public static final int temp1=0x7f090003;
-        public static final int temp2=0x7f090005;
-        public static final int temp3=0x7f090007;
-        public static final int updated=0x7f090000;
+        public static final int about=0x7f0a001a;
+        public static final int ap=0x7f0a000c;
+        public static final int ap_label=0x7f0a000b;
+        public static final int dp=0x7f0a000a;
+        public static final int dp_label=0x7f0a0009;
+        public static final int params=0x7f0a0019;
+        public static final int ph=0x7f0a0008;
+        public static final int plog=0x7f0a000f;
+        public static final int plogcolon=0x7f0a0010;
+        public static final int popupButton=0x7f0a0017;
+        public static final int popupContent=0x7f0a0016;
+        public static final int pt1=0x7f0a0011;
+        public static final int pt1comma=0x7f0a0012;
+        public static final int pt2=0x7f0a0013;
+        public static final int pt2comma=0x7f0a0014;
+        public static final int pt3=0x7f0a0015;
+        public static final int refresh_button=0x7f0a0001;
+        public static final int salinity=0x7f0a000e;
+        public static final int salinity_label=0x7f0a000d;
+        public static final int settings=0x7f0a0018;
+        public static final int t1_label=0x7f0a0002;
+        public static final int t2_label=0x7f0a0004;
+        public static final int t3_label=0x7f0a0006;
+        public static final int temp1=0x7f0a0003;
+        public static final int temp2=0x7f0a0005;
+        public static final int temp3=0x7f0a0007;
+        public static final int updated=0x7f0a0000;
     }
     public static final class layout {
         public static final int main=0x7f030000;
@@ -68,7 +68,7 @@ public final class R {
         public static final int popup=0x7f030003;
     }
     public static final class menu {
-        public static final int main_menu=0x7f080000;
+        public static final int main_menu=0x7f090000;
     }
     public static final class string {
         public static final int about_menu=0x7f070003;
@@ -221,6 +221,14 @@ public final class R {
         /**  Constants 
          */
         public static final int websiteReefangel=0x7f070026;
+    }
+    public static final class style {
+        public static final int ParamsText=0x7f080002;
+        public static final int ParamsText_Labels=0x7f080003;
+        public static final int ParamsText_Values=0x7f080004;
+        public static final int PortraitRow=0x7f080005;
+        public static final int UpdateText=0x7f080000;
+        public static final int UpdateText_Status=0x7f080001;
     }
     public static final class xml {
         public static final int settings=0x7f040000;
