@@ -78,7 +78,7 @@
 		<item>56</item>
 		<item>57</item>
 	</string-array>
-	<string-array name="memoryNames">
+	<string-array name="memoryLocationsNames">
 		<item>MH On Hour</item>
 		<item>MH On Minute</item>
 		<item>MH Off Hour</item>
@@ -123,5 +123,13 @@
 		<item>RF Mode</item>
 		<item>RF Speed</item>
 		<item>RF Duration</item>
+	</string-array>
+	<string-array name="memoryType">
+	    <item>0</item>
+	    <item>1</item>
+	</string-array>
+	<string-array name="memoryTypeNames">
+	    <item>Byte</item>
+	    <item>Integer</item>
 	</string-array>
 </resources>

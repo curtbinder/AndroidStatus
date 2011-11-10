@@ -14,7 +14,9 @@ public final class R {
         public static final int errorCodes=0x7f050002;
         public static final int errorCodesStrings=0x7f050003;
         public static final int memoryLocations=0x7f050004;
-        public static final int memoryNames=0x7f050005;
+        public static final int memoryLocationsNames=0x7f050005;
+        public static final int memoryType=0x7f050006;
+        public static final int memoryTypeNames=0x7f050007;
     }
     public static final class attr {
     }
