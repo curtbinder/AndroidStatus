@@ -32,7 +32,53 @@
         <item>XML I/O</item>
         <item>XML SAX Parser</item>
     </string-array>
-	<string-array name="memory_names">
+	<string-array name="memoryLocations">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>7</item>
+		<item>8</item>
+		<item>10</item>
+		<item>12</item>
+		<item>13</item>
+		<item>14</item>
+		<item>16</item>
+		<item>18</item>
+		<item>20</item>
+		<item>21</item>
+		<item>22</item>
+		<item>24</item>
+		<item>26</item>
+		<item>28</item>
+		<item>30</item>
+		<item>31</item>
+		<item>33</item>
+		<item>35</item>
+		<item>36</item>
+		<item>37</item>
+		<item>38</item>
+		<item>39</item>
+		<item>40</item>
+		<item>41</item>
+		<item>42</item>
+		<item>43</item>
+		<item>45</item>
+		<item>47</item>
+		<item>49</item>
+		<item>50</item>
+		<item>51</item>
+		<item>52</item>
+		<item>53</item>
+		<item>54</item>
+		<item>55</item>
+		<item>56</item>
+		<item>57</item>
+	</string-array>
+	<string-array name="memoryNames">
 		<item>MH On Hour</item>
 		<item>MH On Minute</item>
 		<item>MH Off Hour</item>
