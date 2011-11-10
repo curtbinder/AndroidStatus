@@ -7,6 +7,7 @@ TODO
 * fix layouts for hiding text:  switch to relative layout for better control over display
 * use styles with the layout for consistent look and easier to update values instead of repeating for all the labels
 * validation of host on configuration page (better validation of preferences)
+* add in ability to label relay ports
 * add labels to preferences
 ** labels category
 ** controller labels screen
@@ -14,11 +15,10 @@ TODO
 ** additional relay labels screen based on quantity of relay labels installed
 ** have button / option to query all labels from ra.com using web banner id entered (show the banner id in the summary) 
 * consider passing in a Controller type to the XML handler
-* add in an error status line with error displaying
 * add in memory page
 * display relay status information
 * allow for toggling relay port status
-* add in ability to label relay ports
+* add in an error status line with error displaying
 * add in error log
 ** logs errors to database
 ** new activity for displaying errors
