@@ -23,3 +23,4 @@ Changelog of all the versions of AndroidStatus
  * improved error handling
  * update the screen after changing preferences
  * use styles with the layout for consistent look and easier to update values
+ 
