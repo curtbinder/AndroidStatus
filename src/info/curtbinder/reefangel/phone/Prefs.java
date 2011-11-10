@@ -62,6 +62,16 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 	}
 	
 	@Override
+	protected void onPause() {
+		super.onPause();
+		Log.d(TAG, "Prefs Pause / Restart App");
+		Intent i = new Intent(this, ReefAngelStatusActivity.class);
+		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		startActivity(i);
+		finish();
+	}
+		
+	@Override
 	public boolean onPreferenceChange(Preference preference, Object newValue) {
 		// return true to change, false to not
 		if ( preference.getKey().equals(preference.getContext().getString(R.string.prefPortKey))) {

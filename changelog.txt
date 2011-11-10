@@ -21,4 +21,4 @@ Changelog of all the versions of AndroidStatus
  * Switched connection reader to use StringBuilder instead of just appending to a single String
  * added error status summary to update line on error
  * improved error handling
- 
+ * update the screen after changing preferences
