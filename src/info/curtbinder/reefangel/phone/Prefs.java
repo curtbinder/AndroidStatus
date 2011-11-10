@@ -66,7 +66,7 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 		super.onPause();
 		Log.d(TAG, "Prefs Pause / Restart App");
 		Intent i = new Intent(this, ReefAngelStatusActivity.class);
-		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
 		finish();
 	}
