@@ -57,6 +57,8 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 			}
 		});
 
+		// TODO add in handler for Download All Labels click
+		
 		// toggle the visibility of preferences based on device selection
 		toggleDevicePrefVisibility(Integer.parseInt(getDevice(getBaseContext())));
 	}
@@ -221,6 +223,48 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 		return PreferenceManager.getDefaultSharedPreferences(context).getString(
 				context.getString(R.string.prefAPLabelKey), 
 				context.getString(R.string.ap_label));
+	}
+	
+	public static String getMainRelayLabel(Context context, int port) {
+		String key;
+		String defaultValue;
+		switch ( port ) {
+		default:
+		case 1:
+			key = context.getString(R.string.prefMainPort1LabelKey);
+			defaultValue = context.getString(R.string.port1_label);
+			break;
+		case 2:
+			key = context.getString(R.string.prefMainPort2LabelKey);
+			defaultValue = context.getString(R.string.port2_label);
+			break;
+		case 3:
+			key = context.getString(R.string.prefMainPort3LabelKey);
+			defaultValue = context.getString(R.string.port3_label);
+			break;
+		case 4:
+			key = context.getString(R.string.prefMainPort4LabelKey);
+			defaultValue = context.getString(R.string.port4_label);
+			break;
+		case 5:
+			key = context.getString(R.string.prefMainPort5LabelKey);
+			defaultValue = context.getString(R.string.port5_label);
+			break;
+		case 6:
+			key = context.getString(R.string.prefMainPort6LabelKey);
+			defaultValue = context.getString(R.string.port6_label);
+			break;
+		case 7:
+			key = context.getString(R.string.prefMainPort7LabelKey);
+			defaultValue = context.getString(R.string.port7_label);
+			break;
+		case 8:
+			key = context.getString(R.string.prefMainPort8LabelKey);
+			defaultValue = context.getString(R.string.port8_label);
+			break;
+		}
+		return PreferenceManager.getDefaultSharedPreferences(context).getString(
+				key, defaultValue);
 	}
 	
 	public static String getDevice(Context context) {

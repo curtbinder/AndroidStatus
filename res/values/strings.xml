@@ -129,6 +129,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 	<string name="prefControllerSummary">Update labels, Toggle visibility</string>
 	
 	<string name="prefVisibilityCategory">Visibility Settings</string>
+	<string name="prefControllerVisibilityTitle">Label Visibility</string>
+	<string name="prefControllerVisibilitySummary">Toggle the visibility of the controller labels</string>
 	<string name="prefT2VisibilityKey">t2_visibility</string>
 	<string name="prefT2VisibilityTitle">Display T2</string>
 	<string name="prefT2VisibilitySummary">Displays temp sensor 2</string>
@@ -146,6 +148,11 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 	<string name="prefSalinityVisibilitySummary">Displays the salinity</string>
 	
 	<string name="prefLabelsCategory">Label Settings</string>
+	<string name="prefControllerLabelsDownloadKey">download_labels</string>
+	<string name="prefControllerLabelsDownloadTitle">Download All Labels</string>
+	<string name="prefControllerLabelsDownloadSummary">Retrieves your labels from reefangel.com using id: </string>
+	<string name="prefControllerLabelsTitle">Controller Labels</string>
+	<string name="prefControllerLabelsSummary">Change the labels of the controller</string>
 	<string name="prefT1LabelKey">t1_label</string>
 	<string name="prefT1LabelTitle">T1 Label</string>
 	<string name="prefT1LabelSummary">Temp sensor 1 label</string>

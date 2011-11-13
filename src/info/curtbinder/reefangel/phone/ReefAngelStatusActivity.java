@@ -42,6 +42,15 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 	private TextView apLabel;
 	private TextView salinityLabel;
 	
+	private TextView mainPort1Text;
+	private TextView mainPort2Text;
+	private TextView mainPort3Text;
+	private TextView mainPort4Text;
+	private TextView mainPort5Text;
+	private TextView mainPort6Text;
+	private TextView mainPort7Text;
+	private TextView mainPort8Text;
+	
 	// Threading
 	private Handler guiThread;
 	private ExecutorService statusThread;
@@ -94,6 +103,14 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 		dpLabel = (TextView) findViewById(R.id.dp_label);
 		apLabel = (TextView) findViewById(R.id.ap_label);
 		salinityLabel = (TextView) findViewById(R.id.salinity_label);
+		mainPort1Text = (TextView) findViewById(R.id.main_port1_label);
+		mainPort2Text = (TextView) findViewById(R.id.main_port2_label);
+		mainPort3Text = (TextView) findViewById(R.id.main_port3_label);
+		mainPort4Text = (TextView) findViewById(R.id.main_port4_label);
+		mainPort5Text = (TextView) findViewById(R.id.main_port5_label);
+		mainPort6Text = (TextView) findViewById(R.id.main_port6_label);
+		mainPort7Text = (TextView) findViewById(R.id.main_port7_label);
+		mainPort8Text = (TextView) findViewById(R.id.main_port8_label);
 	}
 	
 	private void updateViewsVisibility() {
@@ -107,6 +124,8 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
         t3Label.setText(Prefs.getT3Label(getBaseContext()));
         dpLabel.setText(Prefs.getDPLabel(getBaseContext()));
         apLabel.setText(Prefs.getAPLabel(getBaseContext()));
+        
+        setMainRelayLabels();
         
         // Visibility
 		if ( Prefs.getT2Visibility(getBaseContext()) ) {
@@ -156,6 +175,17 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 		}
 		//if ( ! showMessageText )
 		//	messageText.setVisibility(View.GONE);
+	}
+	
+	private void setMainRelayLabels() {
+		mainPort1Text.setText(Prefs.getMainRelayLabel(getBaseContext(), 1));
+		mainPort2Text.setText(Prefs.getMainRelayLabel(getBaseContext(), 2));
+		mainPort3Text.setText(Prefs.getMainRelayLabel(getBaseContext(), 3));
+		mainPort4Text.setText(Prefs.getMainRelayLabel(getBaseContext(), 4));
+		mainPort5Text.setText(Prefs.getMainRelayLabel(getBaseContext(), 5));
+		mainPort6Text.setText(Prefs.getMainRelayLabel(getBaseContext(), 6));
+		mainPort7Text.setText(Prefs.getMainRelayLabel(getBaseContext(), 7));
+		mainPort8Text.setText(Prefs.getMainRelayLabel(getBaseContext(), 8));
 	}
 	
 	@Override
