@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 public class ReefAngelStatusActivity extends Activity implements OnClickListener {
 	private static final String TAG = "RAStatus";
@@ -50,6 +51,14 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 	private TextView mainPort6Text;
 	private TextView mainPort7Text;
 	private TextView mainPort8Text;
+	private ToggleButton mainPort1Btn;
+	private ToggleButton mainPort2Btn;
+	private ToggleButton mainPort3Btn;
+	private ToggleButton mainPort4Btn;
+	private ToggleButton mainPort5Btn;
+	private ToggleButton mainPort6Btn;
+	private ToggleButton mainPort7Btn;
+	private ToggleButton mainPort8Btn;
 	
 	// Threading
 	private Handler guiThread;
@@ -111,6 +120,14 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 		mainPort6Text = (TextView) findViewById(R.id.main_port6_label);
 		mainPort7Text = (TextView) findViewById(R.id.main_port7_label);
 		mainPort8Text = (TextView) findViewById(R.id.main_port8_label);
+		mainPort1Btn = (ToggleButton) findViewById(R.id.main_port1);
+		mainPort2Btn = (ToggleButton) findViewById(R.id.main_port2);
+		mainPort3Btn = (ToggleButton) findViewById(R.id.main_port3);
+		mainPort4Btn = (ToggleButton) findViewById(R.id.main_port4);
+		mainPort5Btn = (ToggleButton) findViewById(R.id.main_port5);
+		mainPort6Btn = (ToggleButton) findViewById(R.id.main_port6);
+		mainPort7Btn = (ToggleButton) findViewById(R.id.main_port7);
+		mainPort8Btn = (ToggleButton) findViewById(R.id.main_port8);
 	}
 	
 	private void updateViewsVisibility() {
@@ -294,6 +311,8 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 					RADbAdapter dbAdapter = openDatabase();
 					Cursor c = dbAdapter.getLatestParams();
 					String [] values;
+					short r, ron, roff;
+					Relay relay = new Relay();
 					
 					if ( c.moveToFirst() ) {
 						values = new String [] {
@@ -306,12 +325,18 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 							c.getString(c.getColumnIndex(RADbAdapter.PCOL_AP)),
 							c.getString(c.getColumnIndex(RADbAdapter.PCOL_SAL))
 						};
+						r = c.getShort(c.getColumnIndex(RADbAdapter.PCOL_RDATA));
+						ron = c.getShort(c.getColumnIndex(RADbAdapter.PCOL_RONMASK));
+						roff = c.getShort(c.getColumnIndex(RADbAdapter.PCOL_ROFFMASK));
 					} else {
 						values = getNeverValues();
+						r = ron = roff = 0;
 					}
 					c.close();
 					closeDatabase(dbAdapter);
 					loadDisplayedControllerValues(values);
+					relay.setRelayData(r, ron, roff);
+					updateMainRelayValues(relay);
 				} catch ( SQLException e ) {
 					Log.d(TAG, "SQLException: " + e.getMessage());
 				} catch ( CursorIndexOutOfBoundsException e ) {
@@ -352,6 +377,17 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 		});
 	}
 	
+	private void updateMainRelayValues(Relay r) {
+		mainPort1Btn.setChecked(r.isPort1On());
+		mainPort2Btn.setChecked(r.isPort2On());
+		mainPort3Btn.setChecked(r.isPort3On());
+		mainPort4Btn.setChecked(r.isPort4On());
+		mainPort5Btn.setChecked(r.isPort5On());
+		mainPort6Btn.setChecked(r.isPort6On());
+		mainPort7Btn.setChecked(r.isPort7On());
+		mainPort8Btn.setChecked(r.isPort8On());
+		// TODO check port status, display masked button if masked
+	}
 	
 	private void loadDisplayedControllerValues(String[] v) {
 		// The order must match with the order in getDisplayedControllerValues

@@ -64,123 +64,131 @@ public class Relay {
 	 * maskOn = 0 & maskOff = 0 == PORT_OFF
 	 */
 	public short getPort1Status ( ) {
-		short status = PORT_STATE_OFF;
-		if ( ((maskOn & PORT_1) == PORT_ON) && ((maskOff & PORT_1) == PORT_ON) ) {
-			status = PORT_STATE_ON;
-		} else if ( ((maskOn & PORT_1) == PORT_OFF)
-				&& ((maskOff & PORT_1) == PORT_ON) ) {
-			status = PORT_STATE_AUTO;
-		}
-		return status;
+		return getPortStatus(1);
 	}
 
 	public short getPort2Status ( ) {
-		short status = PORT_STATE_OFF;
-		if ( ((maskOn & PORT_2) == PORT_ON) && ((maskOff & PORT_2) == PORT_ON) ) {
-			status = PORT_STATE_ON;
-		} else if ( ((maskOn & PORT_2) == PORT_OFF)
-				&& ((maskOff & PORT_2) == PORT_ON) ) {
-			status = PORT_STATE_AUTO;
-		}
-		return status;
+		return getPortStatus(2);
 	}
 
 	public short getPort3Status ( ) {
-		short status = PORT_STATE_OFF;
-		if ( ((maskOn & PORT_3) == PORT_ON) && ((maskOff & PORT_3) == PORT_ON) ) {
-			status = PORT_STATE_ON;
-		} else if ( ((maskOn & PORT_3) == PORT_OFF)
-				&& ((maskOff & PORT_3) == PORT_ON) ) {
-			status = PORT_STATE_AUTO;
-		}
-		return status;
+		return getPortStatus(3);
 	}
 
 	public short getPort4Status ( ) {
-		short status = PORT_STATE_OFF;
-		if ( ((maskOn & PORT_4) == PORT_ON) && ((maskOff & PORT_4) == PORT_ON) ) {
-			status = PORT_STATE_ON;
-		} else if ( ((maskOn & PORT_4) == PORT_OFF)
-				&& ((maskOff & PORT_4) == PORT_ON) ) {
-			status = PORT_STATE_AUTO;
-		}
-		return status;
+		return getPortStatus(4);
 	}
 
 	public short getPort5Status ( ) {
-		short status = PORT_STATE_OFF;
-		if ( ((maskOn & PORT_5) == PORT_ON) && ((maskOff & PORT_5) == PORT_ON) ) {
-			status = PORT_STATE_ON;
-		} else if ( ((maskOn & PORT_5) == PORT_OFF)
-				&& ((maskOff & PORT_5) == PORT_ON) ) {
-			status = PORT_STATE_AUTO;
-		}
-		return status;
+		return getPortStatus(5);
 	}
 
 	public short getPort6Status ( ) {
-		short status = PORT_STATE_OFF;
-		if ( ((maskOn & PORT_6) == PORT_ON) && ((maskOff & PORT_6) == PORT_ON) ) {
-			status = PORT_STATE_ON;
-		} else if ( ((maskOn & PORT_6) == PORT_OFF)
-				&& ((maskOff & PORT_6) == PORT_ON) ) {
-			status = PORT_STATE_AUTO;
-		}
-		return status;
+		return getPortStatus(6);
 	}
 
 	public short getPort7Status ( ) {
-		short status = PORT_STATE_OFF;
-		if ( ((maskOn & PORT_7) == PORT_ON) && ((maskOff & PORT_7) == PORT_ON) ) {
-			status = PORT_STATE_ON;
-		} else if ( ((maskOn & PORT_7) == PORT_OFF)
-				&& ((maskOff & PORT_7) == PORT_ON) ) {
-			status = PORT_STATE_AUTO;
-		}
-		return status;
+		return getPortStatus(7);
 	}
 
 	public short getPort8Status ( ) {
+		return getPortStatus(8);
+	}
+	
+	public short getPortStatus ( int port ) {
 		short status = PORT_STATE_OFF;
-		if ( ((maskOn & PORT_8) == PORT_ON) && ((maskOff & PORT_8) == PORT_ON) ) {
+		short portmask = getPortMask(port);
+		if ( ((maskOn & portmask) == PORT_ON) && ((maskOff & portmask) == PORT_ON) ) {
 			status = PORT_STATE_ON;
-		} else if ( ((maskOn & PORT_8) == PORT_OFF)
-				&& ((maskOff & PORT_8) == PORT_ON) ) {
+		} else if ( ((maskOn & portmask) == PORT_OFF)
+				&& ((maskOff & portmask) == PORT_ON) ) {
 			status = PORT_STATE_AUTO;
 		}
-		return status;
+		return status;		
 	}
 
 	// ports
 	public boolean isPort1On ( ) {
-		return ((data & PORT_1) != PORT_OFF);
+		return isPortOn(1);
 	}
 
 	public boolean isPort2On ( ) {
-		return ((data & PORT_2) != PORT_OFF);
+		return isPortOn(2);
 	}
 
 	public boolean isPort3On ( ) {
-		return ((data & PORT_3) != PORT_OFF);
+		return isPortOn(3);
 	}
 
 	public boolean isPort4On ( ) {
-		return ((data & PORT_4) != PORT_OFF);
+		return isPortOn(4);
 	}
 
 	public boolean isPort5On ( ) {
-		return ((data & PORT_5) != PORT_OFF);
+		return isPortOn(5);
 	}
 
 	public boolean isPort6On ( ) {
-		return ((data & PORT_6) != PORT_OFF);
+		return isPortOn(6);
 	}
 
 	public boolean isPort7On ( ) {
-		return ((data & PORT_7) != PORT_OFF);
+		return isPortOn(7);
 	}
 
 	public boolean isPort8On ( ) {
-		return ((data & PORT_8) != PORT_OFF);
+		return isPortOn(8);
+	}
+
+	public boolean isPortOn ( int port ) {
+		boolean b = false;
+		short portmask = getPortMask(port);
+		/*
+		short status = getPortStatus(port);
+		if ( status == PORT_STATE_ON ) {
+			// masked on
+			b = true;
+		} else if ( status == PORT_STATE_AUTO ) {
+		*/
+			// auto - based on controller settings
+			b = ((data & portmask) != PORT_OFF);
+		//} // else masked off
+		return b;
+	}
+	
+	public short getPortValue( int port ) {
+		return (short) (data & getPortMask(port));
+	}
+	
+	private short getPortMask ( int port ) {
+		short portmask;
+		switch ( port ) {
+		default:
+		case 1:
+			portmask = PORT_1;
+			break;
+		case 2:
+			portmask = PORT_2;
+			break;
+		case 3:
+			portmask = PORT_3;
+			break;
+		case 4:
+			portmask = PORT_4;
+			break;
+		case 5:
+			portmask = PORT_5;
+			break;
+		case 6:
+			portmask = PORT_6;
+			break;
+		case 7:
+			portmask = PORT_7;
+			break;
+		case 8:
+			portmask = PORT_8;
+			break;
+		}
+		return portmask;
 	}
 }
