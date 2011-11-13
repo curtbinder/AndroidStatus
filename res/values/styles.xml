@@ -27,4 +27,7 @@
         <item name="android:gravity">center</item>
         <item name="android:padding">10sp</item>
     </style>
+    <style name="ParamsMaskButton">
+		<item name="android:padding">10dp</item>
+    </style>
 </resources>

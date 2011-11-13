@@ -4,13 +4,14 @@ public class Globals {
 	// Requests
 	public static final String requestMemoryByte = "/mb";
 	public static final String requestMemoryInt = "/mi";
-	public static final String requestStatusOld = "/r99";
-	public static final String requestStatus = "/sr";
+	public static final String requestStatus = "/r99";
+	//public static final String requestStatus = "/sr";
 	public static final String requestDateTime = "/d";
 	public static final String requestVersion = "/v";
 	public static final String requestFeedingMode = "/mf";
 	public static final String requestWaterMode = "/mw";
 	public static final String requestExitMode = "/bp";
+	public static final String requestRelay = "/r";
 	public static final String requestNone = "";
 	public static final String requestReefAngel = "ra";
 	

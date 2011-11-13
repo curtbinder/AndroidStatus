@@ -133,6 +133,10 @@
 					android:id="@+id/main_port1"
 					style="@style/ParamsToggleButton"
 					/>
+				<Button
+				    android:id="@+id/main_port1mask"
+				    style="@style/ParamsMaskButton"
+			        android:background="@drawable/greenbutton" />
 			</TableRow>
 			<TableRow
 				style="@style/RARow">
@@ -144,6 +148,10 @@
 					android:id="@+id/main_port2"
 					style="@style/ParamsToggleButton"
 					/>
+				<Button
+				    android:id="@+id/main_port2mask"
+				    style="@style/ParamsMaskButton"
+			        android:background="@drawable/greenbutton" />
 			</TableRow>
 			<TableRow
 				style="@style/RARow">
@@ -155,6 +163,10 @@
 					android:id="@+id/main_port3"
 					style="@style/ParamsToggleButton"
 					/>
+				<Button
+				    android:id="@+id/main_port3mask"
+				    style="@style/ParamsMaskButton"
+			        android:background="@drawable/greenbutton" />
 			</TableRow>
 			<TableRow
 				style="@style/RARow">
@@ -166,6 +178,10 @@
 					android:id="@+id/main_port4"
 					style="@style/ParamsToggleButton"
 					/>
+				<Button
+				    android:id="@+id/main_port4mask"
+				    style="@style/ParamsMaskButton"
+			        android:background="@drawable/greenbutton" />
 			</TableRow>
 			<TableRow
 				style="@style/RARow">
@@ -177,6 +193,10 @@
 					android:id="@+id/main_port5"
 					style="@style/ParamsToggleButton"
 					/>
+				<Button
+				    android:id="@+id/main_port5mask"
+				    style="@style/ParamsMaskButton"
+			        android:background="@drawable/greenbutton" />
 			</TableRow>
 			<TableRow
 				style="@style/RARow">
@@ -188,6 +208,10 @@
 					android:id="@+id/main_port6"
 					style="@style/ParamsToggleButton"
 					/>
+				<Button
+				    android:id="@+id/main_port6mask"
+				    style="@style/ParamsMaskButton"
+			        android:background="@drawable/greenbutton" />
 			</TableRow>
 			<TableRow
 				style="@style/RARow">
@@ -199,8 +223,12 @@
 					android:id="@+id/main_port7"
 					style="@style/ParamsToggleButton"
 					/>
+				<Button
+				    android:id="@+id/main_port7mask"
+				    style="@style/ParamsMaskButton"
+			        android:background="@drawable/greenbutton" />
 			</TableRow>
-						<TableRow
+			<TableRow
 				style="@style/RARow">
 				<TextView
 					android:id="@+id/main_port8_label"
@@ -210,6 +238,10 @@
 					android:id="@+id/main_port8"
 					style="@style/ParamsToggleButton"
 					/>
+				<Button
+				    android:id="@+id/main_port8mask"
+				    style="@style/ParamsMaskButton"
+			        android:background="@drawable/greenbutton" />
 			</TableRow>
 		</TableLayout>
 	</ScrollView>   

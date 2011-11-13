@@ -43,22 +43,9 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 	private TextView apLabel;
 	private TextView salinityLabel;
 	
-	private TextView mainPort1Text;
-	private TextView mainPort2Text;
-	private TextView mainPort3Text;
-	private TextView mainPort4Text;
-	private TextView mainPort5Text;
-	private TextView mainPort6Text;
-	private TextView mainPort7Text;
-	private TextView mainPort8Text;
-	private ToggleButton mainPort1Btn;
-	private ToggleButton mainPort2Btn;
-	private ToggleButton mainPort3Btn;
-	private ToggleButton mainPort4Btn;
-	private ToggleButton mainPort5Btn;
-	private ToggleButton mainPort6Btn;
-	private ToggleButton mainPort7Btn;
-	private ToggleButton mainPort8Btn;
+	private TextView [] mainPortLabels = new TextView[8];
+	private ToggleButton [] mainPortBtns = new ToggleButton[8];
+	private View [] mainPortMaskBtns = new View[8];
 	
 	// Threading
 	private Handler guiThread;
@@ -66,6 +53,8 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 	private Runnable updateTask;
 	@SuppressWarnings("rawtypes")
 	private Future statusPending;
+	private String controllerCommand;
+	private boolean updateStatusScreen;
 	
 	// View visibility
 	//private boolean showMessageText;
@@ -112,22 +101,32 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 		dpLabel = (TextView) findViewById(R.id.dp_label);
 		apLabel = (TextView) findViewById(R.id.ap_label);
 		salinityLabel = (TextView) findViewById(R.id.salinity_label);
-		mainPort1Text = (TextView) findViewById(R.id.main_port1_label);
-		mainPort2Text = (TextView) findViewById(R.id.main_port2_label);
-		mainPort3Text = (TextView) findViewById(R.id.main_port3_label);
-		mainPort4Text = (TextView) findViewById(R.id.main_port4_label);
-		mainPort5Text = (TextView) findViewById(R.id.main_port5_label);
-		mainPort6Text = (TextView) findViewById(R.id.main_port6_label);
-		mainPort7Text = (TextView) findViewById(R.id.main_port7_label);
-		mainPort8Text = (TextView) findViewById(R.id.main_port8_label);
-		mainPort1Btn = (ToggleButton) findViewById(R.id.main_port1);
-		mainPort2Btn = (ToggleButton) findViewById(R.id.main_port2);
-		mainPort3Btn = (ToggleButton) findViewById(R.id.main_port3);
-		mainPort4Btn = (ToggleButton) findViewById(R.id.main_port4);
-		mainPort5Btn = (ToggleButton) findViewById(R.id.main_port5);
-		mainPort6Btn = (ToggleButton) findViewById(R.id.main_port6);
-		mainPort7Btn = (ToggleButton) findViewById(R.id.main_port7);
-		mainPort8Btn = (ToggleButton) findViewById(R.id.main_port8);
+
+		mainPortLabels[0] = (TextView) findViewById(R.id.main_port1_label);
+		mainPortLabels[1] = (TextView) findViewById(R.id.main_port2_label);
+		mainPortLabels[2] = (TextView) findViewById(R.id.main_port3_label);
+		mainPortLabels[3] = (TextView) findViewById(R.id.main_port4_label);
+		mainPortLabels[4] = (TextView) findViewById(R.id.main_port5_label);
+		mainPortLabels[5] = (TextView) findViewById(R.id.main_port6_label);
+		mainPortLabels[6] = (TextView) findViewById(R.id.main_port7_label);
+		mainPortLabels[7] = (TextView) findViewById(R.id.main_port8_label);
+		mainPortBtns[0] = (ToggleButton) findViewById(R.id.main_port1);
+		mainPortBtns[1] = (ToggleButton) findViewById(R.id.main_port2);
+		mainPortBtns[2] = (ToggleButton) findViewById(R.id.main_port3);
+		mainPortBtns[3] = (ToggleButton) findViewById(R.id.main_port4);
+		mainPortBtns[4] = (ToggleButton) findViewById(R.id.main_port5);
+		mainPortBtns[5] = (ToggleButton) findViewById(R.id.main_port6);
+		mainPortBtns[6] = (ToggleButton) findViewById(R.id.main_port7);
+		mainPortBtns[7] = (ToggleButton) findViewById(R.id.main_port8);
+		
+		mainPortMaskBtns[0] = findViewById(R.id.main_port1mask);
+		mainPortMaskBtns[1] = findViewById(R.id.main_port2mask);
+		mainPortMaskBtns[2] = findViewById(R.id.main_port3mask);
+		mainPortMaskBtns[3] = findViewById(R.id.main_port4mask);
+		mainPortMaskBtns[4] = findViewById(R.id.main_port5mask);
+		mainPortMaskBtns[5] = findViewById(R.id.main_port6mask);
+		mainPortMaskBtns[6] = findViewById(R.id.main_port7mask);
+		mainPortMaskBtns[7] = findViewById(R.id.main_port8mask);
 	}
 	
 	private void updateViewsVisibility() {
@@ -195,14 +194,9 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 	}
 	
 	private void setMainRelayLabels() {
-		mainPort1Text.setText(Prefs.getMainRelayLabel(getBaseContext(), 1));
-		mainPort2Text.setText(Prefs.getMainRelayLabel(getBaseContext(), 2));
-		mainPort3Text.setText(Prefs.getMainRelayLabel(getBaseContext(), 3));
-		mainPort4Text.setText(Prefs.getMainRelayLabel(getBaseContext(), 4));
-		mainPort5Text.setText(Prefs.getMainRelayLabel(getBaseContext(), 5));
-		mainPort6Text.setText(Prefs.getMainRelayLabel(getBaseContext(), 6));
-		mainPort7Text.setText(Prefs.getMainRelayLabel(getBaseContext(), 7));
-		mainPort8Text.setText(Prefs.getMainRelayLabel(getBaseContext(), 8));
+		for ( int i = 0; i < 8; i++ ) {
+			mainPortLabels[i].setText(Prefs.getMainRelayLabel(getBaseContext(), i+1));
+		}
 	}
 	
 	@Override
@@ -233,6 +227,8 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 	private void initThreading() {
 		guiThread = new Handler();
 		statusThread = Executors.newSingleThreadExecutor();
+		controllerCommand = "";
+		updateStatusScreen = true;
 		updateTask = new Runnable() {
 			public void run() {
 				// Task to be run
@@ -243,25 +239,22 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 
 				try {
 					// Get IP & Port
-					String[] devicesArray = getBaseContext().getResources().getStringArray(R.array.devicesValues);
-					String device = Prefs.getDevice(getBaseContext());
 					Host h = new Host();
-					if ( device.equals(devicesArray[0]) ) {
+					if ( isController() ) {
 						// controller
 						h.setHost(Prefs.getHost(getBaseContext()));
 						h.setPort(Prefs.getPort(getBaseContext()));
-						h.setCommand(Globals.requestStatusOld);
 					} else {
 						// reeefangel.com
 						h.setUserId(Prefs.getUserId(getBaseContext()));
-						h.setCommand(Globals.requestReefAngel);
 					}
+					h.setCommand(controllerCommand);
 					Log.d(TAG, h.toString());
 					// Create ControllerTask
 					ControllerTask cTask = new ControllerTask(
 							ReefAngelStatusActivity.this,
 							h,
-							true);
+							updateStatusScreen);
 					statusPending = statusThread.submit(cTask);
 					// Add ControllerTask to statusThread to be run
 				} catch ( RejectedExecutionException e) {
@@ -280,10 +273,41 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 		Log.d(TAG, "launchStatusTask");
 		// cancel any previous update if it hasn't started yet
 		guiThread.removeCallbacks(updateTask);
+		// set the command to be executed
+		if ( isController() ) {
+			controllerCommand = Globals.requestStatus;
+		} else {
+			controllerCommand = Globals.requestReefAngel;
+		}
+		updateStatusScreen = true;
 		// start an update
 		guiThread.post(updateTask);
 	}
 	
+	private void launchRelayToggleTask(int relay, int status) {
+		Log.d(TAG, "launchRelayToggleTask");
+		// cancel any previous update if it hasn't started yet
+		guiThread.removeCallbacks(updateTask);
+		// set the command to be executed
+		if ( isController() ) {
+			controllerCommand = new String(String.format("%s%d%d", Globals.requestRelay, relay, status));
+		} else {
+			controllerCommand = Globals.requestReefAngel;
+		}
+		updateStatusScreen = true;
+		// start an update
+		guiThread.post(updateTask);
+	}
+	
+	private boolean isController() {
+		String[] devicesArray = getBaseContext().getResources().getStringArray(R.array.devicesValues);
+		String device = Prefs.getDevice(getBaseContext());
+		boolean b = false;
+		if ( device.equals(devicesArray[0]) ) {
+			b = true;
+		}
+		return b;
+	}
 	private RADbAdapter openDatabase() {
 		// open the database
 		Log.d(TAG, "Open database");
@@ -378,14 +402,29 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 	}
 	
 	private void updateMainRelayValues(Relay r) {
-		mainPort1Btn.setChecked(r.isPort1On());
-		mainPort2Btn.setChecked(r.isPort2On());
-		mainPort3Btn.setChecked(r.isPort3On());
-		mainPort4Btn.setChecked(r.isPort4On());
-		mainPort5Btn.setChecked(r.isPort5On());
-		mainPort6Btn.setChecked(r.isPort6On());
-		mainPort7Btn.setChecked(r.isPort7On());
-		mainPort8Btn.setChecked(r.isPort8On());
+		short status;
+		String s;
+		String s1;
+		for ( int i = 0; i < 8; i++ ) {
+			status = r.getPortStatus(i+1);
+			if ( status == Relay.PORT_STATE_ON ) {
+				s1 = "ON";
+			} else if ( status == Relay.PORT_STATE_AUTO ) {
+				s1 = "AUTO";
+			} else {
+				s1 = "OFF";
+			}
+			s = new String(String.format("Port %d: %s(%s)", i+1, r.isPortOn(i+1)?"ON":"OFF",s1));
+			Log.d(TAG, s);
+			
+			mainPortBtns[i].setChecked(r.isPortOn(i+1));
+			if ( (status == Relay.PORT_ON) || (status == Relay.PORT_STATE_OFF) ) {
+				// masked on or off, show button
+				mainPortMaskBtns[i].setVisibility(View.VISIBLE);
+			} else {
+				mainPortMaskBtns[i].setVisibility(View.INVISIBLE);
+			}
+		}
 		// TODO check port status, display masked button if masked
 	}
 	

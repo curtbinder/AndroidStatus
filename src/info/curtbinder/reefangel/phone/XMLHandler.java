@@ -87,6 +87,9 @@ public class XMLHandler extends DefaultHandler {
 			Log.d(TAG, "end xml: localName");
 			tag = localName;
 		}
+		// TODO this line may not be needed
+//		if ( (requestType.equals( Globals.requestStatus )) ||
+//			 (requestType.startsWith( Globals.requestRelay )) ) {
 		if ( requestType.equals( Globals.requestStatus ) ) {
 			if ( tag.equals( Globals.xmlStatus ) ) {
 				return;
