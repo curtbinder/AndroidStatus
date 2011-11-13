@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class ReefAngelStatusActivity extends Activity implements OnClickListener {
@@ -70,7 +71,7 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
                
         updateViewsVisibility();
         
-        refreshButton.setOnClickListener(this);
+        setOnClickListeners();
     }
     
 	@Override
@@ -127,6 +128,19 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 		mainPortMaskBtns[5] = findViewById(R.id.main_port6mask);
 		mainPortMaskBtns[6] = findViewById(R.id.main_port7mask);
 		mainPortMaskBtns[7] = findViewById(R.id.main_port8mask);
+	}
+	
+	private void setOnClickListeners() {
+		refreshButton.setOnClickListener(this);
+		for ( int i = 0; i < 8; i++ ) {
+			if ( isController() ) {
+			mainPortBtns[i].setOnClickListener(this);
+			mainPortMaskBtns[i].setOnClickListener(this);
+			} else {
+				mainPortBtns[i].setClickable(false);
+				mainPortMaskBtns[i].setClickable(false);
+			}
+		}
 	}
 	
 	private void updateViewsVisibility() {
@@ -206,6 +220,24 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
     		// launch the update
     		Log.d(TAG, "onClick Refresh button");
     		launchStatusTask();
+    		break;
+    	case R.id.main_port1:
+    	case R.id.main_port2:
+    	case R.id.main_port3:
+    	case R.id.main_port4:
+    	case R.id.main_port5:
+    	case R.id.main_port6:
+    	case R.id.main_port7:
+    	case R.id.main_port8:
+    	case R.id.main_port1mask:
+    	case R.id.main_port2mask:
+    	case R.id.main_port3mask:
+    	case R.id.main_port4mask:
+    	case R.id.main_port5mask:
+    	case R.id.main_port6mask:
+    	case R.id.main_port7mask:
+    	case R.id.main_port8mask:
+    		Toast.makeText(this, "Clicked Me", Toast.LENGTH_SHORT).show();
     		break;
     	}
 	}
@@ -405,6 +437,7 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 		short status;
 		String s;
 		String s1;
+		boolean useMask = isController();
 		for ( int i = 0; i < 8; i++ ) {
 			status = r.getPortStatus(i+1);
 			if ( status == Relay.PORT_STATE_ON ) {
@@ -414,11 +447,11 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 			} else {
 				s1 = "OFF";
 			}
-			s = new String(String.format("Port %d: %s(%s)", i+1, r.isPortOn(i+1)?"ON":"OFF",s1));
+			s = new String(String.format("Port %d: %s(%s)", i+1, r.isPortOn(i+1, useMask)?"ON":"OFF",s1));
 			Log.d(TAG, s);
 			
-			mainPortBtns[i].setChecked(r.isPortOn(i+1));
-			if ( (status == Relay.PORT_ON) || (status == Relay.PORT_STATE_OFF) ) {
+			mainPortBtns[i].setChecked(r.isPortOn(i+1, useMask));
+			if ( ((status == Relay.PORT_ON) || (status == Relay.PORT_STATE_OFF)) && useMask ) {
 				// masked on or off, show button
 				mainPortMaskBtns[i].setVisibility(View.VISIBLE);
 			} else {

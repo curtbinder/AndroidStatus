@@ -100,40 +100,44 @@ public class Relay {
 	}
 
 	// ports
-	public boolean isPort1On ( ) {
-		return isPortOn(1);
+	public boolean isPort1On ( boolean usemask ) {
+		return isPortOn(1, usemask);
 	}
-	public boolean isPort2On ( ) {
-		return isPortOn(2);
+	public boolean isPort2On ( boolean usemask ) {
+		return isPortOn(2, usemask);
 	}
-	public boolean isPort3On ( ) {
-		return isPortOn(3);
+	public boolean isPort3On ( boolean usemask ) {
+		return isPortOn(3, usemask);
 	}
-	public boolean isPort4On ( ) {
-		return isPortOn(4);
+	public boolean isPort4On ( boolean usemask ) {
+		return isPortOn(4, usemask);
 	}
-	public boolean isPort5On ( ) {
-		return isPortOn(5);
+	public boolean isPort5On ( boolean usemask ) {
+		return isPortOn(5, usemask);
 	}
-	public boolean isPort6On ( ) {
-		return isPortOn(6);
+	public boolean isPort6On ( boolean usemask ) {
+		return isPortOn(6, usemask);
 	}
-	public boolean isPort7On ( ) {
-		return isPortOn(7);
+	public boolean isPort7On ( boolean usemask ) {
+		return isPortOn(7, usemask);
 	}
-	public boolean isPort8On ( ) {
-		return isPortOn(8);
+	public boolean isPort8On ( boolean usemask ) {
+		return isPortOn(8, usemask);
 	}
-	public boolean isPortOn ( int port ) {
+	public boolean isPortOn ( int port, boolean usemask ) {
 		boolean b = false;
-		short status = getPortStatus(port);
-		if ( status == PORT_STATE_ON ) {
-			// masked on
-			b = true;
-		} else if ( status == PORT_STATE_AUTO ) {
-			// auto - based on controller settings
+		if ( usemask ) {
+			short status = getPortStatus(port);
+			if ( status == PORT_STATE_ON ) {
+				// masked on
+				b = true;
+			} else if ( status == PORT_STATE_AUTO ) {
+				// auto - based on controller settings
+				b = (getPortValue(port) != PORT_OFF);
+			} // else masked off
+		} else {
 			b = (getPortValue(port) != PORT_OFF);
-		} // else masked off
+		}
 		return b;
 	}
 }
