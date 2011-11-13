@@ -42,7 +42,7 @@
 			android:title="@string/prefControllerTitle"
 			android:summary="@string/prefControllerSummary">
 			<PreferenceCategory
-				android:title="@string/prefControllerSummaryVisibilityCategory">
+				android:title="@string/prefVisibilityCategory">
 				<CheckBoxPreference
 					android:key="t2_visibility"
 					android:title="@string/prefT2VisibilityTitle"
@@ -70,7 +70,7 @@
 					android:defaultValue="false"/>
 			</PreferenceCategory>
 			<PreferenceCategory
-				android:title="@string/prefControllerSummaryLabelsCategory">
+				android:title="@string/prefLabelsCategory">
 				<EditTextPreference
 					android:key="t1_label"
 					android:title="@string/prefT1LabelTitle"

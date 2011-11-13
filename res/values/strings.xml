@@ -127,7 +127,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 	
 	<string name="prefControllerTitle">Controller Information</string>
 	<string name="prefControllerSummary">Update labels, Toggle visibility</string>
-	<string name="prefControllerSummaryVisibilityCategory">Visibility Settings</string>
+	
+	<string name="prefVisibilityCategory">Visibility Settings</string>
 	<string name="prefT2VisibilityKey">t2_visibility</string>
 	<string name="prefT2VisibilityTitle">Display T2</string>
 	<string name="prefT2VisibilitySummary">Displays temp sensor 2</string>
@@ -143,7 +144,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 	<string name="prefSalinityVisibilityKey">salinity_visibility</string>
 	<string name="prefSalinityVisibilityTitle">Display Salinity</string>
 	<string name="prefSalinityVisibilitySummary">Displays the salinity</string>
-	<string name="prefControllerSummaryLabelsCategory">Label Settings</string>
+	
+	<string name="prefLabelsCategory">Label Settings</string>
 	<string name="prefT1LabelKey">t1_label</string>
 	<string name="prefT1LabelTitle">T1 Label</string>
 	<string name="prefT1LabelSummary">Temp sensor 1 label</string>
@@ -160,4 +162,22 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 	<string name="prefAPLabelTitle">AP Label</string>
 	<string name="prefAPLabelSummary">Actinic PWM label</string>
 
+	<string name="prefMainRelayTitle">Main Relay</string>
+	<string name="prefMainRelaySummary">Change the labels of the main relay</string>
+	<string name="prefMainPort1LabelKey">main_port1_label</string>
+	<string name="prefMainPort1LabelTitle">Port 1 Label</string>
+	<string name="prefMainPort2LabelKey">main_port2_label</string>
+	<string name="prefMainPort2LabelTitle">Port 2 Label</string>
+	<string name="prefMainPort3LabelKey">main_port3_label</string>
+	<string name="prefMainPort3LabelTitle">Port 3 Label</string>
+	<string name="prefMainPort4LabelKey">main_port4_label</string>
+	<string name="prefMainPort4LabelTitle">Port 4 Label</string>
+	<string name="prefMainPort5LabelKey">main_port5_label</string>
+	<string name="prefMainPort5LabelTitle">Port 5 Label</string>
+	<string name="prefMainPort6LabelKey">main_port6_label</string>
+	<string name="prefMainPort6LabelTitle">Port 6 Label</string>
+	<string name="prefMainPort7LabelKey">main_port7_label</string>
+	<string name="prefMainPort7LabelTitle">Port 7 Label</string>
+	<string name="prefMainPort8LabelKey">main_port8_label</string>
+	<string name="prefMainPort8LabelTitle">Port 8 Label</string>
 </resources>
