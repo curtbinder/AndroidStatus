@@ -88,7 +88,8 @@ public class Host {
 	
 	public String toString() {
 		String s = "";
-		if ( (command.equals( Globals.requestStatus )) || 
+		if ( (command.startsWith( Globals.requestRelay )) ||
+			 (command.equals( Globals.requestStatus )) || 
 			 (command.equals( Globals.requestVersion)) ) {
 			s = new String(String.format("http://%s:%d%s", host, port, command));
 		} else if ( (command.equals( Globals.requestMemoryInt )) ||

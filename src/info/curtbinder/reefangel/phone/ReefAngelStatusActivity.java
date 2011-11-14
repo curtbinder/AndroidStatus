@@ -222,24 +222,84 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
     		launchStatusTask();
     		break;
     	case R.id.main_port1:
+    		Log.d(TAG, "toggle port 1");
+    		sendRelayToggleTask(1);
+    		break;
     	case R.id.main_port2:
+    		Log.d(TAG, "toggle port 2");
+    		sendRelayToggleTask(2);
+    		break;
     	case R.id.main_port3:
+    		Log.d(TAG, "toggle port 3");
+    		sendRelayToggleTask(3);
+    		break;
     	case R.id.main_port4:
+    		Log.d(TAG, "toggle port 4");
+    		sendRelayToggleTask(4);
+    		break;
     	case R.id.main_port5:
+    		Log.d(TAG, "toggle port 5");
+    		sendRelayToggleTask(5);
+    		break;
     	case R.id.main_port6:
+    		Log.d(TAG, "toggle port 6");
+    		sendRelayToggleTask(6);
+    		break;
     	case R.id.main_port7:
+    		Log.d(TAG, "toggle port 7");
+    		sendRelayToggleTask(7);
+    		break;
     	case R.id.main_port8:
+    		Log.d(TAG, "toggle port 8");
+    		sendRelayToggleTask(8);
+    		break;
     	case R.id.main_port1mask:
+    		Log.d(TAG, "clear mask 1");
+    		sendRelayClearMaskTask(1);
+    		break;
     	case R.id.main_port2mask:
+    		Log.d(TAG, "clear mask 2");
+    		sendRelayClearMaskTask(2);
+    		break;
     	case R.id.main_port3mask:
+    		Log.d(TAG, "clear mask 3");
+    		sendRelayClearMaskTask(3);
+    		break;
     	case R.id.main_port4mask:
+    		Log.d(TAG, "clear mask 4");
+    		sendRelayClearMaskTask(4);
+    		break;
     	case R.id.main_port5mask:
+    		Log.d(TAG, "clear mask 5");
+    		sendRelayClearMaskTask(5);
+    		break;
     	case R.id.main_port6mask:
+    		Log.d(TAG, "clear mask 6");
+    		sendRelayClearMaskTask(6);
+    		break;
     	case R.id.main_port7mask:
+    		Log.d(TAG, "clear mask 7");
+    		sendRelayClearMaskTask(7);
+    		break;
     	case R.id.main_port8mask:
-    		Toast.makeText(this, "Clicked Me", Toast.LENGTH_SHORT).show();
+    		Log.d(TAG, "clear mask 8");
+    		sendRelayClearMaskTask(8);
     		break;
     	}
+	}
+	private void sendRelayToggleTask(int port) {
+		Log.d(TAG, "sendRelayToggleTask");
+		int status = Relay.PORT_STATE_OFF;
+		if ( mainPortBtns[port-1].isChecked() ) {
+			status = Relay.PORT_STATE_ON;
+		}
+		launchRelayToggleTask(port, status);
+	}
+	private void sendRelayClearMaskTask(int port) {
+		Log.d(TAG, "sendRelayClearMaskTask");
+		// hide ourself and clear the mask
+		mainPortMaskBtns[port-1].setVisibility(View.INVISIBLE);
+		launchRelayToggleTask(port, Relay.PORT_STATE_AUTO);
 	}
 	
 	@Override
@@ -281,7 +341,7 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 						h.setUserId(Prefs.getUserId(getBaseContext()));
 					}
 					h.setCommand(controllerCommand);
-					Log.d(TAG, h.toString());
+					Log.d(TAG, "Task Host: " + h.toString());
 					// Create ControllerTask
 					ControllerTask cTask = new ControllerTask(
 							ReefAngelStatusActivity.this,
@@ -327,6 +387,7 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 			controllerCommand = Globals.requestReefAngel;
 		}
 		updateStatusScreen = true;
+		Log.d(TAG, "RelayCommand: " + controllerCommand);
 		// start an update
 		guiThread.post(updateTask);
 	}
@@ -418,7 +479,6 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 		});
 	}
 	
-	
 	public void guiUpdateTimeText(final String msg) {
 		/**
 		 * Updates the UpdatedTime text box only
@@ -458,7 +518,6 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 				mainPortMaskBtns[i].setVisibility(View.INVISIBLE);
 			}
 		}
-		// TODO check port status, display masked button if masked
 	}
 	
 	private void loadDisplayedControllerValues(String[] v) {

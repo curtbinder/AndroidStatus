@@ -9,11 +9,11 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import android.util.Log;
+//import android.util.Log;
 
 public class XMLHandler extends DefaultHandler {
 
-	private static final String TAG = "RAXml";
+//	private static final String TAG = "RAXml";
 	private String currentElementText = "";
 	private String requestType = "";
 	private Controller ra;
@@ -81,13 +81,12 @@ public class XMLHandler extends DefaultHandler {
 			throws SAXException {
 		String tag;
 		if ( ! qName.equals("") ) {
-			Log.d(TAG, "end xml: qName");
+			//Log.d(TAG, "end xml: qName");
 			tag = qName;
 		} else {
-			Log.d(TAG, "end xml: localName");
+			//Log.d(TAG, "end xml: localName");
 			tag = localName;
 		}
-		// TODO this line may not be needed
 //		if ( (requestType.equals( Globals.requestStatus )) ||
 //			 (requestType.startsWith( Globals.requestRelay )) ) {
 		if ( requestType.equals( Globals.requestStatus ) ) {
@@ -133,10 +132,10 @@ public class XMLHandler extends DefaultHandler {
 			Attributes attributes ) throws SAXException {
 		String tag;
 		if ( ! qName.equals("") ) {
-			Log.d(TAG, "start xml: qName");
+			//Log.d(TAG, "start xml: qName");
 			tag = qName;
 		} else {
-			Log.d(TAG, "start xml: localName");
+			//Log.d(TAG, "start xml: localName");
 			tag = localName;
 		}
 		if ( requestType.equals("") ) {

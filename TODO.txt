@@ -6,20 +6,15 @@ TODO
 ** when switching to db the values will be stored but give user option to always open/show previous/last values
 * fix layouts for hiding text:  switch to relative layout for better control over display
 * validation of host on configuration page (better validation of preferences)
-* add in ability to label relay ports
-* add labels to preferences
-** labels category
-** controller labels screen
-** main relay labels screen
+* labels
 ** additional relay labels screen based on quantity of relay labels installed
-** have button / option to query all labels from ra.com using web banner id entered (show the banner id in the summary) 
+** label query option to actually query the labels 
 * consider passing in a Controller type to the XML handler
 * add in memory page
-* display relay status information
-* allow for toggling relay port status
 * add in an error status line with error displaying
 * add in error log
 ** logs errors to database
 ** new activity for displaying errors
 ** error logger is a content provider for all activities
 * parameters activity allows for clicking on item and displaying all info in poppup window
+* consider always adding in colon (:) after label text
