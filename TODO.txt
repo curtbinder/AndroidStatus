@@ -18,3 +18,7 @@ TODO
 ** error logger is a content provider for all activities
 * parameters activity allows for clicking on item and displaying all info in poppup window
 * consider always adding in colon (:) after label text
+* improve relay mask image
+* add in ability to query device version
+* add in ability to turn on feeding mode
+* add in ability to turn on water change mode
