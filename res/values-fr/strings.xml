@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_menu">Paramètres</string>
+    <string name="about_menu">À propos</string>
+    <string name="memory_menu">Mémoire</string>
+    <string name="params_menu">Historique</string>    
+    <string name="params_title">Paramètre de l\'historique</string>
+    <string name="about_title">À propos de Reef Angel Status</string>
+    <string name="about_text">\
+Affiche le status de votre contrôleur Reef Angel ainsi que les valeurs s\'y rapportant. Vous devez avoir le module wifi configuré sur votre 
+contrôleur pour pouvoir utiliser cette application.
+</string>
+	<string name="license_title">Information sur la licence</string>
+	<string name="license_text">\
+Reef Angel Status par Curt Binder est régis sous une licence 
+Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0 
+</string>
+    <string name="last_updated">Dernière mise à jour:</string>
+    <string name="refresh_label">Actualiser</string>
+	<string name="salinity_label">Salinité:</string>
+	<string name="main_relay_label">Relais Principal</string>
+	<string name="messageEmptyParams">Aucun paramètre trouvé</string>
+	<string name="messageError">Erreur</string>
+	<string name="messageNever">Jamais</string>
+	<string name="messageCancelled">Cancellé</string>
+	<string name="messageNotNumber">Valeur non numérique</string>
+	<string name="statusStart">Mise à jour initiée</string>
+	<string name="statusConnect">Connexion</string>
+	<string name="statusDisconnected">Déconnecté</string>
+	<string name="statusReadResponse">Lecture de la réponse</string>
+	<string name="statusUpdatingDisplay">Mise à jour de l\'affichage</string>
+	<string name="statusSendingCommand">Envoie des commandes</string>
+	<string name="statusInitParser">Conversion initiée</string>
+	<string name="statusParsing">Conversion</string>
+	<string name="statusFinished">Terminé</string>
+	<string name="prefs_title">Paramètres du status</string>
+	<string name="prefs_categoryDevice">Matériel</string>
+	<string name="prefs_categoryHost">Hôte</string>
+	<string name="prefs_categoryController">Contrôleur</string>
+	<string name="prefDeviceTitle">matériel</string>
+	<string name="prefDeviceSummary">Sélectionner pour faire la lecture des données à partir du contrôleur directement ou  de votre bannière sur reefangel.com</string>
+	<string name="prefHostTitle">Nom de l\'hôte</string>
+	<string name="prefHostSummary">Entrer le nom de l\'hôte ou l\'adresse IP du contrôleur</string>
+	<string name="prefHostInvalidHost">Hôte invalide</string>
+	<string name="prefPortSummary">Entrer le port du contrôleur entre 1 et 65535  (défaut: 2000)</string>
+	<string name="prefPortInvalidPort">Port invalide</string>
+	<string name="prefUserIdTitle">Nom d\'utilisateur</string>
+	<string name="prefUserIdSummary">Entrer votre nom d\'utilisateur pour la banière web</string>
+	<string name="prefUserIdInvalid">Nom d\'utilisateur invalide</string>
+	<string name="prefAppTitle">Info sur l\'application</string>
+	<string name="prefAppSummary">Information additionnelle à propos de Reef Angel Status pour Android</string>
+	<string name="prefAuthorTitle">Auteur</string>
+	<string name="prefContributorTitle">Contributeurs</string>
+	<string name="prefCopyrightTitle">Droits d\'auteur</string>
+	<string name="prefCopyrightSummary">Droits d\'auteur 2011 Curt Binder</string>
+	<string name="prefLicenseTitle">Licence</string>
+	<string name="prefLicenseSummary">Ce travail est sous licence Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0</string>
+	<string name="prefReefAngelTitle">Contrôleur Reef Angel</string>
+	<string name="prefControllerTitle">Informations sur le contrôleur</string>
+	<string name="prefControllerSummary">Met à jour les libelés, Bascule la visibilité</string>
+	<string name="prefVisibilityCategory">Paramètres de visibilité</string>
+	<string name="prefControllerVisibilityTitle">Visibilité des libelés</string>
+	<string name="prefControllerVisibilitySummary">Rend les libelés du contrôleur visibles</string>
+	<string name="prefT2VisibilityTitle">Afficher T2</string>
+	<string name="prefT2VisibilitySummary">Affiche la température du senseur 2</string>
+	<string name="prefT3VisibilityTitle">Afficher T3</string>
+	<string name="prefT3VisibilitySummary">Affiche la température du senseur 3</string>
+	<string name="prefDPVisibilityTitle">Afficher DP</string>
+	<string name="prefDPVisibilitySummary">Affiche le pourcentage du canal Day Light</string>
+	<string name="prefAPVisibilityTitle">Afficher AP</string>
+	<string name="prefAPVisibilitySummary">Affiche le pourcentage du canal actinic</string>
+	<string name="prefSalinityVisibilityTitle">Afficher salinité</string>
+	<string name="prefSalinityVisibilitySummary">Affiche la salinité</string>
+	<string name="prefLabelsCategory">Paramètres des libelés</string>
+	<string name="prefControllerLabelsDownloadTitle">Télécharger TOUS les libelés</string>
+	<string name="prefControllerLabelsDownloadSummary">Retrouves vos libelés à partir de reefangel.com en utilisant id: </string>
+	<string name="prefControllerLabelsTitle">Libelés du contrôleur</string>
+	<string name="prefControllerLabelsSummary">Change les libelés de votre contrôleur</string>
+	<string name="prefT1LabelTitle">Libelé T1</string>
+	<string name="prefT1LabelSummary">Libelé du senseur de température 1</string>
+	<string name="prefT2LabelTitle">Libelé T2</string>
+	<string name="prefT2LabelSummary">Libelé du senseur de température 2</string>
+	<string name="prefT3LabelTitle">Libelé T3</string>
+	<string name="prefT3LabelSummary">Libelé du senseur de température 3</string>
+	<string name="prefDPLabelTitle">Libelé DP</string>
+	<string name="prefDPLabelSummary">Libelé Daylight PWM</string>
+	<string name="prefAPLabelTitle">Libelé AP</string>
+	<string name="prefAPLabelSummary">Libelé Actinic PWM</string>
+	<string name="prefMainRelayTitle">Relais principal</string>
+	<string name="prefMainRelaySummary">Changer les libelés du relais principal</string>
+	<string name="prefMainPort1LabelTitle">Libelé port 1</string>
+	<string name="prefMainPort2LabelTitle">Libelé port 2</string>
+	<string name="prefMainPort3LabelTitle">Libelé port 3</string>
+	<string name="prefMainPort4LabelTitle">Libelé port 4</string>
+	<string name="prefMainPort5LabelTitle">Libelé port 5</string>
+	<string name="prefMainPort6LabelTitle">Libelé port 6</string>
+	<string name="prefMainPort7LabelTitle">Libelé port 7</string>
+	<string name="prefMainPort8LabelTitle">Libelé port 8</string>
+</resources>
