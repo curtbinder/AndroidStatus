@@ -133,8 +133,8 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 		refreshButton.setOnClickListener(this);
 		for ( int i = 0; i < 8; i++ ) {
 			if ( isController() ) {
-			mainPortBtns[i].setOnClickListener(this);
-			mainPortMaskBtns[i].setOnClickListener(this);
+				mainPortBtns[i].setOnClickListener(this);
+				mainPortMaskBtns[i].setOnClickListener(this);
 			} else {
 				mainPortBtns[i].setClickable(false);
 				mainPortMaskBtns[i].setClickable(false);
