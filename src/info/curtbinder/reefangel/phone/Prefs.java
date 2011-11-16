@@ -1,6 +1,8 @@
 package info.curtbinder.reefangel.phone;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -58,6 +60,35 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 		});
 
 		// TODO add in handler for Download All Labels click
+		Preference download = getPreferenceScreen().findPreference(getBaseContext().getString(R.string.prefControllerLabelsDownloadKey));
+		download.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				
+				AlertDialog.Builder builder = new AlertDialog.Builder(Prefs.this);
+				builder.setMessage("Download all labels for " + getUserId(getBaseContext()) + "?")
+				       .setCancelable(false)
+				       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+				           public void onClick(DialogInterface dialog, int id) {
+				        	   // launch download
+				        	   Log.d(TAG, "Download labels");
+				        	   dialog.dismiss();
+				           }
+				       })
+				       .setNegativeButton("No", new DialogInterface.OnClickListener() {
+				           public void onClick(DialogInterface dialog, int id) {
+				        	   Log.d(TAG, "Cancel download");
+				        	   dialog.cancel();
+				           }
+				       });
+
+				AlertDialog alert = builder.create();
+				alert.show();
+				return true;
+			}
+		});
+		CharSequence cs = download.getSummary() + " " + getUserId(getBaseContext());
+		download.setSummary(cs);
 		
 		// toggle the visibility of preferences based on device selection
 		toggleDevicePrefVisibility(Integer.parseInt(getDevice(getBaseContext())));
