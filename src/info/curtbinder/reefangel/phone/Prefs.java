@@ -1,8 +1,8 @@
 package info.curtbinder.reefangel.phone;
 
-import android.app.AlertDialog;
+//import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+//import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,6 +21,7 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 	private static final String HOST_PATTERN = "^(?i:[[0-9][a-z]]+)(?i:[\\w\\.\\-]*)(?i:[[0-9][a-z]]+)$";
 	private static final String USERID_PATTERN = "[\\w\\-\\.]+";
 	
+	private boolean fRestart;
 	private Preference portkey;
 	private Preference hostkey;
 	private Preference useridkey;
@@ -30,6 +31,7 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.settings);
 		
+		fRestart = true;
 		portkey = getPreferenceScreen().findPreference(getBaseContext().getString(R.string.prefPortKey));
 		portkey.setOnPreferenceChangeListener(this);
 		hostkey = getPreferenceScreen().findPreference(getBaseContext().getString(R.string.prefHostKey));
@@ -43,6 +45,7 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 			
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
+				fRestart = false;
 				Intent browserIntent = new Intent(Intent.ACTION_VIEW, 
 						Uri.parse(getBaseContext().getString(R.string.websiteReefangel)));
 				startActivity(browserIntent);
@@ -54,6 +57,7 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 			
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
+				fRestart = false;
 				startActivity(new Intent(getBaseContext(), License.class));
 				return true;
 			}
@@ -64,7 +68,7 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 		download.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				
+				/*
 				AlertDialog.Builder builder = new AlertDialog.Builder(Prefs.this);
 				builder.setMessage("Download all labels for " + getUserId(getBaseContext()) + "?")
 				       .setCancelable(false)
@@ -84,6 +88,8 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 
 				AlertDialog alert = builder.create();
 				alert.show();
+				*/
+				Toast.makeText(Prefs.this, "Not implemented yet", Toast.LENGTH_SHORT).show();
 				return true;
 			}
 		});
@@ -97,13 +103,23 @@ public class Prefs extends PreferenceActivity implements OnPreferenceChangeListe
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Log.d(TAG, "Prefs Pause / Restart App");
-		Intent i = new Intent(this, ReefAngelStatusActivity.class);
-		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(i);
-		finish();
+		if ( fRestart ) {
+			Log.d(TAG, "Prefs Pause / Restart App");
+			Intent i = new Intent(this, ReefAngelStatusActivity.class);
+			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(i);
+			finish();
+		} else {
+			Log.d(TAG, "Prefs Pause");
+		}
 	}
-		
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		fRestart = true;
+	}
+	
 	@Override
 	public boolean onPreferenceChange(Preference preference, Object newValue) {
 		// return true to change, false to not
