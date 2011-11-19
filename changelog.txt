@@ -29,4 +29,7 @@ Changelog of all the versions of AndroidStatus
  * display relay status information
  * allow for toggling relay port status
  * option to query all labels from ra.com using web banner id entered (does not download values yet)
+ * added French translation
+ * added better layout/style for tablets (extra large screens)
+ 
  
