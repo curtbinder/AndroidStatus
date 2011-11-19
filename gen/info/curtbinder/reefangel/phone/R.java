@@ -274,13 +274,16 @@ public final class R {
         public static final int websiteReefangel=0x7f070026;
     }
     public static final class style {
-        public static final int ParamsMaskButton=0x7f080008;
+        public static final int ParamsButton=0x7f080006;
+        public static final int ParamsButton_Mask=0x7f080008;
+        public static final int ParamsButton_Toggle=0x7f080007;
+        public static final int ParamsMaskButton=0x7f08000b;
         public static final int ParamsText=0x7f080002;
         public static final int ParamsText_Labels=0x7f080003;
         public static final int ParamsText_Labels_RightColumn=0x7f080004;
         public static final int ParamsText_Values=0x7f080005;
-        public static final int ParamsToggleButton=0x7f080006;
-        public static final int RARow=0x7f080007;
+        public static final int ParamsToggleButton=0x7f08000a;
+        public static final int RARow=0x7f080009;
         public static final int UpdateText=0x7f080000;
         public static final int UpdateText_Status=0x7f080001;
     }

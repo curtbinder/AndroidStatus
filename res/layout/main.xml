@@ -131,11 +131,11 @@
 					/>
 				<ToggleButton
 					android:id="@+id/main_port1"
-					style="@style/ParamsToggleButton"
+					style="@style/ParamsButton.Toggle"
 					/>
 				<Button
 				    android:id="@+id/main_port1mask"
-				    style="@style/ParamsMaskButton"
+				    style="@style/ParamsButton.Mask"
 			        android:background="@drawable/greenbutton" />
 			</TableRow>
 			<TableRow
@@ -146,11 +146,11 @@
 					/>
 				<ToggleButton
 					android:id="@+id/main_port2"
-					style="@style/ParamsToggleButton"
+					style="@style/ParamsButton.Toggle"
 					/>
 				<Button
 				    android:id="@+id/main_port2mask"
-				    style="@style/ParamsMaskButton"
+				    style="@style/ParamsButton.Mask"
 			        android:background="@drawable/greenbutton" />
 			</TableRow>
 			<TableRow
@@ -161,11 +161,11 @@
 					/>
 				<ToggleButton 
 					android:id="@+id/main_port3"
-					style="@style/ParamsToggleButton"
+					style="@style/ParamsButton.Toggle"
 					/>
 				<Button
 				    android:id="@+id/main_port3mask"
-				    style="@style/ParamsMaskButton"
+				    style="@style/ParamsButton.Mask"
 			        android:background="@drawable/greenbutton" />
 			</TableRow>
 			<TableRow
@@ -176,11 +176,11 @@
 					/>
 				<ToggleButton 
 					android:id="@+id/main_port4"
-					style="@style/ParamsToggleButton"
+					style="@style/ParamsButton.Toggle"
 					/>
 				<Button
 				    android:id="@+id/main_port4mask"
-				    style="@style/ParamsMaskButton"
+				    style="@style/ParamsButton.Mask"
 			        android:background="@drawable/greenbutton" />
 			</TableRow>
 			<TableRow
@@ -191,11 +191,11 @@
 					/>
 				<ToggleButton 
 					android:id="@+id/main_port5"
-					style="@style/ParamsToggleButton"
+					style="@style/ParamsButton.Toggle"
 					/>
 				<Button
 				    android:id="@+id/main_port5mask"
-				    style="@style/ParamsMaskButton"
+				    style="@style/ParamsButton.Mask"
 			        android:background="@drawable/greenbutton" />
 			</TableRow>
 			<TableRow
@@ -206,11 +206,11 @@
 					/>
 				<ToggleButton 
 					android:id="@+id/main_port6"
-					style="@style/ParamsToggleButton"
+					style="@style/ParamsButton.Toggle"
 					/>
 				<Button
 				    android:id="@+id/main_port6mask"
-				    style="@style/ParamsMaskButton"
+				    style="@style/ParamsButton.Mask"
 			        android:background="@drawable/greenbutton" />
 			</TableRow>
 			<TableRow
@@ -221,11 +221,11 @@
 					/>
 				<ToggleButton 
 					android:id="@+id/main_port7"
-					style="@style/ParamsToggleButton"
+					style="@style/ParamsButton.Toggle"
 					/>
 				<Button
 				    android:id="@+id/main_port7mask"
-				    style="@style/ParamsMaskButton"
+				    style="@style/ParamsButton.Mask"
 			        android:background="@drawable/greenbutton" />
 			</TableRow>
 			<TableRow
@@ -236,11 +236,11 @@
 					/>
 				<ToggleButton 
 					android:id="@+id/main_port8"
-					style="@style/ParamsToggleButton"
+					style="@style/ParamsButton.Toggle"
 					/>
 				<Button
 				    android:id="@+id/main_port8mask"
-				    style="@style/ParamsMaskButton"
+				    style="@style/ParamsButton.Mask"
 			        android:background="@drawable/greenbutton" />
 			</TableRow>
 		</TableLayout>
