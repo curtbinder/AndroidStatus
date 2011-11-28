@@ -14,7 +14,7 @@ public class Controller {
 	private boolean atoHigh;
 	private byte pwmA;
 	private byte pwmD;
-	private byte salinity;
+	private Number salinity;
 	private Relay main;
 	private byte qtyExpansionRelays;
 	private Relay[] expansionRelays;
@@ -38,7 +38,7 @@ public class Controller {
 		atoHigh = false;
 		pwmA = 0;
 		pwmD = 0;
-		salinity = 0;
+		salinity = new Number((byte) 1);
 		main = new Relay();
 		expansionRelays = new Relay[MAX_EXPANSION_RELAYS];
 		for ( int i = 0; i < MAX_EXPANSION_RELAYS; i++ ) {
@@ -145,12 +145,12 @@ public class Controller {
 		return new String(String.format("%d%c", pwmD, '%'));
 	}
 	
-	public void setSalinity ( byte v ) {
-		salinity = v;
+	public void setSalinity ( int value ) {
+		salinity.setValue(value);
 	}
 	
 	public String getSalinity ( ) {
-		return new String(String.format("%d ppt", salinity));
+		return salinity.toString() + " ppt";
 	}
 
 	public void setMainRelayData ( short data, short maskOn, short maskOff ) {
