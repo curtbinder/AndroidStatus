@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Reef Angel Status</string>
-    <string name="app_version">0.3.1</string>
+    <string name="app_version">0.4.0</string>
 
 <!-- Menu Labels -->
     <string name="settings_menu">Settings</string>
@@ -10,6 +10,7 @@
     <string name="params_menu">History</string>
     
     <string name="params_title">Parameters History</string>
+    <string name="memory_title">Internal Memory</string>
     
 <!--  Shortcut Keys -->
     <string name="settings_shortcut">s</string>
@@ -79,6 +80,16 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 <!-- Minimum Versions -->
 	<string name="minModesVersion">0.8.5.19</string>
 	<string name="minNewStatus">0.8.5.17</string>
+	
+<!-- Memory Location screen -->
+	<string name="memoryDescription">Select the memory location to update or enter a custom location.</string>
+	<string name="locationLabel">Location:</string>
+	<string name="valueLabel">Value:</string>
+	<string name="typeLabel">Type:</string>
+	<string name="readButtonLabel">Read Value</string>
+	<string name="writeButtonLabel">Write Value</string>
+	<string name="typeByteLabel">Byte</string>
+	<string name="typeIntLabel">Int</string>
 	
 <!-- Settings / Preference Labels -->
 	<string name="prefs_title">Status Settings</string>

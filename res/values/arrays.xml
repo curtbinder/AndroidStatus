@@ -32,7 +32,8 @@
         <item>XML I/O</item>
         <item>XML SAX Parser</item>
     </string-array>
-	<string-array name="memoryLocations">
+	<integer-array name="memoryLocations">
+	    <item>0</item>
 		<item>0</item>
 		<item>1</item>
 		<item>2</item>
@@ -77,8 +78,9 @@
 		<item>55</item>
 		<item>56</item>
 		<item>57</item>
-	</string-array>
+	</integer-array>
 	<string-array name="memoryLocationsNames">
+	    <item>Custom Location</item>
 		<item>MH On Hour</item>
 		<item>MH On Minute</item>
 		<item>MH Off Hour</item>
@@ -124,6 +126,54 @@
 		<item>RF Speed</item>
 		<item>RF Duration</item>
 	</string-array>
+	<integer-array name="memoryLocationsTypes">
+	    <item>0</item>
+		<item>0</item>
+		<item>0</item>
+		<item>0</item>
+		<item>0</item>
+		<item>0</item>
+		<item>0</item>
+		<item>0</item>
+		<item>0</item>
+		<item>1</item>
+		<item>1</item>
+		<item>0</item>
+		<item>0</item>
+		<item>1</item>
+		<item>1</item>
+		<item>1</item>
+		<item>0</item>
+		<item>0</item>
+		<item>1</item>
+		<item>1</item>
+		<item>1</item>
+		<item>1</item>
+		<item>0</item>
+		<item>1</item>
+		<item>1</item>
+		<item>0</item>
+		<item>0</item>
+		<item>0</item>
+		<item>0</item>
+		<item>0</item>
+		<item>0</item>
+		<item>0</item>
+		<item>0</item>
+		<item>1</item>
+		<item>1</item>
+		<item>1</item>
+		<item>0</item>
+		<item>0</item>
+		<item>0</item>
+		<item>0</item>
+		<item>0</item>
+		<item>0</item>
+		<item>0</item>
+		<item>0</item>
+		<item>0</item>
+	</integer-array>
+	<!--
 	<string-array name="memoryType">
 	    <item>0</item>
 	    <item>1</item>
@@ -132,4 +182,5 @@
 	    <item>Byte</item>
 	    <item>Integer</item>
 	</string-array>
+	-->
 </resources>

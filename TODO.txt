@@ -3,7 +3,6 @@ AndroidStatus todo list
 TODO
 ----
 * Toggle ability to restore values on configuration changes
-** when switching to db the values will be stored but give user option to always open/show previous/last values
 * fix layouts for hiding text:  switch to relative layout for better control over display
 * validation of host on configuration page (better validation of preferences)
 * labels
@@ -22,3 +21,9 @@ TODO
 * add in ability to query device version
 * add in ability to turn on feeding mode
 * add in ability to turn on water change mode
+* switch to a content provider for working working with the db
+** ability to insert values
+** ability to query values
+* move controller querying to a service
+** ability to stop/shutdown service
+** ability to change update interval / query interval
