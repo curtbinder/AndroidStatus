@@ -28,10 +28,10 @@ public class ParamsListActivity extends ListActivity {
 		*/
 	};
     private static final String [] FROM = {
-    	RADbAdapter.PCOL_LOGDATE,
-		RADbAdapter.PCOL_T1,
-		RADbAdapter.PCOL_T2,
-		RADbAdapter.PCOL_T3
+    	Globals.PCOL_LOGDATE,
+    	Globals.PCOL_T1,
+    	Globals.PCOL_T2,
+    	Globals.PCOL_T3
 	};
 	
     @Override

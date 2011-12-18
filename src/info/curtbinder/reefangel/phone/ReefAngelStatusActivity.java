@@ -432,18 +432,18 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 					
 					if ( c.moveToFirst() ) {
 						values = new String [] {
-							c.getString(c.getColumnIndex(RADbAdapter.PCOL_LOGDATE)),
-							c.getString(c.getColumnIndex(RADbAdapter.PCOL_T1)),
-							c.getString(c.getColumnIndex(RADbAdapter.PCOL_T2)),
-							c.getString(c.getColumnIndex(RADbAdapter.PCOL_T3)),
-							c.getString(c.getColumnIndex(RADbAdapter.PCOL_PH)),
-							c.getString(c.getColumnIndex(RADbAdapter.PCOL_DP)),
-							c.getString(c.getColumnIndex(RADbAdapter.PCOL_AP)),
-							c.getString(c.getColumnIndex(RADbAdapter.PCOL_SAL))
+							c.getString(c.getColumnIndex(Globals.PCOL_LOGDATE)),
+							c.getString(c.getColumnIndex(Globals.PCOL_T1)),
+							c.getString(c.getColumnIndex(Globals.PCOL_T2)),
+							c.getString(c.getColumnIndex(Globals.PCOL_T3)),
+							c.getString(c.getColumnIndex(Globals.PCOL_PH)),
+							c.getString(c.getColumnIndex(Globals.PCOL_DP)),
+							c.getString(c.getColumnIndex(Globals.PCOL_AP)),
+							c.getString(c.getColumnIndex(Globals.PCOL_SAL))
 						};
-						r = c.getShort(c.getColumnIndex(RADbAdapter.PCOL_RDATA));
-						ron = c.getShort(c.getColumnIndex(RADbAdapter.PCOL_RONMASK));
-						roff = c.getShort(c.getColumnIndex(RADbAdapter.PCOL_ROFFMASK));
+						r = c.getShort(c.getColumnIndex(Globals.PCOL_RDATA));
+						ron = c.getShort(c.getColumnIndex(Globals.PCOL_RONMASK));
+						roff = c.getShort(c.getColumnIndex(Globals.PCOL_ROFFMASK));
 					} else {
 						values = getNeverValues();
 						r = ron = roff = 0;
