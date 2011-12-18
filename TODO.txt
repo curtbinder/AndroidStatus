@@ -9,7 +9,7 @@ TODO
 ** additional relay labels screen based on quantity of relay labels installed
 ** label query option to actually query the labels 
 * consider passing in a Controller type to the XML handler
-* add in memory page
+* add in memory page (created, but needs service to work)
 * add in an error status line with error displaying
 * add in error log
 ** logs errors to database
@@ -27,3 +27,5 @@ TODO
 * move controller querying to a service
 ** ability to stop/shutdown service
 ** ability to change update interval / query interval
+** service starts when activity starts, pauses/stops when the activity stops
+** ability to keep service running

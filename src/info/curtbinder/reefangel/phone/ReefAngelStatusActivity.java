@@ -569,11 +569,13 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
         	Log.d(TAG, "Menu Parameters clicked");
         	startActivity(new Intent(this, ParamsListActivity.class));
         	break;
+        	/*
         case R.id.memory:
         	// launch memory
         	Log.d(TAG, "Memory clicked");
         	startActivity(new Intent(this, Memory.class));
         	break;
+        	*/
         default:
             return super.onOptionsItemSelected(item);
         }

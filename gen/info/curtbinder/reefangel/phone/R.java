@@ -40,7 +40,7 @@ public final class R {
         public static final int ic_icon=0x7f020002;
     }
     public static final class id {
-        public static final int about=0x7f0a003c;
+        public static final int about=0x7f0a003b;
         public static final int ap=0x7f0a000c;
         public static final int ap_label=0x7f0a000b;
         public static final int buttonRead=0x7f0a002e;
@@ -73,7 +73,6 @@ public final class R {
         public static final int main_port8=0x7f0a0025;
         public static final int main_port8_label=0x7f0a0024;
         public static final int main_port8mask=0x7f0a0026;
-        public static final int memory=0x7f0a003b;
         public static final int params=0x7f0a003a;
         public static final int ph=0x7f0a0008;
         public static final int plog=0x7f0a0030;

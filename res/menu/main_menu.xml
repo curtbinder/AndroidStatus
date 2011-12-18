@@ -8,10 +8,12 @@
 	    android:id="@+id/params"
 	    android:title="@string/params_menu"
 	    android:alphabeticShortcut="@string/params_shortcut" />
+	<!--
 	<item
 	    android:id="@+id/memory"
 	    android:title="@string/memory_menu"
 	    android:alphabeticShortcut="@string/memory_shortcut" />
+	-->
 	<item 
 		android:id="@+id/about"
 	    android:title="@string/about_menu"
