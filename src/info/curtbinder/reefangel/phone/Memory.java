@@ -2,6 +2,7 @@ package info.curtbinder.reefangel.phone;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -11,12 +12,34 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class Memory extends Activity {
 	
+	private final static String TAG = "RAMemory";
+	
+	final static int LOCATION_MIN = 0;
+	final static int LOCATION_MAX = 1023;
 	final static int LOCATION_START = 800;
 	final static int TYPE_BYTE = 0;
 	final static int TYPE_INT = 1;
+	
+	final static int PWM_MIN = 0;
+	final static int PWM_MAX = 100;
+	final static int HR_MIN = 0;
+	final static int HR_MAX = 23;
+	final static int MIN_MIN = 0;
+	final static int MIN_MAX = 59;
+	final static int BYTE_MIN = 0;
+	final static int BYTE_MAX = 255;
+	final static int INT_MIN = 0;
+	final static int INT_MAX = 32767;
+	final static int WM_MIN = 0;
+	final static int WM_MAX = 21600;
+	final static int PH_MIN = 0;
+	final static int PH_MAX = 1024;
+	final static int TIMEOUTS_MIN = 0;
+	final static int TIMEOUTS_MAX = 3600;
 	
 	private Spinner locationSpinner;
 	private EditText locationText;
@@ -61,14 +84,123 @@ public class Memory extends Activity {
 		locationSpinner.setAdapter(adapter);
 	}
 	
+	private boolean checkValueRange() {
+		boolean fRet = true;
+		String s = valueText.getText().toString();
+		Log.d(TAG, "Value: '" + s + "'");
+		if ( s.equals("") ) {
+			// Empty string
+			Toast.makeText(Memory.this, getResources().getString(R.string.messageEmptyValue), Toast.LENGTH_SHORT).show();
+			return false;
+		}
+		int v = Integer.parseInt(s);
+		int sel = locationSpinner.getSelectedItemPosition();
+		Log.d(TAG, "Selection: " + sel);
+		if ( intButton.isChecked() ) {
+			if ( isSpecialLocation(sel, R.array.wavemakersIndex)) {
+				if ( (v < WM_MIN) || (v > WM_MAX) ) {
+					Toast.makeText(Memory.this, getResources().getString(R.string.messageInvalidRangeFormat, WM_MIN, WM_MAX),
+							Toast.LENGTH_SHORT).show();
+					fRet = false;
+				}
+			} else if ( isSpecialLocation(sel, R.array.phIndex)) {
+				if ( (v < PH_MIN) || (v > PH_MAX) ) {
+					Toast.makeText(Memory.this, getResources().getString(R.string.messageInvalidRangeFormat, PH_MIN, PH_MAX),
+							Toast.LENGTH_SHORT).show();
+					fRet = false;
+				}
+			} else if ( isSpecialLocation(sel, R.array.timeoutIndex)) {
+				if ( (v < TIMEOUTS_MIN) || (v > TIMEOUTS_MAX) ) {
+					Toast.makeText(Memory.this, getResources().getString(R.string.messageInvalidRangeFormat, TIMEOUTS_MIN, TIMEOUTS_MAX),
+							Toast.LENGTH_SHORT).show();
+					fRet = false;
+				}
+			} else {
+				if ( (v < INT_MIN) || (v > INT_MAX) ) {
+					Toast.makeText(Memory.this, getResources().getString(R.string.messageInvalidRangeFormat, INT_MIN, INT_MAX),
+							Toast.LENGTH_SHORT).show();
+					fRet = false;
+				}
+			}
+		} else if ( byteButton.isChecked() ) {
+			if ( isSpecialLocation(sel, R.array.hourIndex)) {
+				if ( (v < HR_MIN) || (v > HR_MAX) ) {
+					Toast.makeText(Memory.this, getResources().getString(R.string.messageInvalidRangeFormat, HR_MIN, HR_MAX),
+							Toast.LENGTH_SHORT).show();
+					fRet = false;
+				}
+			} else if ( isSpecialLocation(sel, R.array.minuteIndex)) {
+				if ( (v < MIN_MIN) || (v > MIN_MAX) ) {
+					Toast.makeText(Memory.this, getResources().getString(R.string.messageInvalidRangeFormat, MIN_MIN, MIN_MAX),
+							Toast.LENGTH_SHORT).show();
+					fRet = false;
+				}
+			} else if ( isSpecialLocation(sel, R.array.pwmIndex)) {
+				if ( (v < PWM_MIN) || (v > PWM_MAX) ) {
+					Toast.makeText(Memory.this, getResources().getString(R.string.messageInvalidRangeFormat, PWM_MIN, PWM_MAX),
+							Toast.LENGTH_SHORT).show();
+					fRet = false;
+				}
+			} else {
+				if ( (v < BYTE_MIN) || (v > BYTE_MAX) ) {
+					Toast.makeText(Memory.this, getResources().getString(R.string.messageInvalidRangeFormat, BYTE_MIN, BYTE_MAX),
+							Toast.LENGTH_SHORT).show();
+					fRet = false;
+				}
+			}
+		}
+		return fRet;
+	}
+	
+	private boolean isSpecialLocation(int pos, int arrayID) {
+		int [] loc = getResources().getIntArray(arrayID);
+		boolean fRet = false;
+		for ( int i = 0; i < loc.length; i++ ) {
+			if ( loc[i] == pos ) {
+				fRet = true;
+				break;
+			}
+		}
+		return fRet;
+	}
+	
+	private boolean checkLocationValue() {
+		boolean fRet = true;
+		String s = locationText.getText().toString();
+		Log.d(TAG, "Location: '" + s + "'");
+		if ( s.equals("") ) {
+			// Empty string
+			Toast.makeText(Memory.this, getResources().getString(R.string.messageEmptyLocation), Toast.LENGTH_SHORT).show();
+			return false;
+		}
+		int v = Integer.parseInt(s);
+		if ( (v < LOCATION_MIN) || (v > LOCATION_MAX) ) {			
+			Toast.makeText(Memory.this, getResources().getString(R.string.messageInvalidLocation, LOCATION_MIN, LOCATION_MAX),
+					Toast.LENGTH_SHORT).show();
+				fRet = false;
+		}
+		return fRet;
+	}
+	
 	private void setOnClickListeners() {
 		// create on click listeners
 		readButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
+				if ( ! checkLocationValue() ) {
+					return;
+				}
+				// good location, proceed
 			}
 		});
 		writeButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
+				if ( ! checkLocationValue() ) {
+					return;
+				}
+				if ( ! checkValueRange() ) {
+					return;
+				}
+				// good location and value, proceed
 			}
 		});
 		locationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
