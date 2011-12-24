@@ -25,13 +25,13 @@ import android.util.Log;
 
 public class ControllerTask implements Runnable {
 	private static final String TAG = "RAControllerTask";
-	private final ReefAngelStatusActivity ra;
+	private final StatusActivity ra;
 	private final Host host;
 	private boolean status;
 	
 	private int errorCode;
 	
-	ControllerTask(ReefAngelStatusActivity ra, Host host, boolean statusScreen) {
+	ControllerTask(StatusActivity ra, Host host, boolean statusScreen) {
 		this.ra = ra;
 		this.host = host;
 		this.status = statusScreen;

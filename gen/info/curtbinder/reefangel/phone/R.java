@@ -45,8 +45,8 @@ public final class R {
         public static final int ap_label=0x7f0a000b;
         public static final int buttonRead=0x7f0a002e;
         public static final int buttonWrite=0x7f0a002f;
-        public static final int dp=0x7f0a000a;
-        public static final int dp_label=0x7f0a0009;
+        public static final int dp=0x7f0a0008;
+        public static final int dp_label=0x7f0a0007;
         public static final int locationRow=0x7f0a0028;
         public static final int locationText=0x7f0a0029;
         public static final int main_port1=0x7f0a0010;
@@ -74,7 +74,7 @@ public final class R {
         public static final int main_port8_label=0x7f0a0024;
         public static final int main_port8mask=0x7f0a0026;
         public static final int params=0x7f0a003a;
-        public static final int ph=0x7f0a0008;
+        public static final int ph=0x7f0a0004;
         public static final int plog=0x7f0a0030;
         public static final int plogcolon=0x7f0a0031;
         public static final int popupButton=0x7f0a0038;
@@ -92,11 +92,11 @@ public final class R {
         public static final int settings=0x7f0a0039;
         public static final int spinMemoryLocation=0x7f0a0027;
         public static final int t1_label=0x7f0a0002;
-        public static final int t2_label=0x7f0a0004;
-        public static final int t3_label=0x7f0a0006;
+        public static final int t2_label=0x7f0a0005;
+        public static final int t3_label=0x7f0a0009;
         public static final int temp1=0x7f0a0003;
-        public static final int temp2=0x7f0a0005;
-        public static final int temp3=0x7f0a0007;
+        public static final int temp2=0x7f0a0006;
+        public static final int temp3=0x7f0a000a;
         public static final int typeRow=0x7f0a002a;
         public static final int updated=0x7f0a0000;
         public static final int valueText=0x7f0a002d;
@@ -107,6 +107,7 @@ public final class R {
         public static final int paramslist=0x7f030002;
         public static final int paramslistitem=0x7f030003;
         public static final int popup=0x7f030004;
+        public static final int status=0x7f030005;
     }
     public static final class menu {
         public static final int main_menu=0x7f090000;

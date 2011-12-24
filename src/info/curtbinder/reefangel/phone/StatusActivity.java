@@ -22,7 +22,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-public class ReefAngelStatusActivity extends Activity implements OnClickListener {
+public class StatusActivity extends Activity implements OnClickListener {
 	private static final String TAG = "RAStatus";
 		
 	// Display views
@@ -63,7 +63,7 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.status);
         
         findViews();
         initThreading();
@@ -343,7 +343,7 @@ public class ReefAngelStatusActivity extends Activity implements OnClickListener
 					Log.d(TAG, "Task Host: " + h.toString());
 					// Create ControllerTask
 					ControllerTask cTask = new ControllerTask(
-							ReefAngelStatusActivity.this,
+							StatusActivity.this,
 							h,
 							updateStatusScreen);
 					statusPending = statusThread.submit(cTask);
