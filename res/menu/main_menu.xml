@@ -3,10 +3,12 @@
 	<item 
 		android:id="@+id/settings"
 	    android:title="@string/settings_menu"
+	    android:icon="@android:drawable/ic_menu_preferences"
 	    android:alphabeticShortcut="@string/settings_shortcut" />
 	<item
 	    android:id="@+id/params"
 	    android:title="@string/params_menu"
+	    android:icon="@android:drawable/ic_menu_recent_history"
 	    android:alphabeticShortcut="@string/params_shortcut" />
 	<!--
 	<item
@@ -17,5 +19,6 @@
 	<item 
 		android:id="@+id/about"
 	    android:title="@string/about_menu"
+	    android:icon="@android:drawable/ic_menu_info_details"
 	    android:alphabeticShortcut="@string/about_shortcut" />
 </menu>
