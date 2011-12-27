@@ -1,6 +1,5 @@
 package info.curtbinder.reefangel.phone;
 
-import android.net.Uri;
 
 public class Globals {
 	// Database constants
@@ -46,10 +45,6 @@ public class Globals {
 	public static final String PCOL_R8ONMASK = "r8onmask";
 	public static final String PCOL_R8OFFMASK = "r8offmask";
 
-	// Content Provider
-	public static final String AUTHORITY = "info.curtbinder.reefangel.phone";
-	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + 
-			"/" + PTABLE_NAME);
 	
 	// Requests
 	public static final String requestMemoryByte = "/mb";
