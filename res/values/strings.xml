@@ -69,6 +69,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 	<string name="messageInvalidRangeFormat" formatted="false">Value must be between %d and %d</string>
 	<string name="messageEmptyLocation">Location cannot be empty</string>
 	<string name="messageInvalidLocation" formatted="false">Location must be between %d and %d</string>
+	<string name="messageUnknownError">Unknown error</string>
 	
 <!-- Status strings -->
 	<string name="statusStart">Starting update</string>

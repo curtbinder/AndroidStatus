@@ -14,7 +14,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class Memory extends Activity {
+public class MemoryActivity extends Activity {
 	
 	private final static String TAG = "RAMemory";
 	
@@ -90,7 +90,7 @@ public class Memory extends Activity {
 		Log.d(TAG, "Value: '" + s + "'");
 		if ( s.equals("") ) {
 			// Empty string
-			Toast.makeText(Memory.this, getResources().getString(R.string.messageEmptyValue), Toast.LENGTH_SHORT).show();
+			Toast.makeText(MemoryActivity.this, getResources().getString(R.string.messageEmptyValue), Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		int v = Integer.parseInt(s);
@@ -99,25 +99,25 @@ public class Memory extends Activity {
 		if ( intButton.isChecked() ) {
 			if ( isSpecialLocation(sel, R.array.wavemakersIndex)) {
 				if ( (v < WM_MIN) || (v > WM_MAX) ) {
-					Toast.makeText(Memory.this, getResources().getString(R.string.messageInvalidRangeFormat, WM_MIN, WM_MAX),
+					Toast.makeText(MemoryActivity.this, getResources().getString(R.string.messageInvalidRangeFormat, WM_MIN, WM_MAX),
 							Toast.LENGTH_SHORT).show();
 					fRet = false;
 				}
 			} else if ( isSpecialLocation(sel, R.array.phIndex)) {
 				if ( (v < PH_MIN) || (v > PH_MAX) ) {
-					Toast.makeText(Memory.this, getResources().getString(R.string.messageInvalidRangeFormat, PH_MIN, PH_MAX),
+					Toast.makeText(MemoryActivity.this, getResources().getString(R.string.messageInvalidRangeFormat, PH_MIN, PH_MAX),
 							Toast.LENGTH_SHORT).show();
 					fRet = false;
 				}
 			} else if ( isSpecialLocation(sel, R.array.timeoutIndex)) {
 				if ( (v < TIMEOUTS_MIN) || (v > TIMEOUTS_MAX) ) {
-					Toast.makeText(Memory.this, getResources().getString(R.string.messageInvalidRangeFormat, TIMEOUTS_MIN, TIMEOUTS_MAX),
+					Toast.makeText(MemoryActivity.this, getResources().getString(R.string.messageInvalidRangeFormat, TIMEOUTS_MIN, TIMEOUTS_MAX),
 							Toast.LENGTH_SHORT).show();
 					fRet = false;
 				}
 			} else {
 				if ( (v < INT_MIN) || (v > INT_MAX) ) {
-					Toast.makeText(Memory.this, getResources().getString(R.string.messageInvalidRangeFormat, INT_MIN, INT_MAX),
+					Toast.makeText(MemoryActivity.this, getResources().getString(R.string.messageInvalidRangeFormat, INT_MIN, INT_MAX),
 							Toast.LENGTH_SHORT).show();
 					fRet = false;
 				}
@@ -125,25 +125,25 @@ public class Memory extends Activity {
 		} else if ( byteButton.isChecked() ) {
 			if ( isSpecialLocation(sel, R.array.hourIndex)) {
 				if ( (v < HR_MIN) || (v > HR_MAX) ) {
-					Toast.makeText(Memory.this, getResources().getString(R.string.messageInvalidRangeFormat, HR_MIN, HR_MAX),
+					Toast.makeText(MemoryActivity.this, getResources().getString(R.string.messageInvalidRangeFormat, HR_MIN, HR_MAX),
 							Toast.LENGTH_SHORT).show();
 					fRet = false;
 				}
 			} else if ( isSpecialLocation(sel, R.array.minuteIndex)) {
 				if ( (v < MIN_MIN) || (v > MIN_MAX) ) {
-					Toast.makeText(Memory.this, getResources().getString(R.string.messageInvalidRangeFormat, MIN_MIN, MIN_MAX),
+					Toast.makeText(MemoryActivity.this, getResources().getString(R.string.messageInvalidRangeFormat, MIN_MIN, MIN_MAX),
 							Toast.LENGTH_SHORT).show();
 					fRet = false;
 				}
 			} else if ( isSpecialLocation(sel, R.array.pwmIndex)) {
 				if ( (v < PWM_MIN) || (v > PWM_MAX) ) {
-					Toast.makeText(Memory.this, getResources().getString(R.string.messageInvalidRangeFormat, PWM_MIN, PWM_MAX),
+					Toast.makeText(MemoryActivity.this, getResources().getString(R.string.messageInvalidRangeFormat, PWM_MIN, PWM_MAX),
 							Toast.LENGTH_SHORT).show();
 					fRet = false;
 				}
 			} else {
 				if ( (v < BYTE_MIN) || (v > BYTE_MAX) ) {
-					Toast.makeText(Memory.this, getResources().getString(R.string.messageInvalidRangeFormat, BYTE_MIN, BYTE_MAX),
+					Toast.makeText(MemoryActivity.this, getResources().getString(R.string.messageInvalidRangeFormat, BYTE_MIN, BYTE_MAX),
 							Toast.LENGTH_SHORT).show();
 					fRet = false;
 				}
@@ -170,12 +170,12 @@ public class Memory extends Activity {
 		Log.d(TAG, "Location: '" + s + "'");
 		if ( s.equals("") ) {
 			// Empty string
-			Toast.makeText(Memory.this, getResources().getString(R.string.messageEmptyLocation), Toast.LENGTH_SHORT).show();
+			Toast.makeText(MemoryActivity.this, getResources().getString(R.string.messageEmptyLocation), Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		int v = Integer.parseInt(s);
 		if ( (v < LOCATION_MIN) || (v > LOCATION_MAX) ) {			
-			Toast.makeText(Memory.this, getResources().getString(R.string.messageInvalidLocation, LOCATION_MIN, LOCATION_MAX),
+			Toast.makeText(MemoryActivity.this, getResources().getString(R.string.messageInvalidLocation, LOCATION_MIN, LOCATION_MAX),
 					Toast.LENGTH_SHORT).show();
 				fRet = false;
 		}

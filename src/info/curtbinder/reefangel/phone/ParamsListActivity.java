@@ -28,28 +28,26 @@ public class ParamsListActivity extends ListActivity {
 		*/
 	};
     private static final String [] FROM = {
-    	Globals.PCOL_LOGDATE,
-    	Globals.PCOL_T1,
-    	Globals.PCOL_T2,
-    	Globals.PCOL_T3
+    	RAData.PCOL_LOGDATE,
+    	RAData.PCOL_T1,
+    	RAData.PCOL_T2,
+    	RAData.PCOL_T3
 	};
+    RAApplication rapp;
 	
     @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.paramslist);
-		Log.d(TAG, "Open database");
-		RADbAdapter dbAdapter = new RADbAdapter(this);
-        dbAdapter.open();
+		rapp = (RAApplication)getApplication();
 		try {
-			Cursor c = dbAdapter.getAllParams();
+			Cursor c = rapp.getRAData().getAllData();
 			startManagingCursor(c);
 			showEvents(c);
 		} catch ( SQLException e ) {
 			Log.d(TAG, "SQL Exception");
 		} finally {
-			Log.d(TAG, "Close database");
-			dbAdapter.close();
+			//rapp.getRAData().close();
 		}
 	}
 
