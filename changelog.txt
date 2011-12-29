@@ -35,3 +35,8 @@ Changelog of all the versions of AndroidStatus
  0.3.1
  * fixed bug with reading salinity values
  
+ 0.4
+ * added in message broadcast receivers
+ * added icons to the menu items
+ 
+ 

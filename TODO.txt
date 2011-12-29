@@ -16,7 +16,7 @@ TODO
 ** new activity for displaying errors
 ** error logger is a content provider for all activities
 * parameters activity allows for clicking on item and displaying all info in poppup window
-* consider always adding in colon (:) after label text
+* consider always adding in colon (:) after label text (or user defined)
 * improve relay mask image
 * add in ability to query device version
 * add in ability to turn on feeding mode
@@ -29,3 +29,4 @@ TODO
 ** ability to change update interval / query interval
 ** service starts when activity starts, pauses/stops when the activity stops
 ** ability to keep service running
+* ability to customize PH label

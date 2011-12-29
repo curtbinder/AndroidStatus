@@ -43,8 +43,8 @@
 					style="@style/ParamsText.Values"
 					/>
 				<TextView 
+				    android:id="@+id/ph_label"
 					android:textColor="@color/ph"
-					android:text="@string/ph_label"
 					style="@style/ParamsText.Labels" 
 					/>
 				<TextView 

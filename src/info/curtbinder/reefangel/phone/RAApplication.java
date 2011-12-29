@@ -106,6 +106,11 @@ public class RAApplication extends Application {
 				getString(R.string.temp3_label));
 	}
 
+	public CharSequence getPrefPHLabel() {
+		return prefs.getString(getString(R.string.prefPHLabelKey),
+				getString(R.string.ph_label));
+	}
+	
 	public String getPrefDPLabel() {
 		return prefs.getString(getString(R.string.prefDPLabelKey),
 				getString(R.string.dp_label));

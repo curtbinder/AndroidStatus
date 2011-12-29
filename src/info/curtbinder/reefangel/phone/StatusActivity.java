@@ -45,6 +45,7 @@ public class StatusActivity extends Activity implements OnClickListener {
 	private TextView t1Label;
 	private TextView t2Label;
 	private TextView t3Label;
+	private TextView phLabel;
 	private TextView dpLabel;
 	private TextView apLabel;
 	private TextView salinityLabel;
@@ -116,6 +117,7 @@ public class StatusActivity extends Activity implements OnClickListener {
 		t1Label = (TextView) findViewById(R.id.t1_label);
 		t2Label = (TextView) findViewById(R.id.t2_label);
 		t3Label = (TextView) findViewById(R.id.t3_label);
+		phLabel = (TextView) findViewById(R.id.ph_label);
 		dpLabel = (TextView) findViewById(R.id.dp_label);
 		apLabel = (TextView) findViewById(R.id.ap_label);
 		salinityLabel = (TextView) findViewById(R.id.salinity_label);
@@ -169,6 +171,7 @@ public class StatusActivity extends Activity implements OnClickListener {
 		t1Label.setText(rapp.getPrefT1Label());
 		t2Label.setText(rapp.getPrefT2Label());
 		t3Label.setText(rapp.getPrefT3Label());
+		phLabel.setText(rapp.getPrefPHLabel());
 		dpLabel.setText(rapp.getPrefDPLabel());
 		apLabel.setText(rapp.getPrefAPLabel());
 

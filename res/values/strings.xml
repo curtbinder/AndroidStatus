@@ -56,6 +56,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 	<string name="port6_label">Port 6:</string>
 	<string name="port7_label">Port 7:</string>
 	<string name="port8_label">Port 8:</string>
+	<string name="label_separator">:</string>
 	
 <!-- Constants -->
 	<string name="websiteReefangel">http://www.reefangel.com/</string>
@@ -178,6 +179,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 	<string name="prefT3LabelKey">t3_label</string>
 	<string name="prefT3LabelTitle">T3 Label</string>
 	<string name="prefT3LabelSummary">Temp sensor 3 label</string>
+	<string name="prefPHLabelKey">ph_label</string>
+	<string name="prefPHLabelTitle">PH Label</string>
+	<string name="prefPHLabelSummary">PH probe label</string>
 	<string name="prefDPLabelKey">dp_label</string>
 	<string name="prefDPLabelTitle">DP Label</string>
 	<string name="prefDPLabelSummary">Daylight PWM label</string>
