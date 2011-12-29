@@ -63,12 +63,8 @@ public class StatusActivity extends Activity implements OnClickListener {
 	private boolean updateStatusScreen;
 
 	// Message Receivers
-	UpdateDataReceiver updateReceiver;
-	IntentFilter updateFilter;
-	UpdateStatusReceiver statusReceiver;
-	IntentFilter statusFilter;
-	ErrorMessageReceiver errorReceiver;
-	IntentFilter errorFilter;
+	StatusReceiver receiver;
+	IntentFilter filter;
 
 	// View visibility
 	// private boolean showMessageText;
@@ -80,7 +76,11 @@ public class StatusActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.status);
 
 		rapp = (RAApplication) getApplication();
-		createReceivers();
+		// Message Receiver stuff
+		receiver = new StatusReceiver();
+		filter = new IntentFilter(ControllerTask.UPDATE_DISPLAY_DATA_INTENT);
+		filter.addAction(ControllerTask.UPDATE_STATUS_INTENT);
+		filter.addAction(ControllerTask.ERROR_MESSAGE_INTENT);
 
 		findViews();
 		initThreading();
@@ -93,39 +93,16 @@ public class StatusActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		unregisterReceivers();
+		unregisterReceiver(receiver);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		registerReceivers();
+		registerReceiver(receiver, filter);
 		updateDisplay();
 	}
-
-	////// Message Receiver Stuff
-	private void createReceivers() {
-		updateReceiver = new UpdateDataReceiver();
-		updateFilter = new IntentFilter(ControllerTask.UPDATE_DISPLAY_DATA_INTENT);
-		statusReceiver = new UpdateStatusReceiver();
-		statusFilter = new IntentFilter(ControllerTask.UPDATE_STATUS_INTENT);
-		errorReceiver = new ErrorMessageReceiver();
-		errorFilter = new IntentFilter(ControllerTask.ERROR_MESSAGE_INTENT);
-	}
-	
-	private void registerReceivers() {
-		// TODO add in special permissions
-		registerReceiver(updateReceiver, updateFilter, null, null);
-		registerReceiver(statusReceiver, statusFilter);
-		registerReceiver(errorReceiver, errorFilter);	
-	}
-	
-	private void unregisterReceivers() {
-		unregisterReceiver(updateReceiver);
-		unregisterReceiver(statusReceiver);
-		unregisterReceiver(errorReceiver);
-	}
-	
+		
 	private void findViews() {
 		refreshButton = findViewById(R.id.refresh_button);
 		updateTime = (TextView) findViewById(R.id.updated);
@@ -446,20 +423,6 @@ public class StatusActivity extends Activity implements OnClickListener {
 		return b;
 	}
 
-//	public void guiUpdateTimeText(final String msg) {
-//		/**
-//		 * Updates the UpdatedTime text box only
-//		 * 
-//		 * Called from other threads to indicate an error or interruption
-//		 */
-//		guiThread.post(new Runnable() {
-//			public void run() {
-//				Log.d(TAG, "updateTimeText");
-//				updateTime.setText(msg);
-//			}
-//		});
-//	}
-
 	public void updateDisplay() {
 		Log.d(TAG, "updateDisplay");
 		try {
@@ -514,32 +477,27 @@ public class StatusActivity extends Activity implements OnClickListener {
 		rapp.getRAData().insert(v);
 	}
 
-	class UpdateDataReceiver extends BroadcastReceiver {
+	class StatusReceiver extends BroadcastReceiver {
+		private final String TAG = StatusReceiver.class.getSimpleName();
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			Log.d("UpdateDataReceiver", "onReceive");
-			insertData(intent);
-			updateDisplay();
+			Log.d(TAG, "onReceive");
+			String action = intent.getAction();
+			if ( action.equals(ControllerTask.UPDATE_STATUS_INTENT) ) {
+				Log.d(TAG, "update status intent");
+				int id = intent.getIntExtra(ControllerTask.UPDATE_STATUS_ID, R.string.defaultStatusText);
+				updateTime.setText(getResources().getString(id));
+			} else if ( action.equals(ControllerTask.UPDATE_DISPLAY_DATA_INTENT) ) {
+				Log.d(TAG, "update data intent");
+				insertData(intent);
+				updateDisplay();
+			} else if ( action.equals(ControllerTask.ERROR_MESSAGE_INTENT) ) {
+				Log.d(TAG, "error message intent");
+				updateTime.setText(intent.getStringExtra(ControllerTask.ERROR_MESSAGE_STRING));
+			}
 		}
 	}
 	
-	class UpdateStatusReceiver extends BroadcastReceiver {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			Log.d("UpdateStatusReceiver", "onReceive");
-			int id = intent.getIntExtra(ControllerTask.UPDATE_STATUS_ID, R.string.defaultStatusText);
-			updateTime.setText(getResources().getString(id));
-		}
-	}
-	
-	class ErrorMessageReceiver extends BroadcastReceiver {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			Log.d("ErrorMessageReceiver", "onReceive");
-			updateTime.setText(intent.getStringExtra(ControllerTask.ERROR_MESSAGE_STRING));
-		}
-	}
-
 	private void updateMainRelayValues(Relay r) {
 		short status;
 		String s;
