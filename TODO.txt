@@ -29,4 +29,6 @@ TODO
 ** ability to change update interval / query interval
 ** service starts when activity starts, pauses/stops when the activity stops
 ** ability to keep service running
+** service stops when network connectivity stops
+** ability to only update over wifi or data connection
 
