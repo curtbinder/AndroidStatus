@@ -38,5 +38,5 @@ Changelog of all the versions of AndroidStatus
  0.4
  * added in message broadcast receivers
  * added icons to the menu items
- 
+ * added ability to change PH label
  
