@@ -41,5 +41,8 @@ Changelog of all the versions of AndroidStatus
  * added ability to change PH label
  * switched to service to communicate with controller
  * added memory reading/writing
+ * process expansion relay data from xml (stored but not displayed)
+ 
+ 
  
  

@@ -175,12 +175,12 @@ public class RAData {
 		return getData(null);
 	}
 
-	public String[] getAllColumns() {
-		// returns a string list of all the columns
-		return new String [] {
-				PCOL_ID, PCOL_T1, PCOL_T2, PCOL_T3, PCOL_PH, PCOL_DP,
-				PCOL_AP, PCOL_SAL, PCOL_ATOHI, PCOL_ATOLO, 
-				PCOL_LOGDATE, PCOL_RDATA, PCOL_RONMASK, PCOL_ROFFMASK
-		};
-	}
+//	public String[] getAllColumns() {
+//		// returns a string list of all the columns
+//		return new String [] {
+//				PCOL_ID, PCOL_T1, PCOL_T2, PCOL_T3, PCOL_PH, PCOL_DP,
+//				PCOL_AP, PCOL_SAL, PCOL_ATOHI, PCOL_ATOLO, 
+//				PCOL_LOGDATE, PCOL_RDATA, PCOL_RONMASK, PCOL_ROFFMASK
+//		};
+//	}
 }
