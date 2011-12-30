@@ -40,5 +40,6 @@ Changelog of all the versions of AndroidStatus
  * added icons to the menu items
  * added ability to change PH label
  * switched to service to communicate with controller
+ * added memory reading/writing
  
  

@@ -1,6 +1,5 @@
 package info.curtbinder.reefangel.phone;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -20,10 +19,8 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-public class StatusActivity extends Activity implements OnClickListener {
+public class StatusActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = "RAStatus";
-
-	RAApplication rapp;
 
 	// Display views
 	private View refreshButton;
@@ -61,7 +58,6 @@ public class StatusActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.status);
 
-		rapp = (RAApplication) getApplication();
 		// Message Receiver stuff
 		receiver = new StatusReceiver();
 		filter = new IntentFilter(ControllerTask.UPDATE_DISPLAY_DATA_INTENT);
@@ -85,10 +81,6 @@ public class StatusActivity extends Activity implements OnClickListener {
 	protected void onResume() {
 		super.onResume();
 		registerReceiver(receiver, filter);
-		// if the service isn't running, start it
-		// TODO move to have this run all the time
-		if (!rapp.isServiceRunning)
-			startService(new Intent(this, ControllerService.class));
 		updateDisplay();
 	}
 

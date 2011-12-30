@@ -12,7 +12,6 @@ TODO
 * labels
 ** additional relay labels screen based on quantity of relay labels installed
 ** label query option to actually query the labels 
-* add in memory page (created, but needs service to work)
 * add in an error status line with error displaying
 * add in error log
 ** logs errors to database
@@ -33,6 +32,5 @@ TODO
 ** ability to keep service running
 ** service stops when network connectivity stops
 ** ability to only update over wifi or data connection
-** start the service if it was stopped
 * add in special permissions to send and receive messages
 

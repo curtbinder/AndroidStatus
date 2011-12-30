@@ -1,6 +1,5 @@
 package info.curtbinder.reefangel.phone;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +17,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class MemoryActivity extends Activity {
+public class MemoryActivity extends BaseActivity {
 	
 	private final static String TAG = MemoryActivity.class.getSimpleName();
 	
