@@ -119,7 +119,7 @@ public class ControllerTask implements Runnable {
 			} else if ( host.getCommand().equals(Globals.requestMemoryByte) ||
 					host.getCommand().equals(Globals.requestMemoryInt)) {
 				// else handle updating memory display
-				broadcastMemoryResponse(xml.getMemoryResponse(), false);
+				broadcastMemoryResponse(xml.getMemoryResponse(), host.isWrite());
 			}
 			// else handle updating the labels from reefangel.com
 		}

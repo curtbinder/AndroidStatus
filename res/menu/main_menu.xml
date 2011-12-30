@@ -10,12 +10,10 @@
 	    android:title="@string/params_menu"
 	    android:icon="@android:drawable/ic_menu_recent_history"
 	    android:alphabeticShortcut="@string/params_shortcut" />
-	<!--
 	<item
 	    android:id="@+id/memory"
 	    android:title="@string/memory_menu"
-	    android:alphabeticShortcut="@string/memory_shortcut" />
-	-->
+	    android:alphabeticShortcut="@string/memory_shortcut" android:icon="@android:drawable/ic_menu_agenda"/>
 	<item 
 		android:id="@+id/about"
 	    android:title="@string/about_menu"

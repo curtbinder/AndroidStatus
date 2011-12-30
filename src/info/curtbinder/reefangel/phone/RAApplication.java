@@ -1,6 +1,7 @@
 package info.curtbinder.reefangel.phone;
 
 import android.app.Application;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -32,12 +33,18 @@ public class RAApplication extends Application {
 		data = new RAData(this);
 		devicesArray = getResources().getStringArray(R.array.devicesValues);
 		isServiceRunning = false;
+		
+		if (!isServiceRunning)
+			startService(new Intent(this, ControllerService.class));
 	}
 
 	@Override
 	public void onTerminate() {
 		super.onTerminate();
 		data.close();
+		
+		if (isServiceRunning)
+			stopService(new Intent(this, ControllerService.class));
 	}
 
 	// Data handling

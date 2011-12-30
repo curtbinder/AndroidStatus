@@ -33,5 +33,6 @@ TODO
 ** ability to keep service running
 ** service stops when network connectivity stops
 ** ability to only update over wifi or data connection
+** start the service if it was stopped
 * add in special permissions to send and receive messages
 

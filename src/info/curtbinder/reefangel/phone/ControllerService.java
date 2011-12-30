@@ -48,6 +48,7 @@ public class ControllerService extends Service {
 		receiver = new ServiceReceiver();
 		filter = new IntentFilter(QUERY_STATUS_INTENT);
 		filter.addAction(TOGGLE_RELAY_INTENT);
+		filter.addAction(MEMORY_INTENT);
 	}
 
 	@Override
@@ -89,47 +90,9 @@ public class ControllerService extends Service {
 			String action = intent.getAction();
 			String command = Globals.requestNone;
 			boolean isController = rapp.isCommunicateController();
-			if (action.equals(QUERY_STATUS_INTENT)) {
-				Log.d(TAG, "Query status");
-				if (isController)
-					command = Globals.requestStatus;
-				else
-					command = Globals.requestReefAngel;
-			} else if (action.equals(TOGGLE_RELAY_INTENT)) {
-				Log.d(TAG, "Toggle Relay");
-				if (isController)
-					command = new String(String.format("%s%d%d",
-							Globals.requestRelay,
-							intent.getIntExtra(TOGGLE_RELAY_PORT_INT, 9),
-							intent.getIntExtra(TOGGLE_RELAY_MODE_INT, 9)));
-				else
-					command = Globals.requestReefAngel;
-			} else if ( action.equals(MEMORY_INTENT)) {
-				Log.d(TAG, "Memory");
-				int value = intent.getIntExtra(MEMORY_VALUE_INT, -1);
-				int location = intent.getIntExtra(MEMORY_LOCATION_INT, -1);
-				String type = intent.getStringExtra(MEMORY_TYPE_STRING);
-				if ( type.equals(null) || (location == -1) ) {
-					Log.d(TAG, "No memory specified");
-					return;
-				}
-				
-				if ( isController ) {
-					command = new String(String.format("%s%d", type, location));
-					if ( value > -1 ) {
-						// we have a write
-						command += "," + value;
-					}
-				} else {
-					// TODO update this for portal
-					Log.d(TAG, "Not a controller");
-					return;
-				}
-			} else {
-				Log.d(TAG, "Unknown command");
-				return;
-			}
 			Host h = new Host();
+			
+			// setup the basics for the host first
 			if (isController) {
 				// controller
 				h.setHost(rapp.getPrefHost());
@@ -138,7 +101,56 @@ public class ControllerService extends Service {
 				// reeefangel.com
 				h.setUserId(rapp.getPrefUserId());
 			}
-			h.setCommand(command);
+			
+			if (action.equals(QUERY_STATUS_INTENT)) {
+				Log.d(TAG, "Query status");
+				if (isController)
+					command = Globals.requestStatus;
+				else
+					command = Globals.requestReefAngel;
+				
+				h.setCommand(command);
+			} else if (action.equals(TOGGLE_RELAY_INTENT)) {
+				Log.d(TAG, "Toggle Relay");
+				if (isController)
+					command = new String(
+							String.format("%s%d%d", Globals.requestRelay,
+								intent.getIntExtra(TOGGLE_RELAY_PORT_INT,
+											Globals.defaultPort), 
+								intent.getIntExtra(TOGGLE_RELAY_MODE_INT,
+											Globals.defaultPort)));
+				else
+					command = Globals.requestReefAngel;
+				
+				h.setCommand(command);
+			} else if (action.equals(MEMORY_INTENT)) {
+				Log.d(TAG, "Memory");
+				int value = intent.getIntExtra(MEMORY_VALUE_INT,
+						Globals.memoryReadOnly);
+				int location = intent.getIntExtra(MEMORY_LOCATION_INT,
+						Globals.memoryReadOnly);
+				String type = intent.getStringExtra(MEMORY_TYPE_STRING);
+				if (type.equals(null) || (location == Globals.memoryReadOnly)) {
+					Log.d(TAG, "No memory specified");
+					return;
+				}
+
+				if (!isController) {
+					// TODO update this for portal
+					Log.d(TAG, "Not a controller");
+					return;
+				}
+				
+				h.setCommand(type);
+				if ( value == Globals.memoryReadOnly )
+					h.setReadLocation(location);
+				else
+					h.setWriteLocation(location, value);
+				
+			} else {
+				Log.d(TAG, "Unknown command");
+				return;
+			}
 			Log.d(TAG, "Task Host: " + h.toString());
 			// submit to thread for execution
 			serviceThread.submit(new ControllerTask(rapp, h));

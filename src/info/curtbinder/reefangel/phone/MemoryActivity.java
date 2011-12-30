@@ -1,6 +1,10 @@
 package info.curtbinder.reefangel.phone;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +20,7 @@ import android.widget.Toast;
 
 public class MemoryActivity extends Activity {
 	
-	private final static String TAG = "RAMemory";
+	private final static String TAG = MemoryActivity.class.getSimpleName();
 	
 	final static int LOCATION_MIN = 0;
 	final static int LOCATION_MAX = 1023;
@@ -51,10 +55,17 @@ public class MemoryActivity extends Activity {
 	private int [] memoryLocations;
 	private int [] memoryLocationsTypes;
 	
+	MemoryReceiver receiver;
+	IntentFilter filter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.memory);
+		
+		// Message receiver
+		receiver = new MemoryReceiver();
+		filter = new IntentFilter(ControllerTask.MEMORY_RESPONSE_INTENT);
 		
 		findViews();
 		setAdapters();
@@ -65,6 +76,18 @@ public class MemoryActivity extends Activity {
 		setInitialValues();
 	}
 	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		unregisterReceiver(receiver);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		registerReceiver(receiver, filter);
+	}
+
 	private void findViews() {
 		locationSpinner = (Spinner) findViewById(R.id.spinMemoryLocation);
 		locationText = (EditText) findViewById(R.id.locationText);
@@ -190,6 +213,7 @@ public class MemoryActivity extends Activity {
 					return;
 				}
 				// good location, proceed
+				sendMessage(false);
 			}
 		});
 		writeButton.setOnClickListener(new OnClickListener() {
@@ -201,6 +225,7 @@ public class MemoryActivity extends Activity {
 					return;
 				}
 				// good location and value, proceed
+				sendMessage(true);
 			}
 		});
 		locationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -254,6 +279,44 @@ public class MemoryActivity extends Activity {
 			locationText.requestFocus();
 		} else {
 			valueText.requestFocus();
+		}
+	}
+	
+	public void updateValue(String value) {
+		valueText.setText(value);
+	}
+	
+	private void sendMessage(boolean write) {
+		Log.d(TAG, "sendMessage");
+		Intent i = new Intent(ControllerService.MEMORY_INTENT);
+		String type = Globals.requestMemoryByte;
+		int value = Globals.memoryReadOnly;
+		
+		if ( write ) 
+			value = (int)Integer.parseInt(valueText.getText().toString());
+		
+		if ( intButton.isChecked() ) 
+			type = Globals.requestMemoryInt;
+		
+		i.putExtra(ControllerService.MEMORY_TYPE_STRING, type);
+		i.putExtra(ControllerService.MEMORY_LOCATION_INT,
+				(int)Integer.parseInt(locationText.getText().toString()));
+		i.putExtra(ControllerService.MEMORY_VALUE_INT, value);
+		sendBroadcast(i);
+	}
+	
+	class MemoryReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			boolean wasWrite = intent.getBooleanExtra(ControllerTask.MEMORY_WRITE_BOOLEAN, false);
+			String response = intent.getStringExtra(ControllerTask.MEMORY_RESPONSE_STRING);
+			if ( wasWrite ) {
+				// do something since we wrote
+				Toast.makeText(MemoryActivity.this, response, Toast.LENGTH_LONG).show();
+			} else {
+				// do something for read
+				updateValue(response);
+			}
 		}
 	}
 }

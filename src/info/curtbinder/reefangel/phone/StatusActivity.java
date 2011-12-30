@@ -78,8 +78,6 @@ public class StatusActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if ( rapp.isServiceRunning ) 
-			stopService(new Intent(this, ControllerService.class));
 		unregisterReceiver(receiver);
 	}
 
@@ -89,11 +87,11 @@ public class StatusActivity extends Activity implements OnClickListener {
 		registerReceiver(receiver, filter);
 		// if the service isn't running, start it
 		// TODO move to have this run all the time
-		if ( ! rapp.isServiceRunning ) 
+		if (!rapp.isServiceRunning)
 			startService(new Intent(this, ControllerService.class));
 		updateDisplay();
 	}
-		
+
 	private void findViews() {
 		refreshButton = findViewById(R.id.refresh_button);
 		updateTime = (TextView) findViewById(R.id.updated);
@@ -377,7 +375,7 @@ public class StatusActivity extends Activity implements OnClickListener {
 			Log.d(TAG, "CursorIndex out of bounds: " + e.getMessage());
 		}
 	}
-	
+
 	private void insertData(Intent i) {
 		ContentValues v = new ContentValues();
 		v.put(RAData.PCOL_T1, i.getStringExtra(RAData.PCOL_T1));
@@ -390,33 +388,38 @@ public class StatusActivity extends Activity implements OnClickListener {
 		v.put(RAData.PCOL_ATOHI, i.getBooleanExtra(RAData.PCOL_ATOHI, false));
 		v.put(RAData.PCOL_ATOLO, i.getBooleanExtra(RAData.PCOL_ATOLO, false));
 		v.put(RAData.PCOL_LOGDATE, i.getStringExtra(RAData.PCOL_LOGDATE));
-		v.put(RAData.PCOL_RDATA, i.getShortExtra(RAData.PCOL_RDATA, (short)0));
-		v.put(RAData.PCOL_RONMASK, i.getShortExtra(RAData.PCOL_RONMASK, (short)0));
-		v.put(RAData.PCOL_ROFFMASK, i.getShortExtra(RAData.PCOL_ROFFMASK, (short)0));
+		v.put(RAData.PCOL_RDATA, i.getShortExtra(RAData.PCOL_RDATA, (short) 0));
+		v.put(RAData.PCOL_RONMASK,
+				i.getShortExtra(RAData.PCOL_RONMASK, (short) 0));
+		v.put(RAData.PCOL_ROFFMASK,
+				i.getShortExtra(RAData.PCOL_ROFFMASK, (short) 0));
 		rapp.getRAData().insert(v);
 	}
 
 	class StatusReceiver extends BroadcastReceiver {
 		private final String TAG = StatusReceiver.class.getSimpleName();
+
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			Log.d(TAG, "onReceive");
 			String action = intent.getAction();
-			if ( action.equals(ControllerTask.UPDATE_STATUS_INTENT) ) {
+			if (action.equals(ControllerTask.UPDATE_STATUS_INTENT)) {
 				Log.d(TAG, "update status intent");
-				int id = intent.getIntExtra(ControllerTask.UPDATE_STATUS_ID, R.string.defaultStatusText);
+				int id = intent.getIntExtra(ControllerTask.UPDATE_STATUS_ID,
+						R.string.defaultStatusText);
 				updateTime.setText(getResources().getString(id));
-			} else if ( action.equals(ControllerTask.UPDATE_DISPLAY_DATA_INTENT) ) {
+			} else if (action.equals(ControllerTask.UPDATE_DISPLAY_DATA_INTENT)) {
 				Log.d(TAG, "update data intent");
 				insertData(intent);
 				updateDisplay();
-			} else if ( action.equals(ControllerTask.ERROR_MESSAGE_INTENT) ) {
+			} else if (action.equals(ControllerTask.ERROR_MESSAGE_INTENT)) {
 				Log.d(TAG, "error message intent");
-				updateTime.setText(intent.getStringExtra(ControllerTask.ERROR_MESSAGE_STRING));
+				updateTime.setText(intent
+						.getStringExtra(ControllerTask.ERROR_MESSAGE_STRING));
 			}
 		}
 	}
-	
+
 	private void updateMainRelayValues(Relay r) {
 		short status;
 		String s;
@@ -494,10 +497,12 @@ public class StatusActivity extends Activity implements OnClickListener {
 			Log.d(TAG, "Menu Parameters clicked");
 			startActivity(new Intent(this, ParamsListActivity.class));
 			break;
-		/*
-		 * case R.id.memory: // launch memory Log.d(TAG, "Memory clicked");
-		 * startActivity(new Intent(this, Memory.class)); break;
-		 */
+		case R.id.memory:
+			// launch memory 
+			Log.d(TAG, "Memory clicked");
+			startActivity(new Intent(this, MemoryActivity.class));
+			break;
+
 		default:
 			return super.onOptionsItemSelected(item);
 		}

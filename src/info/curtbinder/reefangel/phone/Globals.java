@@ -18,6 +18,9 @@ public class Globals {
 	public static final String requestNone = "";
 	public static final String requestReefAngel = "ra";
 	
+	public static final int memoryReadOnly = -1;
+	public static final int defaultPort = 9;
+	
 	// XML tags
 	public static final String xmlStatus = "RA";
 	public static final String xmlMemory = "MEM";

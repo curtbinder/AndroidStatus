@@ -90,6 +90,10 @@ public class Host {
 		this.write = true;
 	}
 	
+	public boolean isWrite() {
+		return this.write;
+	}
+	
 	public String toString() {
 		String s = "";
 		if ( (command.startsWith( Globals.requestRelay )) ||
