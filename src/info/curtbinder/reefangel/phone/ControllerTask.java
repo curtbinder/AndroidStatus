@@ -25,23 +25,25 @@ import android.content.Intent;
 import android.util.Log;
 
 public class ControllerTask implements Runnable {
+	// Messages broadcast from the task
 	public static final String UPDATE_DISPLAY_DATA_INTENT = Globals.PACKAGE_BASE + ".UPDATE_DISPLAY_DATA";
 	public static final String UPDATE_STATUS_INTENT = Globals.PACKAGE_BASE + ".UPDATE_STATUS";
 	public static final String UPDATE_STATUS_ID = "STATUS_MSG_ID";
 	public static final String ERROR_MESSAGE_INTENT = Globals.PACKAGE_BASE + ".ERROR_MESSAGE";
 	public static final String ERROR_MESSAGE_STRING = "ERROR_MESSAGE_STRING";
+	public static final String MEMORY_RESPONSE_INTENT = Globals.PACKAGE_BASE + ".MEMORY_RESPONSE";
+	public static final String MEMORY_RESPONSE_STRING = "MEMORY_RESPONSE_STRING";
+	public static final String MEMORY_WRITE_BOOLEAN = "MEMORY_WRITE_BOOLEAN";
 	
-	private static final String TAG = "RAControllerTask";
+	private static final String TAG = ControllerTask.class.getSimpleName();
 	private final Host host;
-	private boolean status;
-	RAApplication rapp;
+	private final RAApplication rapp;
 
 	private int errorCode;
 
-	ControllerTask(RAApplication rapp, Host host, boolean statusScreen) {
+	ControllerTask(RAApplication rapp, Host host) {
 		this.rapp = rapp;
 		this.host = host;
-		this.status = statusScreen;
 		this.errorCode = 0;
 	}
 
@@ -112,10 +114,13 @@ public class ControllerTask implements Runnable {
 				return;
 			}
 			broadcastUpdateStatus(R.string.statusUpdatingDisplay);
-			if (status) {
+			if ( host.getCommand().startsWith(Globals.requestRelay) ) {
 				broadcastUpdateDisplayData(xml.getRa());
+			} else if ( host.getCommand().equals(Globals.requestMemoryByte) ||
+					host.getCommand().equals(Globals.requestMemoryInt)) {
+				// else handle updating memory display
+				broadcastMemoryResponse(xml.getMemoryResponse(), false);
 			}
-			// else handle updating memory display
 			// else handle updating the labels from reefangel.com
 		}
 	}
@@ -201,7 +206,15 @@ public class ControllerTask implements Runnable {
 		return result;
 	}
 	
-	/////// Broadcast Stuff
+	// Broadcast Stuff
+	private void broadcastMemoryResponse(String response, boolean wasWrite) {
+		Log.d(TAG, "broadcastMemoryResponse");
+		Intent i = new Intent(MEMORY_RESPONSE_INTENT);
+		i.putExtra(MEMORY_RESPONSE_STRING, response);
+		i.putExtra(MEMORY_WRITE_BOOLEAN, wasWrite);
+		rapp.sendBroadcast(i);
+	}
+	
 	private void broadcastUpdateDisplayData(Controller ra) {
 		Log.d(TAG, "broadcastUpdateDisplayData");
 		Intent i = new Intent(UPDATE_DISPLAY_DATA_INTENT);

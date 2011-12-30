@@ -6,60 +6,76 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class RAApplication extends Application {
-	
+
 	private static final String TAG = RAApplication.class.getSimpleName();
 	private SharedPreferences prefs;
 	// Error code stuff
 	private String[] errorCodes;
 	private String[] errorCodesStrings;
 	private int errorCode;
-	
+	// Devices stuff
+	private String[] devicesArray;
+
 	// Controller Data
 	private RAData data;
-	
+
+	// Service Stuff
+	public boolean isServiceRunning;
+
 	@Override
 	public void onCreate() {
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		errorCodes = getResources().getStringArray(R.array.errorCodes);
-		errorCodesStrings = getResources().getStringArray(R.array.errorCodesStrings);
-		errorCode = 0;  // set to no error initially
+		errorCodesStrings = getResources().getStringArray(
+				R.array.errorCodesStrings);
+		errorCode = 0; // set to no error initially
 		data = new RAData(this);
+		devicesArray = getResources().getStringArray(R.array.devicesValues);
+		isServiceRunning = false;
 	}
-	
+
 	@Override
 	public void onTerminate() {
 		super.onTerminate();
 		data.close();
 	}
 
-	////// Data handling 
+	// Data handling
 	public RAData getRAData() {
 		return data;
 	}
-	
-	////// Error Logging
+
+	// Error Logging
 	public void error(int errorCodeIndex, Throwable t, String msg) {
 		errorCode = Integer.parseInt(errorCodes[errorCodeIndex]);
 		Log.e(TAG, msg, t);
 	}
-	
+
 	public String getErrorMessage() {
-		String s = (String) getResources().getText(R.string.messageUnknownError);
+		String s = (String) getResources()
+				.getText(R.string.messageUnknownError);
 		// loop through array of error codes and match with the current code
-		for ( int i = 0; i < errorCodes.length; i++ ){
-			if ( Integer.parseInt(errorCodes[i]) == errorCode ) {
+		for (int i = 0; i < errorCodes.length; i++) {
+			if (Integer.parseInt(errorCodes[i]) == errorCode) {
 				// found code
-				s = String.format("%s %d: %s", 
-						getResources().getText(R.string.messageError), 
-						errorCode, 
-						errorCodesStrings[i]);
+				s = String.format("%s %d: %s",
+						getResources().getText(R.string.messageError),
+						errorCode, errorCodesStrings[i]);
 				break;
 			}
 		}
 		return s;
 	}
-	
-	////// Preferences
+
+	// Preferences
+	public boolean isCommunicateController() {
+		boolean b = false;
+		if (getPrefDevice().equals(devicesArray[0])) {
+			b = true;
+		}
+		return b;
+	}
+
 	public String getPrefHost() {
 		return prefs.getString(getString(R.string.prefHostKey),
 				getString(R.string.prefHostDefault));
@@ -110,7 +126,7 @@ public class RAApplication extends Application {
 		return prefs.getString(getString(R.string.prefPHLabelKey),
 				getString(R.string.ph_label));
 	}
-	
+
 	public String getPrefDPLabel() {
 		return prefs.getString(getString(R.string.prefDPLabelKey),
 				getString(R.string.dp_label));

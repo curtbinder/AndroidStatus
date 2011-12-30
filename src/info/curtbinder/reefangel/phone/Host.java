@@ -61,6 +61,10 @@ public class Host {
 		this.command = command;
 	}
 	
+	public String getCommand() {
+		return this.command;
+	}
+	
 	public void setUserId(String userid) {
 		raUserid = userid;
 		setCommand(Globals.requestReefAngel);

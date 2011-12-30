@@ -32,6 +32,7 @@
 		<activity android:name=".MemoryActivity"
 		    	  android:label="@string/memory_title">
 		</activity>
+		<service android:name=".ControllerService"></service>
 
     </application>
 </manifest>

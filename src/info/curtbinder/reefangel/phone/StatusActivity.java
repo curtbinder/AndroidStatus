@@ -1,10 +1,5 @@
 package info.curtbinder.reefangel.phone;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.RejectedExecutionException;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
@@ -15,7 +10,6 @@ import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.database.SQLException;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -54,15 +48,6 @@ public class StatusActivity extends Activity implements OnClickListener {
 	private ToggleButton[] mainPortBtns = new ToggleButton[8];
 	private View[] mainPortMaskBtns = new View[8];
 
-	// Threading
-	private Handler guiThread;
-	private ExecutorService statusThread;
-	private Runnable updateTask;
-	@SuppressWarnings("rawtypes")
-	private Future statusPending;
-	private String controllerCommand;
-	private boolean updateStatusScreen;
-
 	// Message Receivers
 	StatusReceiver receiver;
 	IntentFilter filter;
@@ -84,7 +69,6 @@ public class StatusActivity extends Activity implements OnClickListener {
 		filter.addAction(ControllerTask.ERROR_MESSAGE_INTENT);
 
 		findViews();
-		initThreading();
 
 		updateViewsVisibility();
 
@@ -94,6 +78,8 @@ public class StatusActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onPause() {
 		super.onPause();
+		if ( rapp.isServiceRunning ) 
+			stopService(new Intent(this, ControllerService.class));
 		unregisterReceiver(receiver);
 	}
 
@@ -101,6 +87,10 @@ public class StatusActivity extends Activity implements OnClickListener {
 	protected void onResume() {
 		super.onResume();
 		registerReceiver(receiver, filter);
+		// if the service isn't running, start it
+		// TODO move to have this run all the time
+		if ( ! rapp.isServiceRunning ) 
+			startService(new Intent(this, ControllerService.class));
 		updateDisplay();
 	}
 		
@@ -152,7 +142,7 @@ public class StatusActivity extends Activity implements OnClickListener {
 	private void setOnClickListeners() {
 		refreshButton.setOnClickListener(this);
 		for (int i = 0; i < 8; i++) {
-			if (isController()) {
+			if (rapp.isCommunicateController()) {
 				mainPortBtns[i].setOnClickListener(this);
 				mainPortMaskBtns[i].setOnClickListener(this);
 			} else {
@@ -338,92 +328,18 @@ public class StatusActivity extends Activity implements OnClickListener {
 		return true;
 	}
 
-	private void initThreading() {
-		// TODO move to Service thread
-		guiThread = new Handler();
-		statusThread = Executors.newSingleThreadExecutor();
-		controllerCommand = "";
-		updateStatusScreen = true;
-		updateTask = new Runnable() {
-			public void run() {
-				// Task to be run
-
-				// Cancel any previous status check if exists
-				if (statusPending != null)
-					statusPending.cancel(true);
-
-				try {
-					// Get IP & Port
-					Host h = new Host();
-					if (isController()) {
-						// controller
-						h.setHost(rapp.getPrefHost());
-						h.setPort(rapp.getPrefPort());
-					} else {
-						// reeefangel.com
-						h.setUserId(rapp.getPrefUserId());
-					}
-					h.setCommand(controllerCommand);
-					Log.d(TAG, "Task Host: " + h.toString());
-					// Create ControllerTask
-					ControllerTask cTask = new ControllerTask(rapp, h,
-							updateStatusScreen);
-					statusPending = statusThread.submit(cTask);
-					// Add ControllerTask to statusThread to be run
-				} catch (RejectedExecutionException e) {
-					Log.e(TAG, "initThreading RejectedExecution");
-					updateTime.setText(R.string.messageError);
-				}
-			}
-		};
-	}
-
 	private void launchStatusTask() {
-		/**
-		 * Creates the thread that communicates with the controller Then that
-		 * function calls updateDisplay when it finishes
-		 */
 		Log.d(TAG, "launchStatusTask");
-		// cancel any previous update if it hasn't started yet
-		guiThread.removeCallbacks(updateTask);
-		// set the command to be executed
-		if (isController()) {
-			controllerCommand = Globals.requestStatus;
-		} else {
-			controllerCommand = Globals.requestReefAngel;
-		}
-		updateStatusScreen = true;
-		// start an update
-		guiThread.post(updateTask);
+		Intent i = new Intent(ControllerService.QUERY_STATUS_INTENT);
+		sendBroadcast(i);
 	}
 
 	private void launchRelayToggleTask(int relay, int status) {
 		Log.d(TAG, "launchRelayToggleTask");
-		// cancel any previous update if it hasn't started yet
-		guiThread.removeCallbacks(updateTask);
-		// set the command to be executed
-		if (isController()) {
-			controllerCommand = new String(String.format("%s%d%d",
-					Globals.requestRelay, relay, status));
-		} else {
-			controllerCommand = Globals.requestReefAngel;
-		}
-		updateStatusScreen = true;
-		Log.d(TAG, "RelayCommand: " + controllerCommand);
-		// start an update
-		guiThread.post(updateTask);
-	}
-
-	private boolean isController() {
-		// TODO move to application?
-		String[] devicesArray = rapp.getResources().getStringArray(
-				R.array.devicesValues);
-		String device = rapp.getPrefDevice();
-		boolean b = false;
-		if (device.equals(devicesArray[0])) {
-			b = true;
-		}
-		return b;
+		Intent i = new Intent(ControllerService.TOGGLE_RELAY_INTENT);
+		i.putExtra(ControllerService.TOGGLE_RELAY_PORT_INT, relay);
+		i.putExtra(ControllerService.TOGGLE_RELAY_MODE_INT, status);
+		sendBroadcast(i);
 	}
 
 	public void updateDisplay() {
@@ -505,7 +421,7 @@ public class StatusActivity extends Activity implements OnClickListener {
 		short status;
 		String s;
 		String s1;
-		boolean useMask = isController();
+		boolean useMask = rapp.isCommunicateController();
 		for (int i = 0; i < 8; i++) {
 			status = r.getPortStatus(i + 1);
 			if (status == Relay.PORT_STATE_ON) {

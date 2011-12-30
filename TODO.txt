@@ -4,11 +4,14 @@ TODO
 ----
 * Toggle ability to restore values on configuration changes
 * fix layouts for hiding text:  switch to relative layout for better control over display
+* create smaller subsets of the layouts for simpler including and easy duplication
+* add in swip capabilities to switch screens
+** move the relays to own screen
+** have main status, main relay, exp relay 1, etc, on own pages
 * validation of host on configuration page (better validation of preferences)
 * labels
 ** additional relay labels screen based on quantity of relay labels installed
 ** label query option to actually query the labels 
-* consider passing in a Controller type to the XML handler
 * add in memory page (created, but needs service to work)
 * add in an error status line with error displaying
 * add in error log
@@ -24,11 +27,11 @@ TODO
 * switch to a content provider for working working with the db
 ** ability to insert values
 ** ability to query values
-* move controller querying to a service
+* service tasks
 ** ability to stop/shutdown service
 ** ability to change update interval / query interval
-** service starts when activity starts, pauses/stops when the activity stops
 ** ability to keep service running
 ** service stops when network connectivity stops
 ** ability to only update over wifi or data connection
+* add in special permissions to send and receive messages
 
