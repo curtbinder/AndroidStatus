@@ -11,11 +11,18 @@ public class Relay {
 	private short data;
 	private short maskOn;
 	private short maskOff;
+	
+	private String[] labels;
 
 	public Relay () {
 		data = 0;
 		maskOn = 0;
 		maskOff = 0;
+		labels = new String[Controller.MAX_RELAY_PORTS];
+		for ( int i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
+			// TODO use strings.xml instead of hard code
+			labels[i] = String.format("Port %d", i+1);
+		}
 	}
 
 	public void setRelayData ( short data, short maskOn, short maskOff ) {
@@ -47,7 +54,29 @@ public class Relay {
 	public short getRelayOffMask ( ) {
 		return this.maskOff;
 	}
+	
+	public String[] getPortLabels() {
+		return labels;
+	}
+	
+	public String getPortLabel(int port) {
+		int i = port - 1;
+		if ( i < 0 )
+			i = port;
+		return labels[i];
+	}
+	
+	public void setPortLabels(String[] labels) {
+		this.labels = labels;
+	}
 
+	public void setPortLabel(int port, String label) {
+		int i = port - 1;
+		if ( i < 0 ) 
+			i = port;
+		labels[i] = label;
+	}
+	
 	// Get port statuses
 	/*
 	 * maskOn = 1 & maskOff = 1 == PORT_ON 

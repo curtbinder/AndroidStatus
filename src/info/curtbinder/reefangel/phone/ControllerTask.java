@@ -39,12 +39,9 @@ public class ControllerTask implements Runnable {
 	private final Host host;
 	private final RAApplication rapp;
 
-	private int errorCode;
-
 	ControllerTask(RAApplication rapp, Host host) {
 		this.rapp = rapp;
 		this.host = host;
-		this.errorCode = 0;
 	}
 
 	@Override
@@ -52,7 +49,7 @@ public class ControllerTask implements Runnable {
 		// Communicate with controller
 
 		// clear out the error code on run
-		errorCode = 0;
+		rapp.clearError();
 		HttpURLConnection con = null;
 		String res = "";
 		broadcastUpdateStatus(R.string.statusStart);
@@ -98,7 +95,7 @@ public class ControllerTask implements Runnable {
 		broadcastUpdateStatus(R.string.statusReadResponse);
 
 		// check if there was an error
-		if (errorCode > 0) {
+		if (rapp.getErrorCode() > 0) {
 			// encountered an error, display an error on screen
 			broadcastErrorMessage();
 		} else if (res.equals((String) rapp.getResources().getText(
@@ -114,14 +111,14 @@ public class ControllerTask implements Runnable {
 				return;
 			}
 			broadcastUpdateStatus(R.string.statusUpdatingDisplay);
-			if ( host.getCommand().startsWith(Globals.requestRelay) ) {
+			if ( host.getCommand().startsWith(Globals.requestRelay) || 
+					host.getCommand().equals(Globals.requestReefAngel)) {
 				broadcastUpdateDisplayData(xml.getRa());
 			} else if ( host.getCommand().equals(Globals.requestMemoryByte) ||
 					host.getCommand().equals(Globals.requestMemoryInt)) {
-				// else handle updating memory display
 				broadcastMemoryResponse(xml.getMemoryResponse(), host.isWrite());
 			}
-			// else handle updating the labels from reefangel.com
+			// TODO else handle updating the labels from reefangel.com
 		}
 	}
 
@@ -157,7 +154,7 @@ public class ControllerTask implements Runnable {
 		}
 
 		// if we encountered an error, set the error text
-		if (errorCode > 0)
+		if (rapp.getErrorCode() > 0)
 			s = new StringBuilder((String) rapp.getResources().getText(
 					R.string.messageError));
 
@@ -208,7 +205,7 @@ public class ControllerTask implements Runnable {
 	
 	// Broadcast Stuff
 	private void broadcastMemoryResponse(String response, boolean wasWrite) {
-		Log.d(TAG, "broadcastMemoryResponse");
+		//Log.d(TAG, "broadcastMemoryResponse");
 		Intent i = new Intent(MEMORY_RESPONSE_INTENT);
 		i.putExtra(MEMORY_RESPONSE_STRING, response);
 		i.putExtra(MEMORY_WRITE_BOOLEAN, wasWrite);
@@ -216,7 +213,7 @@ public class ControllerTask implements Runnable {
 	}
 	
 	private void broadcastUpdateDisplayData(Controller ra) {
-		Log.d(TAG, "broadcastUpdateDisplayData");
+		//Log.d(TAG, "broadcastUpdateDisplayData");
 		Intent i = new Intent(UPDATE_DISPLAY_DATA_INTENT);
 		i.putExtra(RAData.PCOL_T1, ra.getTemp1());
 		i.putExtra(RAData.PCOL_T2, ra.getTemp2());
@@ -231,11 +228,12 @@ public class ControllerTask implements Runnable {
 		i.putExtra(RAData.PCOL_RDATA, ra.getMainRelay().getRelayData());
 		i.putExtra(RAData.PCOL_RONMASK, ra.getMainRelay().getRelayOnMask());
 		i.putExtra(RAData.PCOL_ROFFMASK, ra.getMainRelay().getRelayOffMask());
+		// TODO add extra data for additional relays
 		rapp.sendBroadcast(i);
 	}
 	
 	private void broadcastUpdateStatus(int msgid) {
-		Log.d(TAG, "broadcastUpdateStatus");
+		//Log.d(TAG, "broadcastUpdateStatus");
 		Intent i = new Intent(UPDATE_STATUS_INTENT);
 		i.putExtra(UPDATE_STATUS_ID, msgid);
 		rapp.sendBroadcast(i);
@@ -243,7 +241,7 @@ public class ControllerTask implements Runnable {
 	
 	private void broadcastErrorMessage() {
 		// TODO maybe a notification message or something
-		Log.d(TAG, "broadcastErrorMessage");
+		//Log.d(TAG, "broadcastErrorMessage");
 		Intent i = new Intent(ERROR_MESSAGE_INTENT);
 		i.putExtra(ERROR_MESSAGE_STRING, rapp.getErrorMessage());
 		rapp.sendBroadcast(i);

@@ -9,11 +9,11 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-//import android.util.Log;
+import android.util.Log;
 
 public class XMLHandler extends DefaultHandler {
 
-//	private static final String TAG = "RAXml";
+	private static final String TAG = "XML";
 	private String currentElementText = "";
 	private String requestType = "";
 	private Controller ra;
@@ -91,6 +91,7 @@ public class XMLHandler extends DefaultHandler {
 //			 (requestType.startsWith( Globals.requestRelay )) ) {
 		if ( requestType.equals( Globals.requestStatus ) ) {
 			if ( tag.equals( Globals.xmlStatus ) ) {
+				Log.d(TAG, Globals.xmlStatus);
 				return;
 			} else {
 				processStatusXml( tag );
@@ -159,6 +160,7 @@ public class XMLHandler extends DefaultHandler {
 	}
 
 	private void processStatusXml ( String tag ) {
+		String saved = " *";
 		if ( tag.equals( Globals.xmlT1 ) ) {
 			ra.setTemp1( Integer.parseInt( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlT2 ) ) {
@@ -193,8 +195,40 @@ public class XMLHandler extends DefaultHandler {
 			ra.setMainRelayOffMask( Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlLogDate ) ) {
 			ra.setLogDate(currentElementText);
+		} else if ( tag.startsWith(Globals.xmlLabelTempBegin) && 
+				tag.endsWith(Globals.xmlLabelEnd) ) {
+			// handle temp sensor labels
+			int sensor = Integer.parseInt(getTagNumber(tag, 
+					Globals.xmlLabelTempBegin, Globals.xmlLabelEnd));
+			if ( sensor < 0 || sensor > Controller.MAX_TEMP_SENSORS ) 
+				Log.e(TAG, "Incorrect sensor number: " + tag);
+			ra.setTempLabel(sensor, currentElementText);
+		} else if ( tag.startsWith(Globals.xmlLabelRelayBegin) && 
+				tag.endsWith(Globals.xmlLabelEnd) )  {
+			// handle relay labels
+			int relay = Integer.parseInt(getTagNumber(tag, 
+					Globals.xmlLabelRelayBegin, Globals.xmlLabelEnd));
+			if ( relay < 10 ) {
+				// main relay
+				ra.getMainRelay().setPortLabel(relay, currentElementText);
+			} else {
+				// expansion relays, so split the port from the relay box
+				int box = relay / 10;
+				int port = relay % 10;
+				//Log.d(TAG, "Box: " + box + " Port: " + port);
+				ra.getExpRelay(box).setPortLabel(port, currentElementText);
+			}
+		} else {
+			saved = "";
 		}
 		// TODO process expansion relays
+		Log.d(TAG, tag + " - " + currentElementText + saved);
+	}
+	
+	private String getTagNumber(String tag, String start, String end) {
+		int ep = tag.indexOf(end);
+		int bp = start.length();
+		return tag.substring(bp, ep);
 	}
 
 /*

@@ -6,7 +6,7 @@ import java.net.URLEncoder;
 import android.util.Log;
 
 public class Host {
-	private static final String TAG = "RAHost";
+	private static final String TAG = Host.class.getSimpleName();
 	private String host;
 	private int port;
 	private String command;

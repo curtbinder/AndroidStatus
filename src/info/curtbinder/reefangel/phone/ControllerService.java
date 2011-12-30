@@ -64,12 +64,13 @@ public class ControllerService extends Service {
 	}
 
 	@Override
-	public void onStart(Intent intent, int startId) {
+	public synchronized void onStart(Intent intent, int startId) {
 		super.onStart(intent, startId);
 
 		Log.d(TAG, "onStart");
 
 		if (!rapp.isServiceRunning) {
+			Log.d(TAG, "start Service");
 			// register the receiver
 			registerReceiver(receiver, filter);
 
@@ -83,7 +84,7 @@ public class ControllerService extends Service {
 	class ServiceReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			Log.d(TAG, "onReceive");
+			//Log.d(TAG, "onReceive");
 			// receive messages
 			// create new ControllerTask based on values received
 			// post ControllerTask to serviceThread

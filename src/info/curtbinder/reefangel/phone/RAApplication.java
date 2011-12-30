@@ -70,10 +70,19 @@ public class RAApplication extends Application {
 				i.getShortExtra(RAData.PCOL_RONMASK, (short) 0));
 		v.put(RAData.PCOL_ROFFMASK,
 				i.getShortExtra(RAData.PCOL_ROFFMASK, (short) 0));
+		// TODO insert additional relay data, all 8 relays are capable of being stored in db
 		data.insert(v);
 	}
 
 	// Error Logging
+	public void clearError() {
+		errorCode = 0;
+	}
+	
+	public int getErrorCode() {
+		return errorCode;
+	}
+	
 	public void error(int errorCodeIndex, Throwable t, String msg) {
 		errorCode = Integer.parseInt(errorCodes[errorCodeIndex]);
 		Log.e(TAG, msg, t);

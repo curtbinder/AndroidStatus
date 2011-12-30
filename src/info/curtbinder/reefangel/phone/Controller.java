@@ -4,11 +4,11 @@ package info.curtbinder.reefangel.phone;
 
 public class Controller {
 	public static final byte MAX_EXPANSION_RELAYS = 8;
+	public static final byte MAX_RELAY_PORTS = 8;
+	public static final byte MAX_TEMP_SENSORS = 3;
 
 	private String updateLogDate;
-	private Number t1;
-	private Number t2;
-	private Number t3;
+	private TempSensor[] tempSensors;
 	private Number pH;
 	private boolean atoLow;
 	private boolean atoHigh;
@@ -30,9 +30,11 @@ public class Controller {
 
 	private void init ( ) {
 		updateLogDate = "";
-		t1 = new Number((byte) 1);
-		t2 = new Number((byte) 1);
-		t3 = new Number((byte) 1);
+		tempSensors = new TempSensor[MAX_TEMP_SENSORS];
+		int i;
+		for ( i = 0; i < MAX_TEMP_SENSORS; i++ ) {
+			tempSensors[i] = new TempSensor();
+		}
 		pH = new Number((byte) 2);
 		atoLow = false;
 		atoHigh = false;
@@ -41,7 +43,7 @@ public class Controller {
 		salinity = new Number((byte) 1);
 		main = new Relay();
 		expansionRelays = new Relay[MAX_EXPANSION_RELAYS];
-		for ( int i = 0; i < MAX_EXPANSION_RELAYS; i++ ) {
+		for ( i = 0; i < MAX_EXPANSION_RELAYS; i++ ) {
 			expansionRelays[i] = new Relay();
 		}
 		qtyExpansionRelays = 0;
@@ -63,28 +65,40 @@ public class Controller {
 		return updateLogDate;
 	}
 	
+//	public void setTempValue(int sensor, int value) {
+//		tempSensors[sensor-1].setTemp(value);
+//	}
+	
+	public void setTempLabel(int sensor, String label) {
+		tempSensors[sensor-1].setLabel(label);
+	}
+	
+	public String getTempLabel(int sensor) {
+		return tempSensors[sensor-1].getLabel();
+	}
+	
 	public void setTemp1 ( int value ) {
-		t1.setValue(value);
+		tempSensors[0].setTemp(value);
 	}
 
 	public String getTemp1 ( ) {
-		return t1.toString();
+		return tempSensors[0].getTemp();
 	}
 
 	public void setTemp2 ( int value ) {
-		t2.setValue(value);
+		tempSensors[1].setTemp(value);
 	}
 
 	public String getTemp2 ( ) {
-		return t2.toString();
+		return tempSensors[1].getTemp();
 	}
 
 	public void setTemp3 ( int value ) {
-		t3.setValue(value);
+		tempSensors[2].setTemp(value);
 	}
 
 	public String getTemp3 ( ) {
-		return t3.toString();
+		return tempSensors[2].getTemp();
 	}
 
 	public void setPH ( int value ) {
@@ -104,13 +118,17 @@ public class Controller {
 	}
 
 	public String getAtoLowText ( ) {
-		if ( atoLow ) {
-			return "ON";
-		} else {
-			return "OFF";
-		}
+		return getAtoText(atoLow);
 	}
 
+	private String getAtoText(boolean active) {
+		// TODO use strings.xml instead of hard code
+		if ( active ) 
+			return "ON";
+		else
+			return "OFF";
+	}
+	
 	public void setAtoHigh ( boolean v ) {
 		atoHigh = v;
 	}
@@ -120,11 +138,7 @@ public class Controller {
 	}
 
 	public String getAtoHighText ( ) {
-		if ( atoHigh ) {
-			return "ON";
-		} else {
-			return "OFF";
-		}
+		return getAtoText(atoHigh);
 	}
 
 	public void setPwmA ( byte v ) {
@@ -171,5 +185,25 @@ public class Controller {
 
 	public Relay getMainRelay ( ) {
 		return main;
+	}
+
+	public void setExpRelayData ( int relay, short data, short maskOn, short maskOff ) {
+		expansionRelays[relay-1].setRelayData(data, maskOn, maskOff);
+	}
+
+	public void setExpRelayData ( int relay, short data ) {
+		expansionRelays[relay-1].setRelayData(data);
+	}
+
+	public void setExpRelayOnMask ( int relay, short maskOn ) {
+		expansionRelays[relay-1].setRelayOnMask(maskOn);
+	}
+
+	public void setExpRelayOffMask ( int relay, short maskOff ) {
+		expansionRelays[relay-1].setRelayOffMask(maskOff);
+	}
+
+	public Relay getExpRelay ( int relay ) {
+		return expansionRelays[relay-1];
 	}
 }

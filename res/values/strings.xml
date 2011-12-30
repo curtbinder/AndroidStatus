@@ -57,6 +57,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 	<string name="port7_label">Port 7:</string>
 	<string name="port8_label">Port 8:</string>
 	<string name="label_separator">:</string>
+	<string name="default_port_name">Port</string>
 	
 <!-- Constants -->
 	<string name="websiteReefangel">http://www.reefangel.com/</string>

@@ -372,19 +372,19 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			Log.d(TAG, "onReceive");
+			//Log.d(TAG, "onReceive");
 			String action = intent.getAction();
 			if (action.equals(ControllerTask.UPDATE_STATUS_INTENT)) {
-				Log.d(TAG, "update status intent");
 				int id = intent.getIntExtra(ControllerTask.UPDATE_STATUS_ID,
 						R.string.defaultStatusText);
+				Log.d(TAG, getResources().getString(id));
 				updateTime.setText(getResources().getString(id));
 			} else if (action.equals(ControllerTask.UPDATE_DISPLAY_DATA_INTENT)) {
 				Log.d(TAG, "update data intent");
 				rapp.insertData(intent);
 				updateDisplay();
 			} else if (action.equals(ControllerTask.ERROR_MESSAGE_INTENT)) {
-				Log.d(TAG, "error message intent");
+				Log.d(TAG, intent.getStringExtra(ControllerTask.ERROR_MESSAGE_STRING));
 				updateTime.setText(intent
 						.getStringExtra(ControllerTask.ERROR_MESSAGE_STRING));
 			}
