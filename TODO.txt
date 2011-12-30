@@ -5,31 +5,40 @@ TODO
 * Toggle ability to restore values on configuration changes
 * fix layouts for hiding text:  switch to relative layout for better control over display
 * create smaller subsets of the layouts for simpler including and easy duplication
-* add in swip capabilities to switch screens
+
+* add in swipe capabilities to switch screens
 ** move the relays to own screen
 ** have main status, main relay, exp relay 1, etc, on own pages
+
 * validation of host on configuration page (better validation of preferences)
+
 * labels
 ** additional relay labels screen based on quantity of relay labels installed
 ** label query option to actually query the labels 
+
 * add in an error status line with error displaying
+
 * add in error log
 ** logs errors to database
 ** new activity for displaying errors
 ** error logger is a content provider for all activities
+
 * parameters activity allows for clicking on item and displaying all info in poppup window
 * consider always adding in colon (:) after label text (or user defined)
 * improve relay mask image
 * add in ability to query device version
 * add in ability to turn on feeding mode
 * add in ability to turn on water change mode
+
 * switch to a content provider for working working with the db
 ** ability to insert values
 ** ability to query values
+
 * service tasks
 ** ability to stop/shutdown service
 ** ability to change update interval / query interval
 ** service stops when network connectivity stops
 ** ability to only update over wifi or data connection
+
 * add in special permissions to send and receive messages
 

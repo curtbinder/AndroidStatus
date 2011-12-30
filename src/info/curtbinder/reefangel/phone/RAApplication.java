@@ -1,6 +1,7 @@
 package info.curtbinder.reefangel.phone;
 
 import android.app.Application;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -50,6 +51,26 @@ public class RAApplication extends Application {
 	// Data handling
 	public RAData getRAData() {
 		return data;
+	}
+	
+	public void insertData(Intent i) {
+		ContentValues v = new ContentValues();
+		v.put(RAData.PCOL_T1, i.getStringExtra(RAData.PCOL_T1));
+		v.put(RAData.PCOL_T2, i.getStringExtra(RAData.PCOL_T2));
+		v.put(RAData.PCOL_T3, i.getStringExtra(RAData.PCOL_T3));
+		v.put(RAData.PCOL_PH, i.getStringExtra(RAData.PCOL_PH));
+		v.put(RAData.PCOL_DP, i.getStringExtra(RAData.PCOL_DP));
+		v.put(RAData.PCOL_AP, i.getStringExtra(RAData.PCOL_AP));
+		v.put(RAData.PCOL_SAL, i.getStringExtra(RAData.PCOL_SAL));
+		v.put(RAData.PCOL_ATOHI, i.getBooleanExtra(RAData.PCOL_ATOHI, false));
+		v.put(RAData.PCOL_ATOLO, i.getBooleanExtra(RAData.PCOL_ATOLO, false));
+		v.put(RAData.PCOL_LOGDATE, i.getStringExtra(RAData.PCOL_LOGDATE));
+		v.put(RAData.PCOL_RDATA, i.getShortExtra(RAData.PCOL_RDATA, (short) 0));
+		v.put(RAData.PCOL_RONMASK,
+				i.getShortExtra(RAData.PCOL_RONMASK, (short) 0));
+		v.put(RAData.PCOL_ROFFMASK,
+				i.getShortExtra(RAData.PCOL_ROFFMASK, (short) 0));
+		data.insert(v);
 	}
 
 	// Error Logging

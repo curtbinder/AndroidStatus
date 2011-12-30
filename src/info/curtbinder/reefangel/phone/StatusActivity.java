@@ -1,7 +1,6 @@
 package info.curtbinder.reefangel.phone;
 
 import android.content.BroadcastReceiver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -368,26 +367,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		}
 	}
 
-	private void insertData(Intent i) {
-		ContentValues v = new ContentValues();
-		v.put(RAData.PCOL_T1, i.getStringExtra(RAData.PCOL_T1));
-		v.put(RAData.PCOL_T2, i.getStringExtra(RAData.PCOL_T2));
-		v.put(RAData.PCOL_T3, i.getStringExtra(RAData.PCOL_T3));
-		v.put(RAData.PCOL_PH, i.getStringExtra(RAData.PCOL_PH));
-		v.put(RAData.PCOL_DP, i.getStringExtra(RAData.PCOL_DP));
-		v.put(RAData.PCOL_AP, i.getStringExtra(RAData.PCOL_AP));
-		v.put(RAData.PCOL_SAL, i.getStringExtra(RAData.PCOL_SAL));
-		v.put(RAData.PCOL_ATOHI, i.getBooleanExtra(RAData.PCOL_ATOHI, false));
-		v.put(RAData.PCOL_ATOLO, i.getBooleanExtra(RAData.PCOL_ATOLO, false));
-		v.put(RAData.PCOL_LOGDATE, i.getStringExtra(RAData.PCOL_LOGDATE));
-		v.put(RAData.PCOL_RDATA, i.getShortExtra(RAData.PCOL_RDATA, (short) 0));
-		v.put(RAData.PCOL_RONMASK,
-				i.getShortExtra(RAData.PCOL_RONMASK, (short) 0));
-		v.put(RAData.PCOL_ROFFMASK,
-				i.getShortExtra(RAData.PCOL_ROFFMASK, (short) 0));
-		rapp.getRAData().insert(v);
-	}
-
 	class StatusReceiver extends BroadcastReceiver {
 		private final String TAG = StatusReceiver.class.getSimpleName();
 
@@ -402,7 +381,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 				updateTime.setText(getResources().getString(id));
 			} else if (action.equals(ControllerTask.UPDATE_DISPLAY_DATA_INTENT)) {
 				Log.d(TAG, "update data intent");
-				insertData(intent);
+				rapp.insertData(intent);
 				updateDisplay();
 			} else if (action.equals(ControllerTask.ERROR_MESSAGE_INTENT)) {
 				Log.d(TAG, "error message intent");
