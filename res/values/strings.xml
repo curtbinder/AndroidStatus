@@ -75,7 +75,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 	<string name="messageEmptyLocation">Location cannot be empty</string>
 	<string name="messageInvalidLocation" formatted="false">Location must be between %d and %d</string>
 	<string name="messageUnknownError">Unknown error</string>
-	<string name="messageDownloadLabels">Downloading labels...</string>
+	<string name="messageDownloadLabels">Downloading labels&#8230;</string>
 	<string name="messageDownloadLabelsComplete">Labels downloaded and updated</string>
 	<string name="messageDownloadMessage">Please exit preferences to see updated labels</string>
 	<string name="labelFeedingMode">Feeding Mode</string>
