@@ -21,6 +21,10 @@ public class RAApplication extends Application {
 	// Controller Data
 	private RAData data;
 
+	// Relay labels
+	private int[][] relayLabels;
+	private int[] relayDefaultLabels;
+
 	// Service Stuff
 	public boolean isServiceRunning;
 
@@ -34,6 +38,8 @@ public class RAApplication extends Application {
 		data = new RAData( this );
 		devicesArray = getResources().getStringArray( R.array.devicesValues );
 		isServiceRunning = false;
+
+		fillRelayLabels();
 
 		if ( !isServiceRunning )
 			startService( new Intent( this, ControllerService.class ) );
@@ -155,6 +161,91 @@ public class RAApplication extends Application {
 	}
 
 	// Preferences
+	protected void fillRelayLabels ( ) {
+		relayLabels =
+				new int[][] {	{	R.string.prefMainPort1LabelKey,
+									R.string.prefMainPort2LabelKey,
+									R.string.prefMainPort3LabelKey,
+									R.string.prefMainPort4LabelKey,
+									R.string.prefMainPort5LabelKey,
+									R.string.prefMainPort6LabelKey,
+									R.string.prefMainPort7LabelKey,
+									R.string.prefMainPort8LabelKey },
+								{	R.string.prefExp1Port1LabelKey,
+									R.string.prefExp1Port2LabelKey,
+									R.string.prefExp1Port3LabelKey,
+									R.string.prefExp1Port4LabelKey,
+									R.string.prefExp1Port5LabelKey,
+									R.string.prefExp1Port6LabelKey,
+									R.string.prefExp1Port7LabelKey,
+									R.string.prefExp1Port8LabelKey },
+								{	R.string.prefExp2Port1LabelKey,
+									R.string.prefExp2Port2LabelKey,
+									R.string.prefExp2Port3LabelKey,
+									R.string.prefExp2Port4LabelKey,
+									R.string.prefExp2Port5LabelKey,
+									R.string.prefExp2Port6LabelKey,
+									R.string.prefExp2Port7LabelKey,
+									R.string.prefExp2Port8LabelKey },
+								{	R.string.prefExp3Port1LabelKey,
+									R.string.prefExp3Port2LabelKey,
+									R.string.prefExp3Port3LabelKey,
+									R.string.prefExp3Port4LabelKey,
+									R.string.prefExp3Port5LabelKey,
+									R.string.prefExp3Port6LabelKey,
+									R.string.prefExp3Port7LabelKey,
+									R.string.prefExp3Port8LabelKey },
+								{	R.string.prefExp4Port1LabelKey,
+									R.string.prefExp4Port2LabelKey,
+									R.string.prefExp4Port3LabelKey,
+									R.string.prefExp4Port4LabelKey,
+									R.string.prefExp4Port5LabelKey,
+									R.string.prefExp4Port6LabelKey,
+									R.string.prefExp4Port7LabelKey,
+									R.string.prefExp4Port8LabelKey },
+								{	R.string.prefExp5Port1LabelKey,
+									R.string.prefExp5Port2LabelKey,
+									R.string.prefExp5Port3LabelKey,
+									R.string.prefExp5Port4LabelKey,
+									R.string.prefExp5Port5LabelKey,
+									R.string.prefExp5Port6LabelKey,
+									R.string.prefExp5Port7LabelKey,
+									R.string.prefExp5Port8LabelKey },
+								{	R.string.prefExp6Port1LabelKey,
+									R.string.prefExp6Port2LabelKey,
+									R.string.prefExp6Port3LabelKey,
+									R.string.prefExp6Port4LabelKey,
+									R.string.prefExp6Port5LabelKey,
+									R.string.prefExp6Port6LabelKey,
+									R.string.prefExp6Port7LabelKey,
+									R.string.prefExp6Port8LabelKey },
+								{	R.string.prefExp7Port1LabelKey,
+									R.string.prefExp7Port2LabelKey,
+									R.string.prefExp7Port3LabelKey,
+									R.string.prefExp7Port4LabelKey,
+									R.string.prefExp7Port5LabelKey,
+									R.string.prefExp7Port6LabelKey,
+									R.string.prefExp7Port7LabelKey,
+									R.string.prefExp7Port8LabelKey },
+								{	R.string.prefExp8Port1LabelKey,
+									R.string.prefExp8Port2LabelKey,
+									R.string.prefExp8Port3LabelKey,
+									R.string.prefExp8Port4LabelKey,
+									R.string.prefExp8Port5LabelKey,
+									R.string.prefExp8Port6LabelKey,
+									R.string.prefExp8Port7LabelKey,
+									R.string.prefExp8Port8LabelKey } };
+		relayDefaultLabels =
+				new int[] { R.string.port1_label,
+							R.string.port2_label,
+							R.string.port3_label,
+							R.string.port4_label,
+							R.string.port5_label,
+							R.string.port6_label,
+							R.string.port7_label,
+							R.string.port8_label };
+	}
+
 	public boolean isCommunicateController ( ) {
 		boolean b = false;
 		if ( getPrefDevice().equals( devicesArray[0] ) ) {
@@ -230,44 +321,26 @@ public class RAApplication extends Application {
 	}
 
 	public String getPrefMainRelayLabel ( int port ) {
-		String key;
-		String defaultValue;
-		switch ( port ) {
-			default:
-			case 1:
-				key = getString( R.string.prefMainPort1LabelKey );
-				defaultValue = getString( R.string.port1_label );
-				break;
-			case 2:
-				key = getString( R.string.prefMainPort2LabelKey );
-				defaultValue = getString( R.string.port2_label );
-				break;
-			case 3:
-				key = getString( R.string.prefMainPort3LabelKey );
-				defaultValue = getString( R.string.port3_label );
-				break;
-			case 4:
-				key = getString( R.string.prefMainPort4LabelKey );
-				defaultValue = getString( R.string.port4_label );
-				break;
-			case 5:
-				key = getString( R.string.prefMainPort5LabelKey );
-				defaultValue = getString( R.string.port5_label );
-				break;
-			case 6:
-				key = getString( R.string.prefMainPort6LabelKey );
-				defaultValue = getString( R.string.port6_label );
-				break;
-			case 7:
-				key = getString( R.string.prefMainPort7LabelKey );
-				defaultValue = getString( R.string.port7_label );
-				break;
-			case 8:
-				key = getString( R.string.prefMainPort8LabelKey );
-				defaultValue = getString( R.string.port8_label );
-				break;
-		}
-		return prefs.getString( key, defaultValue );
+		return getPrefRelayLabel(0, port-1);
+	}
+
+	public String getPrefRelayLabel ( int relay, int port ) {
+		return prefs.getString( getString( relayLabels[relay][port] ),
+								getString( relayDefaultLabels[port] ) );
+	}
+	
+	public void setPrefRelayLabel( int relay, int port, String label ) {
+		setPref( getString(relayLabels[relay][port]), label );
+	}
+	
+	public void setPref(String key, String value) {
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString( key, value );
+		editor.commit();
+	}
+	
+	public void setPref(int keyid, String value) {
+		setPref(getString(keyid), value);
 	}
 
 	public String getPrefDevice ( ) {

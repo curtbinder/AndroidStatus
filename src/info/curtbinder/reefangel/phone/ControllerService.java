@@ -24,6 +24,7 @@ public class ControllerService extends Service {
 	public static final String MEMORY_TYPE_STRING = "MEMORY_TYPE_STRING";
 	public static final String MEMORY_LOCATION_INT = "MEMORY_LOCATION_INT";
 	public static final String MEMORY_VALUE_INT = "MEMORY_VALUE_INT";
+	public static final String LABEL_QUERY_INTENT = Globals.PACKAGE_BASE + ".LABEL_QUERY";
 
 	private static final String TAG = ControllerService.class.getSimpleName();
 
@@ -49,6 +50,7 @@ public class ControllerService extends Service {
 		filter = new IntentFilter(QUERY_STATUS_INTENT);
 		filter.addAction(TOGGLE_RELAY_INTENT);
 		filter.addAction(MEMORY_INTENT);
+		filter.addAction(LABEL_QUERY_INTENT);
 	}
 
 	@Override
@@ -147,7 +149,11 @@ public class ControllerService extends Service {
 					h.setReadLocation(location);
 				else
 					h.setWriteLocation(location, value);
-				
+			} else if ( action.equals( LABEL_QUERY_INTENT )) {
+				Log.d(TAG, "Query labels");
+				// set the userid
+				h.setUserId(rapp.getPrefUserId());
+				h.setGetLabelsOnly( true );
 			} else {
 				Log.d(TAG, "Unknown command");
 				return;

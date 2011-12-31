@@ -14,7 +14,8 @@ TODO
 
 * labels
 ** additional relay labels screen based on quantity of relay labels installed
-** label query option to actually query the labels 
+** after download, refresh the labels so they appear in the menus without
+   having to exit the preferences activity 
 
 * add in an error status line with error displaying
 

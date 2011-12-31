@@ -39,7 +39,29 @@ public class ControllerTask implements Runnable {
 	public static final String MEMORY_RESPONSE_STRING =
 			"MEMORY_RESPONSE_STRING";
 	public static final String MEMORY_WRITE_BOOLEAN = "MEMORY_WRITE_BOOLEAN";
-
+	public static final String LABEL_RESPONSE_INTENT = Globals.PACKAGE_BASE
+														+ ".LABEL_RESPONSE";
+	public static final String LABEL_RESPONSE_TEMP_ARRAY =
+			"LABEL_RESPONSE_TEMP_ARRAY";
+	public static final String LABEL_RESPONSE_MAIN_ARRAY =
+			"LABEL_RESPONSE_MAIN_ARRAY";
+	public static final String LABEL_RESPONSE_EXP1_ARRAY =
+			"LABEL_RESPONSE_EXP1_ARRAY";
+	public static final String LABEL_RESPONSE_EXP2_ARRAY =
+			"LABEL_RESPONSE_EXP2_ARRAY";
+	public static final String LABEL_RESPONSE_EXP3_ARRAY =
+			"LABEL_RESPONSE_EXP3_ARRAY";
+	public static final String LABEL_RESPONSE_EXP4_ARRAY =
+			"LABEL_RESPONSE_EXP4_ARRAY";
+	public static final String LABEL_RESPONSE_EXP5_ARRAY =
+			"LABEL_RESPONSE_EXP5_ARRAY";
+	public static final String LABEL_RESPONSE_EXP6_ARRAY =
+			"LABEL_RESPONSE_EXP6_ARRAY";
+	public static final String LABEL_RESPONSE_EXP7_ARRAY =
+			"LABEL_RESPONSE_EXP7_ARRAY";
+	public static final String LABEL_RESPONSE_EXP8_ARRAY =
+			"LABEL_RESPONSE_EXP8_ARRAY";
+	
 	private static final String TAG = ControllerTask.class.getSimpleName();
 	private final Host host;
 	private final RAApplication rapp;
@@ -117,8 +139,10 @@ public class ControllerTask implements Runnable {
 				return;
 			}
 			broadcastUpdateStatus( R.string.statusUpdatingDisplay );
-			if ( host.getCommand().startsWith( Globals.requestRelay )
-					|| host.getCommand().equals( Globals.requestReefAngel ) ) {
+			if ( host.isRequestForLabels() ) {
+				broadcastLabelsResponse( xml.getRa() );
+			} else if ( host.getCommand().startsWith( Globals.requestRelay )
+						|| host.getCommand().equals( Globals.requestReefAngel ) ) {
 				broadcastUpdateDisplayData( xml.getRa() );
 			} else if ( host.getCommand().equals( Globals.requestMemoryByte )
 						|| host.getCommand().equals( Globals.requestMemoryInt ) ) {
@@ -214,6 +238,21 @@ public class ControllerTask implements Runnable {
 	}
 
 	// Broadcast Stuff
+	private void broadcastLabelsResponse ( Controller ra ) {
+		Intent i = new Intent( LABEL_RESPONSE_INTENT );
+		i.putExtra( LABEL_RESPONSE_TEMP_ARRAY, ra.getTempLabels() );
+		i.putExtra( LABEL_RESPONSE_MAIN_ARRAY, ra.getMainRelay().getPortLabels() );
+		i.putExtra( LABEL_RESPONSE_EXP1_ARRAY, ra.getExpRelay( 1 ).getPortLabels() );
+		i.putExtra( LABEL_RESPONSE_EXP2_ARRAY, ra.getExpRelay( 2 ).getPortLabels() );
+		i.putExtra( LABEL_RESPONSE_EXP3_ARRAY, ra.getExpRelay( 3 ).getPortLabels() );
+		i.putExtra( LABEL_RESPONSE_EXP4_ARRAY, ra.getExpRelay( 4 ).getPortLabels() );
+		i.putExtra( LABEL_RESPONSE_EXP5_ARRAY, ra.getExpRelay( 5 ).getPortLabels() );
+		i.putExtra( LABEL_RESPONSE_EXP6_ARRAY, ra.getExpRelay( 6 ).getPortLabels() );
+		i.putExtra( LABEL_RESPONSE_EXP7_ARRAY, ra.getExpRelay( 7 ).getPortLabels() );
+		i.putExtra( LABEL_RESPONSE_EXP8_ARRAY, ra.getExpRelay( 8 ).getPortLabels() );
+		rapp.sendBroadcast( i );
+	}
+
 	private void broadcastMemoryResponse ( String response, boolean wasWrite ) {
 		// Log.d(TAG, "broadcastMemoryResponse");
 		Intent i = new Intent( MEMORY_RESPONSE_INTENT );

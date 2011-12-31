@@ -35,12 +35,12 @@ public class Controller {
 		for ( i = 0; i < MAX_TEMP_SENSORS; i++ ) {
 			tempSensors[i] = new TempSensor();
 		}
-		pH = new Number((byte) 2);
+		pH = new Number( (byte) 2 );
 		atoLow = false;
 		atoHigh = false;
 		pwmA = 0;
 		pwmD = 0;
-		salinity = new Number((byte) 1);
+		salinity = new Number( (byte) 1 );
 		main = new Relay();
 		expansionRelays = new Relay[MAX_EXPANSION_RELAYS];
 		for ( i = 0; i < MAX_EXPANSION_RELAYS; i++ ) {
@@ -52,7 +52,7 @@ public class Controller {
 	public void setNumExpansionRelays ( byte relays ) {
 		qtyExpansionRelays = relays;
 	}
-	
+
 	public byte getNumExpansionRelays ( ) {
 		return qtyExpansionRelays;
 	}
@@ -60,25 +60,31 @@ public class Controller {
 	public void setLogDate ( String date ) {
 		updateLogDate = date;
 	}
-	
+
 	public String getLogDate ( ) {
 		return updateLogDate;
 	}
-	
-//	public void setTempValue(int sensor, int value) {
-//		tempSensors[sensor-1].setTemp(value);
-//	}
-	
-	public void setTempLabel(int sensor, String label) {
-		tempSensors[sensor-1].setLabel(label);
+
+	// public void setTempValue(int sensor, int value) {
+	// tempSensors[sensor-1].setTemp(value);
+	// }
+
+	public void setTempLabel ( int sensor, String label ) {
+		tempSensors[sensor - 1].setLabel( label );
 	}
-	
-	public String getTempLabel(int sensor) {
-		return tempSensors[sensor-1].getLabel();
+
+	public String getTempLabel ( int sensor ) {
+		return tempSensors[sensor - 1].getLabel();
 	}
-	
+
+	public String[] getTempLabels ( ) {
+		return new String[] {	tempSensors[0].getLabel(),
+								tempSensors[1].getLabel(),
+								tempSensors[2].getLabel() };
+	}
+
 	public void setTemp1 ( int value ) {
-		tempSensors[0].setTemp(value);
+		tempSensors[0].setTemp( value );
 	}
 
 	public String getTemp1 ( ) {
@@ -86,7 +92,7 @@ public class Controller {
 	}
 
 	public void setTemp2 ( int value ) {
-		tempSensors[1].setTemp(value);
+		tempSensors[1].setTemp( value );
 	}
 
 	public String getTemp2 ( ) {
@@ -94,7 +100,7 @@ public class Controller {
 	}
 
 	public void setTemp3 ( int value ) {
-		tempSensors[2].setTemp(value);
+		tempSensors[2].setTemp( value );
 	}
 
 	public String getTemp3 ( ) {
@@ -102,7 +108,7 @@ public class Controller {
 	}
 
 	public void setPH ( int value ) {
-		pH.setValue(value);
+		pH.setValue( value );
 	}
 
 	public String getPH ( ) {
@@ -118,17 +124,17 @@ public class Controller {
 	}
 
 	public String getAtoLowText ( ) {
-		return getAtoText(atoLow);
+		return getAtoText( atoLow );
 	}
 
-	private String getAtoText(boolean active) {
+	private String getAtoText ( boolean active ) {
 		// TODO use strings.xml instead of hard code
-		if ( active ) 
+		if ( active )
 			return "ON";
 		else
 			return "OFF";
 	}
-	
+
 	public void setAtoHigh ( boolean v ) {
 		atoHigh = v;
 	}
@@ -138,7 +144,7 @@ public class Controller {
 	}
 
 	public String getAtoHighText ( ) {
-		return getAtoText(atoHigh);
+		return getAtoText( atoHigh );
 	}
 
 	public void setPwmA ( byte v ) {
@@ -147,7 +153,7 @@ public class Controller {
 
 	public String getPwmA ( ) {
 		// TODO change to be locale independent
-		return new String(String.format("%d%c", pwmA, '%'));
+		return new String( String.format( "%d%c", pwmA, '%' ) );
 	}
 
 	public void setPwmD ( byte v ) {
@@ -156,54 +162,58 @@ public class Controller {
 
 	public String getPwmD ( ) {
 		// TODO change to be locale independent
-		return new String(String.format("%d%c", pwmD, '%'));
+		return new String( String.format( "%d%c", pwmD, '%' ) );
 	}
-	
+
 	public void setSalinity ( int value ) {
-		salinity.setValue(value);
+		salinity.setValue( value );
 	}
-	
+
 	public String getSalinity ( ) {
 		return salinity.toString() + " ppt";
 	}
 
 	public void setMainRelayData ( short data, short maskOn, short maskOff ) {
-		main.setRelayData(data, maskOn, maskOff);
+		main.setRelayData( data, maskOn, maskOff );
 	}
 
 	public void setMainRelayData ( short data ) {
-		main.setRelayData(data);
+		main.setRelayData( data );
 	}
 
 	public void setMainRelayOnMask ( short maskOn ) {
-		main.setRelayOnMask(maskOn);
+		main.setRelayOnMask( maskOn );
 	}
 
 	public void setMainRelayOffMask ( short maskOff ) {
-		main.setRelayOffMask(maskOff);
+		main.setRelayOffMask( maskOff );
 	}
 
 	public Relay getMainRelay ( ) {
 		return main;
 	}
 
-	public void setExpRelayData ( int relay, short data, short maskOn, short maskOff ) {
-		expansionRelays[relay-1].setRelayData(data, maskOn, maskOff);
+	public void setExpRelayData (
+			int relay,
+			short data,
+			short maskOn,
+			short maskOff ) {
+		expansionRelays[relay - 1].setRelayData( data, maskOn, maskOff );
 	}
 
 	public void setExpRelayData ( int relay, short data ) {
-		expansionRelays[relay-1].setRelayData(data);
+		expansionRelays[relay - 1].setRelayData( data );
 	}
 
 	public void setExpRelayOnMask ( int relay, short maskOn ) {
-		expansionRelays[relay-1].setRelayOnMask(maskOn);
+		expansionRelays[relay - 1].setRelayOnMask( maskOn );
 	}
 
 	public void setExpRelayOffMask ( int relay, short maskOff ) {
-		expansionRelays[relay-1].setRelayOffMask(maskOff);
+		expansionRelays[relay - 1].setRelayOffMask( maskOff );
 	}
 
 	public Relay getExpRelay ( int relay ) {
-		return expansionRelays[relay-1];
+		return expansionRelays[relay - 1];
 	}
 }
