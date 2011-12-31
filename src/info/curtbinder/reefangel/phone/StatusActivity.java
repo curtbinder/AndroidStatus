@@ -73,8 +73,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 
 		findViews();
 
-		// updateViewsVisibility();
-
 		setOnClickListeners();
 	}
 
@@ -166,7 +164,10 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		salinityLabel.setText( getString( R.string.salinity_label )
 								+ separator );
 
-		setMainRelayLabels();
+		for ( int i = 0; i < 8; i++ ) {
+			mainPortLabels[i].setText( rapp.getPrefMainRelayLabel( i + 1 )
+										+ separator );
+		}
 
 		// Visibility
 		if ( rapp.getPrefT2Visibility() ) {
@@ -216,14 +217,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		}
 		// if ( ! showMessageText )
 		// messageText.setVisibility(View.GONE);
-	}
-
-	private void setMainRelayLabels ( ) {
-		String label = getString( R.string.label_separator );
-		for ( int i = 0; i < 8; i++ ) {
-			mainPortLabels[i].setText( rapp.getPrefMainRelayLabel( i + 1 )
-										+ label );
-		}
 	}
 
 	@Override
@@ -348,6 +341,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 	public void updateDisplay ( ) {
 		Log.d( TAG, "updateDisplay" );
 		try {
+			// TODO add in expansion relay data
 			Cursor c = rapp.data.getLatestData();
 			String[] values;
 			short r, ron, roff;
