@@ -1,9 +1,8 @@
 package info.curtbinder.reefangel.phone;
 
-import android.app.Activity;
 import android.os.Bundle;
 
-public class CommandsActivity extends Activity {
+public class CommandsActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate ( Bundle savedInstanceState ) {
