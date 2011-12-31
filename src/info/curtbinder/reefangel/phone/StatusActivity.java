@@ -40,9 +40,17 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 	private TextView apLabel;
 	private TextView salinityLabel;
 
-	private TextView[] mainPortLabels = new TextView[8];
-	private ToggleButton[] mainPortBtns = new ToggleButton[8];
-	private View[] mainPortMaskBtns = new View[8];
+	private TextView[] mainPortLabels =
+			new TextView[Controller.MAX_RELAY_PORTS];
+	private ToggleButton[] mainPortBtns =
+			new ToggleButton[Controller.MAX_RELAY_PORTS];
+	private View[] mainPortMaskBtns = new View[Controller.MAX_RELAY_PORTS];
+
+	private TextView[] exp1PortLabels =
+			new TextView[Controller.MAX_RELAY_PORTS];
+	private ToggleButton[] exp1PortBtns =
+			new ToggleButton[Controller.MAX_RELAY_PORTS];
+	private View[] exp1PortMaskBtns = new View[Controller.MAX_RELAY_PORTS];
 
 	// Message Receivers
 	StatusReceiver receiver;
@@ -53,322 +61,331 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 
 	/** Called when the activity is first created. */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.status);
+	public void onCreate ( Bundle savedInstanceState ) {
+		super.onCreate( savedInstanceState );
+		setContentView( R.layout.status );
 
 		// Message Receiver stuff
 		receiver = new StatusReceiver();
-		filter = new IntentFilter(ControllerTask.UPDATE_DISPLAY_DATA_INTENT);
-		filter.addAction(ControllerTask.UPDATE_STATUS_INTENT);
-		filter.addAction(ControllerTask.ERROR_MESSAGE_INTENT);
+		filter = new IntentFilter( ControllerTask.UPDATE_DISPLAY_DATA_INTENT );
+		filter.addAction( ControllerTask.UPDATE_STATUS_INTENT );
+		filter.addAction( ControllerTask.ERROR_MESSAGE_INTENT );
 
 		findViews();
 
-		updateViewsVisibility();
+		// updateViewsVisibility();
 
 		setOnClickListeners();
 	}
 
 	@Override
-	protected void onPause() {
+	protected void onPause ( ) {
 		super.onPause();
-		unregisterReceiver(receiver);
+		unregisterReceiver( receiver );
 	}
 
 	@Override
-	protected void onResume() {
+	protected void onResume ( ) {
 		super.onResume();
-		registerReceiver(receiver, filter);
+		registerReceiver( receiver, filter );
+		updateViewsVisibility();
 		updateDisplay();
 	}
 
-	private void findViews() {
-		refreshButton = findViewById(R.id.refresh_button);
-		updateTime = (TextView) findViewById(R.id.updated);
-		t1Text = (TextView) findViewById(R.id.temp1);
-		t2Text = (TextView) findViewById(R.id.temp2);
-		t3Text = (TextView) findViewById(R.id.temp3);
-		phText = (TextView) findViewById(R.id.ph);
-		dpText = (TextView) findViewById(R.id.dp);
-		apText = (TextView) findViewById(R.id.ap);
-		salinityText = (TextView) findViewById(R.id.salinity);
-		t1Label = (TextView) findViewById(R.id.t1_label);
-		t2Label = (TextView) findViewById(R.id.t2_label);
-		t3Label = (TextView) findViewById(R.id.t3_label);
-		phLabel = (TextView) findViewById(R.id.ph_label);
-		dpLabel = (TextView) findViewById(R.id.dp_label);
-		apLabel = (TextView) findViewById(R.id.ap_label);
-		salinityLabel = (TextView) findViewById(R.id.salinity_label);
+	private void findViews ( ) {
+		refreshButton = findViewById( R.id.refresh_button );
+		updateTime = (TextView) findViewById( R.id.updated );
+		t1Text = (TextView) findViewById( R.id.temp1 );
+		t2Text = (TextView) findViewById( R.id.temp2 );
+		t3Text = (TextView) findViewById( R.id.temp3 );
+		phText = (TextView) findViewById( R.id.ph );
+		dpText = (TextView) findViewById( R.id.dp );
+		apText = (TextView) findViewById( R.id.ap );
+		salinityText = (TextView) findViewById( R.id.salinity );
+		t1Label = (TextView) findViewById( R.id.t1_label );
+		t2Label = (TextView) findViewById( R.id.t2_label );
+		t3Label = (TextView) findViewById( R.id.t3_label );
+		phLabel = (TextView) findViewById( R.id.ph_label );
+		dpLabel = (TextView) findViewById( R.id.dp_label );
+		apLabel = (TextView) findViewById( R.id.ap_label );
+		salinityLabel = (TextView) findViewById( R.id.salinity_label );
 
-		mainPortLabels[0] = (TextView) findViewById(R.id.main_port1_label);
-		mainPortLabels[1] = (TextView) findViewById(R.id.main_port2_label);
-		mainPortLabels[2] = (TextView) findViewById(R.id.main_port3_label);
-		mainPortLabels[3] = (TextView) findViewById(R.id.main_port4_label);
-		mainPortLabels[4] = (TextView) findViewById(R.id.main_port5_label);
-		mainPortLabels[5] = (TextView) findViewById(R.id.main_port6_label);
-		mainPortLabels[6] = (TextView) findViewById(R.id.main_port7_label);
-		mainPortLabels[7] = (TextView) findViewById(R.id.main_port8_label);
-		mainPortBtns[0] = (ToggleButton) findViewById(R.id.main_port1);
-		mainPortBtns[1] = (ToggleButton) findViewById(R.id.main_port2);
-		mainPortBtns[2] = (ToggleButton) findViewById(R.id.main_port3);
-		mainPortBtns[3] = (ToggleButton) findViewById(R.id.main_port4);
-		mainPortBtns[4] = (ToggleButton) findViewById(R.id.main_port5);
-		mainPortBtns[5] = (ToggleButton) findViewById(R.id.main_port6);
-		mainPortBtns[6] = (ToggleButton) findViewById(R.id.main_port7);
-		mainPortBtns[7] = (ToggleButton) findViewById(R.id.main_port8);
+		mainPortLabels[0] = (TextView) findViewById( R.id.main_port1_label );
+		mainPortLabels[1] = (TextView) findViewById( R.id.main_port2_label );
+		mainPortLabels[2] = (TextView) findViewById( R.id.main_port3_label );
+		mainPortLabels[3] = (TextView) findViewById( R.id.main_port4_label );
+		mainPortLabels[4] = (TextView) findViewById( R.id.main_port5_label );
+		mainPortLabels[5] = (TextView) findViewById( R.id.main_port6_label );
+		mainPortLabels[6] = (TextView) findViewById( R.id.main_port7_label );
+		mainPortLabels[7] = (TextView) findViewById( R.id.main_port8_label );
+		mainPortBtns[0] = (ToggleButton) findViewById( R.id.main_port1 );
+		mainPortBtns[1] = (ToggleButton) findViewById( R.id.main_port2 );
+		mainPortBtns[2] = (ToggleButton) findViewById( R.id.main_port3 );
+		mainPortBtns[3] = (ToggleButton) findViewById( R.id.main_port4 );
+		mainPortBtns[4] = (ToggleButton) findViewById( R.id.main_port5 );
+		mainPortBtns[5] = (ToggleButton) findViewById( R.id.main_port6 );
+		mainPortBtns[6] = (ToggleButton) findViewById( R.id.main_port7 );
+		mainPortBtns[7] = (ToggleButton) findViewById( R.id.main_port8 );
 
-		mainPortMaskBtns[0] = findViewById(R.id.main_port1mask);
-		mainPortMaskBtns[1] = findViewById(R.id.main_port2mask);
-		mainPortMaskBtns[2] = findViewById(R.id.main_port3mask);
-		mainPortMaskBtns[3] = findViewById(R.id.main_port4mask);
-		mainPortMaskBtns[4] = findViewById(R.id.main_port5mask);
-		mainPortMaskBtns[5] = findViewById(R.id.main_port6mask);
-		mainPortMaskBtns[6] = findViewById(R.id.main_port7mask);
-		mainPortMaskBtns[7] = findViewById(R.id.main_port8mask);
+		mainPortMaskBtns[0] = findViewById( R.id.main_port1mask );
+		mainPortMaskBtns[1] = findViewById( R.id.main_port2mask );
+		mainPortMaskBtns[2] = findViewById( R.id.main_port3mask );
+		mainPortMaskBtns[3] = findViewById( R.id.main_port4mask );
+		mainPortMaskBtns[4] = findViewById( R.id.main_port5mask );
+		mainPortMaskBtns[5] = findViewById( R.id.main_port6mask );
+		mainPortMaskBtns[6] = findViewById( R.id.main_port7mask );
+		mainPortMaskBtns[7] = findViewById( R.id.main_port8mask );
 	}
 
-	private void setOnClickListeners() {
-		refreshButton.setOnClickListener(this);
-		for (int i = 0; i < 8; i++) {
-			if (rapp.isCommunicateController()) {
-				mainPortBtns[i].setOnClickListener(this);
-				mainPortMaskBtns[i].setOnClickListener(this);
+	private void setOnClickListeners ( ) {
+		refreshButton.setOnClickListener( this );
+		for ( int i = 0; i < 8; i++ ) {
+			if ( rapp.isCommunicateController() ) {
+				mainPortBtns[i].setOnClickListener( this );
+				mainPortMaskBtns[i].setOnClickListener( this );
 			} else {
-				mainPortBtns[i].setClickable(false);
-				mainPortMaskBtns[i].setClickable(false);
+				mainPortBtns[i].setClickable( false );
+				mainPortMaskBtns[i].setClickable( false );
 			}
 		}
 	}
 
-	private void updateViewsVisibility() {
+	private void updateViewsVisibility ( ) {
 		// updates all the views visibility based on user settings
 		// get values from Preferences
 		// showMessageText = false;
 
 		// Labels
-		String separator = getString(R.string.label_separator);
-		t1Label.setText(rapp.getPrefT1Label() + separator);
-		t2Label.setText(rapp.getPrefT2Label() + separator);
-		t3Label.setText(rapp.getPrefT3Label() + separator);
-		phLabel.setText(rapp.getPrefPHLabel() + separator);
-		dpLabel.setText(rapp.getPrefDPLabel() + separator);
-		apLabel.setText(rapp.getPrefAPLabel() + separator);
-		salinityLabel.append( separator );
+		String separator = getString( R.string.label_separator );
+		t1Label.setText( rapp.getPrefT1Label() + separator );
+		t2Label.setText( rapp.getPrefT2Label() + separator );
+		t3Label.setText( rapp.getPrefT3Label() + separator );
+		phLabel.setText( rapp.getPrefPHLabel() + separator );
+		dpLabel.setText( rapp.getPrefDPLabel() + separator );
+		apLabel.setText( rapp.getPrefAPLabel() + separator );
+		salinityLabel.setText( getString( R.string.salinity_label )
+								+ separator );
 
 		setMainRelayLabels();
 
 		// Visibility
-		if (rapp.getPrefT2Visibility()) {
-			Log.d(TAG, "T2 visible");
-			t2Text.setVisibility(View.VISIBLE);
-			t2Label.setVisibility(View.VISIBLE);
+		if ( rapp.getPrefT2Visibility() ) {
+			Log.d( TAG, "T2 visible" );
+			t2Text.setVisibility( View.VISIBLE );
+			t2Label.setVisibility( View.VISIBLE );
 		} else {
-			Log.d(TAG, "T2 gone");
-			t2Text.setVisibility(View.GONE);
-			t2Label.setVisibility(View.GONE);
+			Log.d( TAG, "T2 gone" );
+			t2Text.setVisibility( View.GONE );
+			t2Label.setVisibility( View.GONE );
 		}
-		if (rapp.getPrefT3Visibility()) {
-			Log.d(TAG, "T3 visible");
-			t3Text.setVisibility(View.VISIBLE);
-			t3Label.setVisibility(View.VISIBLE);
+		if ( rapp.getPrefT3Visibility() ) {
+			Log.d( TAG, "T3 visible" );
+			t3Text.setVisibility( View.VISIBLE );
+			t3Label.setVisibility( View.VISIBLE );
 		} else {
-			Log.d(TAG, "T3 gone");
-			t3Text.setVisibility(View.GONE);
-			t3Label.setVisibility(View.GONE);
+			Log.d( TAG, "T3 gone" );
+			t3Text.setVisibility( View.GONE );
+			t3Label.setVisibility( View.GONE );
 		}
-		if (rapp.getPrefDPVisibility()) {
-			Log.d(TAG, "DP visible");
-			dpText.setVisibility(View.VISIBLE);
-			dpLabel.setVisibility(View.VISIBLE);
+		if ( rapp.getPrefDPVisibility() ) {
+			Log.d( TAG, "DP visible" );
+			dpText.setVisibility( View.VISIBLE );
+			dpLabel.setVisibility( View.VISIBLE );
 		} else {
-			Log.d(TAG, "DP gone");
-			dpText.setVisibility(View.GONE);
-			dpLabel.setVisibility(View.GONE);
+			Log.d( TAG, "DP gone" );
+			dpText.setVisibility( View.GONE );
+			dpLabel.setVisibility( View.GONE );
 		}
-		if (rapp.getPrefAPVisibility()) {
-			Log.d(TAG, "AP visible");
-			apText.setVisibility(View.VISIBLE);
-			apLabel.setVisibility(View.VISIBLE);
+		if ( rapp.getPrefAPVisibility() ) {
+			Log.d( TAG, "AP visible" );
+			apText.setVisibility( View.VISIBLE );
+			apLabel.setVisibility( View.VISIBLE );
 		} else {
-			Log.d(TAG, "AP gone");
-			apText.setVisibility(View.GONE);
-			apLabel.setVisibility(View.GONE);
+			Log.d( TAG, "AP gone" );
+			apText.setVisibility( View.GONE );
+			apLabel.setVisibility( View.GONE );
 		}
-		if (rapp.getPrefSalinityVisibility()) {
-			Log.d(TAG, "Salinity visible");
-			salinityText.setVisibility(View.VISIBLE);
-			salinityLabel.setVisibility(View.VISIBLE);
+		if ( rapp.getPrefSalinityVisibility() ) {
+			Log.d( TAG, "Salinity visible" );
+			salinityText.setVisibility( View.VISIBLE );
+			salinityLabel.setVisibility( View.VISIBLE );
 		} else {
-			Log.d(TAG, "Salinity gone");
-			salinityText.setVisibility(View.GONE);
-			salinityLabel.setVisibility(View.GONE);
+			Log.d( TAG, "Salinity gone" );
+			salinityText.setVisibility( View.GONE );
+			salinityLabel.setVisibility( View.GONE );
 		}
 		// if ( ! showMessageText )
 		// messageText.setVisibility(View.GONE);
 	}
 
-	private void setMainRelayLabels() {
-		String label;
-		for (int i = 0; i < 8; i++) {
-			//mainPortLabels[i].setText(rapp.getPrefMainRelayLabel(i + 1));
-			label = rapp.getPrefMainRelayLabel(i + 1) + getString(R.string.label_separator);
-			mainPortLabels[i].setText(label);
+	private void setMainRelayLabels ( ) {
+		String label = getString( R.string.label_separator );
+		for ( int i = 0; i < 8; i++ ) {
+			mainPortLabels[i].setText( rapp.getPrefMainRelayLabel( i + 1 )
+										+ label );
 		}
 	}
 
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.refresh_button:
-			// launch the update
-			Log.d(TAG, "onClick Refresh button");
-			launchStatusTask();
-			break;
-		case R.id.main_port1:
-			Log.d(TAG, "toggle port 1");
-			sendRelayToggleTask(1);
-			break;
-		case R.id.main_port2:
-			Log.d(TAG, "toggle port 2");
-			sendRelayToggleTask(2);
-			break;
-		case R.id.main_port3:
-			Log.d(TAG, "toggle port 3");
-			sendRelayToggleTask(3);
-			break;
-		case R.id.main_port4:
-			Log.d(TAG, "toggle port 4");
-			sendRelayToggleTask(4);
-			break;
-		case R.id.main_port5:
-			Log.d(TAG, "toggle port 5");
-			sendRelayToggleTask(5);
-			break;
-		case R.id.main_port6:
-			Log.d(TAG, "toggle port 6");
-			sendRelayToggleTask(6);
-			break;
-		case R.id.main_port7:
-			Log.d(TAG, "toggle port 7");
-			sendRelayToggleTask(7);
-			break;
-		case R.id.main_port8:
-			Log.d(TAG, "toggle port 8");
-			sendRelayToggleTask(8);
-			break;
-		case R.id.main_port1mask:
-			Log.d(TAG, "clear mask 1");
-			sendRelayClearMaskTask(1);
-			break;
-		case R.id.main_port2mask:
-			Log.d(TAG, "clear mask 2");
-			sendRelayClearMaskTask(2);
-			break;
-		case R.id.main_port3mask:
-			Log.d(TAG, "clear mask 3");
-			sendRelayClearMaskTask(3);
-			break;
-		case R.id.main_port4mask:
-			Log.d(TAG, "clear mask 4");
-			sendRelayClearMaskTask(4);
-			break;
-		case R.id.main_port5mask:
-			Log.d(TAG, "clear mask 5");
-			sendRelayClearMaskTask(5);
-			break;
-		case R.id.main_port6mask:
-			Log.d(TAG, "clear mask 6");
-			sendRelayClearMaskTask(6);
-			break;
-		case R.id.main_port7mask:
-			Log.d(TAG, "clear mask 7");
-			sendRelayClearMaskTask(7);
-			break;
-		case R.id.main_port8mask:
-			Log.d(TAG, "clear mask 8");
-			sendRelayClearMaskTask(8);
-			break;
+	public void onClick ( View v ) {
+		switch ( v.getId() ) {
+			case R.id.refresh_button:
+				// launch the update
+				Log.d( TAG, "onClick Refresh button" );
+				launchStatusTask();
+				break;
+			case R.id.main_port1:
+				Log.d( TAG, "toggle port 1" );
+				sendRelayToggleTask( 1 );
+				break;
+			case R.id.main_port2:
+				Log.d( TAG, "toggle port 2" );
+				sendRelayToggleTask( 2 );
+				break;
+			case R.id.main_port3:
+				Log.d( TAG, "toggle port 3" );
+				sendRelayToggleTask( 3 );
+				break;
+			case R.id.main_port4:
+				Log.d( TAG, "toggle port 4" );
+				sendRelayToggleTask( 4 );
+				break;
+			case R.id.main_port5:
+				Log.d( TAG, "toggle port 5" );
+				sendRelayToggleTask( 5 );
+				break;
+			case R.id.main_port6:
+				Log.d( TAG, "toggle port 6" );
+				sendRelayToggleTask( 6 );
+				break;
+			case R.id.main_port7:
+				Log.d( TAG, "toggle port 7" );
+				sendRelayToggleTask( 7 );
+				break;
+			case R.id.main_port8:
+				Log.d( TAG, "toggle port 8" );
+				sendRelayToggleTask( 8 );
+				break;
+			case R.id.main_port1mask:
+				Log.d( TAG, "clear mask 1" );
+				sendRelayClearMaskTask( 1 );
+				break;
+			case R.id.main_port2mask:
+				Log.d( TAG, "clear mask 2" );
+				sendRelayClearMaskTask( 2 );
+				break;
+			case R.id.main_port3mask:
+				Log.d( TAG, "clear mask 3" );
+				sendRelayClearMaskTask( 3 );
+				break;
+			case R.id.main_port4mask:
+				Log.d( TAG, "clear mask 4" );
+				sendRelayClearMaskTask( 4 );
+				break;
+			case R.id.main_port5mask:
+				Log.d( TAG, "clear mask 5" );
+				sendRelayClearMaskTask( 5 );
+				break;
+			case R.id.main_port6mask:
+				Log.d( TAG, "clear mask 6" );
+				sendRelayClearMaskTask( 6 );
+				break;
+			case R.id.main_port7mask:
+				Log.d( TAG, "clear mask 7" );
+				sendRelayClearMaskTask( 7 );
+				break;
+			case R.id.main_port8mask:
+				Log.d( TAG, "clear mask 8" );
+				sendRelayClearMaskTask( 8 );
+				break;
 		}
 	}
 
-	private void sendRelayToggleTask(int port) {
-		Log.d(TAG, "sendRelayToggleTask");
+	private void sendRelayToggleTask ( int port ) {
+		Log.d( TAG, "sendRelayToggleTask" );
 		int status = Relay.PORT_STATE_OFF;
-		if (mainPortBtns[port - 1].isChecked()) {
+		if ( mainPortBtns[port - 1].isChecked() ) {
 			status = Relay.PORT_STATE_ON;
 		}
-		launchRelayToggleTask(port, status);
+		launchRelayToggleTask( port, status );
 	}
 
-	private void sendRelayClearMaskTask(int port) {
-		Log.d(TAG, "sendRelayClearMaskTask");
+	private void sendRelayClearMaskTask ( int port ) {
+		Log.d( TAG, "sendRelayClearMaskTask" );
 		// hide ourself and clear the mask
-		mainPortMaskBtns[port - 1].setVisibility(View.INVISIBLE);
-		launchRelayToggleTask(port, Relay.PORT_STATE_AUTO);
+		mainPortMaskBtns[port - 1].setVisibility( View.INVISIBLE );
+		launchRelayToggleTask( port, Relay.PORT_STATE_AUTO );
 	}
 
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		switch (keyCode) {
-		case KeyEvent.KEYCODE_R:
-			// launch the update
-			Log.d(TAG, "onKeyDown R");
-			launchStatusTask();
-			break;
-		default:
-			return super.onKeyDown(keyCode, event);
+	public boolean onKeyDown ( int keyCode, KeyEvent event ) {
+		switch ( keyCode ) {
+			case KeyEvent.KEYCODE_R:
+				// launch the update
+				Log.d( TAG, "onKeyDown R" );
+				launchStatusTask();
+				break;
+			default:
+				return super.onKeyDown( keyCode, event );
 		}
 		return true;
 	}
 
-	private void launchStatusTask() {
-		Log.d(TAG, "launchStatusTask");
-		Intent i = new Intent(ControllerService.QUERY_STATUS_INTENT);
-		sendBroadcast(i);
+	private void launchStatusTask ( ) {
+		Log.d( TAG, "launchStatusTask" );
+		Intent i = new Intent( ControllerService.QUERY_STATUS_INTENT );
+		sendBroadcast( i );
 	}
 
-	private void launchRelayToggleTask(int relay, int status) {
-		Log.d(TAG, "launchRelayToggleTask");
-		Intent i = new Intent(ControllerService.TOGGLE_RELAY_INTENT);
-		i.putExtra(ControllerService.TOGGLE_RELAY_PORT_INT, relay);
-		i.putExtra(ControllerService.TOGGLE_RELAY_MODE_INT, status);
-		sendBroadcast(i);
+	private void launchRelayToggleTask ( int relay, int status ) {
+		Log.d( TAG, "launchRelayToggleTask" );
+		Intent i = new Intent( ControllerService.TOGGLE_RELAY_INTENT );
+		i.putExtra( ControllerService.TOGGLE_RELAY_PORT_INT, relay );
+		i.putExtra( ControllerService.TOGGLE_RELAY_MODE_INT, status );
+		sendBroadcast( i );
 	}
 
-	public void updateDisplay() {
-		Log.d(TAG, "updateDisplay");
+	public void updateDisplay ( ) {
+		Log.d( TAG, "updateDisplay" );
 		try {
-			Cursor c = rapp.getRAData().getLatestData();
+			Cursor c = rapp.data.getLatestData();
 			String[] values;
 			short r, ron, roff;
 			Relay relay = new Relay();
 
-			if (c.moveToFirst()) {
-				values = new String[] {
-						c.getString(c.getColumnIndex(RAData.PCOL_LOGDATE)),
-						c.getString(c.getColumnIndex(RAData.PCOL_T1)),
-						c.getString(c.getColumnIndex(RAData.PCOL_T2)),
-						c.getString(c.getColumnIndex(RAData.PCOL_T3)),
-						c.getString(c.getColumnIndex(RAData.PCOL_PH)),
-						c.getString(c.getColumnIndex(RAData.PCOL_DP)),
-						c.getString(c.getColumnIndex(RAData.PCOL_AP)),
-						c.getString(c.getColumnIndex(RAData.PCOL_SAL)) };
-				r = c.getShort(c.getColumnIndex(RAData.PCOL_RDATA));
-				ron = c.getShort(c.getColumnIndex(RAData.PCOL_RONMASK));
-				roff = c.getShort(c.getColumnIndex(RAData.PCOL_ROFFMASK));
+			if ( c.moveToFirst() ) {
+				values =
+						new String[] {	c.getString( c
+												.getColumnIndex( RAData.PCOL_LOGDATE ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_T1 ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_T2 ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_T3 ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_PH ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_DP ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_AP ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_SAL ) ) };
+				r = c.getShort( c.getColumnIndex( RAData.PCOL_RDATA ) );
+				ron = c.getShort( c.getColumnIndex( RAData.PCOL_RONMASK ) );
+				roff = c.getShort( c.getColumnIndex( RAData.PCOL_ROFFMASK ) );
 			} else {
 				values = getNeverValues();
 				r = ron = roff = 0;
 			}
 			c.close();
-			loadDisplayedControllerValues(values);
-			relay.setRelayData(r, ron, roff);
-			updateMainRelayValues(relay);
-		} catch (SQLException e) {
-			Log.d(TAG, "SQLException: " + e.getMessage());
-		} catch (CursorIndexOutOfBoundsException e) {
-			Log.d(TAG, "CursorIndex out of bounds: " + e.getMessage());
+			loadDisplayedControllerValues( values );
+			relay.setRelayData( r, ron, roff );
+			updateMainRelayValues( relay );
+		} catch ( SQLException e ) {
+			Log.d( TAG, "SQLException: " + e.getMessage() );
+		} catch ( CursorIndexOutOfBoundsException e ) {
+			Log.d( TAG, "CursorIndex out of bounds: " + e.getMessage() );
 		}
 	}
 
@@ -376,111 +393,115 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		private final String TAG = StatusReceiver.class.getSimpleName();
 
 		@Override
-		public void onReceive(Context context, Intent intent) {
-			//Log.d(TAG, "onReceive");
+		public void onReceive ( Context context, Intent intent ) {
+			// Log.d(TAG, "onReceive");
 			String action = intent.getAction();
-			if (action.equals(ControllerTask.UPDATE_STATUS_INTENT)) {
-				int id = intent.getIntExtra(ControllerTask.UPDATE_STATUS_ID,
-						R.string.defaultStatusText);
-				Log.d(TAG, getResources().getString(id));
-				updateTime.setText(getResources().getString(id));
-			} else if (action.equals(ControllerTask.UPDATE_DISPLAY_DATA_INTENT)) {
-				Log.d(TAG, "update data intent");
-				rapp.insertData(intent);
+			if ( action.equals( ControllerTask.UPDATE_STATUS_INTENT ) ) {
+				int id =
+						intent.getIntExtra( ControllerTask.UPDATE_STATUS_ID,
+											R.string.defaultStatusText );
+				Log.d( TAG, getResources().getString( id ) );
+				updateTime.setText( getResources().getString( id ) );
+			} else if ( action
+					.equals( ControllerTask.UPDATE_DISPLAY_DATA_INTENT ) ) {
+				Log.d( TAG, "update data intent" );
+				rapp.insertData( intent );
 				updateDisplay();
-			} else if (action.equals(ControllerTask.ERROR_MESSAGE_INTENT)) {
-				Log.d(TAG, intent.getStringExtra(ControllerTask.ERROR_MESSAGE_STRING));
-				updateTime.setText(intent
-						.getStringExtra(ControllerTask.ERROR_MESSAGE_STRING));
+			} else if ( action.equals( ControllerTask.ERROR_MESSAGE_INTENT ) ) {
+				Log.d( TAG, intent
+						.getStringExtra( ControllerTask.ERROR_MESSAGE_STRING ) );
+				updateTime.setText( intent
+						.getStringExtra( ControllerTask.ERROR_MESSAGE_STRING ) );
 			}
 		}
 	}
 
-	private void updateMainRelayValues(Relay r) {
+	private void updateMainRelayValues ( Relay r ) {
 		short status;
 		String s;
 		String s1;
 		boolean useMask = rapp.isCommunicateController();
-		for (int i = 0; i < 8; i++) {
-			status = r.getPortStatus(i + 1);
-			if (status == Relay.PORT_STATE_ON) {
+		for ( int i = 0; i < 8; i++ ) {
+			status = r.getPortStatus( i + 1 );
+			if ( status == Relay.PORT_STATE_ON ) {
 				s1 = "ON";
-			} else if (status == Relay.PORT_STATE_AUTO) {
+			} else if ( status == Relay.PORT_STATE_AUTO ) {
 				s1 = "AUTO";
 			} else {
 				s1 = "OFF";
 			}
-			s = new String(String.format("Port %d: %s(%s)", i + 1,
-					r.isPortOn(i + 1, useMask) ? "ON" : "OFF", s1));
-			Log.d(TAG, s);
+			s =
+					new String( String.format( "Port %d: %s(%s)", i + 1, r
+							.isPortOn( i + 1, useMask ) ? "ON" : "OFF", s1 ) );
+			Log.d( TAG, s );
 
-			mainPortBtns[i].setChecked(r.isPortOn(i + 1, useMask));
-			if (((status == Relay.PORT_ON) || (status == Relay.PORT_STATE_OFF))
-					&& useMask) {
+			mainPortBtns[i].setChecked( r.isPortOn( i + 1, useMask ) );
+			if ( ((status == Relay.PORT_ON) || (status == Relay.PORT_STATE_OFF))
+					&& useMask ) {
 				// masked on or off, show button
-				mainPortMaskBtns[i].setVisibility(View.VISIBLE);
+				mainPortMaskBtns[i].setVisibility( View.VISIBLE );
 			} else {
-				mainPortMaskBtns[i].setVisibility(View.INVISIBLE);
+				mainPortMaskBtns[i].setVisibility( View.INVISIBLE );
 			}
 		}
 	}
 
-	private void loadDisplayedControllerValues(String[] v) {
+	private void loadDisplayedControllerValues ( String[] v ) {
 		// The order must match with the order in getDisplayedControllerValues
-		updateTime.setText(v[0]);
-		t1Text.setText(v[1]);
-		t2Text.setText(v[2]);
-		t3Text.setText(v[3]);
-		phText.setText(v[4]);
-		dpText.setText(v[5]);
-		apText.setText(v[6]);
-		salinityText.setText(v[7]);
+		updateTime.setText( v[0] );
+		t1Text.setText( v[1] );
+		t2Text.setText( v[2] );
+		t3Text.setText( v[3] );
+		phText.setText( v[4] );
+		dpText.setText( v[5] );
+		apText.setText( v[6] );
+		salinityText.setText( v[7] );
 	}
 
-	private String[] getNeverValues() {
-		return new String[] { getString(R.string.messageNever),
-				getString(R.string.defaultStatusText),
-				getString(R.string.defaultStatusText),
-				getString(R.string.defaultStatusText),
-				getString(R.string.defaultStatusText),
-				getString(R.string.defaultStatusText),
-				getString(R.string.defaultStatusText),
-				getString(R.string.defaultStatusText) };
+	private String[] getNeverValues ( ) {
+		return new String[] {	getString( R.string.messageNever ),
+								getString( R.string.defaultStatusText ),
+								getString( R.string.defaultStatusText ),
+								getString( R.string.defaultStatusText ),
+								getString( R.string.defaultStatusText ),
+								getString( R.string.defaultStatusText ),
+								getString( R.string.defaultStatusText ),
+								getString( R.string.defaultStatusText ) };
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu ( Menu menu ) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main_menu, menu);
+		inflater.inflate( R.menu.main_menu, menu );
 		return true;
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected ( MenuItem item ) {
 		// Handle item selection
-		switch (item.getItemId()) {
-		case R.id.settings:
-			// launch settings
-			Log.d(TAG, "Menu Settings clicked");
-			startActivity(new Intent(this, PrefsActivity.class));
-			break;
-		case R.id.about:
-			// launch about box
-			Log.d(TAG, "Menu About clicked");
-			startActivity(new Intent(this, AboutActivity.class));
-			break;
-		case R.id.params:
-			Log.d(TAG, "Menu Parameters clicked");
-			startActivity(new Intent(this, ParamsListActivity.class));
-			break;
-		case R.id.memory:
-			// launch memory 
-			Log.d(TAG, "Memory clicked");
-			startActivity(new Intent(this, MemoryActivity.class));
-			break;
+		switch ( item.getItemId() ) {
+			case R.id.settings:
+				// launch settings
+				Log.d( TAG, "Menu Settings clicked" );
+				startActivity( new Intent( this, PrefsActivity.class ) );
+				break;
+			case R.id.about:
+				// launch about box
+				Log.d( TAG, "Menu About clicked" );
+				startActivity( new Intent( this, AboutActivity.class ) );
+				break;
+			case R.id.params:
+				Log.d( TAG, "Menu Parameters clicked" );
+				startActivity( new Intent( this, ParamsListActivity.class ) );
+				break;
+			case R.id.memory:
+				// launch memory
+				Log.d( TAG, "Memory clicked" );
+				startActivity( new Intent( this, MemoryActivity.class ) );
+				break;
 
-		default:
-			return super.onOptionsItemSelected(item);
+			default:
+				return super.onOptionsItemSelected( item );
 		}
 		return true;
 	}

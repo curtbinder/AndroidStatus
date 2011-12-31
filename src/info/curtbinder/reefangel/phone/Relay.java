@@ -55,26 +55,20 @@ public class Relay {
 		return this.maskOff;
 	}
 	
-	public String[] getPortLabels() {
-		return labels;
-	}
+//	public String[] getPortLabels() {
+//		return labels;
+//	}
 	
 	public String getPortLabel(int port) {
-		int i = port - 1;
-		if ( i < 0 )
-			i = port;
-		return labels[i];
+		return labels[port - 1];
 	}
 	
-	public void setPortLabels(String[] labels) {
-		this.labels = labels;
-	}
+//	public void setPortLabels(String[] labels) {
+//		this.labels = labels;
+//	}
 
 	public void setPortLabel(int port, String label) {
-		int i = port - 1;
-		if ( i < 0 ) 
-			i = port;
-		labels[i] = label;
+		labels[port - 1] = label;
 	}
 	
 	// Get port statuses

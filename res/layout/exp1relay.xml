@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        style="@style/ParamsText"
+        android:text="@string/prefExp1RelayTitle" />
+
+    <TableRow style="@style/RARow" >
+
+        <TextView
+            android:id="@+id/exp1_port1_label"
+            style="@style/ParamsText.Labels" />
+
+        <ToggleButton
+            android:id="@+id/exp1_port1"
+            style="@style/ParamsButton.Toggle" />
+
+        <Button
+            android:id="@+id/exp1_port1mask"
+            style="@style/ParamsButton.Mask"
+            android:background="@drawable/greenbutton" />
+    </TableRow>
+
+    <TableRow style="@style/RARow" >
+
+        <TextView
+            android:id="@+id/exp1_port2_label"
+            style="@style/ParamsText.Labels" />
+
+        <ToggleButton
+            android:id="@+id/exp1_port2"
+            style="@style/ParamsButton.Toggle" />
+
+        <Button
+            android:id="@+id/exp1_port2mask"
+            style="@style/ParamsButton.Mask"
+            android:background="@drawable/greenbutton" />
+    </TableRow>
+
+    <TableRow style="@style/RARow" >
+
+        <TextView
+            android:id="@+id/exp1_port3_label"
+            style="@style/ParamsText.Labels" />
+
+        <ToggleButton
+            android:id="@+id/exp1_port3"
+            style="@style/ParamsButton.Toggle" />
+
+        <Button
+            android:id="@+id/exp1_port3mask"
+            style="@style/ParamsButton.Mask"
+            android:background="@drawable/greenbutton" />
+    </TableRow>
+
+    <TableRow style="@style/RARow" >
+
+        <TextView
+            android:id="@+id/exp1_port4_label"
+            style="@style/ParamsText.Labels" />
+
+        <ToggleButton
+            android:id="@+id/exp1_port4"
+            style="@style/ParamsButton.Toggle" />
+
+        <Button
+            android:id="@+id/exp1_port4mask"
+            style="@style/ParamsButton.Mask"
+            android:background="@drawable/greenbutton" />
+    </TableRow>
+
+    <TableRow style="@style/RARow" >
+
+        <TextView
+            android:id="@+id/exp1_port5_label"
+            style="@style/ParamsText.Labels" />
+
+        <ToggleButton
+            android:id="@+id/exp1_port5"
+            style="@style/ParamsButton.Toggle" />
+
+        <Button
+            android:id="@+id/exp1_port5mask"
+            style="@style/ParamsButton.Mask"
+            android:background="@drawable/greenbutton" />
+    </TableRow>
+
+    <TableRow style="@style/RARow" >
+
+        <TextView
+            android:id="@+id/exp1_port6_label"
+            style="@style/ParamsText.Labels" />
+
+        <ToggleButton
+            android:id="@+id/exp1_port6"
+            style="@style/ParamsButton.Toggle" />
+
+        <Button
+            android:id="@+id/exp1_port6mask"
+            style="@style/ParamsButton.Mask"
+            android:background="@drawable/greenbutton" />
+    </TableRow>
+
+    <TableRow style="@style/RARow" >
+
+        <TextView
+            android:id="@+id/exp1_port7_label"
+            style="@style/ParamsText.Labels" />
+
+        <ToggleButton
+            android:id="@+id/exp1_port7"
+            style="@style/ParamsButton.Toggle" />
+
+        <Button
+            android:id="@+id/exp1_port7mask"
+            style="@style/ParamsButton.Mask"
+            android:background="@drawable/greenbutton" />
+    </TableRow>
+
+    <TableRow style="@style/RARow" >
+
+        <TextView
+            android:id="@+id/exp1_port8_label"
+            style="@style/ParamsText.Labels" />
+
+        <ToggleButton
+            android:id="@+id/exp1_port8"
+            style="@style/ParamsButton.Toggle" />
+
+        <Button
+            android:id="@+id/exp1_port8mask"
+            style="@style/ParamsButton.Mask"
+            android:background="@drawable/greenbutton" />
+    </TableRow>
+
+</merge>

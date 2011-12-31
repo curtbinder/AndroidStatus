@@ -50,7 +50,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 	<string name="salinity_label">Salinity</string>
 	<string name="ato_low_label">ATO Low</string>
 	<string name="ato_high_label">ATO High</string>
-	<string name="main_relay_label">Main Relay</string>
+<!-- <string name="main_relay_label">Main Relay</string> -->
 	<string name="port1_label">Port 1</string>
 	<string name="port2_label">Port 2</string>
 	<string name="port3_label">Port 3</string>
@@ -77,7 +77,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 	<string name="messageUnknownError">Unknown error</string>
 	<string name="messageDownloadLabels">Downloading labels&#8230;</string>
 	<string name="messageDownloadLabelsComplete">Labels downloaded and updated</string>
-	<string name="messageDownloadMessage">Please exit preferences to see updated labels</string>
+	<string name="messageDownloadMessage">Labels downloaded and updated.\n\nPlease exit preferences to see updated labels</string>
 	<string name="labelFeedingMode">Feeding Mode</string>
 	<string name="labelWaterMode">Water Change Mode</string>
 	<string name="labelExitMode">Exit Mode</string>

@@ -44,3 +44,9 @@ TODO
 
 * add in special permissions to send and receive messages
 
+* only restart main status app when the following happens:
+	visibility is changed
+	expansion relay quantity changed
+	labels get updated / changed
+* add in link to forums
+

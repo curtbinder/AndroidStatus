@@ -41,7 +41,7 @@ public class ParamsListActivity extends ListActivity {
 		setContentView(R.layout.paramslist);
 		rapp = (RAApplication)getApplication();
 		try {
-			Cursor c = rapp.getRAData().getAllData();
+			Cursor c = rapp.data.getAllData();
 			startManagingCursor(c);
 			showEvents(c);
 		} catch ( SQLException e ) {

@@ -1,6 +1,5 @@
 package info.curtbinder.reefangel.phone;
 
-//import android.app.AlertDialog;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -25,7 +24,6 @@ public class PrefsActivity extends PreferenceActivity implements
 			"^(?i:[[0-9][a-z]]+)(?i:[\\w\\.\\-]*)(?i:[[0-9][a-z]]+)$";
 	private static final String USERID_PATTERN = "[\\w\\-\\.]+";
 
-	private boolean fRestart;
 	private Preference portkey;
 	private Preference hostkey;
 	private Preference useridkey;
@@ -43,7 +41,6 @@ public class PrefsActivity extends PreferenceActivity implements
 		receiver = new PrefsReceiver();
 		filter = new IntentFilter( ControllerTask.LABEL_RESPONSE_INTENT );
 
-		fRestart = true;
 		portkey =
 				getPreferenceScreen()
 						.findPreference( rapp.getString( R.string.prefPortKey ) );
@@ -68,7 +65,6 @@ public class PrefsActivity extends PreferenceActivity implements
 
 					@Override
 					public boolean onPreferenceClick ( Preference preference ) {
-						fRestart = false;
 						Intent browserIntent =
 								new Intent(
 									Intent.ACTION_VIEW,
@@ -85,7 +81,6 @@ public class PrefsActivity extends PreferenceActivity implements
 
 			@Override
 			public boolean onPreferenceClick ( Preference preference ) {
-				fRestart = false;
 				startActivity( new Intent( rapp, LicenseActivity.class ) );
 				return true;
 			}
@@ -118,7 +113,7 @@ public class PrefsActivity extends PreferenceActivity implements
 													dialog.dismiss();
 													Toast.makeText( PrefsActivity.this,
 																	rapp.getString( R.string.messageDownloadLabels ),
-																	Toast.LENGTH_LONG )
+																	Toast.LENGTH_SHORT )
 															.show();
 												}
 											} )
@@ -146,21 +141,11 @@ public class PrefsActivity extends PreferenceActivity implements
 	protected void onPause ( ) {
 		super.onPause();
 		unregisterReceiver( receiver );
-		if ( fRestart ) {
-			Log.d( TAG, "Prefs Pause / Restart App" );
-			Intent i = new Intent( this, StatusActivity.class );
-			i.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
-			startActivity( i );
-			finish();
-		} else {
-			Log.d( TAG, "Prefs Pause" );
-		}
 	}
 
 	@Override
 	protected void onResume ( ) {
 		super.onResume();
-		fRestart = true;
 		registerReceiver( receiver, filter );
 	}
 
@@ -241,72 +226,28 @@ public class PrefsActivity extends PreferenceActivity implements
 		return false;
 	}
 
-	protected void updateLabels ( String[] temps, String[] main, String[][] exp ) {
-		// set the labels
-		rapp.setPref( R.string.prefT1LabelKey, temps[0] );
-		rapp.setPref( R.string.prefT2LabelKey, temps[1] );
-		rapp.setPref( R.string.prefT3LabelKey, temps[2] );
-		int i, j;
-		for ( i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
-			rapp.setPrefRelayLabel( 0, i, main[i] );
-		}
-		for ( i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
-			for ( j = 0; j < Controller.MAX_RELAY_PORTS; j++ ) {
-				// use i+1 because the expansion relays start at 1
-				rapp.setPrefRelayLabel( i + 1, j, exp[i][j] );
-			}
-		}
-		Toast.makeText( PrefsActivity.this,
-						rapp.getString( R.string.messageDownloadLabelsComplete ),
-						Toast.LENGTH_LONG ).show();
-		AlertDialog.Builder builder =
-				new AlertDialog.Builder( PrefsActivity.this );
-		builder.setMessage( rapp.getString( R.string.messageDownloadMessage ) )
-				.setCancelable( false )
-				.setPositiveButton( rapp.getString( R.string.okButton ),
-									new DialogInterface.OnClickListener() {
-										public void onClick (
-												DialogInterface dialog,
-												int id ) {
-											Log.d( TAG, "Warn about labels" );
-											dialog.dismiss();
-										}
-									} );
-
-		AlertDialog alert = builder.create();
-		alert.show();
-	}
-
 	class PrefsReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive ( Context context, Intent intent ) {
-			// only receives the label response message
-			// grab all the labels
-			String[] temps = new String[Controller.MAX_TEMP_SENSORS];
-			String[] main = new String[Controller.MAX_RELAY_PORTS];
-			String[][] exp =
-					new String[Controller.MAX_EXPANSION_RELAYS][Controller.MAX_RELAY_PORTS];
-			temps =
-					intent.getStringArrayExtra( ControllerTask.LABEL_RESPONSE_TEMP_ARRAY );
-			main =
-					intent.getStringArrayExtra( ControllerTask.LABEL_RESPONSE_MAIN_ARRAY );
-			exp[0] =
-					intent.getStringArrayExtra( ControllerTask.LABEL_RESPONSE_EXP1_ARRAY );
-			exp[1] =
-					intent.getStringArrayExtra( ControllerTask.LABEL_RESPONSE_EXP2_ARRAY );
-			exp[2] =
-					intent.getStringArrayExtra( ControllerTask.LABEL_RESPONSE_EXP3_ARRAY );
-			exp[3] =
-					intent.getStringArrayExtra( ControllerTask.LABEL_RESPONSE_EXP4_ARRAY );
-			exp[4] =
-					intent.getStringArrayExtra( ControllerTask.LABEL_RESPONSE_EXP5_ARRAY );
-			exp[5] =
-					intent.getStringArrayExtra( ControllerTask.LABEL_RESPONSE_EXP6_ARRAY );
-			exp[6] =
-					intent.getStringArrayExtra( ControllerTask.LABEL_RESPONSE_EXP7_ARRAY );
-			exp[7] =
-					intent.getStringArrayExtra( ControllerTask.LABEL_RESPONSE_EXP8_ARRAY );
-			updateLabels( temps, main, exp );
+			Log.d( TAG, "Warn about labels" );
+//			Toast.makeText( PrefsActivity.this,
+//							rapp.getString( R.string.messageDownloadLabelsComplete ),
+//							Toast.LENGTH_LONG ).show();
+			AlertDialog.Builder builder =
+					new AlertDialog.Builder( PrefsActivity.this );
+			builder.setMessage( rapp.getString( R.string.messageDownloadMessage ) )
+					.setCancelable( false )
+					.setPositiveButton( rapp.getString( R.string.okButton ),
+										new DialogInterface.OnClickListener() {
+											public void onClick (
+													DialogInterface dialog,
+													int id ) {
+												dialog.dismiss();
+											}
+										} );
+
+			AlertDialog alert = builder.create();
+			alert.show();
 		}
 	}
 }

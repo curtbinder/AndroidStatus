@@ -14,12 +14,12 @@ public class RAApplication extends Application {
 	// Error code stuff
 	private String[] errorCodes;
 	private String[] errorCodesStrings;
-	private int errorCode;
+	public int errorCode;
 	// Devices stuff
 	private String[] devicesArray;
 
 	// Controller Data
-	private RAData data;
+	public RAData data;
 
 	// Relay labels
 	private int[][] relayLabels;
@@ -55,10 +55,6 @@ public class RAApplication extends Application {
 	}
 
 	// Data handling
-	public RAData getRAData ( ) {
-		return data;
-	}
-
 	public void insertData ( Intent i ) {
 		ContentValues v = new ContentValues();
 		v.put( RAData.PCOL_T1, i.getStringExtra( RAData.PCOL_T1 ) );
@@ -129,14 +125,6 @@ public class RAApplication extends Application {
 	}
 
 	// Error Logging
-	public void clearError ( ) {
-		errorCode = 0;
-	}
-
-	public int getErrorCode ( ) {
-		return errorCode;
-	}
-
 	public void error ( int errorCodeIndex, Throwable t, String msg ) {
 		errorCode = Integer.parseInt( errorCodes[errorCodeIndex] );
 		Log.e( TAG, msg, t );

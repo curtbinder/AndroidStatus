@@ -41,26 +41,6 @@ public class ControllerTask implements Runnable {
 	public static final String MEMORY_WRITE_BOOLEAN = "MEMORY_WRITE_BOOLEAN";
 	public static final String LABEL_RESPONSE_INTENT = Globals.PACKAGE_BASE
 														+ ".LABEL_RESPONSE";
-	public static final String LABEL_RESPONSE_TEMP_ARRAY =
-			"LABEL_RESPONSE_TEMP_ARRAY";
-	public static final String LABEL_RESPONSE_MAIN_ARRAY =
-			"LABEL_RESPONSE_MAIN_ARRAY";
-	public static final String LABEL_RESPONSE_EXP1_ARRAY =
-			"LABEL_RESPONSE_EXP1_ARRAY";
-	public static final String LABEL_RESPONSE_EXP2_ARRAY =
-			"LABEL_RESPONSE_EXP2_ARRAY";
-	public static final String LABEL_RESPONSE_EXP3_ARRAY =
-			"LABEL_RESPONSE_EXP3_ARRAY";
-	public static final String LABEL_RESPONSE_EXP4_ARRAY =
-			"LABEL_RESPONSE_EXP4_ARRAY";
-	public static final String LABEL_RESPONSE_EXP5_ARRAY =
-			"LABEL_RESPONSE_EXP5_ARRAY";
-	public static final String LABEL_RESPONSE_EXP6_ARRAY =
-			"LABEL_RESPONSE_EXP6_ARRAY";
-	public static final String LABEL_RESPONSE_EXP7_ARRAY =
-			"LABEL_RESPONSE_EXP7_ARRAY";
-	public static final String LABEL_RESPONSE_EXP8_ARRAY =
-			"LABEL_RESPONSE_EXP8_ARRAY";
 	public static final String COMMAND_RESPONSE_INTENT =
 			Globals.PACKAGE_BASE + ".COMMAND_RESPOSNE";
 	public static final String COMMAND_RESPONSE_STRING =
@@ -80,7 +60,7 @@ public class ControllerTask implements Runnable {
 		// Communicate with controller
 
 		// clear out the error code on run
-		rapp.clearError();
+		rapp.errorCode = 0;
 		HttpURLConnection con = null;
 		String res = "";
 		broadcastUpdateStatus( R.string.statusStart );
@@ -127,7 +107,7 @@ public class ControllerTask implements Runnable {
 		broadcastUpdateStatus( R.string.statusReadResponse );
 
 		// check if there was an error
-		if ( rapp.getErrorCode() > 0 ) {
+		if ( rapp.errorCode > 0 ) {
 			// encountered an error, display an error on screen
 			broadcastErrorMessage();
 		} else if ( res.equals( (String) rapp.getResources()
@@ -198,7 +178,7 @@ public class ControllerTask implements Runnable {
 		}
 
 		// if we encountered an error, set the error text
-		if ( rapp.getErrorCode() > 0 )
+		if ( rapp.errorCode > 0 )
 			s =
 					new StringBuilder( (String) rapp.getResources()
 							.getText( R.string.messageError ) );
@@ -251,37 +231,36 @@ public class ControllerTask implements Runnable {
 
 	// Broadcast Stuff
 	private void broadcastCommandResponse ( int id, String response ) {
-		String s =
-				rapp.getString( id )
-						+ rapp.getString( R.string.label_separator ) + " "
-						+ response;
 		Intent i = new Intent( COMMAND_RESPONSE_INTENT );
-		i.putExtra( COMMAND_RESPONSE_STRING, s );
+		i.putExtra( COMMAND_RESPONSE_STRING,
+					rapp.getString( id )
+							+ rapp.getString( R.string.label_separator ) + " "
+							+ response );
 		rapp.sendBroadcast( i );
 	}
 
 	private void broadcastLabelsResponse ( Controller ra ) {
-		Intent i = new Intent( LABEL_RESPONSE_INTENT );
-		i.putExtra( LABEL_RESPONSE_TEMP_ARRAY, ra.getTempLabels() );
-		i.putExtra( LABEL_RESPONSE_MAIN_ARRAY, ra.getMainRelay()
-				.getPortLabels() );
-		i.putExtra( LABEL_RESPONSE_EXP1_ARRAY, ra.getExpRelay( 1 )
-				.getPortLabels() );
-		i.putExtra( LABEL_RESPONSE_EXP2_ARRAY, ra.getExpRelay( 2 )
-				.getPortLabels() );
-		i.putExtra( LABEL_RESPONSE_EXP3_ARRAY, ra.getExpRelay( 3 )
-				.getPortLabels() );
-		i.putExtra( LABEL_RESPONSE_EXP4_ARRAY, ra.getExpRelay( 4 )
-				.getPortLabels() );
-		i.putExtra( LABEL_RESPONSE_EXP5_ARRAY, ra.getExpRelay( 5 )
-				.getPortLabels() );
-		i.putExtra( LABEL_RESPONSE_EXP6_ARRAY, ra.getExpRelay( 6 )
-				.getPortLabels() );
-		i.putExtra( LABEL_RESPONSE_EXP7_ARRAY, ra.getExpRelay( 7 )
-				.getPortLabels() );
-		i.putExtra( LABEL_RESPONSE_EXP8_ARRAY, ra.getExpRelay( 8 )
-				.getPortLabels() );
-		rapp.sendBroadcast( i );
+		// Save the preferences to memory
+		rapp.setPref( R.string.prefT1LabelKey, ra.getTempLabel( 1 ) );
+		rapp.setPref( R.string.prefT2LabelKey, ra.getTempLabel( 2 ) );
+		rapp.setPref( R.string.prefT3LabelKey, ra.getTempLabel( 3 ) );
+		int i, j;
+		Log.d(TAG, "saving main labels");
+		for ( i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
+			rapp.setPrefRelayLabel( 0, i, ra.getMainRelay().getPortLabel( i+1 ) );
+		}
+		Relay r;
+		for ( i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
+			// use i+1 because it uses 1 based referencing
+			r = ra.getExpRelay( i+1 );
+			for ( j = 0; j < Controller.MAX_RELAY_PORTS; j++ ) {
+				// use i+1 because the expansion relays start at 1
+				rapp.setPrefRelayLabel( i + 1, j, r.getPortLabel( j+1 ) );
+			}
+		}
+		// Tell the activity we updated the labels
+		Intent intent = new Intent( LABEL_RESPONSE_INTENT );
+		rapp.sendBroadcast( intent );
 	}
 
 	private void broadcastMemoryResponse ( String response, boolean wasWrite ) {

@@ -77,11 +77,11 @@ public class Controller {
 		return tempSensors[sensor - 1].getLabel();
 	}
 
-	public String[] getTempLabels ( ) {
-		return new String[] {	tempSensors[0].getLabel(),
-								tempSensors[1].getLabel(),
-								tempSensors[2].getLabel() };
-	}
+//	public String[] getTempLabels ( ) {
+//		return new String[] {	tempSensors[0].getLabel(),
+//								tempSensors[1].getLabel(),
+//								tempSensors[2].getLabel() };
+//	}
 
 	public void setTemp1 ( int value ) {
 		tempSensors[0].setTemp( value );

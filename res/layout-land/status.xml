@@ -1,239 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:padding="10dp"
+    android:stretchColumns="1" >
 
-<TableLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:stretchColumns="1"
-	android:layout_gravity="center"
-	android:padding="10dp">
+    <TableRow>
 
-	<TableRow>
-		<TextView   
-		    android:text="@string/last_updated"
-		    style="@style/UpdateText" />
-		<TextView
-			android:id="@+id/updated"
-			style="@style/UpdateText.Status" />
-		<Button 
-			android:id="@+id/refresh_button"
-			android:text="@string/refresh_label" />
-	</TableRow>
-		
-	<ScrollView
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent">
-		<TableLayout
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			android:layout_gravity="top">
-			<TextView 
-				android:text="@string/status_label"
-				style="@style/ParamsText" />
-			<TableRow
-				style="@style/RARow">
-				<TextView
-					android:id="@+id/t1_label"
-					android:textColor="@color/t1"
-					style="@style/ParamsText.Labels"
-					/>
-				<TextView 
-					android:id="@+id/temp1"
-					android:textColor="@color/t1"
-					style="@style/ParamsText.Values"
-					/>
-				<TextView 
-				    android:id="@+id/ph_label"
-					android:textColor="@color/ph"
-					style="@style/ParamsText.Labels" 
-					/>
-				<TextView 
-					android:id="@+id/ph"
-					android:textColor="@color/ph"
-					style="@style/ParamsText.Values"
-					/>
-			</TableRow>
-			<TableRow
-				style="@style/RARow">
-				<TextView 
-					android:id="@+id/t2_label"
-					android:textColor="@color/t2"
-					style="@style/ParamsText.Labels"
-					/>
-				<TextView 
-					android:id="@+id/temp2"
-					android:textColor="@color/t2"
-					style="@style/ParamsText.Values"
-					/>
-				<TextView
-					android:id="@+id/dp_label"
-					android:textColor="@color/dp" 
-					style="@style/ParamsText.Labels.RightColumn"
-					/>
-				<TextView 
-					android:id="@+id/dp"
-					android:textColor="@color/dp"
-					style="@style/ParamsText.Values"
-					/>
-			</TableRow>
-			<TableRow
-				style="@style/RARow">
-				<TextView
-					android:id="@+id/t3_label"
-					android:textColor="@color/t3" 
-					style="@style/ParamsText.Labels"
-					/>
-				<TextView 
-					android:id="@+id/temp3"
-					android:textColor="@color/t3"
-					style="@style/ParamsText.Values"
-					/>
-				<TextView
-					android:id="@+id/ap_label" 
-					android:textColor="@color/ap"
-					style="@style/ParamsText.Labels.RightColumn"
-					/>
-				<TextView 
-					android:id="@+id/ap"
-					android:textColor="@color/ap"
-					style="@style/ParamsText.Values"
-					/>
-			</TableRow>
-			<TableRow
-				style="@style/RARow">
-				<TextView 
-					android:id="@+id/salinity_label"
-					android:text="@string/salinity_label"
-					style="@style/ParamsText.Labels"
-					/>
-				<TextView
-					android:id="@+id/salinity"
-					style="@style/ParamsText.Values"
-					/>
-			</TableRow>
-			<TextView 
-				android:text="@string/main_relay_label"
-				style="@style/ParamsText" />
-			<TableRow
-				style="@style/RARow">
-				<TextView
-					android:id="@+id/main_port1_label"
-					style="@style/ParamsText.Labels"
-					/>
-				<ToggleButton
-					android:id="@+id/main_port1"
-					style="@style/ParamsButton.Toggle"
-					/>
-				<Button
-				    android:id="@+id/main_port1mask"
-				    style="@style/ParamsButton.Mask"
-			        android:background="@drawable/greenbutton" />
-			</TableRow>
-			<TableRow
-				style="@style/RARow">
-				<TextView
-					android:id="@+id/main_port2_label"
-					style="@style/ParamsText.Labels"
-					/>
-				<ToggleButton
-					android:id="@+id/main_port2"
-					style="@style/ParamsButton.Toggle"
-					/>
-				<Button
-				    android:id="@+id/main_port2mask"
-				    style="@style/ParamsButton.Mask"
-			        android:background="@drawable/greenbutton" />
-			</TableRow>
-			<TableRow
-				style="@style/RARow">
-				<TextView
-					android:id="@+id/main_port3_label"
-					style="@style/ParamsText.Labels"
-					/>
-				<ToggleButton 
-					android:id="@+id/main_port3"
-					style="@style/ParamsButton.Toggle"
-					/>
-				<Button
-				    android:id="@+id/main_port3mask"
-				    style="@style/ParamsButton.Mask"
-			        android:background="@drawable/greenbutton" />
-			</TableRow>
-			<TableRow
-				style="@style/RARow">
-				<TextView
-					android:id="@+id/main_port4_label"
-					style="@style/ParamsText.Labels"
-					/>
-				<ToggleButton 
-					android:id="@+id/main_port4"
-					style="@style/ParamsButton.Toggle"
-					/>
-				<Button
-				    android:id="@+id/main_port4mask"
-				    style="@style/ParamsButton.Mask"
-			        android:background="@drawable/greenbutton" />
-			</TableRow>
-			<TableRow
-				style="@style/RARow">
-				<TextView
-					android:id="@+id/main_port5_label"
-					style="@style/ParamsText.Labels"
-					/>
-				<ToggleButton 
-					android:id="@+id/main_port5"
-					style="@style/ParamsButton.Toggle"
-					/>
-				<Button
-				    android:id="@+id/main_port5mask"
-				    style="@style/ParamsButton.Mask"
-			        android:background="@drawable/greenbutton" />
-			</TableRow>
-			<TableRow
-				style="@style/RARow">
-				<TextView
-					android:id="@+id/main_port6_label"
-					style="@style/ParamsText.Labels"
-					/>
-				<ToggleButton 
-					android:id="@+id/main_port6"
-					style="@style/ParamsButton.Toggle"
-					/>
-				<Button
-				    android:id="@+id/main_port6mask"
-				    style="@style/ParamsButton.Mask"
-			        android:background="@drawable/greenbutton" />
-			</TableRow>
-			<TableRow
-				style="@style/RARow">
-				<TextView
-					android:id="@+id/main_port7_label"
-					style="@style/ParamsText.Labels"
-					/>
-				<ToggleButton 
-					android:id="@+id/main_port7"
-					style="@style/ParamsButton.Toggle"
-					/>
-				<Button
-				    android:id="@+id/main_port7mask"
-				    style="@style/ParamsButton.Mask"
-			        android:background="@drawable/greenbutton" />
-			</TableRow>
-			<TableRow
-				style="@style/RARow">
-				<TextView
-					android:id="@+id/main_port8_label"
-					style="@style/ParamsText.Labels"
-					/>
-				<ToggleButton 
-					android:id="@+id/main_port8"
-					style="@style/ParamsButton.Toggle"
-					/>
-				<Button
-				    android:id="@+id/main_port8mask"
-				    style="@style/ParamsButton.Mask"
-			        android:background="@drawable/greenbutton" />
-			</TableRow>
-		</TableLayout>
-	</ScrollView>   
+        <TextView
+            style="@style/UpdateText"
+            android:text="@string/last_updated" />
+
+        <TextView
+            android:id="@+id/updated"
+            style="@style/UpdateText.Status" />
+
+        <Button
+            android:id="@+id/refresh_button"
+            android:text="@string/refresh_label" />
+    </TableRow>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="top" >
+
+            <TextView
+                style="@style/ParamsText"
+                android:text="@string/status_label" />
+
+            <TableRow style="@style/RARow" >
+
+                <TextView
+                    android:id="@+id/t1_label"
+                    style="@style/ParamsText.Labels"
+                    android:textColor="@color/t1" />
+
+                <TextView
+                    android:id="@+id/temp1"
+                    style="@style/ParamsText.Values"
+                    android:textColor="@color/t1" />
+
+                <TextView
+                    android:id="@+id/ph_label"
+                    style="@style/ParamsText.Labels"
+                    android:textColor="@color/ph" />
+
+                <TextView
+                    android:id="@+id/ph"
+                    style="@style/ParamsText.Values"
+                    android:textColor="@color/ph" />
+            </TableRow>
+
+            <TableRow style="@style/RARow" >
+
+                <TextView
+                    android:id="@+id/t2_label"
+                    style="@style/ParamsText.Labels"
+                    android:textColor="@color/t2" />
+
+                <TextView
+                    android:id="@+id/temp2"
+                    style="@style/ParamsText.Values"
+                    android:textColor="@color/t2" />
+
+                <TextView
+                    android:id="@+id/dp_label"
+                    style="@style/ParamsText.Labels.RightColumn"
+                    android:textColor="@color/dp" />
+
+                <TextView
+                    android:id="@+id/dp"
+                    style="@style/ParamsText.Values"
+                    android:textColor="@color/dp" />
+            </TableRow>
+
+            <TableRow style="@style/RARow" >
+
+                <TextView
+                    android:id="@+id/t3_label"
+                    style="@style/ParamsText.Labels"
+                    android:textColor="@color/t3" />
+
+                <TextView
+                    android:id="@+id/temp3"
+                    style="@style/ParamsText.Values"
+                    android:textColor="@color/t3" />
+
+                <TextView
+                    android:id="@+id/ap_label"
+                    style="@style/ParamsText.Labels.RightColumn"
+                    android:textColor="@color/ap" />
+
+                <TextView
+                    android:id="@+id/ap"
+                    style="@style/ParamsText.Values"
+                    android:textColor="@color/ap" />
+            </TableRow>
+
+            <TableRow style="@style/RARow" >
+
+                <TextView
+                    android:id="@+id/salinity_label"
+                    style="@style/ParamsText.Labels"
+                    android:text="@string/salinity_label" />
+
+                <TextView
+                    android:id="@+id/salinity"
+                    style="@style/ParamsText.Values" />
+            </TableRow>
+
+            <!-- Merge Main Relay Here -->
+
+            <include
+                android:id="@+id/mainrelay"
+                layout="@layout/mainrelay" />
+        </TableLayout>
+    </ScrollView>
+
 </TableLayout>
