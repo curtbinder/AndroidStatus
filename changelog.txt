@@ -45,5 +45,6 @@ Changelog of all the versions of AndroidStatus
  * download labels from reefangel.com and save to memory
  * userid for reefangel.com can always be updated
  * updated preferences to have host information on separate screen
+ * updated about box to show version 
  
  

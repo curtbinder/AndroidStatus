@@ -18,7 +18,6 @@ TODO
    having to exit the preferences activity 
 * when changing bannerid, update the summary on the "Download labels" item to reflect new id
 
-* add version to about dialog box
 * add in an error status line with error displaying
 
 * add in error log

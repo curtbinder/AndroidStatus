@@ -9,19 +9,24 @@ import android.widget.TextView;
 
 public class AboutActivity extends Activity {
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.popup);
-		
-		TextView c = (TextView) findViewById(R.id.popupContent);
-		c.setText(R.string.about_text);
-		
-		Button b = (Button) findViewById(R.id.popupButton);
-		b.setText(R.string.okButton);
-		b.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
+	protected void onCreate ( Bundle savedInstanceState ) {
+		super.onCreate( savedInstanceState );
+		setContentView( R.layout.popup );
+
+		TextView c = (TextView) findViewById( R.id.popupContent );
+		String s =
+				String.format(	"%s %s\n\n%s",
+								getString( R.string.version_text ),
+								getString( R.string.app_version ),
+								getString( R.string.about_text ) );
+		c.setText( s );
+
+		Button b = (Button) findViewById( R.id.popupButton );
+		b.setText( R.string.okButton );
+		b.setOnClickListener( new OnClickListener() {
+			public void onClick ( View v ) {
 				finish();
 			}
-		});
+		} );
 	}
 }

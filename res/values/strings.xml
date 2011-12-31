@@ -25,6 +25,7 @@
 Monitors the status of your Reef Angel Controller and displays the values.  You must have a wifi attachment installed on
 your controller to use this app.
 </string>
+	<string name="version_text">Version</string>
 	<string name="okButton">OK</string>
 	<string name="yesButton">Yes</string>
 	<string name="noButton">No</string>
