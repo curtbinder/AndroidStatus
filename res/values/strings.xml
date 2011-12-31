@@ -115,6 +115,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 	<string name="prefDeviceTitle">Device</string>
 	<string name="prefDeviceSummary">Select to query data from your controller directly or your web banner on reefangel.com</string>
 	<string name="prefDeviceDefault">0</string>
+	<string name="prefHostScreenKey">hostscreen</string>
+	<string name="prefHostScreenTitle">Host Information</string>
+	<string name="prefHostScreenSummary">Edit the settings relating to the host</string>
 	<string name="prefHostKey">host</string>
 	<string name="prefHostTitle">Hostname</string>
 	<string name="prefHostSummary">Enter the hostname or IP address of the controller</string>

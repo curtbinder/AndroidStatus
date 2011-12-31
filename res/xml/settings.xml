@@ -11,23 +11,26 @@
             android:title="@string/prefDeviceTitle" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/prefs_categoryHost" >
-        <EditTextPreference
-            android:defaultValue="@string/prefHostDefault"
-            android:key="@string/prefHostKey"
-            android:summary="@string/prefHostSummary"
-            android:title="@string/prefHostTitle" />
-        <EditTextPreference
-            android:defaultValue="@string/prefPortDefault"
-            android:key="@string/prefPortKey"
-            android:summary="@string/prefPortSummary"
-            android:title="@string/prefPortTitle" />
-    </PreferenceCategory>
-    <PreferenceCategory android:title="@string/prefs_categoryRA" >
-        <EditTextPreference
-            android:defaultValue="@string/prefUserIdDefault"
-            android:key="@string/prefUserIdKey"
-            android:summary="@string/prefUserIdSummary"
-            android:title="@string/prefUserIdTitle" />
+        <PreferenceScreen 
+            android:key="@string/prefHostScreenKey"
+            android:summary="@string/prefHostScreenSummary"
+            android:title="@string/prefHostScreenTitle" >
+	        <EditTextPreference
+	            android:defaultValue="@string/prefHostDefault"
+	            android:key="@string/prefHostKey"
+	            android:summary="@string/prefHostSummary"
+	            android:title="@string/prefHostTitle" />
+	        <EditTextPreference
+	            android:defaultValue="@string/prefPortDefault"
+	            android:key="@string/prefPortKey"
+	            android:summary="@string/prefPortSummary"
+	            android:title="@string/prefPortTitle" />
+	        <EditTextPreference
+	            android:defaultValue="@string/prefUserIdDefault"
+	            android:key="@string/prefUserIdKey"
+	            android:summary="@string/prefUserIdSummary"
+	            android:title="@string/prefUserIdTitle" />
+        </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/prefs_categoryController" >
         <PreferenceScreen

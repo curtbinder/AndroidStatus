@@ -44,5 +44,6 @@ Changelog of all the versions of AndroidStatus
  * process expansion relay data from xml (stored but not displayed)
  * download labels from reefangel.com and save to memory
  * userid for reefangel.com can always be updated
+ * updated preferences to have host information on separate screen
  
  
