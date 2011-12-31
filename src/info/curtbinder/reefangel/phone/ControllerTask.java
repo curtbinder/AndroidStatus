@@ -61,7 +61,11 @@ public class ControllerTask implements Runnable {
 			"LABEL_RESPONSE_EXP7_ARRAY";
 	public static final String LABEL_RESPONSE_EXP8_ARRAY =
 			"LABEL_RESPONSE_EXP8_ARRAY";
-	
+	public static final String COMMAND_RESPONSE_INTENT =
+			Globals.PACKAGE_BASE + ".COMMAND_RESPOSNE";
+	public static final String COMMAND_RESPONSE_STRING =
+			"COMMAND_RESPONSE_STRING";
+
 	private static final String TAG = ControllerTask.class.getSimpleName();
 	private final Host host;
 	private final RAApplication rapp;
@@ -148,8 +152,16 @@ public class ControllerTask implements Runnable {
 						|| host.getCommand().equals( Globals.requestMemoryInt ) ) {
 				broadcastMemoryResponse(	xml.getMemoryResponse(),
 											host.isWrite() );
+			} else if ( host.getCommand().equals( Globals.requestFeedingMode ) ) {
+				broadcastCommandResponse(	R.string.labelFeedingMode,
+											xml.getModeResponse() );
+			} else if ( host.getCommand().equals( Globals.requestWaterMode ) ) {
+				broadcastCommandResponse(	R.string.labelWaterMode,
+											xml.getModeResponse() );
+			} else if ( host.getCommand().equals( Globals.requestExitMode ) ) {
+				broadcastCommandResponse(	R.string.labelExitMode,
+											xml.getModeResponse() );
 			}
-			// TODO else handle updating the labels from reefangel.com
 		}
 	}
 
@@ -238,18 +250,37 @@ public class ControllerTask implements Runnable {
 	}
 
 	// Broadcast Stuff
+	private void broadcastCommandResponse ( int id, String response ) {
+		String s =
+				rapp.getString( id )
+						+ rapp.getString( R.string.label_separator ) + " "
+						+ response;
+		Intent i = new Intent( COMMAND_RESPONSE_INTENT );
+		i.putExtra( COMMAND_RESPONSE_STRING, s );
+		rapp.sendBroadcast( i );
+	}
+
 	private void broadcastLabelsResponse ( Controller ra ) {
 		Intent i = new Intent( LABEL_RESPONSE_INTENT );
 		i.putExtra( LABEL_RESPONSE_TEMP_ARRAY, ra.getTempLabels() );
-		i.putExtra( LABEL_RESPONSE_MAIN_ARRAY, ra.getMainRelay().getPortLabels() );
-		i.putExtra( LABEL_RESPONSE_EXP1_ARRAY, ra.getExpRelay( 1 ).getPortLabels() );
-		i.putExtra( LABEL_RESPONSE_EXP2_ARRAY, ra.getExpRelay( 2 ).getPortLabels() );
-		i.putExtra( LABEL_RESPONSE_EXP3_ARRAY, ra.getExpRelay( 3 ).getPortLabels() );
-		i.putExtra( LABEL_RESPONSE_EXP4_ARRAY, ra.getExpRelay( 4 ).getPortLabels() );
-		i.putExtra( LABEL_RESPONSE_EXP5_ARRAY, ra.getExpRelay( 5 ).getPortLabels() );
-		i.putExtra( LABEL_RESPONSE_EXP6_ARRAY, ra.getExpRelay( 6 ).getPortLabels() );
-		i.putExtra( LABEL_RESPONSE_EXP7_ARRAY, ra.getExpRelay( 7 ).getPortLabels() );
-		i.putExtra( LABEL_RESPONSE_EXP8_ARRAY, ra.getExpRelay( 8 ).getPortLabels() );
+		i.putExtra( LABEL_RESPONSE_MAIN_ARRAY, ra.getMainRelay()
+				.getPortLabels() );
+		i.putExtra( LABEL_RESPONSE_EXP1_ARRAY, ra.getExpRelay( 1 )
+				.getPortLabels() );
+		i.putExtra( LABEL_RESPONSE_EXP2_ARRAY, ra.getExpRelay( 2 )
+				.getPortLabels() );
+		i.putExtra( LABEL_RESPONSE_EXP3_ARRAY, ra.getExpRelay( 3 )
+				.getPortLabels() );
+		i.putExtra( LABEL_RESPONSE_EXP4_ARRAY, ra.getExpRelay( 4 )
+				.getPortLabels() );
+		i.putExtra( LABEL_RESPONSE_EXP5_ARRAY, ra.getExpRelay( 5 )
+				.getPortLabels() );
+		i.putExtra( LABEL_RESPONSE_EXP6_ARRAY, ra.getExpRelay( 6 )
+				.getPortLabels() );
+		i.putExtra( LABEL_RESPONSE_EXP7_ARRAY, ra.getExpRelay( 7 )
+				.getPortLabels() );
+		i.putExtra( LABEL_RESPONSE_EXP8_ARRAY, ra.getExpRelay( 8 )
+				.getPortLabels() );
 		rapp.sendBroadcast( i );
 	}
 

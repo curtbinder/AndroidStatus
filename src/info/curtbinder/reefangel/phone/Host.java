@@ -113,7 +113,10 @@ public class Host {
 		String s = "";
 		if ( (command.startsWith( Globals.requestRelay ))
 				|| (command.equals( Globals.requestStatus ))
-				|| (command.equals( Globals.requestVersion )) ) {
+				|| (command.equals( Globals.requestVersion ))
+				|| (command.equals( Globals.requestFeedingMode ))
+				|| (command.equals( Globals.requestExitMode ))
+				|| (command.equals( Globals.requestWaterMode )) ) {
 			s =
 					new String( String.format(	"http://%s:%d%s", host, port,
 												command ) );

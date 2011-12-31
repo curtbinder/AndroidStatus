@@ -30,7 +30,7 @@ TODO
 * improve relay mask image
 * add in ability to query device version
 * add in ability to turn on feeding mode
-* add in ability to turn on water change mode
+* add in ability to turn on water change mode (need to send command to initiate)
 
 * switch to a content provider for working working with the db
 ** ability to insert values

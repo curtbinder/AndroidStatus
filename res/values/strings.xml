@@ -78,7 +78,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 	<string name="messageDownloadLabels">Downloading labels...</string>
 	<string name="messageDownloadLabelsComplete">Labels downloaded and updated</string>
 	<string name="messageDownloadMessage">Please exit preferences to see updated labels</string>
-	
+	<string name="labelFeedingMode">Feeding Mode</string>
+	<string name="labelWaterMode">Water Change Mode</string>
+	<string name="labelExitMode">Exit Mode</string>
 	
 <!-- Status strings -->
 	<string name="statusStart">Starting update</string>
