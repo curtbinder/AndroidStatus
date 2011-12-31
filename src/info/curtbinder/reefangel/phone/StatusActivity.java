@@ -161,8 +161,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		phLabel.setText( rapp.getPrefPHLabel() + separator );
 		dpLabel.setText( rapp.getPrefDPLabel() + separator );
 		apLabel.setText( rapp.getPrefAPLabel() + separator );
-		salinityLabel.setText( getString( R.string.salinity_label )
-								+ separator );
+		salinityLabel
+				.setText( getString( R.string.salinity_label ) + separator );
 
 		for ( int i = 0; i < 8; i++ ) {
 			mainPortLabels[i].setText( rapp.getPrefMainRelayLabel( i + 1 )
@@ -491,9 +491,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 			case R.id.memory:
 				// launch memory
 				Log.d( TAG, "Memory clicked" );
-				startActivity( new Intent( this, MemoryActivity.class ) );
+				startActivity( new Intent( this, MemoryTabsActivity.class ) );
 				break;
-
 			default:
 				return super.onOptionsItemSelected( item );
 		}

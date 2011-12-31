@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<item 
-		android:id="@+id/settings"
-	    android:title="@string/settings_menu"
-	    android:icon="@android:drawable/ic_menu_preferences"
-	    android:alphabeticShortcut="@string/settings_shortcut" />
-	<item
-	    android:id="@+id/params"
-	    android:title="@string/params_menu"
-	    android:icon="@android:drawable/ic_menu_recent_history"
-	    android:alphabeticShortcut="@string/params_shortcut" />
-	<item
-	    android:id="@+id/memory"
-	    android:title="@string/memory_menu"
-	    android:alphabeticShortcut="@string/memory_shortcut" android:icon="@android:drawable/ic_menu_agenda"/>
-	<item 
-		android:id="@+id/about"
-	    android:title="@string/about_menu"
-	    android:icon="@android:drawable/ic_menu_info_details"
-	    android:alphabeticShortcut="@string/about_shortcut" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/settings"
+        android:alphabeticShortcut="@string/settings_shortcut"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/settings_menu"/>
+    <item
+        android:id="@+id/params"
+        android:alphabeticShortcut="@string/params_shortcut"
+        android:icon="@android:drawable/ic_menu_recent_history"
+        android:title="@string/params_menu"/>
+    <item
+        android:id="@+id/memory"
+        android:alphabeticShortcut="@string/memory_shortcut"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="@string/memory_menu"/>
+    <item
+        android:id="@+id/about"
+        android:alphabeticShortcut="@string/about_shortcut"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="@string/about_menu"/>
+
 </menu>

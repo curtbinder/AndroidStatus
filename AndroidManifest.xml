@@ -1,38 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="info.curtbinder.reefangel.phone"
-      android:versionCode="5"
-      android:versionName="@string/app_version">
-    <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="8" />
+    package="info.curtbinder.reefangel.phone"
+    android:versionCode="5"
+    android:versionName="@string/app_version" >
 
-	<uses-permission android:name="android.permission.INTERNET" />
-    <application android:icon="@drawable/ic_icon" 
-    			android:label="@string/app_name" android:name="RAApplication">
-        <activity android:name=".StatusActivity"
-                  android:label="@string/app_name">
+    <uses-sdk
+        android:minSdkVersion="3"
+        android:targetSdkVersion="8" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name="RAApplication"
+        android:icon="@drawable/ic_icon"
+        android:label="@string/app_name" >
+        <activity
+            android:name=".StatusActivity"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AboutActivity"
-        		  android:label="@string/about_title"
-        		  android:theme="@android:style/Theme.Dialog">
-		</activity>
-		<activity android:name=".LicenseActivity"
-		    	  android:label="@string/license_title"
-		    	  android:theme="@android:style/Theme.Dialog">
-		</activity>
-		<activity android:name=".PrefsActivity"
-				  android:label="@string/prefs_title">
-		</activity>
-		<activity android:name=".ParamsListActivity"
-		    	  android:label="@string/params_title">
-		</activity>
-		<activity android:name=".MemoryActivity"
-		    	  android:label="@string/memory_title">
-		</activity>
-		<service android:name=".ControllerService"></service>
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/about_title"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name=".LicenseActivity"
+            android:label="@string/license_title"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name=".PrefsActivity"
+            android:label="@string/prefs_title" >
+        </activity>
+        <activity
+            android:name=".ParamsListActivity"
+            android:label="@string/params_title" >
+        </activity>
+        <activity
+            android:name=".MemoryActivity"
+            android:label="@string/memory_title" >
+        </activity>
+        <activity
+            android:name=".CommandsActivity"
+            android:label="@string/commands_title" >
+        </activity>
+        <activity
+            android:name=".MemoryTabsActivity"
+            android:label="@string/tabs_title"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
 
+        <service android:name=".ControllerService" >
+        </service>
     </application>
+
 </manifest>

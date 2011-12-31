@@ -11,8 +11,14 @@
     
     <string name="params_title">Parameters History</string>
     <string name="memory_title">Internal Memory</string>
+    <string name="commands_title">Commands</string>
     
-<!--  Shortcut Keys -->
+<!-- Tabs for memory page -->
+	<string name="tabs_title">Memory Pages</string>
+	<string name="memory_tab1">memory_tab_1</string>
+	<string name="memory_tab2">memory_tab_2</string>
+	
+<!-- Shortcut Keys -->
     <string name="settings_shortcut">s</string>
     <string name="about_shortcut">a</string>
     <string name="refresh_shortcut">r</string>

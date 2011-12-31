@@ -1,70 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-<TableLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:stretchColumns="1"
-	android:padding="10dp" >
-	
-    <TextView 
-        android:text="@string/memoryDescription" 
-        style="@style/UpdateText" />
-    <!-- Location drop down menu -->
-    <Spinner android:id="@+id/spinMemoryLocation" />
-    <!-- Location edit box, disabled unless CUSTOM location -->
-    <TableRow
-        android:id="@+id/locationRow"
-        >
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:stretchColumns="1" >
+
         <TextView
-            android:text="@string/locationLabel"
-            />
-        <EditText
-            android:id="@+id/locationText"
-            android:inputType="number" >
-        </EditText>
-    </TableRow>
-    <TableRow
-        android:id="@+id/typeRow" 
-        >
-        <TextView
-            android:layout_gravity="center_vertical"
-            android:text="@string/typeLabel" />
-        <TableLayout android:layout_width="fill_parent" >
-            <TableRow>
-                <RadioGroup
-                    android:orientation="horizontal">
-			        <RadioButton
-			            android:id="@+id/radioButtonByte"
-			            android:text="@string/typeByteLabel" />
-			        <RadioButton
-			            android:id="@+id/radioButtonInt"
-			            android:text="@string/typeIntLabel" />
-		        </RadioGroup>
-		        </TableRow>
-        </TableLayout>
-    </TableRow>
-    <!-- Value edit box -->
-    <TableRow>
-        <TextView android:text="@string/valueLabel" />
-	    <EditText
-	        android:id="@+id/valueText"
-	        android:inputType="number" >
-	        <requestFocus />
-	    </EditText>
-    </TableRow>
-    <!-- Read & Write buttons -->
-    <TableRow>
-        <TextView android:text="" />
-        <TableLayout 	android:layout_width="fill_parent" >
-            <TableRow>
-		        <Button
-		            android:id="@+id/buttonRead"
-		            android:text="@string/readButtonLabel" />
-		        <Button
-		            android:id="@+id/buttonWrite"
-		            android:text="@string/writeButtonLabel" />
-        	</TableRow>
-        </TableLayout>
-    </TableRow>
-</TableLayout>
+            style="@style/UpdateText"
+            android:text="@string/memoryDescription" />
+        <!-- Location drop down menu -->
+
+        <Spinner android:id="@+id/spinMemoryLocation" />
+        <!-- Location edit box, disabled unless CUSTOM location -->
+
+        <TableRow android:id="@+id/locationRow" >
+
+            <TextView android:text="@string/locationLabel" />
+
+            <EditText
+                android:id="@+id/locationText"
+                android:inputType="number" >
+            </EditText>
+        </TableRow>
+
+        <TableRow android:id="@+id/typeRow" >
+
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:text="@string/typeLabel" />
+
+            <TableLayout android:layout_width="fill_parent" >
+
+                <RadioGroup android:orientation="horizontal" >
+
+                    <RadioButton
+                        android:id="@+id/radioButtonByte"
+                        android:layout_weight="1"
+                        android:text="@string/typeByteLabel" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonInt"
+                        android:layout_weight="1"
+                        android:text="@string/typeIntLabel" />
+                </RadioGroup>
+            </TableLayout>
+        </TableRow>
+        <!-- Value edit box -->
+
+        <TableRow>
+
+            <TextView android:text="@string/valueLabel" />
+
+            <EditText
+                android:id="@+id/valueText"
+                android:inputType="number" >
+
+                <requestFocus />
+            </EditText>
+        </TableRow>
+        <!-- Read & Write buttons -->
+
+        <TableRow>
+
+            <TextView android:text="" />
+
+            <TableLayout android:layout_width="fill_parent" >
+
+                <TableRow>
+
+                    <Button
+                        android:id="@+id/buttonRead"
+                        android:layout_width="fill_parent"
+                        android:layout_weight="1"
+                        android:text="@string/readButtonLabel" />
+
+                    <Button
+                        android:id="@+id/buttonWrite"
+                        android:layout_width="fill_parent"
+                        android:layout_weight="1"
+                        android:text="@string/writeButtonLabel" />
+                </TableRow>
+            </TableLayout>
+        </TableRow>
+    </TableLayout>
+
+</ScrollView>
