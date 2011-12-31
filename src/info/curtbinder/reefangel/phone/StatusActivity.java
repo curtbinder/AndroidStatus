@@ -147,12 +147,14 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		// showMessageText = false;
 
 		// Labels
-		t1Label.setText(rapp.getPrefT1Label());
-		t2Label.setText(rapp.getPrefT2Label());
-		t3Label.setText(rapp.getPrefT3Label());
-		phLabel.setText(rapp.getPrefPHLabel());
-		dpLabel.setText(rapp.getPrefDPLabel());
-		apLabel.setText(rapp.getPrefAPLabel());
+		String separator = getString(R.string.label_separator);
+		t1Label.setText(rapp.getPrefT1Label() + separator);
+		t2Label.setText(rapp.getPrefT2Label() + separator);
+		t3Label.setText(rapp.getPrefT3Label() + separator);
+		phLabel.setText(rapp.getPrefPHLabel() + separator);
+		dpLabel.setText(rapp.getPrefDPLabel() + separator);
+		apLabel.setText(rapp.getPrefAPLabel() + separator);
+		salinityLabel.append( separator );
 
 		setMainRelayLabels();
 
@@ -207,8 +209,11 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void setMainRelayLabels() {
+		String label;
 		for (int i = 0; i < 8; i++) {
-			mainPortLabels[i].setText(rapp.getPrefMainRelayLabel(i + 1));
+			//mainPortLabels[i].setText(rapp.getPrefMainRelayLabel(i + 1));
+			label = rapp.getPrefMainRelayLabel(i + 1) + getString(R.string.label_separator);
+			mainPortLabels[i].setText(label);
 		}
 	}
 

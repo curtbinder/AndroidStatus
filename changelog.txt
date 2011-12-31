@@ -46,5 +46,6 @@ Changelog of all the versions of AndroidStatus
  * userid for reefangel.com can always be updated
  * updated preferences to have host information on separate screen
  * updated about box to show version 
+ * always adding in colon (:) after label text
  
  
