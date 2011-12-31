@@ -140,9 +140,6 @@ public class PrefsActivity extends PreferenceActivity implements
 		} );
 		CharSequence cs = download.getSummary() + " " + rapp.getPrefUserId();
 		download.setSummary( cs );
-
-		// toggle the visibility of preferences based on device selection
-		toggleDevicePrefVisibility( Integer.parseInt( rapp.getPrefDevice() ) );
 	}
 
 	@Override
@@ -205,10 +202,12 @@ public class PrefsActivity extends PreferenceActivity implements
 			// host validation here
 			Log.d( TAG, "Validate entered host" );
 			String h = newValue.toString();
-			/*
-			 * Hosts must: - not start with 'http://' - only contain: alpha,
-			 * number, _, -, . - end with: alpha or number
-			 */
+			
+//			Hosts must: 
+//				- not start with 'http://' 
+//				- only contain: alpha, number, _, -, . 
+//				- end with: alpha or number
+			 
 			if ( !h.matches( HOST_PATTERN ) ) {
 				// invalid host
 				Log.d( TAG, "Invalid host" );
@@ -218,11 +217,6 @@ public class PrefsActivity extends PreferenceActivity implements
 								Toast.LENGTH_SHORT ).show();
 				return false;
 			}
-		} else if ( preference.getKey()
-				.equals( rapp.getString( R.string.prefDeviceKey ) ) ) {
-			// enable / disable categories based on what the user selected
-			Log.d( TAG, "Update enabled prefs" );
-			toggleDevicePrefVisibility( Integer.parseInt( newValue.toString() ) );
 		} else if ( preference.getKey()
 				.equals( rapp.getString( R.string.prefUserIdKey ) ) ) {
 			String u = newValue.toString();
@@ -245,19 +239,6 @@ public class PrefsActivity extends PreferenceActivity implements
 			return true;
 		}
 		return false;
-	}
-
-	private void toggleDevicePrefVisibility ( int d ) {
-		String[] devicesArray =
-				rapp.getResources().getStringArray( R.array.devicesValues );
-		int devReefAngel = Integer.parseInt( devicesArray[1] );
-		boolean boolEnableReefAngel = false;
-		if ( d == devReefAngel ) {
-			boolEnableReefAngel = true;
-		}
-		useridkey.setEnabled( boolEnableReefAngel );
-		portkey.setEnabled( !boolEnableReefAngel );
-		hostkey.setEnabled( !boolEnableReefAngel );
 	}
 
 	protected void updateLabels ( String[] temps, String[] main, String[][] exp ) {

@@ -42,7 +42,7 @@ Changelog of all the versions of AndroidStatus
  * switched to service to communicate with controller
  * added memory reading/writing
  * process expansion relay data from xml (stored but not displayed)
- * download labels from ra.com and save to memory
- 
+ * download labels from reefangel.com and save to memory
+ * userid for reefangel.com can always be updated
  
  
