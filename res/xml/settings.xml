@@ -182,6 +182,10 @@
                 android:key="@string/prefReefAngelKey"
                 android:summary="@string/prefReefAngelSummary"
                 android:title="@string/prefReefAngelTitle" />
+            <PreferenceScreen
+                android:key="@string/prefForumKey"
+                android:summary="@string/prefForumSummary"
+                android:title="@string/prefForumTitle" />
         </PreferenceScreen>
     </PreferenceCategory>
 

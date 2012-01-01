@@ -74,6 +74,23 @@ public class PrefsActivity extends PreferenceActivity implements
 						return true;
 					}
 				} );
+		Preference raForum =
+				getPreferenceScreen()
+						.findPreference(	rapp.getString( R.string.prefForumKey ) );
+		raForum
+				.setOnPreferenceClickListener( new OnPreferenceClickListener() {
+
+					@Override
+					public boolean onPreferenceClick ( Preference preference ) {
+						Intent browserIntent =
+								new Intent(
+									Intent.ACTION_VIEW,
+									Uri.parse( rapp
+											.getString( R.string.forumReefangel ) ) );
+						startActivity( browserIntent );
+						return true;
+					}
+				} );
 		Preference license =
 				getPreferenceScreen()
 						.findPreference(	rapp.getString( R.string.prefLicenseKey ) );

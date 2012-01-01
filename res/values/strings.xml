@@ -159,13 +159,14 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefContributorTitle">Contributors</string>
     <string name="prefContributorSummary">Roberto Imai, Mathieu Brisson</string>
     <string name="prefCopyrightTitle">Copyright</string>
-    <string name="prefCopyrightSummary">Copyright 2011 Curt Binder</string>
+    <string name="prefCopyrightSummary">Copyright 2011-12 Curt Binder</string>
     <string name="prefLicenseKey">license</string>
     <string name="prefLicenseTitle">License</string>
     <string name="prefLicenseSummary">This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</string>
     <string name="prefReefAngelKey">reefangel</string>
     <string name="prefReefAngelTitle">Reef Angel Controller</string>
     <string name="prefReefAngelSummary">http://www.reefangel.com/</string>
+    <string name="prefForumKey">reefangelforum</string>
     <string name="prefForumTitle">Reef Angel Forums</string>
     <string name="prefForumSummary">http://forum.reefangel.com/</string>
     <string name="prefControllerTitle">Controller Information</string>
