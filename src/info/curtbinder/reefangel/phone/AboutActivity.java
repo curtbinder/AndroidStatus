@@ -16,7 +16,7 @@ public class AboutActivity extends Activity {
 		TextView c = (TextView) findViewById( R.id.popupContent );
 		String s =
 				String.format(	"%s %s\n\n%s",
-								getString( R.string.version_text ),
+								getString( R.string.prefVersionTitle ),
 								getString( R.string.app_version ),
 								getString( R.string.about_text ) );
 		c.setText( s );

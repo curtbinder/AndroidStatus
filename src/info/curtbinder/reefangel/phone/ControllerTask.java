@@ -45,6 +45,11 @@ public class ControllerTask implements Runnable {
 			Globals.PACKAGE_BASE + ".COMMAND_RESPOSNE";
 	public static final String COMMAND_RESPONSE_STRING =
 			"COMMAND_RESPONSE_STRING";
+	public static final String COMMAND_SEND_INTENT = Globals.PACKAGE_BASE + ".COMMAND_SEND";
+	public static final String COMMAND_SEND_STRING = "COMMAND_SEND_STRING";
+	public static final String VERSION_QUERY_INTENT = Globals.PACKAGE_BASE + ".VERSION_QUERY";
+	public static final String VERSION_RESPONSE_INTENT = Globals.PACKAGE_BASE + ".VERSION_RESPONSE";
+	public static final String VERSION_RESPONSE_STRING = "VERSION_RESPONSE_STRING";
 
 	private static final String TAG = ControllerTask.class.getSimpleName();
 	private final Host host;
@@ -141,6 +146,10 @@ public class ControllerTask implements Runnable {
 			} else if ( host.getCommand().equals( Globals.requestExitMode ) ) {
 				broadcastCommandResponse(	R.string.labelExitMode,
 											xml.getModeResponse() );
+			} else if ( host.getCommand().equals( Globals.requestVersion ) ) {
+				Intent i = new Intent(ControllerTask.VERSION_RESPONSE_INTENT);
+				i.putExtra( ControllerTask.VERSION_RESPONSE_STRING, xml.getVersion() );
+				rapp.sendBroadcast( i );
 			}
 		}
 	}
@@ -231,6 +240,9 @@ public class ControllerTask implements Runnable {
 
 	// Broadcast Stuff
 	private void broadcastCommandResponse ( int id, String response ) {
+		Log.d(TAG, rapp.getString( id )
+				+ rapp.getString( R.string.label_separator ) + " "
+				+ response);
 		Intent i = new Intent( COMMAND_RESPONSE_INTENT );
 		i.putExtra( COMMAND_RESPONSE_STRING,
 					rapp.getString( id )

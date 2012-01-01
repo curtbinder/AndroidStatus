@@ -86,6 +86,7 @@ public class XMLHandler extends DefaultHandler {
 			// Log.d(TAG, "end xml: localName");
 			tag = localName;
 		}
+		Log.d(TAG, "End: r'" + requestType + "', t'" + tag + "', '" + currentElementText + "'");
 		// if ( (requestType.equals( Globals.requestStatus )) ||
 		// (requestType.startsWith( Globals.requestRelay )) ) {
 		if ( requestType.equals( Globals.requestStatus ) ) {
@@ -119,6 +120,7 @@ public class XMLHandler extends DefaultHandler {
 			processModeXml( tag );
 		} else {
 			// TODO request none, set an error?
+			Log.d(TAG, "Unknown Request: " + requestType);
 		}
 		currentElementText = "";
 	}
@@ -137,6 +139,7 @@ public class XMLHandler extends DefaultHandler {
 			// Log.d(TAG, "start xml: localName");
 			tag = localName;
 		}
+		Log.d(TAG, "start: r'" + requestType + "', t'" + tag + "'");
 		if ( requestType.equals( "" ) ) {
 			// no request type, so set it based on the first element we process
 			if ( tag.equals( Globals.xmlStatus ) ) {
@@ -145,13 +148,13 @@ public class XMLHandler extends DefaultHandler {
 				// requestType = Globals.requestDateTime;
 			} else if ( tag.equals( Globals.xmlVersion ) ) {
 				requestType = Globals.requestVersion;
-			} else if ( tag.startsWith( Globals.xmlMemorySingle ) ) {
-				// can be either type, just chose to use Bytes
-				requestType = Globals.requestMemoryByte;
 			} else if ( tag.equals( Globals.xmlMode ) ) {
 				// all modes return the same response, just chose to use Exit
 				// Mode
 				requestType = Globals.requestExitMode;
+			} else if ( tag.startsWith( Globals.xmlMemorySingle ) ) {
+				// can be either type, just chose to use Bytes
+				requestType = Globals.requestMemoryByte;
 			} else {
 				requestType = Globals.requestNone;
 			}

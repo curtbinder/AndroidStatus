@@ -1,381 +1,378 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Reef Angel Status</string>
     <string name="app_version">0.4.0</string>
 
-<!-- Menu Labels -->
+    <!-- Menu Labels -->
     <string name="settings_menu">Settings</string>
     <string name="about_menu">About</string>
     <string name="memory_menu">Memory</string>
     <string name="params_menu">History</string>
-    
     <string name="params_title">Parameters History</string>
     <string name="memory_title">Internal Memory</string>
     <string name="commands_title">Commands</string>
-    
-<!-- Tabs for memory page -->
-	<string name="tabs_title">Memory Pages</string>
-	<string name="memory_tab1">memory_tab_1</string>
-	<string name="memory_tab2">memory_tab_2</string>
-	
-<!-- Shortcut Keys -->
+
+    <!-- Tabs for memory page -->
+    <string name="tabs_title">Memory Pages</string>
+    <string name="memory_tab1">memory_tab_1</string>
+    <string name="memory_tab2">memory_tab_2</string>
+
+    <!-- Shortcut Keys -->
     <string name="settings_shortcut">s</string>
     <string name="about_shortcut">a</string>
     <string name="refresh_shortcut">r</string>
     <string name="memory_shortcut">m</string>
     <string name="params_shortcut">p</string>
-    
-<!-- About Box Information -->
-    <string name="about_title">About Reef Angel Status</string>
-    <string name="about_text">\
-Monitors the status of your Reef Angel Controller and displays the values.  You must have a wifi attachment installed on
-your controller to use this app.
-</string>
-	<string name="version_text">Version</string>
-	<string name="okButton">OK</string>
-	<string name="yesButton">Yes</string>
-	<string name="noButton">No</string>
-	
-<!-- License Box Information -->
-	<string name="license_title">License Information</string>
-	<string name="license_text">\
-Reef Angel Status by Curt Binder is licensed under a 
-Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
-</string>
 
-<!-- Main Display Labels -->
+    <!-- About Box Information -->
+    <string name="about_title">About Reef Angel Status</string>
+    <string name="about_text">
+Monitors the status of your Reef Angel Controller and displays the values.  You must have a wifi attachment installed on
+your controller or have a ReefAngel UserID to use this app.</string>
+    <string name="okButton">OK</string>
+    <string name="yesButton">Yes</string>
+    <string name="noButton">No</string>
+
+    <!-- License Box Information -->
+    <string name="license_title">License Information</string>
+    <string name="license_text">
+Reef Angel Status by Curt Binder is licensed under a 
+Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</string>
+
+    <!-- Main Display Labels -->
     <string name="last_updated">Last Updated:</string>
     <string name="refresh_label">Refresh</string>
-	<string name="status_label">Status</string>
-	<string name="temp1_label">T1</string>
-	<string name="temp2_label">T2</string>
-	<string name="temp3_label">T3</string>
-	<string name="ph_label">PH</string>
-	<string name="dp_label">DP</string>
-	<string name="ap_label">AP</string>
-	<string name="salinity_label">Salinity</string>
-	<string name="ato_low_label">ATO Low</string>
-	<string name="ato_high_label">ATO High</string>
-<!-- <string name="main_relay_label">Main Relay</string> -->
-	<string name="port1_label">Port 1</string>
-	<string name="port2_label">Port 2</string>
-	<string name="port3_label">Port 3</string>
-	<string name="port4_label">Port 4</string>
-	<string name="port5_label">Port 5</string>
-	<string name="port6_label">Port 6</string>
-	<string name="port7_label">Port 7</string>
-	<string name="port8_label">Port 8</string>
-	<string name="label_separator">:</string>
-	<string name="default_port_name">Port</string>
-	
-<!-- Constants -->
-	<string name="websiteReefangel">http://www.reefangel.com/</string>
-	<string name="defaultStatusText">-</string>
-	<string name="messageEmptyParams">No parameters logged</string>
-	<string name="messageError">Error</string>
-	<string name="messageNever">Never</string>
-	<string name="messageCancelled">Cancelled</string>
-	<string name="messageNotNumber">Value is not a number</string>
-	<string name="messageEmptyValue">Value cannot be empty</string>
-	<string name="messageInvalidRangeFormat" formatted="false">Value must be between %d and %d</string>
-	<string name="messageEmptyLocation">Location cannot be empty</string>
-	<string name="messageInvalidLocation" formatted="false">Location must be between %d and %d</string>
-	<string name="messageUnknownError">Unknown error</string>
-	<string name="messageDownloadLabels">Downloading labels&#8230;</string>
-	<string name="messageDownloadLabelsComplete">Labels downloaded and updated</string>
-	<string name="messageDownloadMessage">Labels downloaded and updated.\n\nPlease exit preferences to see updated labels</string>
-	<string name="labelFeedingMode">Feeding Mode</string>
-	<string name="labelWaterMode">Water Change Mode</string>
-	<string name="labelExitMode">Exit Mode</string>
-	
-<!-- Status strings -->
-	<string name="statusStart">Starting update</string>
-	<string name="statusConnect">Connecting</string>
-	<string name="statusDisconnected">Disconnected</string>
-	<string name="statusReadResponse">Read response</string>
-	<string name="statusUpdatingDisplay">Updating display</string>
-	<string name="statusSendingCommand">Sending command</string>
-	<string name="statusInitParser">Init parser</string>
-	<string name="statusParsing">Parsing</string>
-	<string name="statusFinished">Finished</string>
+    <string name="status_label">Status</string>
+    <string name="temp1_label">T1</string>
+    <string name="temp2_label">T2</string>
+    <string name="temp3_label">T3</string>
+    <string name="ph_label">PH</string>
+    <string name="dp_label">DP</string>
+    <string name="ap_label">AP</string>
+    <string name="salinity_label">Salinity</string>
+    <string name="ato_low_label">ATO Low</string>
+    <string name="ato_high_label">ATO High</string>
+    <!-- <string name="main_relay_label">Main Relay</string> -->
+    <string name="port1_label">Port 1</string>
+    <string name="port2_label">Port 2</string>
+    <string name="port3_label">Port 3</string>
+    <string name="port4_label">Port 4</string>
+    <string name="port5_label">Port 5</string>
+    <string name="port6_label">Port 6</string>
+    <string name="port7_label">Port 7</string>
+    <string name="port8_label">Port 8</string>
+    <string name="label_separator">:</string>
+    <string name="default_port_name">Port</string>
 
-<!-- Minimum Versions -->
-	<string name="minModesVersion">0.8.5.19</string>
-	<string name="minNewStatus">0.8.5.17</string>
-	
-<!-- Memory Location screen -->
-	<string name="memoryDescription">Select the memory location to update or enter a custom location.</string>
-	<string name="locationLabel">Location:</string>
-	<string name="valueLabel">Value:</string>
-	<string name="typeLabel">Type:</string>
-	<string name="readButtonLabel">Read Value</string>
-	<string name="writeButtonLabel">Write Value</string>
-	<string name="typeByteLabel">Byte</string>
-	<string name="typeIntLabel">Int</string>
-	
-<!-- Settings / Preference Labels -->
-	<string name="prefs_title">Status Settings</string>
-	<string name="prefs_categoryDevice">Device</string>
-	<string name="prefs_categoryHost">Host</string>
-	<string name="prefs_categoryRA">ReefAngel.com</string>
-	<string name="prefs_categoryController">Controller</string>
-	<string name="prefs_categoryApp">Application</string>
-	<string name="prefDeviceKey">device</string>
-	<string name="prefDeviceTitle">Device</string>
-	<string name="prefDeviceSummary">Select to query data from your controller directly or your web banner on reefangel.com</string>
-	<string name="prefDeviceDefault">0</string>
-	<string name="prefHostScreenKey">hostscreen</string>
-	<string name="prefHostScreenTitle">Host Information</string>
-	<string name="prefHostScreenSummary">Edit the settings relating to the host</string>
-	<string name="prefHostKey">host</string>
-	<string name="prefHostTitle">Hostname</string>
-	<string name="prefHostSummary">Enter the hostname or IP address of the controller</string>
-	<string name="prefHostDefault">curtbinder.dyndns.info</string>
-	<string name="prefHostInvalidHost">Invalid host</string>
-	<string name="prefPortKey">port</string>
-	<string name="prefPortTitle">Port</string>
-	<string name="prefPortSummary">Enter the port for the controller between 1 and 65535  (default: 2000)</string>
-	<string name="prefPortDefault">2000</string>
-	<string name="prefPortMin">1</string>
-	<string name="prefPortMax">65535</string>
-	<string name="prefPortInvalidPort">Invalid port</string>
-	<string name="prefUserIdKey">userid</string>
-	<string name="prefUserIdTitle">User ID</string>
-	<string name="prefUserIdSummary">Enter your userid for your web banner</string>
-	<string name="prefUserIdDefault">reefangel</string>
-	<string name="prefUserIdInvalid">Invalid userid</string>
-	
-	<string name="prefAppTitle">Application Info</string>
-	<string name="prefAppSummary">Additional information about Reef Angel Status for Android</string>
-	<string name="prefVersionTitle">Version</string>
-	<string name="prefAuthorTitle">Author</string>
-	<string name="prefAuthorSummary">Curt Binder</string>
-	<string name="prefContributorTitle">Contributors</string>
-	<string name="prefContributorSummary">Roberto Imai, Mathieu Brisson</string>
-	<string name="prefCopyrightTitle">Copyright</string>
-	<string name="prefCopyrightSummary">Copyright 2011 Curt Binder</string>
-	<string name="prefLicenseKey">license</string>
-	<string name="prefLicenseTitle">License</string>
-	<string name="prefLicenseSummary">This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</string>
-	<string name="prefReefAngelKey">reefangel</string>
-	<string name="prefReefAngelTitle">Reef Angel Controller</string>
-	<string name="prefReefAngelSummary">http://www.reefangel.com/</string>
-	
-	<string name="prefControllerTitle">Controller Information</string>
-	<string name="prefControllerSummary">Update labels, Toggle visibility</string>
-	
-	<string name="prefVisibilityCategory">Visibility Settings</string>
-	<string name="prefControllerVisibilityTitle">Label Visibility</string>
-	<string name="prefControllerVisibilitySummary">Toggle the visibility of the controller labels</string>
-	<string name="prefT2VisibilityKey">t2_visibility</string>
-	<string name="prefT2VisibilityTitle">Display T2</string>
-	<string name="prefT2VisibilitySummary">Displays temp sensor 2</string>
-	<string name="prefT3VisibilityKey">t3_visibility</string>
-	<string name="prefT3VisibilityTitle">Display T3</string>
-	<string name="prefT3VisibilitySummary">Displays temp sensor 3</string>
-	<string name="prefDPVisibilityKey">dp_visibility</string>
-	<string name="prefDPVisibilityTitle">Display DP</string>
-	<string name="prefDPVisibilitySummary">Displays daylight channel percentage</string>
-	<string name="prefAPVisibilityKey">ap_visibility</string>
-	<string name="prefAPVisibilityTitle">Display AP</string>
-	<string name="prefAPVisibilitySummary">Displays actinic channel percentage</string>
-	<string name="prefSalinityVisibilityKey">salinity_visibility</string>
-	<string name="prefSalinityVisibilityTitle">Display Salinity</string>
-	<string name="prefSalinityVisibilitySummary">Displays the salinity</string>
-	
-	<string name="prefLabelsCategory">Label Settings</string>
-	<string name="prefControllerLabelsDownloadKey">download_labels</string>
-	<string name="prefControllerLabelsDownloadTitle">Download All Labels</string>
-	<string name="prefControllerLabelsDownloadSummary">Retrieves your labels from reefangel.com using id: </string>
-	<string name="prefControllerLabelsTitle">Controller Labels</string>
-	<string name="prefControllerLabelsSummary">Change the labels of the controller</string>
-	<string name="prefT1LabelKey">t1_label</string>
-	<string name="prefT1LabelTitle">T1 Label</string>
-	<string name="prefT1LabelSummary">Temp sensor 1 label</string>
-	<string name="prefT2LabelKey">t2_label</string>
-	<string name="prefT2LabelTitle">T2 Label</string>
-	<string name="prefT2LabelSummary">Temp sensor 2 label</string>
-	<string name="prefT3LabelKey">t3_label</string>
-	<string name="prefT3LabelTitle">T3 Label</string>
-	<string name="prefT3LabelSummary">Temp sensor 3 label</string>
-	<string name="prefPHLabelKey">ph_label</string>
-	<string name="prefPHLabelTitle">PH Label</string>
-	<string name="prefPHLabelSummary">PH probe label</string>
-	<string name="prefDPLabelKey">dp_label</string>
-	<string name="prefDPLabelTitle">DP Label</string>
-	<string name="prefDPLabelSummary">Daylight PWM label</string>
-	<string name="prefAPLabelKey">ap_label</string>
-	<string name="prefAPLabelTitle">AP Label</string>
-	<string name="prefAPLabelSummary">Actinic PWM label</string>
+    <!-- Constants -->
+    <string name="websiteReefangel">http://www.reefangel.com/</string>
+    <string name="forumReefangel">http://forum.reefangel.com/</string>
+    <string name="defaultStatusText">-</string>
+    <string name="messageEmptyParams">No parameters logged</string>
+    <string name="messageError">Error</string>
+    <string name="messageNever">Never</string>
+    <string name="messageCancelled">Cancelled</string>
+    <string name="messageNotNumber">Value is not a number</string>
+    <string name="messageEmptyValue">Value cannot be empty</string>
+    <string name="messageInvalidRangeFormat" formatted="false">Value must be between %d and %d</string>
+    <string name="messageEmptyLocation">Location cannot be empty</string>
+    <string name="messageInvalidLocation" formatted="false">Location must be between %d and %d</string>
+    <string name="messageUnknownError">Unknown error</string>
+    <string name="messageDownloadLabels">Downloading labels…</string>
+    <string name="messageDownloadLabelsComplete">Labels downloaded and updated</string>
+    <string name="messageDownloadMessage">Labels downloaded and updated.\n\nPlease exit preferences to see updated labels</string>
+    <string name="labelFeedingMode">Feeding Mode</string>
+    <string name="labelWaterMode">Water Change Mode</string>
+    <string name="labelExitMode">Exit Mode</string>
 
-	<string name="prefMainRelayTitle">Main Relay</string>
-	<string name="prefMainRelaySummary">Change the labels of the main relay</string>
-	<string name="prefMainPort1LabelKey">main_port1_label</string>
-	<string name="prefMainPort1LabelTitle">Port 1 Label</string>
-	<string name="prefMainPort2LabelKey">main_port2_label</string>
-	<string name="prefMainPort2LabelTitle">Port 2 Label</string>
-	<string name="prefMainPort3LabelKey">main_port3_label</string>
-	<string name="prefMainPort3LabelTitle">Port 3 Label</string>
-	<string name="prefMainPort4LabelKey">main_port4_label</string>
-	<string name="prefMainPort4LabelTitle">Port 4 Label</string>
-	<string name="prefMainPort5LabelKey">main_port5_label</string>
-	<string name="prefMainPort5LabelTitle">Port 5 Label</string>
-	<string name="prefMainPort6LabelKey">main_port6_label</string>
-	<string name="prefMainPort6LabelTitle">Port 6 Label</string>
-	<string name="prefMainPort7LabelKey">main_port7_label</string>
-	<string name="prefMainPort7LabelTitle">Port 7 Label</string>
-	<string name="prefMainPort8LabelKey">main_port8_label</string>
-	<string name="prefMainPort8LabelTitle">Port 8 Label</string>
+    <!-- Status strings -->
+    <string name="statusStart">Starting update</string>
+    <string name="statusConnect">Connecting</string>
+    <string name="statusDisconnected">Disconnected</string>
+    <string name="statusReadResponse">Read response</string>
+    <string name="statusUpdatingDisplay">Updating display</string>
+    <string name="statusSendingCommand">Sending command</string>
+    <string name="statusInitParser">Init parser</string>
+    <string name="statusParsing">Parsing</string>
+    <string name="statusFinished">Finished</string>
 
-	<string name="prefExp1RelayTitle">Expansion Relay 1</string>
-	<string name="prefExp1RelaySummary">Change the labels of the expansion 1 relay</string>
-	<string name="prefExp1Port1LabelKey">exp1_port1_label</string>
-	<string name="prefExp1Port1LabelTitle">Port 1 Label</string>
-	<string name="prefExp1Port2LabelKey">exp1_port2_label</string>
-	<string name="prefExp1Port2LabelTitle">Port 2 Label</string>
-	<string name="prefExp1Port3LabelKey">exp1_port3_label</string>
-	<string name="prefExp1Port3LabelTitle">Port 3 Label</string>
-	<string name="prefExp1Port4LabelKey">exp1_port4_label</string>
-	<string name="prefExp1Port4LabelTitle">Port 4 Label</string>
-	<string name="prefExp1Port5LabelKey">exp1_port5_label</string>
-	<string name="prefExp1Port5LabelTitle">Port 5 Label</string>
-	<string name="prefExp1Port6LabelKey">exp1_port6_label</string>
-	<string name="prefExp1Port6LabelTitle">Port 6 Label</string>
-	<string name="prefExp1Port7LabelKey">exp1_port7_label</string>
-	<string name="prefExp1Port7LabelTitle">Port 7 Label</string>
-	<string name="prefExp1Port8LabelKey">exp1_port8_label</string>
-	<string name="prefExp1Port8LabelTitle">Port 8 Label</string>
+    <!-- Minimum Versions -->
+    <string name="minModesVersion">0.8.5.19</string>
+    <string name="minNewStatus">0.8.5.17</string>
 
-	<string name="prefExp2RelayTitle">Expansion Relay 2</string>
-	<string name="prefExp2RelaySummary">Change the labels of the expansion 2 relay</string>
-	<string name="prefExp2Port1LabelKey">exp2_port1_label</string>
-	<string name="prefExp2Port1LabelTitle">Port 1 Label</string>
-	<string name="prefExp2Port2LabelKey">exp2_port2_label</string>
-	<string name="prefExp2Port2LabelTitle">Port 2 Label</string>
-	<string name="prefExp2Port3LabelKey">exp2_port3_label</string>
-	<string name="prefExp2Port3LabelTitle">Port 3 Label</string>
-	<string name="prefExp2Port4LabelKey">exp2_port4_label</string>
-	<string name="prefExp2Port4LabelTitle">Port 4 Label</string>
-	<string name="prefExp2Port5LabelKey">exp2_port5_label</string>
-	<string name="prefExp2Port5LabelTitle">Port 5 Label</string>
-	<string name="prefExp2Port6LabelKey">exp2_port6_label</string>
-	<string name="prefExp2Port6LabelTitle">Port 6 Label</string>
-	<string name="prefExp2Port7LabelKey">exp2_port7_label</string>
-	<string name="prefExp2Port7LabelTitle">Port 7 Label</string>
-	<string name="prefExp2Port8LabelKey">exp2_port8_label</string>
-	<string name="prefExp2Port8LabelTitle">Port 8 Label</string>
-	
-	<string name="prefExp3RelayTitle">Expansion Relay 3</string>
-	<string name="prefExp3RelaySummary">Change the labels of the expansion 3 relay</string>
-	<string name="prefExp3Port1LabelKey">exp3_port1_label</string>
-	<string name="prefExp3Port1LabelTitle">Port 1 Label</string>
-	<string name="prefExp3Port2LabelKey">exp3_port2_label</string>
-	<string name="prefExp3Port2LabelTitle">Port 2 Label</string>
-	<string name="prefExp3Port3LabelKey">exp3_port3_label</string>
-	<string name="prefExp3Port3LabelTitle">Port 3 Label</string>
-	<string name="prefExp3Port4LabelKey">exp3_port4_label</string>
-	<string name="prefExp3Port4LabelTitle">Port 4 Label</string>
-	<string name="prefExp3Port5LabelKey">exp3_port5_label</string>
-	<string name="prefExp3Port5LabelTitle">Port 5 Label</string>
-	<string name="prefExp3Port6LabelKey">exp3_port6_label</string>
-	<string name="prefExp3Port6LabelTitle">Port 6 Label</string>
-	<string name="prefExp3Port7LabelKey">exp3_port7_label</string>
-	<string name="prefExp3Port7LabelTitle">Port 7 Label</string>
-	<string name="prefExp3Port8LabelKey">exp3_port8_label</string>
-	<string name="prefExp3Port8LabelTitle">Port 8 Label</string>
-	
-	<string name="prefExp4RelayTitle">Expansion Relay 4</string>
-	<string name="prefExp4RelaySummary">Change the labels of the expansion 4 relay</string>
-	<string name="prefExp4Port1LabelKey">exp4_port1_label</string>
-	<string name="prefExp4Port1LabelTitle">Port 1 Label</string>
-	<string name="prefExp4Port2LabelKey">exp4_port2_label</string>
-	<string name="prefExp4Port2LabelTitle">Port 2 Label</string>
-	<string name="prefExp4Port3LabelKey">exp4_port3_label</string>
-	<string name="prefExp4Port3LabelTitle">Port 3 Label</string>
-	<string name="prefExp4Port4LabelKey">exp4_port4_label</string>
-	<string name="prefExp4Port4LabelTitle">Port 4 Label</string>
-	<string name="prefExp4Port5LabelKey">exp4_port5_label</string>
-	<string name="prefExp4Port5LabelTitle">Port 5 Label</string>
-	<string name="prefExp4Port6LabelKey">exp4_port6_label</string>
-	<string name="prefExp4Port6LabelTitle">Port 6 Label</string>
-	<string name="prefExp4Port7LabelKey">exp4_port7_label</string>
-	<string name="prefExp4Port7LabelTitle">Port 7 Label</string>
-	<string name="prefExp4Port8LabelKey">exp4_port8_label</string>
-	<string name="prefExp4Port8LabelTitle">Port 8 Label</string>
-	
-	<string name="prefExp5RelayTitle">Expansion Relay 5</string>
-	<string name="prefExp5RelaySummary">Change the labels of the expansion 5 relay</string>
-	<string name="prefExp5Port1LabelKey">exp5_port1_label</string>
-	<string name="prefExp5Port1LabelTitle">Port 1 Label</string>
-	<string name="prefExp5Port2LabelKey">exp5_port2_label</string>
-	<string name="prefExp5Port2LabelTitle">Port 2 Label</string>
-	<string name="prefExp5Port3LabelKey">exp5_port3_label</string>
-	<string name="prefExp5Port3LabelTitle">Port 3 Label</string>
-	<string name="prefExp5Port4LabelKey">exp5_port4_label</string>
-	<string name="prefExp5Port4LabelTitle">Port 4 Label</string>
-	<string name="prefExp5Port5LabelKey">exp5_port5_label</string>
-	<string name="prefExp5Port5LabelTitle">Port 5 Label</string>
-	<string name="prefExp5Port6LabelKey">exp5_port6_label</string>
-	<string name="prefExp5Port6LabelTitle">Port 6 Label</string>
-	<string name="prefExp5Port7LabelKey">exp5_port7_label</string>
-	<string name="prefExp5Port7LabelTitle">Port 7 Label</string>
-	<string name="prefExp5Port8LabelKey">exp5_port8_label</string>
-	<string name="prefExp5Port8LabelTitle">Port 8 Label</string>
-	
-	<string name="prefExp6RelayTitle">Expansion Relay 6</string>
-	<string name="prefExp6RelaySummary">Change the labels of the expansion 6 relay</string>
-	<string name="prefExp6Port1LabelKey">exp6_port1_label</string>
-	<string name="prefExp6Port1LabelTitle">Port 1 Label</string>
-	<string name="prefExp6Port2LabelKey">exp6_port2_label</string>
-	<string name="prefExp6Port2LabelTitle">Port 2 Label</string>
-	<string name="prefExp6Port3LabelKey">exp6_port3_label</string>
-	<string name="prefExp6Port3LabelTitle">Port 3 Label</string>
-	<string name="prefExp6Port4LabelKey">exp6_port4_label</string>
-	<string name="prefExp6Port4LabelTitle">Port 4 Label</string>
-	<string name="prefExp6Port5LabelKey">exp6_port5_label</string>
-	<string name="prefExp6Port5LabelTitle">Port 5 Label</string>
-	<string name="prefExp6Port6LabelKey">exp6_port6_label</string>
-	<string name="prefExp6Port6LabelTitle">Port 6 Label</string>
-	<string name="prefExp6Port7LabelKey">exp6_port7_label</string>
-	<string name="prefExp6Port7LabelTitle">Port 7 Label</string>
-	<string name="prefExp6Port8LabelKey">exp6_port8_label</string>
-	<string name="prefExp6Port8LabelTitle">Port 8 Label</string>
-	
-	<string name="prefExp7RelayTitle">Expansion Relay 7</string>
-	<string name="prefExp7RelaySummary">Change the labels of the expansion 7 relay</string>
-	<string name="prefExp7Port1LabelKey">exp7_port1_label</string>
-	<string name="prefExp7Port1LabelTitle">Port 1 Label</string>
-	<string name="prefExp7Port2LabelKey">exp7_port2_label</string>
-	<string name="prefExp7Port2LabelTitle">Port 2 Label</string>
-	<string name="prefExp7Port3LabelKey">exp7_port3_label</string>
-	<string name="prefExp7Port3LabelTitle">Port 3 Label</string>
-	<string name="prefExp7Port4LabelKey">exp7_port4_label</string>
-	<string name="prefExp7Port4LabelTitle">Port 4 Label</string>
-	<string name="prefExp7Port5LabelKey">exp7_port5_label</string>
-	<string name="prefExp7Port5LabelTitle">Port 5 Label</string>
-	<string name="prefExp7Port6LabelKey">exp7_port6_label</string>
-	<string name="prefExp7Port6LabelTitle">Port 6 Label</string>
-	<string name="prefExp7Port7LabelKey">exp7_port7_label</string>
-	<string name="prefExp7Port7LabelTitle">Port 7 Label</string>
-	<string name="prefExp7Port8LabelKey">exp7_port8_label</string>
-	<string name="prefExp7Port8LabelTitle">Port 8 Label</string>
-	
-	<string name="prefExp8RelayTitle">Expansion Relay 8</string>
-	<string name="prefExp8RelaySummary">Change the labels of the expansion 8 relay</string>
-	<string name="prefExp8Port1LabelKey">exp8_port1_label</string>
-	<string name="prefExp8Port1LabelTitle">Port 1 Label</string>
-	<string name="prefExp8Port2LabelKey">exp8_port2_label</string>
-	<string name="prefExp8Port2LabelTitle">Port 2 Label</string>
-	<string name="prefExp8Port3LabelKey">exp8_port3_label</string>
-	<string name="prefExp8Port3LabelTitle">Port 3 Label</string>
-	<string name="prefExp8Port4LabelKey">exp8_port4_label</string>
-	<string name="prefExp8Port4LabelTitle">Port 4 Label</string>
-	<string name="prefExp8Port5LabelKey">exp8_port5_label</string>
-	<string name="prefExp8Port5LabelTitle">Port 5 Label</string>
-	<string name="prefExp8Port6LabelKey">exp8_port6_label</string>
-	<string name="prefExp8Port6LabelTitle">Port 6 Label</string>
-	<string name="prefExp8Port7LabelKey">exp8_port7_label</string>
-	<string name="prefExp8Port7LabelTitle">Port 7 Label</string>
-	<string name="prefExp8Port8LabelKey">exp8_port8_label</string>
-	<string name="prefExp8Port8LabelTitle">Port 8 Label</string>
+    <!-- Memory Location screen -->
+    <string name="memoryDescription">Select the memory location to update or enter a custom location.</string>
+    <string name="locationLabel">Location:</string>
+    <string name="valueLabel">Value:</string>
+    <string name="typeLabel">Type:</string>
+    <string name="readButtonLabel">Read Value</string>
+    <string name="writeButtonLabel">Write Value</string>
+    <string name="typeByteLabel">Byte</string>
+    <string name="typeIntLabel">Int</string>
+
+    <!-- Commands screen -->
+    <string name="modesDescription">Feeding and Water Change buttons enter the appropriate modes. Press the Exit button to simulate a button press on the controller, which exits the modes.</string>
+    <string name="feedingButton">Feeding Mode</string>
+    <string name="waterButton">Water Change</string>
+    <string name="exitButton">Exit Mode</string>
+    <string name="versionLabel">Installed Version:</string>
+    <string name="versionButton">Get Version</string>
+    <string name="dateGetButton">Get Time</string>
+    <string name="dateSetButton">Set Current Time</string>
+
+    <!-- Settings / Preference Labels -->
+    <string name="prefs_title">Status Settings</string>
+    <string name="prefs_categoryDevice">Device</string>
+    <string name="prefs_categoryHost">Host</string>
+    <string name="prefs_categoryController">Controller</string>
+    <string name="prefs_categoryApp">Application</string>
+    <string name="prefDeviceKey">device</string>
+    <string name="prefDeviceTitle">Device</string>
+    <string name="prefDeviceSummary">Select to query data from your controller directly or your web banner on reefangel.com</string>
+    <string name="prefDeviceDefault">0</string>
+    <string name="prefHostScreenKey">hostscreen</string>
+    <string name="prefHostScreenTitle">Host Information</string>
+    <string name="prefHostScreenSummary">Edit the settings relating to the host</string>
+    <string name="prefHostKey">host</string>
+    <string name="prefHostTitle">Hostname</string>
+    <string name="prefHostSummary">Enter the hostname or IP address of the controller</string>
+    <string name="prefHostDefault">curtbinder.dyndns.info</string>
+    <string name="prefHostInvalidHost">Invalid host</string>
+    <string name="prefPortKey">port</string>
+    <string name="prefPortTitle">Port</string>
+    <string name="prefPortSummary">Enter the port for the controller between 1 and 65535  (default: 2000)</string>
+    <string name="prefPortDefault">2000</string>
+    <string name="prefPortMin">1</string>
+    <string name="prefPortMax">65535</string>
+    <string name="prefPortInvalidPort">Invalid port</string>
+    <string name="prefUserIdKey">userid</string>
+    <string name="prefUserIdTitle">User ID</string>
+    <string name="prefUserIdSummary">Enter your userid for your web banner</string>
+    <string name="prefUserIdDefault">reefangel</string>
+    <string name="prefUserIdInvalid">Invalid userid</string>
+    <string name="prefAppTitle">Application Info</string>
+    <string name="prefAppSummary">Additional information about Reef Angel Status for Android</string>
+    <string name="prefVersionTitle">Version</string>
+    <string name="prefAuthorTitle">Author</string>
+    <string name="prefAuthorSummary">Curt Binder</string>
+    <string name="prefContributorTitle">Contributors</string>
+    <string name="prefContributorSummary">Roberto Imai, Mathieu Brisson</string>
+    <string name="prefCopyrightTitle">Copyright</string>
+    <string name="prefCopyrightSummary">Copyright 2011 Curt Binder</string>
+    <string name="prefLicenseKey">license</string>
+    <string name="prefLicenseTitle">License</string>
+    <string name="prefLicenseSummary">This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</string>
+    <string name="prefReefAngelKey">reefangel</string>
+    <string name="prefReefAngelTitle">Reef Angel Controller</string>
+    <string name="prefReefAngelSummary">http://www.reefangel.com/</string>
+    <string name="prefForumTitle">Reef Angel Forums</string>
+    <string name="prefForumSummary">http://forum.reefangel.com/</string>
+    <string name="prefControllerTitle">Controller Information</string>
+    <string name="prefControllerSummary">Update labels, Toggle visibility</string>
+    <string name="prefVisibilityCategory">Visibility Settings</string>
+    <string name="prefControllerVisibilityTitle">Label Visibility</string>
+    <string name="prefControllerVisibilitySummary">Toggle the visibility of the controller labels</string>
+    <string name="prefT2VisibilityKey">t2_visibility</string>
+    <string name="prefT2VisibilityTitle">Display T2</string>
+    <string name="prefT2VisibilitySummary">Displays temp sensor 2</string>
+    <string name="prefT3VisibilityKey">t3_visibility</string>
+    <string name="prefT3VisibilityTitle">Display T3</string>
+    <string name="prefT3VisibilitySummary">Displays temp sensor 3</string>
+    <string name="prefDPVisibilityKey">dp_visibility</string>
+    <string name="prefDPVisibilityTitle">Display DP</string>
+    <string name="prefDPVisibilitySummary">Displays daylight channel percentage</string>
+    <string name="prefAPVisibilityKey">ap_visibility</string>
+    <string name="prefAPVisibilityTitle">Display AP</string>
+    <string name="prefAPVisibilitySummary">Displays actinic channel percentage</string>
+    <string name="prefSalinityVisibilityKey">salinity_visibility</string>
+    <string name="prefSalinityVisibilityTitle">Display Salinity</string>
+    <string name="prefSalinityVisibilitySummary">Displays the salinity</string>
+    <string name="prefLabelsCategory">Label Settings</string>
+    <string name="prefControllerLabelsDownloadKey">download_labels</string>
+    <string name="prefControllerLabelsDownloadTitle">Download All Labels</string>
+    <string name="prefControllerLabelsDownloadSummary">Retrieves your labels from reefangel.com using id: </string>
+    <string name="prefControllerLabelsTitle">Controller Labels</string>
+    <string name="prefControllerLabelsSummary">Change the labels of the controller</string>
+    <string name="prefT1LabelKey">t1_label</string>
+    <string name="prefT1LabelTitle">T1 Label</string>
+    <string name="prefT1LabelSummary">Temp sensor 1 label</string>
+    <string name="prefT2LabelKey">t2_label</string>
+    <string name="prefT2LabelTitle">T2 Label</string>
+    <string name="prefT2LabelSummary">Temp sensor 2 label</string>
+    <string name="prefT3LabelKey">t3_label</string>
+    <string name="prefT3LabelTitle">T3 Label</string>
+    <string name="prefT3LabelSummary">Temp sensor 3 label</string>
+    <string name="prefPHLabelKey">ph_label</string>
+    <string name="prefPHLabelTitle">PH Label</string>
+    <string name="prefPHLabelSummary">PH probe label</string>
+    <string name="prefDPLabelKey">dp_label</string>
+    <string name="prefDPLabelTitle">DP Label</string>
+    <string name="prefDPLabelSummary">Daylight PWM label</string>
+    <string name="prefAPLabelKey">ap_label</string>
+    <string name="prefAPLabelTitle">AP Label</string>
+    <string name="prefAPLabelSummary">Actinic PWM label</string>
+    <string name="prefMainRelayTitle">Main Relay</string>
+    <string name="prefMainRelaySummary">Change the labels of the main relay</string>
+    <string name="prefMainPort1LabelKey">main_port1_label</string>
+    <string name="prefMainPort1LabelTitle">Port 1 Label</string>
+    <string name="prefMainPort2LabelKey">main_port2_label</string>
+    <string name="prefMainPort2LabelTitle">Port 2 Label</string>
+    <string name="prefMainPort3LabelKey">main_port3_label</string>
+    <string name="prefMainPort3LabelTitle">Port 3 Label</string>
+    <string name="prefMainPort4LabelKey">main_port4_label</string>
+    <string name="prefMainPort4LabelTitle">Port 4 Label</string>
+    <string name="prefMainPort5LabelKey">main_port5_label</string>
+    <string name="prefMainPort5LabelTitle">Port 5 Label</string>
+    <string name="prefMainPort6LabelKey">main_port6_label</string>
+    <string name="prefMainPort6LabelTitle">Port 6 Label</string>
+    <string name="prefMainPort7LabelKey">main_port7_label</string>
+    <string name="prefMainPort7LabelTitle">Port 7 Label</string>
+    <string name="prefMainPort8LabelKey">main_port8_label</string>
+    <string name="prefMainPort8LabelTitle">Port 8 Label</string>
+    <string name="prefExp1RelayTitle">Expansion Relay 1</string>
+    <string name="prefExp1RelaySummary">Change the labels of the expansion 1 relay</string>
+    <string name="prefExp1Port1LabelKey">exp1_port1_label</string>
+    <string name="prefExp1Port1LabelTitle">Port 1 Label</string>
+    <string name="prefExp1Port2LabelKey">exp1_port2_label</string>
+    <string name="prefExp1Port2LabelTitle">Port 2 Label</string>
+    <string name="prefExp1Port3LabelKey">exp1_port3_label</string>
+    <string name="prefExp1Port3LabelTitle">Port 3 Label</string>
+    <string name="prefExp1Port4LabelKey">exp1_port4_label</string>
+    <string name="prefExp1Port4LabelTitle">Port 4 Label</string>
+    <string name="prefExp1Port5LabelKey">exp1_port5_label</string>
+    <string name="prefExp1Port5LabelTitle">Port 5 Label</string>
+    <string name="prefExp1Port6LabelKey">exp1_port6_label</string>
+    <string name="prefExp1Port6LabelTitle">Port 6 Label</string>
+    <string name="prefExp1Port7LabelKey">exp1_port7_label</string>
+    <string name="prefExp1Port7LabelTitle">Port 7 Label</string>
+    <string name="prefExp1Port8LabelKey">exp1_port8_label</string>
+    <string name="prefExp1Port8LabelTitle">Port 8 Label</string>
+    <string name="prefExp2RelayTitle">Expansion Relay 2</string>
+    <string name="prefExp2RelaySummary">Change the labels of the expansion 2 relay</string>
+    <string name="prefExp2Port1LabelKey">exp2_port1_label</string>
+    <string name="prefExp2Port1LabelTitle">Port 1 Label</string>
+    <string name="prefExp2Port2LabelKey">exp2_port2_label</string>
+    <string name="prefExp2Port2LabelTitle">Port 2 Label</string>
+    <string name="prefExp2Port3LabelKey">exp2_port3_label</string>
+    <string name="prefExp2Port3LabelTitle">Port 3 Label</string>
+    <string name="prefExp2Port4LabelKey">exp2_port4_label</string>
+    <string name="prefExp2Port4LabelTitle">Port 4 Label</string>
+    <string name="prefExp2Port5LabelKey">exp2_port5_label</string>
+    <string name="prefExp2Port5LabelTitle">Port 5 Label</string>
+    <string name="prefExp2Port6LabelKey">exp2_port6_label</string>
+    <string name="prefExp2Port6LabelTitle">Port 6 Label</string>
+    <string name="prefExp2Port7LabelKey">exp2_port7_label</string>
+    <string name="prefExp2Port7LabelTitle">Port 7 Label</string>
+    <string name="prefExp2Port8LabelKey">exp2_port8_label</string>
+    <string name="prefExp2Port8LabelTitle">Port 8 Label</string>
+    <string name="prefExp3RelayTitle">Expansion Relay 3</string>
+    <string name="prefExp3RelaySummary">Change the labels of the expansion 3 relay</string>
+    <string name="prefExp3Port1LabelKey">exp3_port1_label</string>
+    <string name="prefExp3Port1LabelTitle">Port 1 Label</string>
+    <string name="prefExp3Port2LabelKey">exp3_port2_label</string>
+    <string name="prefExp3Port2LabelTitle">Port 2 Label</string>
+    <string name="prefExp3Port3LabelKey">exp3_port3_label</string>
+    <string name="prefExp3Port3LabelTitle">Port 3 Label</string>
+    <string name="prefExp3Port4LabelKey">exp3_port4_label</string>
+    <string name="prefExp3Port4LabelTitle">Port 4 Label</string>
+    <string name="prefExp3Port5LabelKey">exp3_port5_label</string>
+    <string name="prefExp3Port5LabelTitle">Port 5 Label</string>
+    <string name="prefExp3Port6LabelKey">exp3_port6_label</string>
+    <string name="prefExp3Port6LabelTitle">Port 6 Label</string>
+    <string name="prefExp3Port7LabelKey">exp3_port7_label</string>
+    <string name="prefExp3Port7LabelTitle">Port 7 Label</string>
+    <string name="prefExp3Port8LabelKey">exp3_port8_label</string>
+    <string name="prefExp3Port8LabelTitle">Port 8 Label</string>
+    <string name="prefExp4RelayTitle">Expansion Relay 4</string>
+    <string name="prefExp4RelaySummary">Change the labels of the expansion 4 relay</string>
+    <string name="prefExp4Port1LabelKey">exp4_port1_label</string>
+    <string name="prefExp4Port1LabelTitle">Port 1 Label</string>
+    <string name="prefExp4Port2LabelKey">exp4_port2_label</string>
+    <string name="prefExp4Port2LabelTitle">Port 2 Label</string>
+    <string name="prefExp4Port3LabelKey">exp4_port3_label</string>
+    <string name="prefExp4Port3LabelTitle">Port 3 Label</string>
+    <string name="prefExp4Port4LabelKey">exp4_port4_label</string>
+    <string name="prefExp4Port4LabelTitle">Port 4 Label</string>
+    <string name="prefExp4Port5LabelKey">exp4_port5_label</string>
+    <string name="prefExp4Port5LabelTitle">Port 5 Label</string>
+    <string name="prefExp4Port6LabelKey">exp4_port6_label</string>
+    <string name="prefExp4Port6LabelTitle">Port 6 Label</string>
+    <string name="prefExp4Port7LabelKey">exp4_port7_label</string>
+    <string name="prefExp4Port7LabelTitle">Port 7 Label</string>
+    <string name="prefExp4Port8LabelKey">exp4_port8_label</string>
+    <string name="prefExp4Port8LabelTitle">Port 8 Label</string>
+    <string name="prefExp5RelayTitle">Expansion Relay 5</string>
+    <string name="prefExp5RelaySummary">Change the labels of the expansion 5 relay</string>
+    <string name="prefExp5Port1LabelKey">exp5_port1_label</string>
+    <string name="prefExp5Port1LabelTitle">Port 1 Label</string>
+    <string name="prefExp5Port2LabelKey">exp5_port2_label</string>
+    <string name="prefExp5Port2LabelTitle">Port 2 Label</string>
+    <string name="prefExp5Port3LabelKey">exp5_port3_label</string>
+    <string name="prefExp5Port3LabelTitle">Port 3 Label</string>
+    <string name="prefExp5Port4LabelKey">exp5_port4_label</string>
+    <string name="prefExp5Port4LabelTitle">Port 4 Label</string>
+    <string name="prefExp5Port5LabelKey">exp5_port5_label</string>
+    <string name="prefExp5Port5LabelTitle">Port 5 Label</string>
+    <string name="prefExp5Port6LabelKey">exp5_port6_label</string>
+    <string name="prefExp5Port6LabelTitle">Port 6 Label</string>
+    <string name="prefExp5Port7LabelKey">exp5_port7_label</string>
+    <string name="prefExp5Port7LabelTitle">Port 7 Label</string>
+    <string name="prefExp5Port8LabelKey">exp5_port8_label</string>
+    <string name="prefExp5Port8LabelTitle">Port 8 Label</string>
+    <string name="prefExp6RelayTitle">Expansion Relay 6</string>
+    <string name="prefExp6RelaySummary">Change the labels of the expansion 6 relay</string>
+    <string name="prefExp6Port1LabelKey">exp6_port1_label</string>
+    <string name="prefExp6Port1LabelTitle">Port 1 Label</string>
+    <string name="prefExp6Port2LabelKey">exp6_port2_label</string>
+    <string name="prefExp6Port2LabelTitle">Port 2 Label</string>
+    <string name="prefExp6Port3LabelKey">exp6_port3_label</string>
+    <string name="prefExp6Port3LabelTitle">Port 3 Label</string>
+    <string name="prefExp6Port4LabelKey">exp6_port4_label</string>
+    <string name="prefExp6Port4LabelTitle">Port 4 Label</string>
+    <string name="prefExp6Port5LabelKey">exp6_port5_label</string>
+    <string name="prefExp6Port5LabelTitle">Port 5 Label</string>
+    <string name="prefExp6Port6LabelKey">exp6_port6_label</string>
+    <string name="prefExp6Port6LabelTitle">Port 6 Label</string>
+    <string name="prefExp6Port7LabelKey">exp6_port7_label</string>
+    <string name="prefExp6Port7LabelTitle">Port 7 Label</string>
+    <string name="prefExp6Port8LabelKey">exp6_port8_label</string>
+    <string name="prefExp6Port8LabelTitle">Port 8 Label</string>
+    <string name="prefExp7RelayTitle">Expansion Relay 7</string>
+    <string name="prefExp7RelaySummary">Change the labels of the expansion 7 relay</string>
+    <string name="prefExp7Port1LabelKey">exp7_port1_label</string>
+    <string name="prefExp7Port1LabelTitle">Port 1 Label</string>
+    <string name="prefExp7Port2LabelKey">exp7_port2_label</string>
+    <string name="prefExp7Port2LabelTitle">Port 2 Label</string>
+    <string name="prefExp7Port3LabelKey">exp7_port3_label</string>
+    <string name="prefExp7Port3LabelTitle">Port 3 Label</string>
+    <string name="prefExp7Port4LabelKey">exp7_port4_label</string>
+    <string name="prefExp7Port4LabelTitle">Port 4 Label</string>
+    <string name="prefExp7Port5LabelKey">exp7_port5_label</string>
+    <string name="prefExp7Port5LabelTitle">Port 5 Label</string>
+    <string name="prefExp7Port6LabelKey">exp7_port6_label</string>
+    <string name="prefExp7Port6LabelTitle">Port 6 Label</string>
+    <string name="prefExp7Port7LabelKey">exp7_port7_label</string>
+    <string name="prefExp7Port7LabelTitle">Port 7 Label</string>
+    <string name="prefExp7Port8LabelKey">exp7_port8_label</string>
+    <string name="prefExp7Port8LabelTitle">Port 8 Label</string>
+    <string name="prefExp8RelayTitle">Expansion Relay 8</string>
+    <string name="prefExp8RelaySummary">Change the labels of the expansion 8 relay</string>
+    <string name="prefExp8Port1LabelKey">exp8_port1_label</string>
+    <string name="prefExp8Port1LabelTitle">Port 1 Label</string>
+    <string name="prefExp8Port2LabelKey">exp8_port2_label</string>
+    <string name="prefExp8Port2LabelTitle">Port 2 Label</string>
+    <string name="prefExp8Port3LabelKey">exp8_port3_label</string>
+    <string name="prefExp8Port3LabelTitle">Port 3 Label</string>
+    <string name="prefExp8Port4LabelKey">exp8_port4_label</string>
+    <string name="prefExp8Port4LabelTitle">Port 4 Label</string>
+    <string name="prefExp8Port5LabelKey">exp8_port5_label</string>
+    <string name="prefExp8Port5LabelTitle">Port 5 Label</string>
+    <string name="prefExp8Port6LabelKey">exp8_port6_label</string>
+    <string name="prefExp8Port6LabelTitle">Port 6 Label</string>
+    <string name="prefExp8Port7LabelKey">exp8_port7_label</string>
+    <string name="prefExp8Port7LabelTitle">Port 7 Label</string>
+    <string name="prefExp8Port8LabelKey">exp8_port8_label</string>
+    <string name="prefExp8Port8LabelTitle">Port 8 Label</string>
+
 </resources>

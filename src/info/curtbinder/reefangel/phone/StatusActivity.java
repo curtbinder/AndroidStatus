@@ -46,11 +46,11 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 			new ToggleButton[Controller.MAX_RELAY_PORTS];
 	private View[] mainPortMaskBtns = new View[Controller.MAX_RELAY_PORTS];
 
-	private TextView[] exp1PortLabels =
-			new TextView[Controller.MAX_RELAY_PORTS];
-	private ToggleButton[] exp1PortBtns =
-			new ToggleButton[Controller.MAX_RELAY_PORTS];
-	private View[] exp1PortMaskBtns = new View[Controller.MAX_RELAY_PORTS];
+//	private TextView[] exp1PortLabels =
+//			new TextView[Controller.MAX_RELAY_PORTS];
+//	private ToggleButton[] exp1PortBtns =
+//			new ToggleButton[Controller.MAX_RELAY_PORTS];
+//	private View[] exp1PortMaskBtns = new View[Controller.MAX_RELAY_PORTS];
 
 	// Message Receivers
 	StatusReceiver receiver;

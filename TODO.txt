@@ -28,9 +28,7 @@ TODO
 * parameters activity allows for clicking on item and displaying all info in poppup window
 * ability to change label separator (give list to choose from)
 * improve relay mask image
-* add in ability to query device version
-* add in ability to turn on feeding mode
-* add in ability to turn on water change mode (need to send command to initiate)
+* ability to query / set date & time on controller
 
 * switch to a content provider for working working with the db
 ** ability to insert values
