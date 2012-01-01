@@ -67,9 +67,9 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 
 		// Message Receiver stuff
 		receiver = new StatusReceiver();
-		filter = new IntentFilter( ControllerTask.UPDATE_DISPLAY_DATA_INTENT );
-		filter.addAction( ControllerTask.UPDATE_STATUS_INTENT );
-		filter.addAction( ControllerTask.ERROR_MESSAGE_INTENT );
+		filter = new IntentFilter( MessageCommands.UPDATE_DISPLAY_DATA_INTENT );
+		filter.addAction( MessageCommands.UPDATE_STATUS_INTENT );
+		filter.addAction( MessageCommands.ERROR_MESSAGE_INTENT );
 
 		findViews();
 
@@ -326,15 +326,15 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 
 	private void launchStatusTask ( ) {
 		Log.d( TAG, "launchStatusTask" );
-		Intent i = new Intent( ControllerService.QUERY_STATUS_INTENT );
+		Intent i = new Intent( MessageCommands.QUERY_STATUS_INTENT );
 		sendBroadcast( i );
 	}
 
 	private void launchRelayToggleTask ( int relay, int status ) {
 		Log.d( TAG, "launchRelayToggleTask" );
-		Intent i = new Intent( ControllerService.TOGGLE_RELAY_INTENT );
-		i.putExtra( ControllerService.TOGGLE_RELAY_PORT_INT, relay );
-		i.putExtra( ControllerService.TOGGLE_RELAY_MODE_INT, status );
+		Intent i = new Intent( MessageCommands.TOGGLE_RELAY_INTENT );
+		i.putExtra( MessageCommands.TOGGLE_RELAY_PORT_INT, relay );
+		i.putExtra( MessageCommands.TOGGLE_RELAY_MODE_INT, status );
 		sendBroadcast( i );
 	}
 
@@ -390,22 +390,22 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		public void onReceive ( Context context, Intent intent ) {
 			// Log.d(TAG, "onReceive");
 			String action = intent.getAction();
-			if ( action.equals( ControllerTask.UPDATE_STATUS_INTENT ) ) {
+			if ( action.equals( MessageCommands.UPDATE_STATUS_INTENT ) ) {
 				int id =
-						intent.getIntExtra( ControllerTask.UPDATE_STATUS_ID,
+						intent.getIntExtra( MessageCommands.UPDATE_STATUS_ID,
 											R.string.defaultStatusText );
 				Log.d( TAG, getResources().getString( id ) );
 				updateTime.setText( getResources().getString( id ) );
 			} else if ( action
-					.equals( ControllerTask.UPDATE_DISPLAY_DATA_INTENT ) ) {
+					.equals( MessageCommands.UPDATE_DISPLAY_DATA_INTENT ) ) {
 				Log.d( TAG, "update data intent" );
 				rapp.insertData( intent );
 				updateDisplay();
-			} else if ( action.equals( ControllerTask.ERROR_MESSAGE_INTENT ) ) {
+			} else if ( action.equals( MessageCommands.ERROR_MESSAGE_INTENT ) ) {
 				Log.d( TAG, intent
-						.getStringExtra( ControllerTask.ERROR_MESSAGE_STRING ) );
+						.getStringExtra( MessageCommands.ERROR_MESSAGE_STRING ) );
 				updateTime.setText( intent
-						.getStringExtra( ControllerTask.ERROR_MESSAGE_STRING ) );
+						.getStringExtra( MessageCommands.ERROR_MESSAGE_STRING ) );
 			}
 		}
 	}

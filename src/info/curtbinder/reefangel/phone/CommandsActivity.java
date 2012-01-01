@@ -31,8 +31,8 @@ public class CommandsActivity extends BaseActivity implements OnClickListener {
 
 		findViews();
 		receiver = new CommandsReceiver();
-		filter = new IntentFilter( ControllerTask.COMMAND_RESPONSE_INTENT );
-		filter.addAction( ControllerTask.VERSION_RESPONSE_INTENT );
+		filter = new IntentFilter( MessageCommands.COMMAND_RESPONSE_INTENT );
+		filter.addAction( MessageCommands.VERSION_RESPONSE_INTENT );
 
 		setOnClickListeners();
 	}
@@ -69,22 +69,22 @@ public class CommandsActivity extends BaseActivity implements OnClickListener {
 		Intent i = new Intent();
 		switch ( v.getId() ) {
 			case R.id.command_button_feed:
-				i.setAction( ControllerTask.COMMAND_SEND_INTENT );
-				i.putExtra( ControllerTask.COMMAND_SEND_STRING,
+				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
+				i.putExtra( MessageCommands.COMMAND_SEND_STRING,
 							Globals.requestFeedingMode );
 				break;
 			case R.id.command_button_water:
-				i.setAction( ControllerTask.COMMAND_SEND_INTENT );
-				i.putExtra( ControllerTask.COMMAND_SEND_STRING,
+				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
+				i.putExtra( MessageCommands.COMMAND_SEND_STRING,
 							Globals.requestWaterMode );
 				break;
 			case R.id.command_button_version:
-				i.setAction( ControllerTask.VERSION_QUERY_INTENT );
+				i.setAction( MessageCommands.VERSION_QUERY_INTENT );
 				break;
 			default:
 			case R.id.command_button_exit:
-				i.setAction( ControllerTask.COMMAND_SEND_INTENT );
-				i.putExtra( ControllerTask.COMMAND_SEND_STRING,
+				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
+				i.putExtra( MessageCommands.COMMAND_SEND_STRING,
 							Globals.requestExitMode );
 				break;
 		}
@@ -96,15 +96,15 @@ public class CommandsActivity extends BaseActivity implements OnClickListener {
 		@Override
 		public void onReceive ( Context context, Intent intent ) {
 			if ( intent.getAction()
-					.equals( ControllerTask.COMMAND_RESPONSE_INTENT ) ) {
+					.equals( MessageCommands.COMMAND_RESPONSE_INTENT ) ) {
 				Toast.makeText( CommandsActivity.this,
-								intent.getStringExtra( ControllerTask.COMMAND_RESPONSE_STRING ),
+								intent.getStringExtra( MessageCommands.COMMAND_RESPONSE_STRING ),
 								Toast.LENGTH_LONG ).show();
 			} else if ( intent.getAction()
-					.equals( ControllerTask.VERSION_RESPONSE_INTENT ) ) {
+					.equals( MessageCommands.VERSION_RESPONSE_INTENT ) ) {
 				versionText
 						.setText( intent
-								.getStringExtra( ControllerTask.VERSION_RESPONSE_STRING ) );
+								.getStringExtra( MessageCommands.VERSION_RESPONSE_STRING ) );
 			}
 		}
 

@@ -26,30 +26,6 @@ import android.util.Log;
 
 public class ControllerTask implements Runnable {
 	// Messages broadcast from the task
-	public static final String UPDATE_DISPLAY_DATA_INTENT =
-			Globals.PACKAGE_BASE + ".UPDATE_DISPLAY_DATA";
-	public static final String UPDATE_STATUS_INTENT = Globals.PACKAGE_BASE
-														+ ".UPDATE_STATUS";
-	public static final String UPDATE_STATUS_ID = "STATUS_MSG_ID";
-	public static final String ERROR_MESSAGE_INTENT = Globals.PACKAGE_BASE
-														+ ".ERROR_MESSAGE";
-	public static final String ERROR_MESSAGE_STRING = "ERROR_MESSAGE_STRING";
-	public static final String MEMORY_RESPONSE_INTENT = Globals.PACKAGE_BASE
-														+ ".MEMORY_RESPONSE";
-	public static final String MEMORY_RESPONSE_STRING =
-			"MEMORY_RESPONSE_STRING";
-	public static final String MEMORY_WRITE_BOOLEAN = "MEMORY_WRITE_BOOLEAN";
-	public static final String LABEL_RESPONSE_INTENT = Globals.PACKAGE_BASE
-														+ ".LABEL_RESPONSE";
-	public static final String COMMAND_RESPONSE_INTENT =
-			Globals.PACKAGE_BASE + ".COMMAND_RESPOSNE";
-	public static final String COMMAND_RESPONSE_STRING =
-			"COMMAND_RESPONSE_STRING";
-	public static final String COMMAND_SEND_INTENT = Globals.PACKAGE_BASE + ".COMMAND_SEND";
-	public static final String COMMAND_SEND_STRING = "COMMAND_SEND_STRING";
-	public static final String VERSION_QUERY_INTENT = Globals.PACKAGE_BASE + ".VERSION_QUERY";
-	public static final String VERSION_RESPONSE_INTENT = Globals.PACKAGE_BASE + ".VERSION_RESPONSE";
-	public static final String VERSION_RESPONSE_STRING = "VERSION_RESPONSE_STRING";
 
 	private static final String TAG = ControllerTask.class.getSimpleName();
 	private final Host host;
@@ -147,8 +123,8 @@ public class ControllerTask implements Runnable {
 				broadcastCommandResponse(	R.string.labelExitMode,
 											xml.getModeResponse() );
 			} else if ( host.getCommand().equals( Globals.requestVersion ) ) {
-				Intent i = new Intent(ControllerTask.VERSION_RESPONSE_INTENT);
-				i.putExtra( ControllerTask.VERSION_RESPONSE_STRING, xml.getVersion() );
+				Intent i = new Intent(MessageCommands.VERSION_RESPONSE_INTENT);
+				i.putExtra( MessageCommands.VERSION_RESPONSE_STRING, xml.getVersion() );
 				rapp.sendBroadcast( i );
 			}
 		}
@@ -243,8 +219,8 @@ public class ControllerTask implements Runnable {
 		Log.d(TAG, rapp.getString( id )
 				+ rapp.getString( R.string.label_separator ) + " "
 				+ response);
-		Intent i = new Intent( COMMAND_RESPONSE_INTENT );
-		i.putExtra( COMMAND_RESPONSE_STRING,
+		Intent i = new Intent( MessageCommands.COMMAND_RESPONSE_INTENT );
+		i.putExtra( MessageCommands.COMMAND_RESPONSE_STRING,
 					rapp.getString( id )
 							+ rapp.getString( R.string.label_separator ) + " "
 							+ response );
@@ -271,21 +247,21 @@ public class ControllerTask implements Runnable {
 			}
 		}
 		// Tell the activity we updated the labels
-		Intent intent = new Intent( LABEL_RESPONSE_INTENT );
+		Intent intent = new Intent( MessageCommands.LABEL_RESPONSE_INTENT );
 		rapp.sendBroadcast( intent );
 	}
 
 	private void broadcastMemoryResponse ( String response, boolean wasWrite ) {
 		// Log.d(TAG, "broadcastMemoryResponse");
-		Intent i = new Intent( MEMORY_RESPONSE_INTENT );
-		i.putExtra( MEMORY_RESPONSE_STRING, response );
-		i.putExtra( MEMORY_WRITE_BOOLEAN, wasWrite );
+		Intent i = new Intent( MessageCommands.MEMORY_RESPONSE_INTENT );
+		i.putExtra( MessageCommands.MEMORY_RESPONSE_STRING, response );
+		i.putExtra( MessageCommands.MEMORY_RESPONSE_WRITE_BOOLEAN, wasWrite );
 		rapp.sendBroadcast( i );
 	}
 
 	private void broadcastUpdateDisplayData ( Controller ra ) {
 		// Log.d(TAG, "broadcastUpdateDisplayData");
-		Intent i = new Intent( UPDATE_DISPLAY_DATA_INTENT );
+		Intent i = new Intent( MessageCommands.UPDATE_DISPLAY_DATA_INTENT );
 		i.putExtra( RAData.PCOL_T1, ra.getTemp1() );
 		i.putExtra( RAData.PCOL_T2, ra.getTemp2() );
 		i.putExtra( RAData.PCOL_T3, ra.getTemp3() );
@@ -336,16 +312,16 @@ public class ControllerTask implements Runnable {
 
 	private void broadcastUpdateStatus ( int msgid ) {
 		// Log.d(TAG, "broadcastUpdateStatus");
-		Intent i = new Intent( UPDATE_STATUS_INTENT );
-		i.putExtra( UPDATE_STATUS_ID, msgid );
+		Intent i = new Intent( MessageCommands.UPDATE_STATUS_INTENT );
+		i.putExtra( MessageCommands.UPDATE_STATUS_ID, msgid );
 		rapp.sendBroadcast( i );
 	}
 
 	private void broadcastErrorMessage ( ) {
 		// TODO maybe a notification message or something
 		// Log.d(TAG, "broadcastErrorMessage");
-		Intent i = new Intent( ERROR_MESSAGE_INTENT );
-		i.putExtra( ERROR_MESSAGE_STRING, rapp.getErrorMessage() );
+		Intent i = new Intent( MessageCommands.ERROR_MESSAGE_INTENT );
+		i.putExtra( MessageCommands.ERROR_MESSAGE_STRING, rapp.getErrorMessage() );
 		rapp.sendBroadcast( i );
 	}
 }

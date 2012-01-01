@@ -82,6 +82,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="messageDownloadLabels">Downloading labels…</string>
     <string name="messageDownloadLabelsComplete">Labels downloaded and updated</string>
     <string name="messageDownloadMessage">Labels downloaded and updated.\n\nPlease exit preferences to see updated labels</string>
+    <string name="messageReadingMemory">Reading memory&#8230;</string>
+    <string name="messageWritingMemory">Writing to memory&#8230;</string>
     <string name="labelFeedingMode">Feeding Mode</string>
     <string name="labelWaterMode">Water Change Mode</string>
     <string name="labelExitMode">Exit Mode</string>

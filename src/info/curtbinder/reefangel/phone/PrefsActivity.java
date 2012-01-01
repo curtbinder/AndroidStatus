@@ -39,7 +39,7 @@ public class PrefsActivity extends PreferenceActivity implements
 		rapp = (RAApplication) getApplication();
 
 		receiver = new PrefsReceiver();
-		filter = new IntentFilter( ControllerTask.LABEL_RESPONSE_INTENT );
+		filter = new IntentFilter( MessageCommands.LABEL_RESPONSE_INTENT );
 
 		portkey =
 				getPreferenceScreen()
@@ -125,7 +125,7 @@ public class PrefsActivity extends PreferenceActivity implements
 															"Download labels" );
 													Intent i =
 															new Intent(
-																ControllerService.LABEL_QUERY_INTENT );
+																MessageCommands.LABEL_QUERY_INTENT );
 													rapp.sendBroadcast( i );
 													dialog.dismiss();
 													Toast.makeText( PrefsActivity.this,

@@ -12,21 +12,6 @@ import android.os.IBinder;
 import android.util.Log;
 
 public class ControllerService extends Service {
-
-	// Messages
-	public static final String QUERY_STATUS_INTENT = Globals.PACKAGE_BASE
-														+ ".QUERY_STATUS";
-	public static final String TOGGLE_RELAY_INTENT = Globals.PACKAGE_BASE
-														+ ".TOGGLE_RELAY";
-	public static final String TOGGLE_RELAY_PORT_INT = "TOGGLE_RELAY_PORT_INT";
-	public static final String TOGGLE_RELAY_MODE_INT = "TOGGLE_RELAY_MODE_INT";
-	public static final String MEMORY_INTENT = Globals.PACKAGE_BASE + ".MEMORY";
-	public static final String MEMORY_TYPE_STRING = "MEMORY_TYPE_STRING";
-	public static final String MEMORY_LOCATION_INT = "MEMORY_LOCATION_INT";
-	public static final String MEMORY_VALUE_INT = "MEMORY_VALUE_INT";
-	public static final String LABEL_QUERY_INTENT = Globals.PACKAGE_BASE
-													+ ".LABEL_QUERY";
-
 	private static final String TAG = ControllerService.class.getSimpleName();
 
 	private static RAApplication rapp;
@@ -48,12 +33,12 @@ public class ControllerService extends Service {
 
 		rapp = (RAApplication) getApplication();
 		receiver = new ServiceReceiver();
-		filter = new IntentFilter( QUERY_STATUS_INTENT );
-		filter.addAction( TOGGLE_RELAY_INTENT );
-		filter.addAction( MEMORY_INTENT );
-		filter.addAction( LABEL_QUERY_INTENT );
-		filter.addAction( ControllerTask.COMMAND_SEND_INTENT );
-		filter.addAction( ControllerTask.VERSION_QUERY_INTENT );
+		filter = new IntentFilter( MessageCommands.QUERY_STATUS_INTENT );
+		filter.addAction( MessageCommands.TOGGLE_RELAY_INTENT );
+		filter.addAction( MessageCommands.MEMORY_SEND_INTENT );
+		filter.addAction( MessageCommands.LABEL_QUERY_INTENT );
+		filter.addAction( MessageCommands.COMMAND_SEND_INTENT );
+		filter.addAction( MessageCommands.VERSION_QUERY_INTENT );
 	}
 
 	@Override
@@ -108,7 +93,7 @@ public class ControllerService extends Service {
 				h.setUserId( rapp.getPrefUserId() );
 			}
 
-			if ( action.equals( QUERY_STATUS_INTENT ) ) {
+			if ( action.equals( MessageCommands.QUERY_STATUS_INTENT ) ) {
 				Log.d( TAG, "Query status" );
 				if ( isController )
 					command = Globals.requestStatus;
@@ -116,30 +101,30 @@ public class ControllerService extends Service {
 					command = Globals.requestReefAngel;
 
 				h.setCommand( command );
-			} else if ( action.equals( TOGGLE_RELAY_INTENT ) ) {
+			} else if ( action.equals( MessageCommands.TOGGLE_RELAY_INTENT ) ) {
 				Log.d( TAG, "Toggle Relay" );
 				if ( isController )
 					command =
 							new String(
 								String.format(	"%s%d%d",
 												Globals.requestRelay,
-												intent.getIntExtra( TOGGLE_RELAY_PORT_INT,
+												intent.getIntExtra( MessageCommands.TOGGLE_RELAY_PORT_INT,
 																	Globals.defaultPort ),
-												intent.getIntExtra( TOGGLE_RELAY_MODE_INT,
+												intent.getIntExtra( MessageCommands.TOGGLE_RELAY_MODE_INT,
 																	Globals.defaultPort ) ) );
 				else
 					command = Globals.requestReefAngel;
 
 				h.setCommand( command );
-			} else if ( action.equals( MEMORY_INTENT ) ) {
+			} else if ( action.equals( MessageCommands.MEMORY_SEND_INTENT ) ) {
 				Log.d( TAG, "Memory" );
 				int value =
-						intent.getIntExtra( MEMORY_VALUE_INT,
+						intent.getIntExtra( MessageCommands.MEMORY_SEND_VALUE_INT,
 											Globals.memoryReadOnly );
 				int location =
-						intent.getIntExtra( MEMORY_LOCATION_INT,
+						intent.getIntExtra( MessageCommands.MEMORY_SEND_LOCATION_INT,
 											Globals.memoryReadOnly );
-				String type = intent.getStringExtra( MEMORY_TYPE_STRING );
+				String type = intent.getStringExtra( MessageCommands.MEMORY_SEND_TYPE_STRING );
 				if ( type.equals( null )
 						|| (location == Globals.memoryReadOnly) ) {
 					Log.d( TAG, "No memory specified" );
@@ -157,15 +142,15 @@ public class ControllerService extends Service {
 					h.setReadLocation( location );
 				else
 					h.setWriteLocation( location, value );
-			} else if ( action.equals( LABEL_QUERY_INTENT ) ) {
+			} else if ( action.equals( MessageCommands.LABEL_QUERY_INTENT ) ) {
 				Log.d( TAG, "Query labels" );
 				// set the userid
 				h.setUserId( rapp.getPrefUserId() );
 				h.setGetLabelsOnly( true );
-			} else if ( action.equals( ControllerTask.COMMAND_SEND_INTENT )) {
+			} else if ( action.equals( MessageCommands.COMMAND_SEND_INTENT )) {
 				Log.d(TAG, "Command Send");
-				h.setCommand( intent.getStringExtra( ControllerTask.COMMAND_SEND_STRING ) );
-			} else if ( action.equals(ControllerTask.VERSION_QUERY_INTENT)) {
+				h.setCommand( intent.getStringExtra( MessageCommands.COMMAND_SEND_STRING ) );
+			} else if ( action.equals(MessageCommands.VERSION_QUERY_INTENT)) {
 				Log.d(TAG, "Query version");
 				h.setCommand( Globals.requestVersion );
 			} else {
