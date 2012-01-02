@@ -86,6 +86,10 @@
                 </TableRow>
             </TableLayout>
         </TableRow>
+        <!--
+        <TextView
+            android:id="@+id/statusText" />
+        -->
     </TableLayout>
 
 </ScrollView>

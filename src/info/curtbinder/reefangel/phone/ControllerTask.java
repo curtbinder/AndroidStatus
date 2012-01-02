@@ -1,9 +1,7 @@
 package info.curtbinder.reefangel.phone;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
@@ -123,8 +121,9 @@ public class ControllerTask implements Runnable {
 				broadcastCommandResponse(	R.string.labelExitMode,
 											xml.getModeResponse() );
 			} else if ( host.getCommand().equals( Globals.requestVersion ) ) {
-				Intent i = new Intent(MessageCommands.VERSION_RESPONSE_INTENT);
-				i.putExtra( MessageCommands.VERSION_RESPONSE_STRING, xml.getVersion() );
+				Intent i = new Intent( MessageCommands.VERSION_RESPONSE_INTENT );
+				i.putExtra( MessageCommands.VERSION_RESPONSE_STRING,
+							xml.getVersion() );
 				rapp.sendBroadcast( i );
 			}
 		}
@@ -138,17 +137,21 @@ public class ControllerTask implements Runnable {
 				throw new InterruptedException();
 
 			broadcastUpdateStatus( R.string.statusSendingCommand );
-			BufferedReader bin =
-					new BufferedReader( new InputStreamReader( i ), 8192 );
-			String line;
-			broadcastUpdateStatus( R.string.statusReadResponse );
-			while ( (line = bin.readLine()) != null ) {
+			int available;
+			byte[] b;
+			int nRead = 0;
+//			int count = 1;
+			while ( (available = i.available()) > 0 ) {
 				// Check for an interruption
+//				Log.d(TAG, "Count: " + count++ + ", size: " + available);
 				if ( Thread.interrupted() )
 					throw new InterruptedException();
 
-				s.append( line );
+				b = new byte[available];
+				nRead = i.read( b, 0, available );
+				s.append(new String(b, 0, nRead));
 			}
+			broadcastUpdateStatus( R.string.statusReadResponse );
 		} catch ( InterruptedException e ) {
 			Log.d( TAG, "sendCommand: InterruptedException", e );
 			s =
@@ -216,9 +219,10 @@ public class ControllerTask implements Runnable {
 
 	// Broadcast Stuff
 	private void broadcastCommandResponse ( int id, String response ) {
-		Log.d(TAG, rapp.getString( id )
-				+ rapp.getString( R.string.label_separator ) + " "
-				+ response);
+		Log.d(	TAG,
+				rapp.getString( id )
+						+ rapp.getString( R.string.label_separator ) + " "
+						+ response );
 		Intent i = new Intent( MessageCommands.COMMAND_RESPONSE_INTENT );
 		i.putExtra( MessageCommands.COMMAND_RESPONSE_STRING,
 					rapp.getString( id )
@@ -233,17 +237,18 @@ public class ControllerTask implements Runnable {
 		rapp.setPref( R.string.prefT2LabelKey, ra.getTempLabel( 2 ) );
 		rapp.setPref( R.string.prefT3LabelKey, ra.getTempLabel( 3 ) );
 		int i, j;
-		Log.d(TAG, "saving main labels");
+		Log.d( TAG, "saving main labels" );
 		for ( i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
-			rapp.setPrefRelayLabel( 0, i, ra.getMainRelay().getPortLabel( i+1 ) );
+			rapp.setPrefRelayLabel( 0, i, ra.getMainRelay()
+					.getPortLabel( i + 1 ) );
 		}
 		Relay r;
 		for ( i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 			// use i+1 because it uses 1 based referencing
-			r = ra.getExpRelay( i+1 );
+			r = ra.getExpRelay( i + 1 );
 			for ( j = 0; j < Controller.MAX_RELAY_PORTS; j++ ) {
 				// use i+1 because the expansion relays start at 1
-				rapp.setPrefRelayLabel( i + 1, j, r.getPortLabel( j+1 ) );
+				rapp.setPrefRelayLabel( i + 1, j, r.getPortLabel( j + 1 ) );
 			}
 		}
 		// Tell the activity we updated the labels
@@ -321,7 +326,8 @@ public class ControllerTask implements Runnable {
 		// TODO maybe a notification message or something
 		// Log.d(TAG, "broadcastErrorMessage");
 		Intent i = new Intent( MessageCommands.ERROR_MESSAGE_INTENT );
-		i.putExtra( MessageCommands.ERROR_MESSAGE_STRING, rapp.getErrorMessage() );
+		i.putExtra( MessageCommands.ERROR_MESSAGE_STRING,
+					rapp.getErrorMessage() );
 		rapp.sendBroadcast( i );
 	}
 }

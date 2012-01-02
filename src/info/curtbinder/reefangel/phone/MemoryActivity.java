@@ -65,6 +65,7 @@ public class MemoryActivity extends BaseActivity {
 		// Message receiver
 		receiver = new MemoryReceiver();
 		filter = new IntentFilter( MessageCommands.MEMORY_RESPONSE_INTENT );
+		// filter.addAction( MessageCommands.UPDATE_STATUS_INTENT );
 
 		findViews();
 		setAdapters();
@@ -354,18 +355,29 @@ public class MemoryActivity extends BaseActivity {
 	class MemoryReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive ( Context context, Intent intent ) {
-			boolean wasWrite =
-					intent.getBooleanExtra( MessageCommands.MEMORY_RESPONSE_WRITE_BOOLEAN,
-											false );
-			String response =
-					intent.getStringExtra( MessageCommands.MEMORY_RESPONSE_STRING );
-			if ( wasWrite ) {
-				// do something since we wrote
-				Toast.makeText( MemoryActivity.this, response,
-								Toast.LENGTH_LONG ).show();
-			} else {
-				// do something for read
-				updateValue( response );
+			String action = intent.getAction();
+			if ( action.equals( MessageCommands.MEMORY_RESPONSE_INTENT ) ) {
+				boolean wasWrite =
+						intent.getBooleanExtra( MessageCommands.MEMORY_RESPONSE_WRITE_BOOLEAN,
+												false );
+				String response =
+						intent.getStringExtra( MessageCommands.MEMORY_RESPONSE_STRING );
+				if ( wasWrite ) {
+					// do something since we wrote
+					Toast.makeText( MemoryActivity.this, response,
+									Toast.LENGTH_LONG ).show();
+				} else {
+					// do something for read
+					updateValue( response );
+				}
+				// } else if ( action.equals(
+				// MessageCommands.UPDATE_STATUS_INTENT ) ) {
+				// TextView s = (TextView) findViewById( R.id.statusText );
+				// int id =
+				// intent.getIntExtra( MessageCommands.UPDATE_STATUS_ID,
+				// -1 );
+				// if ( id > -1 )
+				// s.setText( id );
 			}
 		}
 	}
