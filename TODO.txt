@@ -20,6 +20,8 @@ TODO
 
 * add in an error status line with error displaying
 
+* cleanup & reorganize string names
+
 * add in error log
 ** logs errors to database
 ** new activity for displaying errors
@@ -28,7 +30,11 @@ TODO
 * parameters activity allows for clicking on item and displaying all info in poppup window
 * ability to change label separator (give list to choose from)
 * improve relay mask image
-* ability to query / set date & time on controller
+* ability to choose default memory tab: internal or commands
+* ability to query / set date & time on controller, separate tab under memory
+* add in clear ATO and Overheat commands for v0.8.5.20
+* when sending memory or other commands, popup progress bar that "sending in progress" then
+  update based on task progress instead of using Toast
 
 * switch to a content provider for working working with the db
 ** ability to insert values
@@ -42,5 +48,5 @@ TODO
 
 * add in special permissions to send and receive messages
 
-* add in link to forums
+
 

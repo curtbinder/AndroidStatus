@@ -53,134 +53,125 @@ public class RAData {
 	public static final String PCOL_R8DATA = "r8data";
 	public static final String PCOL_R8ONMASK = "r8onmask";
 	public static final String PCOL_R8OFFMASK = "r8offmask";
-	
+
 	public class DbHelper extends SQLiteOpenHelper {
 		private static final String DB_NAME = "radata.db";
 		private static final int DB_VERSION = 1;
 		private static final String TAG = "DbHelper";
-		
-		public DbHelper(Context context) {
-			super(context, DB_NAME, null, DB_VERSION);
+
+		public DbHelper ( Context context ) {
+			super( context, DB_NAME, null, DB_VERSION );
 		}
-		
+
 		@Override
-		public void onCreate(SQLiteDatabase db) {
+		public void onCreate ( SQLiteDatabase db ) {
 			// create the tables here
-			createParamsTable(db);
+			createParamsTable( db );
 		}
 
 		@Override
-		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			Log.w(TAG, "Upgrading db from v" + oldVersion + " to v" + newVersion + 
-					", which will destroy all old data");
+		public void onUpgrade (
+				SQLiteDatabase db,
+				int oldVersion,
+				int newVersion ) {
+			Log.w( TAG, "Upgrading db from v" + oldVersion + " to v"
+						+ newVersion + ", which will destroy all old data" );
 			// initially, just drop tables and create new ones
-			db.execSQL("DROP TABLE IF EXISTS " + PTABLE_NAME);
-			onCreate(db);
+			db.execSQL( "DROP TABLE IF EXISTS " + PTABLE_NAME );
+			onCreate( db );
 		}
 
-		private void createParamsTable(SQLiteDatabase db) {
+		private void createParamsTable ( SQLiteDatabase db ) {
 			// create parameters table
-			db.execSQL("CREATE TABLE " + PTABLE_NAME + " (" + 
-					PCOL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-					PCOL_T1 + " TEXT, " + 
-					PCOL_T2 + " TEXT, " +
-					PCOL_T3 + " TEXT, " +
-					PCOL_PH + " TEXT, " +
-					PCOL_DP + " TEXT, " +
-					PCOL_AP + " TEXT, " +
-					PCOL_SAL + " TEXT, " +
-					PCOL_ATOHI + " INTEGER, " +
-					PCOL_ATOLO + " INTEGER, " +
-					PCOL_LOGDATE + " TEXT, " +
-					PCOL_RDATA + " INTEGER, " +
-					PCOL_RONMASK + " INTEGER, " +
-					PCOL_ROFFMASK + " INTEGER, " +
-					PCOL_R1DATA + " INTEGER, " +
-					PCOL_R1ONMASK + " INTEGER, " +
-					PCOL_R1OFFMASK + " INTEGER, " +
-					PCOL_R2DATA + " INTEGER, " +
-					PCOL_R2ONMASK + " INTEGER, " +
-					PCOL_R2OFFMASK + " INTEGER, " +
-					PCOL_R3DATA + " INTEGER, " +
-					PCOL_R3ONMASK + " INTEGER, " +
-					PCOL_R3OFFMASK + " INTEGER, " +
-					PCOL_R4DATA + " INTEGER, " +
-					PCOL_R4ONMASK + " INTEGER, " +
-					PCOL_R4OFFMASK + " INTEGER, " +
-					PCOL_R5DATA + " INTEGER, " +
-					PCOL_R5ONMASK + " INTEGER, " +
-					PCOL_R5OFFMASK + " INTEGER, " +
-					PCOL_R6DATA + " INTEGER, " +
-					PCOL_R6ONMASK + " INTEGER, " +
-					PCOL_R6OFFMASK + " INTEGER, " +
-					PCOL_R7DATA + " INTEGER, " +
-					PCOL_R7ONMASK + " INTEGER, " +
-					PCOL_R7OFFMASK + " INTEGER, " +
-					PCOL_R8DATA + " INTEGER, " +
-					PCOL_R8ONMASK + " INTEGER, " +
-					PCOL_R8OFFMASK + " INTEGER " + 
-					");"
-					);
-			
+			db.execSQL( "CREATE TABLE " + PTABLE_NAME + " (" + PCOL_ID
+						+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + PCOL_T1
+						+ " TEXT, " + PCOL_T2 + " TEXT, " + PCOL_T3 + " TEXT, "
+						+ PCOL_PH + " TEXT, " + PCOL_DP + " TEXT, " + PCOL_AP
+						+ " TEXT, " + PCOL_SAL + " TEXT, " + PCOL_ATOHI
+						+ " INTEGER, " + PCOL_ATOLO + " INTEGER, "
+						+ PCOL_LOGDATE + " TEXT, " + PCOL_RDATA + " INTEGER, "
+						+ PCOL_RONMASK + " INTEGER, " + PCOL_ROFFMASK
+						+ " INTEGER, " + PCOL_R1DATA + " INTEGER, "
+						+ PCOL_R1ONMASK + " INTEGER, " + PCOL_R1OFFMASK
+						+ " INTEGER, " + PCOL_R2DATA + " INTEGER, "
+						+ PCOL_R2ONMASK + " INTEGER, " + PCOL_R2OFFMASK
+						+ " INTEGER, " + PCOL_R3DATA + " INTEGER, "
+						+ PCOL_R3ONMASK + " INTEGER, " + PCOL_R3OFFMASK
+						+ " INTEGER, " + PCOL_R4DATA + " INTEGER, "
+						+ PCOL_R4ONMASK + " INTEGER, " + PCOL_R4OFFMASK
+						+ " INTEGER, " + PCOL_R5DATA + " INTEGER, "
+						+ PCOL_R5ONMASK + " INTEGER, " + PCOL_R5OFFMASK
+						+ " INTEGER, " + PCOL_R6DATA + " INTEGER, "
+						+ PCOL_R6ONMASK + " INTEGER, " + PCOL_R6OFFMASK
+						+ " INTEGER, " + PCOL_R7DATA + " INTEGER, "
+						+ PCOL_R7ONMASK + " INTEGER, " + PCOL_R7OFFMASK
+						+ " INTEGER, " + PCOL_R8DATA + " INTEGER, "
+						+ PCOL_R8ONMASK + " INTEGER, " + PCOL_R8OFFMASK
+						+ " INTEGER " + ");" );
+
 			// create TRIGGER for params table
-			db.execSQL("CREATE TRIGGER prune_params_entries INSERT ON " + PTABLE_NAME +
-					" BEGIN DELETE FROM " + PTABLE_NAME +
-					" WHERE " + PCOL_ID + " NOT IN " +
-					"(SELECT " + PCOL_ID + " FROM " + PTABLE_NAME + " ORDER BY " + PCOL_ID +
-					" DESC LIMIT " + PTABLE_MAX_COUNT + ");" +
-					"END;"
-					);
+			db.execSQL( "CREATE TRIGGER prune_params_entries INSERT ON "
+						+ PTABLE_NAME + " BEGIN DELETE FROM " + PTABLE_NAME
+						+ " WHERE " + PCOL_ID + " NOT IN " + "(SELECT "
+						+ PCOL_ID + " FROM " + PTABLE_NAME + " ORDER BY "
+						+ PCOL_ID + " DESC LIMIT " + PTABLE_MAX_COUNT + ");"
+						+ "END;" );
 		}
 	}
-	
+
 	private final DbHelper dbHelper;
-	
-	public RAData (Context context) {
-		this.dbHelper = new DbHelper(context);
-		Log.i(TAG, "Initialized RAData");
+
+	public RAData ( Context context ) {
+		this.dbHelper = new DbHelper( context );
+		Log.i( TAG, "Initialized RAData" );
 	}
-	
-	public void close() {
-		Log.d(TAG, "Close database");
+
+	public void close ( ) {
+		Log.d( TAG, "Close database" );
 		this.dbHelper.close();
 	}
-	
-	public void insert(ContentValues values) {
-		Log.d(TAG, "insert on " + values);
+
+	public void insert ( ContentValues values ) {
+		Log.d( TAG, "insert on " + values );
 		SQLiteDatabase db = this.dbHelper.getWritableDatabase();
 		try {
-			db.insert(PTABLE_NAME, null, values);
+			db.insert( PTABLE_NAME, null, values );
 		} finally {
 			db.close();
 		}
 	}
-	
-	private Cursor getData(String limit) throws SQLException {
+
+	private Cursor getData ( String limit, String selection )
+			throws SQLException {
 		SQLiteDatabase db = this.dbHelper.getReadableDatabase();
-		return db.query(PTABLE_NAME, 
-				null, 
-				null, 
-				null, 
-				null, 
-				null, 
-				PCOL_ID + " DESC", 
-				limit);
-	}
-	
-	public Cursor getLatestData() throws SQLException {
-		return getData("1");
-	}
-	
-	public Cursor getAllData() throws SQLException {
-		return getData(null);
+		return db.query(	PTABLE_NAME, null, selection, null, null, null,
+							PCOL_ID + " DESC", limit );
 	}
 
-//	public String[] getAllColumns() {
-//		// returns a string list of all the columns
-//		return new String [] {
-//				PCOL_ID, PCOL_T1, PCOL_T2, PCOL_T3, PCOL_PH, PCOL_DP,
-//				PCOL_AP, PCOL_SAL, PCOL_ATOHI, PCOL_ATOLO, 
-//				PCOL_LOGDATE, PCOL_RDATA, PCOL_RONMASK, PCOL_ROFFMASK
-//		};
-//	}
+	public Cursor getLatestData ( ) throws SQLException {
+		return getData( "1", null );
+	}
+
+	public Cursor getAllData ( ) throws SQLException {
+		return getData( null, null );
+	}
+
+	public Cursor getDataById ( long id ) throws SQLException {
+		return getData( null, PCOL_ID + "=" + id );
+	}
+
+	// public String[] getAllColumns() {
+	// // returns a string list of all the columns
+	// return new String [] {
+	// PCOL_ID, PCOL_T1, PCOL_T2, PCOL_T3, PCOL_PH, PCOL_DP,
+	// PCOL_AP, PCOL_SAL, PCOL_ATOHI, PCOL_ATOLO,
+	// PCOL_LOGDATE, PCOL_RDATA, PCOL_RONMASK, PCOL_ROFFMASK
+	// };
+	// }
+
+	public void deleteData ( ) {
+		SQLiteDatabase db = this.dbHelper.getWritableDatabase();
+		db.delete( PTABLE_NAME, null, null );
+		db.close();
+	}
 }

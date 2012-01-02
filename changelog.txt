@@ -49,4 +49,7 @@ Changelog of all the versions of AndroidStatus
  * always adding in colon (:) after label text
  * improved refreshing main display after preference change
  * added in ability to query device version, enter & exit feeding & water change modes
-
+ * add in link to forums
+ * added delete all history from history screen
+ 
+ 

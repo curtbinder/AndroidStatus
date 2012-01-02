@@ -466,7 +466,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public boolean onCreateOptionsMenu ( Menu menu ) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate( R.menu.main_menu, menu );
+		inflater.inflate( R.menu.status_menu, menu );
 		return true;
 	}
 

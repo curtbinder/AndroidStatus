@@ -84,6 +84,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="messageDownloadMessage">Labels downloaded and updated.\n\nPlease exit preferences to see updated labels</string>
     <string name="messageReadingMemory">Reading memory&#8230;</string>
     <string name="messageWritingMemory">Writing to memory&#8230;</string>
+    <string name="messageDeleteAllPrompt">Delete all history?</string>
+    <string name="messageDeleted">Deleted</string>
     <string name="labelFeedingMode">Feeding Mode</string>
     <string name="labelWaterMode">Water Change Mode</string>
     <string name="labelExitMode">Exit Mode</string>
@@ -377,5 +379,6 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp8Port7LabelTitle">Port 7 Label</string>
     <string name="prefExp8Port8LabelKey">exp8_port8_label</string>
     <string name="prefExp8Port8LabelTitle">Port 8 Label</string>
+    <string name="menu_params_delete">Delete</string>
 
 </resources>
