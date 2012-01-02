@@ -36,16 +36,7 @@ public class ParamsListActivity extends ListActivity {
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.paramslist );
 		rapp = (RAApplication) getApplication();
-		try {
-//			Cursor c = rapp.data.getAllData();
-//			startManagingCursor( c );
-//			showEvents( c );
-			updateData();
-		} catch ( SQLException e ) {
-			Log.d( TAG, "SQL Exception" );
-		} finally {
-			// rapp.getRAData().close();
-		}
+		updateData();
 	}
 
 	private void showEvents ( Cursor cursor ) {
@@ -55,11 +46,17 @@ public class ParamsListActivity extends ListActivity {
 					FROM, TO );
 		this.setListAdapter( adapter );
 	}
-	
-	private void updateData() {
-		Cursor c = rapp.data.getAllData();
-		startManagingCursor( c );
-		showEvents( c );
+
+	private void updateData ( ) {
+		try {
+			Cursor c = rapp.data.getAllData();
+			startManagingCursor( c );
+			showEvents( c );
+		} catch ( SQLException e ) {
+			Log.d( TAG, "SQL Exception" );
+		} finally {
+			// rapp.getRAData().close();
+		}
 	}
 
 	@Override
