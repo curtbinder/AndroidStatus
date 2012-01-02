@@ -27,7 +27,6 @@ TODO
 ** new activity for displaying errors
 ** error logger is a content provider for all activities
 
-* parameters activity allows for clicking on item and displaying all info in poppup window
 * ability to change label separator (give list to choose from)
 * improve relay mask image
 * ability to choose default memory tab: internal or commands
@@ -45,6 +44,7 @@ TODO
 ** ability to change update interval / query interval
 ** service stops when network connectivity stops
 ** ability to only update over wifi or data connection
+** add in start on boot
 
 * add in special permissions to send and receive messages
 

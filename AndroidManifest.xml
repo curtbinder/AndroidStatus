@@ -54,7 +54,11 @@
             android:label="@string/tabs_title"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
-
+        <activity
+            android:name=".HistoryPopupActivity"
+            android:label="@string/history_title"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
         <service android:name=".ControllerService" >
         </service>
     </application>

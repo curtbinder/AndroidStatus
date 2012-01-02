@@ -12,6 +12,7 @@
     <string name="params_title">Parameters History</string>
     <string name="memory_title">Internal Memory</string>
     <string name="commands_title">Commands</string>
+    <string name="history_title">History</string>
 
     <!-- Tabs for memory page -->
     <string name="tabs_title">Memory Pages</string>

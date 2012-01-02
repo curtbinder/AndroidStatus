@@ -3,6 +3,7 @@ package info.curtbinder.reefangel.phone;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
@@ -110,20 +111,8 @@ public class ParamsListActivity extends ListActivity {
 	protected void onListItemClick ( ListView l, View v, int position, long id ) {
 		// super.onListItemClick( l, v, position, id );
 		// Log.d(TAG, "Clicked: position:" + position + ", id:" + id);
-		Cursor c = null;
-		try {
-			c = rapp.data.getDataById( id );
-			c.moveToFirst();
-			StringBuilder s = new StringBuilder();
-			for ( int i = 0; i < c.getColumnCount(); i++ ) {
-				s.append( c.getString( i ) + ", " );
-			}
-			Log.d( TAG, "Data: " + s );
-		} catch ( SQLException e ) {
-			Log.d( TAG, "ItemClick SQLException" );
-		} finally {
-			if ( c != null )
-				c.close();
-		}
+		Intent i = new Intent( this, HistoryPopupActivity.class );
+		i.putExtra( RAData.PCOL_ID, id );
+		startActivity( i );
 	}
 }
