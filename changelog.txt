@@ -52,5 +52,5 @@ Changelog of all the versions of AndroidStatus
  * add in link to forums
  * added delete all history from history screen
  * clicking on entry in history screen shows full information (needs to show relay info still)
- 
+ * when changing bannerid, update the summary on the "Download labels" item to reflect new id
  

@@ -27,6 +27,7 @@ public class PrefsActivity extends PreferenceActivity implements
 	private Preference portkey;
 	private Preference hostkey;
 	private Preference useridkey;
+	private Preference downloadkey;
 
 	RAApplication rapp;
 	PrefsReceiver receiver;
@@ -76,21 +77,18 @@ public class PrefsActivity extends PreferenceActivity implements
 				} );
 		Preference raForum =
 				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefForumKey ) );
-		raForum
-				.setOnPreferenceClickListener( new OnPreferenceClickListener() {
+						.findPreference( rapp.getString( R.string.prefForumKey ) );
+		raForum.setOnPreferenceClickListener( new OnPreferenceClickListener() {
 
-					@Override
-					public boolean onPreferenceClick ( Preference preference ) {
-						Intent browserIntent =
-								new Intent(
-									Intent.ACTION_VIEW,
-									Uri.parse( rapp
-											.getString( R.string.forumReefangel ) ) );
-						startActivity( browserIntent );
-						return true;
-					}
-				} );
+			@Override
+			public boolean onPreferenceClick ( Preference preference ) {
+				Intent browserIntent =
+						new Intent( Intent.ACTION_VIEW, Uri.parse( rapp
+								.getString( R.string.forumReefangel ) ) );
+				startActivity( browserIntent );
+				return true;
+			}
+		} );
 		Preference license =
 				getPreferenceScreen()
 						.findPreference(	rapp.getString( R.string.prefLicenseKey ) );
@@ -103,55 +101,56 @@ public class PrefsActivity extends PreferenceActivity implements
 			}
 		} );
 
-		Preference download =
+		downloadkey =
 				getPreferenceScreen()
 						.findPreference(	rapp.getString( R.string.prefControllerLabelsDownloadKey ) );
-		download.setOnPreferenceClickListener( new OnPreferenceClickListener() {
-			@Override
-			public boolean onPreferenceClick ( Preference preference ) {
+		downloadkey
+				.setOnPreferenceClickListener( new OnPreferenceClickListener() {
+					@Override
+					public boolean onPreferenceClick ( Preference preference ) {
 
-				AlertDialog.Builder builder =
-						new AlertDialog.Builder( PrefsActivity.this );
-				builder.setMessage( "Download all labels for "
-											+ rapp.getPrefUserId() + "?" )
-						.setCancelable( false )
-						.setPositiveButton( rapp.getString( R.string.yesButton ),
-											new DialogInterface.OnClickListener() {
-												public void onClick (
-														DialogInterface dialog,
-														int id ) {
-													// launch download
-													Log.d(	TAG,
-															"Download labels" );
-													Intent i =
-															new Intent(
-																MessageCommands.LABEL_QUERY_INTENT );
-													rapp.sendBroadcast( i );
-													dialog.dismiss();
-													Toast.makeText( PrefsActivity.this,
-																	rapp.getString( R.string.messageDownloadLabels ),
-																	Toast.LENGTH_SHORT )
-															.show();
-												}
-											} )
-						.setNegativeButton( rapp.getString( R.string.noButton ),
-											new DialogInterface.OnClickListener() {
-												public void onClick (
-														DialogInterface dialog,
-														int id ) {
-													Log.d(	TAG,
-															"Cancel download" );
-													dialog.cancel();
-												}
-											} );
+						AlertDialog.Builder builder =
+								new AlertDialog.Builder( PrefsActivity.this );
+						builder.setMessage( "Download all labels for "
+													+ rapp.getPrefUserId()
+													+ "?" )
+								.setCancelable( false )
+								.setPositiveButton( rapp.getString( R.string.yesButton ),
+													new DialogInterface.OnClickListener() {
+														public void onClick (
+																DialogInterface dialog,
+																int id ) {
+															// launch download
+															Log.d(	TAG,
+																	"Download labels" );
+															Intent i =
+																	new Intent(
+																		MessageCommands.LABEL_QUERY_INTENT );
+															rapp.sendBroadcast( i );
+															dialog.dismiss();
+															Toast.makeText( PrefsActivity.this,
+																			rapp.getString( R.string.messageDownloadLabels ),
+																			Toast.LENGTH_SHORT )
+																	.show();
+														}
+													} )
+								.setNegativeButton( rapp.getString( R.string.noButton ),
+													new DialogInterface.OnClickListener() {
+														public void onClick (
+																DialogInterface dialog,
+																int id ) {
+															Log.d(	TAG,
+																	"Cancel download" );
+															dialog.cancel();
+														}
+													} );
 
-				AlertDialog alert = builder.create();
-				alert.show();
-				return true;
-			}
-		} );
-		CharSequence cs = download.getSummary() + " " + rapp.getPrefUserId();
-		download.setSummary( cs );
+						AlertDialog alert = builder.create();
+						alert.show();
+						return true;
+					}
+				} );
+		updateDownloadLabelUserId( rapp.getPrefUserId() );
 	}
 
 	@Override
@@ -164,6 +163,13 @@ public class PrefsActivity extends PreferenceActivity implements
 	protected void onResume ( ) {
 		super.onResume();
 		registerReceiver( receiver, filter );
+	}
+
+	private void updateDownloadLabelUserId ( String userId ) {
+		CharSequence cs =
+				rapp.getString( R.string.prefControllerLabelsDownloadSummary )
+						+ " " + userId;
+		downloadkey.setSummary( cs );
 	}
 
 	@Override
@@ -204,12 +210,12 @@ public class PrefsActivity extends PreferenceActivity implements
 			// host validation here
 			Log.d( TAG, "Validate entered host" );
 			String h = newValue.toString();
-			
-//			Hosts must: 
-//				- not start with 'http://' 
-//				- only contain: alpha, number, _, -, . 
-//				- end with: alpha or number
-			 
+
+			// Hosts must:
+			// - not start with 'http://'
+			// - only contain: alpha, number, _, -, .
+			// - end with: alpha or number
+
 			if ( !h.matches( HOST_PATTERN ) ) {
 				// invalid host
 				Log.d( TAG, "Invalid host" );
@@ -231,6 +237,7 @@ public class PrefsActivity extends PreferenceActivity implements
 								Toast.LENGTH_SHORT ).show();
 				return false;
 			}
+			updateDownloadLabelUserId( u );
 		}
 		return true;
 	}
@@ -247,9 +254,9 @@ public class PrefsActivity extends PreferenceActivity implements
 		@Override
 		public void onReceive ( Context context, Intent intent ) {
 			Log.d( TAG, "Warn about labels" );
-//			Toast.makeText( PrefsActivity.this,
-//							rapp.getString( R.string.messageDownloadLabelsComplete ),
-//							Toast.LENGTH_LONG ).show();
+			// Toast.makeText( PrefsActivity.this,
+			// rapp.getString( R.string.messageDownloadLabelsComplete ),
+			// Toast.LENGTH_LONG ).show();
 			AlertDialog.Builder builder =
 					new AlertDialog.Builder( PrefsActivity.this );
 			builder.setMessage( rapp.getString( R.string.messageDownloadMessage ) )

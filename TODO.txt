@@ -16,7 +16,6 @@ TODO
 ** additional relay labels screen based on quantity of relay labels installed
 ** after download, refresh the labels so they appear in the menus without
    having to exit the preferences activity 
-* when changing bannerid, update the summary on the "Download labels" item to reflect new id
 
 * add in an error status line with error displaying
 
