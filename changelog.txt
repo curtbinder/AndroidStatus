@@ -38,7 +38,7 @@ Changelog of all the versions of AndroidStatus
  0.4
  * added in message broadcast receivers
  * added icons to the menu items
- * added ability to change PH label
+ * added ability to change PH & Salinity labels
  * switched to service to communicate with controller
  * added memory reading/writing
  * process expansion relay data from xml (stored but not displayed)
