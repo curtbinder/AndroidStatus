@@ -108,6 +108,11 @@
                         android:key="@string/prefAPLabelKey"
                         android:summary="@string/prefAPLabelSummary"
                         android:title="@string/prefAPLabelTitle" />
+                    <EditTextPreference
+                        android:defaultValue="@string/salinity_label"
+                        android:key="@string/prefSalinityLabelKey"
+                        android:summary="@string/prefSalinityLabelSummary"
+                        android:title="@string/prefSalinityLabelTitle" />
                 </PreferenceScreen>
                 <PreferenceScreen
                     android:key="main_relay_labels"

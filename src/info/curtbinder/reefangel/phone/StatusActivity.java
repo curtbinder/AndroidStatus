@@ -46,11 +46,11 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 			new ToggleButton[Controller.MAX_RELAY_PORTS];
 	private View[] mainPortMaskBtns = new View[Controller.MAX_RELAY_PORTS];
 
-//	private TextView[] exp1PortLabels =
-//			new TextView[Controller.MAX_RELAY_PORTS];
-//	private ToggleButton[] exp1PortBtns =
-//			new ToggleButton[Controller.MAX_RELAY_PORTS];
-//	private View[] exp1PortMaskBtns = new View[Controller.MAX_RELAY_PORTS];
+	// private TextView[] exp1PortLabels =
+	// new TextView[Controller.MAX_RELAY_PORTS];
+	// private ToggleButton[] exp1PortBtns =
+	// new ToggleButton[Controller.MAX_RELAY_PORTS];
+	// private View[] exp1PortMaskBtns = new View[Controller.MAX_RELAY_PORTS];
 
 	// Message Receivers
 	StatusReceiver receiver;
@@ -161,8 +161,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		phLabel.setText( rapp.getPrefPHLabel() + separator );
 		dpLabel.setText( rapp.getPrefDPLabel() + separator );
 		apLabel.setText( rapp.getPrefAPLabel() + separator );
-		salinityLabel
-				.setText( getString( R.string.salinity_label ) + separator );
+		salinityLabel.setText( rapp.getPrefSalinityLabel() + separator );
 
 		for ( int i = 0; i < 8; i++ ) {
 			mainPortLabels[i].setText( rapp.getPrefMainRelayLabel( i + 1 )
@@ -404,8 +403,9 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 			} else if ( action.equals( MessageCommands.ERROR_MESSAGE_INTENT ) ) {
 				Log.d( TAG, intent
 						.getStringExtra( MessageCommands.ERROR_MESSAGE_STRING ) );
-				updateTime.setText( intent
-						.getStringExtra( MessageCommands.ERROR_MESSAGE_STRING ) );
+				updateTime
+						.setText( intent
+								.getStringExtra( MessageCommands.ERROR_MESSAGE_STRING ) );
 			}
 		}
 	}

@@ -164,7 +164,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefContributorTitle">Contributors</string>
     <string name="prefContributorSummary">Roberto Imai, Mathieu Brisson</string>
     <string name="prefCopyrightTitle">Copyright</string>
-    <string name="prefCopyrightSummary">Copyright 2011-12 Curt Binder</string>
+    <string name="prefCopyrightSummary">Copyright 2011&#8211;12 Curt Binder</string>
     <string name="prefLicenseKey">license</string>
     <string name="prefLicenseTitle">License</string>
     <string name="prefLicenseSummary">This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</string>
@@ -218,6 +218,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefAPLabelKey">ap_label</string>
     <string name="prefAPLabelTitle">AP Label</string>
     <string name="prefAPLabelSummary">Actinic PWM label</string>
+    <string name="prefSalinityLabelKey">salinity_label</string>
+    <string name="prefSalinityLabelTitle">Salinity Label</string>
+    <string name="prefSalinityLabelSummary">Salinity probe label</string>
     <string name="prefMainRelayTitle">Main Relay</string>
     <string name="prefMainRelaySummary">Change the labels of the main relay</string>
     <string name="prefMainPort1LabelKey">main_port1_label</string>

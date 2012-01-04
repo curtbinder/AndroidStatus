@@ -307,6 +307,11 @@ public class RAApplication extends Application {
 		return prefs.getString( getString( R.string.prefAPLabelKey ),
 								getString( R.string.ap_label ) );
 	}
+	
+	public String getPrefSalinityLabel ( ) {
+		return prefs.getString( getString( R.string.prefSalinityLabelKey ) ,
+		                        getString( R.string.salinity_label) );
+	}
 
 	public String getPrefMainRelayLabel ( int port ) {
 		return getPrefRelayLabel(0, port-1);
