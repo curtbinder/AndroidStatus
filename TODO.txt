@@ -19,8 +19,6 @@ TODO
 
 * add in an error status line with error displaying
 
-* cleanup & reorganize string names
-
 * add in error log
 ** logs errors to database
 ** new activity for displaying errors
