@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="info.curtbinder.reefangel.phone"
-    android:versionCode="5"
+    android:versionCode="6"
     android:versionName="@string/app_version" >
 
     <uses-sdk
@@ -25,38 +25,38 @@
         </activity>
         <activity
             android:name=".AboutActivity"
-            android:label="@string/about_title"
+            android:label="@string/titleAbout"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
             android:name=".LicenseActivity"
-            android:label="@string/license_title"
+            android:label="@string/titleLicense"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
             android:name=".PrefsActivity"
-            android:label="@string/prefs_title" >
+            android:label="@string/titlePrefs" >
         </activity>
         <activity
             android:name=".ParamsListActivity"
-            android:label="@string/params_title" >
+            android:label="@string/titleParams" >
         </activity>
         <activity
             android:name=".MemoryActivity"
-            android:label="@string/memory_title" >
+            android:label="@string/titleMemory" >
         </activity>
         <activity
             android:name=".CommandsActivity"
-            android:label="@string/commands_title" >
+            android:label="@string/titleCommands" >
         </activity>
         <activity
             android:name=".MemoryTabsActivity"
-            android:label="@string/tabs_title"
+            android:label="@string/titleTabs"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
             android:name=".HistoryPopupActivity"
-            android:label="@string/history_title"
+            android:label="@string/titleHistory"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <service android:name=".ControllerService" >

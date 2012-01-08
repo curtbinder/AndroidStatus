@@ -3,23 +3,23 @@
 
     <item
         android:id="@+id/settings"
-        android:alphabeticShortcut="@string/settings_shortcut"
+        android:alphabeticShortcut="@string/shortcutSettings"
         android:icon="@android:drawable/ic_menu_preferences"
-        android:title="@string/settings_menu"/>
+        android:title="@string/menuMainSettings"/>
     <item
         android:id="@+id/params"
-        android:alphabeticShortcut="@string/params_shortcut"
+        android:alphabeticShortcut="@string/shortcutParams"
         android:icon="@android:drawable/ic_menu_recent_history"
-        android:title="@string/params_menu"/>
+        android:title="@string/menuMainParams"/>
     <item
         android:id="@+id/memory"
-        android:alphabeticShortcut="@string/memory_shortcut"
+        android:alphabeticShortcut="@string/shortcutMemory"
         android:icon="@android:drawable/ic_menu_agenda"
-        android:title="@string/memory_menu"/>
+        android:title="@string/menuMainMemory"/>
     <item
         android:id="@+id/about"
-        android:alphabeticShortcut="@string/about_shortcut"
+        android:alphabeticShortcut="@string/shortcutAbout"
         android:icon="@android:drawable/ic_menu_info_details"
-        android:title="@string/about_menu"/>
+        android:title="@string/menuMainAbout"/>
 
 </menu>

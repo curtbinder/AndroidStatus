@@ -10,7 +10,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/temp1_label" />
+            android:text="@string/labelTemp1" />
 
         <TextView
             android:id="@+id/historyT1"
@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ph_label" />
+            android:text="@string/labelPH" />
 
         <TextView
             android:id="@+id/historyPH"
@@ -39,7 +39,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/temp2_label" />
+            android:text="@string/labelTemp2" />
 
         <TextView
             android:id="@+id/historyT2"
@@ -51,7 +51,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dp_label" />
+            android:text="@string/labelDP" />
 
         <TextView
             android:id="@+id/historyDP"
@@ -68,7 +68,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/temp3_label" />
+            android:text="@string/labelTemp3" />
 
         <TextView
             android:id="@+id/historyT3"
@@ -80,7 +80,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ap_label" />
+            android:text="@string/labelAP" />
 
         <TextView
             android:id="@+id/historyAP"
@@ -97,7 +97,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ato_low_label" />
+            android:text="@string/labelAtoLow" />
 
         <TextView
             android:id="@+id/historyAtoLo"
@@ -109,7 +109,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ato_high_label" />
+            android:text="@string/labelAtoHigh" />
 
         <TextView
             android:id="@+id/historyAtoHi"
@@ -126,7 +126,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/salinity_label" />
+            android:text="@string/labelSalinity" />
 
         <TextView
             android:id="@+id/historySalinity"
@@ -141,6 +141,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/okButton" />
+        android:text="@string/buttonOk" />
 
 </TableLayout>

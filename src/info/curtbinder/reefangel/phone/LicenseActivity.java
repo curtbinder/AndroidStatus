@@ -9,19 +9,19 @@ import android.widget.TextView;
 
 public class LicenseActivity extends Activity {
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.popup);
-		
-		TextView c = (TextView) findViewById(R.id.popupContent);
-		c.setText(R.string.license_text);
-		
-		Button b = (Button) findViewById(R.id.popupButton);
-		b.setText(R.string.okButton);
-		b.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
+	protected void onCreate ( Bundle savedInstanceState ) {
+		super.onCreate( savedInstanceState );
+		setContentView( R.layout.popup );
+
+		TextView c = (TextView) findViewById( R.id.popupContent );
+		c.setText( R.string.textLicense );
+
+		Button b = (Button) findViewById( R.id.popupButton );
+		b.setText( R.string.buttonOk );
+		b.setOnClickListener( new OnClickListener() {
+			public void onClick ( View v ) {
 				finish();
 			}
-		});
+		} );
 	}
 }

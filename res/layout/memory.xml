@@ -11,7 +11,7 @@
 
         <TextView
             style="@style/UpdateText"
-            android:text="@string/memoryDescription" />
+            android:text="@string/descriptionMemory" />
         <!-- Location drop down menu -->
 
         <Spinner android:id="@+id/spinMemoryLocation" />
@@ -19,7 +19,7 @@
 
         <TableRow android:id="@+id/locationRow" >
 
-            <TextView android:text="@string/locationLabel" />
+            <TextView android:text="@string/labelLocation" />
 
             <EditText
                 android:id="@+id/locationText"
@@ -31,7 +31,7 @@
 
             <TextView
                 android:layout_gravity="center_vertical"
-                android:text="@string/typeLabel" />
+                android:text="@string/labelType" />
 
             <TableLayout android:layout_width="fill_parent" >
 
@@ -40,12 +40,12 @@
                     <RadioButton
                         android:id="@+id/radioButtonByte"
                         android:layout_weight="1"
-                        android:text="@string/typeByteLabel" />
+                        android:text="@string/radioByte" />
 
                     <RadioButton
                         android:id="@+id/radioButtonInt"
                         android:layout_weight="1"
-                        android:text="@string/typeIntLabel" />
+                        android:text="@string/radioInt" />
                 </RadioGroup>
             </TableLayout>
         </TableRow>
@@ -53,7 +53,7 @@
 
         <TableRow>
 
-            <TextView android:text="@string/valueLabel" />
+            <TextView android:text="@string/labelValue" />
 
             <EditText
                 android:id="@+id/valueText"
@@ -76,13 +76,13 @@
                         android:id="@+id/buttonRead"
                         android:layout_width="fill_parent"
                         android:layout_weight="1"
-                        android:text="@string/readButtonLabel" />
+                        android:text="@string/buttonRead" />
 
                     <Button
                         android:id="@+id/buttonWrite"
                         android:layout_width="fill_parent"
                         android:layout_weight="1"
-                        android:text="@string/writeButtonLabel" />
+                        android:text="@string/buttonWrite" />
                 </TableRow>
             </TableLayout>
         </TableRow>

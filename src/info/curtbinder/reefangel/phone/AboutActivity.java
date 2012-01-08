@@ -18,11 +18,11 @@ public class AboutActivity extends Activity {
 				String.format(	"%s %s\n\n%s",
 								getString( R.string.prefVersionTitle ),
 								getString( R.string.app_version ),
-								getString( R.string.about_text ) );
+								getString( R.string.textAbout ) );
 		c.setText( s );
 
 		Button b = (Button) findViewById( R.id.popupButton );
-		b.setText( R.string.okButton );
+		b.setText( R.string.buttonOk );
 		b.setOnClickListener( new OnClickListener() {
 			public void onClick ( View v ) {
 				finish();

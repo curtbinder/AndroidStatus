@@ -10,7 +10,7 @@
 
         <TextView
             style="@style/UpdateText"
-            android:text="@string/last_updated" />
+            android:text="@string/labelLastUpdated" />
 
         <TextView
             android:id="@+id/updated"
@@ -18,7 +18,7 @@
 
         <Button
             android:id="@+id/refresh_button"
-            android:text="@string/refresh_label" />
+            android:text="@string/buttonRefresh" />
     </TableRow>
 
     <ScrollView
@@ -27,12 +27,12 @@
 
         <TableLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="top" >
 
             <TextView
                 style="@style/ParamsText"
-                android:text="@string/status_label" />
+                android:text="@string/labelStatus" />
 
             <TableRow style="@style/RARow" >
 
@@ -107,8 +107,7 @@
 
                 <TextView
                     android:id="@+id/salinity_label"
-                    style="@style/ParamsText.Labels"
-                    android:text="@string/salinity_label" />
+                    style="@style/ParamsText.Labels" />
 
                 <TextView
                     android:id="@+id/salinity"

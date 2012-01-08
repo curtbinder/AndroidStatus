@@ -140,16 +140,16 @@ public class ControllerTask implements Runnable {
 			int available;
 			byte[] b;
 			int nRead = 0;
-//			int count = 1;
+			// int count = 1;
 			while ( (available = i.available()) > 0 ) {
 				// Check for an interruption
-//				Log.d(TAG, "Count: " + count++ + ", size: " + available);
+				// Log.d(TAG, "Count: " + count++ + ", size: " + available);
 				if ( Thread.interrupted() )
 					throw new InterruptedException();
 
 				b = new byte[available];
 				nRead = i.read( b, 0, available );
-				s.append(new String(b, 0, nRead));
+				s.append( new String( b, 0, nRead ) );
 			}
 			broadcastUpdateStatus( R.string.statusReadResponse );
 		} catch ( InterruptedException e ) {
@@ -220,13 +220,12 @@ public class ControllerTask implements Runnable {
 	// Broadcast Stuff
 	private void broadcastCommandResponse ( int id, String response ) {
 		Log.d(	TAG,
-				rapp.getString( id )
-						+ rapp.getString( R.string.label_separator ) + " "
-						+ response );
+				rapp.getString( id ) + rapp.getString( R.string.labelSeparator )
+						+ " " + response );
 		Intent i = new Intent( MessageCommands.COMMAND_RESPONSE_INTENT );
 		i.putExtra( MessageCommands.COMMAND_RESPONSE_STRING,
 					rapp.getString( id )
-							+ rapp.getString( R.string.label_separator ) + " "
+							+ rapp.getString( R.string.labelSeparator ) + " "
 							+ response );
 		rapp.sendBroadcast( i );
 	}

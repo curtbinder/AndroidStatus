@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 public class StatusActivity extends BaseActivity implements OnClickListener {
-	private static final String TAG = "RAStatus";
+	private static final String TAG = StatusActivity.class.getSimpleName();
 
 	// Display views
 	private View refreshButton;
@@ -154,7 +154,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		// showMessageText = false;
 
 		// Labels
-		String separator = getString( R.string.label_separator );
+		String separator = getString( R.string.labelSeparator );
 		t1Label.setText( rapp.getPrefT1Label() + separator );
 		t2Label.setText( rapp.getPrefT2Label() + separator );
 		t3Label.setText( rapp.getPrefT3Label() + separator );

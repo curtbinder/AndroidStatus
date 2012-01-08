@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class XMLHandler extends DefaultHandler {
 
-	private static final String TAG = "XML";
+	private static final String TAG = XMLHandler.class.getSimpleName();
 	private String currentElementText = "";
 	private String requestType = "";
 	private Controller ra;

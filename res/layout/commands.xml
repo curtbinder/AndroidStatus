@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:text="@string/modesDescription" />
+            android:text="@string/descriptionModes" />
 
         <TableRow
             android:layout_width="wrap_content"
@@ -28,21 +28,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/feedingButton" />
+                android:text="@string/buttonFeeding" />
 
             <Button
                 android:id="@+id/command_button_water"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/waterButton" />
+                android:text="@string/buttonWater" />
 
             <Button
                 android:id="@+id/command_button_exit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/exitButton" />
+                android:text="@string/buttonExit" />
         </TableRow>
 
         <TableRow
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:text="@string/versionLabel" />
+                android:text="@string/labelVersion" />
 
             <TextView
                 android:id="@+id/textInstalledVersion"
@@ -70,7 +70,7 @@
             android:id="@+id/command_button_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/versionButton" />
+            android:text="@string/buttonVersion" />
     </TableLayout>
 
 </ScrollView>

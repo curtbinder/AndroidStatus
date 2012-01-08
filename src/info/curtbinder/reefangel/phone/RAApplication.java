@@ -224,14 +224,14 @@ public class RAApplication extends Application {
 									R.string.prefExp8Port7LabelKey,
 									R.string.prefExp8Port8LabelKey } };
 		relayDefaultLabels =
-				new int[] { R.string.port1_label,
-							R.string.port2_label,
-							R.string.port3_label,
-							R.string.port4_label,
-							R.string.port5_label,
-							R.string.port6_label,
-							R.string.port7_label,
-							R.string.port8_label };
+				new int[] { R.string.labelPort1,
+							R.string.labelPort2,
+							R.string.labelPort3,
+							R.string.labelPort4,
+							R.string.labelPort5,
+							R.string.labelPort6,
+							R.string.labelPort7,
+							R.string.labelPort8 };
 	}
 
 	public boolean isCommunicateController ( ) {
@@ -280,37 +280,37 @@ public class RAApplication extends Application {
 
 	public String getPrefT1Label ( ) {
 		return prefs.getString( getString( R.string.prefT1LabelKey ),
-								getString( R.string.temp1_label ) );
+								getString( R.string.labelTemp1 ) );
 	}
 
 	public String getPrefT2Label ( ) {
 		return prefs.getString( getString( R.string.prefT2LabelKey ),
-								getString( R.string.temp2_label ) );
+								getString( R.string.labelTemp2 ) );
 	}
 
 	public String getPrefT3Label ( ) {
 		return prefs.getString( getString( R.string.prefT3LabelKey ),
-								getString( R.string.temp3_label ) );
+								getString( R.string.labelTemp3 ) );
 	}
 
 	public CharSequence getPrefPHLabel ( ) {
 		return prefs.getString( getString( R.string.prefPHLabelKey ),
-								getString( R.string.ph_label ) );
+								getString( R.string.labelPH ) );
 	}
 
 	public String getPrefDPLabel ( ) {
 		return prefs.getString( getString( R.string.prefDPLabelKey ),
-								getString( R.string.dp_label ) );
+								getString( R.string.labelDP ) );
 	}
 
 	public String getPrefAPLabel ( ) {
 		return prefs.getString( getString( R.string.prefAPLabelKey ),
-								getString( R.string.ap_label ) );
+								getString( R.string.labelAP ) );
 	}
 	
 	public String getPrefSalinityLabel ( ) {
 		return prefs.getString( getString( R.string.prefSalinityLabelKey ) ,
-		                        getString( R.string.salinity_label) );
+		                        getString( R.string.labelSalinity) );
 	}
 
 	public String getPrefMainRelayLabel ( int port ) {

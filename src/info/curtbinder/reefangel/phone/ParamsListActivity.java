@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 public class ParamsListActivity extends ListActivity {
 
-	private static final String TAG = "RAParamsList";
+	private static final String TAG = ParamsListActivity.class.getSimpleName();
 	private static final int[] TO = { R.id.plog, R.id.pt1, R.id.pt2, R.id.pt3,
 	/*
 	 * R.id.pph, R.id.pdp, R.id.pap, R.id.psal, R.id.patoh, R.id.patol, R.id.pr,
@@ -75,7 +75,7 @@ public class ParamsListActivity extends ListActivity {
 						new AlertDialog.Builder( ParamsListActivity.this );
 				builder.setMessage( rapp.getString( R.string.messageDeleteAllPrompt ) )
 						.setCancelable( false )
-						.setPositiveButton( rapp.getString( R.string.yesButton ),
+						.setPositiveButton( rapp.getString( R.string.buttonYes ),
 											new DialogInterface.OnClickListener() {
 												public void onClick (
 														DialogInterface dialog,
@@ -90,7 +90,7 @@ public class ParamsListActivity extends ListActivity {
 													updateData();
 												}
 											} )
-						.setNegativeButton( rapp.getString( R.string.noButton ),
+						.setNegativeButton( rapp.getString( R.string.buttonNo ),
 											new DialogInterface.OnClickListener() {
 												public void onClick (
 														DialogInterface dialog,

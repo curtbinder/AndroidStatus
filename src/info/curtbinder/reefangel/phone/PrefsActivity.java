@@ -18,7 +18,7 @@ import android.widget.Toast;
 public class PrefsActivity extends PreferenceActivity implements
 		OnPreferenceChangeListener {
 
-	private static final String TAG = "RAPrefs";
+	private static final String TAG = PrefsActivity.class.getSimpleName();
 	private static final String NUMBER_PATTERN = "\\d+";
 	private static final String HOST_PATTERN =
 			"^(?i:[[0-9][a-z]]+)(?i:[\\w\\.\\-]*)(?i:[[0-9][a-z]]+)$";
@@ -115,7 +115,7 @@ public class PrefsActivity extends PreferenceActivity implements
 													+ rapp.getPrefUserId()
 													+ "?" )
 								.setCancelable( false )
-								.setPositiveButton( rapp.getString( R.string.yesButton ),
+								.setPositiveButton( rapp.getString( R.string.buttonYes ),
 													new DialogInterface.OnClickListener() {
 														public void onClick (
 																DialogInterface dialog,
@@ -134,7 +134,7 @@ public class PrefsActivity extends PreferenceActivity implements
 																	.show();
 														}
 													} )
-								.setNegativeButton( rapp.getString( R.string.noButton ),
+								.setNegativeButton( rapp.getString( R.string.buttonNo ),
 													new DialogInterface.OnClickListener() {
 														public void onClick (
 																DialogInterface dialog,
@@ -261,7 +261,7 @@ public class PrefsActivity extends PreferenceActivity implements
 					new AlertDialog.Builder( PrefsActivity.this );
 			builder.setMessage( rapp.getString( R.string.messageDownloadMessage ) )
 					.setCancelable( false )
-					.setPositiveButton( rapp.getString( R.string.okButton ),
+					.setPositiveButton( rapp.getString( R.string.buttonOk ),
 										new DialogInterface.OnClickListener() {
 											public void onClick (
 													DialogInterface dialog,
