@@ -248,6 +248,12 @@ public final class R {
          */
         public static final int minModesVersion=0x7f070047;
         public static final int minNewStatus=0x7f070048;
+        public static final int permissionQueryStatusDescription=0x7f070123;
+        /**  Permissions 
+         */
+        public static final int permissionQueryStatusLabel=0x7f070122;
+        public static final int permissionSendCommandDescription=0x7f070125;
+        public static final int permissionSendCommandLabel=0x7f070124;
         public static final int prefAPLabelKey=0x7f0700ba;
         public static final int prefAPLabelSummary=0x7f0700bc;
         public static final int prefAPLabelTitle=0x7f0700bb;

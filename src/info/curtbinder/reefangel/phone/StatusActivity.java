@@ -85,7 +85,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void onResume ( ) {
 		super.onResume();
-		registerReceiver( receiver, filter );
+		registerReceiver( receiver, filter, Permissions.QUERY_STATUS, null );
 		updateViewsVisibility();
 		updateDisplay();
 	}
@@ -326,7 +326,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 	private void launchStatusTask ( ) {
 		Log.d( TAG, "launchStatusTask" );
 		Intent i = new Intent( MessageCommands.QUERY_STATUS_INTENT );
-		sendBroadcast( i );
+		sendBroadcast( i, Permissions.QUERY_STATUS );
 	}
 
 	private void launchRelayToggleTask ( int relay, int status ) {
@@ -334,7 +334,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		Intent i = new Intent( MessageCommands.TOGGLE_RELAY_INTENT );
 		i.putExtra( MessageCommands.TOGGLE_RELAY_PORT_INT, relay );
 		i.putExtra( MessageCommands.TOGGLE_RELAY_MODE_INT, status );
-		sendBroadcast( i );
+		sendBroadcast( i, Permissions.SEND_COMMAND );
 	}
 
 	public void updateDisplay ( ) {

@@ -126,7 +126,8 @@ public class PrefsActivity extends PreferenceActivity implements
 															Intent i =
 																	new Intent(
 																		MessageCommands.LABEL_QUERY_INTENT );
-															rapp.sendBroadcast( i );
+															rapp.sendBroadcast( i,
+																				Permissions.SEND_COMMAND );
 															dialog.dismiss();
 															Toast.makeText( PrefsActivity.this,
 																			rapp.getString( R.string.messageDownloadLabels ),
@@ -162,7 +163,7 @@ public class PrefsActivity extends PreferenceActivity implements
 	@Override
 	protected void onResume ( ) {
 		super.onResume();
-		registerReceiver( receiver, filter );
+		registerReceiver( receiver, filter, Permissions.SEND_COMMAND, null );
 	}
 
 	private void updateDownloadLabelUserId ( String userId ) {

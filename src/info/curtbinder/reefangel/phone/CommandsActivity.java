@@ -46,7 +46,7 @@ public class CommandsActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void onResume ( ) {
 		super.onResume();
-		registerReceiver( receiver, filter );
+		registerReceiver( receiver, filter, Permissions.SEND_COMMAND, null );
 	}
 
 	private void findViews ( ) {
@@ -88,7 +88,7 @@ public class CommandsActivity extends BaseActivity implements OnClickListener {
 							Globals.requestExitMode );
 				break;
 		}
-		sendBroadcast( i );
+		sendBroadcast( i, Permissions.SEND_COMMAND );
 	}
 
 	class CommandsReceiver extends BroadcastReceiver {

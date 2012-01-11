@@ -124,7 +124,7 @@ public class ControllerTask implements Runnable {
 				Intent i = new Intent( MessageCommands.VERSION_RESPONSE_INTENT );
 				i.putExtra( MessageCommands.VERSION_RESPONSE_STRING,
 							xml.getVersion() );
-				rapp.sendBroadcast( i );
+				rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
 			}
 		}
 	}
@@ -227,7 +227,7 @@ public class ControllerTask implements Runnable {
 					rapp.getString( id )
 							+ rapp.getString( R.string.labelSeparator ) + " "
 							+ response );
-		rapp.sendBroadcast( i );
+		rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
 	}
 
 	private void broadcastLabelsResponse ( Controller ra ) {
@@ -252,7 +252,7 @@ public class ControllerTask implements Runnable {
 		}
 		// Tell the activity we updated the labels
 		Intent intent = new Intent( MessageCommands.LABEL_RESPONSE_INTENT );
-		rapp.sendBroadcast( intent );
+		rapp.sendBroadcast( intent, Permissions.SEND_COMMAND );
 	}
 
 	private void broadcastMemoryResponse ( String response, boolean wasWrite ) {
@@ -260,7 +260,7 @@ public class ControllerTask implements Runnable {
 		Intent i = new Intent( MessageCommands.MEMORY_RESPONSE_INTENT );
 		i.putExtra( MessageCommands.MEMORY_RESPONSE_STRING, response );
 		i.putExtra( MessageCommands.MEMORY_RESPONSE_WRITE_BOOLEAN, wasWrite );
-		rapp.sendBroadcast( i );
+		rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
 	}
 
 	private void broadcastUpdateDisplayData ( Controller ra ) {
@@ -311,14 +311,14 @@ public class ControllerTask implements Runnable {
 		i.putExtra( RAData.PCOL_R8ONMASK, ra.getExpRelay( 8 ).getRelayOnMask() );
 		i.putExtra( RAData.PCOL_R8OFFMASK, ra.getExpRelay( 8 )
 				.getRelayOffMask() );
-		rapp.sendBroadcast( i );
+		rapp.sendBroadcast( i, Permissions.QUERY_STATUS );
 	}
 
 	private void broadcastUpdateStatus ( int msgid ) {
 		// Log.d(TAG, "broadcastUpdateStatus");
 		Intent i = new Intent( MessageCommands.UPDATE_STATUS_INTENT );
 		i.putExtra( MessageCommands.UPDATE_STATUS_ID, msgid );
-		rapp.sendBroadcast( i );
+		rapp.sendBroadcast( i, Permissions.QUERY_STATUS );
 	}
 
 	private void broadcastErrorMessage ( ) {
@@ -327,6 +327,6 @@ public class ControllerTask implements Runnable {
 		Intent i = new Intent( MessageCommands.ERROR_MESSAGE_INTENT );
 		i.putExtra( MessageCommands.ERROR_MESSAGE_STRING,
 					rapp.getErrorMessage() );
-		rapp.sendBroadcast( i );
+		rapp.sendBroadcast( i, Permissions.QUERY_STATUS );
 	}
 }

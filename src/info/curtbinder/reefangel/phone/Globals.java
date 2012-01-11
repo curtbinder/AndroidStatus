@@ -1,7 +1,7 @@
 package info.curtbinder.reefangel.phone;
 
 
-public class Globals {
+public final class Globals {
 	public static final String PACKAGE_BASE = "info.curtbinder.reefangel.phone";
 	
 	// Requests

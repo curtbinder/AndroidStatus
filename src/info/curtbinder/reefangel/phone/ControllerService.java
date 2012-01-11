@@ -62,7 +62,8 @@ public class ControllerService extends Service {
 		if ( !rapp.isServiceRunning ) {
 			Log.d( TAG, "start Service" );
 			// register the receiver
-			registerReceiver( receiver, filter );
+			registerReceiver( receiver, filter, Permissions.SEND_COMMAND, null );
+			registerReceiver( receiver, filter, Permissions.QUERY_STATUS, null );
 
 			// create the thread executor
 			serviceThread = Executors.newSingleThreadExecutor();

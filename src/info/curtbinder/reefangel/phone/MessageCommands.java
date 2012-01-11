@@ -1,6 +1,6 @@
 package info.curtbinder.reefangel.phone;
 
-public class MessageCommands {
+public final class MessageCommands {
 	public static final String COMMAND_RESPONSE_INTENT =
 			Globals.PACKAGE_BASE + ".COMMAND_RESPOSNE";
 	public static final String COMMAND_RESPONSE_STRING =

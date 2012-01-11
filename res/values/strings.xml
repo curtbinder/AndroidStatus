@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Reef Angel Status</string>
-    <string name="app_version">0.4</string>
+    <string name="app_version">0.4 beta 2</string>
 
     <!-- Menu Labels -->
     <string name="menuMainSettings">Settings</string>
@@ -324,5 +324,18 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp8Port6LabelKey">exp8_port6_label</string>
     <string name="prefExp8Port7LabelKey">exp8_port7_label</string>
     <string name="prefExp8Port8LabelKey">exp8_port8_label</string>
+
+    <!-- Permissions -->
+    <string name="permissionQueryStatusLabel">Query status of controller</string>
+	<string name="permissionQueryStatusDescription">Allows this application to query the status of the controller</string>
+    <string name="permissionSendCommandLabel">Send commands to controller</string>
+    <string name="permissionSendCommandDescription">\
+Allows this application to send commands to the controller.  The following commands are allowed:
+* Sending modes (Water change, Feeding, Exit)
+* Label retrieval from website
+* Reading / writing internal memory
+* Toggling relay status
+* Version query
+</string>
 
 </resources>

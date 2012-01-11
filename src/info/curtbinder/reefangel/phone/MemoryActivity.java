@@ -86,7 +86,7 @@ public class MemoryActivity extends BaseActivity {
 	@Override
 	protected void onResume ( ) {
 		super.onResume();
-		registerReceiver( receiver, filter );
+		registerReceiver( receiver, filter, Permissions.SEND_COMMAND, null );
 	}
 
 	private void findViews ( ) {
@@ -347,7 +347,7 @@ public class MemoryActivity extends BaseActivity {
 		i.putExtra( MessageCommands.MEMORY_SEND_LOCATION_INT,
 					(int) Integer.parseInt( locationText.getText().toString() ) );
 		i.putExtra( MessageCommands.MEMORY_SEND_VALUE_INT, value );
-		sendBroadcast( i );
+		sendBroadcast( i, Permissions.SEND_COMMAND );
 		Toast.makeText( MemoryActivity.this, rapp.getString( id ),
 						Toast.LENGTH_LONG ).show();
 	}
