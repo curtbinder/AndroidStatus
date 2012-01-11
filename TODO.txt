@@ -52,7 +52,5 @@ TODO
 ** ability to only update over wifi or data connection
 ** add in start on boot
 
-* add in special permissions to send and receive messages
-
 
 
