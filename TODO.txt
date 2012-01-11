@@ -5,10 +5,17 @@ TODO
 * Toggle ability to restore values on configuration changes
 * fix layouts for hiding text:  switch to relative layout for better control over display
 * create smaller subsets of the layouts for simpler including and easy duplication
+* figure out how to reuse layouts for expansion relays
 
 * add in swipe capabilities to switch screens
 ** move the relays to own screen
 ** have main status, main relay, exp relay 1, etc, on own pages
+
+* expansion relays
+** create expansion relay layouts
+** allow for expansion relay quantity settings in prefs
+** alters displays based on qty
+
 
 * validation of host on configuration page (better validation of preferences)
 
@@ -31,6 +38,8 @@ TODO
 * add in clear ATO and Overheat commands for v0.8.5.20
 * when sending memory or other commands, popup progress bar that "sending in progress" then
   update based on task progress instead of using Toast
+* getting version should display message for progress
+* center popup history window (uncentered on droid razr)
 
 * switch to a content provider for working working with the db
 ** ability to insert values
