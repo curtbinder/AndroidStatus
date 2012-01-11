@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="info.curtbinder.reefangel.phone"
-    android:versionCode="6"
+    android:versionCode="7"
     android:versionName="@string/app_version" >
 
     <uses-sdk
@@ -16,13 +16,13 @@
         android:name="info.curtbinder.reefangel.permission.QUERY_STATUS"
         android:label="@string/permissionQueryStatusLabel"
         android:description="@string/permissionQueryStatusDescription"
-        android:permissionGroup="android.permission-group.NETWORK"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
         android:protectionLevel="normal" />
     <permission 
         android:name="info.curtbinder.reefangel.permission.SEND_COMMAND"
         android:label="@string/permissionSendCommandLabel"
         android:description="@string/permissionSendCommandDescription"
-        android:permissionGroup="android.permission-group.NETWORK"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
         android:protectionLevel="normal" />
     
     <application
