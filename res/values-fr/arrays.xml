@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="devices">
+        <item>Contrôleur</item>
+        <item>ReefAngel.com</item>
+    </string-array>
+
+    <string-array name="errorCodesStrings">
+        <item>Envoyez Commande</item>
+        <item>Mauvais URL</item>
+        <item>Exception générique d\'envoie</item>
+        <item>Échec de connection</item>
+        <item>Hôte inconnu</item>
+        <item>Timeout</item>
+        <item>XML</item>
+        <item>Configuration du parser</item>
+        <item>XML I/O</item>
+        <item>XML SAX Parser</item>
+    </string-array>
+
+    <string-array name="memoryLocationsNames">
+        <item>Location personnalisée</item>
+        <item>MH Marche Heure</item>
+        <item>MH Marche Minute</item>
+        <item>MH Arrêt Heure</item>
+        <item>MH Arrêt Minute</item>
+        <item>StdLights Marche Heure</item>
+        <item>StdLights Marche Minute</item>
+        <item>StdLights Arrêt Heure</item>
+        <item>StdLights Arrêt Minute</item>
+        <item>Minuterie Wavemaker 1</item>
+        <item>Minuterie Wavemaker 2</item>
+        <item>Minuterie Pompe doseuse 1</item>
+        <item>Minuterie Pompe doseuse 2</item>
+        <item>Minuterie Mode Nourrir</item>
+        <item>Timeout ACL</item>
+        <item>Température de surchauffe</item>
+        <item>Valeur Daylight PWM</item>
+        <item>Valeur Actinic PWM</item>
+        <item>Chauffe eau Marche Température</item>
+        <item>Chauffe eau Arrêt Température</item>
+        <item>Refroidisseur Marche Température</item>
+        <item>Refroidisseur Arrêt Température</item>
+        <item>Timeout ATO</item>
+        <item>Valeur max PH(PH10)</item>
+        <item>Valeur min PH(PH7)</item>
+        <item>Délais MH</item>
+        <item>Pompe doseuse 1 Marche Heure</item>
+        <item>Pompe doseuse 1 Marche Minute</item>
+        <item>Pompe doseuse 2 Marche Heure</item>
+        <item>Pompe doseuse 2 Marche Minute</item>
+        <item>ATO interval d\'heure</item>
+        <item>ATO Haut interval d\'heure</item>
+        <item>ATO Haut Timeout</item>
+        <item>Interval répétition Pompe doseuse 1</item>
+        <item>Interval répétition Pompe doseuse 2</item>
+        <item>Max Salinité</item>
+        <item>Courbe PWM Daylight Début %</item>
+        <item>Courbe PWM Daylight Fin %</item>
+        <item>Courbe PWM Daylight Durée</item>
+        <item>Courbe PWM Actinic Début %</item>
+        <item>Courbe PWM Actinic Fin %</item>
+        <item>Courbe PWM Actinic Durée</item>
+        <item>RF Mode</item>
+        <item>RF Vitesse</item>
+        <item>RF Durée</item>
+    </string-array>
+
+</resources>

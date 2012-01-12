@@ -1,28 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Menu Labels -->
     <string name="menuMainSettings">Paramètres</string>
     <string name="menuMainAbout">À propos</string>
     <string name="menuMainMemory">Mémoire</string>
-    <string name="menuMainParams">Historique</string>    
+    <string name="menuMainParams">Historique</string>
+    <string name="menuParamsDelete">Effacer</string>
+
+
+    <!-- Titles for Screens -->
     <string name="titleParams">Paramètre de l\'historique</string>
+    <string name="titleMemory">Mémoire interne</string>
+    <string name="titleCommands">Commandes</string>
+    <string name="titleHistory">Historique</string>
     <string name="titleAbout">À propos de Reef Angel Status</string>
+    <string name="titleLicense">Information sur la licence</string>
+    <string name="titleTabs">Pages de la Mémoire</string>
+    <string name="titlePrefs">Paramètres du status</string>
+
+<!-- Text descriptions -->
     <string name="textAbout">\
 Affiche le status de votre contrôleur Reef Angel ainsi que les valeurs s\'y rapportant. Vous devez avoir le module wifi configuré sur votre 
-contrôleur pour pouvoir utiliser cette application.
-</string>
-	<string name="titleLicense">Information sur la licence</string>
-	<string name="textLicense">\
+contrôleur pour pouvoir utiliser cette application</string>
+    <string name="textLicense">\
 Reef Angel Status par Curt Binder est régis sous une licence 
-Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0 
-</string>
-    <string name="labelLastUpdated">Dernière mise à jour:</string>
+Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0</string>
+    <!-- Memory Location screen -->
+    <string name="descriptionMemory">Choisissez l\'emplacement de la mémoire pour mettre à jour ou entrer le chemin d\'accès.</string>
+    <!-- Commands screen -->
+    <string name="descriptionModes">Nourrir et Changement d\'eau entre dans le mode approprié. Appuyez sur le bouton Quitter pour simuler un clique du bouton sur le contrôleur ce qui vous fera quitter ces modes.</string>
+
+    <!-- Buttons -->
     <string name="buttonRefresh">Actualiser</string>
-	<string name="labelSalinity">Salinité:</string>
+    <string name="buttonYes">Oui</string>
+    <string name="buttonNo">Non</string>
+    <string name="buttonVersion">Version courante</string>
+    <string name="buttonDateGet">Heure actuelle</string>
+    <string name="buttonDateSet">Confirmer l\'heure actuelle</string>
+    <string name="buttonRead">Lire Valeur</string>
+    <string name="buttonWrite">Écrire Valeur</string>
+    <string name="buttonFeeding">Mode Nourrir</string>
+    <string name="buttonWater">Changement d\'eau</string>
+    <string name="buttonExit">Quitter Mode</string>
+
+
+    <!-- Labels -->
+    <string name="labelLastUpdated">Dernière mise à jour:</string>
+    <string name="labelSalinity">Salinité:</string>
+    <string name="labelAtoLow">ATO Bas</string>
+    <string name="labelAtoHigh">ATO Haut</string>
+    <string name="labelFeedingMode">Mode Nourrir</string>
+    <string name="labelWaterMode">Mode Changement d\'eau</string>
+    <string name="labelExitMode">Quitter Mode</string>
+    <string name="labelVersion">Version Installée:</string>
+    <string name="labelValue">Valeur:</string>
+
+
+    <!-- Messages -->
 	<string name="messageEmptyParams">Aucun paramètre trouvé</string>
 	<string name="messageError">Erreur</string>
 	<string name="messageNever">Jamais</string>
 	<string name="messageCancelled">Cancellé</string>
 	<string name="messageNotNumber">Valeur non numérique</string>
+    <string name="messageEmptyValue">La valeur ne peut être vide</string>
+    <string name="messageInvalidRangeFormat" formatted="false">Votre valeur doit être entre %d et %d</string>
+    <string name="messageEmptyLocation">La location ne peut être vide</string>
+    <string name="messageInvalidLocation" formatted="false">Votre location doit être entre %d et %d</string>
+    <string name="messageUnknownError">Erreur inconnue</string>
+    <string name="messageDownloadLabels">Téléchargement des étiquettes…</string>
+    <string name="messageDownloadLabelsComplete">Libelés téléchargés et mis à jour</string>
+    <string name="messageDownloadMessage">Libelés téléchargés et mis à jour.\n\nVeuillez quitter le menu préférence pour voir la mise à jour des libelés</string>
+    <string name="messageReadingMemory">Lecture de la mémoire…</string>
+    <string name="messageWritingMemory">Écriture de la mémoire…</string>
+    <string name="messageDeleteAllPrompt">Supprimer tout l\'historique?</string>
+    <string name="messageDeleted">Effacé</string>
+
+    <!-- Status strings -->
 	<string name="statusStart">Mise à jour initiée</string>
 	<string name="statusConnect">Connexion</string>
 	<string name="statusDisconnected">Déconnecté</string>
@@ -32,35 +86,39 @@ Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0
 	<string name="statusInitParser">Conversion initiée</string>
 	<string name="statusParsing">Conversion</string>
 	<string name="statusFinished">Terminé</string>
-	
-	<string name="titlePrefs">Paramètres du status</string>
-	<string name="prefsCategoryDevice">Matériel</string>
-	<string name="prefsCategoryHost">Hôte</string>
-	<string name="prefsCategoryController">Contrôleur</string>
-	<string name="prefDeviceTitle">matériel</string>
-	<string name="prefDeviceSummary">Sélectionner pour faire la lecture des données à partir du contrôleur directement ou  de votre bannière sur reefangel.com</string>
-	<string name="prefHostTitle">Nom de l\'hôte</string>
-	<string name="prefHostSummary">Entrer le nom de l\'hôte ou l\'adresse IP du contrôleur</string>
-	<string name="prefHostInvalidHost">Hôte invalide</string>
-	<string name="prefPortSummary">Entrer le port du contrôleur entre 1 et 65535  (défaut: 2000)</string>
-	<string name="prefPortInvalidPort">Port invalide</string>
-	<string name="prefUserIdTitle">Nom d\'utilisateur</string>
-	<string name="prefUserIdSummary">Entrer votre nom d\'utilisateur pour la banière web</string>
-	<string name="prefUserIdInvalid">Nom d\'utilisateur invalide</string>
-	<string name="prefAppTitle">Info sur l\'application</string>
-	<string name="prefAppSummary">Information additionnelle à propos de Reef Angel Status pour Android</string>
-	<string name="prefAuthorTitle">Auteur</string>
-	<string name="prefContributorTitle">Contributeurs</string>
-	<string name="prefCopyrightTitle">Droits d\'auteur</string>
-	<string name="prefCopyrightSummary">Droits d\'auteur 2011 Curt Binder</string>
-	<string name="prefLicenseTitle">Licence</string>
-	<string name="prefLicenseSummary">Ce travail est sous licence Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0</string>
-	<string name="prefReefAngelTitle">Contrôleur Reef Angel</string>
-	<string name="prefControllerTitle">Informations sur le contrôleur</string>
-	<string name="prefControllerSummary">Met à jour les libelés, Bascule la visibilité</string>
-	<string name="prefVisibilityCategory">Paramètres de visibilité</string>
-	<string name="prefControllerVisibilityTitle">Visibilité des libelés</string>
-	<string name="prefControllerVisibilitySummary">Rend les libelés du contrôleur visibles</string>
+
+    <!-- Settings / Preference Labels -->
+    <string name="prefsCategoryDevice">Matériel</string>
+    <string name="prefsCategoryHost">Hôte</string>
+    <string name="prefsCategoryController">Contrôleur</string>
+    <string name="prefsCategoryApp">Application</string>
+    <string name="prefDeviceTitle">Matériel</string>
+    <string name="prefDeviceSummary">Sélectionner pour faire la lecture des données à partir du contrôleur directement ou  de votre bannière sur reefangel.com</string>
+    <string name="prefHostScreenTitle">Information sur l\'hôte</string>
+    <string name="prefHostScreenSummary">Changer les paramètres en lien avec l\'hôte</string>
+    <string name="prefHostTitle">Nom de l\'hôte</string>
+    <string name="prefHostSummary">Entrer le nom de l\'hôte ou l\'adresse IP du contrôleur</string>
+    <string name="prefHostInvalidHost">Hôte invalide</string>
+    <string name="prefPortSummary">Entrer le port du contrôleur entre 1 et 65535  (défaut: 2000)</string>
+    <string name="prefPortInvalidPort">Port invalide</string>
+    <string name="prefUserIdTitle">Nom d\'utilisateur</string>
+    <string name="prefUserIdSummary">Entrer votre nom d\'utilisateur pour la banière web</string>
+    <string name="prefUserIdInvalid">Nom d\'utilisateur invalide</string>
+    <string name="prefAppTitle">Info sur l\'application</string>
+    <string name="prefAppSummary">Information additionnelle à propos de Reef Angel Status pour Android</string>
+    <string name="prefAuthorTitle">Auteur</string>
+    <string name="prefContributorTitle">Contributeurs</string>
+    <string name="prefCopyrightTitle">Droits d\'auteur</string>
+    <string name="prefCopyrightSummary">Droits d\'auteur 2011–12 Curt Binder</string>
+    <string name="prefLicenseTitle">Licence</string>
+    <string name="prefLicenseSummary">Ce travail est sous licence Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0</string>
+    <string name="prefReefAngelTitle">Contrôleur Reef Angel</string>
+    <string name="prefForumTitle">Reef Angel Forums</string>
+    <string name="prefControllerTitle">Informations sur le contrôleur</string>
+    <string name="prefControllerSummary">Met à jour les , Bascule la visibilité</string>
+    <string name="prefVisibilityCategory">Paramètres de visibilité</string>
+	<string name="prefControllerVisibilityTitle">Visibilité des </string>
+	<string name="prefControllerVisibilitySummary">Rend les  du contrôleur visibles</string>
 	<string name="prefT2VisibilityTitle">Afficher T2</string>
 	<string name="prefT2VisibilitySummary">Affiche la température du senseur 2</string>
 	<string name="prefT3VisibilityTitle">Afficher T3</string>
@@ -71,23 +129,25 @@ Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0
 	<string name="prefAPVisibilitySummary">Affiche le pourcentage du canal actinic</string>
 	<string name="prefSalinityVisibilityTitle">Afficher salinité</string>
 	<string name="prefSalinityVisibilitySummary">Affiche la salinité</string>
-	<string name="prefLabelsCategory">Paramètres des libelés</string>
-	<string name="prefControllerLabelsDownloadTitle">Télécharger TOUS les libelés</string>
-	<string name="prefControllerLabelsDownloadSummary">Retrouves vos libelés à partir de reefangel.com en utilisant id: </string>
-	<string name="prefControllerLabelsTitle">Libelés du contrôleur</string>
-	<string name="prefControllerLabelsSummary">Change les libelés de votre contrôleur</string>
+	<string name="prefLabelsCategory">Paramètres des </string>
+	<string name="prefControllerLabelsDownloadTitle">Télécharger TOUS les </string>
+	<string name="prefControllerLabelsDownloadSummary">Retrouves vos  à partir de reefangel.com en utilisant id: </string>
+	<string name="prefControllerLabelsTitle"> du contrôleur</string>
+	<string name="prefControllerLabelsSummary">Change les  de votre contrôleur</string>
 	<string name="prefT1LabelTitle">Libelé T1</string>
 	<string name="prefT1LabelSummary">Libelé du senseur de température 1</string>
 	<string name="prefT2LabelTitle">Libelé T2</string>
 	<string name="prefT2LabelSummary">Libelé du senseur de température 2</string>
 	<string name="prefT3LabelTitle">Libelé T3</string>
 	<string name="prefT3LabelSummary">Libelé du senseur de température 3</string>
+    <string name="prefPHLabelTitle">PH Label</string>
+    <string name="prefPHLabelSummary">PH probe label</string>
 	<string name="prefDPLabelTitle">Libelé DP</string>
 	<string name="prefDPLabelSummary">Libelé Daylight PWM</string>
 	<string name="prefAPLabelTitle">Libelé AP</string>
 	<string name="prefAPLabelSummary">Libelé Actinic PWM</string>
-	<string name="prefMainRelayTitle">Relais principal</string>
-	<string name="prefMainRelaySummary">Changer les libelés du relais principal</string>
+    <string name="prefSalinityLabelTitle">Salinité Libelé</string>
+    <string name="prefSalinityLabelSummary">Salinité probe libelé</string>
 	<string name="prefPort1LabelTitle">Libelé port 1</string>
 	<string name="prefPort2LabelTitle">Libelé port 2</string>
 	<string name="prefPort3LabelTitle">Libelé port 3</string>
@@ -96,4 +156,36 @@ Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0
 	<string name="prefPort6LabelTitle">Libelé port 6</string>
 	<string name="prefPort7LabelTitle">Libelé port 7</string>
 	<string name="prefPort8LabelTitle">Libelé port 8</string>
+	<string name="prefMainRelayTitle">Relais principal</string>
+	<string name="prefMainRelaySummary">Changer les libelés du relais principal</string>
+    <string name="prefExp1RelayTitle">Relais d\'expension 1</string>
+    <string name="prefExp1RelaySummary">Changer les libelés du relais d\'expension 1</string>
+    <string name="prefExp2RelayTitle">Relais d\'expension 2</string>
+    <string name="prefExp2RelaySummary">Changer les libelés du relais d\'expension 2</string>
+    <string name="prefExp3RelayTitle">Relais d\'expension 3</string>
+    <string name="prefExp3RelaySummary">Changer les libelés du relais d\'expension 3</string>
+    <string name="prefExp4RelayTitle">Relais d\'expension 4</string>
+    <string name="prefExp4RelaySummary">Changer les libelés du relais d\'expension 4</string>
+    <string name="prefExp5RelayTitle">Relais d\'expension 5</string>
+    <string name="prefExp5RelaySummary">Changer les libelés du relais d\'expension 5</string>
+    <string name="prefExp6RelayTitle">Relais d\'expension 6</string>
+    <string name="prefExp6RelaySummary">Changer les libelés du relais d\'expension 6</string>
+    <string name="prefExp7RelayTitle">Relais d\'expension 7</string>
+    <string name="prefExp7RelaySummary">Changer les libelés du relais d\'expension 7</string>
+    <string name="prefExp8RelayTitle">Relais d\'expension 8</string>
+    <string name="prefExp8RelaySummary">Changer les libelés du relais d\'expension 8</string>
+    
+    <!-- Permissions -->
+    <string name="permissionQueryStatusLabel">Demande de l\'état du contrôleur</string>
+	<string name="permissionQueryStatusDescription">Permet à cette application de demander l\'état du contrôleur</string>
+    <string name="permissionSendCommandLabel">Envoyer les commandes au contrôleur</string>
+    <string name="permissionSendCommandDescription">\
+Permet à cette application de demander l\'état du contrôleur.  Les commandes suivantes sont permises:
+* Envoyer modes (Changement d\'eau, Nourrir, Quitter)
+* Recherche des libelés sur le site web
+* Lecture/Écriture de la mémoire interne
+* Basculer l\'état d\'un relais
+* Demander la version
+</string>
+
 </resources>

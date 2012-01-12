@@ -174,6 +174,7 @@ public final class R {
         public static final int buttonOk=0x7f07001b;
         public static final int buttonRead=0x7f070021;
         /**  Buttons 
+ Buttons 
          */
         public static final int buttonRefresh=0x7f07001a;
         public static final int buttonVersion=0x7f07001e;
@@ -183,9 +184,11 @@ public final class R {
         public static final int defaultPortName=0x7f070046;
         public static final int defaultStatusText=0x7f070045;
         /**  Memory Location screen 
+ Memory Location screen 
          */
         public static final int descriptionMemory=0x7f070018;
         /**  Commands screen 
+ Commands screen 
          */
         public static final int descriptionModes=0x7f070019;
         public static final int forumReefangel=0x7f070044;
@@ -196,6 +199,7 @@ public final class R {
         public static final int labelExitMode=0x7f07003e;
         public static final int labelFeedingMode=0x7f07003c;
         /**  Labels 
+ Labels 
          */
         public static final int labelLastUpdated=0x7f070028;
         public static final int labelLocation=0x7f070040;
@@ -222,6 +226,7 @@ public final class R {
         public static final int menuMainMemory=0x7f070004;
         public static final int menuMainParams=0x7f070005;
         /**  Menu Labels 
+ Menu Labels 
          */
         public static final int menuMainSettings=0x7f070002;
         public static final int menuParamsDelete=0x7f070006;
@@ -233,6 +238,7 @@ public final class R {
         public static final int messageDownloadMessage=0x7f070055;
         public static final int messageEmptyLocation=0x7f070050;
         /**  Messages 
+ Messages 
          */
         public static final int messageEmptyParams=0x7f070049;
         public static final int messageEmptyValue=0x7f07004e;
@@ -250,6 +256,7 @@ public final class R {
         public static final int minNewStatus=0x7f070048;
         public static final int permissionQueryStatusDescription=0x7f070123;
         /**  Permissions 
+ Permissions 
          */
         public static final int permissionQueryStatusLabel=0x7f070122;
         public static final int permissionSendCommandDescription=0x7f070125;
@@ -444,6 +451,7 @@ public final class R {
         public static final int prefsCategoryApp=0x7f070066;
         public static final int prefsCategoryController=0x7f070065;
         /**  Settings / Preference Labels 
+ Settings / Preference Labels 
          */
         public static final int prefsCategoryDevice=0x7f070063;
         public static final int prefsCategoryHost=0x7f070064;
@@ -464,6 +472,7 @@ public final class R {
         public static final int statusReadResponse=0x7f07005d;
         public static final int statusSendingCommand=0x7f07005f;
         /**  Status strings 
+ Status strings 
          */
         public static final int statusStart=0x7f07005a;
         public static final int statusUpdatingDisplay=0x7f07005e;
@@ -472,6 +481,7 @@ public final class R {
         public static final int tabMemory1=0x7f07000f;
         public static final int tabMemory2=0x7f070010;
         /**  Text descriptions 
+ Text descriptions 
          */
         public static final int textAbout=0x7f070016;
         public static final int textLicense=0x7f070017;
@@ -481,6 +491,7 @@ public final class R {
         public static final int titleLicense=0x7f07000c;
         public static final int titleMemory=0x7f070008;
         /**  Titles for Screens 
+ Titles for Screens 
          */
         public static final int titleParams=0x7f070007;
         public static final int titlePrefs=0x7f07000e;
