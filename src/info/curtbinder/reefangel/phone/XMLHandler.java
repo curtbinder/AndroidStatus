@@ -30,13 +30,15 @@ public class XMLHandler extends DefaultHandler {
 		return version;
 	}
 
-	// public String getDateTime ( ) {
-	// return dt.getDateTimeString();
-	// }
-	//
-	// public String getDateTimeUpdateStatus ( ) {
-	// return dt.getUpdateStatus();
-	// }
+	public String getDateTime ( ) {
+		// return dt.getDateTimeString();
+		return "";
+	}
+
+	public String getDateTimeUpdateStatus ( ) {
+		// return dt.getUpdateStatus();
+		return "";
+	}
 
 	public String getMemoryResponse ( ) {
 		return memoryResponse;
@@ -103,17 +105,17 @@ public class XMLHandler extends DefaultHandler {
 				processMemoryXml( tag );
 			}
 
-			// } else if ( requestType.equals( Globals.requestDateTime ) ) {
-			// if ( qName.equals( Globals.xmlDateTime ) ) {
-			// if ( !currentElementText.isEmpty() ) {
-			// // not empty meaning we have a status to report
-			// // either OK or ERR
-			// dt.setStatus( currentElementText );
-			// }
-			// return;
-			// } else {
-			// processDateTimeXml( qName );
-			// }
+		} else if ( requestType.equals( Globals.requestDateTime ) ) {
+			if ( tag.equals( Globals.xmlDateTime ) ) {
+				if ( !currentElementText.equals( "" ) ) {
+					// not empty meaning we have a status to report
+					// either OK or ERR
+					// dt.setStatus( currentElementText );
+				}
+				return;
+			} else {
+				processDateTimeXml( tag );
+			}
 
 		} else if ( requestType.equals( Globals.requestVersion ) ) {
 			processVersionXml( tag );
@@ -145,8 +147,8 @@ public class XMLHandler extends DefaultHandler {
 			// no request type, so set it based on the first element we process
 			if ( tag.equals( Globals.xmlStatus ) ) {
 				requestType = Globals.requestStatus;
-				// } else if ( qName.equals( Globals.xmlDateTime ) ) {
-				// requestType = Globals.requestDateTime;
+			} else if ( qName.equals( Globals.xmlDateTime ) ) {
+				requestType = Globals.requestDateTime;
 			} else if ( tag.equals( Globals.xmlVersion ) ) {
 				requestType = Globals.requestVersion;
 			} else if ( tag.equals( Globals.xmlMode ) ) {
@@ -282,22 +284,22 @@ public class XMLHandler extends DefaultHandler {
 		return tag.substring( bp, ep );
 	}
 
-	// private void processDateTimeXml ( String tag ) {
-	// // // Response will be more XML data or OK
-	// if ( tag.equals( "HR" ) ) {
-	// dt.setHour( Integer.parseInt( currentElementText ) );
-	// } else if ( tag.equals( "MIN" ) ) {
-	// dt.setMinute( Integer.parseInt( currentElementText ) );
-	// } else if ( tag.equals( "MON" ) ) {
-	// // controller uses 1 based for month
-	// // java uses 0 based for month
-	// dt.setMonth( Integer.parseInt( currentElementText ) - 1 );
-	// } else if ( tag.equals( "DAY" ) ) {
-	// dt.setDay( Integer.parseInt( currentElementText ) );
-	// } else if ( tag.equals( "YR" ) ) {
-	// dt.setYear( Integer.parseInt( currentElementText ) );
-	// }
-	// }
+	private void processDateTimeXml ( String tag ) {
+		// // Response will be more XML data or OK
+		if ( tag.equals( "HR" ) ) {
+			// dt.setHour( Integer.parseInt( currentElementText ) );
+		} else if ( tag.equals( "MIN" ) ) {
+			// dt.setMinute( Integer.parseInt( currentElementText ) );
+		} else if ( tag.equals( "MON" ) ) {
+			// controller uses 1 based for month
+			// java uses 0 based for month
+			// dt.setMonth( Integer.parseInt( currentElementText ) - 1 );
+		} else if ( tag.equals( "DAY" ) ) {
+			// dt.setDay( Integer.parseInt( currentElementText ) );
+		} else if ( tag.equals( "YR" ) ) {
+			// dt.setYear( Integer.parseInt( currentElementText ) );
+		}
+	}
 
 	private void processVersionXml ( String tag ) {
 		// Response will be the Version
