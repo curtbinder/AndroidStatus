@@ -16,7 +16,7 @@ TODO
 ** allow for expansion relay quantity settings in prefs
 ** alters displays based on qty
 
-
+* history shows relay status
 * validation of host on configuration page (better validation of preferences)
 
 * labels
@@ -51,6 +51,23 @@ TODO
 ** service stops when network connectivity stops
 ** ability to only update over wifi or data connection
 ** add in start on boot
+** specify interval: 15m, 30m, 1h, 4h, 6h, 12h, 1d, never
+** refresh does immediate update
 
+Log Viewer
+- log errors to errors.db
+- ability to query the db for errors
+- list error events to display
+- delete events
+-- clear all 
+-- delete events older than X days
+- context menu to delete the error event
+- db schema:
+-- _id
+-- date
+-- tag
+-- error / message
+- add errors when normally logged errors occur
+-- have own log class that calls the log function and logs to db
 
 

@@ -37,6 +37,7 @@ public final class Globals {
 	public static final String xmlSalinity = "SAL";
 	public static final String xmlPWMDaylight = "PWMD";
 	public static final String xmlPWMActinic = "PWMA";
+	public static final String xmlPWMExpansion = "PWME";
 	public static final String xmlRelay = "R";
 	public static final String xmlRelayMaskOn = "RON";
 	public static final String xmlRelayMaskOff = "ROFF";
@@ -44,4 +45,18 @@ public final class Globals {
 	public static final String xmlLabelTempBegin = "T";
 	public static final String xmlLabelRelayBegin = "R";
 	public static final String xmlLabelEnd = "N";
+	public static final String xmlRelayExpansionModules = "REM";
+	public static final String xmlExpansionModules = "EM";
+	public static final String xmlAIWhite = "AIW";
+	public static final String xmlAIBlue = "AIB";
+	public static final String xmlAIRoyalBlue = "AIRB";
+	public static final String xmlRFMode = "RFM";
+	public static final String xmlRFSpeed = "RFS";
+	public static final String xmlRFDuration = "RFD";
+	public static final String xmlRFWhite = "RFW";
+	public static final String xmlRFRoyalBlue = "RFRB";
+	public static final String xmlRFRed = "RFR";
+	public static final String xmlRFGreen = "RFG";
+	public static final String xmlRFBlue = "RFB";
+	public static final String xmlRFIntensity = "RFI";
 }
