@@ -55,3 +55,6 @@ Changelog of all the versions of AndroidStatus
  * when changing bannerid, update the summary on the "Download labels" item to reflect new id
  * add in special permissions to send and receive messages
  
+ 0.4.1
+ * fixed parsing XML for 0.9 libraries and expansion relay data
+ 
