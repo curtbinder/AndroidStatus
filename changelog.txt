@@ -58,3 +58,7 @@ Changelog of all the versions of AndroidStatus
  0.4.1
  * fixed parsing XML for 0.9 libraries and expansion relay data
  
+ 0.4.2
+ * fixed parsing expansion relay data (was not fixed with 0.4.1)
+ 
+ 

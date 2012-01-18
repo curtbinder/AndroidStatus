@@ -192,25 +192,28 @@ public class Controller {
 	public Relay getMainRelay ( ) {
 		return main;
 	}
-
+/*
 	public void setExpRelayData (
 			int relay,
 			short data,
 			short maskOn,
 			short maskOff ) {
-		expansionRelays[relay - 1].setRelayData( data, maskOn, maskOff );
+		expansionRelays[relay].setRelayData( data, maskOn, maskOff );
 	}
-
+*/
 	public void setExpRelayData ( int relay, short data ) {
-		expansionRelays[relay - 1].setRelayData( data );
+		// Pass in the 0 based index for relay
+		expansionRelays[relay].setRelayData( data );
 	}
 
 	public void setExpRelayOnMask ( int relay, short maskOn ) {
-		expansionRelays[relay - 1].setRelayOnMask( maskOn );
+		// Pass in the 0 based index for relay
+		expansionRelays[relay].setRelayOnMask( maskOn );
 	}
 
 	public void setExpRelayOffMask ( int relay, short maskOff ) {
-		expansionRelays[relay - 1].setRelayOffMask( maskOff );
+		// Pass in the 0 based index for relay
+		expansionRelays[relay].setRelayOffMask( maskOff );
 	}
 
 	public Relay getExpRelay ( int relay ) {
