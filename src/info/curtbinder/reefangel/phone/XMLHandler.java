@@ -259,19 +259,19 @@ public class XMLHandler extends DefaultHandler {
 				ra.getExpRelay( box ).setPortLabel( port, currentElementText );
 			}
 		} else if ( tag.startsWith( Globals.xmlRelayMaskOn ) ) {
-			int relay =
-					Integer.parseInt( tag.substring( Globals.xmlRelayMaskOn
-							.length() ) );
-			ra.setExpRelayOnMask( relay, Short.parseShort( currentElementText ) );
+//			int relay =
+//					Integer.parseInt( tag.substring( Globals.xmlRelayMaskOn
+//							.length() ) );
+//			ra.setExpRelayOnMask( relay, Short.parseShort( currentElementText ) );
 		} else if ( tag.startsWith( Globals.xmlRelayMaskOff ) ) {
-			int relay =
-					Integer.parseInt( tag.substring( Globals.xmlRelayMaskOff
-							.length() ) );
-			ra.setExpRelayOffMask( relay, Short.parseShort( currentElementText ) );
+//			int relay =
+//					Integer.parseInt( tag.substring( Globals.xmlRelayMaskOff
+//							.length() ) );
+//			ra.setExpRelayOffMask( relay, Short.parseShort( currentElementText ) );
 		} else if ( tag.startsWith( Globals.xmlRelay ) ) {
-			int relay =
-					Integer.parseInt( tag.substring( Globals.xmlRelay.length() ) );
-			ra.setExpRelayData( relay, Short.parseShort( currentElementText ) );
+//			int relay =
+//					Integer.parseInt( tag.substring( Globals.xmlRelay.length() ) );
+//			ra.setExpRelayData( relay, Short.parseShort( currentElementText ) );
 		} else {
 			Log.d( TAG, "Unhandled XML tag (" + tag + ") with data: "
 						+ currentElementText );

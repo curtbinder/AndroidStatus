@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Reef Angel Status</string>
-    <string name="app_version">0.4.2</string>
+    <string name="app_version">0.4.3</string>
 
     <!-- Menu Labels -->
     <string name="menuMainSettings">Settings</string>
