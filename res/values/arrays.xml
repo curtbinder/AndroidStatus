@@ -154,24 +154,24 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>RF Mode</item>
         <item>RF Speed</item>
         <item>RF Duration</item>
-        <item>PWM Slope Exp 0 Start %</item>
-        <item>PWM Slope Exp 0 End %</item>
-        <item>PWM Slope Exp 0 Duration</item>
-        <item>PWM Slope Exp 1 Start %</item>
-        <item>PWM Slope Exp 1 End %</item>
-        <item>PWM Slope Exp 1 Duration</item>
-        <item>PWM Slope Exp 2 Start %</item>
-        <item>PWM Slope Exp 2 End %</item>
-        <item>PWM Slope Exp 2 Duration</item>
-        <item>PWM Slope Exp 3 Start %</item>
-        <item>PWM Slope Exp 3 End %</item>
-        <item>PWM Slope Exp 3 Duration</item>
-        <item>PWM Slope Exp 4 Start %</item>
-        <item>PWM Slope Exp 4 End %</item>
-        <item>PWM Slope Exp 4 Duration</item>
-        <item>PWM Slope Exp 5 Start %</item>
-        <item>PWM Slope Exp 5 End %</item>
-        <item>PWM Slope Exp 5 Duration</item>
+        <item>PWM Slope Exp Ch 0 Start %</item>
+        <item>PWM Slope Exp Ch 0 End %</item>
+        <item>PWM Slope Exp Ch 0 Duration</item>
+        <item>PWM Slope Exp Ch 1 Start %</item>
+        <item>PWM Slope Exp Ch 1 End %</item>
+        <item>PWM Slope Exp Ch 1 Duration</item>
+        <item>PWM Slope Exp Ch 2 Start %</item>
+        <item>PWM Slope Exp Ch 2 End %</item>
+        <item>PWM Slope Exp Ch 2 Duration</item>
+        <item>PWM Slope Exp Ch 3 Start %</item>
+        <item>PWM Slope Exp Ch 3 End %</item>
+        <item>PWM Slope Exp Ch 3 Duration</item>
+        <item>PWM Slope Exp Ch 4 Start %</item>
+        <item>PWM Slope Exp Ch 4 End %</item>
+        <item>PWM Slope Exp Ch 4 Duration</item>
+        <item>PWM Slope Exp Ch 5 Start %</item>
+        <item>PWM Slope Exp Ch 5 End %</item>
+        <item>PWM Slope Exp Ch 5 Duration</item>
     </string-array>
 
     <integer-array name="memoryLocationsTypes">
