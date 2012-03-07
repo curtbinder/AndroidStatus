@@ -96,6 +96,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		registerReceiver( receiver, filter, Permissions.QUERY_STATUS, null );
 		updateViewsVisibility();
 		updateDisplay();
+		
+		// TODO either put the displaying of the changelog here or in OnStart
 	}
 
 	private void findViews ( ) {

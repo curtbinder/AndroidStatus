@@ -141,6 +141,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="statusFinished">Finished</string>
 
     <!-- Settings / Preference Labels -->
+    <string name="prefFirstRunKey">firstrun</string>
     <string name="prefsCategoryDevice">Device</string>
     <string name="prefsCategoryHost">Host</string>
     <string name="prefsCategoryController">Controller</string>

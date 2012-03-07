@@ -88,6 +88,24 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>55</item>
         <item>56</item>
         <item>57</item>
+        <item>58</item>
+        <item>59</item>
+        <item>60</item>
+        <item>61</item>
+        <item>62</item>
+        <item>63</item>
+        <item>64</item>
+        <item>65</item>
+        <item>66</item>
+        <item>67</item>
+        <item>68</item>
+        <item>69</item>
+        <item>70</item>
+        <item>71</item>
+        <item>72</item>
+        <item>73</item>
+        <item>74</item>
+        <item>75</item>
     </integer-array>
 
     <string-array name="memoryLocationsNames">
@@ -136,6 +154,24 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>RF Mode</item>
         <item>RF Speed</item>
         <item>RF Duration</item>
+        <item>PWM Slope Exp 0 Start %</item>
+        <item>PWM Slope Exp 0 End %</item>
+        <item>PWM Slope Exp 0 Duration</item>
+        <item>PWM Slope Exp 1 Start %</item>
+        <item>PWM Slope Exp 1 End %</item>
+        <item>PWM Slope Exp 1 Duration</item>
+        <item>PWM Slope Exp 2 Start %</item>
+        <item>PWM Slope Exp 2 End %</item>
+        <item>PWM Slope Exp 2 Duration</item>
+        <item>PWM Slope Exp 3 Start %</item>
+        <item>PWM Slope Exp 3 End %</item>
+        <item>PWM Slope Exp 3 Duration</item>
+        <item>PWM Slope Exp 4 Start %</item>
+        <item>PWM Slope Exp 4 End %</item>
+        <item>PWM Slope Exp 4 Duration</item>
+        <item>PWM Slope Exp 5 Start %</item>
+        <item>PWM Slope Exp 5 End %</item>
+        <item>PWM Slope Exp 5 Duration</item>
     </string-array>
 
     <integer-array name="memoryLocationsTypes">
@@ -175,6 +211,24 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>1</item>
         <item>1</item>
         <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
         <item>0</item>
         <item>0</item>
         <item>0</item>

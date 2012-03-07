@@ -27,10 +27,10 @@ public class PrefsActivity extends PreferenceActivity implements
 		OnPreferenceChangeListener {
 
 	private static final String TAG = PrefsActivity.class.getSimpleName();
-	private static final String NUMBER_PATTERN = "\\d+";
-	private static final String HOST_PATTERN =
-			"^(?i:[[0-9][a-z]]+)(?i:[\\w\\.\\-]*)(?i:[[0-9][a-z]]+)$";
-	private static final String USERID_PATTERN = "[\\w\\-\\.]+";
+	//private static final String NUMBER_PATTERN = "\\d+";
+	//private static final String HOST_PATTERN =
+	//		"^(?i:[[0-9][a-z]]+)(?i:[\\w\\.\\-]*)(?i:[[0-9][a-z]]+)$";
+	//private static final String USERID_PATTERN = "[\\w\\-\\.]+";
 
 	private Preference portkey;
 	private Preference hostkey;
@@ -186,77 +186,17 @@ public class PrefsActivity extends PreferenceActivity implements
 		// return true to change, false to not
 		if ( preference.getKey()
 				.equals( rapp.getString( R.string.prefPortKey ) ) ) {
-			Log.d( TAG, "Validate entered port" );
-			if ( !isNumber( newValue ) ) {
-				// not a number
-				Log.d( TAG, "Invalid port" );
-				Toast.makeText( rapp,
-								rapp.getString( R.string.messageNotNumber )
-										+ ": " + newValue.toString(),
-								Toast.LENGTH_SHORT ).show();
-				return false;
-			} else {
-				// it's a number, verify it's within range
-				int min =
-						Integer.parseInt( rapp.getString( R.string.prefPortMin ) );
-				int max =
-						Integer.parseInt( rapp.getString( R.string.prefPortMax ) );
-				int v = Integer.parseInt( (String) newValue.toString() );
-
-				// check if it's less than the min value or if it's greater than
-				// the max value
-				if ( (v < min) || (v > max) ) {
-					Log.d( TAG, "Invalid port range" );
-					Toast.makeText( rapp,
-									rapp.getString( R.string.prefPortInvalidPort )
-											+ ": " + newValue.toString(),
-									Toast.LENGTH_SHORT ).show();
-					return false;
-				}
-			}
+			return rapp.validatePort( newValue );
 		} else if ( preference.getKey()
 				.equals( rapp.getString( R.string.prefHostKey ) ) ) {
-			// host validation here
-			Log.d( TAG, "Validate entered host" );
-			String h = newValue.toString();
-
-			// Hosts must:
-			// - not start with 'http://'
-			// - only contain: alpha, number, _, -, .
-			// - end with: alpha or number
-
-			if ( !h.matches( HOST_PATTERN ) ) {
-				// invalid host
-				Log.d( TAG, "Invalid host" );
-				Toast.makeText( rapp,
-								rapp.getString( R.string.prefHostInvalidHost )
-										+ ": " + newValue.toString(),
-								Toast.LENGTH_SHORT ).show();
-				return false;
-			}
+			return rapp.validateHost( newValue );
 		} else if ( preference.getKey()
 				.equals( rapp.getString( R.string.prefUserIdKey ) ) ) {
-			String u = newValue.toString();
-			if ( !u.matches( USERID_PATTERN ) ) {
-				// invalid userid
-				Log.d( TAG, "Invalid userid" );
-				Toast.makeText( rapp,
-								rapp.getString( R.string.prefUserIdInvalid )
-										+ ": " + newValue.toString(),
-								Toast.LENGTH_SHORT ).show();
+			if ( ! rapp.validateUser( newValue ) )
 				return false;
-			}
-			updateDownloadLabelUserId( u );
+			updateDownloadLabelUserId( newValue.toString() );
 		}
 		return true;
-	}
-
-	private boolean isNumber ( Object value ) {
-		if ( (!value.toString().equals( "" ))
-				&& (value.toString().matches( NUMBER_PATTERN )) ) {
-			return true;
-		}
-		return false;
 	}
 
 	class PrefsReceiver extends BroadcastReceiver {

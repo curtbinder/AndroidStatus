@@ -14,10 +14,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 public class RAApplication extends Application {
 
 	private static final String TAG = RAApplication.class.getSimpleName();
+	private static final String NUMBER_PATTERN = "\\d+";
+	private static final String HOST_PATTERN =
+			"^(?i:[[0-9][a-z]]+)(?i:[\\w\\.\\-]*)(?i:[[0-9][a-z]]+)$";
+	private static final String USERID_PATTERN = "[\\w\\-\\.]+";
 	private SharedPreferences prefs;
 	// Error code stuff
 	private String[] errorCodes;
@@ -48,9 +53,25 @@ public class RAApplication extends Application {
 		isServiceRunning = false;
 
 		fillRelayLabels();
+		
+		// Check if this is the first run, if so we need to prompt the user
+		// to configure before we start the service and proceed
+		if ( isFirstRun() )
+		{
+			Log.w( TAG, "First Run of app" );
+			/*
+			SharedPreferences.Editor editor = prefs.edit();
+			editor.putString( getString( R.string.prefHostKey ), "10.0.42.40" );
+			editor.commit();
+			*/
+			// TODO Prompt to set the values
+			disableFirstRun();
+		}
 
+		
 		if ( !isServiceRunning )
 			startService( new Intent( this, ControllerService.class ) );
+
 	}
 
 	@Override
@@ -156,6 +177,82 @@ public class RAApplication extends Application {
 		return s;
 	}
 
+	private boolean isNumber ( Object value ) {
+		if ( (!value.toString().equals( "" ))
+				&& (value.toString().matches( NUMBER_PATTERN )) ) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean validateHost ( Object host ) {
+		// host validation here
+		Log.d( TAG, "Validate entered host" );
+		String h = host.toString();
+
+		// Hosts must:
+		// - not start with 'http://'
+		// - only contain: alpha, number, _, -, .
+		// - end with: alpha or number
+
+		if ( !h.matches( HOST_PATTERN ) ) {
+			// invalid host
+			Log.d( TAG, "Invalid host" );
+			Toast.makeText( this,
+							this.getString( R.string.prefHostInvalidHost )
+									+ ": " + host.toString(),
+							Toast.LENGTH_SHORT ).show();
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean validatePort ( Object port ) {
+		Log.d( TAG, "Validate entered port" );
+		if ( !isNumber( port ) ) {
+			// not a number
+			Log.d( TAG, "Invalid port" );
+			Toast.makeText( this,
+							getString( R.string.messageNotNumber )
+									+ ": " + port.toString(),
+							Toast.LENGTH_SHORT ).show();
+			return false;
+		} else {
+			// it's a number, verify it's within range
+			int min =
+					Integer.parseInt( getString( R.string.prefPortMin ) );
+			int max =
+					Integer.parseInt( getString( R.string.prefPortMax ) );
+			int v = Integer.parseInt( (String) port.toString() );
+
+			// check if it's less than the min value or if it's greater than
+			// the max value
+			if ( (v < min) || (v > max) ) {
+				Log.d( TAG, "Invalid port range" );
+				Toast.makeText( this,
+								getString( R.string.prefPortInvalidPort )
+										+ ": " + port.toString(),
+								Toast.LENGTH_SHORT ).show();
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean validateUser ( Object user ) {
+		String u = user.toString();
+		if ( !u.matches( USERID_PATTERN ) ) {
+			// invalid userid
+			Log.d( TAG, "Invalid userid" );
+			Toast.makeText( this,
+							getString( R.string.prefUserIdInvalid )
+									+ ": " + user.toString(),
+							Toast.LENGTH_SHORT ).show();
+			return false;
+		}
+		return true;
+	}
+	
 	// Preferences
 	protected void fillRelayLabels ( ) {
 		relayLabels =
@@ -250,6 +347,48 @@ public class RAApplication extends Application {
 		return b;
 	}
 
+	protected boolean isFirstRun ( ) {
+		// First run will be determined by:
+		//   if the first run key is NOT set AND
+		//   if the host key is NOT set OR if it's the same as the default
+		boolean fFirst = prefs.getBoolean( getString( R.string.prefFirstRunKey ), true );
+		// if it's already set, no need to compare the hosts
+		if ( ! fFirst )
+		{
+			Log.w(TAG, "First run already set");
+			return false;
+		}
+		
+		// if it's not set (as in existing installations), check the host
+		// the host should be set and it should not be the same as the default
+		boolean fHost = true;
+		String host = prefs.getString( getString( R.string.prefHostKey ), "" );
+		if ( (host.equals( "" )) ||
+			 (host.equals( getString( R.string.prefHostDefault ) )) )
+			fHost = false;
+		Log.w(TAG, "Host:  '" + host + "',  host set: " + fHost);
+		if ( !fHost )
+			return true;
+		
+		// if we have made it here, then it's an existing install where the user
+		// has the host set to something other than the default
+		// so we will go ahead and clear the first run prompt for them
+		disableFirstRun();
+		return false; 
+	}
+	
+	protected void disableFirstRun ( ) {
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putBoolean( getString( R.string.prefFirstRunKey ), false );
+		editor.commit();
+	}
+	
+	protected void clearFirstRun ( ) {
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.remove( getString( R.string.prefFirstRunKey ) );
+		editor.commit();
+	}
+	
 	public String getPrefHost ( ) {
 		return prefs.getString( getString( R.string.prefHostKey ),
 								getString( R.string.prefHostDefault ) );

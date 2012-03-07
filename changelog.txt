@@ -61,4 +61,7 @@ Changelog of all the versions of AndroidStatus
  0.4.2
  * fixed parsing expansion relay data (was not fixed with 0.4.1)
  
+ 0.4.3
+ * added in pwm expansion relay channel start %, end % and duration memory values
+ 
  

@@ -73,6 +73,24 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>RF Mode</item>
         <item>RF Vitesse</item>
         <item>RF Durée</item>
+        <item>Courbe PWM Exp 0 Début %</item>
+        <item>Courbe PWM Exp 0 Fin %</item>
+        <item>Courbe PWM Exp 0 Durée</item>
+        <item>Courbe PWM Exp 1 Début %</item>
+        <item>Courbe PWM Exp 1 Fin %</item>
+        <item>Courbe PWM Exp 1 Durée</item>
+        <item>Courbe PWM Exp 2 Début %</item>
+        <item>Courbe PWM Exp 2 Fin %</item>
+        <item>Courbe PWM Exp 2 Durée</item>
+        <item>Courbe PWM Exp 3 Début %</item>
+        <item>Courbe PWM Exp 3 Fin %</item>
+        <item>Courbe PWM Exp 3 Durée</item>
+        <item>Courbe PWM Exp 4 Début %</item>
+        <item>Courbe PWM Exp 4 Fin %</item>
+        <item>Courbe PWM Exp 4 Durée</item>
+        <item>Courbe PWM Exp 5 Début %</item>
+        <item>Courbe PWM Exp 5 Fin %</item>
+        <item>Courbe PWM Exp 5 Durée</item>
     </string-array>
 
 </resources>
