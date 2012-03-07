@@ -27,10 +27,6 @@ public class PrefsActivity extends PreferenceActivity implements
 		OnPreferenceChangeListener {
 
 	private static final String TAG = PrefsActivity.class.getSimpleName();
-	//private static final String NUMBER_PATTERN = "\\d+";
-	//private static final String HOST_PATTERN =
-	//		"^(?i:[[0-9][a-z]]+)(?i:[\\w\\.\\-]*)(?i:[[0-9][a-z]]+)$";
-	//private static final String USERID_PATTERN = "[\\w\\-\\.]+";
 
 	private Preference portkey;
 	private Preference hostkey;

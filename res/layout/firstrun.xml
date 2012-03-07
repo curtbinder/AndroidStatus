@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
+ 
+This work is made available under the terms of the 
+Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+http://creativecommons.org/licenses/by-nc-sa/3.0/
+-->
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:padding="10dp" >
+
+    <TextView android:text="@string/descriptionFirstRun" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:stretchColumns="1" >
+
+            <TableRow >
+
+                <TextView
+                    android:text="@string/prefHostTitle" />
+
+                <EditText
+                    android:id="@+id/firstHostText"
+                    android:inputType="text"
+                    android:hint="@string/prefHostDefault" >
+                </EditText>
+            </TableRow>
+
+            <TableRow >
+
+                <TextView
+                    android:text="@string/prefPortTitle" />
+
+                <EditText
+                    android:id="@+id/firstPortText"
+                    android:inputType="number"
+                    android:hint="@string/prefPortDefault" >
+                </EditText>
+            </TableRow>
+
+            <TableRow  >
+
+                <TextView
+                    android:text="@string/prefUserIdTitle" />
+
+                <EditText
+                    android:id="@+id/firstUsernameText"
+                    android:inputType="text"
+                    android:hint="@string/prefUserIdDefault" >
+                </EditText>
+            </TableRow>
+
+            <Button
+                android:id="@+id/buttonFinish"
+                android:text="Finish" />
+        </TableLayout>
+    </ScrollView>
+
+</TableLayout>

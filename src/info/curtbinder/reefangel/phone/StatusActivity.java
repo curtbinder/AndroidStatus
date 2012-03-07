@@ -82,6 +82,17 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		findViews();
 
 		setOnClickListeners();
+
+		// Check if this is the first run, if so we need to prompt the user
+		// to configure before we start the service and proceed
+		// this should be the last thing done in OnCreate()
+		if ( rapp.isFirstRun() ) {
+			Log.w( TAG, "First Run of app" );
+			Intent i = new Intent( this, FirstRunActivity.class );
+			i.addFlags( Intent.FLAG_ACTIVITY_SINGLE_TOP );
+			startActivity( i );
+			finish();
+		}
 	}
 
 	@Override
@@ -96,7 +107,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		registerReceiver( receiver, filter, Permissions.QUERY_STATUS, null );
 		updateViewsVisibility();
 		updateDisplay();
-		
+
 		// TODO either put the displaying of the changelog here or in OnStart
 	}
 

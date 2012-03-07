@@ -10,7 +10,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 <resources>
 
     <string name="app_name">Reef Angel Status</string>
-    <string name="app_version">0.4.3</string>
+    <string name="app_version">0.4.4</string>
 
     <!-- Menu Labels -->
     <string name="menuMainSettings">Settings</string>
@@ -55,6 +55,11 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="descriptionMemory">Select the memory location to update or enter a custom location.</string>
     <!-- Commands screen -->
     <string name="descriptionModes">Feeding and Water Change buttons enter the appropriate modes. Press the Exit button to simulate a button press on the controller, which exits the modes.</string>
+    <!-- First Run screen -->
+	<string name="descriptionFirstRun">Before you begin, you must configure a few settings in order for the application to run properly.\n
+* Hostname (required): Enter the hostname or IP address of your controller.\n
+* Port (optional): Enter the port for the controller (leave blank if unknown or the default).\n
+* User ID (optional): Enter your username for the forum. This is to download your labels stored on the portal.</string>
 
     <!-- Buttons -->
     <string name="buttonRefresh">Refresh</string>

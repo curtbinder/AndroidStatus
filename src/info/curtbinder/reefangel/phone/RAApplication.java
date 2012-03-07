@@ -54,23 +54,7 @@ public class RAApplication extends Application {
 
 		fillRelayLabels();
 		
-		// Check if this is the first run, if so we need to prompt the user
-		// to configure before we start the service and proceed
-		if ( isFirstRun() )
-		{
-			Log.w( TAG, "First Run of app" );
-			/*
-			SharedPreferences.Editor editor = prefs.edit();
-			editor.putString( getString( R.string.prefHostKey ), "10.0.42.40" );
-			editor.commit();
-			*/
-			// TODO Prompt to set the values
-			disableFirstRun();
-		}
-
-		
-		if ( !isServiceRunning )
-			startService( new Intent( this, ControllerService.class ) );
+		checkServiceRunning();
 
 	}
 
@@ -347,14 +331,13 @@ public class RAApplication extends Application {
 		return b;
 	}
 
-	protected boolean isFirstRun ( ) {
+	public boolean isFirstRun ( ) {
 		// First run will be determined by:
 		//   if the first run key is NOT set AND
 		//   if the host key is NOT set OR if it's the same as the default
 		boolean fFirst = prefs.getBoolean( getString( R.string.prefFirstRunKey ), true );
 		// if it's already set, no need to compare the hosts
-		if ( ! fFirst )
-		{
+		if ( ! fFirst ) {
 			Log.w(TAG, "First run already set");
 			return false;
 		}
@@ -377,13 +360,14 @@ public class RAApplication extends Application {
 		return false; 
 	}
 	
-	protected void disableFirstRun ( ) {
+	public void disableFirstRun ( ) {
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putBoolean( getString( R.string.prefFirstRunKey ), false );
 		editor.commit();
 	}
 	
 	protected void clearFirstRun ( ) {
+		// TODO remove this function, not needed to clear first run key
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.remove( getString( R.string.prefFirstRunKey ) );
 		editor.commit();
@@ -491,5 +475,11 @@ public class RAApplication extends Application {
 	public String getPrefUserId ( ) {
 		return prefs.getString( getString( R.string.prefUserIdKey ),
 								getString( R.string.prefUserIdDefault ) );
+	}
+	
+	public void checkServiceRunning ( ) {
+		// Check if the service is running, if not start it
+		if ( !isServiceRunning && !isFirstRun() )
+			startService( new Intent( this, ControllerService.class ) );
 	}
 }
