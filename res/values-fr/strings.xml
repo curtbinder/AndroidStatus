@@ -38,6 +38,11 @@ Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0</stri
     <string name="descriptionMemory">Choisissez l\'emplacement de la mémoire pour mettre à jour ou entrer le chemin d\'accès.</string>
     <!-- Commands screen -->
     <string name="descriptionModes">Nourrir et Changement d\'eau entre dans le mode approprié. Appuyez sur le bouton Quitter pour simuler un clique du bouton sur le contrôleur ce qui vous fera quitter ces modes.</string>
+	<!-- First Run screen -->
+	<string name="descriptionFirstRun">Avant de débuter, vous devez configurer quelques options afin que l\'application fonctionne correctement.\n
+* Nom de l\'hôte(requis): Entrer le nom de l\'hôte ou l\'adresse IP de votre contrôleur.\n
+* Port (optionel): Entrer le port de votre  contrôleur. (laissez vide si inconnu ou par défaut).\n
+* ID Utilisateur (optionel): Entrez votre nom d\'utilisateur du forum. Ceci vous permettera de télécharger les libelés enregistrés dans le portail.</string>
 
     <!-- Buttons -->
     <string name="buttonRefresh">Actualiser</string>

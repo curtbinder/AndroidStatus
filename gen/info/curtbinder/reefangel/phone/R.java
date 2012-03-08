@@ -189,11 +189,7 @@ public final class R {
         public static final int defaultPortName=0x7f070047;
         public static final int defaultStatusText=0x7f070046;
         /**  First Run screen 
-
-    <string name="descriptionFirstRun">Before you begin, you must configure a few settings in order for the application to run properly.
-You MUST enter the hostname or IP address of your controller.  The port and userID are optional.  If you leave the port blank, the default value (2000) will be used.
-The userID is your forum login username so you can download your labels stored on the portal.\n</string>
-
+ First Run screen 
          */
         public static final int descriptionFirstRun=0x7f07001a;
         /**  Memory Location screen 
