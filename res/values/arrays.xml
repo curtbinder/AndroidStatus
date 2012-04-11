@@ -106,6 +106,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>73</item>
         <item>74</item>
         <item>75</item>
+        <item>76</item>
+        <item>78</item>
     </integer-array>
 
     <string-array name="memoryLocationsNames">
@@ -131,7 +133,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>Heater Off Temp</item>
         <item>Chiller On Temp</item>
         <item>Chiller Off Temp</item>
-        <item>ATO Timeout</item>
+        <item>(NOT USED) ATO Timeout</item>
         <item>PH Max value (PH10)</item>
         <item>PH Min value (PH7)</item>
         <item>MH Delay</item>
@@ -141,7 +143,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>Dosing Pump 2 On Minute</item>
         <item>ATO Hour Interval</item>
         <item>ATO High Hour Interval</item>
-        <item>ATO High Timeout</item>
+        <item>(NOT USED) ATO High Timeout</item>
         <item>Dosing Pump 1 Repeat Interval</item>
         <item>Dosing Pump 2 Repeat Interval</item>
         <item>Salinity Max</item>
@@ -172,6 +174,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>PWM Slope Exp Ch 5 Start %</item>
         <item>PWM Slope Exp Ch 5 End %</item>
         <item>PWM Slope Exp Ch 5 Duration</item>
+        <item>ATO Timeout</item>
+        <item>ATO High Timeout</item>
     </string-array>
 
     <integer-array name="memoryLocationsTypes">
@@ -238,6 +242,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>0</item>
         <item>0</item>
         <item>0</item>
+        <item>1</item>
+        <item>1</item>
     </integer-array>
     <integer-array name="wavemakersIndex">
         <item>9</item>
@@ -274,6 +280,18 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>37</item>
         <item>39</item>
         <item>40</item>
+        <item>45</item>
+        <item>46</item>
+        <item>48</item>
+        <item>49</item>
+        <item>51</item>
+        <item>52</item>
+        <item>54</item>
+        <item>55</item>
+        <item>57</item>
+        <item>58</item>
+        <item>60</item>
+        <item>61</item>
     </integer-array>
 
 </resources>
