@@ -21,8 +21,11 @@ public class Host {
 	private int timeoutConnect;
 	private int timeoutRead;
 	private String raUserid;
-	private final String RAHOST =
-			"http://www.reefangel.com/status/xml.aspx?id=";
+	//private final String RAHOST = "http://www.reefangel.com/status/xml.aspx?id=";
+	private final String RAPARAMS = 
+			"http://forum.reefangel.com/status/params.aspx?id=";
+	private final String RALABELS =
+			"http://forum.reefangel.com/status/labels.aspx?id=";
 
 	// for memory reading/writing
 	private int location;
@@ -149,7 +152,12 @@ public class Host {
 				Log.e( TAG, "Failed URL encoder" );
 				encodedId = "";
 			}
-			s = RAHOST + encodedId;
+			//s = RAHOST + encodedId;
+			if ( labels ) {
+				s = RALABELS + encodedId;
+			} else {
+				s = RAPARAMS + encodedId;
+			}
 		}
 		return s;
 	}
