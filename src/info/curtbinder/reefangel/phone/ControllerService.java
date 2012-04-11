@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 public class ControllerService extends Service {
 	private static final String TAG = ControllerService.class.getSimpleName();
@@ -143,6 +144,9 @@ public class ControllerService extends Service {
 				if ( !isController ) {
 					// TODO update this for portal
 					Log.d( TAG, "Not a controller" );
+					Toast.makeText( rapp.getBaseContext(),
+									R.string.messageNotController,
+									Toast.LENGTH_LONG ).show();
 					return;
 				}
 
@@ -158,9 +162,25 @@ public class ControllerService extends Service {
 				h.setGetLabelsOnly( true );
 			} else if ( action.equals( MessageCommands.COMMAND_SEND_INTENT )) {
 				Log.d(TAG, "Command Send");
+				if ( !isController ) {
+					// TODO update this for portal
+					Log.d( TAG, "Not a controller" );
+					Toast.makeText( rapp.getBaseContext(),
+									R.string.messageNotController,
+									Toast.LENGTH_LONG ).show();
+					return;
+				}
 				h.setCommand( intent.getStringExtra( MessageCommands.COMMAND_SEND_STRING ) );
 			} else if ( action.equals(MessageCommands.VERSION_QUERY_INTENT)) {
 				Log.d(TAG, "Query version");
+				if ( !isController ) {
+					// TODO update this for portal
+					Log.d( TAG, "Not a controller" );
+					Toast.makeText( rapp.getBaseContext(),
+									R.string.messageNotController,
+									Toast.LENGTH_LONG ).show();
+					return;
+				}
 				h.setCommand( Globals.requestVersion );
 			} else {
 				Log.d( TAG, "Unknown command" );

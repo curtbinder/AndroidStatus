@@ -56,6 +56,28 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp" >
+
+            <Button
+                android:id="@+id/command_button_ato_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/buttonAtoClear" />
+
+            <Button
+                android:id="@+id/command_button_overheat_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/buttonOverheatClear" />
+
+        </TableRow>
+        
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="5dp" >
 
             <TextView

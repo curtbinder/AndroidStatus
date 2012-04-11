@@ -127,7 +127,9 @@ public class Host {
 				|| (command.equals( Globals.requestVersion ))
 				|| (command.equals( Globals.requestFeedingMode ))
 				|| (command.equals( Globals.requestExitMode ))
-				|| (command.equals( Globals.requestWaterMode )) ) {
+				|| (command.equals( Globals.requestWaterMode ))
+				|| (command.equals( Globals.requestAtoClear ))
+				|| (command.equals( Globals.requestOverheatClear)) ) {
 			s =
 					new String( String.format(	"http://%s:%d%s", host, port,
 												command ) );

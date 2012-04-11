@@ -74,6 +74,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="buttonFeeding">Feeding Mode</string>
     <string name="buttonWater">Water Change</string>
     <string name="buttonExit">Exit Mode</string>
+    <string name="buttonAtoClear">Clear ATO</string>
+    <string name="buttonOverheatClear">Clear Overheat</string>
     <string name="radioByte">Byte</string>
     <string name="radioInt">Int</string>
 
@@ -102,6 +104,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="labelFeedingMode">Feeding Mode</string>
     <string name="labelWaterMode">Water Change Mode</string>
     <string name="labelExitMode">Exit Mode</string>
+    <string name="labelAtoClear">ATO Clear</string>
+    <string name="labelOverheatClear">Overheat Clear</string>
     <string name="labelVersion">Installed Version:</string>
     <string name="labelLocation">Location:</string>
     <string name="labelValue">Value:</string>
@@ -133,6 +137,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="messageWritingMemory">Writing to memory…</string>
     <string name="messageDeleteAllPrompt">Delete all history?</string>
     <string name="messageDeleted">Deleted</string>
+    <string name="messageNotController">Not a controller</string>
 
     <!-- Status strings -->
     <string name="statusStart">Starting update</string>

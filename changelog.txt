@@ -62,6 +62,14 @@ Changelog of all the versions of AndroidStatus
  * fixed parsing expansion relay data (was not fixed with 0.4.1)
  
  0.4.3
+ * fixed expansion relay parsing and but with dev libraries
+ 
+ 0.4.4
  * added in pwm expansion relay channel start %, end % and duration memory values
+ * added in new ato and ato high timeout memory locations
+ * added in ato clear and overheat clear buttons to commands page
+ * switched to new portal urls for parameters and controller labels
+ * added 'first run' screen when the app is first installed
+ * fixed sending commands in reefangel.com mode, displays popup that it's not a controller
  
  

@@ -21,6 +21,8 @@ public final class Globals {
 	public static final String requestVersion = "/v";
 	public static final String requestFeedingMode = "/mf";
 	public static final String requestWaterMode = "/mw";
+	public static final String requestAtoClear = "/mt";
+	public static final String requestOverheatClear = "/mo";
 	public static final String requestExitMode = "/bp";
 	public static final String requestRelay = "/r";
 	public static final String requestNone = "";

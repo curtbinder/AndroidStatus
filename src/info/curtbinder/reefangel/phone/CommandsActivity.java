@@ -27,6 +27,8 @@ public class CommandsActivity extends BaseActivity implements OnClickListener {
 	private Button waterButton;
 	private Button exitButton;
 	private Button versionButton;
+	private Button atoButton;
+	private Button overheatButton;
 	private TextView versionText;
 
 	CommandsReceiver receiver;
@@ -62,6 +64,8 @@ public class CommandsActivity extends BaseActivity implements OnClickListener {
 		waterButton = (Button) findViewById( R.id.command_button_water );
 		exitButton = (Button) findViewById( R.id.command_button_exit );
 		versionButton = (Button) findViewById( R.id.command_button_version );
+		atoButton = (Button) findViewById( R.id.command_button_ato_clear );
+		overheatButton = (Button) findViewById( R.id.command_button_overheat_clear );
 		versionText = (TextView) findViewById( R.id.textInstalledVersion );
 	}
 
@@ -70,6 +74,8 @@ public class CommandsActivity extends BaseActivity implements OnClickListener {
 		waterButton.setOnClickListener( this );
 		exitButton.setOnClickListener( this );
 		versionButton.setOnClickListener( this );
+		atoButton.setOnClickListener( this );
+		overheatButton.setOnClickListener( this );
 	}
 
 	@Override
@@ -88,6 +94,16 @@ public class CommandsActivity extends BaseActivity implements OnClickListener {
 				break;
 			case R.id.command_button_version:
 				i.setAction( MessageCommands.VERSION_QUERY_INTENT );
+				break;
+			case R.id.command_button_ato_clear:
+				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
+				i.putExtra(  MessageCommands.COMMAND_SEND_STRING,
+				             Globals.requestAtoClear );
+				break;
+			case R.id.command_button_overheat_clear:
+				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
+				i.putExtra(  MessageCommands.COMMAND_SEND_STRING,
+				             Globals.requestOverheatClear );
 				break;
 			default:
 			case R.id.command_button_exit:

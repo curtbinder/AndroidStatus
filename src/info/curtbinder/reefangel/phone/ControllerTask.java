@@ -128,6 +128,12 @@ public class ControllerTask implements Runnable {
 			} else if ( host.getCommand().equals( Globals.requestExitMode ) ) {
 				broadcastCommandResponse(	R.string.labelExitMode,
 											xml.getModeResponse() );
+			} else if ( host.getCommand().equals( Globals.requestAtoClear ) ) {
+				broadcastCommandResponse(	R.string.labelAtoClear,
+											xml.getModeResponse() );
+			} else if ( host.getCommand().equals( Globals.requestOverheatClear ) ) {
+				broadcastCommandResponse(	R.string.labelOverheatClear,
+											xml.getModeResponse() );
 			} else if ( host.getCommand().equals( Globals.requestVersion ) ) {
 				Intent i = new Intent( MessageCommands.VERSION_RESPONSE_INTENT );
 				i.putExtra( MessageCommands.VERSION_RESPONSE_STRING,
