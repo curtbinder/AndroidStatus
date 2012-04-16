@@ -91,8 +91,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>Courbe PWM Exp Ch 5 Début %</item>
         <item>Courbe PWM Exp Ch 5 Fin %</item>
         <item>Courbe PWM Exp Ch 5 Durée</item>
-        <item>Timeout ATO</item>
-        <item>ATO Haut Timeout</item>
+        <item>Délais d\'attente ATO prolongé</item>
+        <item>Délais d\'attente ATO Haut prolongé</item>
     </string-array>
 
 </resources>
