@@ -4,7 +4,7 @@ Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
  
 This work is made available under the terms of the 
 Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
-http://creativecommons.org/licenses/by-nc-sa/3.0/
+http://creativecommons.org/licenses/by-nc-sa/3.0/
 -->
 
 <resources>
@@ -17,8 +17,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <string name="menuMainAbout">About</string>
     <string name="menuMainMemory">Memory</string>
     <string name="menuMainParams">History</string>
+    <string name="menuMainDateTime">Date / Time</string>
     <string name="menuParamsDelete">Delete</string>
-
 
     <!-- Titles for Screens -->
     <string name="titleParams">Parameters History</string>
@@ -29,12 +29,12 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <string name="titleLicense">License Information</string>
     <string name="titleTabs">Memory Pages</string>
     <string name="titlePrefs">Status Settings</string>
-
+    <string name="titleDateTime">Date / Time</string>
 
     <!-- Tabs for memory page -->
     <string name="tabMemory1">memory_tab_1</string>
     <string name="tabMemory2">memory_tab_2</string>
-
+    <string name="tabMemory3">memory_tab_3</string>
 
     <!-- Shortcut Keys -->
     <string name="shortcutSettings">s</string>
@@ -43,23 +43,23 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <string name="shortcutMemory">m</string>
     <string name="shortcutParams">p</string>
 
-
-<!-- Text descriptions -->
-    <string name="textAbout">
-Monitors the status of your Reef Angel Controller and displays the values.  You must have a wifi attachment installed on
+    <!-- Text descriptions -->
+    <string name="textAbout">Monitors the status of your Reef Angel Controller and displays the values.  You must have a wifi attachment installed on
 your controller or have a ReefAngel UserID to use this app.</string>
-    <string name="textLicense">
-Reef Angel Status by Curt Binder is licensed under a 
+    <string name="textLicense">Reef Angel Status by Curt Binder is licensed under a 
 Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</string>
     <!-- Memory Location screen -->
     <string name="descriptionMemory">Select the memory location to update or enter a custom location.</string>
     <!-- Commands screen -->
     <string name="descriptionModes">Feeding and Water Change buttons enter the appropriate modes. Press the Exit button to simulate a button press on the controller, which exits the modes.</string>
     <!-- First Run screen -->
-	<string name="descriptionFirstRun">Before you begin, you must configure a few settings in order for the application to run properly.\n
+    <string name="descriptionFirstRun">Before you begin, you must configure a few settings in order for the application to run properly.\n
 * Hostname (required): Enter the hostname or IP address of your controller.\n
 * Port (optional): Enter the port for the controller (leave blank if unknown or the default).\n
 * User ID (optional): Enter your username for the forum. This is to download your labels stored on the portal.</string>
+    <!-- Date and Time screen -->
+    <string name="descriptionCurrentControllerTime">Press \'Get Time\' to retrieve the current date and time from the controller.  Press \'Set Current Time\' to set the date and time to match your device.</string>
+    <string name="descriptionCustomControllerTime">You can enter a custom date and time. Use \'Change Time\' or \'Change Date\' to enter the custom date and time. Use \'Set Custom Time\' to set it.</string>
 
     <!-- Buttons -->
     <string name="buttonRefresh">Refresh</string>
@@ -76,9 +76,13 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="buttonExit">Exit Mode</string>
     <string name="buttonAtoClear">Clear ATO</string>
     <string name="buttonOverheatClear">Clear Overheat</string>
+    <string name="buttonGetControllerTime">Get Time</string>
+    <string name="buttonSetCurrentTime">Set Current Time</string>
+    <string name="buttonChangeDate">Change Date</string>
+    <string name="buttonChangeTime">Change Time</string>
+    <string name="buttonSetCustomTime">Set Custom Time</string>
     <string name="radioByte">Byte</string>
     <string name="radioInt">Int</string>
-
 
     <!-- Labels -->
     <string name="labelLastUpdated">Last Updated:</string>
@@ -110,7 +114,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="labelLocation">Location:</string>
     <string name="labelValue">Value:</string>
     <string name="labelType">Type:</string>
-
+    <string name="labelController">Controller:</string>
+    <string name="labelTime">Time:</string>
+    <string name="labelDate">Date:</string>
     <string name="websiteReefangel">http://www.reefangel.com/</string>
     <string name="forumReefangel">http://forum.reefangel.com/</string>
     <string name="defaultStatusText">-</string>
@@ -346,7 +352,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
 
     <!-- Permissions -->
     <string name="permissionQueryStatusLabel">Query status of controller</string>
-	<string name="permissionQueryStatusDescription">Allows this application to query the status of the controller</string>
+    <string name="permissionQueryStatusDescription">Allows this application to query the status of the controller</string>
     <string name="permissionSendCommandLabel">Send commands to controller</string>
     <string name="permissionSendCommandDescription">\
 Allows this application to send commands to the controller.  The following commands are allowed:
@@ -354,7 +360,6 @@ Allows this application to send commands to the controller.  The following comma
 * Label retrieval from website
 * Reading / writing internal memory
 * Toggling relay status
-* Version query
-</string>
+* Version query</string>
 
 </resources>
