@@ -48,6 +48,8 @@ public class ControllerService extends Service {
 		filter.addAction( MessageCommands.LABEL_QUERY_INTENT );
 		filter.addAction( MessageCommands.COMMAND_SEND_INTENT );
 		filter.addAction( MessageCommands.VERSION_QUERY_INTENT );
+		filter.addAction( MessageCommands.DATE_QUERY_INTENT );
+		filter.addAction( MessageCommands.DATE_SEND_INTENT );
 	}
 
 	@Override
@@ -134,7 +136,8 @@ public class ControllerService extends Service {
 				int location =
 						intent.getIntExtra( MessageCommands.MEMORY_SEND_LOCATION_INT,
 											Globals.memoryReadOnly );
-				String type = intent.getStringExtra( MessageCommands.MEMORY_SEND_TYPE_STRING );
+				String type =
+						intent.getStringExtra( MessageCommands.MEMORY_SEND_TYPE_STRING );
 				if ( type.equals( null )
 						|| (location == Globals.memoryReadOnly) ) {
 					Log.d( TAG, "No memory specified" );
@@ -142,11 +145,7 @@ public class ControllerService extends Service {
 				}
 
 				if ( !isController ) {
-					// TODO update this for portal
-					Log.d( TAG, "Not a controller" );
-					Toast.makeText( rapp.getBaseContext(),
-									R.string.messageNotController,
-									Toast.LENGTH_LONG ).show();
+					notControllerMessage();
 					return;
 				}
 
@@ -160,28 +159,36 @@ public class ControllerService extends Service {
 				// set the userid
 				h.setUserId( rapp.getPrefUserId() );
 				h.setGetLabelsOnly( true );
-			} else if ( action.equals( MessageCommands.COMMAND_SEND_INTENT )) {
-				Log.d(TAG, "Command Send");
+			} else if ( action.equals( MessageCommands.COMMAND_SEND_INTENT ) ) {
+				Log.d( TAG, "Command Send" );
 				if ( !isController ) {
-					// TODO update this for portal
-					Log.d( TAG, "Not a controller" );
-					Toast.makeText( rapp.getBaseContext(),
-									R.string.messageNotController,
-									Toast.LENGTH_LONG ).show();
+					notControllerMessage();
 					return;
 				}
-				h.setCommand( intent.getStringExtra( MessageCommands.COMMAND_SEND_STRING ) );
-			} else if ( action.equals(MessageCommands.VERSION_QUERY_INTENT)) {
-				Log.d(TAG, "Query version");
+				h.setCommand( intent
+						.getStringExtra( MessageCommands.COMMAND_SEND_STRING ) );
+			} else if ( action.equals( MessageCommands.VERSION_QUERY_INTENT ) ) {
+				Log.d( TAG, "Query version" );
 				if ( !isController ) {
-					// TODO update this for portal
-					Log.d( TAG, "Not a controller" );
-					Toast.makeText( rapp.getBaseContext(),
-									R.string.messageNotController,
-									Toast.LENGTH_LONG ).show();
+					notControllerMessage();
 					return;
 				}
 				h.setCommand( Globals.requestVersion );
+			} else if ( action.equals( MessageCommands.DATE_QUERY_INTENT ) ) {
+				Log.d( TAG, "Query Date" );
+				if ( !isController ) {
+					notControllerMessage();
+					return;
+				}
+				h.setCommand( Globals.requestDateTime );
+			} else if ( action.equals( MessageCommands.DATE_SEND_INTENT ) ) {
+				Log.d( TAG, "Set Date" );
+				if ( !isController ) {
+					notControllerMessage();
+					return;
+				}
+				h.setCommand( intent
+						.getStringExtra( MessageCommands.DATE_SEND_STRING ) );
 			} else {
 				Log.d( TAG, "Unknown command" );
 				return;
@@ -190,5 +197,12 @@ public class ControllerService extends Service {
 			// submit to thread for execution
 			serviceThread.submit( new ControllerTask( rapp, h ) );
 		}
+	}
+
+	private void notControllerMessage ( ) {
+		// TODO update this for portal
+		Log.d( TAG, "Not a controller" );
+		Toast.makeText( rapp.getBaseContext(), R.string.messageNotController,
+						Toast.LENGTH_LONG ).show();
 	}
 }

@@ -139,6 +139,18 @@ public class ControllerTask implements Runnable {
 				i.putExtra( MessageCommands.VERSION_RESPONSE_STRING,
 							xml.getVersion() );
 				rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
+			} else if ( host.getCommand().equals( Globals.requestDateTime ) ) {
+				Intent i =
+						new Intent( MessageCommands.DATE_QUERY_RESPONSE_INTENT );
+				i.putExtra( MessageCommands.DATE_QUERY_RESPONSE_STRING,
+							xml.getDateTime() );
+				rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
+			} else if ( host.getCommand().startsWith( Globals.requestDateTime ) ) {
+				Intent i =
+						new Intent( MessageCommands.DATE_SEND_RESPONSE_INTENT );
+				i.putExtra( MessageCommands.DATE_SEND_RESPONSE_STRING,
+							xml.getDateTimeUpdateStatus() );
+				rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
 			}
 		}
 	}

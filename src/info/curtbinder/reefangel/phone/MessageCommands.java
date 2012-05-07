@@ -17,6 +17,21 @@ public final class MessageCommands {
 														+ ".COMMAND_SEND";
 	public static final String COMMAND_SEND_STRING = "COMMAND_SEND_STRING";
 
+	public static final String DATE_QUERY_INTENT = Globals.PACKAGE_BASE
+													+ ".DATE_QUERY";
+	public static final String DATE_QUERY_RESPONSE_INTENT =
+			Globals.PACKAGE_BASE + ".DATE_QUERY_RESPONSE";
+	public static final String DATE_QUERY_RESPONSE_STRING =
+			"DATE_QUERY_RESPONSE_STRING";
+
+	public static final String DATE_SEND_INTENT = Globals.PACKAGE_BASE
+													+ ".DATE_SEND";
+	public static final String DATE_SEND_STRING = "DATE_SEND_STRING";
+	public static final String DATE_SEND_RESPONSE_INTENT =
+			Globals.PACKAGE_BASE + ".DATE_SEND_RESPONSE";
+	public static final String DATE_SEND_RESPONSE_STRING =
+			"DATE_SEND_RESPONSE_STRING";
+
 	public static final String ERROR_MESSAGE_INTENT = Globals.PACKAGE_BASE
 														+ ".ERROR_MESSAGE";
 	public static final String ERROR_MESSAGE_STRING = "ERROR_MESSAGE_STRING";

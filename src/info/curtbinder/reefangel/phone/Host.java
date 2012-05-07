@@ -21,8 +21,9 @@ public class Host {
 	private int timeoutConnect;
 	private int timeoutRead;
 	private String raUserid;
-	//private final String RAHOST = "http://www.reefangel.com/status/xml.aspx?id=";
-	private final String RAPARAMS = 
+	// private final String RAHOST =
+	// "http://www.reefangel.com/status/xml.aspx?id=";
+	private final String RAPARAMS =
 			"http://forum.reefangel.com/status/params.aspx?id=";
 	private final String RALABELS =
 			"http://forum.reefangel.com/status/labels.aspx?id=";
@@ -129,7 +130,8 @@ public class Host {
 				|| (command.equals( Globals.requestExitMode ))
 				|| (command.equals( Globals.requestWaterMode ))
 				|| (command.equals( Globals.requestAtoClear ))
-				|| (command.equals( Globals.requestOverheatClear)) ) {
+				|| (command.equals( Globals.requestOverheatClear ))
+				|| (command.startsWith( Globals.requestDateTime )) ) {
 			s =
 					new String( String.format(	"http://%s:%d%s", host, port,
 												command ) );
@@ -154,7 +156,7 @@ public class Host {
 				Log.e( TAG, "Failed URL encoder" );
 				encodedId = "";
 			}
-			//s = RAHOST + encodedId;
+			// s = RAHOST + encodedId;
 			if ( labels ) {
 				s = RALABELS + encodedId;
 			} else {
