@@ -544,7 +544,6 @@ public final class R {
          */
         public static final int titleParams=0x7f070008;
         public static final int titlePrefs=0x7f070010;
-        public static final int titleTabs=0x7f07013d;
         public static final int websiteReefangel=0x7f070058;
     }
     public static final class style {

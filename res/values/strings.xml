@@ -365,6 +365,8 @@ Allows this application to send commands to the controller.  The following comma
 * Label retrieval from website
 * Reading / writing internal memory
 * Toggling relay status
-* Version query</string>
+* Version query
+* Get / set date and time
+</string>
 
 </resources>

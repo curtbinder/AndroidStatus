@@ -24,7 +24,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <string name="titleHistory">Historique</string>
     <string name="titleAbout">À propos de Reef Angel Status</string>
     <string name="titleLicense">Information sur la licence</string>
-    <string name="titleTabs">Pages de la Mémoire</string>
+    <string name="titleMemoryTabs">Pages de la Mémoire</string>
     <string name="titlePrefs">Paramètres du status</string>
 
 <!-- Text descriptions -->
