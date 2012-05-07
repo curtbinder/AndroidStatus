@@ -74,7 +74,12 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         </activity>
         <activity
             android:name=".MemoryTabsActivity"
-            android:label="@string/titleTabs"
+            android:label="@string/titleMemoryTabs"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".CommandTabsActivity"
+            android:label="@string/titleCommandTabs"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity

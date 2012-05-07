@@ -13,7 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TabHost;
 
-public class MemoryTabsActivity extends TabActivity {
+public class CommandTabsActivity extends TabActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,18 +22,20 @@ public class MemoryTabsActivity extends TabActivity {
 		final TabHost t = getTabHost();
 
 		t.addTab(t
-				.newTabSpec(getString(R.string.tabMemory1))
+				.newTabSpec(getString(R.string.tabCommand1))
 				.setIndicator(
-						getString(R.string.titleMemory),
+						getString(R.string.titleCommands),
 						getResources().getDrawable(
-								android.R.drawable.ic_menu_agenda))
-				.setContent(new Intent(this, MemoryActivity.class)));
+								android.R.drawable.ic_menu_upload))
+				.setContent(new Intent(this, CommandsActivity.class)));
+		/*
 		t.addTab(t
-				.newTabSpec(getString(R.string.tabMemory2))
+				.newTabSpec(getString(R.string.tabCommand2))
 				.setIndicator(
 						getString(R.string.titleDateTime),
 						getResources().getDrawable(
 								android.R.drawable.ic_menu_my_calendar))
 				.setContent(new Intent(this, DateTimeActivity.class)));
+		*/
 	}
 }

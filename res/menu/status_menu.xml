@@ -20,6 +20,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         android:icon="@android:drawable/ic_menu_recent_history"
         android:title="@string/menuMainParams"/>
     <item
+        android:id="@+id/commands"
+        android:alphabeticShortcut="@string/shortcutCommands"
+        android:icon="@android:drawable/ic_menu_upload"
+        android:title="@string/menuMainCommands"/>
+    <item
         android:id="@+id/memory"
         android:alphabeticShortcut="@string/shortcutMemory"
         android:icon="@android:drawable/ic_menu_agenda"

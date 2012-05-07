@@ -514,6 +514,11 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 				Log.d( TAG, "Memory clicked" );
 				startActivity( new Intent( this, MemoryTabsActivity.class ) );
 				break;
+			case R.id.commands:
+				// launch commands
+				Log.d( TAG, "Commands clicked" );
+				startActivity( new Intent( this, CommandTabsActivity.class ) );
+				break;
 			default:
 				return super.onOptionsItemSelected( item );
 		}

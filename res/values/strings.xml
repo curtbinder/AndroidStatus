@@ -15,9 +15,9 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <!-- Menu Labels -->
     <string name="menuMainSettings">Settings</string>
     <string name="menuMainAbout">About</string>
+    <string name="menuMainCommands">Commands</string>
     <string name="menuMainMemory">Memory</string>
     <string name="menuMainParams">History</string>
-    <string name="menuMainDateTime">Date / Time</string>
     <string name="menuParamsDelete">Delete</string>
 
     <!-- Titles for Screens -->
@@ -27,14 +27,18 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <string name="titleHistory">History</string>
     <string name="titleAbout">About Reef Angel Status</string>
     <string name="titleLicense">License Information</string>
-    <string name="titleTabs">Memory Pages</string>
+    <string name="titleMemoryTabs">Memory Pages</string>
+    <string name="titleCommandTabs">Command Pages</string>
     <string name="titlePrefs">Status Settings</string>
     <string name="titleDateTime">Date / Time</string>
 
     <!-- Tabs for memory page -->
     <string name="tabMemory1">memory_tab_1</string>
     <string name="tabMemory2">memory_tab_2</string>
-    <string name="tabMemory3">memory_tab_3</string>
+
+    <!-- Tabs for command page -->
+    <string name="tabCommand1">command_tab_1</string>
+    <string name="tabCommand2">command_tab_2</string>
 
     <!-- Shortcut Keys -->
     <string name="shortcutSettings">s</string>
@@ -42,6 +46,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <string name="shortcutRefresh">r</string>
     <string name="shortcutMemory">m</string>
     <string name="shortcutParams">p</string>
+    <string name="shortcutCommands">c</string>
 
     <!-- Text descriptions -->
     <string name="textAbout">Monitors the status of your Reef Angel Controller and displays the values.  You must have a wifi attachment installed on
