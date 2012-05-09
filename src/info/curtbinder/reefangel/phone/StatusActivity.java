@@ -48,17 +48,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 	private TextView apLabel;
 	private TextView salinityLabel;
 
-	private TextView[] mainPortLabels =
-			new TextView[Controller.MAX_RELAY_PORTS];
-	private ToggleButton[] mainPortBtns =
-			new ToggleButton[Controller.MAX_RELAY_PORTS];
-	private View[] mainPortMaskBtns = new View[Controller.MAX_RELAY_PORTS];
-
-	// private TextView[] exp1PortLabels =
-	// new TextView[Controller.MAX_RELAY_PORTS];
-	// private ToggleButton[] exp1PortBtns =
-	// new ToggleButton[Controller.MAX_RELAY_PORTS];
-	// private View[] exp1PortMaskBtns = new View[Controller.MAX_RELAY_PORTS];
+	private RelayBoxWidget main;
 
 	// Message Receivers
 	StatusReceiver receiver;
@@ -129,43 +119,15 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		apLabel = (TextView) findViewById( R.id.ap_label );
 		salinityLabel = (TextView) findViewById( R.id.salinity_label );
 
-		mainPortLabels[0] = (TextView) findViewById( R.id.main_port1_label );
-		mainPortLabels[1] = (TextView) findViewById( R.id.main_port2_label );
-		mainPortLabels[2] = (TextView) findViewById( R.id.main_port3_label );
-		mainPortLabels[3] = (TextView) findViewById( R.id.main_port4_label );
-		mainPortLabels[4] = (TextView) findViewById( R.id.main_port5_label );
-		mainPortLabels[5] = (TextView) findViewById( R.id.main_port6_label );
-		mainPortLabels[6] = (TextView) findViewById( R.id.main_port7_label );
-		mainPortLabels[7] = (TextView) findViewById( R.id.main_port8_label );
-		mainPortBtns[0] = (ToggleButton) findViewById( R.id.main_port1 );
-		mainPortBtns[1] = (ToggleButton) findViewById( R.id.main_port2 );
-		mainPortBtns[2] = (ToggleButton) findViewById( R.id.main_port3 );
-		mainPortBtns[3] = (ToggleButton) findViewById( R.id.main_port4 );
-		mainPortBtns[4] = (ToggleButton) findViewById( R.id.main_port5 );
-		mainPortBtns[5] = (ToggleButton) findViewById( R.id.main_port6 );
-		mainPortBtns[6] = (ToggleButton) findViewById( R.id.main_port7 );
-		mainPortBtns[7] = (ToggleButton) findViewById( R.id.main_port8 );
-
-		mainPortMaskBtns[0] = findViewById( R.id.main_port1mask );
-		mainPortMaskBtns[1] = findViewById( R.id.main_port2mask );
-		mainPortMaskBtns[2] = findViewById( R.id.main_port3mask );
-		mainPortMaskBtns[3] = findViewById( R.id.main_port4mask );
-		mainPortMaskBtns[4] = findViewById( R.id.main_port5mask );
-		mainPortMaskBtns[5] = findViewById( R.id.main_port6mask );
-		mainPortMaskBtns[6] = findViewById( R.id.main_port7mask );
-		mainPortMaskBtns[7] = findViewById( R.id.main_port8mask );
+		main = (RelayBoxWidget) findViewById( R.id.mainrelay );
 	}
 
 	private void setOnClickListeners ( ) {
 		refreshButton.setOnClickListener( this );
-		for ( int i = 0; i < 8; i++ ) {
-			if ( rapp.isCommunicateController() ) {
-				mainPortBtns[i].setOnClickListener( this );
-				mainPortMaskBtns[i].setOnClickListener( this );
-			} else {
-				mainPortBtns[i].setClickable( false );
-				mainPortMaskBtns[i].setClickable( false );
-			}
+		if ( rapp.isCommunicateController() ) {
+			main.setOnClickListeners();
+		} else {
+			main.setClickable( false );
 		}
 	}
 
@@ -184,9 +146,10 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		apLabel.setText( rapp.getPrefAPLabel() + separator );
 		salinityLabel.setText( rapp.getPrefSalinityLabel() + separator );
 
-		for ( int i = 0; i < 8; i++ ) {
-			mainPortLabels[i].setText( rapp.getPrefMainRelayLabel( i + 1 )
-										+ separator );
+		main.setRelayTitle( getString( R.string.prefMainRelayTitle) );
+		for ( int i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
+			main.setPortLabel( i, rapp.getPrefMainRelayLabel( i + 1 )
+									+ separator );
 		}
 
 		// Visibility
@@ -247,87 +210,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 				Log.d( TAG, "onClick Refresh button" );
 				launchStatusTask();
 				break;
-			case R.id.main_port1:
-				Log.d( TAG, "toggle port 1" );
-				sendRelayToggleTask( 1 );
-				break;
-			case R.id.main_port2:
-				Log.d( TAG, "toggle port 2" );
-				sendRelayToggleTask( 2 );
-				break;
-			case R.id.main_port3:
-				Log.d( TAG, "toggle port 3" );
-				sendRelayToggleTask( 3 );
-				break;
-			case R.id.main_port4:
-				Log.d( TAG, "toggle port 4" );
-				sendRelayToggleTask( 4 );
-				break;
-			case R.id.main_port5:
-				Log.d( TAG, "toggle port 5" );
-				sendRelayToggleTask( 5 );
-				break;
-			case R.id.main_port6:
-				Log.d( TAG, "toggle port 6" );
-				sendRelayToggleTask( 6 );
-				break;
-			case R.id.main_port7:
-				Log.d( TAG, "toggle port 7" );
-				sendRelayToggleTask( 7 );
-				break;
-			case R.id.main_port8:
-				Log.d( TAG, "toggle port 8" );
-				sendRelayToggleTask( 8 );
-				break;
-			case R.id.main_port1mask:
-				Log.d( TAG, "clear mask 1" );
-				sendRelayClearMaskTask( 1 );
-				break;
-			case R.id.main_port2mask:
-				Log.d( TAG, "clear mask 2" );
-				sendRelayClearMaskTask( 2 );
-				break;
-			case R.id.main_port3mask:
-				Log.d( TAG, "clear mask 3" );
-				sendRelayClearMaskTask( 3 );
-				break;
-			case R.id.main_port4mask:
-				Log.d( TAG, "clear mask 4" );
-				sendRelayClearMaskTask( 4 );
-				break;
-			case R.id.main_port5mask:
-				Log.d( TAG, "clear mask 5" );
-				sendRelayClearMaskTask( 5 );
-				break;
-			case R.id.main_port6mask:
-				Log.d( TAG, "clear mask 6" );
-				sendRelayClearMaskTask( 6 );
-				break;
-			case R.id.main_port7mask:
-				Log.d( TAG, "clear mask 7" );
-				sendRelayClearMaskTask( 7 );
-				break;
-			case R.id.main_port8mask:
-				Log.d( TAG, "clear mask 8" );
-				sendRelayClearMaskTask( 8 );
-				break;
 		}
-	}
-
-	private void sendRelayToggleTask ( int port ) {
-		Log.d( TAG, "sendRelayToggleTask" );
-		int status = Relay.PORT_STATE_OFF;
-		if ( mainPortBtns[port - 1].isChecked() ) {
-			status = Relay.PORT_STATE_ON;
-		}
-		launchRelayToggleTask( port, status );
-	}
-
-	private void sendRelayClearMaskTask ( int port ) {
-		Log.d( TAG, "sendRelayClearMaskTask" );
-		// hide ourself and clear the mask
-		mainPortMaskBtns[port - 1].setVisibility( View.INVISIBLE );
-		launchRelayToggleTask( port, Relay.PORT_STATE_AUTO );
 	}
 
 	@Override
@@ -348,14 +231,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		Log.d( TAG, "launchStatusTask" );
 		Intent i = new Intent( MessageCommands.QUERY_STATUS_INTENT );
 		sendBroadcast( i, Permissions.QUERY_STATUS );
-	}
-
-	private void launchRelayToggleTask ( int relay, int status ) {
-		Log.d( TAG, "launchRelayToggleTask" );
-		Intent i = new Intent( MessageCommands.TOGGLE_RELAY_INTENT );
-		i.putExtra( MessageCommands.TOGGLE_RELAY_PORT_INT, relay );
-		i.putExtra( MessageCommands.TOGGLE_RELAY_MODE_INT, status );
-		sendBroadcast( i, Permissions.SEND_COMMAND );
 	}
 
 	public void updateDisplay ( ) {
@@ -395,7 +270,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 			c.close();
 			loadDisplayedControllerValues( values );
 			relay.setRelayData( r, ron, roff );
-			updateMainRelayValues( relay );
+			main.updateRelayValues( relay, rapp.isCommunicateController() );
 		} catch ( SQLException e ) {
 			Log.d( TAG, "SQLException: " + e.getMessage() );
 		} catch ( CursorIndexOutOfBoundsException e ) {
@@ -427,36 +302,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 				updateTime
 						.setText( intent
 								.getStringExtra( MessageCommands.ERROR_MESSAGE_STRING ) );
-			}
-		}
-	}
-
-	private void updateMainRelayValues ( Relay r ) {
-		short status;
-		String s;
-		String s1;
-		boolean useMask = rapp.isCommunicateController();
-		for ( int i = 0; i < 8; i++ ) {
-			status = r.getPortStatus( i + 1 );
-			if ( status == Relay.PORT_STATE_ON ) {
-				s1 = "ON";
-			} else if ( status == Relay.PORT_STATE_AUTO ) {
-				s1 = "AUTO";
-			} else {
-				s1 = "OFF";
-			}
-			s =
-					new String( String.format( "Port %d: %s(%s)", i + 1, r
-							.isPortOn( i + 1, useMask ) ? "ON" : "OFF", s1 ) );
-			Log.d( TAG, s );
-
-			mainPortBtns[i].setChecked( r.isPortOn( i + 1, useMask ) );
-			if ( ((status == Relay.PORT_ON) || (status == Relay.PORT_STATE_OFF))
-					&& useMask ) {
-				// masked on or off, show button
-				mainPortMaskBtns[i].setVisibility( View.VISIBLE );
-			} else {
-				mainPortMaskBtns[i].setVisibility( View.INVISIBLE );
 			}
 		}
 	}

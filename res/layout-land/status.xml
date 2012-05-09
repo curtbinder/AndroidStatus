@@ -124,9 +124,10 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
             <!-- Merge Main Relay Here -->
 
-            <include
+            <info.curtbinder.reefangel.phone.RelayBoxWidget
                 android:id="@+id/mainrelay"
-                layout="@layout/mainrelay" />
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
         </TableLayout>
     </ScrollView>
 

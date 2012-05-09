@@ -46,16 +46,26 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
             <!-- Merge Main Relay Here -->
 
+
+            <!--
             <include
                 android:id="@+id/mainrelay"
                 layout="@layout/mainrelay" />
-            <!-- 
+            -->
+
+            <info.curtbinder.reefangel.phone.RelayBoxWidget
+                android:id="@+id/mainrelay"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+            <!--
             <include 
                 android:id="@+id/exp1relay"
                 layout="@layout/exp1relay" />
-                -->
-            
+            -->
+
         </TableLayout>
+
     </ScrollView>
 
 </TableLayout>

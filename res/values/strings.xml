@@ -109,6 +109,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="labelPort6">Port 6</string>
     <string name="labelPort7">Port 7</string>
     <string name="labelPort8">Port 8</string>
+    <string name="labelRelayBox">Relay Box</string>
     <string name="labelSeparator">:</string>
     <string name="labelFeedingMode">Feeding Mode</string>
     <string name="labelWaterMode">Water Change Mode</string>
