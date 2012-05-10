@@ -10,7 +10,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 <resources>
 
     <string name="app_name">Reef Angel Status</string>
-    <string name="app_version">0.4.4</string>
+    <string name="app_version">0.5.0 beta</string>
 
     <!-- Menu Labels -->
     <string name="menuMainSettings">Settings</string>
@@ -211,7 +211,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefForumTitle">Reef Angel Forums</string>
     <string name="prefForumSummary">http://forum.reefangel.com/</string>
     <string name="prefControllerTitle">Controller Information</string>
-    <string name="prefControllerSummary">Update labels, Toggle visibility</string>
+    <string name="prefControllerSummary">Update labels, Toggle visibility, Set Expansion Relays</string>
     <string name="prefVisibilityCategory">Visibility Settings</string>
     <string name="prefControllerVisibilityTitle">Label Visibility</string>
     <string name="prefControllerVisibilitySummary">Toggle the visibility of the controller labels</string>
@@ -275,6 +275,14 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefMainPort6LabelKey">main_port6_label</string>
     <string name="prefMainPort7LabelKey">main_port7_label</string>
     <string name="prefMainPort8LabelKey">main_port8_label</string>
+    <string name="prefExpansionCategory">Expansion Settings</string>
+    <string name="prefExpQtyKey">expansion_quantity</string>
+    <string name="prefExpQtyTitle">Quantity</string>
+    <string name="prefExpQtySummary">Choose the number of expansion relays installed</string>
+    <string name="prefExpLabelsKey">exp_relay_labels</string>
+    <string name="prefExpLabelsTitle">Expansion Labels</string>
+    <string name="prefExpLabelsSummary">Change the labels for all expansion relays</string>
+    <string name="prefExp1RelayKey">exp1_relay_labels</string>    
     <string name="prefExp1RelayTitle">Expansion Relay 1</string>
     <string name="prefExp1RelaySummary">Change the labels of the expansion 1 relay</string>
     <string name="prefExp1Port1LabelKey">exp1_port1_label</string>
@@ -285,6 +293,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp1Port6LabelKey">exp1_port6_label</string>
     <string name="prefExp1Port7LabelKey">exp1_port7_label</string>
     <string name="prefExp1Port8LabelKey">exp1_port8_label</string>
+    <string name="prefExp2RelayKey">exp2_relay_labels</string>   
     <string name="prefExp2RelayTitle">Expansion Relay 2</string>
     <string name="prefExp2RelaySummary">Change the labels of the expansion 2 relay</string>
     <string name="prefExp2Port1LabelKey">exp2_port1_label</string>
@@ -295,6 +304,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp2Port6LabelKey">exp2_port6_label</string>
     <string name="prefExp2Port7LabelKey">exp2_port7_label</string>
     <string name="prefExp2Port8LabelKey">exp2_port8_label</string>
+    <string name="prefExp3RelayKey">exp3_relay_labels</string>   
     <string name="prefExp3RelayTitle">Expansion Relay 3</string>
     <string name="prefExp3RelaySummary">Change the labels of the expansion 3 relay</string>
     <string name="prefExp3Port1LabelKey">exp3_port1_label</string>
@@ -305,6 +315,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp3Port6LabelKey">exp3_port6_label</string>
     <string name="prefExp3Port7LabelKey">exp3_port7_label</string>
     <string name="prefExp3Port8LabelKey">exp3_port8_label</string>
+    <string name="prefExp4RelayKey">exp4_relay_labels</string>   
     <string name="prefExp4RelayTitle">Expansion Relay 4</string>
     <string name="prefExp4RelaySummary">Change the labels of the expansion 4 relay</string>
     <string name="prefExp4Port1LabelKey">exp4_port1_label</string>
@@ -315,6 +326,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp4Port6LabelKey">exp4_port6_label</string>
     <string name="prefExp4Port7LabelKey">exp4_port7_label</string>
     <string name="prefExp4Port8LabelKey">exp4_port8_label</string>
+    <string name="prefExp5RelayKey">exp5_relay_labels</string>   
     <string name="prefExp5RelayTitle">Expansion Relay 5</string>
     <string name="prefExp5RelaySummary">Change the labels of the expansion 5 relay</string>
     <string name="prefExp5Port1LabelKey">exp5_port1_label</string>
@@ -325,6 +337,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp5Port6LabelKey">exp5_port6_label</string>
     <string name="prefExp5Port7LabelKey">exp5_port7_label</string>
     <string name="prefExp5Port8LabelKey">exp5_port8_label</string>
+    <string name="prefExp6RelayKey">exp6_relay_labels</string>   
     <string name="prefExp6RelayTitle">Expansion Relay 6</string>
     <string name="prefExp6RelaySummary">Change the labels of the expansion 6 relay</string>
     <string name="prefExp6Port1LabelKey">exp6_port1_label</string>
@@ -335,6 +348,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp6Port6LabelKey">exp6_port6_label</string>
     <string name="prefExp6Port7LabelKey">exp6_port7_label</string>
     <string name="prefExp6Port8LabelKey">exp6_port8_label</string>
+    <string name="prefExp7RelayKey">exp7_relay_labels</string>   
     <string name="prefExp7RelayTitle">Expansion Relay 7</string>
     <string name="prefExp7RelaySummary">Change the labels of the expansion 7 relay</string>
     <string name="prefExp7Port1LabelKey">exp7_port1_label</string>
@@ -345,6 +359,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp7Port6LabelKey">exp7_port6_label</string>
     <string name="prefExp7Port7LabelKey">exp7_port7_label</string>
     <string name="prefExp7Port8LabelKey">exp7_port8_label</string>
+    <string name="prefExp8RelayKey">exp8_relay_labels</string>   
     <string name="prefExp8RelayTitle">Expansion Relay 8</string>
     <string name="prefExp8RelaySummary">Change the labels of the expansion 8 relay</string>
     <string name="prefExp8Port1LabelKey">exp8_port1_label</string>

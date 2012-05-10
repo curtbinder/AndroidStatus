@@ -44,26 +44,43 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:id="@+id/controllerstatus"
                 layout="@layout/controllerstatus" />
 
-            <!-- Merge Main Relay Here -->
-
-
-            <!--
-            <include
-                android:id="@+id/mainrelay"
-                layout="@layout/mainrelay" />
-            -->
-
             <info.curtbinder.reefangel.phone.RelayBoxWidget
                 android:id="@+id/mainrelay"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" />
 
-            <!--
-            <include 
-                android:id="@+id/exp1relay"
-                layout="@layout/exp1relay" />
-            -->
-
+            <info.curtbinder.reefangel.phone.RelayBoxWidget
+                android:id="@+id/exprelay1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            <info.curtbinder.reefangel.phone.RelayBoxWidget
+                android:id="@+id/exprelay2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            <info.curtbinder.reefangel.phone.RelayBoxWidget
+                android:id="@+id/exprelay3"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            <info.curtbinder.reefangel.phone.RelayBoxWidget
+                android:id="@+id/exprelay4"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            <info.curtbinder.reefangel.phone.RelayBoxWidget
+                android:id="@+id/exprelay5"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            <info.curtbinder.reefangel.phone.RelayBoxWidget
+                android:id="@+id/exprelay6"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            <info.curtbinder.reefangel.phone.RelayBoxWidget
+                android:id="@+id/exprelay7"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            <info.curtbinder.reefangel.phone.RelayBoxWidget
+                android:id="@+id/exprelay8"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
         </TableLayout>
 
     </ScrollView>

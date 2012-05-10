@@ -17,6 +17,28 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>0</item>
         <item>1</item>
     </string-array>
+    <string-array name="expansionRelays">
+        <item>None</item>
+        <item>1 Expansion Relay</item>
+        <item>2 Expansion Relays</item>
+        <item>3 Expansion Relays</item>
+        <item>4 Expansion Relays</item>
+        <item>5 Expansion Relays</item>
+        <item>6 Expansion Relays</item>
+        <item>7 Expansion Relays</item>
+        <item>8 Expansion Relays</item>
+    </string-array>
+    <string-array name="expansionRelaysValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
     <string-array name="errorCodes">
         <item>10</item>
         <item>11</item>

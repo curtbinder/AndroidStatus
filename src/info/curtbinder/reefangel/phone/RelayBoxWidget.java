@@ -71,6 +71,10 @@ public class RelayBoxWidget extends TableLayout implements OnClickListener {
 	public boolean isExpansionRelay ( ) {
 		return relayNumber > 0;
 	}
+	
+	private int getBoxNumber ( ) {
+		return relayNumber * 10;
+	}
 
 	private void addViewsFromLayout ( Context context ) {
 		LayoutInflater layoutInflater =
@@ -153,7 +157,7 @@ public class RelayBoxWidget extends TableLayout implements OnClickListener {
 				s1 = "OFF";
 			}
 			s =
-					new String( String.format( "Port %d: %s(%s)", i + 1, r
+					new String( String.format( "Port %d%d: %s(%s)", relayNumber, i + 1, r
 							.isPortOn( i + 1, fUseMask ) ? "ON" : "OFF", s1 ) );
 			Log.d( TAG, s );
 
@@ -170,70 +174,74 @@ public class RelayBoxWidget extends TableLayout implements OnClickListener {
 
 	@Override
 	public void onClick ( View v ) {
+		int box = getBoxNumber();
+		// inside Log.d, the + is string concatenation
+		// so relayNumber + NUM is actually like doing 1 + 1 == 11
+		// however, when you get into arithmetic 1 + 1 = 2 and not 11
 		switch ( v.getId() ) {
 			case R.id.relayPort1:
 				Log.d( TAG, "toggle port " + relayNumber + 1 );
-				sendRelayToggleTask( relayNumber + 1 );
+				sendRelayToggleTask( box + 1 );
 				break;
 			case R.id.relayPort2:
 				Log.d( TAG, "toggle port " + relayNumber + 2 );
-				sendRelayToggleTask( relayNumber + 2 );
+				sendRelayToggleTask( box + 2 );
 				break;
 			case R.id.relayPort3:
 				Log.d( TAG, "toggle port " + relayNumber + 3 );
-				sendRelayToggleTask( relayNumber + 3 );
+				sendRelayToggleTask( box + 3 );
 				break;
 			case R.id.relayPort4:
 				Log.d( TAG, "toggle port " + relayNumber + 4 );
-				sendRelayToggleTask( relayNumber + 4 );
+				sendRelayToggleTask( box + 4 );
 				break;
 			case R.id.relayPort5:
 				Log.d( TAG, "toggle port " + relayNumber + 5 );
-				sendRelayToggleTask( relayNumber + 5 );
+				sendRelayToggleTask( box + 5 );
 				break;
 			case R.id.relayPort6:
 				Log.d( TAG, "toggle port " + relayNumber + 6 );
-				sendRelayToggleTask( relayNumber + 6 );
+				sendRelayToggleTask( box + 6 );
 				break;
 			case R.id.relayPort7:
 				Log.d( TAG, "toggle port " + relayNumber + 7 );
-				sendRelayToggleTask( relayNumber + 7 );
+				sendRelayToggleTask( box + 7 );
 				break;
 			case R.id.relayPort8:
 				Log.d( TAG, "toggle port " + relayNumber + 8 );
-				sendRelayToggleTask( relayNumber + 8 );
+				sendRelayToggleTask( box + 8 );
 				break;
 			case R.id.relayPort1Mask:
 				Log.d( TAG, "clear mask " + relayNumber + 1 );
-				sendRelayClearMaskTask( relayNumber + 1 );
+				sendRelayClearMaskTask( box + 1 );
 				break;
 			case R.id.relayPort2Mask:
 				Log.d( TAG, "clear mask " + relayNumber + 2 );
-				sendRelayClearMaskTask( relayNumber + 2 );
+				sendRelayClearMaskTask( box + 2 );
 				break;
 			case R.id.relayPort3Mask:
 				Log.d( TAG, "clear mask " + relayNumber + 3 );
-				sendRelayClearMaskTask( relayNumber + 3 );
+				sendRelayClearMaskTask( box + 3 );
 				break;
 			case R.id.relayPort4Mask:
 				Log.d( TAG, "clear mask " + relayNumber + 4 );
-				sendRelayClearMaskTask( relayNumber + 4 );
+				sendRelayClearMaskTask( box + 4 );
 				break;
 			case R.id.relayPort5Mask:
 				Log.d( TAG, "clear mask " + relayNumber + 5 );
-				sendRelayClearMaskTask( relayNumber + 5 );
+				sendRelayClearMaskTask( box + 5 );
 				break;
 			case R.id.relayPort6Mask:
 				Log.d( TAG, "clear mask " + relayNumber + 6 );
-				sendRelayClearMaskTask( relayNumber + 6 );
+				sendRelayClearMaskTask( box + 6 );
 				break;
 			case R.id.relayPort7Mask:
 				Log.d( TAG, "clear mask " + relayNumber + 7 );
-				sendRelayClearMaskTask( relayNumber + 7 );
+				sendRelayClearMaskTask( box + 7 );
 				break;
 			case R.id.relayPort8Mask:
 				Log.d( TAG, "clear mask " + relayNumber + 8 );
-				sendRelayClearMaskTask( relayNumber + 8 );
+				sendRelayClearMaskTask( box + 8 );
 				break;
 		}
 	}
@@ -241,8 +249,9 @@ public class RelayBoxWidget extends TableLayout implements OnClickListener {
 	private void sendRelayToggleTask ( int port ) {
 		// port is 1 based
 		Log.d( TAG, "sendRelayToggleTask" );
+		int p = port - getBoxNumber();
 		int status = Relay.PORT_STATE_OFF;
-		if ( portBtns[port - 1].isChecked() ) {
+		if ( portBtns[p - 1].isChecked() ) {
 			status = Relay.PORT_STATE_ON;
 		}
 		launchRelayToggleTask( port, status );
@@ -252,12 +261,13 @@ public class RelayBoxWidget extends TableLayout implements OnClickListener {
 		// port is 1 based
 		Log.d( TAG, "sendRelayClearMaskTask" );
 		// hide ourself and clear the mask
-		portMaskBtns[port - 1].setVisibility( View.INVISIBLE );
+		int p = port - getBoxNumber();
+		portMaskBtns[p - 1].setVisibility( View.INVISIBLE );
 		launchRelayToggleTask( port, Relay.PORT_STATE_AUTO );
 	}
 
 	private void launchRelayToggleTask ( int relay, int status ) {
-		// port is 0 based
+		// port is 1 based
 		Log.d( TAG, "launchRelayToggleTask" );
 		Intent i = new Intent( MessageCommands.TOGGLE_RELAY_INTENT );
 		i.putExtra( MessageCommands.TOGGLE_RELAY_PORT_INT, relay );

@@ -32,6 +32,9 @@ public class PrefsActivity extends PreferenceActivity implements
 	private Preference hostkey;
 	private Preference useridkey;
 	private Preference downloadkey;
+	private Preference explabelkey;
+	private Preference[] explabels =
+			new Preference[Controller.MAX_EXPANSION_RELAYS];
 
 	RAApplication rapp;
 	PrefsReceiver receiver;
@@ -62,6 +65,40 @@ public class PrefsActivity extends PreferenceActivity implements
 				getPreferenceScreen()
 						.findPreference(	rapp.getString( R.string.prefDeviceKey ) );
 		devicekey.setOnPreferenceChangeListener( this );
+
+		Preference expqtykey =
+				getPreferenceScreen()
+						.findPreference(	rapp.getString( R.string.prefExpQtyKey ) );
+		expqtykey.setOnPreferenceChangeListener( this );
+		explabelkey =
+				getPreferenceScreen()
+						.findPreference(	rapp.getString( R.string.prefExpLabelsKey ) );
+		explabels[0] =
+				getPreferenceScreen()
+						.findPreference(	rapp.getString( R.string.prefExp1RelayKey ) );
+		explabels[1] =
+				getPreferenceScreen()
+						.findPreference(	rapp.getString( R.string.prefExp2RelayKey ) );
+		explabels[2] =
+				getPreferenceScreen()
+						.findPreference(	rapp.getString( R.string.prefExp3RelayKey ) );
+		explabels[3] =
+				getPreferenceScreen()
+						.findPreference(	rapp.getString( R.string.prefExp4RelayKey ) );
+		explabels[4] =
+				getPreferenceScreen()
+						.findPreference(	rapp.getString( R.string.prefExp5RelayKey ) );
+		explabels[5] =
+				getPreferenceScreen()
+						.findPreference(	rapp.getString( R.string.prefExp6RelayKey ) );
+		explabels[6] =
+				getPreferenceScreen()
+						.findPreference(	rapp.getString( R.string.prefExp7RelayKey ) );
+		explabels[7] =
+				getPreferenceScreen()
+						.findPreference(	rapp.getString( R.string.prefExp8RelayKey ) );
+		updateExpansionLabelsVisibility( rapp.getPrefExpansionRelayQuantity() );
+
 		Preference raWebsite =
 				getPreferenceScreen()
 						.findPreference(	rapp.getString( R.string.prefReefAngelKey ) );
@@ -177,6 +214,25 @@ public class PrefsActivity extends PreferenceActivity implements
 		downloadkey.setSummary( cs );
 	}
 
+	private void updateExpansionLabelsVisibility ( int qty ) {
+		boolean fEnable;
+		if ( qty > 0 ) {
+			explabelkey.setEnabled( true );
+			explabelkey.setSelectable( true );
+			for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
+				if ( (i + 1) <= qty )
+					fEnable = true;
+				else
+					fEnable = false;
+				explabels[i].setEnabled( fEnable );
+			}
+		} else {
+			// no expansion relays, disable the menu
+			explabelkey.setEnabled( false );
+			explabelkey.setSelectable( false );
+		}
+	}
+
 	@Override
 	public boolean onPreferenceChange ( Preference preference, Object newValue ) {
 		// return true to change, false to not
@@ -188,9 +244,15 @@ public class PrefsActivity extends PreferenceActivity implements
 			return rapp.validateHost( newValue );
 		} else if ( preference.getKey()
 				.equals( rapp.getString( R.string.prefUserIdKey ) ) ) {
-			if ( ! rapp.validateUser( newValue ) )
+			if ( !rapp.validateUser( newValue ) )
 				return false;
 			updateDownloadLabelUserId( newValue.toString() );
+		} else if ( preference.getKey()
+				.equals( rapp.getString( R.string.prefExpQtyKey ) ) ) {
+			// enable / disable the Expansion Labels based on how
+			// many expansion relays selected
+			updateExpansionLabelsVisibility( Integer.parseInt( newValue
+					.toString() ) );
 		}
 		return true;
 	}

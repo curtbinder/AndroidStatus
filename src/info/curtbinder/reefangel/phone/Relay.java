@@ -26,6 +26,17 @@ public class Relay {
 		data = 0;
 		maskOn = 0;
 		maskOff = 0;
+		initLabels();
+	}
+	
+	public Relay ( short data, short maskOn, short maskOff ) {
+		this.data = data;
+		this.maskOn = maskOn;
+		this.maskOff = maskOff;
+		initLabels();
+	}
+	
+	private void initLabels ( ) {
 		labels = new String[Controller.MAX_RELAY_PORTS];
 		for ( int i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
 			// TODO use strings.xml instead of hard code

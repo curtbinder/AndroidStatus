@@ -264,27 +264,25 @@ public class XMLHandler extends DefaultHandler {
 				// expansion relays, so split the port from the relay box
 				int box = relay / 10;
 				int port = relay % 10;
-				ra.getExpRelay( box ).setPortLabel( port, currentElementText );
+				// portal sends null if there's no value stored for a port
+				// so don't save null
+				if ( ! currentElementText.equals( "null" ) ) 
+					ra.getExpRelay( box ).setPortLabel( port, currentElementText );
 			}
 		} else if ( tag.startsWith( Globals.xmlRelayMaskOn ) ) {
-			/*
-			 * int relay = Integer.parseInt(tag.substring(Globals.xmlRelayMaskOn
-			 * .length())); ra.setExpRelayOnMask(relay,
-			 * Short.parseShort(currentElementText));
-			 */
+			int relay =
+					Integer.parseInt( tag.substring( Globals.xmlRelayMaskOn
+							.length() ) );
+			ra.setExpRelayOnMask( relay, Short.parseShort( currentElementText ) );
 		} else if ( tag.startsWith( Globals.xmlRelayMaskOff ) ) {
-			/*
-			 * int relay =
-			 * Integer.parseInt(tag.substring(Globals.xmlRelayMaskOff
-			 * .length())); ra.setExpRelayOffMask(relay,
-			 * Short.parseShort(currentElementText));
-			 */
+			int relay =
+					Integer.parseInt( tag.substring( Globals.xmlRelayMaskOff
+							.length() ) );
+			ra.setExpRelayOffMask( relay, Short.parseShort( currentElementText ) );
 		} else if ( tag.startsWith( Globals.xmlRelay ) ) {
-			/*
-			 * int relay = Integer.parseInt(tag.substring(Globals.xmlRelay
-			 * .length())); ra.setExpRelayData(relay,
-			 * Short.parseShort(currentElementText));
-			 */
+			int relay =
+					Integer.parseInt( tag.substring( Globals.xmlRelay.length() ) );
+			ra.setExpRelayData( relay, Short.parseShort( currentElementText ) );
 		} else {
 			Log.d( TAG, "Unhandled XML tag (" + tag + ") with data: "
 						+ currentElementText );

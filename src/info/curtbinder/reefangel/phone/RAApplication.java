@@ -53,7 +53,7 @@ public class RAApplication extends Application {
 		isServiceRunning = false;
 
 		fillRelayLabels();
-		
+
 		checkServiceRunning();
 
 	}
@@ -168,7 +168,7 @@ public class RAApplication extends Application {
 		}
 		return false;
 	}
-	
+
 	public boolean validateHost ( Object host ) {
 		// host validation here
 		Log.d( TAG, "Validate entered host" );
@@ -190,23 +190,21 @@ public class RAApplication extends Application {
 		}
 		return true;
 	}
-	
+
 	public boolean validatePort ( Object port ) {
 		Log.d( TAG, "Validate entered port" );
 		if ( !isNumber( port ) ) {
 			// not a number
 			Log.d( TAG, "Invalid port" );
 			Toast.makeText( this,
-							getString( R.string.messageNotNumber )
-									+ ": " + port.toString(),
-							Toast.LENGTH_SHORT ).show();
+							getString( R.string.messageNotNumber ) + ": "
+									+ port.toString(), Toast.LENGTH_SHORT )
+					.show();
 			return false;
 		} else {
 			// it's a number, verify it's within range
-			int min =
-					Integer.parseInt( getString( R.string.prefPortMin ) );
-			int max =
-					Integer.parseInt( getString( R.string.prefPortMax ) );
+			int min = Integer.parseInt( getString( R.string.prefPortMin ) );
+			int max = Integer.parseInt( getString( R.string.prefPortMax ) );
 			int v = Integer.parseInt( (String) port.toString() );
 
 			// check if it's less than the min value or if it's greater than
@@ -222,21 +220,21 @@ public class RAApplication extends Application {
 		}
 		return true;
 	}
-	
+
 	public boolean validateUser ( Object user ) {
 		String u = user.toString();
 		if ( !u.matches( USERID_PATTERN ) ) {
 			// invalid userid
 			Log.d( TAG, "Invalid userid" );
 			Toast.makeText( this,
-							getString( R.string.prefUserIdInvalid )
-									+ ": " + user.toString(),
-							Toast.LENGTH_SHORT ).show();
+							getString( R.string.prefUserIdInvalid ) + ": "
+									+ user.toString(), Toast.LENGTH_SHORT )
+					.show();
 			return false;
 		}
 		return true;
 	}
-	
+
 	// Preferences
 	protected void fillRelayLabels ( ) {
 		relayLabels =
@@ -333,46 +331,47 @@ public class RAApplication extends Application {
 
 	public boolean isFirstRun ( ) {
 		// First run will be determined by:
-		//   if the first run key is NOT set AND
-		//   if the host key is NOT set OR if it's the same as the default
-		boolean fFirst = prefs.getBoolean( getString( R.string.prefFirstRunKey ), true );
+		// if the first run key is NOT set AND
+		// if the host key is NOT set OR if it's the same as the default
+		boolean fFirst =
+				prefs.getBoolean( getString( R.string.prefFirstRunKey ), true );
 		// if it's already set, no need to compare the hosts
-		if ( ! fFirst ) {
-			Log.w(TAG, "First run already set");
+		if ( !fFirst ) {
+			Log.w( TAG, "First run already set" );
 			return false;
 		}
-		
+
 		// if it's not set (as in existing installations), check the host
 		// the host should be set and it should not be the same as the default
 		boolean fHost = true;
 		String host = prefs.getString( getString( R.string.prefHostKey ), "" );
-		if ( (host.equals( "" )) ||
-			 (host.equals( getString( R.string.prefHostDefault ) )) )
+		if ( (host.equals( "" ))
+				|| (host.equals( getString( R.string.prefHostDefault ) )) )
 			fHost = false;
-		Log.w(TAG, "Host:  '" + host + "',  host set: " + fHost);
+		Log.w( TAG, "Host:  '" + host + "',  host set: " + fHost );
 		if ( !fHost )
 			return true;
-		
+
 		// if we have made it here, then it's an existing install where the user
 		// has the host set to something other than the default
 		// so we will go ahead and clear the first run prompt for them
 		disableFirstRun();
-		return false; 
+		return false;
 	}
-	
+
 	public void disableFirstRun ( ) {
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putBoolean( getString( R.string.prefFirstRunKey ), false );
 		editor.commit();
 	}
-	
+
 	protected void clearFirstRun ( ) {
 		// TODO remove this function, not needed to clear first run key
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.remove( getString( R.string.prefFirstRunKey ) );
 		editor.commit();
 	}
-	
+
 	public String getPrefHost ( ) {
 		return prefs.getString( getString( R.string.prefHostKey ),
 								getString( R.string.prefHostDefault ) );
@@ -424,7 +423,7 @@ public class RAApplication extends Application {
 								getString( R.string.labelTemp3 ) );
 	}
 
-	public CharSequence getPrefPHLabel ( ) {
+	public String getPrefPHLabel ( ) {
 		return prefs.getString( getString( R.string.prefPHLabelKey ),
 								getString( R.string.labelPH ) );
 	}
@@ -438,33 +437,33 @@ public class RAApplication extends Application {
 		return prefs.getString( getString( R.string.prefAPLabelKey ),
 								getString( R.string.labelAP ) );
 	}
-	
+
 	public String getPrefSalinityLabel ( ) {
-		return prefs.getString( getString( R.string.prefSalinityLabelKey ) ,
-		                        getString( R.string.labelSalinity) );
+		return prefs.getString( getString( R.string.prefSalinityLabelKey ),
+								getString( R.string.labelSalinity ) );
 	}
 
 	public String getPrefMainRelayLabel ( int port ) {
-		return getPrefRelayLabel(0, port-1);
+		return getPrefRelayLabel( 0, port );
 	}
 
 	public String getPrefRelayLabel ( int relay, int port ) {
 		return prefs.getString( getString( relayLabels[relay][port] ),
 								getString( relayDefaultLabels[port] ) );
 	}
-	
-	public void setPrefRelayLabel( int relay, int port, String label ) {
-		setPref( getString(relayLabels[relay][port]), label );
+
+	public void setPrefRelayLabel ( int relay, int port, String label ) {
+		setPref( getString( relayLabels[relay][port] ), label );
 	}
-	
-	public void setPref(String key, String value) {
+
+	public void setPref ( String key, String value ) {
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putString( key, value );
 		editor.commit();
 	}
-	
-	public void setPref(int keyid, String value) {
-		setPref(getString(keyid), value);
+
+	public void setPref ( int keyid, String value ) {
+		setPref( getString( keyid ), value );
 	}
 
 	public String getPrefDevice ( ) {
@@ -476,7 +475,12 @@ public class RAApplication extends Application {
 		return prefs.getString( getString( R.string.prefUserIdKey ),
 								getString( R.string.prefUserIdDefault ) );
 	}
-	
+
+	public int getPrefExpansionRelayQuantity ( ) {
+		return Integer.parseInt( prefs
+				.getString( getString( R.string.prefExpQtyKey ), "0" ) );
+	}
+
 	public void checkServiceRunning ( ) {
 		// Check if the service is running, if not start it
 		if ( !isServiceRunning && !isFirstRun() )

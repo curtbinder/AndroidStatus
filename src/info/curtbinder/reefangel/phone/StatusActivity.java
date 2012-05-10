@@ -48,6 +48,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 	private TextView salinityLabel;
 
 	private RelayBoxWidget main;
+	private RelayBoxWidget[] exprelays =
+			new RelayBoxWidget[Controller.MAX_EXPANSION_RELAYS];
 
 	// Message Receivers
 	StatusReceiver receiver;
@@ -119,14 +121,34 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		salinityLabel = (TextView) findViewById( R.id.salinity_label );
 
 		main = (RelayBoxWidget) findViewById( R.id.mainrelay );
+		exprelays[0] = (RelayBoxWidget) findViewById( R.id.exprelay1 );
+		exprelays[0].setRelayBoxNumber( 1 );
+		exprelays[1] = (RelayBoxWidget) findViewById( R.id.exprelay2 );
+		exprelays[1].setRelayBoxNumber( 2 );
+		exprelays[2] = (RelayBoxWidget) findViewById( R.id.exprelay3 );
+		exprelays[2].setRelayBoxNumber( 3 );
+		exprelays[3] = (RelayBoxWidget) findViewById( R.id.exprelay4 );
+		exprelays[3].setRelayBoxNumber( 4 );
+		exprelays[4] = (RelayBoxWidget) findViewById( R.id.exprelay5 );
+		exprelays[4].setRelayBoxNumber( 5 );
+		exprelays[5] = (RelayBoxWidget) findViewById( R.id.exprelay6 );
+		exprelays[5].setRelayBoxNumber( 6 );
+		exprelays[6] = (RelayBoxWidget) findViewById( R.id.exprelay7 );
+		exprelays[6].setRelayBoxNumber( 7 );
+		exprelays[7] = (RelayBoxWidget) findViewById( R.id.exprelay8 );
+		exprelays[7].setRelayBoxNumber( 8 );
 	}
 
 	private void setOnClickListeners ( ) {
 		refreshButton.setOnClickListener( this );
 		if ( rapp.isCommunicateController() ) {
 			main.setOnClickListeners();
+			for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ )
+				exprelays[i].setOnClickListeners();
 		} else {
 			main.setClickable( false );
+			for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ )
+				exprelays[i].setClickable( false );
 		}
 	}
 
@@ -145,10 +167,37 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		apLabel.setText( rapp.getPrefAPLabel() + separator );
 		salinityLabel.setText( rapp.getPrefSalinityLabel() + separator );
 
-		main.setRelayTitle( getString( R.string.prefMainRelayTitle) );
-		for ( int i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
-			main.setPortLabel( i, rapp.getPrefMainRelayLabel( i + 1 )
-									+ separator );
+		main.setRelayTitle( getString( R.string.prefMainRelayTitle ) );
+		// set the labels
+		exprelays[0].setRelayTitle( getString( R.string.prefExp1RelayTitle ) );
+		exprelays[1].setRelayTitle( getString( R.string.prefExp2RelayTitle ) );
+		exprelays[2].setRelayTitle( getString( R.string.prefExp3RelayTitle ) );
+		exprelays[3].setRelayTitle( getString( R.string.prefExp4RelayTitle ) );
+		exprelays[4].setRelayTitle( getString( R.string.prefExp5RelayTitle ) );
+		exprelays[5].setRelayTitle( getString( R.string.prefExp6RelayTitle ) );
+		exprelays[6].setRelayTitle( getString( R.string.prefExp7RelayTitle ) );
+		exprelays[7].setRelayTitle( getString( R.string.prefExp8RelayTitle ) );
+		int i, j;
+		for ( i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
+			main.setPortLabel( i, rapp.getPrefMainRelayLabel( i ) + separator );
+			for ( j = 0; j < Controller.MAX_EXPANSION_RELAYS; j++ ) {
+				exprelays[j].setPortLabel( i, rapp.getPrefRelayLabel( j + 1, i )
+												+ separator );
+			}
+		}
+		// show/hide the relays
+		int qty = rapp.getPrefExpansionRelayQuantity();
+		Log.d( TAG, "Expansion Relays: " + qty );
+		int iVisible;
+		for ( i = 1; i <= Controller.MAX_EXPANSION_RELAYS; i++ ) {
+			if ( i > rapp.getPrefExpansionRelayQuantity() ) {
+				Log.d( TAG, "Relay " + i + " gone");
+				iVisible = View.GONE;
+			} else {
+				Log.d( TAG, "Relay " + i + " visible");
+				iVisible = View.VISIBLE;
+			}
+			exprelays[i-1].setVisibility( iVisible );
 		}
 
 		// Visibility
@@ -235,11 +284,12 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 	public void updateDisplay ( ) {
 		Log.d( TAG, "updateDisplay" );
 		try {
-			// TODO add in expansion relay data
 			Cursor c = rapp.data.getLatestData();
 			String[] values;
 			short r, ron, roff;
-			Relay relay = new Relay();
+			short[] expr = new short[Controller.MAX_EXPANSION_RELAYS];
+			short[] expron = new short[Controller.MAX_EXPANSION_RELAYS];
+			short[] exproff = new short[Controller.MAX_EXPANSION_RELAYS];
 
 			if ( c.moveToFirst() ) {
 				values =
@@ -262,14 +312,62 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 				r = c.getShort( c.getColumnIndex( RAData.PCOL_RDATA ) );
 				ron = c.getShort( c.getColumnIndex( RAData.PCOL_RONMASK ) );
 				roff = c.getShort( c.getColumnIndex( RAData.PCOL_ROFFMASK ) );
+
+				expr[0] = c.getShort( c.getColumnIndex( RAData.PCOL_R1DATA ) );
+				expron[0] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R1ONMASK ) );
+				exproff[0] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R1OFFMASK ) );
+				expr[1] = c.getShort( c.getColumnIndex( RAData.PCOL_R2DATA ) );
+				expron[1] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R2ONMASK ) );
+				exproff[1] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R2OFFMASK ) );
+				expr[2] = c.getShort( c.getColumnIndex( RAData.PCOL_R3DATA ) );
+				expron[2] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R3ONMASK ) );
+				exproff[2] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R3OFFMASK ) );
+				expr[3] = c.getShort( c.getColumnIndex( RAData.PCOL_R4DATA ) );
+				expron[3] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R4ONMASK ) );
+				exproff[3] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R4OFFMASK ) );
+				expr[4] = c.getShort( c.getColumnIndex( RAData.PCOL_R1DATA ) );
+				expron[4] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R1ONMASK ) );
+				exproff[4] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R1OFFMASK ) );
+				expr[5] = c.getShort( c.getColumnIndex( RAData.PCOL_R2DATA ) );
+				expron[5] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R2ONMASK ) );
+				exproff[5] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R2OFFMASK ) );
+				expr[6] = c.getShort( c.getColumnIndex( RAData.PCOL_R3DATA ) );
+				expron[6] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R3ONMASK ) );
+				exproff[6] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R3OFFMASK ) );
+				expr[7] = c.getShort( c.getColumnIndex( RAData.PCOL_R4DATA ) );
+				expron[7] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R4ONMASK ) );
+				exproff[7] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R4OFFMASK ) );
 			} else {
 				values = getNeverValues();
 				r = ron = roff = 0;
+				for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
+					expr[i] = expron[i] = exproff[i] = 0;
+				}
 			}
 			c.close();
 			loadDisplayedControllerValues( values );
-			relay.setRelayData( r, ron, roff );
-			main.updateRelayValues( relay, rapp.isCommunicateController() );
+			boolean fUseMask = rapp.isCommunicateController();
+			main.updateRelayValues( new Relay( r, ron, roff ), fUseMask );
+			for ( int i = 0; i < rapp.getPrefExpansionRelayQuantity(); i++ ) {
+				exprelays[i].updateRelayValues( new Relay( expr[i],
+					expron[i], exproff[i] ), fUseMask );
+			}
 		} catch ( SQLException e ) {
 			Log.d( TAG, "SQLException: " + e.getMessage() );
 		} catch ( CursorIndexOutOfBoundsException e ) {

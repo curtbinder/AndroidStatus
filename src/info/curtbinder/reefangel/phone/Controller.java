@@ -210,18 +210,18 @@ public class Controller {
 	}
 */
 	public void setExpRelayData ( int relay, short data ) {
-		// Pass in the 0 based index for relay
-		expansionRelays[relay].setRelayData( data );
+		// Pass in the 1 based index for relay
+		expansionRelays[relay - 1].setRelayData( data );
 	}
 
 	public void setExpRelayOnMask ( int relay, short maskOn ) {
-		// Pass in the 0 based index for relay
-		expansionRelays[relay].setRelayOnMask( maskOn );
+		// Pass in the 1 based index for relay
+		expansionRelays[relay - 1].setRelayOnMask( maskOn );
 	}
 
 	public void setExpRelayOffMask ( int relay, short maskOff ) {
-		// Pass in the 0 based index for relay
-		expansionRelays[relay].setRelayOffMask( maskOff );
+		// Pass in the 1 based index for relay
+		expansionRelays[relay - 1].setRelayOffMask( maskOff );
 	}
 
 	public Relay getExpRelay ( int relay ) {

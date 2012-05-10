@@ -10,16 +10,18 @@ TODO
 ** move the relays to own screen
 ** have main status, main relay, exp relay 1, etc, on own pages
 
-* expansion relays
-** create expansion relay layouts
-** allow for expansion relay quantity settings in prefs
-** alters displays based on qty
-
 * history shows relay status
 * validation of host on configuration page (better validation of preferences)
 
+* download settings from portal
+** if (EM & 1<<0) then it would enable the PWM window or display the %s on main window.
+** if (EM & 1<<1) then it would enable the RF window or display the mode, speed and duration on main window
+** if (EM & 1<<2) then it would enable the Aqua Illumination window or display the Aqua Illumination %.
+** if (EM & 1<<3) then it would display the salinity on main window
+** if (EM & 1<<4) then it would display ORP on main window
+** if (REM & 1<<0) then enable expansion relay box 1 window and so forth for additional relay boxes
+
 * labels
-** additional relay labels screen based on quantity of relay labels installed
 ** after download, refresh the labels so they appear in the menus without
    having to exit the preferences activity 
 

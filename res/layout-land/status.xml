@@ -122,10 +122,41 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                     style="@style/ParamsText.Values" />
             </TableRow>
 
-            <!-- Merge Main Relay Here -->
-
             <info.curtbinder.reefangel.phone.RelayBoxWidget
                 android:id="@+id/mainrelay"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            
+            <info.curtbinder.reefangel.phone.RelayBoxWidget
+                android:id="@+id/exprelay1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            <info.curtbinder.reefangel.phone.RelayBoxWidget
+                android:id="@+id/exprelay2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            <info.curtbinder.reefangel.phone.RelayBoxWidget
+                android:id="@+id/exprelay3"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            <info.curtbinder.reefangel.phone.RelayBoxWidget
+                android:id="@+id/exprelay4"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            <info.curtbinder.reefangel.phone.RelayBoxWidget
+                android:id="@+id/exprelay5"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            <info.curtbinder.reefangel.phone.RelayBoxWidget
+                android:id="@+id/exprelay6"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            <info.curtbinder.reefangel.phone.RelayBoxWidget
+                android:id="@+id/exprelay7"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            <info.curtbinder.reefangel.phone.RelayBoxWidget
+                android:id="@+id/exprelay8"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" />
         </TableLayout>
