@@ -86,6 +86,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="buttonChangeDate">Change Date</string>
     <string name="buttonChangeTime">Change Time</string>
     <string name="buttonSetCustomTime">Set Custom Time</string>
+    <string name="buttonFinish">Finish</string>
     <string name="radioByte">Byte</string>
     <string name="radioInt">Int</string>
 

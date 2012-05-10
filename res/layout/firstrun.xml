@@ -25,45 +25,42 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:layout_gravity="top"
             android:stretchColumns="1" >
 
-            <TableRow >
+            <TableRow>
 
-                <TextView
-                    android:text="@string/prefHostTitle" />
+                <TextView android:text="@string/prefHostTitle" />
 
                 <EditText
                     android:id="@+id/firstHostText"
-                    android:inputType="text"
-                    android:hint="@string/prefHostDefault" >
+                    android:hint="@string/prefHostDefault"
+                    android:inputType="text" >
                 </EditText>
             </TableRow>
 
-            <TableRow >
+            <TableRow>
 
-                <TextView
-                    android:text="@string/prefPortTitle" />
+                <TextView android:text="@string/prefPortTitle" />
 
                 <EditText
                     android:id="@+id/firstPortText"
-                    android:inputType="number"
-                    android:hint="@string/prefPortDefault" >
+                    android:hint="@string/prefPortDefault"
+                    android:inputType="number" >
                 </EditText>
             </TableRow>
 
-            <TableRow  >
+            <TableRow>
 
-                <TextView
-                    android:text="@string/prefUserIdTitle" />
+                <TextView android:text="@string/prefUserIdTitle" />
 
                 <EditText
                     android:id="@+id/firstUsernameText"
-                    android:inputType="text"
-                    android:hint="@string/prefUserIdDefault" >
+                    android:hint="@string/prefUserIdDefault"
+                    android:inputType="text" >
                 </EditText>
             </TableRow>
 
             <Button
                 android:id="@+id/buttonFinish"
-                android:text="Finish" />
+                android:text="@string/buttonFinish" />
         </TableLayout>
     </ScrollView>
 
