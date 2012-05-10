@@ -195,6 +195,7 @@ public final class R {
         public static final int defaultPortName=0x7f07005d;
         public static final int defaultStatusText=0x7f07005c;
         /**  Date and Time screen 
+ Date and Time screen 
          */
         public static final int descriptionCurrentControllerTime=0x7f070021;
         public static final int descriptionCustomControllerTime=0x7f070022;

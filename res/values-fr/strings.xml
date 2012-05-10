@@ -25,7 +25,9 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <string name="titleAbout">À propos de Reef Angel Status</string>
     <string name="titleLicense">Information sur la licence</string>
     <string name="titleMemoryTabs">Pages de la Mémoire</string>
+    <string name="titleCommandTabs">Pages de commande</string>
     <string name="titlePrefs">Paramètres du status</string>
+    <string name="titleDateTime">Date / Heure</string>
 
 <!-- Text descriptions -->
     <string name="textAbout">\
@@ -43,6 +45,9 @@ Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0</stri
 * Nom de l\'hôte(requis): Entrer le nom de l\'hôte ou l\'adresse IP de votre contrôleur.\n
 * Port (optionel): Entrer le port de votre  contrôleur. (laissez vide si inconnu ou par défaut).\n
 * ID Utilisateur (optionel): Entrez votre nom d\'utilisateur du forum. Ceci vous permettera de télécharger les libelés enregistrés dans le portail.</string>
+	<!-- Date and Time screen -->
+	<string name="descriptionCurrentControllerTime">Appuyez sur \'Get Time\' pour obtenir la date et heure actuelle de votre contrôleur.  Appuyez sur \'Set Current Time\' pour confirmer la date et heure de cette application.</string>
+	<string name="descriptionCustomControllerTime">Vous pouvez entrer une date et heure manuellement. Utilisez \'Change Time\' ou \'Change Date\' pour entrer votre date et heure manuellement. Utilisez \'Set Custom Time\' pour la confirmer.</string>
 
     <!-- Buttons -->
     <string name="buttonRefresh">Actualiser</string>
@@ -58,6 +63,12 @@ Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0</stri
     <string name="buttonExit">Quitter Mode</string>
     <string name="buttonAtoClear">Effacer ATO</string>
     <string name="buttonOverheatClear">Effacer la surchauffe</string>
+	<string name="buttonGetControllerTime">Obtenir l\'heure</string>
+	<string name="buttonSetCurrentTime">Confirmer l\'heure</string>
+	<string name="buttonChangeDate">Changer la date</string>
+	<string name="buttonChangeTime">Changer l\'heure</string>
+	<string name="buttonSetCustomTime">Confirmer une heure manuellement</string>
+	<string name="buttonFinish">Terminé</string>
 
 
     <!-- Labels -->
@@ -72,7 +83,8 @@ Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0</stri
     <string name="labelOverheatClear">Surchauffe effacée</string>
     <string name="labelVersion">Version Installée:</string>
     <string name="labelValue">Valeur:</string>
-
+	<string name="labelController">Contrôleur:</string>
+	<string name="labelTime">Heure:</string>
 
     <!-- Messages -->
 	<string name="messageEmptyParams">Aucun paramètre trouvé</string>
@@ -204,6 +216,7 @@ Permet à cette application de demander l\'état du contrôleur.  Les commandes 
 * Lecture/Écriture de la mémoire interne
 * Basculer l\'état d\'un relais
 * Demander la version
+* Obtenir et régler la date et l\'heure
 </string>
 
 </resources>
