@@ -142,6 +142,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="messageEmptyLocation">Location cannot be empty</string>
     <string name="messageInvalidLocation" formatted="false">Location must be between %d and %d</string>
     <string name="messageUnknownError">Unknown error</string>
+    <string name="messageDownloadLabelsPrompt">Download all labels for</string>
     <string name="messageDownloadLabels">Downloading labels…</string>
     <string name="messageDownloadLabelsComplete">Labels downloaded and updated</string>
     <string name="messageDownloadMessage">Labels downloaded and updated.\n\nPlease exit preferences to see updated labels</string>
@@ -150,6 +151,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="messageDeleteAllPrompt">Delete all history?</string>
     <string name="messageDeleted">Deleted</string>
     <string name="messageNotController">Not a controller</string>
+    <string name="messageResetLabelsPrompt">Reset all labels?</string>
+    <string name="messageResetLabelsComplete">Labels reset to default</string>
 
     <!-- Status strings -->
     <string name="statusStart">Starting update</string>
@@ -230,6 +233,10 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefSalinityVisibilityKey">salinity_visibility</string>
     <string name="prefSalinityVisibilityTitle">Display Salinity</string>
     <string name="prefSalinityVisibilitySummary">Displays the salinity</string>
+	<string name="prefResetCategory">Reset Settings</string>
+	<string name="prefResetLabelsKey">reset_labels</string>
+	<string name="prefResetLabelsTitle">Reset Labels</string>
+	<string name="prefResetLabelsSummary">Resets ALL labels back to the defaults</string>
     <string name="prefLabelsCategory">Label Settings</string>
     <string name="prefControllerLabelsDownloadKey">download_labels</string>
     <string name="prefControllerLabelsDownloadTitle">Download All Labels</string>
@@ -282,7 +289,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExpLabelsKey">exp_relay_labels</string>
     <string name="prefExpLabelsTitle">Expansion Labels</string>
     <string name="prefExpLabelsSummary">Change the labels for all expansion relays</string>
-    <string name="prefExp1RelayKey">exp1_relay_labels</string>    
+    <string name="prefExp1RelayKey">exp1_relay_labels</string>
     <string name="prefExp1RelayTitle">Expansion Relay 1</string>
     <string name="prefExp1RelaySummary">Change the labels of the expansion 1 relay</string>
     <string name="prefExp1Port1LabelKey">exp1_port1_label</string>
@@ -293,7 +300,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp1Port6LabelKey">exp1_port6_label</string>
     <string name="prefExp1Port7LabelKey">exp1_port7_label</string>
     <string name="prefExp1Port8LabelKey">exp1_port8_label</string>
-    <string name="prefExp2RelayKey">exp2_relay_labels</string>   
+    <string name="prefExp2RelayKey">exp2_relay_labels</string>
     <string name="prefExp2RelayTitle">Expansion Relay 2</string>
     <string name="prefExp2RelaySummary">Change the labels of the expansion 2 relay</string>
     <string name="prefExp2Port1LabelKey">exp2_port1_label</string>
@@ -304,7 +311,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp2Port6LabelKey">exp2_port6_label</string>
     <string name="prefExp2Port7LabelKey">exp2_port7_label</string>
     <string name="prefExp2Port8LabelKey">exp2_port8_label</string>
-    <string name="prefExp3RelayKey">exp3_relay_labels</string>   
+    <string name="prefExp3RelayKey">exp3_relay_labels</string>
     <string name="prefExp3RelayTitle">Expansion Relay 3</string>
     <string name="prefExp3RelaySummary">Change the labels of the expansion 3 relay</string>
     <string name="prefExp3Port1LabelKey">exp3_port1_label</string>
@@ -315,7 +322,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp3Port6LabelKey">exp3_port6_label</string>
     <string name="prefExp3Port7LabelKey">exp3_port7_label</string>
     <string name="prefExp3Port8LabelKey">exp3_port8_label</string>
-    <string name="prefExp4RelayKey">exp4_relay_labels</string>   
+    <string name="prefExp4RelayKey">exp4_relay_labels</string>
     <string name="prefExp4RelayTitle">Expansion Relay 4</string>
     <string name="prefExp4RelaySummary">Change the labels of the expansion 4 relay</string>
     <string name="prefExp4Port1LabelKey">exp4_port1_label</string>
@@ -326,7 +333,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp4Port6LabelKey">exp4_port6_label</string>
     <string name="prefExp4Port7LabelKey">exp4_port7_label</string>
     <string name="prefExp4Port8LabelKey">exp4_port8_label</string>
-    <string name="prefExp5RelayKey">exp5_relay_labels</string>   
+    <string name="prefExp5RelayKey">exp5_relay_labels</string>
     <string name="prefExp5RelayTitle">Expansion Relay 5</string>
     <string name="prefExp5RelaySummary">Change the labels of the expansion 5 relay</string>
     <string name="prefExp5Port1LabelKey">exp5_port1_label</string>
@@ -337,7 +344,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp5Port6LabelKey">exp5_port6_label</string>
     <string name="prefExp5Port7LabelKey">exp5_port7_label</string>
     <string name="prefExp5Port8LabelKey">exp5_port8_label</string>
-    <string name="prefExp6RelayKey">exp6_relay_labels</string>   
+    <string name="prefExp6RelayKey">exp6_relay_labels</string>
     <string name="prefExp6RelayTitle">Expansion Relay 6</string>
     <string name="prefExp6RelaySummary">Change the labels of the expansion 6 relay</string>
     <string name="prefExp6Port1LabelKey">exp6_port1_label</string>
@@ -348,7 +355,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp6Port6LabelKey">exp6_port6_label</string>
     <string name="prefExp6Port7LabelKey">exp6_port7_label</string>
     <string name="prefExp6Port8LabelKey">exp6_port8_label</string>
-    <string name="prefExp7RelayKey">exp7_relay_labels</string>   
+    <string name="prefExp7RelayKey">exp7_relay_labels</string>
     <string name="prefExp7RelayTitle">Expansion Relay 7</string>
     <string name="prefExp7RelaySummary">Change the labels of the expansion 7 relay</string>
     <string name="prefExp7Port1LabelKey">exp7_port1_label</string>
@@ -359,7 +366,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp7Port6LabelKey">exp7_port6_label</string>
     <string name="prefExp7Port7LabelKey">exp7_port7_label</string>
     <string name="prefExp7Port8LabelKey">exp7_port8_label</string>
-    <string name="prefExp8RelayKey">exp8_relay_labels</string>   
+    <string name="prefExp8RelayKey">exp8_relay_labels</string>
     <string name="prefExp8RelayTitle">Expansion Relay 8</string>
     <string name="prefExp8RelaySummary">Change the labels of the expansion 8 relay</string>
     <string name="prefExp8Port1LabelKey">exp8_port1_label</string>

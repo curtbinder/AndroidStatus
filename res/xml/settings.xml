@@ -470,6 +470,12 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                      </PreferenceScreen>
                 </PreferenceScreen>
 			</PreferenceCategory>
+			<PreferenceCategory android:title="@string/prefResetCategory">
+			    <PreferenceScreen
+                    android:key="@string/prefResetLabelsKey"
+                    android:summary="@string/prefResetLabelsSummary"
+                    android:title="@string/prefResetLabelsTitle" />
+			</PreferenceCategory>
         </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/prefsCategoryApp" >

@@ -21,6 +21,10 @@ TODO
 ** if (EM & 1<<4) then it would display ORP on main window
 ** if (REM & 1<<0) then enable expansion relay box 1 window and so forth for additional relay boxes
 
+* when changing from controller to forum (or vice versa)
+	- clear out onclicklisteners
+	- set clickable to true/false
+	
 * labels
 ** after download, refresh the labels so they appear in the menus without
    having to exit the preferences activity 

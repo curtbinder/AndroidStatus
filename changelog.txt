@@ -81,5 +81,5 @@ Changelog of all the versions of AndroidStatus
  ** alters displays based on qty
  ** additional relay labels screen based on quantity of relay labels installed
  * downloading labels from portal no longer inserts NULL when no label is set
- 
+ * added reset all labels that resets back to defaults
  

@@ -367,9 +367,7 @@ public class RAApplication extends Application {
 
 	protected void clearFirstRun ( ) {
 		// TODO remove this function, not needed to clear first run key
-		SharedPreferences.Editor editor = prefs.edit();
-		editor.remove( getString( R.string.prefFirstRunKey ) );
-		editor.commit();
+		deletePref( R.string.prefFirstRunKey );
 	}
 
 	public String getPrefHost ( ) {
@@ -456,6 +454,10 @@ public class RAApplication extends Application {
 		setPref( getString( relayLabels[relay][port] ), label );
 	}
 
+	public int getPrefRelayKey ( int relay, int port ) {
+		return relayLabels[relay][port];
+	}
+	
 	public void setPref ( String key, String value ) {
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putString( key, value );
@@ -464,6 +466,12 @@ public class RAApplication extends Application {
 
 	public void setPref ( int keyid, String value ) {
 		setPref( getString( keyid ), value );
+	}
+
+	public void deletePref ( int keyid ) {
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.remove( getString( keyid ) );
+		editor.commit();
 	}
 
 	public String getPrefDevice ( ) {
