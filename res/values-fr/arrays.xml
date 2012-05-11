@@ -14,6 +14,18 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>ReefAngel.com</item>
     </string-array>
 
+    <string-array name="expansionRelays">
+		<item>None</item>
+		<item>1 Relais d\'expansion</item>
+		<item>2 Relais d\'expansion</item>
+		<item>3 Relais d\'expansion</item>
+		<item>4 Relais d\'expansion</item>
+		<item>5 Relais d\'expansion</item>
+		<item>6 Relais d\'expansion</item>
+		<item>7 Relais d\'expansion</item>
+		<item>8 Relais d\'expansion</item>
+    </string-array>
+    
     <string-array name="errorCodesStrings">
         <item>Envoyez Commande</item>
         <item>Mauvais URL</item>

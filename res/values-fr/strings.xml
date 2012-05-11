@@ -68,7 +68,7 @@ Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0</stri
 	<string name="buttonChangeDate">Changer la date</string>
 	<string name="buttonChangeTime">Changer l\'heure</string>
 	<string name="buttonSetCustomTime">Confirmer une heure manuellement</string>
-	<string name="buttonFinish">Terminé</string>
+	<string name="buttonFinish">Terminer</string>
 
 
     <!-- Labels -->
@@ -97,6 +97,7 @@ Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0</stri
     <string name="messageEmptyLocation">La location ne peut être vide</string>
     <string name="messageInvalidLocation" formatted="false">Votre location doit être entre %d et %d</string>
     <string name="messageUnknownError">Erreur inconnue</string>
+    <string name="messageDownloadLabelsPrompt">Télécharger tous les libelés pour</string>
     <string name="messageDownloadLabels">Téléchargement des étiquettes…</string>
     <string name="messageDownloadLabelsComplete">Libelés téléchargés et mis à jour</string>
     <string name="messageDownloadMessage">Libelés téléchargés et mis à jour.\n\nVeuillez quitter le menu préférence pour voir la mise à jour des libelés</string>
@@ -105,6 +106,8 @@ Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0</stri
     <string name="messageDeleteAllPrompt">Supprimer tout l\'historique?</string>
     <string name="messageDeleted">Effacé</string>
     <string name="messageNotController">N\'est pas un contrôleur</string>
+    <string name="messageResetLabelsPrompt">Réinitiliser les libelés?</string>
+	<string name="messageResetLabelsComplete">Libelés réinitialisés aux noms par défaut</string>
 
     <!-- Status strings -->
 	<string name="statusStart">Mise à jour initiée</string>
@@ -145,10 +148,10 @@ Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0</stri
     <string name="prefReefAngelTitle">Contrôleur Reef Angel</string>
     <string name="prefForumTitle">Reef Angel Forums</string>
     <string name="prefControllerTitle">Informations sur le contrôleur</string>
-    <string name="prefControllerSummary">Met à jour les , Bascule la visibilité</string>
+    <string name="prefControllerSummary">Met à jour, Change l\'état de visibilité, Configure le relais d\'expansion</string>
     <string name="prefVisibilityCategory">Paramètres de visibilité</string>
-	<string name="prefControllerVisibilityTitle">Visibilité des </string>
-	<string name="prefControllerVisibilitySummary">Rend les  du contrôleur visibles</string>
+	<string name="prefControllerVisibilityTitle">Visibilité des étiquettes</string>
+	<string name="prefControllerVisibilitySummary">Rend les étiquettes du contrôleur visibles</string>
 	<string name="prefT2VisibilityTitle">Afficher T2</string>
 	<string name="prefT2VisibilitySummary">Affiche la température du senseur 2</string>
 	<string name="prefT3VisibilityTitle">Afficher T3</string>
@@ -159,11 +162,14 @@ Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0</stri
 	<string name="prefAPVisibilitySummary">Affiche le pourcentage du canal actinic</string>
 	<string name="prefSalinityVisibilityTitle">Afficher salinité</string>
 	<string name="prefSalinityVisibilitySummary">Affiche la salinité</string>
-	<string name="prefLabelsCategory">Paramètres des </string>
-	<string name="prefControllerLabelsDownloadTitle">Télécharger TOUS les </string>
+	<string name="prefResetCategory">Réinitialiser les paramètres</string>
+	<string name="prefResetLabelsTitle">Réinitialiser les étiquettes</string>
+	<string name="prefResetLabelsSummary">Réinitialise tous les libelés aux noms par défaut</string>
+	<string name="prefLabelsCategory">Paramètres d\'étiquette</string>
+	<string name="prefControllerLabelsDownloadTitle">Télécharger TOUS les étiquettes</string>
 	<string name="prefControllerLabelsDownloadSummary">Retrouves vos  à partir de reefangel.com en utilisant id: </string>
-	<string name="prefControllerLabelsTitle"> du contrôleur</string>
-	<string name="prefControllerLabelsSummary">Change les  de votre contrôleur</string>
+	<string name="prefControllerLabelsTitle">Les étiquettes du contrôleur</string>
+	<string name="prefControllerLabelsSummary">Changer les étiquettes du contrôleur</string>
 	<string name="prefT1LabelTitle">Libelé T1</string>
 	<string name="prefT1LabelSummary">Libelé du senseur de température 1</string>
 	<string name="prefT2LabelTitle">Libelé T2</string>
@@ -188,6 +194,11 @@ Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0</stri
 	<string name="prefPort8LabelTitle">Libelé port 8</string>
 	<string name="prefMainRelayTitle">Relais principal</string>
 	<string name="prefMainRelaySummary">Changer les libelés du relais principal</string>
+	<string name="prefExpansionCategory">Paramètre du relais d\'expansion</string>
+	<string name="prefExpQtyTitle">Quantité</string>
+	<string name="prefExpQtySummary">Veuillez choisir la quantité de relais d\'expansion installés</string>
+	<string name="prefExpLabelsTitle">Libelé du relais d\'expansion</string>
+	<string name="prefExpLabelsSummary">Changez le libelé pour tous les relais d\'expansion</string>
     <string name="prefExp1RelayTitle">Relais d\'expension 1</string>
     <string name="prefExp1RelaySummary">Changer les libelés du relais d\'expension 1</string>
     <string name="prefExp2RelayTitle">Relais d\'expension 2</string>
