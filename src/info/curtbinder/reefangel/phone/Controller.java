@@ -56,7 +56,7 @@ public class Controller {
 			pwmExpansion[i] = 0;
 		}
 		salinity = new Number( (byte) 1 );
-		orp = new Number( (byte) 1 );
+		orp = new Number( );
 		main = new Relay();
 		expansionRelays = new Relay[MAX_EXPANSION_RELAYS];
 		for ( i = 0; i < MAX_EXPANSION_RELAYS; i++ ) {
@@ -203,8 +203,7 @@ public class Controller {
 	}
 
 	public String getORP ( ) {
-		// TODO get label for ORP
-		return orp.toString();
+		return orp.toString() + " mV";
 	}
 
 	public void setMainRelayData ( short data, short maskOn, short maskOff ) {
