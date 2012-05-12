@@ -469,6 +469,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 	                        android:title="@string/prefPort8LabelTitle" />
                      </PreferenceScreen>
                 </PreferenceScreen>
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:key="@string/prefExp085xKey"
+                    android:summary="@string/prefExp085xSummary"
+                    android:title="@string/prefExp085xTitle" />
 			</PreferenceCategory>
 			<PreferenceCategory android:title="@string/prefResetCategory">
 			    <PreferenceScreen

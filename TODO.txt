@@ -5,6 +5,8 @@ TODO
 * Toggle ability to restore values on configuration changes
 * fix layouts for hiding text:  switch to relative layout for better control over display
 * create smaller subsets of the layouts for simpler including and easy duplication
+* expansion relays will fail with 0.8.5.X libraries
+** only fails if those libraries have exp relay support enabled
 
 * add in swipe capabilities to switch screens
 ** move the relays to own screen

@@ -285,13 +285,13 @@ public final class R {
          */
         public static final int minModesVersion=0x7f07005e;
         public static final int minNewStatus=0x7f07005f;
-        public static final int permissionQueryStatusDescription=0x7f070152;
+        public static final int permissionQueryStatusDescription=0x7f070155;
         /**  Permissions 
  Permissions 
          */
-        public static final int permissionQueryStatusLabel=0x7f070151;
-        public static final int permissionSendCommandDescription=0x7f070154;
-        public static final int permissionSendCommandLabel=0x7f070153;
+        public static final int permissionQueryStatusLabel=0x7f070154;
+        public static final int permissionSendCommandDescription=0x7f070157;
+        public static final int permissionSendCommandLabel=0x7f070156;
         public static final int prefAPLabelKey=0x7f0700da;
         public static final int prefAPLabelSummary=0x7f0700dc;
         public static final int prefAPLabelTitle=0x7f0700db;
@@ -325,6 +325,9 @@ public final class R {
         public static final int prefDeviceKey=0x7f070083;
         public static final int prefDeviceSummary=0x7f070085;
         public static final int prefDeviceTitle=0x7f070084;
+        public static final int prefExp085xKey=0x7f070151;
+        public static final int prefExp085xSummary=0x7f070152;
+        public static final int prefExp085xTitle=0x7f070153;
         public static final int prefExp1Port1LabelKey=0x7f0700fc;
         public static final int prefExp1Port2LabelKey=0x7f0700fd;
         public static final int prefExp1Port3LabelKey=0x7f0700fe;

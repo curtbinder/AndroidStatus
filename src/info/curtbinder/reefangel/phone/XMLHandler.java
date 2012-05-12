@@ -27,6 +27,10 @@ public class XMLHandler extends DefaultHandler {
 	private String version = "";
 	private String memoryResponse = "";
 	private String modeResponse = "";
+	// expansion relays
+	// for 0.8.5.x use 0 based data
+	// for 0.9.x and later use 1 based data
+	private boolean fUse085XRelays = false;
 
 	private DateTime dt;
 
@@ -64,6 +68,10 @@ public class XMLHandler extends DefaultHandler {
 		super();
 		this.ra = new Controller();
 		this.dt = new DateTime();
+	}
+
+	public void setOld085xExpansion ( boolean f ) {
+		this.fUse085XRelays = f;
 	}
 
 	@Override
@@ -266,22 +274,29 @@ public class XMLHandler extends DefaultHandler {
 				int port = relay % 10;
 				// portal sends null if there's no value stored for a port
 				// so don't save null
-				if ( ! currentElementText.equals( "null" ) ) 
-					ra.getExpRelay( box ).setPortLabel( port, currentElementText );
+				if ( !currentElementText.equals( "null" ) )
+					ra.getExpRelay( box ).setPortLabel( port,
+														currentElementText );
 			}
 		} else if ( tag.startsWith( Globals.xmlRelayMaskOn ) ) {
 			int relay =
 					Integer.parseInt( tag.substring( Globals.xmlRelayMaskOn
 							.length() ) );
+			if ( fUse085XRelays )
+				relay += 1;
 			ra.setExpRelayOnMask( relay, Short.parseShort( currentElementText ) );
 		} else if ( tag.startsWith( Globals.xmlRelayMaskOff ) ) {
 			int relay =
 					Integer.parseInt( tag.substring( Globals.xmlRelayMaskOff
 							.length() ) );
+			if ( fUse085XRelays )
+				relay += 1;
 			ra.setExpRelayOffMask( relay, Short.parseShort( currentElementText ) );
 		} else if ( tag.startsWith( Globals.xmlRelay ) ) {
 			int relay =
 					Integer.parseInt( tag.substring( Globals.xmlRelay.length() ) );
+			if ( fUse085XRelays )
+				relay += 1;
 			ra.setExpRelayData( relay, Short.parseShort( currentElementText ) );
 		} else {
 			Log.d( TAG, "Unhandled XML tag (" + tag + ") with data: "

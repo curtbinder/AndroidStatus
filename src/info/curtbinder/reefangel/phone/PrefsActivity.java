@@ -33,6 +33,7 @@ public class PrefsActivity extends PreferenceActivity implements
 	private Preference useridkey;
 	private Preference downloadkey;
 	private Preference explabelkey;
+	private Preference exp085xkey;
 	private Preference[] explabels =
 			new Preference[Controller.MAX_EXPANSION_RELAYS];
 
@@ -73,6 +74,9 @@ public class PrefsActivity extends PreferenceActivity implements
 		explabelkey =
 				getPreferenceScreen()
 						.findPreference(	rapp.getString( R.string.prefExpLabelsKey ) );
+		exp085xkey =
+				getPreferenceScreen()
+						.findPreference(	rapp.getString( R.string.prefExp085xKey ) );
 		explabels[0] =
 				getPreferenceScreen()
 						.findPreference(	rapp.getString( R.string.prefExp1RelayKey ) );
@@ -255,6 +259,8 @@ public class PrefsActivity extends PreferenceActivity implements
 	private void updateExpansionLabelsVisibility ( int qty ) {
 		boolean fEnable;
 		if ( qty > 0 ) {
+			exp085xkey.setEnabled( true );
+			exp085xkey.setSelectable( true );
 			explabelkey.setEnabled( true );
 			explabelkey.setSelectable( true );
 			for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
@@ -268,6 +274,8 @@ public class PrefsActivity extends PreferenceActivity implements
 			// no expansion relays, disable the menu
 			explabelkey.setEnabled( false );
 			explabelkey.setSelectable( false );
+			exp085xkey.setEnabled( false );
+			exp085xkey.setSelectable( false );
 		}
 	}
 

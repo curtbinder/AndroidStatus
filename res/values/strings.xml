@@ -378,6 +378,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp8Port6LabelKey">exp8_port6_label</string>
     <string name="prefExp8Port7LabelKey">exp8_port7_label</string>
     <string name="prefExp8Port8LabelKey">exp8_port8_label</string>
+    <string name="prefExp085xKey">exp_085_relays</string>
+    <string name="prefExp085xSummary">Select this if you have v0.8.5.X libraries and expansion relays. If you don\'t know, leave it alone.</string>
+    <string name="prefExp085xTitle">Old v0.8.5.X Expansion</string>
 
     <!-- Permissions -->
     <string name="permissionQueryStatusLabel">Query status of controller</string>

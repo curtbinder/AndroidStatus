@@ -104,6 +104,8 @@ public class ControllerTask implements Runnable {
 			broadcastUpdateStatus( R.string.messageCancelled );
 		} else {
 			XMLHandler xml = new XMLHandler();
+			if ( rapp.useOld085xExpansionRelays() )
+				xml.setOld085xExpansion( true );
 			if ( !parseXML( xml, res ) ) {
 				// error parsing
 				broadcastErrorMessage();

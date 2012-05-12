@@ -9,6 +9,7 @@ package info.curtbinder.reefangel.phone;
  */
 
 public class Relay {
+	// All Port Referencing functions are 1 based
 	static final byte PORT_OFF = 0;
 	static final byte PORT_ON = 1;
 

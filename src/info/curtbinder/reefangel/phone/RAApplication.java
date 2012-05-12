@@ -329,6 +329,10 @@ public class RAApplication extends Application {
 		return b;
 	}
 
+	public boolean useOld085xExpansionRelays ( ) {
+		return prefs.getBoolean( getString( R.string.prefExp085xKey ), false );
+	}
+
 	public boolean isFirstRun ( ) {
 		// First run will be determined by:
 		// if the first run key is NOT set AND
@@ -457,7 +461,7 @@ public class RAApplication extends Application {
 	public int getPrefRelayKey ( int relay, int port ) {
 		return relayLabels[relay][port];
 	}
-	
+
 	public void setPref ( String key, String value ) {
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putString( key, value );
