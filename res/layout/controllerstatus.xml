@@ -103,5 +103,16 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:id="@+id/salinity"
             style="@style/ParamsText.Values" />
     </TableRow>
+<!--
+    <TableRow style="@style/RARow" >
 
+        <TextView
+            android:id="@+id/orp_label"
+            style="@style/ParamsText.Labels" />
+
+        <TextView
+            android:id="@+id/orp"
+            style="@style/ParamsText.Values" />
+    </TableRow>
+-->
 </merge>

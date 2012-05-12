@@ -23,6 +23,7 @@ public class Controller {
 	private byte pwmA;
 	private byte pwmD;
 	private Number salinity;
+	private Number orp;
 	private Relay main;
 	private byte qtyExpansionRelays;
 	private Relay[] expansionRelays;
@@ -49,6 +50,7 @@ public class Controller {
 		pwmA = 0;
 		pwmD = 0;
 		salinity = new Number( (byte) 1 );
+		orp = new Number( (byte) 1 );
 		main = new Relay();
 		expansionRelays = new Relay[MAX_EXPANSION_RELAYS];
 		for ( i = 0; i < MAX_EXPANSION_RELAYS; i++ ) {
@@ -181,6 +183,15 @@ public class Controller {
 		return salinity.toString() + " ppt";
 	}
 
+	public void setORP ( int value ) {
+		orp.setValue( value );
+	}
+	
+	public String getORP ( ) {
+		// TODO get label for ORP
+		return orp.toString();
+	}
+	
 	public void setMainRelayData ( short data, short maskOn, short maskOff ) {
 		main.setRelayData( data, maskOn, maskOff );
 	}

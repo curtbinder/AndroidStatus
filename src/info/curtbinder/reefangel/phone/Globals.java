@@ -45,6 +45,7 @@ public final class Globals {
 	public static final String xmlATOLow = "ATOLOW";
 	public static final String xmlATOHigh = "ATOHIGH";
 	public static final String xmlSalinity = "SAL";
+	public static final String xmlORP = "ORP";
 	public static final String xmlPWMDaylight = "PWMD";
 	public static final String xmlPWMActinic = "PWMA";
 	public static final String xmlPWMExpansion = "PWME";

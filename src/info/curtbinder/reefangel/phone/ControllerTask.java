@@ -293,6 +293,7 @@ public class ControllerTask implements Runnable {
 
 	private void broadcastUpdateDisplayData ( Controller ra ) {
 		// Log.d(TAG, "broadcastUpdateDisplayData");
+		// TODO add in extra database columns
 		Intent i = new Intent( MessageCommands.UPDATE_DISPLAY_DATA_INTENT );
 		i.putExtra( RAData.PCOL_T1, ra.getTemp1() );
 		i.putExtra( RAData.PCOL_T2, ra.getTemp2() );

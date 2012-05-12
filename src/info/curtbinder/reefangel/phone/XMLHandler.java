@@ -208,6 +208,8 @@ public class XMLHandler extends DefaultHandler {
 			Log.d( TAG, "PWME (" + tag + ") " + currentElementText );
 		} else if ( tag.equals( Globals.xmlSalinity ) ) {
 			ra.setSalinity( Integer.parseInt( currentElementText ) );
+		} else if ( tag.equals ( Globals.xmlORP ) ) {
+			ra.setORP( Integer.parseInt( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRelay ) ) {
 			ra.setMainRelayData( Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRelayMaskOn ) ) {
