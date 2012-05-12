@@ -5,16 +5,16 @@ TODO
 * Toggle ability to restore values on configuration changes
 * fix layouts for hiding text:  switch to relative layout for better control over display
 * create smaller subsets of the layouts for simpler including and easy duplication
-* expansion relays will fail with 0.8.5.X libraries
-** only fails if those libraries have exp relay support enabled
-
 * add in swipe capabilities to switch screens
 ** move the relays to own screen
 ** have main status, main relay, exp relay 1, etc, on own pages
-
 * history shows relay status
 * validation of host on configuration page (better validation of preferences)
-
+* add vortech screen to change vortech modes
+* add ORP support
+* add PWM expansion support / displaying
+* add IO channel support
+* add in custom variables support
 * download settings from portal
 ** if (EM & 1<<0) then it would enable the PWM window or display the %s on main window.
 ** if (EM & 1<<1) then it would enable the RF window or display the mode, speed and duration on main window
@@ -22,19 +22,14 @@ TODO
 ** if (EM & 1<<3) then it would display the salinity on main window
 ** if (EM & 1<<4) then it would display ORP on main window
 ** if (REM & 1<<0) then enable expansion relay box 1 window and so forth for additional relay boxes
-
 * when changing from controller to forum (or vice versa)
 	- clear out onclicklisteners
 	- set clickable to true/false
-	
 * labels
 ** after download, refresh the labels so they appear in the menus without
    having to exit the preferences activity 
-
 * add in an error status line with error displaying
-
 * Wifi Authentication:  username / password prompts
-
 * add in error log
 ** logs errors to database
 ** new activity for displaying errors
