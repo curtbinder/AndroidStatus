@@ -249,6 +249,8 @@ public class XMLHandler extends DefaultHandler {
 			Log.d( TAG, "RFRB " + currentElementText );
 		} else if ( tag.equals( Globals.xmlRFIntensity ) ) {
 			Log.d( TAG, "RFI " + currentElementText );
+		} else if ( tag.equals( Globals.xmlIO ) ) {
+			Log.d( TAG, "IO " + currentElementText );
 		} else if ( tag.startsWith( Globals.xmlLabelTempBegin )
 					&& tag.endsWith( Globals.xmlLabelEnd ) ) {
 			// handle temp sensor labels
