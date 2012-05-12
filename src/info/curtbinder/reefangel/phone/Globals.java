@@ -71,4 +71,5 @@ public final class Globals {
 	public static final String xmlRFBlue = "RFB";
 	public static final String xmlRFIntensity = "RFI";
 	public static final String xmlIO = "IO";
+	public static final String xmlCustom = "C";
 }

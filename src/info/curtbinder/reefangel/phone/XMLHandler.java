@@ -251,6 +251,10 @@ public class XMLHandler extends DefaultHandler {
 			Log.d( TAG, "RFI " + currentElementText );
 		} else if ( tag.equals( Globals.xmlIO ) ) {
 			Log.d( TAG, "IO " + currentElementText );
+		} else if ( tag.startsWith( Globals.xmlCustom ) ) {
+			int v =
+					Integer.parseInt( tag.substring( Globals.xmlCustom.length() ) );
+			Log.d( TAG, "Custom Var " + v + ": " + currentElementText );
 		} else if ( tag.startsWith( Globals.xmlLabelTempBegin )
 					&& tag.endsWith( Globals.xmlLabelEnd ) ) {
 			// handle temp sensor labels
