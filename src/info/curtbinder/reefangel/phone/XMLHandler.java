@@ -205,10 +205,13 @@ public class XMLHandler extends DefaultHandler {
 		} else if ( tag.equals( Globals.xmlPWMDaylight ) ) {
 			ra.setPwmD( Byte.parseByte( currentElementText ) );
 		} else if ( tag.startsWith( Globals.xmlPWMExpansion ) ) {
-			Log.d( TAG, "PWME (" + tag + ") " + currentElementText );
+			int channel =
+					Integer.parseInt( tag.substring( Globals.xmlPWMExpansion
+							.length() ) );
+			ra.setPwmExpansion( channel, Byte.parseByte( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlSalinity ) ) {
 			ra.setSalinity( Integer.parseInt( currentElementText ) );
-		} else if ( tag.equals ( Globals.xmlORP ) ) {
+		} else if ( tag.equals( Globals.xmlORP ) ) {
 			ra.setORP( Integer.parseInt( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRelay ) ) {
 			ra.setMainRelayData( Short.parseShort( currentElementText ) );
@@ -222,8 +225,6 @@ public class XMLHandler extends DefaultHandler {
 			Log.d( TAG, "REM " + currentElementText );
 		} else if ( tag.equals( Globals.xmlExpansionModules ) ) {
 			Log.d( TAG, "EM " + currentElementText );
-		} else if ( tag.equals( Globals.xmlPWMExpansion ) ) {
-			Log.d( TAG, "PWME " + currentElementText );
 		} else if ( tag.equals( Globals.xmlAIBlue ) ) {
 			Log.d( TAG, "AIB " + currentElementText );
 		} else if ( tag.equals( Globals.xmlAIRoyalBlue ) ) {

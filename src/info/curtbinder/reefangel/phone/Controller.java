@@ -14,6 +14,7 @@ public class Controller {
 	public static final byte MAX_EXPANSION_RELAYS = 8;
 	public static final byte MAX_RELAY_PORTS = 8;
 	public static final byte MAX_TEMP_SENSORS = 3;
+	public static final byte MAX_PWM_EXPANSION_PORTS = 6;
 
 	private String updateLogDate;
 	private TempSensor[] tempSensors;
@@ -27,6 +28,7 @@ public class Controller {
 	private Relay main;
 	private byte qtyExpansionRelays;
 	private Relay[] expansionRelays;
+	private byte[] pwmExpansion;
 
 	public Controller () {
 		init();
@@ -49,6 +51,10 @@ public class Controller {
 		atoHigh = false;
 		pwmA = 0;
 		pwmD = 0;
+		pwmExpansion = new byte[MAX_PWM_EXPANSION_PORTS];
+		for ( i = 0; i < MAX_PWM_EXPANSION_PORTS; i++ ) {
+			pwmExpansion[i] = 0;
+		}
 		salinity = new Number( (byte) 1 );
 		orp = new Number( (byte) 1 );
 		main = new Relay();
@@ -87,11 +93,11 @@ public class Controller {
 		return tempSensors[sensor - 1].getLabel();
 	}
 
-//	public String[] getTempLabels ( ) {
-//		return new String[] {	tempSensors[0].getLabel(),
-//								tempSensors[1].getLabel(),
-//								tempSensors[2].getLabel() };
-//	}
+	// public String[] getTempLabels ( ) {
+	// return new String[] { tempSensors[0].getLabel(),
+	// tempSensors[1].getLabel(),
+	// tempSensors[2].getLabel() };
+	// }
 
 	public void setTemp1 ( int value ) {
 		tempSensors[0].setTemp( value );
@@ -175,6 +181,15 @@ public class Controller {
 		return new String( String.format( "%d%c", pwmD, '%' ) );
 	}
 
+	public void setPwmExpansion ( int channel, byte v ) {
+		pwmExpansion[channel] = v;
+	}
+	
+	public String getPwmExpansion ( int channel ) {
+		// TODO change to be locale independent
+		return new String( String.format( "%d%c", pwmExpansion[channel], '%' ) );
+	}
+	
 	public void setSalinity ( int value ) {
 		salinity.setValue( value );
 	}
@@ -186,12 +201,12 @@ public class Controller {
 	public void setORP ( int value ) {
 		orp.setValue( value );
 	}
-	
+
 	public String getORP ( ) {
 		// TODO get label for ORP
 		return orp.toString();
 	}
-	
+
 	public void setMainRelayData ( short data, short maskOn, short maskOff ) {
 		main.setRelayData( data, maskOn, maskOff );
 	}
@@ -211,15 +226,12 @@ public class Controller {
 	public Relay getMainRelay ( ) {
 		return main;
 	}
-/*
-	public void setExpRelayData (
-			int relay,
-			short data,
-			short maskOn,
-			short maskOff ) {
-		expansionRelays[relay].setRelayData( data, maskOn, maskOff );
-	}
-*/
+
+	/*
+	 * public void setExpRelayData ( int relay, short data, short maskOn, short
+	 * maskOff ) { expansionRelays[relay].setRelayData( data, maskOn, maskOff );
+	 * }
+	 */
 	public void setExpRelayData ( int relay, short data ) {
 		// Pass in the 1 based index for relay
 		expansionRelays[relay - 1].setRelayData( data );
