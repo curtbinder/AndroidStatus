@@ -44,12 +44,10 @@ public class XMLHandler extends DefaultHandler {
 
 	public String getDateTime ( ) {
 		return dt.getDateTimeString();
-		// return "";
 	}
 
 	public String getDateTimeUpdateStatus ( ) {
 		return dt.getUpdateStatus();
-		// return "";
 	}
 
 	public String getMemoryResponse ( ) {
