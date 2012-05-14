@@ -38,12 +38,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:layout_height="wrap_content"
             android:layout_gravity="top" >
 
-            <!-- Merge Controller Status Here -->
-
-            <include
-                android:id="@+id/controllerstatus"
-                layout="@layout/controllerstatus" />
-
+			<info.curtbinder.reefangel.phone.ControllerWidget
+			    android:id="@+id/controller"
+			    android:layout_width="fill_parent"
+			    android:layout_height="fill_parent" />
+			
             <info.curtbinder.reefangel.phone.RelayBoxWidget
                 android:id="@+id/mainrelay"
                 android:layout_width="fill_parent"

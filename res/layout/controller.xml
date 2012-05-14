@@ -7,9 +7,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 http://creativecommons.org/licenses/by-nc-sa/3.0/
 -->
 
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
     <TextView
         style="@style/ParamsText"
@@ -115,4 +115,4 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             style="@style/ParamsText.Values" />
     </TableRow>
 -->
-</merge>
+</TableLayout>

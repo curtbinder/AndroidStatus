@@ -32,20 +32,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 	private View refreshButton;
 	private TextView updateTime;
 	// private TextView messageText;
-	private TextView t1Text;
-	private TextView t2Text;
-	private TextView t3Text;
-	private TextView phText;
-	private TextView dpText;
-	private TextView apText;
-	private TextView salinityText;
-	private TextView t1Label;
-	private TextView t2Label;
-	private TextView t3Label;
-	private TextView phLabel;
-	private TextView dpLabel;
-	private TextView apLabel;
-	private TextView salinityLabel;
+	private ControllerWidget controller;
 
 	private RelayBoxWidget main;
 	private RelayBoxWidget[] exprelays =
@@ -105,20 +92,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 	private void findViews ( ) {
 		refreshButton = findViewById( R.id.refresh_button );
 		updateTime = (TextView) findViewById( R.id.updated );
-		t1Text = (TextView) findViewById( R.id.temp1 );
-		t2Text = (TextView) findViewById( R.id.temp2 );
-		t3Text = (TextView) findViewById( R.id.temp3 );
-		phText = (TextView) findViewById( R.id.ph );
-		dpText = (TextView) findViewById( R.id.dp );
-		apText = (TextView) findViewById( R.id.ap );
-		salinityText = (TextView) findViewById( R.id.salinity );
-		t1Label = (TextView) findViewById( R.id.t1_label );
-		t2Label = (TextView) findViewById( R.id.t2_label );
-		t3Label = (TextView) findViewById( R.id.t3_label );
-		phLabel = (TextView) findViewById( R.id.ph_label );
-		dpLabel = (TextView) findViewById( R.id.dp_label );
-		apLabel = (TextView) findViewById( R.id.ap_label );
-		salinityLabel = (TextView) findViewById( R.id.salinity_label );
+		controller = (ControllerWidget) findViewById( R.id.controller );
 
 		main = (RelayBoxWidget) findViewById( R.id.mainrelay );
 		exprelays[0] = (RelayBoxWidget) findViewById( R.id.exprelay1 );
@@ -159,14 +133,14 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 
 		// Labels
 		String separator = getString( R.string.labelSeparator );
-		t1Label.setText( rapp.getPrefT1Label() + separator );
-		t2Label.setText( rapp.getPrefT2Label() + separator );
-		t3Label.setText( rapp.getPrefT3Label() + separator );
-		phLabel.setText( rapp.getPrefPHLabel() + separator );
-		dpLabel.setText( rapp.getPrefDPLabel() + separator );
-		apLabel.setText( rapp.getPrefAPLabel() + separator );
-		salinityLabel.setText( rapp.getPrefSalinityLabel() + separator );
-
+		controller.setT1Label( rapp.getPrefT1Label() + separator );
+		controller.setT2Label( rapp.getPrefT2Label() + separator );
+		controller.setT3Label( rapp.getPrefT3Label() + separator );
+		controller.setPHLabel( rapp.getPrefPHLabel() + separator );
+		controller.setDPLabel( rapp.getPrefDPLabel() + separator );
+		controller.setAPLabel( rapp.getPrefAPLabel() + separator );
+		controller.setSalinityLabel( rapp.getPrefSalinityLabel() + separator );
+		
 		main.setRelayTitle( getString( R.string.prefMainRelayTitle ) );
 		// set the labels
 		exprelays[0].setRelayTitle( getString( R.string.prefExp1RelayTitle ) );
@@ -201,51 +175,12 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		}
 
 		// Visibility
-		if ( rapp.getPrefT2Visibility() ) {
-			Log.d( TAG, "T2 visible" );
-			t2Text.setVisibility( View.VISIBLE );
-			t2Label.setVisibility( View.VISIBLE );
-		} else {
-			Log.d( TAG, "T2 gone" );
-			t2Text.setVisibility( View.GONE );
-			t2Label.setVisibility( View.GONE );
-		}
-		if ( rapp.getPrefT3Visibility() ) {
-			Log.d( TAG, "T3 visible" );
-			t3Text.setVisibility( View.VISIBLE );
-			t3Label.setVisibility( View.VISIBLE );
-		} else {
-			Log.d( TAG, "T3 gone" );
-			t3Text.setVisibility( View.GONE );
-			t3Label.setVisibility( View.GONE );
-		}
-		if ( rapp.getPrefDPVisibility() ) {
-			Log.d( TAG, "DP visible" );
-			dpText.setVisibility( View.VISIBLE );
-			dpLabel.setVisibility( View.VISIBLE );
-		} else {
-			Log.d( TAG, "DP gone" );
-			dpText.setVisibility( View.GONE );
-			dpLabel.setVisibility( View.GONE );
-		}
-		if ( rapp.getPrefAPVisibility() ) {
-			Log.d( TAG, "AP visible" );
-			apText.setVisibility( View.VISIBLE );
-			apLabel.setVisibility( View.VISIBLE );
-		} else {
-			Log.d( TAG, "AP gone" );
-			apText.setVisibility( View.GONE );
-			apLabel.setVisibility( View.GONE );
-		}
-		if ( rapp.getPrefSalinityVisibility() ) {
-			Log.d( TAG, "Salinity visible" );
-			salinityText.setVisibility( View.VISIBLE );
-			salinityLabel.setVisibility( View.VISIBLE );
-		} else {
-			Log.d( TAG, "Salinity gone" );
-			salinityText.setVisibility( View.GONE );
-			salinityLabel.setVisibility( View.GONE );
-		}
+		controller.setT2Visibility( rapp.getPrefT2Visibility() );
+		controller.setT3Visibility( rapp.getPrefT3Visibility() );
+		controller.setDPVisibility( rapp.getPrefDPVisibility() );
+		controller.setAPVisibility( rapp.getPrefAPVisibility() );
+		controller.setSalinityVisibility( rapp.getPrefSalinityVisibility() );
+		
 		// if ( ! showMessageText )
 		// messageText.setVisibility(View.GONE);
 	}
@@ -285,6 +220,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		Log.d( TAG, "updateDisplay" );
 		try {
 			Cursor c = rapp.data.getLatestData();
+			String updateStatus;
 			String[] values;
 			short r, ron, roff;
 			short[] expr = new short[Controller.MAX_EXPANSION_RELAYS];
@@ -292,10 +228,9 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 			short[] exproff = new short[Controller.MAX_EXPANSION_RELAYS];
 
 			if ( c.moveToFirst() ) {
+				updateStatus = c.getString( c.getColumnIndex( RAData.PCOL_LOGDATE ) );
 				values =
 						new String[] {	c.getString( c
-												.getColumnIndex( RAData.PCOL_LOGDATE ) ),
-										c.getString( c
 												.getColumnIndex( RAData.PCOL_T1 ) ),
 										c.getString( c
 												.getColumnIndex( RAData.PCOL_T2 ) ),
@@ -354,6 +289,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 				exproff[7] =
 						c.getShort( c.getColumnIndex( RAData.PCOL_R4OFFMASK ) );
 			} else {
+				updateStatus = getString( R.string.messageNever );
 				values = getNeverValues();
 				r = ron = roff = 0;
 				for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
@@ -361,7 +297,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 				}
 			}
 			c.close();
-			loadDisplayedControllerValues( values );
+			updateTime.setText( updateStatus );
+			controller.updateDisplay( values );
 			boolean fUseMask = rapp.isCommunicateController();
 			main.updateRelayValues( new Relay( r, ron, roff ), fUseMask );
 			for ( int i = 0; i < rapp.getPrefExpansionRelayQuantity(); i++ ) {
@@ -403,21 +340,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		}
 	}
 
-	private void loadDisplayedControllerValues ( String[] v ) {
-		// The order must match with the order in getDisplayedControllerValues
-		updateTime.setText( v[0] );
-		t1Text.setText( v[1] );
-		t2Text.setText( v[2] );
-		t3Text.setText( v[3] );
-		phText.setText( v[4] );
-		dpText.setText( v[5] );
-		apText.setText( v[6] );
-		salinityText.setText( v[7] );
-	}
-
 	private String[] getNeverValues ( ) {
-		return new String[] {	getString( R.string.messageNever ),
-								getString( R.string.defaultStatusText ),
+		return new String[] {	getString( R.string.defaultStatusText ),
 								getString( R.string.defaultStatusText ),
 								getString( R.string.defaultStatusText ),
 								getString( R.string.defaultStatusText ),

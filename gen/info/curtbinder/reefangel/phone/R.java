@@ -55,7 +55,7 @@ public final class R {
         public static final int command_button_version=0x7f0a0009;
         public static final int command_button_water=0x7f0a0004;
         public static final int commands=0x7f0a0067;
-        public static final int controllerstatus=0x7f0a005a;
+        public static final int controller=0x7f0a005a;
         public static final int dp=0x7f0a0013;
         public static final int dp_label=0x7f0a0012;
         public static final int exprelay1=0x7f0a005c;
@@ -151,7 +151,7 @@ public final class R {
     }
     public static final class layout {
         public static final int commands=0x7f030000;
-        public static final int controllerstatus=0x7f030001;
+        public static final int controller=0x7f030001;
         public static final int datetime=0x7f030002;
         public static final int firstrun=0x7f030003;
         public static final int historypopup=0x7f030004;
