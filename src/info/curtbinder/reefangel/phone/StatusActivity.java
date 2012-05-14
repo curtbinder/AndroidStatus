@@ -141,37 +141,61 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		controller.setAPLabel( rapp.getPrefAPLabel() + separator );
 		controller.setSalinityLabel( rapp.getPrefSalinityLabel() + separator );
 		
+		int qty = rapp.getPrefExpansionRelayQuantity();
+		Log.d( TAG, "Expansion Relays: " + qty );
 		main.setRelayTitle( getString( R.string.prefMainRelayTitle ) );
 		// set the labels
-		exprelays[0].setRelayTitle( getString( R.string.prefExp1RelayTitle ) );
-		exprelays[1].setRelayTitle( getString( R.string.prefExp2RelayTitle ) );
-		exprelays[2].setRelayTitle( getString( R.string.prefExp3RelayTitle ) );
-		exprelays[3].setRelayTitle( getString( R.string.prefExp4RelayTitle ) );
-		exprelays[4].setRelayTitle( getString( R.string.prefExp5RelayTitle ) );
-		exprelays[5].setRelayTitle( getString( R.string.prefExp6RelayTitle ) );
-		exprelays[6].setRelayTitle( getString( R.string.prefExp7RelayTitle ) );
-		exprelays[7].setRelayTitle( getString( R.string.prefExp8RelayTitle ) );
+		switch ( qty ) {
+			case 8:
+				exprelays[7]
+						.setRelayTitle( getString( R.string.prefExp8RelayTitle ) );
+			case 7:
+				exprelays[6]
+						.setRelayTitle( getString( R.string.prefExp7RelayTitle ) );
+			case 6:
+				exprelays[5]
+						.setRelayTitle( getString( R.string.prefExp6RelayTitle ) );
+			case 5:
+				exprelays[4]
+						.setRelayTitle( getString( R.string.prefExp5RelayTitle ) );
+			case 4:
+				exprelays[3]
+						.setRelayTitle( getString( R.string.prefExp4RelayTitle ) );
+			case 3:
+				exprelays[2]
+						.setRelayTitle( getString( R.string.prefExp3RelayTitle ) );
+			case 2:
+				exprelays[1]
+						.setRelayTitle( getString( R.string.prefExp2RelayTitle ) );
+			case 1:
+				exprelays[0]
+						.setRelayTitle( getString( R.string.prefExp1RelayTitle ) );
+			default:
+				break;
+		}
+
 		int i, j;
 		for ( i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
 			main.setPortLabel( i, rapp.getPrefMainRelayLabel( i ) + separator );
 			for ( j = 0; j < Controller.MAX_EXPANSION_RELAYS; j++ ) {
+				// skip over the relays that are not installed
+				if ( (j+1) > qty )
+					break;
 				exprelays[j].setPortLabel( i, rapp.getPrefRelayLabel( j + 1, i )
 												+ separator );
 			}
 		}
 		// show/hide the relays
-		int qty = rapp.getPrefExpansionRelayQuantity();
-		Log.d( TAG, "Expansion Relays: " + qty );
 		int iVisible;
 		for ( i = 1; i <= Controller.MAX_EXPANSION_RELAYS; i++ ) {
 			if ( i > rapp.getPrefExpansionRelayQuantity() ) {
-				Log.d( TAG, "Relay " + i + " gone");
+				Log.d( TAG, "Relay " + i + " gone" );
 				iVisible = View.GONE;
 			} else {
-				Log.d( TAG, "Relay " + i + " visible");
+				Log.d( TAG, "Relay " + i + " visible" );
 				iVisible = View.VISIBLE;
 			}
-			exprelays[i-1].setVisibility( iVisible );
+			exprelays[i - 1].setVisibility( iVisible );
 		}
 
 		// Visibility
@@ -180,7 +204,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		controller.setDPVisibility( rapp.getPrefDPVisibility() );
 		controller.setAPVisibility( rapp.getPrefAPVisibility() );
 		controller.setSalinityVisibility( rapp.getPrefSalinityVisibility() );
-		
+
 		// if ( ! showMessageText )
 		// messageText.setVisibility(View.GONE);
 	}
@@ -228,7 +252,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 			short[] exproff = new short[Controller.MAX_EXPANSION_RELAYS];
 
 			if ( c.moveToFirst() ) {
-				updateStatus = c.getString( c.getColumnIndex( RAData.PCOL_LOGDATE ) );
+				updateStatus =
+						c.getString( c.getColumnIndex( RAData.PCOL_LOGDATE ) );
 				values =
 						new String[] {	c.getString( c
 												.getColumnIndex( RAData.PCOL_T1 ) ),
@@ -302,8 +327,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 			boolean fUseMask = rapp.isCommunicateController();
 			main.updateRelayValues( new Relay( r, ron, roff ), fUseMask );
 			for ( int i = 0; i < rapp.getPrefExpansionRelayQuantity(); i++ ) {
-				exprelays[i].updateRelayValues( new Relay( expr[i],
-					expron[i], exproff[i] ), fUseMask );
+				exprelays[i].updateRelayValues( new Relay( expr[i], expron[i],
+					exproff[i] ), fUseMask );
 			}
 		} catch ( SQLException e ) {
 			Log.d( TAG, "SQLException: " + e.getMessage() );

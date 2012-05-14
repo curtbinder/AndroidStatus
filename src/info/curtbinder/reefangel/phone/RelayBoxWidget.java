@@ -134,12 +134,12 @@ public class RelayBoxWidget extends TableLayout implements OnClickListener {
 	public void setPortLabel ( int port, String label ) {
 		// relay is 0 based
 		// label is text to set
-		Log.d( TAG, "Set Label: " + port + ", " + label );
+		Log.d( TAG, relayNumber + " Label: " + port + ", " + label );
 		portLabels[port].setText( label );
 	}
 
 	public void setRelayTitle ( String s ) {
-		Log.d( TAG, "Set Title: " + s );
+		Log.d( TAG, relayNumber + " Title: " + s );
 		titleText.setText( s );
 	}
 
