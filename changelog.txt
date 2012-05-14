@@ -87,3 +87,5 @@ Changelog of all the versions of AndroidStatus
 0.5.1
  * added support for 0.8.5.x expansion relays with setting
  * created custom widget for controller status information
+ * only set the labels for the expansion relay boxes displayed
+ 
