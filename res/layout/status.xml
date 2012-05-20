@@ -29,59 +29,9 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         android:id="@+id/refresh_button"
         android:text="@string/buttonRefresh" />
 
-    <ScrollView
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
-
-        <TableLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top" >
-
-			<info.curtbinder.reefangel.phone.ControllerWidget
-			    android:id="@+id/controller"
-			    android:layout_width="fill_parent"
-			    android:layout_height="fill_parent" />
-			
-            <info.curtbinder.reefangel.phone.RelayBoxWidget
-                android:id="@+id/mainrelay"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-
-            <info.curtbinder.reefangel.phone.RelayBoxWidget
-                android:id="@+id/exprelay1"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-            <info.curtbinder.reefangel.phone.RelayBoxWidget
-                android:id="@+id/exprelay2"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-            <info.curtbinder.reefangel.phone.RelayBoxWidget
-                android:id="@+id/exprelay3"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-            <info.curtbinder.reefangel.phone.RelayBoxWidget
-                android:id="@+id/exprelay4"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-            <info.curtbinder.reefangel.phone.RelayBoxWidget
-                android:id="@+id/exprelay5"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-            <info.curtbinder.reefangel.phone.RelayBoxWidget
-                android:id="@+id/exprelay6"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-            <info.curtbinder.reefangel.phone.RelayBoxWidget
-                android:id="@+id/exprelay7"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-            <info.curtbinder.reefangel.phone.RelayBoxWidget
-                android:id="@+id/exprelay8"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-        </TableLayout>
-
-    </ScrollView>
+        android:layout_height="fill_parent" />
 
 </TableLayout>

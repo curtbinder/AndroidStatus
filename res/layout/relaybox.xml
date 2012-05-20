@@ -8,12 +8,12 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 -->
 
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
     <TextView
-        style="@style/ParamsText"
         android:id="@+id/relayTitle"
+        style="@style/ParamsText"
         android:text="@string/labelRelayBox" />
 
     <TableRow style="@style/RARow" >

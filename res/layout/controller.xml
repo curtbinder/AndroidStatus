@@ -8,8 +8,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 -->
 
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
     <TextView
         style="@style/ParamsText"
@@ -103,7 +103,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:id="@+id/salinity"
             style="@style/ParamsText.Values" />
     </TableRow>
-<!--
+    <!--
     <TableRow style="@style/RARow" >
 
         <TextView
@@ -113,6 +113,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <TextView
             android:id="@+id/orp"
             style="@style/ParamsText.Values" />
-    </TableRow>
--->
+    </TableRow>
+    -->
+
 </TableLayout>
