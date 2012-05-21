@@ -53,7 +53,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 
 	private ControllerWidget controller;
 	private RelayBoxWidget main;
-	private RelayBoxWidget[] exprelays = new RelayBoxWidget[Controller.MAX_EXPANSION_RELAYS];
+	private RelayBoxWidget[] exprelays =
+			new RelayBoxWidget[Controller.MAX_EXPANSION_RELAYS];
 
 	// Message Receivers
 	StatusReceiver receiver;
@@ -64,15 +65,15 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 
 	/** Called when the activity is first created. */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.status);
+	public void onCreate ( Bundle savedInstanceState ) {
+		super.onCreate( savedInstanceState );
+		setContentView( R.layout.status );
 
 		// Message Receiver stuff
 		receiver = new StatusReceiver();
-		filter = new IntentFilter(MessageCommands.UPDATE_DISPLAY_DATA_INTENT);
-		filter.addAction(MessageCommands.UPDATE_STATUS_INTENT);
-		filter.addAction(MessageCommands.ERROR_MESSAGE_INTENT);
+		filter = new IntentFilter( MessageCommands.UPDATE_DISPLAY_DATA_INTENT );
+		filter.addAction( MessageCommands.UPDATE_STATUS_INTENT );
+		filter.addAction( MessageCommands.ERROR_MESSAGE_INTENT );
 
 		createViews();
 		findViews();
@@ -85,166 +86,173 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		// Check if this is the first run, if so we need to prompt the user
 		// to configure before we start the service and proceed
 		// this should be the last thing done in OnCreate()
-		if (rapp.isFirstRun()) {
-			Log.w(TAG, "First Run of app");
-			Intent i = new Intent(this, FirstRunActivity.class);
-			i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-			startActivity(i);
+		if ( rapp.isFirstRun() ) {
+			Log.w( TAG, "First Run of app" );
+			Intent i = new Intent( this, FirstRunActivity.class );
+			i.addFlags( Intent.FLAG_ACTIVITY_SINGLE_TOP );
+			startActivity( i );
 			finish();
 		}
 	}
 
 	@Override
-	protected void onPause() {
+	protected void onPause ( ) {
 		super.onPause();
-		unregisterReceiver(receiver);
+		unregisterReceiver( receiver );
 	}
 
 	@Override
-	protected void onResume() {
+	protected void onResume ( ) {
 		super.onResume();
-		registerReceiver(receiver, filter, Permissions.QUERY_STATUS, null);
+		registerReceiver( receiver, filter, Permissions.QUERY_STATUS, null );
 		updateViewsVisibility();
 		updateDisplay();
 
 		// TODO either put the displaying of the changelog here or in OnStart
 	}
 
-	private void createViews() {
-		// TODO add in expansion relay views
+	private void createViews ( ) {
 		Context ctx = rapp.getBaseContext();
-		controller = new ControllerWidget(ctx);
-		main = new RelayBoxWidget(ctx);
-		for (int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++) {
-			exprelays[i] = new RelayBoxWidget(ctx);
-			exprelays[i].setRelayBoxNumber(i + 1);
+		controller = new ControllerWidget( ctx );
+		main = new RelayBoxWidget( ctx );
+		for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
+			exprelays[i] = new RelayBoxWidget( ctx );
+			exprelays[i].setRelayBoxNumber( i + 1 );
 		}
 	}
 
-	private void findViews() {
-		refreshButton = findViewById(R.id.refresh_button);
-		updateTime = (TextView) findViewById(R.id.updated);
-		pager = (ViewPager) findViewById(R.id.pager);
+	private void findViews ( ) {
+		refreshButton = findViewById( R.id.refresh_button );
+		updateTime = (TextView) findViewById( R.id.updated );
+		pager = (ViewPager) findViewById( R.id.pager );
 	}
 
-	private void setOnClickListeners() {
-		refreshButton.setOnClickListener(this);
+	private void setOnClickListeners ( ) {
+		refreshButton.setOnClickListener( this );
 		// TODO consider clearing click listeners and updating clickable always
 		int i;
-		if (rapp.isCommunicateController()) {
+		if ( rapp.isCommunicateController() ) {
 			main.setOnClickListeners();
 
-			for (i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++)
+			for ( i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ )
 				exprelays[i].setOnClickListeners();
 
 		} else {
-			main.setClickable(false);
+			main.setClickable( false );
 
-			for (i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++)
-				exprelays[i].setClickable(false);
+			for ( i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ )
+				exprelays[i].setClickable( false );
 
 		}
 	}
 
-	private void updateViewsVisibility() {
+	private void updateViewsVisibility ( ) {
 		// updates all the views visibility based on user settings
 		// get values from Preferences
 		// showMessageText = false;
 
 		// Labels
-		String separator = getString(R.string.labelSeparator);
-		controller.setT1Label(rapp.getPrefT1Label() + separator);
-		controller.setT2Label(rapp.getPrefT2Label() + separator);
-		controller.setT3Label(rapp.getPrefT3Label() + separator);
-		controller.setPHLabel(rapp.getPrefPHLabel() + separator);
-		controller.setDPLabel(rapp.getPrefDPLabel() + separator);
-		controller.setAPLabel(rapp.getPrefAPLabel() + separator);
-		controller.setSalinityLabel(rapp.getPrefSalinityLabel() + separator);
+		String separator = getString( R.string.labelSeparator );
+		controller.setT1Label( rapp.getPrefT1Label() + separator );
+		controller.setT2Label( rapp.getPrefT2Label() + separator );
+		controller.setT3Label( rapp.getPrefT3Label() + separator );
+		controller.setPHLabel( rapp.getPrefPHLabel() + separator );
+		controller.setDPLabel( rapp.getPrefDPLabel() + separator );
+		controller.setAPLabel( rapp.getPrefAPLabel() + separator );
+		controller.setSalinityLabel( rapp.getPrefSalinityLabel() + separator );
 
 		int qty = rapp.getPrefExpansionRelayQuantity();
-		Log.d(TAG, "Expansion Relays: " + qty);
-		main.setRelayTitle(getString(R.string.prefMainRelayTitle));
+		Log.d( TAG, "Expansion Relays: " + qty );
+		main.setRelayTitle( getString( R.string.prefMainRelayTitle ) );
 		// set the labels
 
-		switch (qty) {
-		case 8:
-			exprelays[7].setRelayTitle(getString(R.string.prefExp8RelayTitle));
-		case 7:
-			exprelays[6].setRelayTitle(getString(R.string.prefExp7RelayTitle));
-		case 6:
-			exprelays[5].setRelayTitle(getString(R.string.prefExp6RelayTitle));
-		case 5:
-			exprelays[4].setRelayTitle(getString(R.string.prefExp5RelayTitle));
-		case 4:
-			exprelays[3].setRelayTitle(getString(R.string.prefExp4RelayTitle));
-		case 3:
-			exprelays[2].setRelayTitle(getString(R.string.prefExp3RelayTitle));
-		case 2:
-			exprelays[1].setRelayTitle(getString(R.string.prefExp2RelayTitle));
-		case 1:
-			exprelays[0].setRelayTitle(getString(R.string.prefExp1RelayTitle));
-		default:
-			break;
+		switch ( qty ) {
+			case 8:
+				exprelays[7]
+						.setRelayTitle( getString( R.string.prefExp8RelayTitle ) );
+			case 7:
+				exprelays[6]
+						.setRelayTitle( getString( R.string.prefExp7RelayTitle ) );
+			case 6:
+				exprelays[5]
+						.setRelayTitle( getString( R.string.prefExp6RelayTitle ) );
+			case 5:
+				exprelays[4]
+						.setRelayTitle( getString( R.string.prefExp5RelayTitle ) );
+			case 4:
+				exprelays[3]
+						.setRelayTitle( getString( R.string.prefExp4RelayTitle ) );
+			case 3:
+				exprelays[2]
+						.setRelayTitle( getString( R.string.prefExp3RelayTitle ) );
+			case 2:
+				exprelays[1]
+						.setRelayTitle( getString( R.string.prefExp2RelayTitle ) );
+			case 1:
+				exprelays[0]
+						.setRelayTitle( getString( R.string.prefExp1RelayTitle ) );
+			default:
+				break;
 		}
 
 		int i, j;
-		for (i = 0; i < Controller.MAX_RELAY_PORTS; i++) {
-			main.setPortLabel(i, rapp.getPrefMainRelayLabel(i) + separator);
+		for ( i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
+			main.setPortLabel( i, rapp.getPrefMainRelayLabel( i ) + separator );
 
-			for (j = 0; j < Controller.MAX_EXPANSION_RELAYS; j++) {
+			for ( j = 0; j < Controller.MAX_EXPANSION_RELAYS; j++ ) {
 				// skip over the relays that are not installed
-				if ((j + 1) > qty)
+				if ( (j + 1) > qty )
 					break;
-				exprelays[j].setPortLabel(i, rapp.getPrefRelayLabel(j + 1, i)
-						+ separator);
+				exprelays[j].setPortLabel( i, rapp.getPrefRelayLabel( j + 1, i )
+												+ separator );
 			}
 
 		}
 
 		// Visibility
-		controller.setT2Visibility(rapp.getPrefT2Visibility());
-		controller.setT3Visibility(rapp.getPrefT3Visibility());
-		controller.setDPVisibility(rapp.getPrefDPVisibility());
-		controller.setAPVisibility(rapp.getPrefAPVisibility());
-		controller.setSalinityVisibility(rapp.getPrefSalinityVisibility());
+		controller.setT2Visibility( rapp.getPrefT2Visibility() );
+		controller.setT3Visibility( rapp.getPrefT3Visibility() );
+		controller.setDPVisibility( rapp.getPrefDPVisibility() );
+		controller.setAPVisibility( rapp.getPrefAPVisibility() );
+		controller.setSalinityVisibility( rapp.getPrefSalinityVisibility() );
 
 		// if ( ! showMessageText )
 		// messageText.setVisibility(View.GONE);
 	}
 
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.refresh_button:
-			// launch the update
-			Log.d(TAG, "onClick Refresh button");
-			launchStatusTask();
-			break;
+	public void onClick ( View v ) {
+		switch ( v.getId() ) {
+			case R.id.refresh_button:
+				// launch the update
+				Log.d( TAG, "onClick Refresh button" );
+				launchStatusTask();
+				break;
 		}
 	}
 
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		switch (keyCode) {
-		case KeyEvent.KEYCODE_R:
-			// launch the update
-			Log.d(TAG, "onKeyDown R");
-			launchStatusTask();
-			break;
-		default:
-			return super.onKeyDown(keyCode, event);
+	public boolean onKeyDown ( int keyCode, KeyEvent event ) {
+		switch ( keyCode ) {
+			case KeyEvent.KEYCODE_R:
+				// launch the update
+				Log.d( TAG, "onKeyDown R" );
+				launchStatusTask();
+				break;
+			default:
+				return super.onKeyDown( keyCode, event );
 		}
 		return true;
 	}
 
-	private void launchStatusTask() {
-		Log.d(TAG, "launchStatusTask");
-		Intent i = new Intent(MessageCommands.QUERY_STATUS_INTENT);
-		sendBroadcast(i, Permissions.QUERY_STATUS);
+	private void launchStatusTask ( ) {
+		Log.d( TAG, "launchStatusTask" );
+		Intent i = new Intent( MessageCommands.QUERY_STATUS_INTENT );
+		sendBroadcast( i, Permissions.QUERY_STATUS );
 	}
 
-	public void updateDisplay() {
-		Log.d(TAG, "updateDisplay");
+	public void updateDisplay ( ) {
+		Log.d( TAG, "updateDisplay" );
 		try {
 			Cursor c = rapp.data.getLatestData();
 			String updateStatus;
@@ -254,75 +262,90 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 			short[] expron = new short[Controller.MAX_EXPANSION_RELAYS];
 			short[] exproff = new short[Controller.MAX_EXPANSION_RELAYS];
 
-			if (c.moveToFirst()) {
-				updateStatus = c.getString(c
-						.getColumnIndex(RAData.PCOL_LOGDATE));
-				values = new String[] {
-						c.getString(c.getColumnIndex(RAData.PCOL_T1)),
-						c.getString(c.getColumnIndex(RAData.PCOL_T2)),
-						c.getString(c.getColumnIndex(RAData.PCOL_T3)),
-						c.getString(c.getColumnIndex(RAData.PCOL_PH)),
-						c.getString(c.getColumnIndex(RAData.PCOL_DP)),
-						c.getString(c.getColumnIndex(RAData.PCOL_AP)),
-						c.getString(c.getColumnIndex(RAData.PCOL_SAL)) };
-				r = c.getShort(c.getColumnIndex(RAData.PCOL_RDATA));
-				ron = c.getShort(c.getColumnIndex(RAData.PCOL_RONMASK));
-				roff = c.getShort(c.getColumnIndex(RAData.PCOL_ROFFMASK));
+			if ( c.moveToFirst() ) {
+				updateStatus =
+						c.getString( c.getColumnIndex( RAData.PCOL_LOGDATE ) );
+				values =
+						new String[] {	c.getString( c
+												.getColumnIndex( RAData.PCOL_T1 ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_T2 ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_T3 ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_PH ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_DP ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_AP ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_SAL ) ) };
+				r = c.getShort( c.getColumnIndex( RAData.PCOL_RDATA ) );
+				ron = c.getShort( c.getColumnIndex( RAData.PCOL_RONMASK ) );
+				roff = c.getShort( c.getColumnIndex( RAData.PCOL_ROFFMASK ) );
 
-				expr[0] = c.getShort(c.getColumnIndex(RAData.PCOL_R1DATA));
-				expron[0] = c.getShort(c.getColumnIndex(RAData.PCOL_R1ONMASK));
-				exproff[0] = c
-						.getShort(c.getColumnIndex(RAData.PCOL_R1OFFMASK));
-				expr[1] = c.getShort(c.getColumnIndex(RAData.PCOL_R2DATA));
-				expron[1] = c.getShort(c.getColumnIndex(RAData.PCOL_R2ONMASK));
-				exproff[1] = c
-						.getShort(c.getColumnIndex(RAData.PCOL_R2OFFMASK));
-				expr[2] = c.getShort(c.getColumnIndex(RAData.PCOL_R3DATA));
-				expron[2] = c.getShort(c.getColumnIndex(RAData.PCOL_R3ONMASK));
-				exproff[2] = c
-						.getShort(c.getColumnIndex(RAData.PCOL_R3OFFMASK));
-				expr[3] = c.getShort(c.getColumnIndex(RAData.PCOL_R4DATA));
-				expron[3] = c.getShort(c.getColumnIndex(RAData.PCOL_R4ONMASK));
-				exproff[3] = c
-						.getShort(c.getColumnIndex(RAData.PCOL_R4OFFMASK));
-				expr[4] = c.getShort(c.getColumnIndex(RAData.PCOL_R1DATA));
-				expron[4] = c.getShort(c.getColumnIndex(RAData.PCOL_R1ONMASK));
-				exproff[4] = c
-						.getShort(c.getColumnIndex(RAData.PCOL_R1OFFMASK));
-				expr[5] = c.getShort(c.getColumnIndex(RAData.PCOL_R2DATA));
-				expron[5] = c.getShort(c.getColumnIndex(RAData.PCOL_R2ONMASK));
-				exproff[5] = c
-						.getShort(c.getColumnIndex(RAData.PCOL_R2OFFMASK));
-				expr[6] = c.getShort(c.getColumnIndex(RAData.PCOL_R3DATA));
-				expron[6] = c.getShort(c.getColumnIndex(RAData.PCOL_R3ONMASK));
-				exproff[6] = c
-						.getShort(c.getColumnIndex(RAData.PCOL_R3OFFMASK));
-				expr[7] = c.getShort(c.getColumnIndex(RAData.PCOL_R4DATA));
-				expron[7] = c.getShort(c.getColumnIndex(RAData.PCOL_R4ONMASK));
-				exproff[7] = c
-						.getShort(c.getColumnIndex(RAData.PCOL_R4OFFMASK));
+				expr[0] = c.getShort( c.getColumnIndex( RAData.PCOL_R1DATA ) );
+				expron[0] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R1ONMASK ) );
+				exproff[0] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R1OFFMASK ) );
+				expr[1] = c.getShort( c.getColumnIndex( RAData.PCOL_R2DATA ) );
+				expron[1] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R2ONMASK ) );
+				exproff[1] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R2OFFMASK ) );
+				expr[2] = c.getShort( c.getColumnIndex( RAData.PCOL_R3DATA ) );
+				expron[2] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R3ONMASK ) );
+				exproff[2] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R3OFFMASK ) );
+				expr[3] = c.getShort( c.getColumnIndex( RAData.PCOL_R4DATA ) );
+				expron[3] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R4ONMASK ) );
+				exproff[3] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R4OFFMASK ) );
+				expr[4] = c.getShort( c.getColumnIndex( RAData.PCOL_R1DATA ) );
+				expron[4] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R1ONMASK ) );
+				exproff[4] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R1OFFMASK ) );
+				expr[5] = c.getShort( c.getColumnIndex( RAData.PCOL_R2DATA ) );
+				expron[5] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R2ONMASK ) );
+				exproff[5] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R2OFFMASK ) );
+				expr[6] = c.getShort( c.getColumnIndex( RAData.PCOL_R3DATA ) );
+				expron[6] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R3ONMASK ) );
+				exproff[6] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R3OFFMASK ) );
+				expr[7] = c.getShort( c.getColumnIndex( RAData.PCOL_R4DATA ) );
+				expron[7] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R4ONMASK ) );
+				exproff[7] =
+						c.getShort( c.getColumnIndex( RAData.PCOL_R4OFFMASK ) );
 			} else {
-				updateStatus = getString(R.string.messageNever);
+				updateStatus = getString( R.string.messageNever );
 				values = getNeverValues();
 				r = ron = roff = 0;
-				for (int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++) {
+				for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 					expr[i] = expron[i] = exproff[i] = 0;
 				}
 			}
 			c.close();
-			updateTime.setText(updateStatus);
-			controller.updateDisplay(values);
+			updateTime.setText( updateStatus );
+			controller.updateDisplay( values );
 			boolean fUseMask = rapp.isCommunicateController();
-			main.updateRelayValues(new Relay(r, ron, roff), fUseMask);
-			for (int i = 0; i < rapp.getPrefExpansionRelayQuantity(); i++) {
-				exprelays[i].updateRelayValues(new Relay(expr[i], expron[i],
-						exproff[i]), fUseMask);
+			main.updateRelayValues( new Relay( r, ron, roff ), fUseMask );
+			for ( int i = 0; i < rapp.getPrefExpansionRelayQuantity(); i++ ) {
+				exprelays[i].updateRelayValues( new Relay( expr[i], expron[i],
+					exproff[i] ), fUseMask );
 			}
 
-		} catch (SQLException e) {
-			Log.d(TAG, "SQLException: " + e.getMessage());
-		} catch (CursorIndexOutOfBoundsException e) {
-			Log.d(TAG, "CursorIndex out of bounds: " + e.getMessage());
+		} catch ( SQLException e ) {
+			Log.d( TAG, "SQLException: " + e.getMessage() );
+		} catch ( CursorIndexOutOfBoundsException e ) {
+			Log.d( TAG, "CursorIndex out of bounds: " + e.getMessage() );
 		}
 	}
 
@@ -330,137 +353,141 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		private final String TAG = StatusReceiver.class.getSimpleName();
 
 		@Override
-		public void onReceive(Context context, Intent intent) {
+		public void onReceive ( Context context, Intent intent ) {
 			// Log.d(TAG, "onReceive");
 			String action = intent.getAction();
-			if (action.equals(MessageCommands.UPDATE_STATUS_INTENT)) {
-				int id = intent.getIntExtra(MessageCommands.UPDATE_STATUS_ID,
-						R.string.defaultStatusText);
-				Log.d(TAG, getResources().getString(id));
-				updateTime.setText(getResources().getString(id));
-			} else if (action
-					.equals(MessageCommands.UPDATE_DISPLAY_DATA_INTENT)) {
-				Log.d(TAG, "update data intent");
-				rapp.insertData(intent);
+			if ( action.equals( MessageCommands.UPDATE_STATUS_INTENT ) ) {
+				int id =
+						intent.getIntExtra( MessageCommands.UPDATE_STATUS_ID,
+											R.string.defaultStatusText );
+				Log.d( TAG, getResources().getString( id ) );
+				updateTime.setText( getResources().getString( id ) );
+			} else if ( action
+					.equals( MessageCommands.UPDATE_DISPLAY_DATA_INTENT ) ) {
+				Log.d( TAG, "update data intent" );
+				rapp.insertData( intent );
 				updateDisplay();
-			} else if (action.equals(MessageCommands.ERROR_MESSAGE_INTENT)) {
-				Log.d(TAG, intent
-						.getStringExtra(MessageCommands.ERROR_MESSAGE_STRING));
-				updateTime.setText(intent
-						.getStringExtra(MessageCommands.ERROR_MESSAGE_STRING));
+			} else if ( action.equals( MessageCommands.ERROR_MESSAGE_INTENT ) ) {
+				Log.d( TAG, intent
+						.getStringExtra( MessageCommands.ERROR_MESSAGE_STRING ) );
+				updateTime
+						.setText( intent
+								.getStringExtra( MessageCommands.ERROR_MESSAGE_STRING ) );
 			}
 		}
 	}
 
-	private String[] getNeverValues() {
-		return new String[] { getString(R.string.defaultStatusText),
-				getString(R.string.defaultStatusText),
-				getString(R.string.defaultStatusText),
-				getString(R.string.defaultStatusText),
-				getString(R.string.defaultStatusText),
-				getString(R.string.defaultStatusText),
-				getString(R.string.defaultStatusText) };
+	private String[] getNeverValues ( ) {
+		return new String[] {	getString( R.string.defaultStatusText ),
+								getString( R.string.defaultStatusText ),
+								getString( R.string.defaultStatusText ),
+								getString( R.string.defaultStatusText ),
+								getString( R.string.defaultStatusText ),
+								getString( R.string.defaultStatusText ),
+								getString( R.string.defaultStatusText ) };
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu ( Menu menu ) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.status_menu, menu);
+		inflater.inflate( R.menu.status_menu, menu );
 		return true;
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected ( MenuItem item ) {
 		// Handle item selection
-		switch (item.getItemId()) {
-		case R.id.settings:
-			// launch settings
-			Log.d(TAG, "Menu Settings clicked");
-			startActivity(new Intent(this, PrefsActivity.class));
-			break;
-		case R.id.about:
-			// launch about box
-			Log.d(TAG, "Menu About clicked");
-			startActivity(new Intent(this, AboutActivity.class));
-			break;
-		case R.id.params:
-			Log.d(TAG, "Menu Parameters clicked");
-			startActivity(new Intent(this, ParamsListActivity.class));
-			break;
-		case R.id.memory:
-			// launch memory
-			Log.d(TAG, "Memory clicked");
-			startActivity(new Intent(this, MemoryTabsActivity.class));
-			break;
-		case R.id.commands:
-			// launch commands
-			Log.d(TAG, "Commands clicked");
-			startActivity(new Intent(this, CommandTabsActivity.class));
-			break;
-		default:
-			return super.onOptionsItemSelected(item);
+		switch ( item.getItemId() ) {
+			case R.id.settings:
+				// launch settings
+				Log.d( TAG, "Menu Settings clicked" );
+				startActivity( new Intent( this, PrefsActivity.class ) );
+				break;
+			case R.id.about:
+				// launch about box
+				Log.d( TAG, "Menu About clicked" );
+				startActivity( new Intent( this, AboutActivity.class ) );
+				break;
+			case R.id.params:
+				Log.d( TAG, "Menu Parameters clicked" );
+				startActivity( new Intent( this, ParamsListActivity.class ) );
+				break;
+			case R.id.memory:
+				// launch memory
+				Log.d( TAG, "Memory clicked" );
+				startActivity( new Intent( this, MemoryTabsActivity.class ) );
+				break;
+			case R.id.commands:
+				// launch commands
+				Log.d( TAG, "Commands clicked" );
+				startActivity( new Intent( this, CommandTabsActivity.class ) );
+				break;
+			default:
+				return super.onOptionsItemSelected( item );
 		}
 		return true;
 	}
 
-	private void setPagerPrefs() {
-		Log.d(TAG, "Create pager adapter");
+	private void setPagerPrefs ( ) {
+		Log.d( TAG, "Create pager adapter" );
 		pagerAdapter = new CustomPagerAdapter();
-		pager.setAdapter(pagerAdapter);
+		pager.setAdapter( pagerAdapter );
 		// Set the minimum pages to keep loaded
 		// will set to minimum pages since the pages are not complex
-		// TODO add in expansion relay quantity
-		pager.setOffscreenPageLimit(MIN_PAGES);
+		pager.setOffscreenPageLimit( MIN_PAGES );
 	}
 
 	private class CustomPagerAdapter extends PagerAdapter {
 		private final String TAG = CustomPagerAdapter.class.getSimpleName();
 
 		@Override
-		public int getCount() {
+		public int getCount ( ) {
 			int qty = MIN_PAGES + rapp.getPrefExpansionRelayQuantity();
 			return qty;
 		}
 
 		@Override
-		public void destroyItem(ViewGroup container, int position, Object object) {
-			((ViewPager) container).removeView((View) object);
+		public void destroyItem (
+				ViewGroup container,
+				int position,
+				Object object ) {
+			((ViewPager) container).removeView( (View) object );
 		}
 
 		@Override
-		public Object instantiateItem(ViewGroup container, int position) {
+		public Object instantiateItem ( ViewGroup container, int position ) {
 			// Create a scrollview
 			// Add widget to scroll view based on position
-			ScrollView v = new ScrollView(StatusActivity.this);
-			switch (position) {
-			default:
-			case POS_CONTROLLER: // Controller Status
-				Log.d(TAG, "Create controller");
-				v.addView(controller);
-				break;
-			case POS_MAIN_RELAY: // Main Relay
-				Log.d(TAG, "Create main relay");
-				v.addView(main);
-				break;
-			case POS_EXP1_RELAY: // Expansion Relay 1
-			case POS_EXP2_RELAY: // Expansion Relay 2
-			case POS_EXP3_RELAY: // Expansion Relay 3
-			case POS_EXP4_RELAY: // Expansion Relay 4
-			case POS_EXP5_RELAY: // Expansion Relay 5
-			case POS_EXP6_RELAY: // Expansion Relay 6
-			case POS_EXP7_RELAY: // Expansion Relay 7
-			case POS_EXP8_RELAY: // Expansion Relay 8
-				int relay = position - MIN_PAGES;
-				Log.d(TAG, "Create exp relay " + relay);
-				v.addView(exprelays[relay]);
-				break;
+			ScrollView v = new ScrollView( StatusActivity.this );
+			switch ( position ) {
+				default:
+				case POS_CONTROLLER: // Controller Status
+					Log.d( TAG, "Create controller" );
+					v.addView( controller );
+					break;
+				case POS_MAIN_RELAY: // Main Relay
+					Log.d( TAG, "Create main relay" );
+					v.addView( main );
+					break;
+				case POS_EXP1_RELAY: // Expansion Relay 1
+				case POS_EXP2_RELAY: // Expansion Relay 2
+				case POS_EXP3_RELAY: // Expansion Relay 3
+				case POS_EXP4_RELAY: // Expansion Relay 4
+				case POS_EXP5_RELAY: // Expansion Relay 5
+				case POS_EXP6_RELAY: // Expansion Relay 6
+				case POS_EXP7_RELAY: // Expansion Relay 7
+				case POS_EXP8_RELAY: // Expansion Relay 8
+					int relay = position - MIN_PAGES;
+					Log.d( TAG, "Create exp relay " + relay );
+					v.addView( exprelays[relay] );
+					break;
 			}
-			((ViewPager) container).addView(v, 0);
+			((ViewPager) container).addView( v, 0 );
 			return v;
 		}
 
 		@Override
-		public boolean isViewFromObject(View view, Object object) {
+		public boolean isViewFromObject ( View view, Object object ) {
 			return view == object;
 		}
 
