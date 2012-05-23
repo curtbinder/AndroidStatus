@@ -118,12 +118,12 @@ public class RAData {
 						+ " INTEGER " + ");" );
 
 			// create TRIGGER for params table
-			db.execSQL( "CREATE TRIGGER prune_params_entries INSERT ON "
-						+ PTABLE_NAME + " BEGIN DELETE FROM " + PTABLE_NAME
-						+ " WHERE " + PCOL_ID + " NOT IN " + "(SELECT "
-						+ PCOL_ID + " FROM " + PTABLE_NAME + " ORDER BY "
-						+ PCOL_ID + " DESC LIMIT " + PTABLE_MAX_COUNT + ");"
-						+ "END;" );
+//			db.execSQL( "CREATE TRIGGER prune_params_entries INSERT ON "
+//						+ PTABLE_NAME + " BEGIN DELETE FROM " + PTABLE_NAME
+//						+ " WHERE " + PCOL_ID + " NOT IN " + "(SELECT "
+//						+ PCOL_ID + " FROM " + PTABLE_NAME + " ORDER BY "
+//						+ PCOL_ID + " DESC LIMIT " + PTABLE_MAX_COUNT + ");"
+//						+ "END;" );
 		}
 	}
 
