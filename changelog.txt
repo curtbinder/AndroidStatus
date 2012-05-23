@@ -88,4 +88,7 @@ Changelog of all the versions of AndroidStatus
  * added support for 0.8.5.x expansion relays with setting
  * created custom widget for controller status information
  * only set the labels for the expansion relay boxes displayed
+ * added swipe capabilities to change between screens
+ * separated main page into smaller screens: Status and Relay Boxes
+ 
  

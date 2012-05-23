@@ -4,10 +4,6 @@ TODO
 ----
 * Toggle ability to restore values on configuration changes
 * fix layouts for hiding text:  switch to relative layout for better control over display
-* create smaller subsets of the layouts for simpler including and easy duplication
-* add in swipe capabilities to switch screens
-** move the relays to own screen
-** have main status, main relay, exp relay 1, etc, on own pages
 * history shows relay status
 * validation of host on configuration page (better validation of preferences)
 * add vortech screen to change vortech modes
