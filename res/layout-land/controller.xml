@@ -93,15 +93,14 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <TextView
             android:id="@+id/salinity"
             style="@style/ParamsText.Values" />
-        <!--
-                <TextView
-                    android:id="@+id/orp_label"
-                    style="@style/ParamsText.Labels.RightColumn" />
-                
-                <TextView
-                    android:id="@+id/orp"
-                    style="@style/ParamsText.Values" />
-        -->
+
+        <TextView
+            android:id="@+id/orp_label"
+            style="@style/ParamsText.Labels.RightColumn" />
+
+        <TextView
+            android:id="@+id/orp"
+            style="@style/ParamsText.Values" />
     </TableRow>
 
 </TableLayout>

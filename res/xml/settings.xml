@@ -75,6 +75,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                         android:key="@string/prefSalinityVisibilityKey"
                         android:summary="@string/prefSalinityVisibilitySummary"
                         android:title="@string/prefSalinityVisibilityTitle" />
+                    <CheckBoxPreference
+                        android:defaultValue="false"
+                        android:key="@string/prefORPVisibilityKey"
+                        android:summary="@string/prefORPVisibilitySummary"
+                        android:title="@string/prefORPVisibilityTitle" />
                 </PreferenceScreen>
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/prefLabelsCategory" >
@@ -121,6 +126,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                         android:key="@string/prefSalinityLabelKey"
                         android:summary="@string/prefSalinityLabelSummary"
                         android:title="@string/prefSalinityLabelTitle" />
+                    <EditTextPreference
+                        android:defaultValue="@string/labelORP"
+                        android:key="@string/prefORPLabelKey"
+                        android:summary="@string/prefORPLabelSummary"
+                        android:title="@string/prefORPLabelTitle" />
                 </PreferenceScreen>
                 <PreferenceScreen
                     android:key="main_relay_labels"

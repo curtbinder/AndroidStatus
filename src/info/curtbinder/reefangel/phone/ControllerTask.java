@@ -292,8 +292,6 @@ public class ControllerTask implements Runnable {
 	}
 
 	private void broadcastUpdateDisplayData ( Controller ra ) {
-		// Log.d(TAG, "broadcastUpdateDisplayData");
-		// TODO add in extra database columns
 		Intent i = new Intent( MessageCommands.UPDATE_DISPLAY_DATA_INTENT );
 		i.putExtra( RAData.PCOL_T1, ra.getTemp1() );
 		i.putExtra( RAData.PCOL_T2, ra.getTemp2() );
@@ -302,6 +300,7 @@ public class ControllerTask implements Runnable {
 		i.putExtra( RAData.PCOL_DP, ra.getPwmD() );
 		i.putExtra( RAData.PCOL_AP, ra.getPwmA() );
 		i.putExtra( RAData.PCOL_SAL, ra.getSalinity() );
+		i.putExtra( RAData.PCOL_ORP, ra.getORP() );
 		i.putExtra( RAData.PCOL_ATOHI, ra.getAtoHigh() );
 		i.putExtra( RAData.PCOL_ATOLO, ra.getAtoLow() );
 		i.putExtra( RAData.PCOL_LOGDATE, ra.getLogDate() );
@@ -340,6 +339,44 @@ public class ControllerTask implements Runnable {
 		i.putExtra( RAData.PCOL_R8ONMASK, ra.getExpRelay( 8 ).getRelayOnMask() );
 		i.putExtra( RAData.PCOL_R8OFFMASK, ra.getExpRelay( 8 )
 				.getRelayOffMask() );
+		i.putExtra( RAData.PCOL_PWME0, ra.getPwmExpansion( 0 ) );
+		i.putExtra( RAData.PCOL_PWME1, ra.getPwmExpansion( 1 ) );
+		i.putExtra( RAData.PCOL_PWME2, ra.getPwmExpansion( 2 ) );
+		i.putExtra( RAData.PCOL_PWME3, ra.getPwmExpansion( 3 ) );
+		i.putExtra( RAData.PCOL_PWME4, ra.getPwmExpansion( 4 ) );
+		i.putExtra( RAData.PCOL_PWME5, ra.getPwmExpansion( 5 ) );
+		i.putExtra( RAData.PCOL_AIW, ra.getAIChannel( Controller.AI_WHITE ) );
+		i.putExtra( RAData.PCOL_AIB, ra.getAIChannel( Controller.AI_BLUE ) );
+		i.putExtra( RAData.PCOL_AIRB, ra.getAIChannel( Controller.AI_ROYALBLUE ) );
+		i.putExtra( RAData.PCOL_RFM,
+					ra.getVortechValue( Controller.VORTECH_MODE ) );
+		i.putExtra( RAData.PCOL_RFS,
+					ra.getVortechValue( Controller.VORTECH_SPEED ) );
+		i.putExtra( RAData.PCOL_RFD,
+					ra.getVortechValue( Controller.VORTECH_DURATION ) );
+		i.putExtra( RAData.PCOL_RFW,
+					ra.getRadionChannel( Controller.RADION_WHITE ) );
+		i.putExtra( RAData.PCOL_RFRB,
+					ra.getRadionChannel( Controller.RADION_ROYALBLUE ) );
+		i.putExtra( RAData.PCOL_RFR,
+					ra.getRadionChannel( Controller.RADION_RED ) );
+		i.putExtra( RAData.PCOL_RFG,
+					ra.getRadionChannel( Controller.RADION_GREEN ) );
+		i.putExtra( RAData.PCOL_RFB,
+					ra.getRadionChannel( Controller.RADION_BLUE ) );
+		i.putExtra( RAData.PCOL_RFI,
+					ra.getRadionChannel( Controller.RADION_INTENSITY ) );
+		i.putExtra( RAData.PCOL_IO, ra.getIOChannels() );
+		i.putExtra( RAData.PCOL_C0, ra.getCustomVariable( (byte) 0 ) );
+		i.putExtra( RAData.PCOL_C1, ra.getCustomVariable( (byte) 1 ) );
+		i.putExtra( RAData.PCOL_C2, ra.getCustomVariable( (byte) 2 ) );
+		i.putExtra( RAData.PCOL_C3, ra.getCustomVariable( (byte) 3 ) );
+		i.putExtra( RAData.PCOL_C4, ra.getCustomVariable( (byte) 4 ) );
+		i.putExtra( RAData.PCOL_C5, ra.getCustomVariable( (byte) 5 ) );
+		i.putExtra( RAData.PCOL_C6, ra.getCustomVariable( (byte) 6 ) );
+		i.putExtra( RAData.PCOL_C7, ra.getCustomVariable( (byte) 7 ) );
+		i.putExtra( RAData.PCOL_EM, ra.getExpansionModules() );
+		i.putExtra( RAData.PCOL_REM, ra.getRelayExpansionModules() );
 		rapp.sendBroadcast( i, Permissions.QUERY_STATUS );
 	}
 

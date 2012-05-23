@@ -35,6 +35,7 @@ public class ControllerWidget extends ScrollView {
 	private TextView dpText;
 	private TextView apText;
 	private TextView salinityText;
+	private TextView orpText;
 	private TextView t1Label;
 	private TextView t2Label;
 	private TextView t3Label;
@@ -42,6 +43,7 @@ public class ControllerWidget extends ScrollView {
 	private TextView dpLabel;
 	private TextView apLabel;
 	private TextView salinityLabel;
+	private TextView orpLabel;
 
 	// private TextView orpLabel;
 
@@ -75,6 +77,7 @@ public class ControllerWidget extends ScrollView {
 		dpText = (TextView) findViewById( R.id.dp );
 		apText = (TextView) findViewById( R.id.ap );
 		salinityText = (TextView) findViewById( R.id.salinity );
+		orpText = (TextView) findViewById( R.id.orp );
 		t1Label = (TextView) findViewById( R.id.t1_label );
 		t2Label = (TextView) findViewById( R.id.t2_label );
 		t3Label = (TextView) findViewById( R.id.t3_label );
@@ -82,7 +85,7 @@ public class ControllerWidget extends ScrollView {
 		dpLabel = (TextView) findViewById( R.id.dp_label );
 		apLabel = (TextView) findViewById( R.id.ap_label );
 		salinityLabel = (TextView) findViewById( R.id.salinity_label );
-		// orpLabel = (TextView) findViewById( R.id.orp_label );
+		orpLabel = (TextView) findViewById( R.id.orp_label );
 	}
 
 	public void setT1Label ( String label ) {
@@ -111,6 +114,10 @@ public class ControllerWidget extends ScrollView {
 
 	public void setSalinityLabel ( String label ) {
 		salinityLabel.setText( label );
+	}
+	
+	public void setORPLabel ( String label ) {
+		orpLabel.setText( label );
 	}
 
 	public void setT2Visibility ( boolean fVisible ) {
@@ -184,6 +191,18 @@ public class ControllerWidget extends ScrollView {
 			salinityLabel.setVisibility( View.GONE );
 		}
 	}
+	
+	public void setORPVisibility ( boolean fVisible ) {
+		if ( fVisible ) {
+			Log.d( TAG, "ORP visible" );
+			orpText.setVisibility( View.VISIBLE );
+			orpLabel.setVisibility( View.VISIBLE );
+		} else {
+			Log.d( TAG, "ORP gone" );
+			orpText.setVisibility( View.GONE );
+			orpLabel.setVisibility( View.GONE );
+		}
+	}
 
 	public void updateDisplay ( String[] v ) {
 		t1Text.setText( v[T1_INDEX] );
@@ -193,6 +212,7 @@ public class ControllerWidget extends ScrollView {
 		dpText.setText( v[DP_INDEX] );
 		apText.setText( v[AP_INDEX] );
 		salinityText.setText( v[SALINITY_INDEX] );
+		orpText.setText( v[ORP_INDEX] );
 	}
 
 }

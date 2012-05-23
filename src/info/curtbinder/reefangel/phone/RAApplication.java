@@ -77,6 +77,7 @@ public class RAApplication extends Application {
 		v.put( RAData.PCOL_DP, i.getStringExtra( RAData.PCOL_DP ) );
 		v.put( RAData.PCOL_AP, i.getStringExtra( RAData.PCOL_AP ) );
 		v.put( RAData.PCOL_SAL, i.getStringExtra( RAData.PCOL_SAL ) );
+		v.put( RAData.PCOL_ORP, i.getStringExtra( RAData.PCOL_ORP ) );
 		v.put( RAData.PCOL_ATOHI, i.getBooleanExtra( RAData.PCOL_ATOHI, false ) );
 		v.put( RAData.PCOL_ATOLO, i.getBooleanExtra( RAData.PCOL_ATOLO, false ) );
 		v.put( RAData.PCOL_LOGDATE, i.getStringExtra( RAData.PCOL_LOGDATE ) );
@@ -134,6 +135,41 @@ public class RAApplication extends Application {
 				i.getShortExtra( RAData.PCOL_R8ONMASK, (short) 0 ) );
 		v.put(	RAData.PCOL_R8OFFMASK,
 				i.getShortExtra( RAData.PCOL_R8OFFMASK, (short) 0 ) );
+		v.put(	RAData.PCOL_PWME0,
+				i.getStringExtra( RAData.PCOL_PWME0 ) );
+		v.put(	RAData.PCOL_PWME1,
+				i.getStringExtra( RAData.PCOL_PWME1 ) );
+		v.put(	RAData.PCOL_PWME2,
+				i.getStringExtra( RAData.PCOL_PWME2 ) );
+		v.put(	RAData.PCOL_PWME3,
+				i.getStringExtra( RAData.PCOL_PWME3 ) );
+		v.put(	RAData.PCOL_PWME4,
+				i.getStringExtra( RAData.PCOL_PWME4 ) );
+		v.put(	RAData.PCOL_PWME5,
+				i.getStringExtra( RAData.PCOL_PWME5 ) );
+		v.put( RAData.PCOL_AIW, i.getByteExtra( RAData.PCOL_AIW, (byte) 0 ) );
+		v.put( RAData.PCOL_AIB, i.getByteExtra( RAData.PCOL_AIB, (byte) 0 ) );
+		v.put( RAData.PCOL_AIRB, i.getByteExtra( RAData.PCOL_AIRB, (byte) 0 ) );
+		v.put( RAData.PCOL_RFM, i.getByteExtra( RAData.PCOL_RFM, (byte) 0 ) );
+		v.put( RAData.PCOL_RFS, i.getByteExtra( RAData.PCOL_RFS, (byte) 0 ) );
+		v.put( RAData.PCOL_RFD, i.getByteExtra( RAData.PCOL_RFD, (byte) 0 ) );
+		v.put( RAData.PCOL_RFW, i.getByteExtra( RAData.PCOL_RFW, (byte) 0 ) );
+		v.put( RAData.PCOL_RFRB, i.getByteExtra( RAData.PCOL_RFRB, (byte) 0 ) );
+		v.put( RAData.PCOL_RFR, i.getByteExtra( RAData.PCOL_RFR, (byte) 0 ) );
+		v.put( RAData.PCOL_RFG, i.getByteExtra( RAData.PCOL_RFG, (byte) 0 ) );
+		v.put( RAData.PCOL_RFB, i.getByteExtra( RAData.PCOL_RFB, (byte) 0 ) );
+		v.put( RAData.PCOL_RFI, i.getByteExtra( RAData.PCOL_RFI, (byte) 0 ) );
+		v.put( RAData.PCOL_IO, i.getByteExtra( RAData.PCOL_IO, (byte) 0 ) );
+		v.put( RAData.PCOL_C0, i.getByteExtra( RAData.PCOL_C0, (byte) 0 ) );
+		v.put( RAData.PCOL_C1, i.getByteExtra( RAData.PCOL_C1, (byte) 0 ) );
+		v.put( RAData.PCOL_C2, i.getByteExtra( RAData.PCOL_C2, (byte) 0 ) );
+		v.put( RAData.PCOL_C3, i.getByteExtra( RAData.PCOL_C3, (byte) 0 ) );
+		v.put( RAData.PCOL_C4, i.getByteExtra( RAData.PCOL_C4, (byte) 0 ) );
+		v.put( RAData.PCOL_C5, i.getByteExtra( RAData.PCOL_C5, (byte) 0 ) );
+		v.put( RAData.PCOL_C6, i.getByteExtra( RAData.PCOL_C6, (byte) 0 ) );
+		v.put( RAData.PCOL_C7, i.getByteExtra( RAData.PCOL_C7, (byte) 0 ) );
+		v.put( RAData.PCOL_EM, i.getByteExtra( RAData.PCOL_EM, (byte) 0 ) );
+		v.put( RAData.PCOL_REM, i.getByteExtra( RAData.PCOL_REM, (byte) 0 ) );
 		data.insert( v );
 	}
 
@@ -410,6 +446,11 @@ public class RAApplication extends Application {
 								false );
 	}
 
+	public boolean getPrefORPVisibility ( ) {
+		return prefs.getBoolean(	getString( R.string.prefORPVisibilityKey ),
+									false );
+	}
+
 	public String getPrefT1Label ( ) {
 		return prefs.getString( getString( R.string.prefT1LabelKey ),
 								getString( R.string.labelTemp1 ) );
@@ -443,6 +484,11 @@ public class RAApplication extends Application {
 	public String getPrefSalinityLabel ( ) {
 		return prefs.getString( getString( R.string.prefSalinityLabelKey ),
 								getString( R.string.labelSalinity ) );
+	}
+
+	public String getPrefORPLabel ( ) {
+		return prefs.getString( getString( R.string.prefORPLabelKey ),
+								getString( R.string.labelORP ) );
 	}
 
 	public String getPrefMainRelayLabel ( int port ) {

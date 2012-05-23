@@ -160,6 +160,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		controller.setDPLabel( rapp.getPrefDPLabel() + separator );
 		controller.setAPLabel( rapp.getPrefAPLabel() + separator );
 		controller.setSalinityLabel( rapp.getPrefSalinityLabel() + separator );
+		controller.setORPLabel( rapp.getPrefORPLabel() + separator );
 
 		int qty = rapp.getPrefExpansionRelayQuantity();
 		Log.d( TAG, "Expansion Relays: " + qty );
@@ -215,6 +216,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		controller.setDPVisibility( rapp.getPrefDPVisibility() );
 		controller.setAPVisibility( rapp.getPrefAPVisibility() );
 		controller.setSalinityVisibility( rapp.getPrefSalinityVisibility() );
+		controller.setORPVisibility( rapp.getPrefORPVisibility() );
 
 		// if ( ! showMessageText )
 		// messageText.setVisibility(View.GONE);
@@ -279,7 +281,9 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 										c.getString( c
 												.getColumnIndex( RAData.PCOL_AP ) ),
 										c.getString( c
-												.getColumnIndex( RAData.PCOL_SAL ) ) };
+												.getColumnIndex( RAData.PCOL_SAL ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_ORP ) ) };
 				r = c.getShort( c.getColumnIndex( RAData.PCOL_RDATA ) );
 				ron = c.getShort( c.getColumnIndex( RAData.PCOL_RONMASK ) );
 				roff = c.getShort( c.getColumnIndex( RAData.PCOL_ROFFMASK ) );
@@ -365,6 +369,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 			} else if ( action
 					.equals( MessageCommands.UPDATE_DISPLAY_DATA_INTENT ) ) {
 				Log.d( TAG, "update data intent" );
+				// TODO have insert be done by the task and only updateDisplay
+				// here
 				rapp.insertData( intent );
 				updateDisplay();
 			} else if ( action.equals( MessageCommands.ERROR_MESSAGE_INTENT ) ) {
@@ -379,6 +385,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 
 	private String[] getNeverValues ( ) {
 		return new String[] {	getString( R.string.defaultStatusText ),
+								getString( R.string.defaultStatusText ),
 								getString( R.string.defaultStatusText ),
 								getString( R.string.defaultStatusText ),
 								getString( R.string.defaultStatusText ),
@@ -453,7 +460,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 				ViewGroup container,
 				int position,
 				Object object ) {
-			Log.d(TAG, "destroyItem " + position);
+			Log.d( TAG, "destroyItem " + position );
 			((ViewPager) container).removeView( (View) object );
 		}
 
@@ -479,7 +486,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 				case POS_EXP7_RELAY: // Expansion Relay 7
 				case POS_EXP8_RELAY: // Expansion Relay 8
 					int relay = position - MIN_PAGES;
-					Log.d( TAG, "Create exp relay " + relay + " (" + position + ")");
+					Log.d( TAG, "Create exp relay " + relay + " (" + position
+								+ ")" );
 					v = exprelays[relay];
 					break;
 			}

@@ -15,6 +15,32 @@ public class Controller {
 	public static final byte MAX_RELAY_PORTS = 8;
 	public static final byte MAX_TEMP_SENSORS = 3;
 	public static final byte MAX_PWM_EXPANSION_PORTS = 6;
+	public static final byte MAX_AI_CHANNELS = 3;
+	public static final byte MAX_CUSTOM_VARIABLES = 8;
+	public static final byte MAX_RADION_LIGHT_CHANNELS = 6;
+	public static final byte MAX_VORTECH_VALUES = 3;
+
+	public static final byte MODULE_DIMMING = 1 << 0;
+	public static final byte MODULE_RF = 1 << 1;
+	public static final byte MODULE_AI = 1 << 2;
+
+	// AI channels
+	public static final byte AI_WHITE = 0;
+	public static final byte AI_BLUE = 1;
+	public static final byte AI_ROYALBLUE = 2;
+
+	// Radion channels
+	public static final byte RADION_WHITE = 0;
+	public static final byte RADION_ROYALBLUE = 1;
+	public static final byte RADION_RED = 2;
+	public static final byte RADION_GREEN = 3;
+	public static final byte RADION_BLUE = 4;
+	public static final byte RADION_INTENSITY = 5;
+
+	// Vortech modes
+	public static final byte VORTECH_MODE = 0;
+	public static final byte VORTECH_SPEED = 1;
+	public static final byte VORTECH_DURATION = 2;
 
 	private String updateLogDate;
 	private TempSensor[] tempSensors;
@@ -28,7 +54,14 @@ public class Controller {
 	private Relay main;
 	private byte qtyExpansionRelays;
 	private Relay[] expansionRelays;
+	private byte expansionModules;
+	private byte relayExpansionModules;
+	private byte ioChannels;
 	private byte[] pwmExpansion;
+	private byte[] aiChannels;
+	private byte[] radionChannels;
+	private byte[] customVariables;
+	private byte[] vortechValues;
 
 	public Controller () {
 		init();
@@ -56,13 +89,32 @@ public class Controller {
 			pwmExpansion[i] = 0;
 		}
 		salinity = new Number( (byte) 1 );
-		orp = new Number( );
+		orp = new Number();
 		main = new Relay();
 		expansionRelays = new Relay[MAX_EXPANSION_RELAYS];
 		for ( i = 0; i < MAX_EXPANSION_RELAYS; i++ ) {
 			expansionRelays[i] = new Relay();
 		}
 		qtyExpansionRelays = 0;
+		expansionModules = 0;
+		relayExpansionModules = 0;
+		ioChannels = 0;
+		aiChannels = new byte[MAX_AI_CHANNELS];
+		for ( i = 0; i < MAX_AI_CHANNELS; i++ ) {
+			aiChannels[i] = 0;
+		}
+		radionChannels = new byte[MAX_RADION_LIGHT_CHANNELS];
+		for ( i = 0; i < MAX_RADION_LIGHT_CHANNELS; i++ ) {
+			radionChannels[i] = 0;
+		}
+		customVariables = new byte[MAX_CUSTOM_VARIABLES];
+		for ( i = 0; i < MAX_CUSTOM_VARIABLES; i++ ) {
+			customVariables[i] = 0;
+		}
+		vortechValues = new byte[MAX_VORTECH_VALUES];
+		for ( i = 0; i < MAX_VORTECH_VALUES; i++ ) {
+			vortechValues[i] = 0;
+		}
 	}
 
 	public void setNumExpansionRelays ( byte relays ) {
@@ -184,12 +236,12 @@ public class Controller {
 	public void setPwmExpansion ( int channel, byte v ) {
 		pwmExpansion[channel] = v;
 	}
-	
+
 	public String getPwmExpansion ( int channel ) {
 		// TODO change to be locale independent
 		return new String( String.format( "%d%c", pwmExpansion[channel], '%' ) );
 	}
-	
+
 	public void setSalinity ( int value ) {
 		salinity.setValue( value );
 	}
@@ -248,5 +300,89 @@ public class Controller {
 
 	public Relay getExpRelay ( int relay ) {
 		return expansionRelays[relay - 1];
+	}
+
+	public byte getCustomVariable ( byte var ) {
+		return customVariables[var];
+	}
+
+	public void setCustomVariable ( byte var, byte value ) {
+		customVariables[var] = value;
+	}
+
+	public byte getAIChannel ( byte channel ) {
+		return aiChannels[channel];
+	}
+
+	public void setAIChannel ( byte channel, byte value ) {
+		aiChannels[channel] = value;
+	}
+
+	public byte getRadionChannel ( byte channel ) {
+		return radionChannels[channel];
+	}
+
+	public void setRadionChannel ( byte channel, byte value ) {
+		radionChannels[channel] = value;
+	}
+
+	public byte getVortechValue ( byte type ) {
+		return vortechValues[type];
+	}
+
+	public void setVortechValue ( byte type, byte value ) {
+		vortechValues[type] = value;
+	}
+
+	public byte getExpansionModules ( ) {
+		return expansionModules;
+	}
+	
+	public void setExpansionModules ( byte em ) {
+		expansionModules = em;
+	}
+
+	public static boolean isDimmingModuleInstalled ( byte expansionModules ) {
+		return (expansionModules & MODULE_DIMMING) == 1;
+	}
+
+	public static boolean isRFModuleInstalled ( byte expansionModules ) {
+		return (expansionModules & MODULE_RF) == 1;
+	}
+
+	public static boolean isAIModuleInstalled ( byte expansionModules ) {
+		return (expansionModules & MODULE_AI) == 1;
+	}
+
+	public byte getRelayExpansionModules ( ) {
+		return relayExpansionModules;
+	}
+	
+	public void setRelayExpansionModules ( byte rem ) {
+		relayExpansionModules = rem;
+	}
+	
+	public static int getRelayExpansionModulesInstalled ( byte rem ) {
+		int qty = 0;
+		for ( int i = 7; i >= 0; i-- ) {
+			if ( (rem & (1<<i)) == 1 ) {
+				qty = i+1;
+				break;
+			}
+		}
+		return qty;
+	}
+	
+	public byte getIOChannels ( ) {
+		return ioChannels;
+	}
+	
+	public void setIOChannels ( byte ioChannels ) {
+		this.ioChannels = ioChannels;
+	}
+	
+	public static boolean getIOChannel ( byte ioChannels, byte channel ) {
+		// channel is 0 based
+		return (ioChannels & (1 << channel)) == 1;
 	}
 }

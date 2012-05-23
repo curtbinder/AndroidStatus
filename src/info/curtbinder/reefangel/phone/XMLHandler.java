@@ -222,39 +222,40 @@ public class XMLHandler extends DefaultHandler {
 		} else if ( tag.equals( Globals.xmlLogDate ) ) {
 			ra.setLogDate( currentElementText );
 		} else if ( tag.equals( Globals.xmlRelayExpansionModules ) ) {
-			Log.d( TAG, "REM " + currentElementText );
+			ra.setRelayExpansionModules( Byte.parseByte( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlExpansionModules ) ) {
-			Log.d( TAG, "EM " + currentElementText );
+			ra.setExpansionModules( Byte.parseByte( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlAIBlue ) ) {
-			Log.d( TAG, "AIB " + currentElementText );
+			ra.setAIChannel( Controller.AI_BLUE, Byte.parseByte( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlAIRoyalBlue ) ) {
-			Log.d( TAG, "AIRB " + currentElementText );
+			ra.setAIChannel( Controller.AI_ROYALBLUE, Byte.parseByte( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlAIWhite ) ) {
-			Log.d( TAG, "AIW " + currentElementText );
+			ra.setAIChannel( Controller.AI_WHITE, Byte.parseByte( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFMode ) ) {
-			Log.d( TAG, "RFM " + currentElementText );
+			ra.setVortechValue( Controller.VORTECH_MODE, Byte.parseByte( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFSpeed ) ) {
-			Log.d( TAG, "RFS " + currentElementText );
+			ra.setVortechValue( Controller.VORTECH_SPEED, Byte.parseByte( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFDuration ) ) {
-			Log.d( TAG, "RFD " + currentElementText );
+			ra.setVortechValue( Controller.VORTECH_DURATION, Byte.parseByte( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFWhite ) ) {
-			Log.d( TAG, "RFW " + currentElementText );
+			ra.setRadionChannel( Controller.RADION_WHITE, Byte.parseByte( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFBlue ) ) {
-			Log.d( TAG, "RFB " + currentElementText );
+			ra.setRadionChannel( Controller.RADION_BLUE, Byte.parseByte( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFGreen ) ) {
-			Log.d( TAG, "RFG " + currentElementText );
+			ra.setRadionChannel( Controller.RADION_GREEN, Byte.parseByte( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFRed ) ) {
-			Log.d( TAG, "RFR " + currentElementText );
+			ra.setRadionChannel( Controller.RADION_RED, Byte.parseByte( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFRoyalBlue ) ) {
-			Log.d( TAG, "RFRB " + currentElementText );
+			ra.setRadionChannel( Controller.RADION_ROYALBLUE, Byte.parseByte( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFIntensity ) ) {
-			Log.d( TAG, "RFI " + currentElementText );
+			ra.setRadionChannel( Controller.RADION_INTENSITY, Byte.parseByte( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlIO ) ) {
-			Log.d( TAG, "IO " + currentElementText );
+			ra.setIOChannels( Byte.parseByte( currentElementText ) );
 		} else if ( tag.startsWith( Globals.xmlCustom ) ) {
 			int v =
 					Integer.parseInt( tag.substring( Globals.xmlCustom.length() ) );
-			Log.d( TAG, "Custom Var " + v + ": " + currentElementText );
+			int c = Integer.parseInt( currentElementText );
+			ra.setCustomVariable( (byte) v, (byte) c );
 		} else if ( tag.startsWith( Globals.xmlLabelTempBegin )
 					&& tag.endsWith( Globals.xmlLabelEnd ) ) {
 			// handle temp sensor labels
