@@ -84,11 +84,12 @@ Changelog of all the versions of AndroidStatus
  * added reset all labels that resets back to defaults
  * finish button on First Run screen uses string resources
  
-0.5.1
+0.6.0
  * added support for 0.8.5.x expansion relays with setting
  * created custom widget for controller status information
  * only set the labels for the expansion relay boxes displayed
  * added swipe capabilities to change between screens
  * separated main page into smaller screens: Status and Relay Boxes
- 
+ * added remaning fields to database, all values are stored now just not displayed
+ * added ORP to status page
  

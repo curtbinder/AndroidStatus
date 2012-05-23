@@ -23,6 +23,8 @@ public class Controller {
 	public static final byte MODULE_DIMMING = 1 << 0;
 	public static final byte MODULE_RF = 1 << 1;
 	public static final byte MODULE_AI = 1 << 2;
+	public static final byte MODULE_SALINITY = 1 << 3;
+	public static final byte MODULE_ORP = 1 << 4;
 
 	// AI channels
 	public static final byte AI_WHITE = 0;
@@ -352,6 +354,14 @@ public class Controller {
 
 	public static boolean isAIModuleInstalled ( byte expansionModules ) {
 		return (expansionModules & MODULE_AI) == 1;
+	}
+
+	public static boolean isSalinityModuleInstalled ( byte expansionModules ) {
+		return ( expansionModules & MODULE_SALINITY ) == 1;
+	}
+
+	public static boolean isORPModuleInstalled ( byte expansionModules ) {
+		return ( expansionModules & MODULE_ORP ) == 1;
 	}
 
 	public byte getRelayExpansionModules ( ) {

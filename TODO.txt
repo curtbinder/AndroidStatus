@@ -7,7 +7,6 @@ TODO
 * history shows relay status
 * validation of host on configuration page (better validation of preferences)
 * add vortech screen to change vortech modes
-* add ORP support
 * add PWM expansion support / displaying
 * add IO channel support
 * add in custom variables support
@@ -30,6 +29,10 @@ TODO
 ** logs errors to database
 ** new activity for displaying errors
 ** error logger is a content provider for all activities
+
+* add profiles
+** have 2 profiles
+** ability to configure a home / away profile with different HOST & PORT values
 
 * ability to change label separator (give list to choose from)
 * improve relay mask image
