@@ -7,149 +7,154 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 http://creativecommons.org/licenses/by-nc-sa/3.0/
 -->
 
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <TextView
-        android:id="@+id/relayTitle"
-        style="@style/ParamsText"
-        android:text="@string/labelRelayBox" />
-
-    <TableRow style="@style/RARow" >
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/relayPort1Label"
-            style="@style/ParamsText.Labels"
-            android:text="@string/labelPort1" />
+            android:id="@+id/relayTitle"
+            style="@style/ParamsText"
+            android:text="@string/labelRelayBox" />
 
-        <ToggleButton
-            android:id="@+id/relayPort1"
-            style="@style/ParamsButton.Toggle" />
+        <TableRow style="@style/RARow" >
 
-        <Button
-            android:id="@+id/relayPort1Mask"
-            style="@style/ParamsButton.Mask"
-            android:background="@drawable/greenbutton" />
-    </TableRow>
+            <TextView
+                android:id="@+id/relayPort1Label"
+                style="@style/ParamsText.Labels"
+                android:text="@string/labelPort1" />
 
-    <TableRow style="@style/RARow" >
+            <ToggleButton
+                android:id="@+id/relayPort1"
+                style="@style/ParamsButton.Toggle" />
 
-        <TextView
-            android:id="@+id/relayPort2Label"
-            style="@style/ParamsText.Labels"
-            android:text="@string/labelPort2" />
+            <Button
+                android:id="@+id/relayPort1Mask"
+                style="@style/ParamsButton.Mask"
+                android:background="@drawable/greenbutton" />
+        </TableRow>
 
-        <ToggleButton
-            android:id="@+id/relayPort2"
-            style="@style/ParamsButton.Toggle" />
+        <TableRow style="@style/RARow" >
 
-        <Button
-            android:id="@+id/relayPort2Mask"
-            style="@style/ParamsButton.Mask"
-            android:background="@drawable/greenbutton" />
-    </TableRow>
+            <TextView
+                android:id="@+id/relayPort2Label"
+                style="@style/ParamsText.Labels"
+                android:text="@string/labelPort2" />
 
-    <TableRow style="@style/RARow" >
+            <ToggleButton
+                android:id="@+id/relayPort2"
+                style="@style/ParamsButton.Toggle" />
 
-        <TextView
-            android:id="@+id/relayPort3Label"
-            style="@style/ParamsText.Labels"
-            android:text="@string/labelPort3" />
+            <Button
+                android:id="@+id/relayPort2Mask"
+                style="@style/ParamsButton.Mask"
+                android:background="@drawable/greenbutton" />
+        </TableRow>
 
-        <ToggleButton
-            android:id="@+id/relayPort3"
-            style="@style/ParamsButton.Toggle" />
+        <TableRow style="@style/RARow" >
 
-        <Button
-            android:id="@+id/relayPort3Mask"
-            style="@style/ParamsButton.Mask"
-            android:background="@drawable/greenbutton" />
-    </TableRow>
+            <TextView
+                android:id="@+id/relayPort3Label"
+                style="@style/ParamsText.Labels"
+                android:text="@string/labelPort3" />
 
-    <TableRow style="@style/RARow" >
+            <ToggleButton
+                android:id="@+id/relayPort3"
+                style="@style/ParamsButton.Toggle" />
 
-        <TextView
-            android:id="@+id/relayPort4Label"
-            style="@style/ParamsText.Labels"
-            android:text="@string/labelPort4" />
+            <Button
+                android:id="@+id/relayPort3Mask"
+                style="@style/ParamsButton.Mask"
+                android:background="@drawable/greenbutton" />
+        </TableRow>
 
-        <ToggleButton
-            android:id="@+id/relayPort4"
-            style="@style/ParamsButton.Toggle" />
+        <TableRow style="@style/RARow" >
 
-        <Button
-            android:id="@+id/relayPort4Mask"
-            style="@style/ParamsButton.Mask"
-            android:background="@drawable/greenbutton" />
-    </TableRow>
+            <TextView
+                android:id="@+id/relayPort4Label"
+                style="@style/ParamsText.Labels"
+                android:text="@string/labelPort4" />
 
-    <TableRow style="@style/RARow" >
+            <ToggleButton
+                android:id="@+id/relayPort4"
+                style="@style/ParamsButton.Toggle" />
 
-        <TextView
-            android:id="@+id/relayPort5Label"
-            style="@style/ParamsText.Labels"
-            android:text="@string/labelPort5" />
+            <Button
+                android:id="@+id/relayPort4Mask"
+                style="@style/ParamsButton.Mask"
+                android:background="@drawable/greenbutton" />
+        </TableRow>
 
-        <ToggleButton
-            android:id="@+id/relayPort5"
-            style="@style/ParamsButton.Toggle" />
+        <TableRow style="@style/RARow" >
 
-        <Button
-            android:id="@+id/relayPort5Mask"
-            style="@style/ParamsButton.Mask"
-            android:background="@drawable/greenbutton" />
-    </TableRow>
+            <TextView
+                android:id="@+id/relayPort5Label"
+                style="@style/ParamsText.Labels"
+                android:text="@string/labelPort5" />
 
-    <TableRow style="@style/RARow" >
+            <ToggleButton
+                android:id="@+id/relayPort5"
+                style="@style/ParamsButton.Toggle" />
 
-        <TextView
-            android:id="@+id/relayPort6Label"
-            style="@style/ParamsText.Labels"
-            android:text="@string/labelPort6" />
+            <Button
+                android:id="@+id/relayPort5Mask"
+                style="@style/ParamsButton.Mask"
+                android:background="@drawable/greenbutton" />
+        </TableRow>
 
-        <ToggleButton
-            android:id="@+id/relayPort6"
-            style="@style/ParamsButton.Toggle" />
+        <TableRow style="@style/RARow" >
 
-        <Button
-            android:id="@+id/relayPort6Mask"
-            style="@style/ParamsButton.Mask"
-            android:background="@drawable/greenbutton" />
-    </TableRow>
+            <TextView
+                android:id="@+id/relayPort6Label"
+                style="@style/ParamsText.Labels"
+                android:text="@string/labelPort6" />
 
-    <TableRow style="@style/RARow" >
+            <ToggleButton
+                android:id="@+id/relayPort6"
+                style="@style/ParamsButton.Toggle" />
 
-        <TextView
-            android:id="@+id/relayPort7Label"
-            style="@style/ParamsText.Labels"
-            android:text="@string/labelPort7" />
+            <Button
+                android:id="@+id/relayPort6Mask"
+                style="@style/ParamsButton.Mask"
+                android:background="@drawable/greenbutton" />
+        </TableRow>
 
-        <ToggleButton
-            android:id="@+id/relayPort7"
-            style="@style/ParamsButton.Toggle" />
+        <TableRow style="@style/RARow" >
 
-        <Button
-            android:id="@+id/relayPort7Mask"
-            style="@style/ParamsButton.Mask"
-            android:background="@drawable/greenbutton" />
-    </TableRow>
+            <TextView
+                android:id="@+id/relayPort7Label"
+                style="@style/ParamsText.Labels"
+                android:text="@string/labelPort7" />
 
-    <TableRow style="@style/RARow" >
+            <ToggleButton
+                android:id="@+id/relayPort7"
+                style="@style/ParamsButton.Toggle" />
 
-        <TextView
-            android:id="@+id/relayPort8Label"
-            style="@style/ParamsText.Labels"
-            android:text="@string/labelPort8" />
+            <Button
+                android:id="@+id/relayPort7Mask"
+                style="@style/ParamsButton.Mask"
+                android:background="@drawable/greenbutton" />
+        </TableRow>
 
-        <ToggleButton
-            android:id="@+id/relayPort8"
-            style="@style/ParamsButton.Toggle" />
+        <TableRow style="@style/RARow" >
 
-        <Button
-            android:id="@+id/relayPort8Mask"
-            style="@style/ParamsButton.Mask"
-            android:background="@drawable/greenbutton" />
-    </TableRow>
+            <TextView
+                android:id="@+id/relayPort8Label"
+                style="@style/ParamsText.Labels"
+                android:text="@string/labelPort8" />
 
-</TableLayout>
+            <ToggleButton
+                android:id="@+id/relayPort8"
+                style="@style/ParamsButton.Toggle" />
+
+            <Button
+                android:id="@+id/relayPort8Mask"
+                style="@style/ParamsButton.Mask"
+                android:background="@drawable/greenbutton" />
+        </TableRow>
+    </TableLayout>
+
+</ScrollView>

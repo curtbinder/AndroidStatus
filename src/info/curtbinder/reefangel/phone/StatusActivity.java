@@ -400,16 +400,16 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		switch ( item.getItemId() ) {
 			case R.id.settings:
 				// launch settings
-				Log.d( TAG, "Menu Settings clicked" );
+				Log.d( TAG, "Settings clicked" );
 				startActivity( new Intent( this, PrefsActivity.class ) );
 				break;
 			case R.id.about:
 				// launch about box
-				Log.d( TAG, "Menu About clicked" );
+				Log.d( TAG, "About clicked" );
 				startActivity( new Intent( this, AboutActivity.class ) );
 				break;
 			case R.id.params:
-				Log.d( TAG, "Menu Parameters clicked" );
+				Log.d( TAG, "Parameters clicked" );
 				startActivity( new Intent( this, ParamsListActivity.class ) );
 				break;
 			case R.id.memory:
@@ -451,23 +451,22 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 				ViewGroup container,
 				int position,
 				Object object ) {
+			Log.d(TAG, "destroyItem " + position);
 			((ViewPager) container).removeView( (View) object );
 		}
 
 		@Override
 		public Object instantiateItem ( ViewGroup container, int position ) {
-			// Create a scrollview
-			// Add widget to scroll view based on position
-			ScrollView v = new ScrollView( StatusActivity.this );
+			View v;
 			switch ( position ) {
 				default:
 				case POS_CONTROLLER: // Controller Status
 					Log.d( TAG, "Create controller" );
-					v.addView( controller );
+					v = controller;
 					break;
 				case POS_MAIN_RELAY: // Main Relay
 					Log.d( TAG, "Create main relay" );
-					v.addView( main );
+					v = main;
 					break;
 				case POS_EXP1_RELAY: // Expansion Relay 1
 				case POS_EXP2_RELAY: // Expansion Relay 2
@@ -478,11 +477,11 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 				case POS_EXP7_RELAY: // Expansion Relay 7
 				case POS_EXP8_RELAY: // Expansion Relay 8
 					int relay = position - MIN_PAGES;
-					Log.d( TAG, "Create exp relay " + relay );
-					v.addView( exprelays[relay] );
+					Log.d( TAG, "Create exp relay " + relay + " (" + position + ")");
+					v = exprelays[relay];
 					break;
 			}
-			((ViewPager) container).addView( v, 0 );
+			((ViewPager) container).addView( v );
 			return v;
 		}
 

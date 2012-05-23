@@ -13,10 +13,10 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TableLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class ControllerWidget extends TableLayout {
+public class ControllerWidget extends ScrollView {
 	private static final String TAG = ControllerWidget.class.getSimpleName();
 	private static final int T1_INDEX = 0;
 	private static final int T2_INDEX = 1;

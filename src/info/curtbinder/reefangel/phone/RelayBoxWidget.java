@@ -15,11 +15,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.TableLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-public class RelayBoxWidget extends TableLayout implements OnClickListener {
+public class RelayBoxWidget extends ScrollView implements OnClickListener {
 	private static final String TAG = RelayBoxWidget.class.getSimpleName();
 
 	Context ctx; // saved context from parent

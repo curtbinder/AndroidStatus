@@ -7,103 +7,107 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 http://creativecommons.org/licenses/by-nc-sa/3.0/
 -->
 
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <TextView
-        style="@style/ParamsText"
-        android:text="@string/labelStatus" />
-
-    <TableRow style="@style/RARow" >
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/t1_label"
-            style="@style/ParamsText.Labels"
-            android:textColor="@color/t1" />
+            style="@style/ParamsText"
+            android:text="@string/labelStatus" />
 
-        <TextView
-            android:id="@+id/temp1"
-            style="@style/ParamsText.Values"
-            android:textColor="@color/t1" />
-    </TableRow>
+        <TableRow style="@style/RARow" >
 
-    <TableRow style="@style/RARow" >
+            <TextView
+                android:id="@+id/t1_label"
+                style="@style/ParamsText.Labels"
+                android:textColor="@color/t1" />
 
-        <TextView
-            android:id="@+id/t2_label"
-            style="@style/ParamsText.Labels"
-            android:textColor="@color/t2" />
+            <TextView
+                android:id="@+id/temp1"
+                style="@style/ParamsText.Values"
+                android:textColor="@color/t1" />
+        </TableRow>
 
-        <TextView
-            android:id="@+id/temp2"
-            style="@style/ParamsText.Values"
-            android:textColor="@color/t2" />
-    </TableRow>
+        <TableRow style="@style/RARow" >
 
-    <TableRow style="@style/RARow" >
+            <TextView
+                android:id="@+id/t2_label"
+                style="@style/ParamsText.Labels"
+                android:textColor="@color/t2" />
 
-        <TextView
-            android:id="@+id/t3_label"
-            style="@style/ParamsText.Labels"
-            android:textColor="@color/t3" />
+            <TextView
+                android:id="@+id/temp2"
+                style="@style/ParamsText.Values"
+                android:textColor="@color/t2" />
+        </TableRow>
 
-        <TextView
-            android:id="@+id/temp3"
-            style="@style/ParamsText.Values"
-            android:textColor="@color/t3" />
-    </TableRow>
+        <TableRow style="@style/RARow" >
 
-    <TableRow style="@style/RARow" >
+            <TextView
+                android:id="@+id/t3_label"
+                style="@style/ParamsText.Labels"
+                android:textColor="@color/t3" />
 
-        <TextView
-            android:id="@+id/ph_label"
-            style="@style/ParamsText.Labels"
-            android:textColor="@color/ph" />
+            <TextView
+                android:id="@+id/temp3"
+                style="@style/ParamsText.Values"
+                android:textColor="@color/t3" />
+        </TableRow>
 
-        <TextView
-            android:id="@+id/ph"
-            style="@style/ParamsText.Values"
-            android:textColor="@color/ph" />
-    </TableRow>
+        <TableRow style="@style/RARow" >
 
-    <TableRow style="@style/RARow" >
+            <TextView
+                android:id="@+id/ph_label"
+                style="@style/ParamsText.Labels"
+                android:textColor="@color/ph" />
 
-        <TextView
-            android:id="@+id/dp_label"
-            style="@style/ParamsText.Labels"
-            android:textColor="@color/dp" />
+            <TextView
+                android:id="@+id/ph"
+                style="@style/ParamsText.Values"
+                android:textColor="@color/ph" />
+        </TableRow>
 
-        <TextView
-            android:id="@+id/dp"
-            style="@style/ParamsText.Values"
-            android:textColor="@color/dp" />
-    </TableRow>
+        <TableRow style="@style/RARow" >
 
-    <TableRow style="@style/RARow" >
+            <TextView
+                android:id="@+id/dp_label"
+                style="@style/ParamsText.Labels"
+                android:textColor="@color/dp" />
 
-        <TextView
-            android:id="@+id/ap_label"
-            style="@style/ParamsText.Labels"
-            android:textColor="@color/ap" />
+            <TextView
+                android:id="@+id/dp"
+                style="@style/ParamsText.Values"
+                android:textColor="@color/dp" />
+        </TableRow>
 
-        <TextView
-            android:id="@+id/ap"
-            style="@style/ParamsText.Values"
-            android:textColor="@color/ap" />
-    </TableRow>
+        <TableRow style="@style/RARow" >
 
-    <TableRow style="@style/RARow" >
+            <TextView
+                android:id="@+id/ap_label"
+                style="@style/ParamsText.Labels"
+                android:textColor="@color/ap" />
 
-        <TextView
-            android:id="@+id/salinity_label"
-            style="@style/ParamsText.Labels" />
+            <TextView
+                android:id="@+id/ap"
+                style="@style/ParamsText.Values"
+                android:textColor="@color/ap" />
+        </TableRow>
 
-        <TextView
-            android:id="@+id/salinity"
-            style="@style/ParamsText.Values" />
-    </TableRow>
-    <!--
+        <TableRow style="@style/RARow" >
+
+            <TextView
+                android:id="@+id/salinity_label"
+                style="@style/ParamsText.Labels" />
+
+            <TextView
+                android:id="@+id/salinity"
+                style="@style/ParamsText.Values" />
+        </TableRow>
+        <!--
     <TableRow style="@style/RARow" >
 
         <TextView
@@ -114,6 +118,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:id="@+id/orp"
             style="@style/ParamsText.Values" />
     </TableRow>
-    -->
+        -->
 
-</TableLayout>
+    </TableLayout>
+
+</ScrollView>

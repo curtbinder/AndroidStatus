@@ -42,7 +42,7 @@ public final class R {
         public static final int ic_icon=0x7f020002;
     }
     public static final class id {
-        public static final int about=0x7f0a006a;
+        public static final int about=0x7f0a0060;
         public static final int ap=0x7f0a0015;
         public static final int ap_label=0x7f0a0014;
         public static final int buttonFinish=0x7f0a0023;
@@ -54,18 +54,9 @@ public final class R {
         public static final int command_button_overheat_clear=0x7f0a0007;
         public static final int command_button_version=0x7f0a0009;
         public static final int command_button_water=0x7f0a0004;
-        public static final int commands=0x7f0a0068;
-        public static final int controller=0x7f0a005b;
+        public static final int commands=0x7f0a005e;
         public static final int dp=0x7f0a0013;
         public static final int dp_label=0x7f0a0012;
-        public static final int exprelay1=0x7f0a005d;
-        public static final int exprelay2=0x7f0a005e;
-        public static final int exprelay3=0x7f0a005f;
-        public static final int exprelay4=0x7f0a0060;
-        public static final int exprelay5=0x7f0a0061;
-        public static final int exprelay6=0x7f0a0062;
-        public static final int exprelay7=0x7f0a0063;
-        public static final int exprelay8=0x7f0a0064;
         public static final int firstHostText=0x7f0a0020;
         public static final int firstPortText=0x7f0a0021;
         public static final int firstUsernameText=0x7f0a0022;
@@ -80,11 +71,10 @@ public final class R {
         public static final int historyT3=0x7f0a0028;
         public static final int locationRow=0x7f0a002f;
         public static final int locationText=0x7f0a0030;
-        public static final int mainrelay=0x7f0a005c;
-        public static final int memory=0x7f0a0069;
+        public static final int memory=0x7f0a005f;
         public static final int pager=0x7f0a005a;
-        public static final int params=0x7f0a0067;
-        public static final int params_delete=0x7f0a0065;
+        public static final int params=0x7f0a005d;
+        public static final int params_delete=0x7f0a005b;
         public static final int ph=0x7f0a0011;
         public static final int ph_label=0x7f0a0010;
         public static final int plog=0x7f0a0037;
@@ -127,7 +117,7 @@ public final class R {
         public static final int salinity=0x7f0a0017;
         public static final int salinity_label=0x7f0a0016;
         public static final int scrollView1=0x7f0a0000;
-        public static final int settings=0x7f0a0066;
+        public static final int settings=0x7f0a005c;
         public static final int spinMemoryLocation=0x7f0a002e;
         public static final int t1_label=0x7f0a000a;
         public static final int t2_label=0x7f0a000c;
