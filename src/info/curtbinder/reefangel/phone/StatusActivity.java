@@ -401,6 +401,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 			case R.id.settings:
 				// launch settings
 				Log.d( TAG, "Settings clicked" );
+				// scroll to first page on entering settings
+				pager.setCurrentItem( POS_CONTROLLER );
 				startActivity( new Intent( this, PrefsActivity.class ) );
 				break;
 			case R.id.about:
