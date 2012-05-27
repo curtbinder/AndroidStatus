@@ -135,18 +135,12 @@ public class RAApplication extends Application {
 				i.getShortExtra( RAData.PCOL_R8ONMASK, (short) 0 ) );
 		v.put(	RAData.PCOL_R8OFFMASK,
 				i.getShortExtra( RAData.PCOL_R8OFFMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_PWME0,
-				i.getStringExtra( RAData.PCOL_PWME0 ) );
-		v.put(	RAData.PCOL_PWME1,
-				i.getStringExtra( RAData.PCOL_PWME1 ) );
-		v.put(	RAData.PCOL_PWME2,
-				i.getStringExtra( RAData.PCOL_PWME2 ) );
-		v.put(	RAData.PCOL_PWME3,
-				i.getStringExtra( RAData.PCOL_PWME3 ) );
-		v.put(	RAData.PCOL_PWME4,
-				i.getStringExtra( RAData.PCOL_PWME4 ) );
-		v.put(	RAData.PCOL_PWME5,
-				i.getStringExtra( RAData.PCOL_PWME5 ) );
+		v.put( RAData.PCOL_PWME0, i.getStringExtra( RAData.PCOL_PWME0 ) );
+		v.put( RAData.PCOL_PWME1, i.getStringExtra( RAData.PCOL_PWME1 ) );
+		v.put( RAData.PCOL_PWME2, i.getStringExtra( RAData.PCOL_PWME2 ) );
+		v.put( RAData.PCOL_PWME3, i.getStringExtra( RAData.PCOL_PWME3 ) );
+		v.put( RAData.PCOL_PWME4, i.getStringExtra( RAData.PCOL_PWME4 ) );
+		v.put( RAData.PCOL_PWME5, i.getStringExtra( RAData.PCOL_PWME5 ) );
 		v.put( RAData.PCOL_AIW, i.getByteExtra( RAData.PCOL_AIW, (byte) 0 ) );
 		v.put( RAData.PCOL_AIB, i.getByteExtra( RAData.PCOL_AIB, (byte) 0 ) );
 		v.put( RAData.PCOL_AIRB, i.getByteExtra( RAData.PCOL_AIRB, (byte) 0 ) );
@@ -410,13 +404,75 @@ public class RAApplication extends Application {
 		deletePref( R.string.prefFirstRunKey );
 	}
 
+	public int getSelectedProfile ( ) {
+		return Integer
+				.parseInt( prefs
+						.getString( getString( R.string.prefProfileSelectedKey ),
+									"0" ) );
+	}
+	
+	public void setSelectedProfile ( int profile ) {
+		if ( profile > 1 ) 
+			return;
+		String s = "" + profile;
+		Log.d( TAG, "Changed Profile: " + s);
+		setPref(R.string.prefProfileSelectedKey, s);
+	}
+
+	public boolean isAwayProfileEnabled ( ) {
+		// get away host, compare to empty host
+		// if host is set, then the profile is enabled
+		// if port is not set, that implies default port
+		String host = getPrefAwayHost();
+		if ( host.equals( getString( R.string.defaultStatusText ) ) ) {
+			return false;
+		}
+		return true;
+	}
+
 	public String getPrefHost ( ) {
+		int profile = getSelectedProfile();
+		if ( profile == 1 ) {
+			// Away profile
+			if ( isAwayProfileEnabled() ) {
+				// away profile is filled in and enabled
+				// return away profile
+				return getPrefAwayHost();
+			}
+		}
+		return getPrefHomeHost();
+	}
+
+	public String getPrefPort ( ) {
+		int profile = getSelectedProfile();
+		if ( profile == 1 ) {
+			// Away profile
+			if ( isAwayProfileEnabled() ) {
+				// away profile is filled in and enabled
+				// return away profile
+				return getPrefAwayPort();
+			}
+		}
+		return getPrefHomePort();
+	}
+
+	public String getPrefHomeHost ( ) {
 		return prefs.getString( getString( R.string.prefHostKey ),
 								getString( R.string.prefHostDefault ) );
 	}
 
-	public String getPrefPort ( ) {
+	public String getPrefHomePort ( ) {
 		return prefs.getString( getString( R.string.prefPortKey ),
+								getString( R.string.prefPortDefault ) );
+	}
+
+	public String getPrefAwayHost ( ) {
+		return prefs.getString( getString( R.string.prefHostAwayKey ),
+								getString( R.string.defaultStatusText ) );
+	}
+
+	public String getPrefAwayPort ( ) {
+		return prefs.getString( getString( R.string.prefPortAwayKey ),
 								getString( R.string.prefPortDefault ) );
 	}
 

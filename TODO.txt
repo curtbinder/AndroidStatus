@@ -22,7 +22,9 @@ TODO
 	- set clickable to true/false
 * labels
 ** after download, refresh the labels so they appear in the menus without
-   having to exit the preferences activity 
+   having to exit the preferences activity
+* ability to change the labels of the relay boxes
+* ability to change the background color
 * add in an error status line with error displaying
 * Wifi Authentication:  username / password prompts
 * add in error log
@@ -33,6 +35,8 @@ TODO
 * add profiles
 ** have 2 profiles
 ** ability to configure a home / away profile with different HOST & PORT values
+** long press on Refresh button to change/select profile
+** Refresh button label changes to "Refresh - Home" or "Refresh - Away"
 
 * ability to change label separator (give list to choose from)
 * improve relay mask image

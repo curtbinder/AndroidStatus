@@ -8,8 +8,10 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
@@ -25,19 +27,23 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class StatusActivity extends BaseActivity implements OnClickListener {
+public class StatusActivity extends BaseActivity implements OnClickListener,
+		OnLongClickListener {
 	private static final String TAG = StatusActivity.class.getSimpleName();
 
 	// Display views
-	private View refreshButton;
+	private Button refreshButton;
 	private TextView updateTime;
 	// private TextView messageText;
 	private ViewPager pager;
 	private CustomPagerAdapter pagerAdapter;
+	private String[] profiles;
 	// minimum number of pages: status, main relay
 	private static final int MIN_PAGES = 2;
 	private static final int POS_CONTROLLER = 0;
@@ -74,6 +80,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		filter = new IntentFilter( MessageCommands.UPDATE_DISPLAY_DATA_INTENT );
 		filter.addAction( MessageCommands.UPDATE_STATUS_INTENT );
 		filter.addAction( MessageCommands.ERROR_MESSAGE_INTENT );
+
+		profiles = getResources().getStringArray( R.array.profileLabels );
 
 		createViews();
 		findViews();
@@ -122,13 +130,14 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void findViews ( ) {
-		refreshButton = findViewById( R.id.refresh_button );
+		refreshButton = (Button) findViewById( R.id.refresh_button );
 		updateTime = (TextView) findViewById( R.id.updated );
 		pager = (ViewPager) findViewById( R.id.pager );
 	}
 
 	private void setOnClickListeners ( ) {
 		refreshButton.setOnClickListener( this );
+		refreshButton.setOnLongClickListener( this );
 		// TODO consider clearing click listeners and updating clickable always
 		int i;
 		if ( rapp.isCommunicateController() ) {
@@ -152,6 +161,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		// showMessageText = false;
 
 		// Labels
+		updateRefreshButtonLabel();
 		String separator = getString( R.string.labelSeparator );
 		controller.setT1Label( rapp.getPrefT1Label() + separator );
 		controller.setT2Label( rapp.getPrefT2Label() + separator );
@@ -231,6 +241,57 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 				launchStatusTask();
 				break;
 		}
+	}
+
+	@Override
+	public boolean onLongClick ( View v ) {
+		switch ( v.getId() ) {
+			case R.id.refresh_button:
+				// launch the profile selector
+				Log.d( TAG, "onLongClick Refresh button" );
+				// TODO check if away profile is set
+				// if no away profile set, do not display
+				// the dialog box
+				if ( !rapp.isAwayProfileEnabled() ) {
+					Log.d( TAG, "Away profile not enabled, cancelling" );
+					return true;
+				}
+				DialogInterface.OnClickListener ocl =
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick (
+									DialogInterface dialog,
+									int item ) {
+								switchProfiles( item );
+							}
+						};
+				AlertDialog.Builder builder = new AlertDialog.Builder( this );
+				builder.setTitle( R.string.titleSelectProfile );
+				builder.setSingleChoiceItems(	profiles,
+												rapp.getSelectedProfile(), ocl );
+				return true;
+		}
+		return false;
+	}
+
+	private void switchProfiles ( int id ) {
+		String s = "Switched to profile: (" + id + ") " + profiles[id];
+		Log.d( TAG, s);
+		// TODO remove Toast message for profile switch
+		Toast.makeText( getApplicationContext(), s,
+						Toast.LENGTH_SHORT ).show();
+		s = String.format( "%d", id );
+		rapp.setPref( R.string.prefProfileSelectedKey, s );
+		updateRefreshButtonLabel();
+	}
+
+	private void updateRefreshButtonLabel ( ) {
+		// button label will be: Refresh - PROFILE
+		String s =
+				String.format(	"%s - %s", getString( R.string.buttonRefresh ),
+								profiles[rapp.getSelectedProfile()] );
+		refreshButton.setText( s );
 	}
 
 	@Override
@@ -501,4 +562,5 @@ public class StatusActivity extends BaseActivity implements OnClickListener {
 		}
 
 	}
+
 }

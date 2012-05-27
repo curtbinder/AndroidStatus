@@ -92,4 +92,5 @@ Changelog of all the versions of AndroidStatus
  * separated main page into smaller screens: Status and Relay Boxes
  * added remaning fields to database, all values are stored now just not displayed
  * added ORP to status page
+ * changed 'first run' screen to be entirely scrollable
  

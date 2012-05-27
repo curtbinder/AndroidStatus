@@ -31,6 +31,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <string name="titleCommandTabs">Command Pages</string>
     <string name="titlePrefs">Status Settings</string>
     <string name="titleDateTime">Date / Time</string>
+    <string name="titleSelectProfile">Select Profile</string>
 
     <!-- Tabs for memory page -->
     <string name="tabMemory1">memory_tab_1</string>
@@ -192,6 +193,15 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefPortMin">1</string>
     <string name="prefPortMax">65535</string>
     <string name="prefPortInvalidPort">Invalid port</string>
+    <string name="prefHostAwayKey">hostaway</string>
+    <string name="prefPortAwayKey">portaway</string>
+    <string name="prefProfileSelectedKey">profileselected</string>
+    <string name="prefProfileSelectedTitle">Selected Profile</string>
+    <string name="prefProfileSelectedSummary">Profile to be used when querying controller, can long press on refresh button to change quickly)</string>
+    <string name="prefProfileHomeTitle">Home</string>
+    <string name="prefProfileHomeSummary">Default profile or for use while on home network. Must be set</string>
+    <string name="prefProfileAwayTitle">Away</string>
+    <string name="prefProfileAwaySummary">Profile used while outside of your home network. Optional</string>
     <string name="prefUserIdKey">userid</string>
     <string name="prefUserIdTitle">User ID</string>
     <string name="prefUserIdSummary">Enter your userid for your web banner</string>
