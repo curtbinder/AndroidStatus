@@ -28,8 +28,10 @@ public class PrefsActivity extends PreferenceActivity implements
 
 	private static final String TAG = PrefsActivity.class.getSimpleName();
 
-	private Preference portkey;
-	private Preference hostkey;
+	private Preference porthomekey;
+	private Preference hosthomekey;
+	private Preference portawaykey;
+	private Preference hostawaykey;
 	private Preference useridkey;
 	private Preference downloadkey;
 	private Preference explabelkey;
@@ -50,14 +52,22 @@ public class PrefsActivity extends PreferenceActivity implements
 		receiver = new PrefsReceiver();
 		filter = new IntentFilter( MessageCommands.LABEL_RESPONSE_INTENT );
 
-		portkey =
+		porthomekey =
 				getPreferenceScreen()
 						.findPreference( rapp.getString( R.string.prefPortKey ) );
-		portkey.setOnPreferenceChangeListener( this );
-		hostkey =
+		porthomekey.setOnPreferenceChangeListener( this );
+		hosthomekey =
 				getPreferenceScreen()
 						.findPreference( rapp.getString( R.string.prefHostKey ) );
-		hostkey.setOnPreferenceChangeListener( this );
+		hosthomekey.setOnPreferenceChangeListener( this );
+		portawaykey =
+				getPreferenceScreen()
+						.findPreference(	rapp.getString( R.string.prefPortAwayKey ) );
+		portawaykey.setOnPreferenceChangeListener( this );
+		hostawaykey =
+				getPreferenceScreen()
+						.findPreference(	rapp.getString( R.string.prefHostAwayKey ) );
+		hostawaykey.setOnPreferenceChangeListener( this );
 		useridkey =
 				getPreferenceScreen()
 						.findPreference(	rapp.getString( R.string.prefUserIdKey ) );
@@ -307,6 +317,19 @@ public class PrefsActivity extends PreferenceActivity implements
 			return rapp.validatePort( newValue );
 		} else if ( preference.getKey()
 				.equals( rapp.getString( R.string.prefHostKey ) ) ) {
+			return rapp.validateHost( newValue );
+		} else if ( preference.getKey()
+				.equals( rapp.getString( R.string.prefPortAwayKey ) ) ) {
+			return rapp.validatePort( newValue );
+		} else if ( preference.getKey()
+				.equals( rapp.getString( R.string.prefHostAwayKey ) ) ) {
+			// Away Host can be empty
+			if ( newValue.toString().equals( "" ) ) {
+				// set the selected profile to be the home profile
+				rapp.setSelectedProfile( 0 );
+				return true;
+			}
+			// If it's not empty, validate the host
 			return rapp.validateHost( newValue );
 		} else if ( preference.getKey()
 				.equals( rapp.getString( R.string.prefUserIdKey ) ) ) {

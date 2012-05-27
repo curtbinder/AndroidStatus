@@ -379,8 +379,9 @@ public class RAApplication extends Application {
 		// the host should be set and it should not be the same as the default
 		boolean fHost = true;
 		String host = prefs.getString( getString( R.string.prefHostKey ), "" );
-		if ( (host.equals( "" ))
-				|| (host.equals( getString( R.string.prefHostDefault ) )) )
+//		if ( (host.equals( "" ))
+//				|| (host.equals( getString( R.string.prefHostHomeDefault ) )) )
+		if ( host.equals( "" ) )
 			fHost = false;
 		Log.w( TAG, "Host:  '" + host + "',  host set: " + fHost );
 		if ( !fHost )
@@ -405,18 +406,17 @@ public class RAApplication extends Application {
 	}
 
 	public int getSelectedProfile ( ) {
-		return Integer
-				.parseInt( prefs
-						.getString( getString( R.string.prefProfileSelectedKey ),
-									"0" ) );
+		return Integer.parseInt( prefs
+				.getString( getString( R.string.prefProfileSelectedKey ),
+							getString( R.string.prefProfileSelectedDefault ) ) );
 	}
-	
+
 	public void setSelectedProfile ( int profile ) {
-		if ( profile > 1 ) 
+		if ( profile > 1 )
 			return;
 		String s = "" + profile;
-		Log.d( TAG, "Changed Profile: " + s);
-		setPref(R.string.prefProfileSelectedKey, s);
+		Log.d( TAG, "Changed Profile: " + s );
+		setPref( R.string.prefProfileSelectedKey, s );
 	}
 
 	public boolean isAwayProfileEnabled ( ) {
@@ -424,7 +424,8 @@ public class RAApplication extends Application {
 		// if host is set, then the profile is enabled
 		// if port is not set, that implies default port
 		String host = getPrefAwayHost();
-		if ( host.equals( getString( R.string.defaultStatusText ) ) ) {
+		Log.d( TAG, "isAwayProfileEnabled: " + host );
+		if ( host.equals( "" ) ) {
 			return false;
 		}
 		return true;
@@ -458,7 +459,7 @@ public class RAApplication extends Application {
 
 	public String getPrefHomeHost ( ) {
 		return prefs.getString( getString( R.string.prefHostKey ),
-								getString( R.string.prefHostDefault ) );
+								getString( R.string.prefHostHomeDefault ) );
 	}
 
 	public String getPrefHomePort ( ) {
@@ -468,7 +469,7 @@ public class RAApplication extends Application {
 
 	public String getPrefAwayHost ( ) {
 		return prefs.getString( getString( R.string.prefHostAwayKey ),
-								getString( R.string.defaultStatusText ) );
+		                        getString( R.string.prefHostAwayDefault ) );
 	}
 
 	public String getPrefAwayPort ( ) {

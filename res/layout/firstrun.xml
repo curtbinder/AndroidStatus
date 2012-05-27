@@ -31,7 +31,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
                 <EditText
                     android:id="@+id/firstHostText"
-                    android:hint="@string/prefHostDefault"
+                    android:hint="@string/prefHostHomeDefault"
                     android:inputType="text" >
                 </EditText>
             </TableRow>

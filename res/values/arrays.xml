@@ -316,10 +316,10 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>61</item>
     </integer-array>
 
-    <integer-array name="profileIndex">
+    <string-array name="profileIndex">
         <item>0</item>
         <item>1</item>
-    </integer-array>
+    </string-array>
     <string-array name="profileLabels">
         <item>Home</item>
         <item>Away</item>

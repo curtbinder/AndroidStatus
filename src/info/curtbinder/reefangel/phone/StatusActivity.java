@@ -249,9 +249,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			case R.id.refresh_button:
 				// launch the profile selector
 				Log.d( TAG, "onLongClick Refresh button" );
-				// TODO check if away profile is set
-				// if no away profile set, do not display
-				// the dialog box
 				if ( !rapp.isAwayProfileEnabled() ) {
 					Log.d( TAG, "Away profile not enabled, cancelling" );
 					return true;
@@ -264,19 +261,22 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 									DialogInterface dialog,
 									int item ) {
 								switchProfiles( item );
+								dialog.dismiss();
 							}
 						};
 				AlertDialog.Builder builder = new AlertDialog.Builder( this );
 				builder.setTitle( R.string.titleSelectProfile );
 				builder.setSingleChoiceItems(	profiles,
 												rapp.getSelectedProfile(), ocl );
+				AlertDialog dlg = builder.create();
+				dlg.show();
 				return true;
 		}
 		return false;
 	}
 
 	private void switchProfiles ( int id ) {
-		String s = "Switched to profile: (" + id + ") " + profiles[id];
+		String s = "Switched to profile: " + profiles[id];
 		Log.d( TAG, s);
 		// TODO remove Toast message for profile switch
 		Toast.makeText( getApplicationContext(), s,
