@@ -277,10 +277,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 	private void switchProfiles ( int id ) {
 		String s = "Switched to profile: " + profiles[id];
-		Log.d( TAG, s);
-		// TODO remove Toast message for profile switch
-		Toast.makeText( getApplicationContext(), s,
-						Toast.LENGTH_SHORT ).show();
+		Log.d( TAG, s );
+		Toast.makeText( getApplicationContext(), s, Toast.LENGTH_SHORT ).show();
 		s = String.format( "%d", id );
 		rapp.setPref( R.string.prefProfileSelectedKey, s );
 		updateRefreshButtonLabel();
@@ -288,9 +286,14 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 	private void updateRefreshButtonLabel ( ) {
 		// button label will be: Refresh - PROFILE
-		String s =
-				String.format(	"%s - %s", getString( R.string.buttonRefresh ),
-								profiles[rapp.getSelectedProfile()] );
+		String s;
+		if ( rapp.isAwayProfileEnabled() )
+			s =
+					String.format(	"%s - %s",
+									getString( R.string.buttonRefresh ),
+									profiles[rapp.getSelectedProfile()] );
+		else
+			s = getString( R.string.buttonRefresh );
 		refreshButton.setText( s );
 	}
 
