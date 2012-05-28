@@ -379,8 +379,6 @@ public class RAApplication extends Application {
 		// the host should be set and it should not be the same as the default
 		boolean fHost = true;
 		String host = prefs.getString( getString( R.string.prefHostKey ), "" );
-//		if ( (host.equals( "" ))
-//				|| (host.equals( getString( R.string.prefHostHomeDefault ) )) )
 		if ( host.equals( "" ) )
 			fHost = false;
 		Log.w( TAG, "Host:  '" + host + "',  host set: " + fHost );
@@ -425,7 +423,7 @@ public class RAApplication extends Application {
 		// if port is not set, that implies default port
 		String host = getPrefAwayHost();
 		Log.d( TAG, "isAwayProfileEnabled: " + host );
-		if ( host.equals( "" ) ) {
+		if ( host.equals( getString( R.string.prefHostAwayDefault ) ) ) {
 			return false;
 		}
 		return true;
@@ -469,7 +467,7 @@ public class RAApplication extends Application {
 
 	public String getPrefAwayHost ( ) {
 		return prefs.getString( getString( R.string.prefHostAwayKey ),
-		                        "" );
+								getString( R.string.prefHostAwayDefault ) );
 	}
 
 	public String getPrefAwayPort ( ) {

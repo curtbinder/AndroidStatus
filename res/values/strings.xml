@@ -187,7 +187,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefHostTitle">Hostname</string>
     <string name="prefHostSummary">Enter the hostname or IP address of the controller</string>
     <string name="prefHostHomeDefault">192.168.1.10</string>
-    <string name="prefHostAwayDefault">curtbinder.dyndns.info</string>
+    <string name="prefHostAwayDefault"></string>
     <string name="prefHostInvalidHost">Invalid host</string>
     <string name="prefPortKey">port</string>
     <string name="prefPortTitle">Port</string>
