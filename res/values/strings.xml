@@ -178,7 +178,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefsCategoryApp">Application</string>
     <string name="prefDeviceKey">device</string>
     <string name="prefDeviceTitle">Device</string>
-    <string name="prefDeviceSummary">Select to query data from your controller directly or your web banner on reefangel.com</string>
+    <string name="prefDeviceSummary">Select to query data from your controller directly or your portal on reefangel.com</string>
     <string name="prefDeviceDefault">0</string>
     <string name="prefHostScreenKey">hostscreen</string>
     <string name="prefHostScreenTitle">Host Information</string>

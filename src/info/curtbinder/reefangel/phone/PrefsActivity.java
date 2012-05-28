@@ -323,6 +323,7 @@ public class PrefsActivity extends PreferenceActivity implements
 			return rapp.validatePort( newValue );
 		} else if ( preference.getKey()
 				.equals( rapp.getString( R.string.prefHostAwayKey ) ) ) {
+			Log.d(TAG, "Change away host: " + newValue.toString());
 			// Away Host can be empty
 			if ( newValue.toString().equals( "" ) ) {
 				// set the selected profile to be the home profile
