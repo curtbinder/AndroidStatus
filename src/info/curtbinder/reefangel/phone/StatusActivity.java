@@ -245,6 +245,11 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public boolean onLongClick ( View v ) {
+		// if it's not a controller, don't even bother processing
+		// the long clicks
+		if ( ! rapp.isCommunicateController() )
+			return true;
+
 		switch ( v.getId() ) {
 			case R.id.refresh_button:
 				// launch the profile selector
@@ -286,8 +291,11 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 	private void updateRefreshButtonLabel ( ) {
 		// button label will be: Refresh - PROFILE
+		// only allow for the changing of the label IF it's a controller
+		// AND if the away profile is enabled
 		String s;
-		if ( rapp.isAwayProfileEnabled() )
+		if ( rapp.isAwayProfileEnabled() &&
+			 rapp.isCommunicateController() )
 			s =
 					String.format(	"%s - %s",
 									getString( R.string.buttonRefresh ),
