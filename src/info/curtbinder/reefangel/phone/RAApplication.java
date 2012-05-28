@@ -469,7 +469,7 @@ public class RAApplication extends Application {
 
 	public String getPrefAwayHost ( ) {
 		return prefs.getString( getString( R.string.prefHostAwayKey ),
-		                        getString( R.string.prefHostAwayDefault ) );
+		                        "" );
 	}
 
 	public String getPrefAwayPort ( ) {
