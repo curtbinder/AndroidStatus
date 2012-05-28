@@ -20,6 +20,9 @@ TODO
 * when changing from controller to forum (or vice versa)
 	- clear out onclicklisteners
 	- set clickable to true/false
+* read only mode / monitor mode
+** disables changing memory values, entering feeding/water change modes, toggling relays, change date/time
+** can query status, read memory values, get version, get date/time, download labels
 * labels
 ** after download, refresh the labels so they appear in the menus without
    having to exit the preferences activity
@@ -31,12 +34,6 @@ TODO
 ** logs errors to database
 ** new activity for displaying errors
 ** error logger is a content provider for all activities
-
-* add profiles
-** have 2 profiles
-** ability to configure a home / away profile with different HOST & PORT values
-** long press on Refresh button to change/select profile
-** Refresh button label changes to "Refresh - Home" or "Refresh - Away"
 
 * ability to change label separator (give list to choose from)
 * improve relay mask image

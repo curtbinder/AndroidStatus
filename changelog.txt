@@ -90,7 +90,10 @@ Changelog of all the versions of AndroidStatus
  * only set the labels for the expansion relay boxes displayed
  * added swipe capabilities to change between screens
  * separated main page into smaller screens: Status and Relay Boxes
- * added remaning fields to database, all values are stored now just not displayed
+ * added remaining fields to database, all values are stored now just not displayed
  * added ORP to status page
  * changed 'first run' screen to be entirely scrollable
- 
+ * added profiles
+ ** ability to configure a home / away profile with different HOST & PORT values
+ ** long press on Refresh button to change/select profile
+ ** Refresh button label changes to "Refresh - Home" or "Refresh - Away"
