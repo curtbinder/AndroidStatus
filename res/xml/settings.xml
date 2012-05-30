@@ -4,7 +4,7 @@ Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
  
 This work is made available under the terms of the 
 Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
-http://creativecommons.org/licenses/by-nc-sa/3.0/
+http://creativecommons.org/licenses/by-nc-sa/3.0/
 -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
@@ -31,6 +31,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                     android:key="@string/prefProfileSelectedKey"
                     android:summary="@string/prefProfileSelectedSummary"
                     android:title="@string/prefProfileSelectedTitle" />
+
                 <PreferenceScreen
                     android:summary="@string/prefProfileHomeSummary"
                     android:title="@string/prefProfileHomeTitle" >
@@ -205,321 +206,325 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 </PreferenceScreen>
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/prefExpansionCategory" >
-                <ListPreference
-                    android:defaultValue="0"
-                    android:entries="@array/expansionRelays"
-                    android:entryValues="@array/expansionRelaysValues"
-                    android:key="@string/prefExpQtyKey"
-                    android:summary="@string/prefExpQtySummary"
-                    android:title="@string/prefExpQtyTitle" />
-
                 <PreferenceScreen
-                    android:key="@string/prefExpLabelsKey"
-                    android:summary="@string/prefExpLabelsSummary"
-                    android:title="@string/prefExpLabelsTitle" >
-                    <PreferenceScreen
-                        android:key="@string/prefExp1RelayKey"
-                        android:summary="@string/prefExp1RelaySummary"
-                        android:title="@string/prefExp1RelayTitle" >
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort1"
-                            android:key="@string/prefExp1Port1LabelKey"
-                            android:title="@string/prefPort1LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort2"
-                            android:key="@string/prefExp1Port2LabelKey"
-                            android:title="@string/prefPort2LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort3"
-                            android:key="@string/prefExp1Port3LabelKey"
-                            android:title="@string/prefPort3LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort4"
-                            android:key="@string/prefExp1Port4LabelKey"
-                            android:title="@string/prefPort4LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort5"
-                            android:key="@string/prefExp1Port5LabelKey"
-                            android:title="@string/prefPort5LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort6"
-                            android:key="@string/prefExp1Port6LabelKey"
-                            android:title="@string/prefPort6LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort7"
-                            android:key="@string/prefExp1Port7LabelKey"
-                            android:title="@string/prefPort7LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort8"
-                            android:key="@string/prefExp1Port8LabelKey"
-                            android:title="@string/prefPort8LabelTitle" />
-                    </PreferenceScreen>
-                    <PreferenceScreen
-                        android:key="@string/prefExp2RelayKey"
-                        android:summary="@string/prefExp2RelaySummary"
-                        android:title="@string/prefExp2RelayTitle" >
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort1"
-                            android:key="@string/prefExp2Port1LabelKey"
-                            android:title="@string/prefPort1LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort2"
-                            android:key="@string/prefExp2Port2LabelKey"
-                            android:title="@string/prefPort2LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort3"
-                            android:key="@string/prefExp2Port3LabelKey"
-                            android:title="@string/prefPort3LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort4"
-                            android:key="@string/prefExp2Port4LabelKey"
-                            android:title="@string/prefPort4LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort5"
-                            android:key="@string/prefExp2Port5LabelKey"
-                            android:title="@string/prefPort5LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort6"
-                            android:key="@string/prefExp2Port6LabelKey"
-                            android:title="@string/prefPort6LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort7"
-                            android:key="@string/prefExp2Port7LabelKey"
-                            android:title="@string/prefPort7LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort8"
-                            android:key="@string/prefExp2Port8LabelKey"
-                            android:title="@string/prefPort8LabelTitle" />
-                    </PreferenceScreen>
-                    <PreferenceScreen
-                        android:key="@string/prefExp3RelayKey"
-                        android:summary="@string/prefExp3RelaySummary"
-                        android:title="@string/prefExp3RelayTitle" >
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort1"
-                            android:key="@string/prefExp3Port1LabelKey"
-                            android:title="@string/prefPort1LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort2"
-                            android:key="@string/prefExp3Port2LabelKey"
-                            android:title="@string/prefPort2LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort3"
-                            android:key="@string/prefExp3Port3LabelKey"
-                            android:title="@string/prefPort3LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort4"
-                            android:key="@string/prefExp3Port4LabelKey"
-                            android:title="@string/prefPort4LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort5"
-                            android:key="@string/prefExp3Port5LabelKey"
-                            android:title="@string/prefPort5LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort6"
-                            android:key="@string/prefExp3Port6LabelKey"
-                            android:title="@string/prefPort6LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort7"
-                            android:key="@string/prefExp3Port7LabelKey"
-                            android:title="@string/prefPort7LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort8"
-                            android:key="@string/prefExp3Port8LabelKey"
-                            android:title="@string/prefPort8LabelTitle" />
-                    </PreferenceScreen>
-                    <PreferenceScreen
-                        android:key="@string/prefExp4RelayKey"
-                        android:summary="@string/prefExp4RelaySummary"
-                        android:title="@string/prefExp4RelayTitle" >
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort1"
-                            android:key="@string/prefExp4Port1LabelKey"
-                            android:title="@string/prefPort1LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort2"
-                            android:key="@string/prefExp4Port2LabelKey"
-                            android:title="@string/prefPort2LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort3"
-                            android:key="@string/prefExp4Port3LabelKey"
-                            android:title="@string/prefPort3LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort4"
-                            android:key="@string/prefExp4Port4LabelKey"
-                            android:title="@string/prefPort4LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort5"
-                            android:key="@string/prefExp4Port5LabelKey"
-                            android:title="@string/prefPort5LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort6"
-                            android:key="@string/prefExp4Port6LabelKey"
-                            android:title="@string/prefPort6LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort7"
-                            android:key="@string/prefExp4Port7LabelKey"
-                            android:title="@string/prefPort7LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort8"
-                            android:key="@string/prefExp4Port8LabelKey"
-                            android:title="@string/prefPort8LabelTitle" />
-                    </PreferenceScreen>
-                    <PreferenceScreen
-                        android:key="@string/prefExp5RelayKey"
-                        android:summary="@string/prefExp5RelaySummary"
-                        android:title="@string/prefExp5RelayTitle" >
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort1"
-                            android:key="@string/prefExp5Port1LabelKey"
-                            android:title="@string/prefPort1LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort2"
-                            android:key="@string/prefExp5Port2LabelKey"
-                            android:title="@string/prefPort2LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort3"
-                            android:key="@string/prefExp5Port3LabelKey"
-                            android:title="@string/prefPort3LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort4"
-                            android:key="@string/prefExp5Port4LabelKey"
-                            android:title="@string/prefPort4LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort5"
-                            android:key="@string/prefExp5Port5LabelKey"
-                            android:title="@string/prefPort5LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort6"
-                            android:key="@string/prefExp5Port6LabelKey"
-                            android:title="@string/prefPort6LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort7"
-                            android:key="@string/prefExp5Port7LabelKey"
-                            android:title="@string/prefPort7LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort8"
-                            android:key="@string/prefExp5Port8LabelKey"
-                            android:title="@string/prefPort8LabelTitle" />
-                    </PreferenceScreen>
-                    <PreferenceScreen
-                        android:key="@string/prefExp6RelayKey"
-                        android:summary="@string/prefExp6RelaySummary"
-                        android:title="@string/prefExp6RelayTitle" >
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort1"
-                            android:key="@string/prefExp6Port1LabelKey"
-                            android:title="@string/prefPort1LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort2"
-                            android:key="@string/prefExp6Port2LabelKey"
-                            android:title="@string/prefPort2LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort3"
-                            android:key="@string/prefExp6Port3LabelKey"
-                            android:title="@string/prefPort3LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort4"
-                            android:key="@string/prefExp6Port4LabelKey"
-                            android:title="@string/prefPort4LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort5"
-                            android:key="@string/prefExp6Port5LabelKey"
-                            android:title="@string/prefPort5LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort6"
-                            android:key="@string/prefExp6Port6LabelKey"
-                            android:title="@string/prefPort6LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort7"
-                            android:key="@string/prefExp6Port7LabelKey"
-                            android:title="@string/prefPort7LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort8"
-                            android:key="@string/prefExp6Port8LabelKey"
-                            android:title="@string/prefPort8LabelTitle" />
-                    </PreferenceScreen>
-                    <PreferenceScreen
-                        android:key="@string/prefExp7RelayKey"
-                        android:summary="@string/prefExp7RelaySummary"
-                        android:title="@string/prefExp7RelayTitle" >
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort1"
-                            android:key="@string/prefExp7Port1LabelKey"
-                            android:title="@string/prefPort1LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort2"
-                            android:key="@string/prefExp7Port2LabelKey"
-                            android:title="@string/prefPort2LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort3"
-                            android:key="@string/prefExp7Port3LabelKey"
-                            android:title="@string/prefPort3LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort4"
-                            android:key="@string/prefExp7Port4LabelKey"
-                            android:title="@string/prefPort4LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort5"
-                            android:key="@string/prefExp7Port5LabelKey"
-                            android:title="@string/prefPort5LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort6"
-                            android:key="@string/prefExp7Port6LabelKey"
-                            android:title="@string/prefPort6LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort7"
-                            android:key="@string/prefExp7Port7LabelKey"
-                            android:title="@string/prefPort7LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort8"
-                            android:key="@string/prefExp7Port8LabelKey"
-                            android:title="@string/prefPort8LabelTitle" />
-                    </PreferenceScreen>
-                    <PreferenceScreen
-                        android:key="@string/prefExp8RelayKey"
-                        android:summary="@string/prefExp8RelaySummary"
-                        android:title="@string/prefExp8RelayTitle" >
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort1"
-                            android:key="@string/prefExp8Port1LabelKey"
-                            android:title="@string/prefPort1LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort2"
-                            android:key="@string/prefExp8Port2LabelKey"
-                            android:title="@string/prefPort2LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort3"
-                            android:key="@string/prefExp8Port3LabelKey"
-                            android:title="@string/prefPort3LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort4"
-                            android:key="@string/prefExp8Port4LabelKey"
-                            android:title="@string/prefPort4LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort5"
-                            android:key="@string/prefExp8Port5LabelKey"
-                            android:title="@string/prefPort5LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort6"
-                            android:key="@string/prefExp8Port6LabelKey"
-                            android:title="@string/prefPort6LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort7"
-                            android:key="@string/prefExp8Port7LabelKey"
-                            android:title="@string/prefPort7LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/labelPort8"
-                            android:key="@string/prefExp8Port8LabelKey"
-                            android:title="@string/prefPort8LabelTitle" />
-                    </PreferenceScreen>
-                </PreferenceScreen>
+                    android:summary="@string/prefExpRelaySummary"
+                    android:title="@string/prefExpRelayTitle" >
+                    <ListPreference
+                        android:defaultValue="0"
+                        android:entries="@array/expansionRelays"
+                        android:entryValues="@array/expansionRelaysValues"
+                        android:key="@string/prefExpQtyKey"
+                        android:summary="@string/prefExpQtySummary"
+                        android:title="@string/prefExpQtyTitle" />
 
-                <CheckBoxPreference
-                    android:defaultValue="false"
-                    android:key="@string/prefExp085xKey"
-                    android:summary="@string/prefExp085xSummary"
-                    android:title="@string/prefExp085xTitle" />
+                    <PreferenceScreen
+                        android:key="@string/prefExpLabelsKey"
+                        android:summary="@string/prefExpLabelsSummary"
+                        android:title="@string/prefExpLabelsTitle" >
+                        <PreferenceScreen
+                            android:key="@string/prefExp1RelayKey"
+                            android:summary="@string/prefExp1RelaySummary"
+                            android:title="@string/prefExp1RelayTitle" >
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort1"
+                                android:key="@string/prefExp1Port1LabelKey"
+                                android:title="@string/prefPort1LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort2"
+                                android:key="@string/prefExp1Port2LabelKey"
+                                android:title="@string/prefPort2LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort3"
+                                android:key="@string/prefExp1Port3LabelKey"
+                                android:title="@string/prefPort3LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort4"
+                                android:key="@string/prefExp1Port4LabelKey"
+                                android:title="@string/prefPort4LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort5"
+                                android:key="@string/prefExp1Port5LabelKey"
+                                android:title="@string/prefPort5LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort6"
+                                android:key="@string/prefExp1Port6LabelKey"
+                                android:title="@string/prefPort6LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort7"
+                                android:key="@string/prefExp1Port7LabelKey"
+                                android:title="@string/prefPort7LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort8"
+                                android:key="@string/prefExp1Port8LabelKey"
+                                android:title="@string/prefPort8LabelTitle" />
+                        </PreferenceScreen>
+                        <PreferenceScreen
+                            android:key="@string/prefExp2RelayKey"
+                            android:summary="@string/prefExp2RelaySummary"
+                            android:title="@string/prefExp2RelayTitle" >
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort1"
+                                android:key="@string/prefExp2Port1LabelKey"
+                                android:title="@string/prefPort1LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort2"
+                                android:key="@string/prefExp2Port2LabelKey"
+                                android:title="@string/prefPort2LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort3"
+                                android:key="@string/prefExp2Port3LabelKey"
+                                android:title="@string/prefPort3LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort4"
+                                android:key="@string/prefExp2Port4LabelKey"
+                                android:title="@string/prefPort4LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort5"
+                                android:key="@string/prefExp2Port5LabelKey"
+                                android:title="@string/prefPort5LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort6"
+                                android:key="@string/prefExp2Port6LabelKey"
+                                android:title="@string/prefPort6LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort7"
+                                android:key="@string/prefExp2Port7LabelKey"
+                                android:title="@string/prefPort7LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort8"
+                                android:key="@string/prefExp2Port8LabelKey"
+                                android:title="@string/prefPort8LabelTitle" />
+                        </PreferenceScreen>
+                        <PreferenceScreen
+                            android:key="@string/prefExp3RelayKey"
+                            android:summary="@string/prefExp3RelaySummary"
+                            android:title="@string/prefExp3RelayTitle" >
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort1"
+                                android:key="@string/prefExp3Port1LabelKey"
+                                android:title="@string/prefPort1LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort2"
+                                android:key="@string/prefExp3Port2LabelKey"
+                                android:title="@string/prefPort2LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort3"
+                                android:key="@string/prefExp3Port3LabelKey"
+                                android:title="@string/prefPort3LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort4"
+                                android:key="@string/prefExp3Port4LabelKey"
+                                android:title="@string/prefPort4LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort5"
+                                android:key="@string/prefExp3Port5LabelKey"
+                                android:title="@string/prefPort5LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort6"
+                                android:key="@string/prefExp3Port6LabelKey"
+                                android:title="@string/prefPort6LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort7"
+                                android:key="@string/prefExp3Port7LabelKey"
+                                android:title="@string/prefPort7LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort8"
+                                android:key="@string/prefExp3Port8LabelKey"
+                                android:title="@string/prefPort8LabelTitle" />
+                        </PreferenceScreen>
+                        <PreferenceScreen
+                            android:key="@string/prefExp4RelayKey"
+                            android:summary="@string/prefExp4RelaySummary"
+                            android:title="@string/prefExp4RelayTitle" >
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort1"
+                                android:key="@string/prefExp4Port1LabelKey"
+                                android:title="@string/prefPort1LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort2"
+                                android:key="@string/prefExp4Port2LabelKey"
+                                android:title="@string/prefPort2LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort3"
+                                android:key="@string/prefExp4Port3LabelKey"
+                                android:title="@string/prefPort3LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort4"
+                                android:key="@string/prefExp4Port4LabelKey"
+                                android:title="@string/prefPort4LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort5"
+                                android:key="@string/prefExp4Port5LabelKey"
+                                android:title="@string/prefPort5LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort6"
+                                android:key="@string/prefExp4Port6LabelKey"
+                                android:title="@string/prefPort6LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort7"
+                                android:key="@string/prefExp4Port7LabelKey"
+                                android:title="@string/prefPort7LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort8"
+                                android:key="@string/prefExp4Port8LabelKey"
+                                android:title="@string/prefPort8LabelTitle" />
+                        </PreferenceScreen>
+                        <PreferenceScreen
+                            android:key="@string/prefExp5RelayKey"
+                            android:summary="@string/prefExp5RelaySummary"
+                            android:title="@string/prefExp5RelayTitle" >
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort1"
+                                android:key="@string/prefExp5Port1LabelKey"
+                                android:title="@string/prefPort1LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort2"
+                                android:key="@string/prefExp5Port2LabelKey"
+                                android:title="@string/prefPort2LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort3"
+                                android:key="@string/prefExp5Port3LabelKey"
+                                android:title="@string/prefPort3LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort4"
+                                android:key="@string/prefExp5Port4LabelKey"
+                                android:title="@string/prefPort4LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort5"
+                                android:key="@string/prefExp5Port5LabelKey"
+                                android:title="@string/prefPort5LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort6"
+                                android:key="@string/prefExp5Port6LabelKey"
+                                android:title="@string/prefPort6LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort7"
+                                android:key="@string/prefExp5Port7LabelKey"
+                                android:title="@string/prefPort7LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort8"
+                                android:key="@string/prefExp5Port8LabelKey"
+                                android:title="@string/prefPort8LabelTitle" />
+                        </PreferenceScreen>
+                        <PreferenceScreen
+                            android:key="@string/prefExp6RelayKey"
+                            android:summary="@string/prefExp6RelaySummary"
+                            android:title="@string/prefExp6RelayTitle" >
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort1"
+                                android:key="@string/prefExp6Port1LabelKey"
+                                android:title="@string/prefPort1LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort2"
+                                android:key="@string/prefExp6Port2LabelKey"
+                                android:title="@string/prefPort2LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort3"
+                                android:key="@string/prefExp6Port3LabelKey"
+                                android:title="@string/prefPort3LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort4"
+                                android:key="@string/prefExp6Port4LabelKey"
+                                android:title="@string/prefPort4LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort5"
+                                android:key="@string/prefExp6Port5LabelKey"
+                                android:title="@string/prefPort5LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort6"
+                                android:key="@string/prefExp6Port6LabelKey"
+                                android:title="@string/prefPort6LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort7"
+                                android:key="@string/prefExp6Port7LabelKey"
+                                android:title="@string/prefPort7LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort8"
+                                android:key="@string/prefExp6Port8LabelKey"
+                                android:title="@string/prefPort8LabelTitle" />
+                        </PreferenceScreen>
+                        <PreferenceScreen
+                            android:key="@string/prefExp7RelayKey"
+                            android:summary="@string/prefExp7RelaySummary"
+                            android:title="@string/prefExp7RelayTitle" >
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort1"
+                                android:key="@string/prefExp7Port1LabelKey"
+                                android:title="@string/prefPort1LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort2"
+                                android:key="@string/prefExp7Port2LabelKey"
+                                android:title="@string/prefPort2LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort3"
+                                android:key="@string/prefExp7Port3LabelKey"
+                                android:title="@string/prefPort3LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort4"
+                                android:key="@string/prefExp7Port4LabelKey"
+                                android:title="@string/prefPort4LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort5"
+                                android:key="@string/prefExp7Port5LabelKey"
+                                android:title="@string/prefPort5LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort6"
+                                android:key="@string/prefExp7Port6LabelKey"
+                                android:title="@string/prefPort6LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort7"
+                                android:key="@string/prefExp7Port7LabelKey"
+                                android:title="@string/prefPort7LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort8"
+                                android:key="@string/prefExp7Port8LabelKey"
+                                android:title="@string/prefPort8LabelTitle" />
+                        </PreferenceScreen>
+                        <PreferenceScreen
+                            android:key="@string/prefExp8RelayKey"
+                            android:summary="@string/prefExp8RelaySummary"
+                            android:title="@string/prefExp8RelayTitle" >
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort1"
+                                android:key="@string/prefExp8Port1LabelKey"
+                                android:title="@string/prefPort1LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort2"
+                                android:key="@string/prefExp8Port2LabelKey"
+                                android:title="@string/prefPort2LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort3"
+                                android:key="@string/prefExp8Port3LabelKey"
+                                android:title="@string/prefPort3LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort4"
+                                android:key="@string/prefExp8Port4LabelKey"
+                                android:title="@string/prefPort4LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort5"
+                                android:key="@string/prefExp8Port5LabelKey"
+                                android:title="@string/prefPort5LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort6"
+                                android:key="@string/prefExp8Port6LabelKey"
+                                android:title="@string/prefPort6LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort7"
+                                android:key="@string/prefExp8Port7LabelKey"
+                                android:title="@string/prefPort7LabelTitle" />
+                            <EditTextPreference
+                                android:defaultValue="@string/labelPort8"
+                                android:key="@string/prefExp8Port8LabelKey"
+                                android:title="@string/prefPort8LabelTitle" />
+                        </PreferenceScreen>
+                    </PreferenceScreen>
+
+                    <CheckBoxPreference
+                        android:defaultValue="false"
+                        android:key="@string/prefExp085xKey"
+                        android:summary="@string/prefExp085xSummary"
+                        android:title="@string/prefExp085xTitle" />
+                </PreferenceScreen>
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/prefResetCategory" >
                 <PreferenceScreen

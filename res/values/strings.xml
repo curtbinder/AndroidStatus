@@ -308,6 +308,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefMainPort7LabelKey">main_port7_label</string>
     <string name="prefMainPort8LabelKey">main_port8_label</string>
     <string name="prefExpansionCategory">Expansion Settings</string>
+    <string name="prefExpRelayTitle">Relay</string>
+    <string name="prefExpRelaySummary">Configure quantity and labels for the expansion relays.</string>
     <string name="prefExpQtyKey">expansion_quantity</string>
     <string name="prefExpQtyTitle">Quantity</string>
     <string name="prefExpQtySummary">Choose the number of expansion relays installed</string>
