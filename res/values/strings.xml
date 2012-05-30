@@ -246,6 +246,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefAPVisibilityKey">ap_visibility</string>
     <string name="prefAPVisibilityTitle">Display AP</string>
     <string name="prefAPVisibilitySummary">Displays actinic channel percentage</string>
+    <string name="prefPHVisibilityKey">ph_visibility</string>
+    <string name="prefPHVisibilityTitle">Display PH</string>
+    <string name="prefPHVisibilitySummary">Displays the PH probe</string>
     <string name="prefSalinityVisibilityKey">salinity_visibility</string>
     <string name="prefSalinityVisibilityTitle">Display Salinity</string>
     <string name="prefSalinityVisibilitySummary">Displays the salinity</string>

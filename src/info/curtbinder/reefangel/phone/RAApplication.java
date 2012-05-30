@@ -495,6 +495,11 @@ public class RAApplication extends Application {
 									true );
 	}
 
+	public boolean getPrefPHVisibility ( ) {
+		return prefs.getBoolean(	getString( R.string.prefPHVisibilityKey ),
+									true );
+	}
+
 	public boolean getPrefSalinityVisibility ( ) {
 		return prefs
 				.getBoolean(	getString( R.string.prefSalinityVisibilityKey ),

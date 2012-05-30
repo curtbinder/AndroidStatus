@@ -225,6 +225,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		controller.setT3Visibility( rapp.getPrefT3Visibility() );
 		controller.setDPVisibility( rapp.getPrefDPVisibility() );
 		controller.setAPVisibility( rapp.getPrefAPVisibility() );
+		controller.setPHVisibility( rapp.getPrefPHVisibility() );
 		controller.setSalinityVisibility( rapp.getPrefSalinityVisibility() );
 		controller.setORPVisibility( rapp.getPrefORPVisibility() );
 
