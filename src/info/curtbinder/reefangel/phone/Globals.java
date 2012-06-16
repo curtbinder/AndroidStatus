@@ -72,4 +72,6 @@ public final class Globals {
 	public static final String xmlRFIntensity = "RFI";
 	public static final String xmlIO = "IO";
 	public static final String xmlCustom = "C";
+	public static final String xmlPHExpansion = "PHE";
+	public static final String xmlWaterLevel = "WL";
 }
