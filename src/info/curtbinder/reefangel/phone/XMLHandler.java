@@ -190,25 +190,28 @@ public class XMLHandler extends DefaultHandler {
 			ra.setPH( Integer.parseInt( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlATOLow ) ) {
 			boolean f = false;
-			if ( Integer.parseInt( currentElementText ) == 1 ) {
+			if ( Short.parseShort( currentElementText ) == 1 ) {
 				f = true;
 			}
 			ra.setAtoLow( f );
 		} else if ( tag.equals( Globals.xmlATOHigh ) ) {
 			boolean f = false;
-			if ( Integer.parseInt( currentElementText ) == 1 ) {
+			if ( Short.parseShort( currentElementText ) == 1 ) {
 				f = true;
 			}
 			ra.setAtoHigh( f );
 		} else if ( tag.equals( Globals.xmlPWMActinic ) ) {
-			ra.setPwmA( Byte.parseByte( currentElementText ) );
+			short v = Short.parseShort( currentElementText );
+			ra.setPwmA( v );
 		} else if ( tag.equals( Globals.xmlPWMDaylight ) ) {
-			ra.setPwmD( Byte.parseByte( currentElementText ) );
+			short v = Short.parseShort( currentElementText );
+			ra.setPwmD( v );
 		} else if ( tag.startsWith( Globals.xmlPWMExpansion ) ) {
-			int channel =
-					Integer.parseInt( tag.substring( Globals.xmlPWMExpansion
+			short channel =
+					Short.parseShort( tag.substring( Globals.xmlPWMExpansion
 							.length() ) );
-			ra.setPwmExpansion( channel, Byte.parseByte( currentElementText ) );
+			short v = Short.parseShort( currentElementText );
+			ra.setPwmExpansion( channel, v );
 		} else if ( tag.equals( Globals.xmlSalinity ) ) {
 			ra.setSalinity( Integer.parseInt( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlORP ) ) {
@@ -222,40 +225,42 @@ public class XMLHandler extends DefaultHandler {
 		} else if ( tag.equals( Globals.xmlLogDate ) ) {
 			ra.setLogDate( currentElementText );
 		} else if ( tag.equals( Globals.xmlRelayExpansionModules ) ) {
-			ra.setRelayExpansionModules( Byte.parseByte( currentElementText ) );
+			short v = Short.parseShort( currentElementText );
+			ra.setRelayExpansionModules( v );
 		} else if ( tag.equals( Globals.xmlExpansionModules ) ) {
-			ra.setExpansionModules( Byte.parseByte( currentElementText ) );
+			short v = Short.parseShort( currentElementText );
+			ra.setExpansionModules( v );
 		} else if ( tag.equals( Globals.xmlAIBlue ) ) {
-			ra.setAIChannel( Controller.AI_BLUE, Byte.parseByte( currentElementText ) );
+			ra.setAIChannel( Controller.AI_BLUE, Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlAIRoyalBlue ) ) {
-			ra.setAIChannel( Controller.AI_ROYALBLUE, Byte.parseByte( currentElementText ) );
+			ra.setAIChannel( Controller.AI_ROYALBLUE, Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlAIWhite ) ) {
-			ra.setAIChannel( Controller.AI_WHITE, Byte.parseByte( currentElementText ) );
+			ra.setAIChannel( Controller.AI_WHITE, Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFMode ) ) {
-			ra.setVortechValue( Controller.VORTECH_MODE, Byte.parseByte( currentElementText ) );
+			ra.setVortechValue( Controller.VORTECH_MODE, Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFSpeed ) ) {
-			ra.setVortechValue( Controller.VORTECH_SPEED, Byte.parseByte( currentElementText ) );
+			ra.setVortechValue( Controller.VORTECH_SPEED, Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFDuration ) ) {
-			ra.setVortechValue( Controller.VORTECH_DURATION, Byte.parseByte( currentElementText ) );
+			ra.setVortechValue( Controller.VORTECH_DURATION, Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFWhite ) ) {
-			ra.setRadionChannel( Controller.RADION_WHITE, Byte.parseByte( currentElementText ) );
+			ra.setRadionChannel( Controller.RADION_WHITE, Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFBlue ) ) {
-			ra.setRadionChannel( Controller.RADION_BLUE, Byte.parseByte( currentElementText ) );
+			ra.setRadionChannel( Controller.RADION_BLUE, Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFGreen ) ) {
-			ra.setRadionChannel( Controller.RADION_GREEN, Byte.parseByte( currentElementText ) );
+			ra.setRadionChannel( Controller.RADION_GREEN, Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFRed ) ) {
-			ra.setRadionChannel( Controller.RADION_RED, Byte.parseByte( currentElementText ) );
+			ra.setRadionChannel( Controller.RADION_RED, Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFRoyalBlue ) ) {
-			ra.setRadionChannel( Controller.RADION_ROYALBLUE, Byte.parseByte( currentElementText ) );
+			ra.setRadionChannel( Controller.RADION_ROYALBLUE, Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFIntensity ) ) {
-			ra.setRadionChannel( Controller.RADION_INTENSITY, Byte.parseByte( currentElementText ) );
+			ra.setRadionChannel( Controller.RADION_INTENSITY, Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlIO ) ) {
-			ra.setIOChannels( Byte.parseByte( currentElementText ) );
+			ra.setIOChannels( Short.parseShort( currentElementText ) );
 		} else if ( tag.startsWith( Globals.xmlCustom ) ) {
-			int v =
-					Integer.parseInt( tag.substring( Globals.xmlCustom.length() ) );
-			int c = Integer.parseInt( currentElementText );
-			ra.setCustomVariable( (byte) v, (byte) c );
+			short v =
+					Short.parseShort( tag.substring( Globals.xmlCustom.length() ) );
+			short c = Short.parseShort( currentElementText );
+			ra.setCustomVariable( v, c );
 		} else if ( tag.startsWith( Globals.xmlLabelTempBegin )
 					&& tag.endsWith( Globals.xmlLabelEnd ) ) {
 			// handle temp sensor labels

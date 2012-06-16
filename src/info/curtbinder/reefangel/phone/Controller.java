@@ -20,11 +20,11 @@ public class Controller {
 	public static final byte MAX_RADION_LIGHT_CHANNELS = 6;
 	public static final byte MAX_VORTECH_VALUES = 3;
 
-	public static final byte MODULE_DIMMING = 1 << 0;
-	public static final byte MODULE_RF = 1 << 1;
-	public static final byte MODULE_AI = 1 << 2;
-	public static final byte MODULE_SALINITY = 1 << 3;
-	public static final byte MODULE_ORP = 1 << 4;
+	public static final short MODULE_DIMMING = 1 << 0;
+	public static final short MODULE_RF = 1 << 1;
+	public static final short MODULE_AI = 1 << 2;
+	public static final short MODULE_SALINITY = 1 << 3;
+	public static final short MODULE_ORP = 1 << 4;
 
 	// AI channels
 	public static final byte AI_WHITE = 0;
@@ -49,21 +49,21 @@ public class Controller {
 	private Number pH;
 	private boolean atoLow;
 	private boolean atoHigh;
-	private byte pwmA;
-	private byte pwmD;
+	private short pwmA;
+	private short pwmD;
 	private Number salinity;
 	private Number orp;
 	private Relay main;
 	private byte qtyExpansionRelays;
 	private Relay[] expansionRelays;
-	private byte expansionModules;
-	private byte relayExpansionModules;
-	private byte ioChannels;
-	private byte[] pwmExpansion;
-	private byte[] aiChannels;
-	private byte[] radionChannels;
-	private byte[] customVariables;
-	private byte[] vortechValues;
+	private short expansionModules;
+	private short relayExpansionModules;
+	private short ioChannels;
+	private short[] pwmExpansion;
+	private short[] aiChannels;
+	private short[] radionChannels;
+	private short[] customVariables;
+	private short[] vortechValues;
 
 	public Controller () {
 		init();
@@ -86,7 +86,7 @@ public class Controller {
 		atoHigh = false;
 		pwmA = 0;
 		pwmD = 0;
-		pwmExpansion = new byte[MAX_PWM_EXPANSION_PORTS];
+		pwmExpansion = new short[MAX_PWM_EXPANSION_PORTS];
 		for ( i = 0; i < MAX_PWM_EXPANSION_PORTS; i++ ) {
 			pwmExpansion[i] = 0;
 		}
@@ -101,19 +101,19 @@ public class Controller {
 		expansionModules = 0;
 		relayExpansionModules = 0;
 		ioChannels = 0;
-		aiChannels = new byte[MAX_AI_CHANNELS];
+		aiChannels = new short[MAX_AI_CHANNELS];
 		for ( i = 0; i < MAX_AI_CHANNELS; i++ ) {
 			aiChannels[i] = 0;
 		}
-		radionChannels = new byte[MAX_RADION_LIGHT_CHANNELS];
+		radionChannels = new short[MAX_RADION_LIGHT_CHANNELS];
 		for ( i = 0; i < MAX_RADION_LIGHT_CHANNELS; i++ ) {
 			radionChannels[i] = 0;
 		}
-		customVariables = new byte[MAX_CUSTOM_VARIABLES];
+		customVariables = new short[MAX_CUSTOM_VARIABLES];
 		for ( i = 0; i < MAX_CUSTOM_VARIABLES; i++ ) {
 			customVariables[i] = 0;
 		}
-		vortechValues = new byte[MAX_VORTECH_VALUES];
+		vortechValues = new short[MAX_VORTECH_VALUES];
 		for ( i = 0; i < MAX_VORTECH_VALUES; i++ ) {
 			vortechValues[i] = 0;
 		}
@@ -217,7 +217,7 @@ public class Controller {
 		return getAtoText( atoHigh );
 	}
 
-	public void setPwmA ( byte v ) {
+	public void setPwmA ( short v ) {
 		pwmA = v;
 	}
 
@@ -226,7 +226,7 @@ public class Controller {
 		return new String( String.format( "%d%c", pwmA, '%' ) );
 	}
 
-	public void setPwmD ( byte v ) {
+	public void setPwmD ( short v ) {
 		pwmD = v;
 	}
 
@@ -235,7 +235,7 @@ public class Controller {
 		return new String( String.format( "%d%c", pwmD, '%' ) );
 	}
 
-	public void setPwmExpansion ( int channel, byte v ) {
+	public void setPwmExpansion ( short channel, short v ) {
 		pwmExpansion[channel] = v;
 	}
 
@@ -304,75 +304,75 @@ public class Controller {
 		return expansionRelays[relay - 1];
 	}
 
-	public byte getCustomVariable ( byte var ) {
+	public short getCustomVariable ( short var ) {
 		return customVariables[var];
 	}
 
-	public void setCustomVariable ( byte var, byte value ) {
+	public void setCustomVariable ( short var, short value ) {
 		customVariables[var] = value;
 	}
 
-	public byte getAIChannel ( byte channel ) {
+	public short getAIChannel ( byte channel ) {
 		return aiChannels[channel];
 	}
 
-	public void setAIChannel ( byte channel, byte value ) {
+	public void setAIChannel ( byte channel, short value ) {
 		aiChannels[channel] = value;
 	}
 
-	public byte getRadionChannel ( byte channel ) {
+	public short getRadionChannel ( byte channel ) {
 		return radionChannels[channel];
 	}
 
-	public void setRadionChannel ( byte channel, byte value ) {
+	public void setRadionChannel ( byte channel, short value ) {
 		radionChannels[channel] = value;
 	}
 
-	public byte getVortechValue ( byte type ) {
+	public short getVortechValue ( byte type ) {
 		return vortechValues[type];
 	}
 
-	public void setVortechValue ( byte type, byte value ) {
+	public void setVortechValue ( byte type, short value ) {
 		vortechValues[type] = value;
 	}
 
-	public byte getExpansionModules ( ) {
+	public short getExpansionModules ( ) {
 		return expansionModules;
 	}
 	
-	public void setExpansionModules ( byte em ) {
+	public void setExpansionModules ( short em ) {
 		expansionModules = em;
 	}
 
-	public static boolean isDimmingModuleInstalled ( byte expansionModules ) {
+	public static boolean isDimmingModuleInstalled ( short expansionModules ) {
 		return (expansionModules & MODULE_DIMMING) == 1;
 	}
 
-	public static boolean isRFModuleInstalled ( byte expansionModules ) {
+	public static boolean isRFModuleInstalled ( short expansionModules ) {
 		return (expansionModules & MODULE_RF) == 1;
 	}
 
-	public static boolean isAIModuleInstalled ( byte expansionModules ) {
+	public static boolean isAIModuleInstalled ( short expansionModules ) {
 		return (expansionModules & MODULE_AI) == 1;
 	}
 
-	public static boolean isSalinityModuleInstalled ( byte expansionModules ) {
+	public static boolean isSalinityModuleInstalled ( short expansionModules ) {
 		return ( expansionModules & MODULE_SALINITY ) == 1;
 	}
 
-	public static boolean isORPModuleInstalled ( byte expansionModules ) {
+	public static boolean isORPModuleInstalled ( short expansionModules ) {
 		return ( expansionModules & MODULE_ORP ) == 1;
 	}
 
-	public byte getRelayExpansionModules ( ) {
+	public short getRelayExpansionModules ( ) {
 		return relayExpansionModules;
 	}
 	
-	public void setRelayExpansionModules ( byte rem ) {
+	public void setRelayExpansionModules ( short rem ) {
 		relayExpansionModules = rem;
 	}
 	
-	public static int getRelayExpansionModulesInstalled ( byte rem ) {
+	public static int getRelayExpansionModulesInstalled ( short rem ) {
 		int qty = 0;
 		for ( int i = 7; i >= 0; i-- ) {
 			if ( (rem & (1<<i)) == 1 ) {
@@ -383,15 +383,15 @@ public class Controller {
 		return qty;
 	}
 	
-	public byte getIOChannels ( ) {
+	public short getIOChannels ( ) {
 		return ioChannels;
 	}
 	
-	public void setIOChannels ( byte ioChannels ) {
+	public void setIOChannels ( short ioChannels ) {
 		this.ioChannels = ioChannels;
 	}
 	
-	public static boolean getIOChannel ( byte ioChannels, byte channel ) {
+	public static boolean getIOChannel ( short ioChannels, byte channel ) {
 		// channel is 0 based
 		return (ioChannels & (1 << channel)) == 1;
 	}
