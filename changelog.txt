@@ -97,3 +97,6 @@ Changelog of all the versions of AndroidStatus
  ** ability to configure a home / away profile with different HOST & PORT values
  ** long press on Refresh button to change/select profile
  ** Refresh button label changes to "Refresh - Home" or "Refresh - Away"
+
+0.6.1
+ * added support for new 0.9.9 memory locations and ability to choose what locations to reference

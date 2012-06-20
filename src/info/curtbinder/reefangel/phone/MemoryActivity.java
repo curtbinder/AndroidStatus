@@ -31,7 +31,8 @@ public class MemoryActivity extends BaseActivity {
 
 	final static int LOCATION_MIN = 0;
 	final static int LOCATION_MAX = 1023;
-	final static int LOCATION_START = 800;
+	final static int LOCATION_START_OLD = 800;
+	final static int LOCATION_START = 200;
 	final static int TYPE_BYTE = 0;
 	final static int TYPE_INT = 1;
 
@@ -291,9 +292,16 @@ public class MemoryActivity extends BaseActivity {
 
 	private void setItemSelected ( int id ) {
 		boolean enable = false;
+		int start;
+		if ( rapp.useOldPre099MemoryLocations() ) {
+			start = LOCATION_START_OLD;
+		} else {
+			start = LOCATION_START;
+		}
+
 		if ( id > 0 ) {
 			String s =
-					new String( String.format( "%d", LOCATION_START
+					new String( String.format( "%d", start
 														+ memoryLocations[id] ) );
 			locationText.setText( s );
 		} else {
