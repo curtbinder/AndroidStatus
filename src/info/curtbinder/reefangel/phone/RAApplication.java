@@ -363,8 +363,8 @@ public class RAApplication extends Application {
 		return prefs.getBoolean( getString( R.string.prefExp085xKey ), false );
 	}
 	
-	public boolean useOldPre099MemoryLocations ( ) {
-		return prefs.getBoolean( getString( R.string.prefPre099MemoryKey ), true );
+	public boolean useOldPre10MemoryLocations ( ) {
+		return prefs.getBoolean( getString( R.string.prefPre10MemoryKey ), true );
 	}
 
 	public boolean isFirstRun ( ) {

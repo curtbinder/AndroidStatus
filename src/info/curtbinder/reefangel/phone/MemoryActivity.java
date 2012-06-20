@@ -293,7 +293,7 @@ public class MemoryActivity extends BaseActivity {
 	private void setItemSelected ( int id ) {
 		boolean enable = false;
 		int start;
-		if ( rapp.useOldPre099MemoryLocations() ) {
+		if ( rapp.useOldPre10MemoryLocations() ) {
 			start = LOCATION_START_OLD;
 		} else {
 			start = LOCATION_START;

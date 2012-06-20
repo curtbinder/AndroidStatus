@@ -409,9 +409,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp085xTitle">Old v0.8.5.X Expansion</string>
     <string name="prefAppSettingsTitle">Settings</string>
     <string name="prefAppSettingsSummary">Additional settings for the application and controller</string>
-    <string name="prefPre099MemoryKey">pre_099_memory_locations</string>
-    <string name="prefPre099MemorySummary">Select this if you have a version of the libraries before v0.9.9. This will allow you reference the proper internal memory locations.</string>
-    <string name="prefPre099MemoryTitle">Pre v0.9.9 Locations </string>
+    <string name="prefPre10MemoryKey">pre_10_memory_locations</string>
+    <string name="prefPre10MemorySummary">Select this if you have a version of the libraries before v1.0. This will allow you reference the proper internal memory locations.</string>
+    <string name="prefPre10MemoryTitle">Pre v1.0 Locations </string>
 
     <!-- Permissions -->
     <string name="permissionQueryStatusLabel">Query status of controller</string>

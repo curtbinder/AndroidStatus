@@ -540,9 +540,9 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:title="@string/prefAppSettingsTitle" >
 			<CheckBoxPreference 
 			    android:defaultValue="true"
-			    android:key="@string/prefPre099MemoryKey"
-			    android:summary="@string/prefPre099MemorySummary"
-			    android:title="@string/prefPre099MemoryTitle" />
+			    android:key="@string/prefPre10MemoryKey"
+			    android:summary="@string/prefPre10MemorySummary"
+			    android:title="@string/prefPre10MemoryTitle" />
 		</PreferenceScreen>
         <PreferenceScreen
             android:key="appinfo"
