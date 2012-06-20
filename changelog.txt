@@ -100,3 +100,8 @@ Changelog of all the versions of AndroidStatus
 
 0.6.1
  * added support for new 0.9.9 memory locations and ability to choose what locations to reference
+ * added PH expansion and water level xml tags to string file, not parsed yet though
+ * fixed parsing issue with byte storage values
+ * changed controller summary to say Expansion Modules instead of Relays
+ * added PH visibility toggling
+ 
