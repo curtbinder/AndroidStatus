@@ -13,40 +13,40 @@ public class NumberWithLabel {
 	private Number data;
 	private String label;
 
-	private void initValues(byte decimalPlaces, String label) {
-		data = new Number(decimalPlaces);
+	private void initValues ( byte decimalPlaces, String label ) {
+		data = new Number( decimalPlaces );
 		this.label = label;
 	}
-	
-	public NumberWithLabel() {
-		initValues((byte)1, "N");
+
+	public NumberWithLabel () {
+		initValues( (byte) 0, "N" );
 	}
-	
-	public NumberWithLabel(byte decimalPlaces) {
-		initValues(decimalPlaces, "N");
+
+	public NumberWithLabel ( byte decimalPlaces ) {
+		initValues( decimalPlaces, "N" );
 	}
-	
-	public NumberWithLabel(byte decimalPlaces, String label) {
-		initValues(decimalPlaces, label);
+
+	public NumberWithLabel ( byte decimalPlaces, String label ) {
+		initValues( decimalPlaces, label );
 	}
-	
-	public void setData(Number data) {
+
+	public void setData ( Number data ) {
 		this.data = data;
 	}
-	
-	public void setData(int value) {
-		data.setValue(value);
+
+	public void setData ( int value ) {
+		data.setValue( value );
 	}
-	
-	public String getData() {
+
+	public String getData ( ) {
 		return data.toString();
 	}
-	
-	public void setLabel(String label) {
+
+	public void setLabel ( String label ) {
 		this.label = label;
 	}
-	
-	public String getLabel() {
+
+	public String getLabel ( ) {
 		return label;
 	}
 }

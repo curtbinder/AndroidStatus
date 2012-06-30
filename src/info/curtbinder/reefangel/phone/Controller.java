@@ -49,13 +49,13 @@ public class Controller {
 
 	private String updateLogDate;
 	private NumberWithLabel[] tempSensors;
-	private Number pH;
+	private NumberWithLabel pH;
 	private boolean atoLow;
 	private boolean atoHigh;
 	private short pwmA;
 	private short pwmD;
-	private Number salinity;
-	private Number orp;
+	private NumberWithLabel salinity;
+	private NumberWithLabel orp;
 	private Relay main;
 	private byte qtyExpansionRelays;
 	private Relay[] expansionRelays;
@@ -82,9 +82,9 @@ public class Controller {
 		tempSensors = new NumberWithLabel[MAX_TEMP_SENSORS];
 		int i;
 		for ( i = 0; i < MAX_TEMP_SENSORS; i++ ) {
-			tempSensors[i] = new NumberWithLabel();
+			tempSensors[i] = new NumberWithLabel( (byte) 1 );
 		}
-		pH = new Number( (byte) 2 );
+		pH = new NumberWithLabel( (byte) 2 );
 		atoLow = false;
 		atoHigh = false;
 		pwmA = 0;
@@ -93,8 +93,8 @@ public class Controller {
 		for ( i = 0; i < MAX_PWM_EXPANSION_PORTS; i++ ) {
 			pwmExpansion[i] = 0;
 		}
-		salinity = new Number( (byte) 1 );
-		orp = new Number();
+		salinity = new NumberWithLabel( (byte) 1 );
+		orp = new NumberWithLabel();
 		main = new Relay();
 		expansionRelays = new Relay[MAX_EXPANSION_RELAYS];
 		for ( i = 0; i < MAX_EXPANSION_RELAYS; i++ ) {
@@ -138,10 +138,6 @@ public class Controller {
 		return updateLogDate;
 	}
 
-	// public void setTempValue(int sensor, int value) {
-	// tempSensors[sensor-1].setTemp(value);
-	// }
-
 	public void setTempLabel ( int sensor, String label ) {
 		tempSensors[sensor - 1].setLabel( label );
 	}
@@ -149,12 +145,6 @@ public class Controller {
 	public String getTempLabel ( int sensor ) {
 		return tempSensors[sensor - 1].getLabel();
 	}
-
-	// public String[] getTempLabels ( ) {
-	// return new String[] { tempSensors[0].getLabel(),
-	// tempSensors[1].getLabel(),
-	// tempSensors[2].getLabel() };
-	// }
 
 	public void setTemp1 ( int value ) {
 		tempSensors[0].setData( value );
@@ -181,7 +171,7 @@ public class Controller {
 	}
 
 	public void setPH ( int value ) {
-		pH.setValue( value );
+		pH.setData( value );
 	}
 
 	public String getPH ( ) {
@@ -248,7 +238,7 @@ public class Controller {
 	}
 
 	public void setSalinity ( int value ) {
-		salinity.setValue( value );
+		salinity.setData( value );
 	}
 
 	public String getSalinity ( ) {
@@ -256,7 +246,7 @@ public class Controller {
 	}
 
 	public void setORP ( int value ) {
-		orp.setValue( value );
+		orp.setData( value );
 	}
 
 	public String getORP ( ) {
@@ -342,7 +332,7 @@ public class Controller {
 	public short getExpansionModules ( ) {
 		return expansionModules;
 	}
-	
+
 	public void setExpansionModules ( short em ) {
 		expansionModules = em;
 	}
@@ -360,40 +350,40 @@ public class Controller {
 	}
 
 	public static boolean isSalinityModuleInstalled ( short expansionModules ) {
-		return ( expansionModules & MODULE_SALINITY ) == 1;
+		return (expansionModules & MODULE_SALINITY) == 1;
 	}
 
 	public static boolean isORPModuleInstalled ( short expansionModules ) {
-		return ( expansionModules & MODULE_ORP ) == 1;
+		return (expansionModules & MODULE_ORP) == 1;
 	}
 
 	public short getRelayExpansionModules ( ) {
 		return relayExpansionModules;
 	}
-	
+
 	public void setRelayExpansionModules ( short rem ) {
 		relayExpansionModules = rem;
 	}
-	
+
 	public static int getRelayExpansionModulesInstalled ( short rem ) {
 		int qty = 0;
 		for ( int i = 7; i >= 0; i-- ) {
-			if ( (rem & (1<<i)) == 1 ) {
-				qty = i+1;
+			if ( (rem & (1 << i)) == 1 ) {
+				qty = i + 1;
 				break;
 			}
 		}
 		return qty;
 	}
-	
+
 	public short getIOChannels ( ) {
 		return ioChannels;
 	}
-	
+
 	public void setIOChannels ( short ioChannels ) {
 		this.ioChannels = ioChannels;
 	}
-	
+
 	public static boolean getIOChannel ( short ioChannels, byte channel ) {
 		// channel is 0 based
 		return (ioChannels & (1 << channel)) == 1;
