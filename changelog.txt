@@ -108,4 +108,5 @@ Changelog of all the versions of AndroidStatus
  
 0.7
  * fixed labels not downloading from portal
+ * added water level and ph expansion fields to database
  
