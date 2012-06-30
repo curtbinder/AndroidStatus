@@ -25,6 +25,9 @@ public class Controller {
 	public static final short MODULE_AI = 1 << 2;
 	public static final short MODULE_SALINITY = 1 << 3;
 	public static final short MODULE_ORP = 1 << 4;
+	public static final short MODULE_IO = 1 << 5;
+	public static final short MODULE_PHEXPANSION = 1 << 6;
+	public static final short MODULE_WATERLEVEL = 1 << 7;
 
 	// AI channels
 	public static final byte AI_WHITE = 0;
