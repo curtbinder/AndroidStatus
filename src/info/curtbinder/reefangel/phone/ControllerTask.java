@@ -287,6 +287,7 @@ public class ControllerTask implements Runnable {
 		if ( !ra.getORPLabel().equals( "" ) ) {
 			rapp.setPref( R.string.prefORPLabelKey, ra.getORPLabel() );
 		}
+		// TODO add other label downloading and setting here
 
 		// Tell the activity we updated the labels
 		Intent intent = new Intent( MessageCommands.LABEL_RESPONSE_INTENT );

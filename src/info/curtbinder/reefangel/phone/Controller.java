@@ -50,6 +50,7 @@ public class Controller {
 	private String updateLogDate;
 	private NumberWithLabel[] tempSensors;
 	private NumberWithLabel pH;
+	private NumberWithLabel pHExp;
 	private boolean atoLow;
 	private boolean atoHigh;
 	private short pwmA;
@@ -85,6 +86,7 @@ public class Controller {
 			tempSensors[i] = new NumberWithLabel( (byte) 1 );
 		}
 		pH = new NumberWithLabel( (byte) 2 );
+		pHExp = new NumberWithLabel( (byte) 2 );
 		atoLow = false;
 		atoHigh = false;
 		pwmA = 0;
@@ -184,6 +186,22 @@ public class Controller {
 	
 	public String getPHLabel ( ) {
 		return pH.getLabel();
+	}
+	
+	public void setPHExp ( int value ) {
+		pHExp.setData( value );
+	}
+
+	public String getPHExp ( ) {
+		return pHExp.getData();
+	}
+
+	public void setPHExpLabel ( String label ) {
+		pHExp.setLabel( label );
+	}
+	
+	public String getPHExpLabel ( ) {
+		return pHExp.getLabel();
 	}
 	
 	public void setAtoLow ( boolean v ) {

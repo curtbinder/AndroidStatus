@@ -194,6 +194,8 @@ public class XMLHandler extends DefaultHandler {
 			ra.setTemp3( Integer.parseInt( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlPH ) ) {
 			ra.setPH( Integer.parseInt( currentElementText ) );
+		} else if ( tag.equals( Globals.xmlPHExpansion ) ) {
+			ra.setPHExp( Integer.parseInt( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlATOLow ) ) {
 			boolean f = false;
 			if ( Short.parseShort( currentElementText ) == 1 ) {
@@ -354,6 +356,7 @@ public class XMLHandler extends DefaultHandler {
 		} else if ( tag.equals( Globals.xmlPHExpansion + Globals.xmlLabelEnd ) ) {
 			// PHE
 			Log.d( TAG, "PHExp Label: " + currentElementText );
+			ra.setPHExpLabel( currentElementText );
 		} else if ( tag.equals( Globals.xmlPH + Globals.xmlLabelEnd ) ) { 
 			// PH
 			Log.d( TAG, "PH Label: " + currentElementText );
