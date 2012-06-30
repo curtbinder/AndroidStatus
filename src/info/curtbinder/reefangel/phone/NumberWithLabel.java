@@ -12,18 +12,33 @@ public class NumberWithLabel {
 
 	private Number data;
 	private String label;
+
+	private void initValues(byte decimalPlaces, String label) {
+		data = new Number(decimalPlaces);
+		this.label = label;
+	}
 	
 	public NumberWithLabel() {
-		data = new Number((byte) 1);
-		// TODO use strings.xml instead of hard code
-		label = "T";
+		initValues((byte)1, "N");
 	}
 	
-	public void setTemp(int temp) {
-		data.setValue(temp);
+	public NumberWithLabel(byte decimalPlaces) {
+		initValues(decimalPlaces, "N");
 	}
 	
-	public String getTemp() {
+	public NumberWithLabel(byte decimalPlaces, String label) {
+		initValues(decimalPlaces, label);
+	}
+	
+	public void setData(Number data) {
+		this.data = data;
+	}
+	
+	public void setData(int value) {
+		data.setValue(value);
+	}
+	
+	public String getData() {
 		return data.toString();
 	}
 	

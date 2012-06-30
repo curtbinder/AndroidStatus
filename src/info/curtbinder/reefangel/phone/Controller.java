@@ -157,27 +157,27 @@ public class Controller {
 	// }
 
 	public void setTemp1 ( int value ) {
-		tempSensors[0].setTemp( value );
+		tempSensors[0].setData( value );
 	}
 
 	public String getTemp1 ( ) {
-		return tempSensors[0].getTemp();
+		return tempSensors[0].getData();
 	}
 
 	public void setTemp2 ( int value ) {
-		tempSensors[1].setTemp( value );
+		tempSensors[1].setData( value );
 	}
 
 	public String getTemp2 ( ) {
-		return tempSensors[1].getTemp();
+		return tempSensors[1].getData();
 	}
 
 	public void setTemp3 ( int value ) {
-		tempSensors[2].setTemp( value );
+		tempSensors[2].setData( value );
 	}
 
 	public String getTemp3 ( ) {
-		return tempSensors[2].getTemp();
+		return tempSensors[2].getData();
 	}
 
 	public void setPH ( int value ) {
