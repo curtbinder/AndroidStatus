@@ -91,10 +91,12 @@ public class RAData {
 	public static final String PCOL_C7 = "c7";
 	public static final String PCOL_EM = "em";
 	public static final String PCOL_REM = "rem";
+	public static final String PCOL_PHE = "phe";
+	public static final String PCOL_WL = "wl";
 
 	public class DbHelper extends SQLiteOpenHelper {
 		private static final String DB_NAME = "radata.db";
-		private static final int DB_VERSION = 2;
+		private static final int DB_VERSION = 3;
 		private static final String TAG = "DbHelper";
 
 		public DbHelper ( Context context ) {
@@ -160,15 +162,9 @@ public class RAData {
 						+ " INTEGER, " + PCOL_C4 + " INTEGER, " + PCOL_C5
 						+ " INTEGER, " + PCOL_C6 + " INTEGER, " + PCOL_C7
 						+ " INTEGER, " + PCOL_EM + " INTEGER, " + PCOL_REM
+						+ " INTEGER, " + PCOL_PHE + " TEXT, " + PCOL_WL
 						+ " INTEGER " + ");" );
 
-			// create TRIGGER for params table
-			// db.execSQL( "CREATE TRIGGER prune_params_entries INSERT ON "
-			// + PTABLE_NAME + " BEGIN DELETE FROM " + PTABLE_NAME
-			// + " WHERE " + PCOL_ID + " NOT IN " + "(SELECT "
-			// + PCOL_ID + " FROM " + PTABLE_NAME + " ORDER BY "
-			// + PCOL_ID + " DESC LIMIT " + PTABLE_MAX_COUNT + ");"
-			// + "END;" );
 		}
 	}
 

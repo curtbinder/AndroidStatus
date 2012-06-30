@@ -388,6 +388,8 @@ public class ControllerTask implements Runnable {
 		i.putExtra( RAData.PCOL_C7, ra.getCustomVariable( (byte) 7 ) );
 		i.putExtra( RAData.PCOL_EM, ra.getExpansionModules() );
 		i.putExtra( RAData.PCOL_REM, ra.getRelayExpansionModules() );
+		i.putExtra( RAData.PCOL_PHE, ra.getPHExp() );
+		//i.putExtra( RAData.PCOL_WL, ra.getWaterLevel() );
 		rapp.sendBroadcast( i, Permissions.QUERY_STATUS );
 	}
 
