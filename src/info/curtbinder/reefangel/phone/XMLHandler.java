@@ -298,6 +298,8 @@ public class XMLHandler extends DefaultHandler {
 			if ( fUse085XRelays )
 				relay += 1;
 			ra.setExpRelayData( relay, Short.parseShort( currentElementText ) );
+		} else if ( tag.equals( Globals.xmlMyReefAngelID ) ) {
+			Log.d( TAG, "Reefangel ID: " + currentElementText );
 		} else {
 			Log.d( TAG, "Unhandled XML tag (" + tag + ") with data: "
 						+ currentElementText );

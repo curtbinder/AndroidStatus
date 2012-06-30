@@ -74,4 +74,5 @@ public final class Globals {
 	public static final String xmlCustom = "C";
 	public static final String xmlPHExpansion = "PHE";
 	public static final String xmlWaterLevel = "WL";
+	public static final String xmlMyReefAngelID = "MYREEFANGELID";
 }
