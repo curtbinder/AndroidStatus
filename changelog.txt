@@ -106,3 +106,6 @@ Changelog of all the versions of AndroidStatus
  * added PH visibility toggling
  * added additional memory locations
  
+0.7
+ * fixed labels not downloading from portal
+ 
