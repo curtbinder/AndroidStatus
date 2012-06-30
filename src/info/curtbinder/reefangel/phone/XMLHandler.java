@@ -317,10 +317,10 @@ public class XMLHandler extends DefaultHandler {
 		// Handle all labels here
 		if ( currentElementText.equals( "null" ) ) {
 			// TODO skip if null
-			Log.d(TAG, tag + " is null, skipping");
+			Log.d( TAG, tag + " is null, skipping" );
 			return;
 		}
-		
+
 		if ( tag.startsWith( Globals.xmlLabelTempBegin ) ) {
 			// handle temp sensor labels
 			int sensor =
@@ -342,11 +342,7 @@ public class XMLHandler extends DefaultHandler {
 				// expansion relays, so split the port from the relay box
 				int box = relay / 10;
 				int port = relay % 10;
-				// portal sends null if there's no value stored for a port
-				// so don't save null
-				if ( !currentElementText.equals( "null" ) )
-					ra.getExpRelay( box ).setPortLabel( port,
-														currentElementText );
+				ra.getExpRelay( box ).setPortLabel( port, currentElementText );
 			}
 		} else if ( tag.startsWith( Globals.xmlPWMExpansion ) ) {
 			// PWME
