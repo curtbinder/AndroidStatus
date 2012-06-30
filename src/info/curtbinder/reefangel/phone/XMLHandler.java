@@ -316,7 +316,6 @@ public class XMLHandler extends DefaultHandler {
 	private void processLabelXml ( String tag ) {
 		// Handle all labels here
 		if ( currentElementText.equals( "null" ) ) {
-			// TODO skip if null
 			Log.d( TAG, tag + " is null, skipping" );
 			return;
 		}
@@ -352,18 +351,16 @@ public class XMLHandler extends DefaultHandler {
 													Globals.xmlPWMExpansion,
 													Globals.xmlLabelEnd ) );
 			Log.d( TAG, "PWM #" + channel + ": " + currentElementText );
-		} else if ( tag.startsWith( Globals.xmlPHExpansion ) ) {
-			// PHE, PHE before PH because PH will match both PH and PHE
+		} else if ( tag.equals( Globals.xmlPHExpansion + Globals.xmlLabelEnd ) ) {
+			// PHE
 			Log.d( TAG, "PHExp Label: " + currentElementText );
-		} else if ( tag.startsWith( Globals.xmlPH ) ) {
+		} else if ( tag.equals( Globals.xmlPH + Globals.xmlLabelEnd ) ) { 
 			// PH
 			Log.d( TAG, "PH Label: " + currentElementText );
-		} else if ( tag.startsWith( Globals.xmlSalinity ) ) {
+		} else if ( tag.equals( Globals.xmlSalinity + Globals.xmlLabelEnd ) ) {
 			// SAL
 			Log.d( TAG, "Salinity Label: " + currentElementText );
-		} else if ( tag.startsWith( Globals.xmlORP ) ) {
-			// } else if ( tag.equals( Globals.xmlORP + Globals.xmlLabelEnd ) )
-			// {
+		} else if ( tag.equals( Globals.xmlORP + Globals.xmlLabelEnd ) ) {
 			// ORP
 			Log.d( TAG, "ORP Label: " + currentElementText );
 		} else if ( tag.startsWith( Globals.xmlCustom ) ) {
