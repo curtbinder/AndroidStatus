@@ -19,11 +19,11 @@ public class NumberWithLabel {
 	}
 
 	public NumberWithLabel () {
-		initValues( (byte) 0, "N" );
+		initValues( (byte) 0, "" );
 	}
 
 	public NumberWithLabel ( byte decimalPlaces ) {
-		initValues( decimalPlaces, "N" );
+		initValues( decimalPlaces, "" );
 	}
 
 	public NumberWithLabel ( byte decimalPlaces, String label ) {

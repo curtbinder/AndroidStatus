@@ -278,6 +278,16 @@ public class ControllerTask implements Runnable {
 				rapp.setPrefRelayLabel( i + 1, j, r.getPortLabel( j + 1 ) );
 			}
 		}
+		if ( !ra.getPHLabel().equals( "" ) ) {
+			rapp.setPref( R.string.prefPHLabelKey, ra.getPHLabel() );
+		}
+		if ( !ra.getSalinityLabel().equals( "" ) ) {
+			rapp.setPref( R.string.prefSalinityLabelKey, ra.getSalinityLabel() );
+		}
+		if ( !ra.getORPLabel().equals( "" ) ) {
+			rapp.setPref( R.string.prefORPLabelKey, ra.getORPLabel() );
+		}
+
 		// Tell the activity we updated the labels
 		Intent intent = new Intent( MessageCommands.LABEL_RESPONSE_INTENT );
 		rapp.sendBroadcast( intent, Permissions.SEND_COMMAND );

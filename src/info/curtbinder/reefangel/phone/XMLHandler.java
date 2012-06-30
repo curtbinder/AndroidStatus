@@ -357,12 +357,15 @@ public class XMLHandler extends DefaultHandler {
 		} else if ( tag.equals( Globals.xmlPH + Globals.xmlLabelEnd ) ) { 
 			// PH
 			Log.d( TAG, "PH Label: " + currentElementText );
+			ra.setPHLabel( currentElementText );
 		} else if ( tag.equals( Globals.xmlSalinity + Globals.xmlLabelEnd ) ) {
 			// SAL
 			Log.d( TAG, "Salinity Label: " + currentElementText );
+			ra.setSalinityLabel( currentElementText );
 		} else if ( tag.equals( Globals.xmlORP + Globals.xmlLabelEnd ) ) {
 			// ORP
 			Log.d( TAG, "ORP Label: " + currentElementText );
+			ra.setORPLabel( currentElementText );
 		} else if ( tag.startsWith( Globals.xmlCustom ) ) {
 			// C
 			short v =
