@@ -165,7 +165,7 @@ public class RAApplication extends Application {
 		v.put( RAData.PCOL_EM, i.getByteExtra( RAData.PCOL_EM, (byte) 0 ) );
 		v.put( RAData.PCOL_REM, i.getByteExtra( RAData.PCOL_REM, (byte) 0 ) );
 		v.put( RAData.PCOL_PHE, i.getStringExtra( RAData.PCOL_PHE ) );
-		v.put( RAData.PCOL_WL, i.getByteExtra( RAData.PCOL_WL, (byte) 0) );
+		v.put( RAData.PCOL_WL, i.getShortExtra( RAData.PCOL_WL, (short) 0) );
 		data.insert( v );
 	}
 

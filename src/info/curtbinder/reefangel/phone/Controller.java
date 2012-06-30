@@ -56,6 +56,7 @@ public class Controller {
 	private boolean atoHigh;
 	private short pwmA;
 	private short pwmD;
+	private short waterlevel;
 	private NumberWithLabel salinity;
 	private NumberWithLabel orp;
 	private Relay main;
@@ -97,6 +98,7 @@ public class Controller {
 		for ( i = 0; i < MAX_PWM_EXPANSION_PORTS; i++ ) {
 			pwmExpansion[i] = new ShortWithLabel();
 		}
+		waterlevel = 0;
 		salinity = new NumberWithLabel( (byte) 1 );
 		orp = new NumberWithLabel();
 		main = new Relay();
@@ -277,6 +279,14 @@ public class Controller {
 		return pwmExpansion[channel].getLabel();
 	}
 
+	public void setWaterLevel ( short value ) {
+		waterlevel = value;
+	}
+	
+	public short getWaterLevel ( ) {
+		return waterlevel;
+	}
+	
 	public void setSalinity ( int value ) {
 		salinity.setData( value );
 	}

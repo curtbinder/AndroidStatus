@@ -224,6 +224,9 @@ public class XMLHandler extends DefaultHandler {
 			ra.setSalinity( Integer.parseInt( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlORP ) ) {
 			ra.setORP( Integer.parseInt( currentElementText ) );
+		} else if ( tag.equals( Globals.xmlWaterLevel ) ) {
+			short v = Short.parseShort( currentElementText );
+			ra.setWaterLevel( v );
 		} else if ( tag.equals( Globals.xmlRelay ) ) {
 			ra.setMainRelayData( Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRelayMaskOn ) ) {
