@@ -175,9 +175,17 @@ public class Controller {
 	}
 
 	public String getPH ( ) {
-		return pH.toString();
+		return pH.getData();
 	}
 
+	public void setPHLabel ( String label ) {
+		pH.setLabel( label );
+	}
+	
+	public String getPHLabel ( ) {
+		return pH.getLabel();
+	}
+	
 	public void setAtoLow ( boolean v ) {
 		atoLow = v;
 	}
@@ -242,7 +250,15 @@ public class Controller {
 	}
 
 	public String getSalinity ( ) {
-		return salinity.toString() + " ppt";
+		return salinity.getData() + " ppt";
+	}
+	
+	public void setSalinityLabel ( String label ) {
+		salinity.setLabel( label );
+	}
+	
+	public String getSalinityLabel ( ) {
+		return salinity.getLabel();
 	}
 
 	public void setORP ( int value ) {
@@ -250,7 +266,15 @@ public class Controller {
 	}
 
 	public String getORP ( ) {
-		return orp.toString() + " mV";
+		return orp.getData() + " mV";
+	}
+	
+	public void setORPLabel ( String label ) {
+		orp.setLabel( label );
+	}
+	
+	public String getORPLabel ( ) {
+		return orp.getLabel();
 	}
 
 	public void setMainRelayData ( short data, short maskOn, short maskOff ) {
