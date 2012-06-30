@@ -353,6 +353,7 @@ public class XMLHandler extends DefaultHandler {
 													Globals.xmlPWMExpansion,
 													Globals.xmlLabelEnd ) );
 			Log.d( TAG, "PWM #" + channel + ": " + currentElementText );
+			ra.setPwmExpansionLabel( channel, currentElementText );
 		} else if ( tag.equals( Globals.xmlPHExpansion + Globals.xmlLabelEnd ) ) {
 			// PHE
 			Log.d( TAG, "PHExp Label: " + currentElementText );
@@ -375,12 +376,14 @@ public class XMLHandler extends DefaultHandler {
 					Short.parseShort( getTagNumber( tag, Globals.xmlCustom,
 													Globals.xmlLabelEnd ) );
 			Log.d( TAG, "Custom #" + v + ": " + currentElementText );
+			ra.setCustomVariableLabel( v, currentElementText );
 		} else if ( tag.startsWith( Globals.xmlIO ) ) {
 			// IO
 			short v =
 					Short.parseShort( getTagNumber( tag, Globals.xmlIO,
 													Globals.xmlLabelEnd ) );
 			Log.d( TAG, "IO #" + v + ": " + currentElementText );
+			ra.setIOChannelLabel( v, currentElementText );
 		} else {
 			Log.d( TAG, "Unknown label: (" + tag + ") = " + currentElementText );
 		}

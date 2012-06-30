@@ -287,7 +287,7 @@ public class ControllerTask implements Runnable {
 		if ( !ra.getORPLabel().equals( "" ) ) {
 			rapp.setPref( R.string.prefORPLabelKey, ra.getORPLabel() );
 		}
-		// TODO add other label downloading and setting here
+		// TODO add other label downloading and setting here (PHE, Custom, IO, PWME)
 
 		// Tell the activity we updated the labels
 		Intent intent = new Intent( MessageCommands.LABEL_RESPONSE_INTENT );
@@ -350,12 +350,12 @@ public class ControllerTask implements Runnable {
 		i.putExtra( RAData.PCOL_R8ONMASK, ra.getExpRelay( 8 ).getRelayOnMask() );
 		i.putExtra( RAData.PCOL_R8OFFMASK, ra.getExpRelay( 8 )
 				.getRelayOffMask() );
-		i.putExtra( RAData.PCOL_PWME0, ra.getPwmExpansion( 0 ) );
-		i.putExtra( RAData.PCOL_PWME1, ra.getPwmExpansion( 1 ) );
-		i.putExtra( RAData.PCOL_PWME2, ra.getPwmExpansion( 2 ) );
-		i.putExtra( RAData.PCOL_PWME3, ra.getPwmExpansion( 3 ) );
-		i.putExtra( RAData.PCOL_PWME4, ra.getPwmExpansion( 4 ) );
-		i.putExtra( RAData.PCOL_PWME5, ra.getPwmExpansion( 5 ) );
+		i.putExtra( RAData.PCOL_PWME0, ra.getPwmExpansion( (short) 0 ) );
+		i.putExtra( RAData.PCOL_PWME1, ra.getPwmExpansion( (short) 1 ) );
+		i.putExtra( RAData.PCOL_PWME2, ra.getPwmExpansion( (short) 2 ) );
+		i.putExtra( RAData.PCOL_PWME3, ra.getPwmExpansion( (short) 3 ) );
+		i.putExtra( RAData.PCOL_PWME4, ra.getPwmExpansion( (short) 4 ) );
+		i.putExtra( RAData.PCOL_PWME5, ra.getPwmExpansion( (short) 5 ) );
 		i.putExtra( RAData.PCOL_AIW, ra.getAIChannel( Controller.AI_WHITE ) );
 		i.putExtra( RAData.PCOL_AIB, ra.getAIChannel( Controller.AI_BLUE ) );
 		i.putExtra( RAData.PCOL_AIRB, ra.getAIChannel( Controller.AI_ROYALBLUE ) );

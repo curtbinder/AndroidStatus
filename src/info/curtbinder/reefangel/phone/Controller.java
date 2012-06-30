@@ -17,6 +17,7 @@ public class Controller {
 	public static final byte MAX_PWM_EXPANSION_PORTS = 6;
 	public static final byte MAX_AI_CHANNELS = 3;
 	public static final byte MAX_CUSTOM_VARIABLES = 8;
+	public static final byte MAX_IO_CHANNELS = 7;
 	public static final byte MAX_RADION_LIGHT_CHANNELS = 6;
 	public static final byte MAX_VORTECH_VALUES = 3;
 
@@ -63,10 +64,11 @@ public class Controller {
 	private short expansionModules;
 	private short relayExpansionModules;
 	private short ioChannels;
-	private short[] pwmExpansion;
+	private String[] ioChannelsLabels;
+	private ShortWithLabel[] pwmExpansion;
 	private short[] aiChannels;
 	private short[] radionChannels;
-	private short[] customVariables;
+	private ShortWithLabel[] customVariables;
 	private short[] vortechValues;
 
 	public Controller () {
@@ -91,9 +93,9 @@ public class Controller {
 		atoHigh = false;
 		pwmA = 0;
 		pwmD = 0;
-		pwmExpansion = new short[MAX_PWM_EXPANSION_PORTS];
+		pwmExpansion = new ShortWithLabel[MAX_PWM_EXPANSION_PORTS];
 		for ( i = 0; i < MAX_PWM_EXPANSION_PORTS; i++ ) {
-			pwmExpansion[i] = 0;
+			pwmExpansion[i] = new ShortWithLabel();
 		}
 		salinity = new NumberWithLabel( (byte) 1 );
 		orp = new NumberWithLabel();
@@ -106,6 +108,10 @@ public class Controller {
 		expansionModules = 0;
 		relayExpansionModules = 0;
 		ioChannels = 0;
+		ioChannelsLabels = new String[MAX_IO_CHANNELS];
+		for ( i = 0; i < MAX_IO_CHANNELS; i++ ) {
+			ioChannelsLabels[i] = "";
+		}
 		aiChannels = new short[MAX_AI_CHANNELS];
 		for ( i = 0; i < MAX_AI_CHANNELS; i++ ) {
 			aiChannels[i] = 0;
@@ -114,9 +120,9 @@ public class Controller {
 		for ( i = 0; i < MAX_RADION_LIGHT_CHANNELS; i++ ) {
 			radionChannels[i] = 0;
 		}
-		customVariables = new short[MAX_CUSTOM_VARIABLES];
+		customVariables = new ShortWithLabel[MAX_CUSTOM_VARIABLES];
 		for ( i = 0; i < MAX_CUSTOM_VARIABLES; i++ ) {
-			customVariables[i] = 0;
+			customVariables[i] = new ShortWithLabel();
 		}
 		vortechValues = new short[MAX_VORTECH_VALUES];
 		for ( i = 0; i < MAX_VORTECH_VALUES; i++ ) {
@@ -255,12 +261,20 @@ public class Controller {
 	}
 
 	public void setPwmExpansion ( short channel, short v ) {
-		pwmExpansion[channel] = v;
+		pwmExpansion[channel].setData( v );
 	}
 
-	public String getPwmExpansion ( int channel ) {
+	public String getPwmExpansion ( short channel ) {
 		// TODO change to be locale independent
-		return new String( String.format( "%d%c", pwmExpansion[channel], '%' ) );
+		return new String( String.format( "%d%c", pwmExpansion[channel].getData(), '%' ) );
+	}
+	
+	public void setPwmExpansionLabel ( short channel, String label ) {
+		pwmExpansion[channel].setLabel( label );
+	}
+	
+	public String getPwmExpansionLabel ( short channel ) {
+		return pwmExpansion[channel].getLabel();
 	}
 
 	public void setSalinity ( int value ) {
@@ -340,11 +354,19 @@ public class Controller {
 	}
 
 	public short getCustomVariable ( short var ) {
-		return customVariables[var];
+		return customVariables[var].getData();
 	}
 
 	public void setCustomVariable ( short var, short value ) {
-		customVariables[var] = value;
+		customVariables[var].setData( value );
+	}
+	
+	public String getCustomVariableLabel ( short var ) {
+		return customVariables[var].getLabel();
+	}
+
+	public void setCustomVariableLabel ( short var, String label ) {
+		customVariables[var].setLabel( label );
 	}
 
 	public short getAIChannel ( byte channel ) {
@@ -424,6 +446,14 @@ public class Controller {
 
 	public void setIOChannels ( short ioChannels ) {
 		this.ioChannels = ioChannels;
+	}
+	
+	public String getIOChannelLabel ( short channel ) {
+		return ioChannelsLabels[channel];
+	}
+	
+	public void setIOChannelLabel ( short channel, String label ) {
+		ioChannelsLabels[channel] = label;
 	}
 
 	public static boolean getIOChannel ( short ioChannels, byte channel ) {
