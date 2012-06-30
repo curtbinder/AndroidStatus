@@ -347,7 +347,6 @@ public class XMLHandler extends DefaultHandler {
 			}
 		} else if ( tag.startsWith( Globals.xmlPWMExpansion ) ) {
 			// PWME
-			// TODO save the label
 			short channel =
 					Short.parseShort( getTagNumber( tag,
 													Globals.xmlPWMExpansion,
