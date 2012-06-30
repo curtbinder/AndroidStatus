@@ -48,7 +48,7 @@ public class Controller {
 	public static final byte VORTECH_DURATION = 2;
 
 	private String updateLogDate;
-	private TempSensor[] tempSensors;
+	private NumberWithLabel[] tempSensors;
 	private Number pH;
 	private boolean atoLow;
 	private boolean atoHigh;
@@ -79,10 +79,10 @@ public class Controller {
 
 	private void init ( ) {
 		updateLogDate = "";
-		tempSensors = new TempSensor[MAX_TEMP_SENSORS];
+		tempSensors = new NumberWithLabel[MAX_TEMP_SENSORS];
 		int i;
 		for ( i = 0; i < MAX_TEMP_SENSORS; i++ ) {
-			tempSensors[i] = new TempSensor();
+			tempSensors[i] = new NumberWithLabel();
 		}
 		pH = new Number( (byte) 2 );
 		atoLow = false;
