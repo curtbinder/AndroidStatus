@@ -54,7 +54,6 @@ public final class Globals {
 	public static final String xmlRelayMaskOff = "ROFF";
 	public static final String xmlLogDate = "LOGDATE";
 	public static final String xmlLabelTempBegin = "T";
-	public static final String xmlLabelRelayBegin = "R";
 	public static final String xmlLabelEnd = "N";
 	public static final String xmlRelayExpansionModules = "REM";
 	public static final String xmlExpansionModules = "EM";

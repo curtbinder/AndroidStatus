@@ -110,8 +110,9 @@ public class XMLHandler extends DefaultHandler {
 			if ( tag.equals( Globals.xmlStatus ) ) {
 				return;
 			} else {
-				// Parameter status and Labels are sent using the same XML outer tag
-				if ( tag.endsWith( Globals.xmlLabelEnd ) ) { 
+				// Parameter status and Labels are sent using the same XML outer
+				// tag
+				if ( tag.endsWith( Globals.xmlLabelEnd ) ) {
 					processLabelXml( tag );
 				} else {
 					processStatusXml( tag );
@@ -314,6 +315,12 @@ public class XMLHandler extends DefaultHandler {
 
 	private void processLabelXml ( String tag ) {
 		// Handle all labels here
+		if ( currentElementText.equals( "null" ) ) {
+			// TODO skip if null
+			Log.d(TAG, tag + " is null, skipping");
+			return;
+		}
+		
 		if ( tag.startsWith( Globals.xmlLabelTempBegin ) ) {
 			// handle temp sensor labels
 			int sensor =
@@ -323,11 +330,10 @@ public class XMLHandler extends DefaultHandler {
 			if ( sensor < 0 || sensor > Controller.MAX_TEMP_SENSORS )
 				Log.e( TAG, "Incorrect sensor number: " + tag );
 			ra.setTempLabel( sensor, currentElementText );
-		} else if ( tag.startsWith( Globals.xmlLabelRelayBegin ) ) {
+		} else if ( tag.startsWith( Globals.xmlRelay ) ) {
 			// handle relay labels
 			int relay =
-					Integer.parseInt( getTagNumber( tag,
-													Globals.xmlLabelRelayBegin,
+					Integer.parseInt( getTagNumber( tag, Globals.xmlRelay,
 													Globals.xmlLabelEnd ) );
 			if ( relay < 10 ) {
 				// main relay
@@ -342,27 +348,42 @@ public class XMLHandler extends DefaultHandler {
 					ra.getExpRelay( box ).setPortLabel( port,
 														currentElementText );
 			}
-		}
-		else if ( tag.startsWith( Globals.xmlPWMExpansion ) ) {
+		} else if ( tag.startsWith( Globals.xmlPWMExpansion ) ) {
 			// PWME
-		}
-		else if ( tag.startsWith( Globals.xmlPHExpansion ) ) {
-			// PHE
-		}
-		else if ( tag.startsWith( Globals.xmlPH ) ) {
-			// PHE
-		}
-		else if ( tag.startsWith( Globals.xmlSalinity ) ) {
+			// TODO save the label
+			short channel =
+					Short.parseShort( getTagNumber( tag,
+													Globals.xmlPWMExpansion,
+													Globals.xmlLabelEnd ) );
+			Log.d( TAG, "PWM #" + channel + ": " + currentElementText );
+		} else if ( tag.startsWith( Globals.xmlPHExpansion ) ) {
+			// PHE, PHE before PH because PH will match both PH and PHE
+			Log.d( TAG, "PHExp Label: " + currentElementText );
+		} else if ( tag.startsWith( Globals.xmlPH ) ) {
+			// PH
+			Log.d( TAG, "PH Label: " + currentElementText );
+		} else if ( tag.startsWith( Globals.xmlSalinity ) ) {
 			// SAL
-		}
-		else if ( tag.startsWith( Globals.xmlORP ) ) {
+			Log.d( TAG, "Salinity Label: " + currentElementText );
+		} else if ( tag.startsWith( Globals.xmlORP ) ) {
+			// } else if ( tag.equals( Globals.xmlORP + Globals.xmlLabelEnd ) )
+			// {
 			// ORP
-		}
-		else if ( tag.startsWith( Globals.xmlCustom ) ) {
+			Log.d( TAG, "ORP Label: " + currentElementText );
+		} else if ( tag.startsWith( Globals.xmlCustom ) ) {
 			// C
-		}
-		else if ( tag.startsWith( Globals.xmlIO ) ) {
+			short v =
+					Short.parseShort( getTagNumber( tag, Globals.xmlCustom,
+													Globals.xmlLabelEnd ) );
+			Log.d( TAG, "Custom #" + v + ": " + currentElementText );
+		} else if ( tag.startsWith( Globals.xmlIO ) ) {
 			// IO
+			short v =
+					Short.parseShort( getTagNumber( tag, Globals.xmlIO,
+													Globals.xmlLabelEnd ) );
+			Log.d( TAG, "IO #" + v + ": " + currentElementText );
+		} else {
+			Log.d( TAG, "Unknown label: (" + tag + ") = " + currentElementText );
 		}
 	}
 
