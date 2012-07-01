@@ -219,6 +219,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			}
 
 		}
+		
+		// TODO set other control labels here
 
 		// Visibility
 		controller.setT2Visibility( rapp.getPrefT2Visibility() );
@@ -228,6 +230,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		controller.setPHVisibility( rapp.getPrefPHVisibility() );
 		controller.setSalinityVisibility( rapp.getPrefSalinityVisibility() );
 		controller.setORPVisibility( rapp.getPrefORPVisibility() );
+		
+		// TODO update control visibility here
 
 		// if ( ! showMessageText )
 		// messageText.setVisibility(View.GONE);
@@ -381,26 +385,26 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 						c.getShort( c.getColumnIndex( RAData.PCOL_R4ONMASK ) );
 				exproff[3] =
 						c.getShort( c.getColumnIndex( RAData.PCOL_R4OFFMASK ) );
-				expr[4] = c.getShort( c.getColumnIndex( RAData.PCOL_R1DATA ) );
+				expr[4] = c.getShort( c.getColumnIndex( RAData.PCOL_R5DATA ) );
 				expron[4] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R1ONMASK ) );
+						c.getShort( c.getColumnIndex( RAData.PCOL_R5ONMASK ) );
 				exproff[4] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R1OFFMASK ) );
-				expr[5] = c.getShort( c.getColumnIndex( RAData.PCOL_R2DATA ) );
+						c.getShort( c.getColumnIndex( RAData.PCOL_R5OFFMASK ) );
+				expr[5] = c.getShort( c.getColumnIndex( RAData.PCOL_R6DATA ) );
 				expron[5] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R2ONMASK ) );
+						c.getShort( c.getColumnIndex( RAData.PCOL_R6ONMASK ) );
 				exproff[5] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R2OFFMASK ) );
-				expr[6] = c.getShort( c.getColumnIndex( RAData.PCOL_R3DATA ) );
+						c.getShort( c.getColumnIndex( RAData.PCOL_R6OFFMASK ) );
+				expr[6] = c.getShort( c.getColumnIndex( RAData.PCOL_R7DATA ) );
 				expron[6] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R3ONMASK ) );
+						c.getShort( c.getColumnIndex( RAData.PCOL_R7ONMASK ) );
 				exproff[6] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R3OFFMASK ) );
-				expr[7] = c.getShort( c.getColumnIndex( RAData.PCOL_R4DATA ) );
+						c.getShort( c.getColumnIndex( RAData.PCOL_R7OFFMASK ) );
+				expr[7] = c.getShort( c.getColumnIndex( RAData.PCOL_R8DATA ) );
 				expron[7] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R4ONMASK ) );
+						c.getShort( c.getColumnIndex( RAData.PCOL_R8ONMASK ) );
 				exproff[7] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R4OFFMASK ) );
+						c.getShort( c.getColumnIndex( RAData.PCOL_R8OFFMASK ) );
 			} else {
 				updateStatus = getString( R.string.messageNever );
 				values = getNeverValues();
