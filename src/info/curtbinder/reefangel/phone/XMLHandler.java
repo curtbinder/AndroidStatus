@@ -112,7 +112,8 @@ public class XMLHandler extends DefaultHandler {
 			} else {
 				// Parameter status and Labels are sent using the same XML outer
 				// tag
-				if ( tag.endsWith( Globals.xmlLabelEnd ) ) {
+				if ( tag.endsWith( Globals.xmlLabelEnd )
+						&& !tag.equals( Globals.xmlRelayMaskOn ) ) {
 					processLabelXml( tag );
 				} else {
 					processStatusXml( tag );
@@ -360,7 +361,7 @@ public class XMLHandler extends DefaultHandler {
 			// PHE
 			Log.d( TAG, "PHExp Label: " + currentElementText );
 			ra.setPHExpLabel( currentElementText );
-		} else if ( tag.equals( Globals.xmlPH + Globals.xmlLabelEnd ) ) { 
+		} else if ( tag.equals( Globals.xmlPH + Globals.xmlLabelEnd ) ) {
 			// PH
 			Log.d( TAG, "PH Label: " + currentElementText );
 			ra.setPHLabel( currentElementText );
