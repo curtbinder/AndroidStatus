@@ -46,16 +46,26 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private String[] profiles;
 	// minimum number of pages: status, main relay
 	private static final int MIN_PAGES = 2;
-	private static final int POS_CONTROLLER = 0;
-	private static final int POS_MAIN_RELAY = 1;
-	private static final int POS_EXP1_RELAY = 2;
-	private static final int POS_EXP2_RELAY = 3;
-	private static final int POS_EXP3_RELAY = 4;
-	private static final int POS_EXP4_RELAY = 5;
-	private static final int POS_EXP5_RELAY = 6;
-	private static final int POS_EXP6_RELAY = 7;
-	private static final int POS_EXP7_RELAY = 8;
-	private static final int POS_EXP8_RELAY = 9;
+	// TODO change all these to be updated based on configuration
+	private static final int POS_START = 0;
+	
+	private static final int POS_CONTROLLER = POS_START;
+	//private static final int POS_DIMMING = POS_CONTROLLER + 1;
+	//private static final int POS_RADION = POS_CONTROLLER + 2;
+	//private static final int POS_VORTECH = POS_CONTROLLER + 3;
+	//private static final int POS_AI = POS_CONTROLLER + 4;
+	//private static final int POS_IO = POS_CONTROLLER + 5;
+	//private static final int POS_CUSTOM = POS_CONTROLLER + 6;
+	
+	private static final int POS_MAIN_RELAY = POS_CONTROLLER + 1;
+	private static final int POS_EXP1_RELAY = POS_MAIN_RELAY + 1;
+	private static final int POS_EXP2_RELAY = POS_MAIN_RELAY + 2;
+	private static final int POS_EXP3_RELAY = POS_MAIN_RELAY + 3;
+	private static final int POS_EXP4_RELAY = POS_MAIN_RELAY + 4;
+	private static final int POS_EXP5_RELAY = POS_MAIN_RELAY + 5;
+	private static final int POS_EXP6_RELAY = POS_MAIN_RELAY + 6;
+	private static final int POS_EXP7_RELAY = POS_MAIN_RELAY + 7;
+	private static final int POS_EXP8_RELAY = POS_MAIN_RELAY + 8;
 
 	private ControllerWidget controller;
 	private RelayBoxWidget main;
@@ -127,6 +137,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			exprelays[i] = new RelayBoxWidget( ctx );
 			exprelays[i].setRelayBoxNumber( i + 1 );
 		}
+		// TODO create additional wigdets for main screen in app
 	}
 
 	private void findViews ( ) {
@@ -334,6 +345,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		Log.d( TAG, "updateDisplay" );
 		try {
 			Cursor c = rapp.data.getLatestData();
+			// TODO get all the values here to be displayed
 			String updateStatus;
 			String[] values;
 			short r, ron, roff;
@@ -528,7 +540,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 		@Override
 		public int getCount ( ) {
-			int qty = MIN_PAGES + rapp.getPrefExpansionRelayQuantity();
+			int qty = MIN_PAGES + rapp.getInstalledModuleQuantity();
 			return qty;
 		}
 

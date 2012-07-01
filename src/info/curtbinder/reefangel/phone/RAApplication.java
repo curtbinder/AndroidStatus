@@ -409,6 +409,12 @@ public class RAApplication extends Application {
 		deletePref( R.string.prefFirstRunKey );
 	}
 
+	public void displayChangeLog ( ) {
+		// TODO complete this function
+		// check version code stored in preferences vs the version stored in running code
+		// display the changelog if the values are different
+	}
+	
 	public int getSelectedProfile ( ) {
 		return Integer.parseInt( prefs
 				.getString( getString( R.string.prefProfileSelectedKey ),
@@ -603,6 +609,17 @@ public class RAApplication extends Application {
 	public int getPrefExpansionRelayQuantity ( ) {
 		return Integer.parseInt( prefs
 				.getString( getString( R.string.prefExpQtyKey ), "0" ) );
+	}
+	
+	public int getInstalledModuleQuantity ( ) {
+		// this function gets all the installed modules for the controller
+		// that are displayed on their own separate pages
+		// the modules include: 
+		//   expansion relays, dimming, vortech, radion, ai, custom, io
+		int total = 0;
+		int i = getPrefExpansionRelayQuantity();
+		total += i;
+		return total;
 	}
 
 	public void checkServiceRunning ( ) {
