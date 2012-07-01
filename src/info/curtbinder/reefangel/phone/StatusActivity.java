@@ -50,14 +50,14 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private static final int POS_START = 0;
 	
 	private static final int POS_CONTROLLER = POS_START;
-	//private static final int POS_DIMMING = POS_CONTROLLER + 1;
-	//private static final int POS_RADION = POS_CONTROLLER + 2;
-	//private static final int POS_VORTECH = POS_CONTROLLER + 3;
-	//private static final int POS_AI = POS_CONTROLLER + 4;
-	//private static final int POS_IO = POS_CONTROLLER + 5;
-	//private static final int POS_CUSTOM = POS_CONTROLLER + 6;
+	private static final int POS_DIMMING = POS_CONTROLLER + 1;
+	private static final int POS_RADION = POS_CONTROLLER + 2;
+	private static final int POS_VORTECH = POS_CONTROLLER + 3;
+	private static final int POS_AI = POS_CONTROLLER + 4;
+	private static final int POS_IO = POS_CONTROLLER + 5;
+	private static final int POS_CUSTOM = POS_CONTROLLER + 6;
 	
-	private static final int POS_MAIN_RELAY = POS_CONTROLLER + 1;
+	private static final int POS_MAIN_RELAY = POS_CONTROLLER + 7;
 	private static final int POS_EXP1_RELAY = POS_MAIN_RELAY + 1;
 	private static final int POS_EXP2_RELAY = POS_MAIN_RELAY + 2;
 	private static final int POS_EXP3_RELAY = POS_MAIN_RELAY + 3;
@@ -540,7 +540,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 		@Override
 		public int getCount ( ) {
-			int qty = MIN_PAGES + rapp.getInstalledModuleQuantity();
+			int qty = MIN_PAGES + rapp.getTotalInstalledModuleQuantity();
 			return qty;
 		}
 
@@ -556,10 +556,44 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		@Override
 		public Object instantiateItem ( ViewGroup container, int position ) {
 			View v;
-			switch ( position ) {
+			int p = position;
+			if ( p > POS_CONTROLLER ) {
+				if ( rapp.getInstalledModuleQuantity() == 0 ) {
+					Log.d( TAG, "No installed modules, skipping to main relay");
+					p += POS_CUSTOM;
+				} else if ( p > rapp.getInstalledModuleQuantity() ) {
+					// value greater than the installed modules
+					// check if it's less than where the relays start
+					if ( p < POS_MAIN_RELAY ) {
+						// if it's between the last installed module AND the
+						// main relay, jump to main relay
+						Log.d( TAG, "Between last module and main relay, skip to main");
+						p = POS_MAIN_RELAY;
+					}  // otherwise we leave it alone
+				}
+			}
+			switch ( p ) {
 				default:
 				case POS_CONTROLLER: // Controller Status
 					Log.d( TAG, "Create controller" );
+					v = controller;
+					break;
+				case POS_DIMMING:
+					v = controller;
+					break;
+				case POS_RADION:
+					v = controller;
+					break;
+				case POS_VORTECH:
+					v = controller;
+					break;
+				case POS_AI:
+					v = controller;
+					break;
+				case POS_IO:
+					v = controller;
+					break;
+				case POS_CUSTOM:
 					v = controller;
 					break;
 				case POS_MAIN_RELAY: // Main Relay
@@ -574,9 +608,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				case POS_EXP6_RELAY: // Expansion Relay 6
 				case POS_EXP7_RELAY: // Expansion Relay 7
 				case POS_EXP8_RELAY: // Expansion Relay 8
-					int relay = position - MIN_PAGES;
-					Log.d( TAG, "Create exp relay " + relay + " (" + position
-								+ ")" );
+					int relay = p - POS_EXP1_RELAY;
+					Log.d( TAG, "Create exp relay " + relay + " (" + p + ")" );
 					v = exprelays[relay];
 					break;
 			}

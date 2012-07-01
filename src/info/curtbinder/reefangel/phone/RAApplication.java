@@ -611,7 +611,7 @@ public class RAApplication extends Application {
 				.getString( getString( R.string.prefExpQtyKey ), "0" ) );
 	}
 	
-	public int getInstalledModuleQuantity ( ) {
+	public int getTotalInstalledModuleQuantity ( ) {
 		// this function gets all the installed modules for the controller
 		// that are displayed on their own separate pages
 		// the modules include: 
@@ -620,6 +620,11 @@ public class RAApplication extends Application {
 		int i = getPrefExpansionRelayQuantity();
 		total += i;
 		return total;
+	}
+	
+	public int getInstalledModuleQuantity ( ) {
+		// returns the total installed modules
+		return 0;
 	}
 
 	public void checkServiceRunning ( ) {
