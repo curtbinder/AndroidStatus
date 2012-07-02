@@ -68,6 +68,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private static final int POS_EXP8_RELAY = POS_MAIN_RELAY + 8;
 
 	private ControllerWidget controller;
+	private DimmingWidget dimming;
 	private RelayBoxWidget main;
 	private RelayBoxWidget[] exprelays =
 			new RelayBoxWidget[Controller.MAX_EXPANSION_RELAYS];
@@ -132,6 +133,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private void createViews ( ) {
 		Context ctx = rapp.getBaseContext();
 		controller = new ControllerWidget( ctx );
+		dimming = new DimmingWidget( ctx );
 		main = new RelayBoxWidget( ctx );
 		for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 			exprelays[i] = new RelayBoxWidget( ctx );
@@ -348,6 +350,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			// TODO get all the values here to be displayed
 			String updateStatus;
 			String[] values;
+			String[] pwme;
 			short r, ron, roff;
 			short[] expr = new short[Controller.MAX_EXPANSION_RELAYS];
 			short[] expron = new short[Controller.MAX_EXPANSION_RELAYS];
@@ -373,6 +376,12 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 												.getColumnIndex( RAData.PCOL_SAL ) ),
 										c.getString( c
 												.getColumnIndex( RAData.PCOL_ORP ) ) };
+				pwme = new String[] { c.getString( c.getColumnIndex( RAData.PCOL_PWME0 ) ),
+				                      c.getString( c.getColumnIndex( RAData.PCOL_PWME1 ) ),
+				                      c.getString( c.getColumnIndex( RAData.PCOL_PWME2 ) ),
+				                      c.getString( c.getColumnIndex( RAData.PCOL_PWME3 ) ),
+				                      c.getString( c.getColumnIndex( RAData.PCOL_PWME4 ) ),
+				                      c.getString( c.getColumnIndex( RAData.PCOL_PWME5 ) ) };
 				r = c.getShort( c.getColumnIndex( RAData.PCOL_RDATA ) );
 				ron = c.getShort( c.getColumnIndex( RAData.PCOL_RONMASK ) );
 				roff = c.getShort( c.getColumnIndex( RAData.PCOL_ROFFMASK ) );
@@ -419,7 +428,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 						c.getShort( c.getColumnIndex( RAData.PCOL_R8OFFMASK ) );
 			} else {
 				updateStatus = getString( R.string.messageNever );
-				values = getNeverValues();
+				values = getNeverValues( 8 );
+				pwme = getNeverValues( Controller.MAX_PWM_EXPANSION_PORTS );
 				r = ron = roff = 0;
 				for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 					expr[i] = expron[i] = exproff[i] = 0;
@@ -428,6 +438,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			c.close();
 			updateTime.setText( updateStatus );
 			controller.updateDisplay( values );
+			dimming.updateDisplay( pwme );
 			boolean fUseMask = rapp.isCommunicateController();
 			main.updateRelayValues( new Relay( r, ron, roff ), fUseMask );
 			for ( int i = 0; i < rapp.getPrefExpansionRelayQuantity(); i++ ) {
@@ -472,15 +483,12 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		}
 	}
 
-	private String[] getNeverValues ( ) {
-		return new String[] {	getString( R.string.defaultStatusText ),
-								getString( R.string.defaultStatusText ),
-								getString( R.string.defaultStatusText ),
-								getString( R.string.defaultStatusText ),
-								getString( R.string.defaultStatusText ),
-								getString( R.string.defaultStatusText ),
-								getString( R.string.defaultStatusText ),
-								getString( R.string.defaultStatusText ) };
+	private String[] getNeverValues ( int qty ) {
+		String[] s = new String[qty];
+		for ( int i = 0; i < qty; i++ ) {
+			s[i] = getString( R.string.defaultStatusText );
+		}
+		return s;
 	}
 
 	@Override

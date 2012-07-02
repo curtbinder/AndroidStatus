@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 public class DimmingWidget extends ScrollView {
 	private static final String TAG = DimmingWidget.class.getSimpleName();
-	private static final int PWME_MAX_CHANNELS = 6;
 
 	Context ctx; // saved context from parent
 	private TextView[] pwmeText;
@@ -41,7 +40,9 @@ public class DimmingWidget extends ScrollView {
 				(LayoutInflater) context
 						.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
 		layoutInflater.inflate( R.layout.dimming, this );
-		for ( int i = 0; i < PWME_MAX_CHANNELS; i++ ) {
+		pwmeText = new TextView[Controller.MAX_PWM_EXPANSION_PORTS];
+		pwmeLabels = new TextView[Controller.MAX_PWM_EXPANSION_PORTS];
+		for ( int i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
 			pwmeText[i] = new TextView( context );
 			pwmeLabels[i] = new TextView( context );
 		}
@@ -83,7 +84,7 @@ public class DimmingWidget extends ScrollView {
 	}
 
 	public void updateDisplay ( String[] v ) {
-		for ( int i = 0; i < PWME_MAX_CHANNELS; i++ ) {
+		for ( int i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
 			pwmeText[i].setText( v[i] );
 		}
 	}
