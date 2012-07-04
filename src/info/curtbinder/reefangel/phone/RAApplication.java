@@ -627,6 +627,8 @@ public class RAApplication extends Application {
 		int total = 0;
 		if ( getDimmingModuleEnabled() )
 			total++;
+		if ( getRadionModuleEnabled() )
+			total++;
 		return total;
 	}
 
@@ -690,6 +692,10 @@ public class RAApplication extends Application {
 				break;
 		}
 		setPref( k, label );
+	}
+
+	public boolean getRadionModuleEnabled ( ) {
+		return prefs.getBoolean( getString( R.string.prefExpRadionEnableKey ), false );
 	}
 	
 	public void checkServiceRunning ( ) {

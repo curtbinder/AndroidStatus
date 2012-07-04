@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
+ 
+This work is made available under the terms of the 
+Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+http://creativecommons.org/licenses/by-nc-sa/3.0/
+-->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+		<TextView
+            style="@style/ParamsText"
+            android:text="@string/labelRadion" />
+                
+        <TableRow style="@style/RARow" >
+
+            <TextView
+                android:id="@+id/radion_white_label"
+                style="@style/ParamsText.Labels"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/radionWhite"
+                style="@style/ParamsText.Values"
+                android:textColor="@color/white" />
+        </TableRow>
+
+        <TableRow style="@style/RARow" >
+
+            <TextView
+                android:id="@+id/radion_royalblue_label"
+                style="@style/ParamsText.Labels"
+                android:textColor="@color/royalblue" />
+
+            <TextView
+                android:id="@+id/radionRoyalBlue"
+                style="@style/ParamsText.Values"
+                android:textColor="@color/royalblue" />
+        </TableRow>
+
+        <TableRow style="@style/RARow" >
+
+            <TextView
+                android:id="@+id/radion_red_label"
+                style="@style/ParamsText.Labels"
+                android:textColor="@color/red" />
+
+            <TextView
+                android:id="@+id/radionRed"
+                style="@style/ParamsText.Values"
+                android:textColor="@color/red" />
+        </TableRow>
+
+        <TableRow style="@style/RARow" >
+
+            <TextView
+                android:id="@+id/radion_green_label"
+                style="@style/ParamsText.Labels"
+                android:textColor="@color/green" />
+
+            <TextView
+                android:id="@+id/radionGreen"
+                style="@style/ParamsText.Values"
+                android:textColor="@color/green" />
+        </TableRow>
+
+        <TableRow style="@style/RARow" >
+
+            <TextView
+                android:id="@+id/radion_blue_label"
+                style="@style/ParamsText.Labels"
+                android:textColor="@color/blue" />
+
+            <TextView
+                android:id="@+id/radionBlue"
+                style="@style/ParamsText.Values"
+                android:textColor="@color/blue" />
+        </TableRow>
+
+        <TableRow style="@style/RARow" >
+
+            <TextView
+                android:id="@+id/radion_intensity_label"
+                style="@style/ParamsText.Labels"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/radionIntensity"
+                style="@style/ParamsText.Values"
+                android:textColor="@color/white" />
+        </TableRow>
+    </TableLayout>
+
+</ScrollView>

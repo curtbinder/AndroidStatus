@@ -127,6 +127,13 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="labelTime">Time:</string>
     <string name="labelDate">Date:</string>
     <string name="labelDimming">Dimming</string>
+    <string name="labelRadion">Radion</string>
+    <string name="labelWhite">White</string>
+    <string name="labelRoyalBlue">Royal Blue</string>
+    <string name="labelRed">Red</string>
+    <string name="labelGreen">Green</string>
+    <string name="labelBlue">Blue</string>
+    <string name="labelIntensity">Intensity</string>
     <string name="websiteReefangel">http://www.reefangel.com/</string>
     <string name="forumReefangel">http://forum.reefangel.com/</string>
     <string name="defaultStatusText">-</string>
@@ -425,6 +432,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExpDimmingCh4LabelTitle">Channel 4</string>
     <string name="prefExpDimmingCh5LabelKey">exp_dim_5</string>
     <string name="prefExpDimmingCh5LabelTitle">Channel 5</string>
+    <string name="prefExpRadionEnableKey">radion_expansion</string>
+    <string name="prefExpRadionEnableTitle">Radion</string>
+    <string name="prefExpRadionEnableSummary">Enable the radion expansion module</string>
     <string name="prefAppSettingsTitle">Settings</string>
     <string name="prefAppSettingsSummary">Additional settings for the application and controller</string>
     <string name="prefPre10MemoryKey">pre_10_memory_locations</string>

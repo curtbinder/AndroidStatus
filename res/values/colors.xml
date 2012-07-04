@@ -15,4 +15,9 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 	<color name="ph">#2e8a57</color>
 	<color name="dp">#8b4512</color>
 	<color name="ap">#483d8b</color>
+	<color name="white">#ffffff</color>
+	<color name="blue">#0000ff</color>
+	<color name="green">#00ff00</color>
+	<color name="red">#ff0000</color>
+	<color name="royalblue">#4169e1</color>
 </resources>

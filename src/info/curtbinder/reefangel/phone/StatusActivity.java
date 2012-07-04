@@ -39,7 +39,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 	// do we reload the pages or not?
 	private boolean fReloadPages = false;
-	
+
 	// Display views
 	private Button refreshButton;
 	private TextView updateTime;
@@ -72,6 +72,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 	private ControllerWidget controller;
 	private DimmingWidget dimming;
+	private RadionWidget radion;
 	private RelayBoxWidget main;
 	private RelayBoxWidget[] exprelays =
 			new RelayBoxWidget[Controller.MAX_EXPANSION_RELAYS];
@@ -127,14 +128,14 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	protected void onResume ( ) {
 		super.onResume();
 		registerReceiver( receiver, filter, Permissions.QUERY_STATUS, null );
-		
+
 		// this forces all the pages to be redrawn when the app is restored
 		if ( fReloadPages ) {
 			Log.d( TAG, "Redraw the pages" );
 			pagerAdapter.notifyDataSetChanged();
 			fReloadPages = false;
 		}
-		
+
 		updateViewsVisibility();
 		updateDisplay();
 
@@ -145,6 +146,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		Context ctx = rapp.getBaseContext();
 		controller = new ControllerWidget( ctx );
 		dimming = new DimmingWidget( ctx );
+		radion = new RadionWidget( ctx );
 		main = new RelayBoxWidget( ctx );
 		for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 			exprelays[i] = new RelayBoxWidget( ctx );
@@ -248,6 +250,23 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		if ( rapp.getDimmingModuleEnabled() ) {
 			for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ )
 				dimming.setLabel( i, rapp.getDimmingModuleChannelLabel( i )
+										+ separator );
+		}
+
+		if ( rapp.getRadionModuleEnabled() ) {
+			radion.setLabel(	Controller.RADION_WHITE,
+								getString( R.string.labelWhite ) + separator );
+			radion.setLabel(	Controller.RADION_ROYALBLUE,
+								getString( R.string.labelRoyalBlue )
+										+ separator );
+			radion.setLabel(	Controller.RADION_RED,
+								getString( R.string.labelRed ) + separator );
+			radion.setLabel(	Controller.RADION_GREEN,
+								getString( R.string.labelGreen ) + separator );
+			radion.setLabel(	Controller.RADION_BLUE,
+								getString( R.string.labelBlue ) + separator );
+			radion.setLabel(	Controller.RADION_INTENSITY,
+								getString( R.string.labelIntensity )
 										+ separator );
 		}
 
@@ -366,6 +385,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			String updateStatus;
 			String[] values;
 			String[] pwme;
+			String[] rf;
 			short r, ron, roff;
 			short[] expr = new short[Controller.MAX_EXPANSION_RELAYS];
 			short[] expron = new short[Controller.MAX_EXPANSION_RELAYS];
@@ -404,6 +424,19 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 												.getColumnIndex( RAData.PCOL_PWME4 ) ),
 										c.getString( c
 												.getColumnIndex( RAData.PCOL_PWME5 ) ) };
+				rf =
+						new String[] {	c.getString( c
+												.getColumnIndex( RAData.PCOL_RFW ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_RFRB ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_RFR ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_RFG ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_RFB ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_RFI ) ) };
 				r = c.getShort( c.getColumnIndex( RAData.PCOL_RDATA ) );
 				ron = c.getShort( c.getColumnIndex( RAData.PCOL_RONMASK ) );
 				roff = c.getShort( c.getColumnIndex( RAData.PCOL_ROFFMASK ) );
@@ -452,6 +485,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				updateStatus = getString( R.string.messageNever );
 				values = getNeverValues( 8 );
 				pwme = getNeverValues( Controller.MAX_PWM_EXPANSION_PORTS );
+				rf = getNeverValues( Controller.MAX_RADION_LIGHT_CHANNELS );
 				r = ron = roff = 0;
 				for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 					expr[i] = expron[i] = exproff[i] = 0;
@@ -461,6 +495,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			updateTime.setText( updateStatus );
 			controller.updateDisplay( values );
 			dimming.updateDisplay( pwme );
+			radion.updateDisplay( rf );
 			boolean fUseMask = rapp.isCommunicateController();
 			main.updateRelayValues( new Relay( r, ron, roff ), fUseMask );
 			for ( int i = 0; i < rapp.getPrefExpansionRelayQuantity(); i++ ) {
@@ -609,8 +644,9 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 					Log.d( TAG, "Create dimming" );
 					v = dimming;
 					break;
-				case POS_RADION:
-					v = controller;
+				case POS_RADION: // Radion
+					Log.d( TAG, "Create radion" );
+					v = radion;
 					break;
 				case POS_VORTECH:
 					v = controller;
