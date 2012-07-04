@@ -666,6 +666,32 @@ public class RAApplication extends Application {
 		return prefs.getString( getString(k), getString(v) );
 	}
 	
+	public void setDimmingModuleChannelLabel ( int channel, String label ) {
+		int k;
+		switch ( channel ) {
+			default:
+			case 0:
+				k = R.string.prefExpDimmingCh0LabelKey;
+				break;
+			case 1:
+				k = R.string.prefExpDimmingCh1LabelKey;
+				break;
+			case 2:
+				k = R.string.prefExpDimmingCh2LabelKey;
+				break;
+			case 3:
+				k = R.string.prefExpDimmingCh3LabelKey;
+				break;
+			case 4:
+				k = R.string.prefExpDimmingCh4LabelKey;
+				break;
+			case 5:
+				k = R.string.prefExpDimmingCh5LabelKey;
+				break;
+		}
+		setPref( k, label );
+	}
+	
 	public void checkServiceRunning ( ) {
 		// Check if the service is running, if not start it
 		if ( !isServiceRunning && !isFirstRun() )

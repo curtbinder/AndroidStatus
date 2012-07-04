@@ -287,7 +287,13 @@ public class ControllerTask implements Runnable {
 		if ( !ra.getORPLabel().equals( "" ) ) {
 			rapp.setPref( R.string.prefORPLabelKey, ra.getORPLabel() );
 		}
-		// TODO add other label downloading and setting here (PHE, Custom, IO, PWME)
+		// TODO add other label downloading and setting here (PHE, Custom, IO,
+		// PWME)
+		for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
+			if ( !ra.getPwmExpansionLabel( (short) i ).equals( "" ) )
+				rapp.setDimmingModuleChannelLabel( i, ra
+						.getPwmExpansionLabel( (short) i ) );
+		}
 
 		// Tell the activity we updated the labels
 		Intent intent = new Intent( MessageCommands.LABEL_RESPONSE_INTENT );
