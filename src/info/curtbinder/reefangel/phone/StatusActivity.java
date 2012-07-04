@@ -37,6 +37,9 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		OnLongClickListener {
 	private static final String TAG = StatusActivity.class.getSimpleName();
 
+	// do we reload the pages or not?
+	private boolean fReloadPages = false;
+	
 	// Display views
 	private Button refreshButton;
 	private TextView updateTime;
@@ -48,7 +51,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private static final int MIN_PAGES = 2;
 	// TODO change all these to be updated based on configuration
 	private static final int POS_START = 0;
-	
+
 	private static final int POS_CONTROLLER = POS_START;
 	private static final int POS_DIMMING = POS_CONTROLLER + 1;
 	private static final int POS_RADION = POS_CONTROLLER + 2;
@@ -56,7 +59,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private static final int POS_AI = POS_CONTROLLER + 4;
 	private static final int POS_IO = POS_CONTROLLER + 5;
 	private static final int POS_CUSTOM = POS_CONTROLLER + 6;
-	
+
 	private static final int POS_MAIN_RELAY = POS_CONTROLLER + 7;
 	private static final int POS_EXP1_RELAY = POS_MAIN_RELAY + 1;
 	private static final int POS_EXP2_RELAY = POS_MAIN_RELAY + 2;
@@ -124,6 +127,14 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	protected void onResume ( ) {
 		super.onResume();
 		registerReceiver( receiver, filter, Permissions.QUERY_STATUS, null );
+		
+		// this forces all the pages to be redrawn when the app is restored
+		if ( fReloadPages ) {
+			Log.d( TAG, "Redraw the pages" );
+			pagerAdapter.notifyDataSetChanged();
+			fReloadPages = false;
+		}
+		
 		updateViewsVisibility();
 		updateDisplay();
 
@@ -232,8 +243,13 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			}
 
 		}
-		
+
 		// TODO set other control labels here
+		if ( rapp.getDimmingModuleEnabled() ) {
+			for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ )
+				dimming.setLabel( i, rapp.getDimmingModuleChannelLabel( i )
+										+ separator );
+		}
 
 		// Visibility
 		controller.setT2Visibility( rapp.getPrefT2Visibility() );
@@ -243,7 +259,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		controller.setPHVisibility( rapp.getPrefPHVisibility() );
 		controller.setSalinityVisibility( rapp.getPrefSalinityVisibility() );
 		controller.setORPVisibility( rapp.getPrefORPVisibility() );
-		
+
 		// TODO update control visibility here
 
 		// if ( ! showMessageText )
@@ -265,7 +281,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	public boolean onLongClick ( View v ) {
 		// if it's not a controller, don't even bother processing
 		// the long clicks
-		if ( ! rapp.isCommunicateController() )
+		if ( !rapp.isCommunicateController() )
 			return true;
 
 		switch ( v.getId() ) {
@@ -312,8 +328,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// only allow for the changing of the label IF it's a controller
 		// AND if the away profile is enabled
 		String s;
-		if ( rapp.isAwayProfileEnabled() &&
-			 rapp.isCommunicateController() )
+		if ( rapp.isAwayProfileEnabled() && rapp.isCommunicateController() )
 			s =
 					String.format(	"%s - %s",
 									getString( R.string.buttonRefresh ),
@@ -376,12 +391,19 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 												.getColumnIndex( RAData.PCOL_SAL ) ),
 										c.getString( c
 												.getColumnIndex( RAData.PCOL_ORP ) ) };
-				pwme = new String[] { c.getString( c.getColumnIndex( RAData.PCOL_PWME0 ) ),
-				                      c.getString( c.getColumnIndex( RAData.PCOL_PWME1 ) ),
-				                      c.getString( c.getColumnIndex( RAData.PCOL_PWME2 ) ),
-				                      c.getString( c.getColumnIndex( RAData.PCOL_PWME3 ) ),
-				                      c.getString( c.getColumnIndex( RAData.PCOL_PWME4 ) ),
-				                      c.getString( c.getColumnIndex( RAData.PCOL_PWME5 ) ) };
+				pwme =
+						new String[] {	c.getString( c
+												.getColumnIndex( RAData.PCOL_PWME0 ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_PWME1 ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_PWME2 ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_PWME3 ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_PWME4 ) ),
+										c.getString( c
+												.getColumnIndex( RAData.PCOL_PWME5 ) ) };
 				r = c.getShort( c.getColumnIndex( RAData.PCOL_RDATA ) );
 				ron = c.getShort( c.getColumnIndex( RAData.PCOL_RONMASK ) );
 				roff = c.getShort( c.getColumnIndex( RAData.PCOL_ROFFMASK ) );
@@ -507,6 +529,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				Log.d( TAG, "Settings clicked" );
 				// scroll to first page on entering settings
 				pager.setCurrentItem( POS_CONTROLLER );
+				// force the pages to be redrawn if we enter settings
+				fReloadPages = true;
 				startActivity( new Intent( this, PrefsActivity.class ) );
 				break;
 			case R.id.about:
@@ -565,20 +589,15 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		public Object instantiateItem ( ViewGroup container, int position ) {
 			View v;
 			int p = position;
-			if ( p > POS_CONTROLLER ) {
-				if ( rapp.getInstalledModuleQuantity() == 0 ) {
-					Log.d( TAG, "No installed modules, skipping to main relay");
-					p += POS_CUSTOM;
-				} else if ( p > rapp.getInstalledModuleQuantity() ) {
-					// value greater than the installed modules
-					// check if it's less than where the relays start
-					if ( p < POS_MAIN_RELAY ) {
-						// if it's between the last installed module AND the
-						// main relay, jump to main relay
-						Log.d( TAG, "Between last module and main relay, skip to main");
-						p = POS_MAIN_RELAY;
-					}  // otherwise we leave it alone
-				}
+			int qty = rapp.getInstalledModuleQuantity();
+			if ( qty == 0 ) {
+				Log.d( TAG, "No installed modules, skipping to main relay" );
+				p += POS_CUSTOM;
+			} else if ( (p > qty) && (p < POS_MAIN_RELAY) ) {
+				// if it's between the last installed module AND the
+				// main relay, jump to main relay
+				Log.d( TAG, "Between last module and main relay, skip to main" );
+				p = POS_MAIN_RELAY;
 			}
 			switch ( p ) {
 				default:
@@ -586,8 +605,9 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 					Log.d( TAG, "Create controller" );
 					v = controller;
 					break;
-				case POS_DIMMING:
-					v = controller;
+				case POS_DIMMING: // Dimming
+					Log.d( TAG, "Create dimming" );
+					v = dimming;
 					break;
 				case POS_RADION:
 					v = controller;
@@ -628,6 +648,11 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		@Override
 		public boolean isViewFromObject ( View view, Object object ) {
 			return view == object;
+		}
+
+		@Override
+		public int getItemPosition ( Object object ) {
+			return POSITION_NONE;
 		}
 
 	}

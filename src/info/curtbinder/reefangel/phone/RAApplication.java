@@ -617,16 +617,55 @@ public class RAApplication extends Application {
 		// the modules include: 
 		//   expansion relays, dimming, vortech, radion, ai, custom, io
 		int total = 0;
-		int i = getPrefExpansionRelayQuantity();
-		total += i;
+		total += getPrefExpansionRelayQuantity();
+		total += getInstalledModuleQuantity();  // TODO check if needed
 		return total;
 	}
 	
 	public int getInstalledModuleQuantity ( ) {
 		// returns the total installed modules
-		return 0;
+		int total = 0;
+		if ( getDimmingModuleEnabled() )
+			total++;
+		return total;
 	}
 
+	public boolean getDimmingModuleEnabled ( ) {
+		return prefs.getBoolean( getString( R.string.prefExpDimmingEnableKey ), false );
+	}
+	
+	public String getDimmingModuleChannelLabel ( int channel ) {
+		int k, v;
+		switch ( channel ) {
+			default:
+			case 0:
+				k = R.string.prefExpDimmingCh0LabelKey;
+				v = R.string.prefExpDimmingCh0LabelTitle;
+				break;
+			case 1:
+				k = R.string.prefExpDimmingCh1LabelKey;
+				v = R.string.prefExpDimmingCh1LabelTitle;
+				break;
+			case 2:
+				k = R.string.prefExpDimmingCh2LabelKey;
+				v = R.string.prefExpDimmingCh2LabelTitle;
+				break;
+			case 3:
+				k = R.string.prefExpDimmingCh3LabelKey;
+				v = R.string.prefExpDimmingCh3LabelTitle;
+				break;
+			case 4:
+				k = R.string.prefExpDimmingCh4LabelKey;
+				v = R.string.prefExpDimmingCh4LabelTitle;
+				break;
+			case 5:
+				k = R.string.prefExpDimmingCh5LabelKey;
+				v = R.string.prefExpDimmingCh5LabelTitle;
+				break;
+		}
+		return prefs.getString( getString(k), getString(v) );
+	}
+	
 	public void checkServiceRunning ( ) {
 		// Check if the service is running, if not start it
 		if ( !isServiceRunning && !isFirstRun() )

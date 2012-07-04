@@ -525,6 +525,41 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                         android:summary="@string/prefExp085xSummary"
                         android:title="@string/prefExp085xTitle" />
                 </PreferenceScreen>
+                <PreferenceScreen
+                    android:summary="@string/prefExpDimmingSummary"
+                    android:title="@string/prefExpDimmingTitle" >
+                    <CheckBoxPreference
+                        android:defaultValue="false"
+                        android:key="@string/prefExpDimmingEnableKey"
+                        android:summary="@string/prefExpDimmingEnableSummary"
+                        android:title="@string/prefExpDimmingEnableTitle" />
+                    <PreferenceCategory android:title="@string/prefLabelsCategory">
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpDimmingCh0LabelTitle"
+                            android:key="@string/prefExpDimmingCh0LabelKey"
+                            android:title="@string/prefExpDimmingCh0LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpDimmingCh1LabelTitle"
+                            android:key="@string/prefExpDimmingCh1LabelKey"
+                            android:title="@string/prefExpDimmingCh1LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpDimmingCh2LabelTitle"
+                            android:key="@string/prefExpDimmingCh2LabelKey"
+                            android:title="@string/prefExpDimmingCh2LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpDimmingCh3LabelTitle"
+                            android:key="@string/prefExpDimmingCh3LabelKey"
+                            android:title="@string/prefExpDimmingCh3LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpDimmingCh4LabelTitle"
+                            android:key="@string/prefExpDimmingCh4LabelKey"
+                            android:title="@string/prefExpDimmingCh4LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpDimmingCh5LabelTitle"
+                            android:key="@string/prefExpDimmingCh5LabelKey"
+                            android:title="@string/prefExpDimmingCh5LabelTitle" />
+                    </PreferenceCategory>
+                </PreferenceScreen>
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/prefResetCategory" >
                 <PreferenceScreen
