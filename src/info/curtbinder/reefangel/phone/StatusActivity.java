@@ -147,12 +147,12 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		controller = new ControllerWidget( ctx );
 		dimming = new DimmingWidget( ctx );
 		radion = new RadionWidget( ctx );
+		// TODO create additional wigdets for main screen in app
 		main = new RelayBoxWidget( ctx );
 		for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 			exprelays[i] = new RelayBoxWidget( ctx );
 			exprelays[i].setRelayBoxNumber( i + 1 );
 		}
-		// TODO create additional wigdets for main screen in app
 	}
 
 	private void findViews ( ) {
@@ -280,6 +280,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		controller.setORPVisibility( rapp.getPrefORPVisibility() );
 
 		// TODO update control visibility here
+		// TODO consider hiding dimming channels not in use
 
 		// if ( ! showMessageText )
 		// messageText.setVisibility(View.GONE);
@@ -394,49 +395,9 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			if ( c.moveToFirst() ) {
 				updateStatus =
 						c.getString( c.getColumnIndex( RAData.PCOL_LOGDATE ) );
-				values =
-						new String[] {	c.getString( c
-												.getColumnIndex( RAData.PCOL_T1 ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_T2 ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_T3 ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_PH ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_DP ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_AP ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_SAL ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_ORP ) ) };
-				pwme =
-						new String[] {	c.getString( c
-												.getColumnIndex( RAData.PCOL_PWME0 ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_PWME1 ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_PWME2 ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_PWME3 ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_PWME4 ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_PWME5 ) ) };
-				rf =
-						new String[] {	c.getString( c
-												.getColumnIndex( RAData.PCOL_RFW ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_RFRB ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_RFR ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_RFG ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_RFB ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_RFI ) ) };
+				values = getControllerValues( c );
+				pwme = getPWMEValues( c );
+				rf = getRadionValues( c );
 				r = c.getShort( c.getColumnIndex( RAData.PCOL_RDATA ) );
 				ron = c.getShort( c.getColumnIndex( RAData.PCOL_RONMASK ) );
 				roff = c.getShort( c.getColumnIndex( RAData.PCOL_ROFFMASK ) );
@@ -546,6 +507,43 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			s[i] = getString( R.string.defaultStatusText );
 		}
 		return s;
+	}
+
+	private String[] getControllerValues ( Cursor c ) {
+		return new String[] {	c.getString( c.getColumnIndex( RAData.PCOL_T1 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_T2 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_T3 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_PH ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_DP ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_AP ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_SAL ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_ORP ) ) };
+	}
+
+	private String[] getPWMEValues ( Cursor c ) {
+		return new String[] {	c.getString( c
+										.getColumnIndex( RAData.PCOL_PWME0 ) ),
+								c.getString( c
+										.getColumnIndex( RAData.PCOL_PWME1 ) ),
+								c.getString( c
+										.getColumnIndex( RAData.PCOL_PWME2 ) ),
+								c.getString( c
+										.getColumnIndex( RAData.PCOL_PWME3 ) ),
+								c.getString( c
+										.getColumnIndex( RAData.PCOL_PWME4 ) ),
+								c.getString( c
+										.getColumnIndex( RAData.PCOL_PWME5 ) ) };
+	}
+
+	private String[] getRadionValues ( Cursor c ) {
+		// TODO consider adding '%' at the end of the value
+		return new String[] {	c.getString( c.getColumnIndex( RAData.PCOL_RFW ) ),
+								c.getString( c
+										.getColumnIndex( RAData.PCOL_RFRB ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_RFR ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_RFG ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_RFB ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_RFI ) ) };
 	}
 
 	@Override
