@@ -78,6 +78,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private RelayBoxWidget main;
 	private RelayBoxWidget[] exprelays =
 			new RelayBoxWidget[Controller.MAX_EXPANSION_RELAYS];
+	private int pageSkipCount;
 
 	// Message Receivers
 	StatusReceiver receiver;
@@ -105,6 +106,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		createViews();
 		findViews();
 
+		pageSkipCount = 0;
 		setPagerPrefs();
 
 		// TODO possibly move to onresume
@@ -136,6 +138,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// this forces all the pages to be redrawn when the app is restored
 		if ( fReloadPages ) {
 			Log.d( TAG, "Redraw the pages" );
+			pageSkipCount = 0;
 			pagerAdapter.notifyDataSetChanged();
 			fReloadPages = false;
 		}
@@ -682,16 +685,48 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		public Object instantiateItem ( ViewGroup container, int position ) {
 			View v;
 			int p = position;
+			Log.d( TAG, "Position: " + position );
+
 			int qty = rapp.getInstalledModuleQuantity();
 			if ( qty == 0 ) {
 				Log.d( TAG, "No installed modules, skipping to main relay" );
 				p += POS_CUSTOM;
-			} else if ( (p > qty) && (p < POS_MAIN_RELAY) ) {
-				// if it's between the last installed module AND the
-				// main relay, jump to main relay
-				Log.d( TAG, "Between last module and main relay, skip to main" );
-				p = POS_MAIN_RELAY;
+			} else if ( p > 0 ) {
+				p += pageSkipCount;
+				Log.d( TAG, "Skipping " + pageSkipCount );
+				if ( p == POS_DIMMING && !rapp.getDimmingModuleEnabled() ) {
+					Log.d( TAG, "Skipping dimming" );
+					p++;
+					pageSkipCount++;
+				}
+				if ( p == POS_RADION && !rapp.getRadionModuleEnabled() ) {
+					Log.d( TAG, "Skipping radion" );
+					p++;
+					pageSkipCount++;
+				}
+				if ( p == POS_VORTECH && !rapp.getVortechModuleEnabled() ) {
+					Log.d( TAG, "Skipping vortech" );
+					p++;
+					pageSkipCount++;
+				}
+
+				if ( p == POS_AI && !rapp.getAIModuleEnabled() ) {
+					Log.d( TAG, "Skipping ai" );
+					p++;
+					pageSkipCount++;
+				}
+				if ( p == POS_IO && !rapp.getIOModuleEnabled() ) {
+					Log.d( TAG, "Skipping io" );
+					p++;
+					pageSkipCount++;
+				}
+				if ( p == POS_CUSTOM && !rapp.getCustomModuleEnabled() ) {
+					Log.d( TAG, "Skipping custom" );
+					p++;
+					pageSkipCount++;
+				}
 			}
+			// TODO consider merging the switch statement into IF statement
 			switch ( p ) {
 				default:
 				case POS_CONTROLLER: // Controller Status
@@ -710,13 +745,16 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 					Log.d( TAG, "Create vortech" );
 					v = vortech;
 					break;
-				case POS_AI:
+				case POS_AI: // AI
+					Log.d( TAG, "Create ai" );
 					v = controller;
 					break;
-				case POS_IO:
+				case POS_IO: // IO
+					Log.d( TAG, "Create io" );
 					v = controller;
 					break;
-				case POS_CUSTOM:
+				case POS_CUSTOM: // Custom
+					Log.d( TAG, "Create custom" );
 					v = controller;
 					break;
 				case POS_MAIN_RELAY: // Main Relay

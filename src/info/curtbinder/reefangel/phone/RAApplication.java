@@ -620,7 +620,8 @@ public class RAApplication extends Application {
 		// expansion relays, dimming, vortech, radion, ai, custom, io
 		int total = 0;
 		total += getPrefExpansionRelayQuantity();
-		total += getInstalledModuleQuantity(); // TODO check if needed
+		// TODO check if needed
+		total += getInstalledModuleQuantity();
 		return total;
 	}
 
@@ -710,6 +711,18 @@ public class RAApplication extends Application {
 		return prefs
 				.getBoolean(	getString( R.string.prefExpVortechEnableKey ),
 								false );
+	}
+	
+	public boolean getAIModuleEnabled ( ) {
+		return false;
+	}
+	
+	public boolean getIOModuleEnabled ( ) {
+		return false;
+	}
+	
+	public boolean getCustomModuleEnabled ( ) {
+		return false;
 	}
 
 	public void checkServiceRunning ( ) {
