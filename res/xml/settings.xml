@@ -565,6 +565,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                     android:key="@string/prefExpRadionEnableKey"
                     android:summary="@string/prefExpRadionEnableSummary"
                     android:title="@string/prefExpRadionEnableTitle" />
+				<CheckBoxPreference
+				    android:defaultValue="false"
+				    android:key="@string/prefExpVortechEnableKey"
+				    android:summary="@string/prefExpVortechEnableSummary"
+				    android:title="@string/prefExpVortechEnableTitle" />
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/prefResetCategory" >
                 <PreferenceScreen

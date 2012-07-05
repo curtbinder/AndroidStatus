@@ -165,7 +165,7 @@ public class RAApplication extends Application {
 		v.put( RAData.PCOL_EM, i.getShortExtra( RAData.PCOL_EM, (short) 0 ) );
 		v.put( RAData.PCOL_REM, i.getShortExtra( RAData.PCOL_REM, (short) 0 ) );
 		v.put( RAData.PCOL_PHE, i.getStringExtra( RAData.PCOL_PHE ) );
-		v.put( RAData.PCOL_WL, i.getShortExtra( RAData.PCOL_WL, (short) 0) );
+		v.put( RAData.PCOL_WL, i.getShortExtra( RAData.PCOL_WL, (short) 0 ) );
 		data.insert( v );
 	}
 
@@ -364,9 +364,10 @@ public class RAApplication extends Application {
 	public boolean useOld085xExpansionRelays ( ) {
 		return prefs.getBoolean( getString( R.string.prefExp085xKey ), false );
 	}
-	
+
 	public boolean useOldPre10MemoryLocations ( ) {
-		return prefs.getBoolean( getString( R.string.prefPre10MemoryKey ), true );
+		return prefs
+				.getBoolean( getString( R.string.prefPre10MemoryKey ), true );
 	}
 
 	public boolean isFirstRun ( ) {
@@ -411,10 +412,11 @@ public class RAApplication extends Application {
 
 	public void displayChangeLog ( ) {
 		// TODO complete this function
-		// check version code stored in preferences vs the version stored in running code
+		// check version code stored in preferences vs the version stored in
+		// running code
 		// display the changelog if the values are different
 	}
-	
+
 	public int getSelectedProfile ( ) {
 		return Integer.parseInt( prefs
 				.getString( getString( R.string.prefProfileSelectedKey ),
@@ -610,18 +612,18 @@ public class RAApplication extends Application {
 		return Integer.parseInt( prefs
 				.getString( getString( R.string.prefExpQtyKey ), "0" ) );
 	}
-	
+
 	public int getTotalInstalledModuleQuantity ( ) {
 		// this function gets all the installed modules for the controller
 		// that are displayed on their own separate pages
-		// the modules include: 
-		//   expansion relays, dimming, vortech, radion, ai, custom, io
+		// the modules include:
+		// expansion relays, dimming, vortech, radion, ai, custom, io
 		int total = 0;
 		total += getPrefExpansionRelayQuantity();
-		total += getInstalledModuleQuantity();  // TODO check if needed
+		total += getInstalledModuleQuantity(); // TODO check if needed
 		return total;
 	}
-	
+
 	public int getInstalledModuleQuantity ( ) {
 		// returns the total installed modules
 		int total = 0;
@@ -629,13 +631,17 @@ public class RAApplication extends Application {
 			total++;
 		if ( getRadionModuleEnabled() )
 			total++;
+		if ( getVortechModuleEnabled() )
+			total++;
 		return total;
 	}
 
 	public boolean getDimmingModuleEnabled ( ) {
-		return prefs.getBoolean( getString( R.string.prefExpDimmingEnableKey ), false );
+		return prefs
+				.getBoolean(	getString( R.string.prefExpDimmingEnableKey ),
+								false );
 	}
-	
+
 	public String getDimmingModuleChannelLabel ( int channel ) {
 		int k, v;
 		switch ( channel ) {
@@ -665,9 +671,9 @@ public class RAApplication extends Application {
 				v = R.string.prefExpDimmingCh5LabelTitle;
 				break;
 		}
-		return prefs.getString( getString(k), getString(v) );
+		return prefs.getString( getString( k ), getString( v ) );
 	}
-	
+
 	public void setDimmingModuleChannelLabel ( int channel, String label ) {
 		int k;
 		switch ( channel ) {
@@ -695,9 +701,17 @@ public class RAApplication extends Application {
 	}
 
 	public boolean getRadionModuleEnabled ( ) {
-		return prefs.getBoolean( getString( R.string.prefExpRadionEnableKey ), false );
+		return prefs
+				.getBoolean(	getString( R.string.prefExpRadionEnableKey ),
+								false );
 	}
-	
+
+	public boolean getVortechModuleEnabled ( ) {
+		return prefs
+				.getBoolean(	getString( R.string.prefExpVortechEnableKey ),
+								false );
+	}
+
 	public void checkServiceRunning ( ) {
 		// Check if the service is running, if not start it
 		if ( !isServiceRunning && !isFirstRun() )

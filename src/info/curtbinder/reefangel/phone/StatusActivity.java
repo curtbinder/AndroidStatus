@@ -47,6 +47,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private ViewPager pager;
 	private CustomPagerAdapter pagerAdapter;
 	private String[] profiles;
+	private String[] vortechModes;
 	// minimum number of pages: status, main relay
 	private static final int MIN_PAGES = 2;
 	// TODO change all these to be updated based on configuration
@@ -73,6 +74,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private ControllerWidget controller;
 	private DimmingWidget dimming;
 	private RadionWidget radion;
+	private VortechWidget vortech;
 	private RelayBoxWidget main;
 	private RelayBoxWidget[] exprelays =
 			new RelayBoxWidget[Controller.MAX_EXPANSION_RELAYS];
@@ -97,6 +99,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		filter.addAction( MessageCommands.ERROR_MESSAGE_INTENT );
 
 		profiles = getResources().getStringArray( R.array.profileLabels );
+		vortechModes =
+				getResources().getStringArray( R.array.vortechModeLabels );
 
 		createViews();
 		findViews();
@@ -148,6 +152,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		dimming = new DimmingWidget( ctx );
 		radion = new RadionWidget( ctx );
 		// TODO create additional wigdets for main screen in app
+		vortech = new VortechWidget( ctx );
 		main = new RelayBoxWidget( ctx );
 		for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 			exprelays[i] = new RelayBoxWidget( ctx );
@@ -270,6 +275,15 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 										+ separator );
 		}
 
+		if ( rapp.getVortechModuleEnabled() ) {
+			vortech.setLabel(	Controller.VORTECH_MODE,
+								getString( R.string.labelMode ) + separator );
+			vortech.setLabel(	Controller.VORTECH_SPEED,
+								getString( R.string.labelSpeed ) + separator );
+			vortech.setLabel(	Controller.VORTECH_DURATION,
+								getString( R.string.labelDuration ) + separator );
+		}
+
 		// Visibility
 		controller.setT2Visibility( rapp.getPrefT2Visibility() );
 		controller.setT3Visibility( rapp.getPrefT3Visibility() );
@@ -387,6 +401,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			String[] values;
 			String[] pwme;
 			String[] rf;
+			String[] vt;
 			short r, ron, roff;
 			short[] expr = new short[Controller.MAX_EXPANSION_RELAYS];
 			short[] expron = new short[Controller.MAX_EXPANSION_RELAYS];
@@ -398,6 +413,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				values = getControllerValues( c );
 				pwme = getPWMEValues( c );
 				rf = getRadionValues( c );
+				vt = getVortechValues( c );
 				r = c.getShort( c.getColumnIndex( RAData.PCOL_RDATA ) );
 				ron = c.getShort( c.getColumnIndex( RAData.PCOL_RONMASK ) );
 				roff = c.getShort( c.getColumnIndex( RAData.PCOL_ROFFMASK ) );
@@ -447,6 +463,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				values = getNeverValues( 8 );
 				pwme = getNeverValues( Controller.MAX_PWM_EXPANSION_PORTS );
 				rf = getNeverValues( Controller.MAX_RADION_LIGHT_CHANNELS );
+				vt = getNeverValues( Controller.MAX_VORTECH_VALUES );
 				r = ron = roff = 0;
 				for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 					expr[i] = expron[i] = exproff[i] = 0;
@@ -457,6 +474,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			controller.updateDisplay( values );
 			dimming.updateDisplay( pwme );
 			radion.updateDisplay( rf );
+			vortech.updateDisplay( vt );
 			boolean fUseMask = rapp.isCommunicateController();
 			main.updateRelayValues( new Relay( r, ron, roff ), fUseMask );
 			for ( int i = 0; i < rapp.getPrefExpansionRelayQuantity(); i++ ) {
@@ -544,6 +562,48 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 								c.getString( c.getColumnIndex( RAData.PCOL_RFG ) ),
 								c.getString( c.getColumnIndex( RAData.PCOL_RFB ) ),
 								c.getString( c.getColumnIndex( RAData.PCOL_RFI ) ) };
+	}
+
+	private String[] getVortechValues ( Cursor c ) {
+		String[] sa = new String[Controller.MAX_VORTECH_VALUES];
+		String s = "";
+		int v, mode;
+		// mode
+		v = c.getInt( c.getColumnIndex( RAData.PCOL_RFM ) );
+		mode = v;
+		if ( v >= 0 && v <= 11 ) {
+			// use the index value
+			s = vortechModes[v];
+		} else if ( v >= 97 && v <= 100 ) {
+			// use index 12
+			s = vortechModes[v - 85];
+		} else {
+			// unknown, so use default status
+			s = getString( R.string.defaultStatusText );
+		}
+		sa[Controller.VORTECH_MODE] = s;
+		// speed
+		v = c.getInt( c.getColumnIndex( RAData.PCOL_RFS ) );
+		// TODO switch to locale dependent strings
+		s = String.format( "%d%c", v, '%' );
+		sa[Controller.VORTECH_SPEED] = s;
+		// duration
+		v = c.getInt( c.getColumnIndex( RAData.PCOL_RFD ) );
+		switch ( mode ) {
+			case 3:
+			case 5:
+				// value is in 100 milliseconds
+				s = String.format( "%d %s", v, "ms" );
+				break;
+			case 4:
+				// value is in seconds
+				s = String.format( "%d %c", v, 's' );
+				break;
+			default:
+				break;
+		}
+		sa[Controller.VORTECH_DURATION] = s;
+		return sa;
 	}
 
 	@Override
@@ -646,8 +706,9 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 					Log.d( TAG, "Create radion" );
 					v = radion;
 					break;
-				case POS_VORTECH:
-					v = controller;
+				case POS_VORTECH: // Vortech
+					Log.d( TAG, "Create vortech" );
+					v = vortech;
 					break;
 				case POS_AI:
 					v = controller;
