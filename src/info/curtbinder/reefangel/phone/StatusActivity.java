@@ -73,13 +73,13 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private static final int POS_EXP8_RELAY = POS_MAIN_RELAY + 8;
 	private static final int POS_END = POS_EXP8_RELAY;
 
-	private ControllerWidget controller;
-	private DimmingWidget dimming;
-	private RadionWidget radion;
-	private VortechWidget vortech;
+	private ControllerWidget widgetController;
+	private DimmingWidget widgetDimming;
+	private RadionWidget widgetRadion;
+	private VortechWidget widgetVortech;
 	private AIWidget widgetAI;
-	private RelayBoxWidget main;
-	private RelayBoxWidget[] exprelays =
+	private RelayBoxWidget widgetMain;
+	private RelayBoxWidget[] widgetExpRelays =
 			new RelayBoxWidget[Controller.MAX_EXPANSION_RELAYS];
 
 	// Message Receivers
@@ -155,16 +155,16 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 	private void createViews ( ) {
 		Context ctx = rapp.getBaseContext();
-		controller = new ControllerWidget( ctx );
-		dimming = new DimmingWidget( ctx );
-		radion = new RadionWidget( ctx );
+		widgetController = new ControllerWidget( ctx );
+		widgetDimming = new DimmingWidget( ctx );
+		widgetRadion = new RadionWidget( ctx );
 		// TODO create additional wigdets for main screen in app
-		vortech = new VortechWidget( ctx );
+		widgetVortech = new VortechWidget( ctx );
 		widgetAI = new AIWidget( ctx );
-		main = new RelayBoxWidget( ctx );
+		widgetMain = new RelayBoxWidget( ctx );
 		for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
-			exprelays[i] = new RelayBoxWidget( ctx );
-			exprelays[i].setRelayBoxNumber( i + 1 );
+			widgetExpRelays[i] = new RelayBoxWidget( ctx );
+			widgetExpRelays[i].setRelayBoxNumber( i + 1 );
 		}
 	}
 
@@ -180,16 +180,16 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// TODO consider clearing click listeners and updating clickable always
 		int i;
 		if ( rapp.isCommunicateController() ) {
-			main.setOnClickListeners();
+			widgetMain.setOnClickListeners();
 
 			for ( i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ )
-				exprelays[i].setOnClickListeners();
+				widgetExpRelays[i].setOnClickListeners();
 
 		} else {
-			main.setClickable( false );
+			widgetMain.setClickable( false );
 
 			for ( i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ )
-				exprelays[i].setClickable( false );
+				widgetExpRelays[i].setClickable( false );
 
 		}
 	}
@@ -202,44 +202,45 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// Labels
 		updateRefreshButtonLabel();
 		String separator = getString( R.string.labelSeparator );
-		controller.setT1Label( rapp.getPrefT1Label() + separator );
-		controller.setT2Label( rapp.getPrefT2Label() + separator );
-		controller.setT3Label( rapp.getPrefT3Label() + separator );
-		controller.setPHLabel( rapp.getPrefPHLabel() + separator );
-		controller.setDPLabel( rapp.getPrefDPLabel() + separator );
-		controller.setAPLabel( rapp.getPrefAPLabel() + separator );
-		controller.setSalinityLabel( rapp.getPrefSalinityLabel() + separator );
-		controller.setORPLabel( rapp.getPrefORPLabel() + separator );
+		widgetController.setT1Label( rapp.getPrefT1Label() + separator );
+		widgetController.setT2Label( rapp.getPrefT2Label() + separator );
+		widgetController.setT3Label( rapp.getPrefT3Label() + separator );
+		widgetController.setPHLabel( rapp.getPrefPHLabel() + separator );
+		widgetController.setDPLabel( rapp.getPrefDPLabel() + separator );
+		widgetController.setAPLabel( rapp.getPrefAPLabel() + separator );
+		widgetController.setSalinityLabel( rapp.getPrefSalinityLabel()
+											+ separator );
+		widgetController.setORPLabel( rapp.getPrefORPLabel() + separator );
 
 		int qty = rapp.getPrefExpansionRelayQuantity();
 		Log.d( TAG, "Expansion Relays: " + qty );
-		main.setRelayTitle( getString( R.string.prefMainRelayTitle ) );
+		widgetMain.setRelayTitle( getString( R.string.prefMainRelayTitle ) );
 		// set the labels
 
 		switch ( qty ) {
 			case 8:
-				exprelays[7]
+				widgetExpRelays[7]
 						.setRelayTitle( getString( R.string.prefExp8RelayTitle ) );
 			case 7:
-				exprelays[6]
+				widgetExpRelays[6]
 						.setRelayTitle( getString( R.string.prefExp7RelayTitle ) );
 			case 6:
-				exprelays[5]
+				widgetExpRelays[5]
 						.setRelayTitle( getString( R.string.prefExp6RelayTitle ) );
 			case 5:
-				exprelays[4]
+				widgetExpRelays[4]
 						.setRelayTitle( getString( R.string.prefExp5RelayTitle ) );
 			case 4:
-				exprelays[3]
+				widgetExpRelays[3]
 						.setRelayTitle( getString( R.string.prefExp4RelayTitle ) );
 			case 3:
-				exprelays[2]
+				widgetExpRelays[2]
 						.setRelayTitle( getString( R.string.prefExp3RelayTitle ) );
 			case 2:
-				exprelays[1]
+				widgetExpRelays[1]
 						.setRelayTitle( getString( R.string.prefExp2RelayTitle ) );
 			case 1:
-				exprelays[0]
+				widgetExpRelays[0]
 						.setRelayTitle( getString( R.string.prefExp1RelayTitle ) );
 			default:
 				break;
@@ -247,14 +248,16 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 		int i, j;
 		for ( i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
-			main.setPortLabel( i, rapp.getPrefMainRelayLabel( i ) + separator );
+			widgetMain.setPortLabel( i, rapp.getPrefMainRelayLabel( i )
+										+ separator );
 
 			for ( j = 0; j < Controller.MAX_EXPANSION_RELAYS; j++ ) {
 				// skip over the relays that are not installed
 				if ( (j + 1) > qty )
 					break;
-				exprelays[j].setPortLabel( i, rapp.getPrefRelayLabel( j + 1, i )
-												+ separator );
+				widgetExpRelays[j]
+						.setPortLabel( i, rapp.getPrefRelayLabel( j + 1, i )
+											+ separator );
 			}
 
 		}
@@ -262,34 +265,41 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// TODO set other control labels here
 		if ( rapp.getDimmingModuleEnabled() ) {
 			for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ )
-				dimming.setLabel( i, rapp.getDimmingModuleChannelLabel( i )
-										+ separator );
+				widgetDimming.setLabel( i,
+										rapp.getDimmingModuleChannelLabel( i )
+												+ separator );
 		}
 
 		if ( rapp.getRadionModuleEnabled() ) {
-			radion.setLabel(	Controller.RADION_WHITE,
-								getString( R.string.labelWhite ) + separator );
-			radion.setLabel(	Controller.RADION_ROYALBLUE,
-								getString( R.string.labelRoyalBlue )
-										+ separator );
-			radion.setLabel(	Controller.RADION_RED,
-								getString( R.string.labelRed ) + separator );
-			radion.setLabel(	Controller.RADION_GREEN,
-								getString( R.string.labelGreen ) + separator );
-			radion.setLabel(	Controller.RADION_BLUE,
+			widgetRadion.setLabel(	Controller.RADION_WHITE,
+									getString( R.string.labelWhite )
+											+ separator );
+			widgetRadion.setLabel(	Controller.RADION_ROYALBLUE,
+									getString( R.string.labelRoyalBlue )
+											+ separator );
+			widgetRadion.setLabel(	Controller.RADION_RED,
+									getString( R.string.labelRed ) + separator );
+			widgetRadion.setLabel(	Controller.RADION_GREEN,
+									getString( R.string.labelGreen )
+											+ separator );
+			widgetRadion
+					.setLabel(	Controller.RADION_BLUE,
 								getString( R.string.labelBlue ) + separator );
-			radion.setLabel(	Controller.RADION_INTENSITY,
-								getString( R.string.labelIntensity )
-										+ separator );
+			widgetRadion.setLabel(	Controller.RADION_INTENSITY,
+									getString( R.string.labelIntensity )
+											+ separator );
 		}
 
 		if ( rapp.getVortechModuleEnabled() ) {
-			vortech.setLabel(	Controller.VORTECH_MODE,
+			widgetVortech
+					.setLabel(	Controller.VORTECH_MODE,
 								getString( R.string.labelMode ) + separator );
-			vortech.setLabel(	Controller.VORTECH_SPEED,
-								getString( R.string.labelSpeed ) + separator );
-			vortech.setLabel(	Controller.VORTECH_DURATION,
-								getString( R.string.labelDuration ) + separator );
+			widgetVortech.setLabel( Controller.VORTECH_SPEED,
+									getString( R.string.labelSpeed )
+											+ separator );
+			widgetVortech.setLabel( Controller.VORTECH_DURATION,
+									getString( R.string.labelDuration )
+											+ separator );
 		}
 
 		if ( rapp.getAIModuleEnabled() ) {
@@ -303,13 +313,14 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		}
 
 		// Visibility
-		controller.setT2Visibility( rapp.getPrefT2Visibility() );
-		controller.setT3Visibility( rapp.getPrefT3Visibility() );
-		controller.setDPVisibility( rapp.getPrefDPVisibility() );
-		controller.setAPVisibility( rapp.getPrefAPVisibility() );
-		controller.setPHVisibility( rapp.getPrefPHVisibility() );
-		controller.setSalinityVisibility( rapp.getPrefSalinityVisibility() );
-		controller.setORPVisibility( rapp.getPrefORPVisibility() );
+		widgetController.setT2Visibility( rapp.getPrefT2Visibility() );
+		widgetController.setT3Visibility( rapp.getPrefT3Visibility() );
+		widgetController.setDPVisibility( rapp.getPrefDPVisibility() );
+		widgetController.setAPVisibility( rapp.getPrefAPVisibility() );
+		widgetController.setPHVisibility( rapp.getPrefPHVisibility() );
+		widgetController.setSalinityVisibility( rapp
+				.getPrefSalinityVisibility() );
+		widgetController.setORPVisibility( rapp.getPrefORPVisibility() );
 
 		// TODO update control visibility here
 		// TODO consider hiding dimming channels not in use
@@ -492,16 +503,16 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			}
 			c.close();
 			updateTime.setText( updateStatus );
-			controller.updateDisplay( values );
-			dimming.updateDisplay( pwme );
-			radion.updateDisplay( rf );
-			vortech.updateDisplay( vt );
+			widgetController.updateDisplay( values );
+			widgetDimming.updateDisplay( pwme );
+			widgetRadion.updateDisplay( rf );
+			widgetVortech.updateDisplay( vt );
 			widgetAI.updateDisplay( ai );
 			boolean fUseMask = rapp.isCommunicateController();
-			main.updateRelayValues( new Relay( r, ron, roff ), fUseMask );
+			widgetMain.updateRelayValues( new Relay( r, ron, roff ), fUseMask );
 			for ( int i = 0; i < rapp.getPrefExpansionRelayQuantity(); i++ ) {
-				exprelays[i].updateRelayValues( new Relay( expr[i], expron[i],
-					exproff[i] ), fUseMask );
+				widgetExpRelays[i].updateRelayValues( new Relay( expr[i],
+					expron[i], exproff[i] ), fUseMask );
 			}
 
 		} catch ( SQLException e ) {
@@ -706,27 +717,27 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			switch ( i ) {
 				case POS_CONTROLLER:
 					Log.d( TAG, j + ": Controller" );
-					appPages[j] = controller;
+					appPages[j] = widgetController;
 					j++;
 					break;
 				case POS_DIMMING:
 					if ( rapp.getDimmingModuleEnabled() ) {
 						Log.d( TAG, j + ": Dimming" );
-						appPages[j] = dimming;
+						appPages[j] = widgetDimming;
 						j++;
 					}
 					break;
 				case POS_RADION:
 					if ( rapp.getRadionModuleEnabled() ) {
 						Log.d( TAG, j + ": Radion" );
-						appPages[j] = radion;
+						appPages[j] = widgetRadion;
 						j++;
 					}
 					break;
 				case POS_VORTECH:
 					if ( rapp.getVortechModuleEnabled() ) {
 						Log.d( TAG, j + ": Vortech" );
-						appPages[j] = vortech;
+						appPages[j] = widgetVortech;
 						j++;
 					}
 					break;
@@ -753,7 +764,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 					break;
 				case POS_MAIN_RELAY:
 					Log.d( TAG, j + ": Main Relay" );
-					appPages[j] = main;
+					appPages[j] = widgetMain;
 					j++;
 					break;
 				case POS_EXP1_RELAY:
@@ -768,7 +779,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 						int relay = i - POS_EXP1_RELAY;
 						if ( relay < qty ) {
 							Log.d( TAG, j + ": Exp Relay " + relay );
-							appPages[j] = exprelays[relay];
+							appPages[j] = widgetExpRelays[relay];
 							j++;
 						}
 					}
