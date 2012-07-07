@@ -48,6 +48,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private CustomPagerAdapter pagerAdapter;
 	private String[] profiles;
 	private String[] vortechModes;
+	private View[] appPages;
 	// minimum number of pages: status, main relay
 	private static final int MIN_PAGES = 2;
 	// TODO change all these to be updated based on configuration
@@ -70,6 +71,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private static final int POS_EXP6_RELAY = POS_MAIN_RELAY + 6;
 	private static final int POS_EXP7_RELAY = POS_MAIN_RELAY + 7;
 	private static final int POS_EXP8_RELAY = POS_MAIN_RELAY + 8;
+	private static final int POS_END = POS_EXP8_RELAY;
 
 	private ControllerWidget controller;
 	private DimmingWidget dimming;
@@ -78,7 +80,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private RelayBoxWidget main;
 	private RelayBoxWidget[] exprelays =
 			new RelayBoxWidget[Controller.MAX_EXPANSION_RELAYS];
-	private int pageSkipCount;
 
 	// Message Receivers
 	StatusReceiver receiver;
@@ -106,7 +107,9 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		createViews();
 		findViews();
 
-		pageSkipCount = 0;
+		// set the max number of pages that we can have
+		appPages = new View[POS_END];
+		updatePageOrder();
 		setPagerPrefs();
 
 		// TODO possibly move to onresume
@@ -138,7 +141,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// this forces all the pages to be redrawn when the app is restored
 		if ( fReloadPages ) {
 			Log.d( TAG, "Redraw the pages" );
-			pageSkipCount = 0;
+			updatePageOrder();
 			pagerAdapter.notifyDataSetChanged();
 			fReloadPages = false;
 		}
@@ -663,6 +666,100 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		pager.setOffscreenPageLimit( MIN_PAGES );
 	}
 
+	private void updatePageOrder ( ) {
+		// updates the order of the pages for display
+		int i, j;
+		int qty = rapp.getPrefExpansionRelayQuantity();
+		// loop through all the possible pages
+		// keep track of the pages installed compared to total pages
+		// if the module is enabled, add it to the available pages list
+		// then increment the installed pages counter
+		for ( i = POS_START, j = POS_START; i < POS_END; i++ ) {
+			switch ( i ) {
+				case POS_CONTROLLER:
+					Log.d( TAG, j + ": Controller" );
+					appPages[j] = controller;
+					j++;
+					break;
+				case POS_DIMMING:
+					if ( rapp.getDimmingModuleEnabled() ) {
+						Log.d( TAG, j + ": Dimming" );
+						appPages[j] = dimming;
+						j++;
+					}
+					break;
+				case POS_RADION:
+					if ( rapp.getRadionModuleEnabled() ) {
+						Log.d( TAG, j + ": Radion" );
+						appPages[j] = radion;
+						j++;
+					}
+					break;
+				case POS_VORTECH:
+					if ( rapp.getVortechModuleEnabled() ) {
+						Log.d( TAG, j + ": Vortech" );
+						appPages[j] = vortech;
+						j++;
+					}
+					break;
+				case POS_AI:
+					/*
+					if ( rapp.getAIModuleEnabled() ) {
+						Log.d( TAG, j + ": AI" );
+						appPages[j] = ai;
+						j++;
+					}
+					*/
+					break;
+				case POS_IO:
+					/*
+					if ( rapp.getIOModuleEnabled() ) {
+						Log.d( TAG, j + ": IO" );
+						appPages[j] = io;
+						j++;
+					}
+					*/
+					break;
+				case POS_CUSTOM:
+					/*
+					if ( rapp.getCustomModuleEnabled() ) {
+						Log.d( TAG, j + ": Custom" );
+						appPages[j] = custom;
+						j++;
+					}
+					*/
+					break;
+				case POS_MAIN_RELAY:
+					Log.d( TAG, j + ": Main Relay" );
+					appPages[j] = main;
+					j++;
+					break;
+				case POS_EXP1_RELAY:
+				case POS_EXP2_RELAY:
+				case POS_EXP3_RELAY:
+				case POS_EXP4_RELAY:
+				case POS_EXP5_RELAY:
+				case POS_EXP6_RELAY:
+				case POS_EXP7_RELAY:
+				case POS_EXP8_RELAY:
+					if ( qty > 0 ) {
+						int relay = i - POS_EXP1_RELAY;
+						if ( relay < qty ) {
+							Log.d( TAG, j + ": Exp Relay " + relay );
+							appPages[j] = exprelays[relay];
+							j++;
+						}
+					}
+					break;
+			}
+		}
+		if ( j < POS_END ) {
+			for ( ; j < POS_END; j++ ) {
+				appPages[j] = null;
+			}
+		}
+	}
+
 	private class CustomPagerAdapter extends PagerAdapter {
 		private final String TAG = CustomPagerAdapter.class.getSimpleName();
 
@@ -683,99 +780,9 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 		@Override
 		public Object instantiateItem ( ViewGroup container, int position ) {
-			View v;
-			int p = position;
 			Log.d( TAG, "Position: " + position );
-
-			int qty = rapp.getInstalledModuleQuantity();
-			if ( qty == 0 ) {
-				Log.d( TAG, "No installed modules, skipping to main relay" );
-				p += POS_CUSTOM;
-			} else if ( p > 0 ) {
-				p += pageSkipCount;
-				Log.d( TAG, "Skipping " + pageSkipCount );
-				if ( p == POS_DIMMING && !rapp.getDimmingModuleEnabled() ) {
-					Log.d( TAG, "Skipping dimming" );
-					p++;
-					pageSkipCount++;
-				}
-				if ( p == POS_RADION && !rapp.getRadionModuleEnabled() ) {
-					Log.d( TAG, "Skipping radion" );
-					p++;
-					pageSkipCount++;
-				}
-				if ( p == POS_VORTECH && !rapp.getVortechModuleEnabled() ) {
-					Log.d( TAG, "Skipping vortech" );
-					p++;
-					pageSkipCount++;
-				}
-
-				if ( p == POS_AI && !rapp.getAIModuleEnabled() ) {
-					Log.d( TAG, "Skipping ai" );
-					p++;
-					pageSkipCount++;
-				}
-				if ( p == POS_IO && !rapp.getIOModuleEnabled() ) {
-					Log.d( TAG, "Skipping io" );
-					p++;
-					pageSkipCount++;
-				}
-				if ( p == POS_CUSTOM && !rapp.getCustomModuleEnabled() ) {
-					Log.d( TAG, "Skipping custom" );
-					p++;
-					pageSkipCount++;
-				}
-			}
-			// TODO consider merging the switch statement into IF statement
-			switch ( p ) {
-				default:
-				case POS_CONTROLLER: // Controller Status
-					Log.d( TAG, "Create controller" );
-					v = controller;
-					break;
-				case POS_DIMMING: // Dimming
-					Log.d( TAG, "Create dimming" );
-					v = dimming;
-					break;
-				case POS_RADION: // Radion
-					Log.d( TAG, "Create radion" );
-					v = radion;
-					break;
-				case POS_VORTECH: // Vortech
-					Log.d( TAG, "Create vortech" );
-					v = vortech;
-					break;
-				case POS_AI: // AI
-					Log.d( TAG, "Create ai" );
-					v = controller;
-					break;
-				case POS_IO: // IO
-					Log.d( TAG, "Create io" );
-					v = controller;
-					break;
-				case POS_CUSTOM: // Custom
-					Log.d( TAG, "Create custom" );
-					v = controller;
-					break;
-				case POS_MAIN_RELAY: // Main Relay
-					Log.d( TAG, "Create main relay" );
-					v = main;
-					break;
-				case POS_EXP1_RELAY: // Expansion Relay 1
-				case POS_EXP2_RELAY: // Expansion Relay 2
-				case POS_EXP3_RELAY: // Expansion Relay 3
-				case POS_EXP4_RELAY: // Expansion Relay 4
-				case POS_EXP5_RELAY: // Expansion Relay 5
-				case POS_EXP6_RELAY: // Expansion Relay 6
-				case POS_EXP7_RELAY: // Expansion Relay 7
-				case POS_EXP8_RELAY: // Expansion Relay 8
-					int relay = p - POS_EXP1_RELAY;
-					Log.d( TAG, "Create exp relay " + relay + " (" + p + ")" );
-					v = exprelays[relay];
-					break;
-			}
-			((ViewPager) container).addView( v );
-			return v;
+			((ViewPager) container).addView( appPages[position] );
+			return appPages[position];
 		}
 
 		@Override
