@@ -138,6 +138,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="labelMode">Mode</string>
     <string name="labelSpeed">Speed</string>
     <string name="labelDuration">Duration</string>
+    <string name="labelAI">Aqua Illuminations</string>
     <string name="websiteReefangel">http://www.reefangel.com/</string>
     <string name="forumReefangel">http://forum.reefangel.com/</string>
     <string name="defaultStatusText">-</string>
@@ -442,6 +443,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExpVortechEnableKey">vortech_expansion</string>
     <string name="prefExpVortechEnableTitle">Vortech</string>
     <string name="prefExpVortechEnableSummary">Enable the vortech expansion module</string>
+    <string name="prefExpAIEnableKey">ai_expansion</string>
+    <string name="prefExpAIEnableTitle">Aqua Illuminations</string>
+    <string name="prefExpAIEnableSummary">Enable the aqua illuminations expansion module</string>
     <string name="prefAppSettingsTitle">Settings</string>
     <string name="prefAppSettingsSummary">Additional settings for the application and controller</string>
     <string name="prefPre10MemoryKey">pre_10_memory_locations</string>

@@ -251,6 +251,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 				    android:key="@string/prefExpVortechEnableKey"
 				    android:summary="@string/prefExpVortechEnableSummary"
 				    android:title="@string/prefExpVortechEnableTitle" />
+				<CheckBoxPreference
+				    android:defaultValue="false"
+				    android:key="@string/prefExpAIEnableKey"
+				    android:summary="@string/prefExpAIEnableSummary"
+				    android:title="@string/prefExpAIEnableTitle" />
                 <PreferenceScreen
                     android:summary="@string/prefExpRelaySummary"
                     android:title="@string/prefExpRelayTitle" >

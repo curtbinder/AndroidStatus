@@ -15,7 +15,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class VortechWidget extends ScrollView {
-	//private static final String TAG = RadionWidget.class.getSimpleName();
+	//private static final String TAG = VortechWidget.class.getSimpleName();
 
 	Context ctx; // saved context from parent
 	private TextView[] vortechText;

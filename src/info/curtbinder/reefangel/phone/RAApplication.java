@@ -634,6 +634,12 @@ public class RAApplication extends Application {
 			total++;
 		if ( getVortechModuleEnabled() )
 			total++;
+		if ( getAIModuleEnabled() )
+			total++;
+		if ( getIOModuleEnabled() )
+			total++;
+		if ( getCustomModuleEnabled() )
+			total++;
 		return total;
 	}
 
@@ -712,15 +718,16 @@ public class RAApplication extends Application {
 				.getBoolean(	getString( R.string.prefExpVortechEnableKey ),
 								false );
 	}
-	
+
 	public boolean getAIModuleEnabled ( ) {
-		return false;
+		return prefs.getBoolean(	getString( R.string.prefExpAIEnableKey ),
+									false );
 	}
-	
+
 	public boolean getIOModuleEnabled ( ) {
 		return false;
 	}
-	
+
 	public boolean getCustomModuleEnabled ( ) {
 		return false;
 	}

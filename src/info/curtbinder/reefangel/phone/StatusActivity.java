@@ -77,6 +77,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private DimmingWidget dimming;
 	private RadionWidget radion;
 	private VortechWidget vortech;
+	private AIWidget widgetAI;
 	private RelayBoxWidget main;
 	private RelayBoxWidget[] exprelays =
 			new RelayBoxWidget[Controller.MAX_EXPANSION_RELAYS];
@@ -159,6 +160,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		radion = new RadionWidget( ctx );
 		// TODO create additional wigdets for main screen in app
 		vortech = new VortechWidget( ctx );
+		widgetAI = new AIWidget( ctx );
 		main = new RelayBoxWidget( ctx );
 		for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 			exprelays[i] = new RelayBoxWidget( ctx );
@@ -290,6 +292,16 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 								getString( R.string.labelDuration ) + separator );
 		}
 
+		if ( rapp.getAIModuleEnabled() ) {
+			widgetAI.setLabel(	Controller.AI_WHITE,
+								getString( R.string.labelWhite ) + separator );
+			widgetAI.setLabel(	Controller.AI_BLUE,
+								getString( R.string.labelBlue ) + separator );
+			widgetAI.setLabel(	Controller.AI_ROYALBLUE,
+								getString( R.string.labelRoyalBlue )
+										+ separator );
+		}
+
 		// Visibility
 		controller.setT2Visibility( rapp.getPrefT2Visibility() );
 		controller.setT3Visibility( rapp.getPrefT3Visibility() );
@@ -408,6 +420,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			String[] pwme;
 			String[] rf;
 			String[] vt;
+			String[] ai;
 			short r, ron, roff;
 			short[] expr = new short[Controller.MAX_EXPANSION_RELAYS];
 			short[] expron = new short[Controller.MAX_EXPANSION_RELAYS];
@@ -420,6 +433,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				pwme = getPWMEValues( c );
 				rf = getRadionValues( c );
 				vt = getVortechValues( c );
+				ai = getAIValues( c );
 				r = c.getShort( c.getColumnIndex( RAData.PCOL_RDATA ) );
 				ron = c.getShort( c.getColumnIndex( RAData.PCOL_RONMASK ) );
 				roff = c.getShort( c.getColumnIndex( RAData.PCOL_ROFFMASK ) );
@@ -470,6 +484,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				pwme = getNeverValues( Controller.MAX_PWM_EXPANSION_PORTS );
 				rf = getNeverValues( Controller.MAX_RADION_LIGHT_CHANNELS );
 				vt = getNeverValues( Controller.MAX_VORTECH_VALUES );
+				ai = getNeverValues( Controller.MAX_AI_CHANNELS );
 				r = ron = roff = 0;
 				for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 					expr[i] = expron[i] = exproff[i] = 0;
@@ -481,6 +496,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			dimming.updateDisplay( pwme );
 			radion.updateDisplay( rf );
 			vortech.updateDisplay( vt );
+			widgetAI.updateDisplay( ai );
 			boolean fUseMask = rapp.isCommunicateController();
 			main.updateRelayValues( new Relay( r, ron, roff ), fUseMask );
 			for ( int i = 0; i < rapp.getPrefExpansionRelayQuantity(); i++ ) {
@@ -612,6 +628,18 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		return sa;
 	}
 
+	private String[] getAIValues ( Cursor c ) {
+		// TODO locale dependent of %
+		String[] sa = new String[Controller.MAX_AI_CHANNELS];
+		sa[Controller.AI_WHITE] =
+				c.getString( c.getColumnIndex( RAData.PCOL_AIW ) ) + "%";
+		sa[Controller.AI_BLUE] =
+				c.getString( c.getColumnIndex( RAData.PCOL_AIB ) ) + "%";
+		sa[Controller.AI_ROYALBLUE] =
+				c.getString( c.getColumnIndex( RAData.PCOL_AIRB ) ) + "%";
+		return sa;
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu ( Menu menu ) {
 		MenuInflater inflater = getMenuInflater();
@@ -703,31 +731,25 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 					}
 					break;
 				case POS_AI:
-					/*
 					if ( rapp.getAIModuleEnabled() ) {
 						Log.d( TAG, j + ": AI" );
-						appPages[j] = ai;
+						appPages[j] = widgetAI; // ai;
 						j++;
 					}
-					*/
 					break;
 				case POS_IO:
-					/*
 					if ( rapp.getIOModuleEnabled() ) {
 						Log.d( TAG, j + ": IO" );
-						appPages[j] = io;
+						appPages[j] = null; // io;
 						j++;
 					}
-					*/
 					break;
 				case POS_CUSTOM:
-					/*
 					if ( rapp.getCustomModuleEnabled() ) {
 						Log.d( TAG, j + ": Custom" );
-						appPages[j] = custom;
+						appPages[j] = null; // custom;
 						j++;
 					}
-					*/
 					break;
 				case POS_MAIN_RELAY:
 					Log.d( TAG, j + ": Main Relay" );
