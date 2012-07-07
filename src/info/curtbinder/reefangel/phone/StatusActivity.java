@@ -587,14 +587,14 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private String[] getRadionValues ( Cursor c ) {
-		// TODO consider adding '%' at the end of the value
-		return new String[] {	c.getString( c.getColumnIndex( RAData.PCOL_RFW ) ),
-								c.getString( c
-										.getColumnIndex( RAData.PCOL_RFRB ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_RFR ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_RFG ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_RFB ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_RFI ) ) };
+		String[] sa = new String[Controller.MAX_RADION_LIGHT_CHANNELS];
+		sa[0] = c.getString( c.getColumnIndex( RAData.PCOL_RFW ) ) + "%";
+		sa[1] = c.getString( c.getColumnIndex( RAData.PCOL_RFRB ) ) + "%";
+		sa[2] = c.getString( c.getColumnIndex( RAData.PCOL_RFR ) ) + "%";
+		sa[3] = c.getString( c.getColumnIndex( RAData.PCOL_RFG ) ) + "%";
+		sa[4] = c.getString( c.getColumnIndex( RAData.PCOL_RFB ) ) + "%";
+		sa[5] = c.getString( c.getColumnIndex( RAData.PCOL_RFI ) ) + "%";
+		return sa;
 	}
 
 	private String[] getVortechValues ( Cursor c ) {
