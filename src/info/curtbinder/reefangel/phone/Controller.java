@@ -430,6 +430,18 @@ public class Controller {
 	public static boolean isORPModuleInstalled ( short expansionModules ) {
 		return (expansionModules & MODULE_ORP) == 1;
 	}
+	
+	public static boolean isIOModuleInstalled ( short expansionModules ) {
+		return (expansionModules & MODULE_IO) == 1;
+	}
+	
+	public static boolean isPHExpansionModuleInstalled ( short expansionModules ) {
+		return (expansionModules & MODULE_PHEXPANSION) == 1;
+	}
+	
+	public static boolean isWaterLevelModuleInstalled ( short expansionModules ) {
+		return (expansionModules & MODULE_WATERLEVEL) == 1;
+	}
 
 	public short getRelayExpansionModules ( ) {
 		return relayExpansionModules;
