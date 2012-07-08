@@ -299,11 +299,26 @@ public class PrefsActivity extends PreferenceActivity implements
 		rapp.deletePref( R.string.prefDPLabelKey );
 		rapp.deletePref( R.string.prefPHLabelKey );
 		rapp.deletePref( R.string.prefSalinityLabelKey );
-		for ( int i = 0; i <= Controller.MAX_EXPANSION_RELAYS; i++ ) {
+		int i;
+		for ( i = 0; i <= Controller.MAX_EXPANSION_RELAYS; i++ ) {
 			for ( int j = 0; j < Controller.MAX_RELAY_PORTS; j++ ) {
 				rapp.deletePref( rapp.getPrefRelayKey( i, j ) );
 			}
 		}
+		for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
+		}
+		for ( i = 0; i < Controller.MAX_RADION_LIGHT_CHANNELS; i++ ) {
+		}
+		for ( i = 0; i < Controller.MAX_VORTECH_VALUES; i++ ) {
+		}
+		for ( i = 0; i < Controller.MAX_AI_CHANNELS; i++ ) {
+		}
+		for ( i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
+			// TODO delete IO labels
+		}
+		for ( i = 0; i < Controller.MAX_CUSTOM_VARIABLES; i++ ) {
+		}
+		
 		Toast.makeText( PrefsActivity.this,
 						rapp.getString( R.string.messageResetLabelsComplete ),
 						Toast.LENGTH_SHORT ).show();

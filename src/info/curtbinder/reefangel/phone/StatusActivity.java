@@ -78,6 +78,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private RadionWidget widgetRadion;
 	private VortechWidget widgetVortech;
 	private AIWidget widgetAI;
+	private CustomWidget widgetCustom;
 	private RelayBoxWidget widgetMain;
 	private RelayBoxWidget[] widgetExpRelays =
 			new RelayBoxWidget[Controller.MAX_EXPANSION_RELAYS];
@@ -161,6 +162,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// TODO create additional wigdets for main screen in app
 		widgetVortech = new VortechWidget( ctx );
 		widgetAI = new AIWidget( ctx );
+		widgetCustom = new CustomWidget( ctx );
 		widgetMain = new RelayBoxWidget( ctx );
 		for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 			widgetExpRelays[i] = new RelayBoxWidget( ctx );
@@ -312,6 +314,12 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 										+ separator );
 		}
 
+		if ( rapp.getCustomModuleEnabled() ) {
+			for ( i = 0; i < Controller.MAX_CUSTOM_VARIABLES; i++ )
+				widgetCustom.setLabel( i, rapp.getCustomModuleChannelLabel( i )
+											+ separator );
+		}
+
 		// Visibility
 		widgetController.setT2Visibility( rapp.getPrefT2Visibility() );
 		widgetController.setT3Visibility( rapp.getPrefT3Visibility() );
@@ -324,6 +332,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 		// TODO update control visibility here
 		// TODO consider hiding dimming channels not in use
+		// TODO consider hiding custom variables not in use
 
 		// if ( ! showMessageText )
 		// messageText.setVisibility(View.GONE);
@@ -432,6 +441,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			String[] rf;
 			String[] vt;
 			String[] ai;
+			String[] custom;
 			short r, ron, roff;
 			short[] expr = new short[Controller.MAX_EXPANSION_RELAYS];
 			short[] expron = new short[Controller.MAX_EXPANSION_RELAYS];
@@ -445,6 +455,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				rf = getRadionValues( c );
 				vt = getVortechValues( c );
 				ai = getAIValues( c );
+				custom = getCustomValues( c );
 				r = c.getShort( c.getColumnIndex( RAData.PCOL_RDATA ) );
 				ron = c.getShort( c.getColumnIndex( RAData.PCOL_RONMASK ) );
 				roff = c.getShort( c.getColumnIndex( RAData.PCOL_ROFFMASK ) );
@@ -496,6 +507,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				rf = getNeverValues( Controller.MAX_RADION_LIGHT_CHANNELS );
 				vt = getNeverValues( Controller.MAX_VORTECH_VALUES );
 				ai = getNeverValues( Controller.MAX_AI_CHANNELS );
+				custom = getNeverValues( Controller.MAX_CUSTOM_VARIABLES );
 				r = ron = roff = 0;
 				for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 					expr[i] = expron[i] = exproff[i] = 0;
@@ -508,6 +520,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			widgetRadion.updateDisplay( rf );
 			widgetVortech.updateDisplay( vt );
 			widgetAI.updateDisplay( ai );
+			widgetCustom.updateDisplay( custom );
 			boolean fUseMask = rapp.isCommunicateController();
 			widgetMain.updateRelayValues( new Relay( r, ron, roff ), fUseMask );
 			for ( int i = 0; i < rapp.getPrefExpansionRelayQuantity(); i++ ) {
@@ -651,6 +664,17 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		return sa;
 	}
 
+	private String[] getCustomValues ( Cursor c ) {
+		return new String[] {	c.getString( c.getColumnIndex( RAData.PCOL_C0 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_C1 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_C2 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_C3 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_C4 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_C5 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_C6 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_C7 ) ) };
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu ( Menu menu ) {
 		MenuInflater inflater = getMenuInflater();
@@ -744,21 +768,21 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				case POS_AI:
 					if ( rapp.getAIModuleEnabled() ) {
 						Log.d( TAG, j + ": AI" );
-						appPages[j] = widgetAI; // ai;
+						appPages[j] = widgetAI;
 						j++;
 					}
 					break;
 				case POS_IO:
 					if ( rapp.getIOModuleEnabled() ) {
 						Log.d( TAG, j + ": IO" );
-						appPages[j] = null; // io;
+						appPages[j] = null; // widgetIO;
 						j++;
 					}
 					break;
 				case POS_CUSTOM:
 					if ( rapp.getCustomModuleEnabled() ) {
 						Log.d( TAG, j + ": Custom" );
-						appPages[j] = null; // custom;
+						appPages[j] = widgetCustom;
 						j++;
 					}
 					break;

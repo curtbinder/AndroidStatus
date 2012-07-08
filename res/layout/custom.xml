@@ -22,7 +22,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <TableRow style="@style/RARow" >
 
             <TextView
-                android:id="@+id/custom_0_label"
+                android:id="@+id/custom0_label"
                 style="@style/ParamsText.Labels" />
 
             <TextView
@@ -33,7 +33,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <TableRow style="@style/RARow" >
 
             <TextView
-                android:id="@+id/custom_1_label"
+                android:id="@+id/custom1_label"
                 style="@style/ParamsText.Labels" />
 
             <TextView
@@ -44,7 +44,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <TableRow style="@style/RARow" >
 
             <TextView
-                android:id="@+id/custom_2_label"
+                android:id="@+id/custom2_label"
                 style="@style/ParamsText.Labels" />
 
             <TextView
@@ -55,7 +55,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <TableRow style="@style/RARow" >
 
             <TextView
-                android:id="@+id/custom_3_label"
+                android:id="@+id/custom3_label"
                 style="@style/ParamsText.Labels" />
 
             <TextView
@@ -66,7 +66,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <TableRow style="@style/RARow" >
 
             <TextView
-                android:id="@+id/custom_4_label"
+                android:id="@+id/custom4_label"
                 style="@style/ParamsText.Labels" />
 
             <TextView
@@ -77,7 +77,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <TableRow style="@style/RARow" >
 
             <TextView
-                android:id="@+id/custom_5_label"
+                android:id="@+id/custom5_label"
                 style="@style/ParamsText.Labels" />
 
             <TextView
@@ -88,7 +88,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <TableRow style="@style/RARow" >
 
             <TextView
-                android:id="@+id/custom_6_label"
+                android:id="@+id/custom6_label"
                 style="@style/ParamsText.Labels" />
 
             <TextView
@@ -99,7 +99,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <TableRow style="@style/RARow" >
 
             <TextView
-                android:id="@+id/custom_7_label"
+                android:id="@+id/custom7_label"
                 style="@style/ParamsText.Labels" />
 
             <TextView
