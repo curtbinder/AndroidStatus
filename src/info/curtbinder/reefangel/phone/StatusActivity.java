@@ -737,7 +737,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// keep track of the pages installed compared to total pages
 		// if the module is enabled, add it to the available pages list
 		// then increment the installed pages counter
-		for ( i = POS_START, j = POS_START; i < POS_END; i++ ) {
+		for ( i = POS_START, j = POS_START; i <= POS_END; i++ ) {
 			switch ( i ) {
 				case POS_CONTROLLER:
 					Log.d( TAG, j + ": Controller" );
