@@ -725,7 +725,73 @@ public class RAApplication extends Application {
 	}
 
 	public boolean getIOModuleEnabled ( ) {
-		return false;
+		return prefs.getBoolean(	getString( R.string.prefExpIOEnableKey ),
+									false );
+	}
+
+	public String getIOModuleChannelLabel ( int channel ) {
+		int k, v;
+		switch ( channel ) {
+			default:
+			case 0:
+				k = R.string.prefExpIO0LabelKey;
+				v = R.string.prefExpIO0LabelTitle;
+				break;
+			case 1:
+				k = R.string.prefExpIO1LabelKey;
+				v = R.string.prefExpIO1LabelTitle;
+				break;
+			case 2:
+				k = R.string.prefExpIO2LabelKey;
+				v = R.string.prefExpIO2LabelTitle;
+				break;
+			case 3:
+				k = R.string.prefExpIO3LabelKey;
+				v = R.string.prefExpIO3LabelTitle;
+				break;
+			case 4:
+				k = R.string.prefExpIO4LabelKey;
+				v = R.string.prefExpIO4LabelTitle;
+				break;
+			case 5:
+				k = R.string.prefExpIO5LabelKey;
+				v = R.string.prefExpIO5LabelTitle;
+				break;
+			case 6:
+				k = R.string.prefExpIO6LabelKey;
+				v = R.string.prefExpIO6LabelTitle;
+				break;
+		}
+		return prefs.getString( getString( k ), getString( v ) );
+	}
+
+	public void setIOModuleChannelLabel ( int channel, String label ) {
+		int k;
+		switch ( channel ) {
+			default:
+			case 0:
+				k = R.string.prefExpIO0LabelKey;
+				break;
+			case 1:
+				k = R.string.prefExpIO1LabelKey;
+				break;
+			case 2:
+				k = R.string.prefExpIO2LabelKey;
+				break;
+			case 3:
+				k = R.string.prefExpIO3LabelKey;
+				break;
+			case 4:
+				k = R.string.prefExpIO4LabelKey;
+				break;
+			case 5:
+				k = R.string.prefExpIO5LabelKey;
+				break;
+			case 6:
+				k = R.string.prefExpIO6LabelKey;
+				break;
+		}
+		setPref( k, label );
 	}
 
 	public boolean getCustomModuleEnabled ( ) {

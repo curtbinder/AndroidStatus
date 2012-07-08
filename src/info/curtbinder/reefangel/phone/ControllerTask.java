@@ -299,6 +299,11 @@ public class ControllerTask implements Runnable {
 				rapp.setCustomModuleChannelLabel( i, ra
 						.getCustomVariableLabel( (short) i ) );
 		}
+		for ( i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
+			if ( !ra.getIOChannelLabel( (short) i ).equals( "" ) )
+				rapp.setIOModuleChannelLabel( i, ra
+						.getIOChannelLabel( (short) i ) );
+		}
 
 		// Tell the activity we updated the labels
 		Intent intent = new Intent( MessageCommands.LABEL_RESPONSE_INTENT );

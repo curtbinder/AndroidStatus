@@ -311,7 +311,13 @@ public class PrefsActivity extends PreferenceActivity implements
 		rapp.deletePref( R.string.prefExpDimmingCh3LabelKey );
 		rapp.deletePref( R.string.prefExpDimmingCh4LabelKey );
 		rapp.deletePref( R.string.prefExpDimmingCh5LabelKey );
-		// TODO delete IO labels
+		rapp.deletePref( R.string.prefExpIO0LabelKey);
+		rapp.deletePref( R.string.prefExpIO1LabelKey);
+		rapp.deletePref( R.string.prefExpIO2LabelKey);
+		rapp.deletePref( R.string.prefExpIO3LabelKey);
+		rapp.deletePref( R.string.prefExpIO4LabelKey);
+		rapp.deletePref( R.string.prefExpIO5LabelKey);
+		rapp.deletePref( R.string.prefExpIO6LabelKey);
 		rapp.deletePref( R.string.prefExpCustom0LabelKey );
 		rapp.deletePref( R.string.prefExpCustom1LabelKey );
 		rapp.deletePref( R.string.prefExpCustom2LabelKey );

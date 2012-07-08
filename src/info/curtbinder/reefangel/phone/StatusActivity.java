@@ -78,6 +78,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private RadionWidget widgetRadion;
 	private VortechWidget widgetVortech;
 	private AIWidget widgetAI;
+	private IOWidget widgetIO;
 	private CustomWidget widgetCustom;
 	private RelayBoxWidget widgetMain;
 	private RelayBoxWidget[] widgetExpRelays =
@@ -162,6 +163,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// TODO create additional wigdets for main screen in app
 		widgetVortech = new VortechWidget( ctx );
 		widgetAI = new AIWidget( ctx );
+		widgetIO = new IOWidget( ctx );
 		widgetCustom = new CustomWidget( ctx );
 		widgetMain = new RelayBoxWidget( ctx );
 		for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
@@ -314,6 +316,13 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 										+ separator );
 		}
 
+		if ( rapp.getIOModuleEnabled() ) {
+			for ( i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
+				widgetIO.setLabel( i, rapp.getIOModuleChannelLabel( i )
+										+ separator );
+			}
+		}
+
 		if ( rapp.getCustomModuleEnabled() ) {
 			for ( i = 0; i < Controller.MAX_CUSTOM_VARIABLES; i++ )
 				widgetCustom.setLabel( i, rapp.getCustomModuleChannelLabel( i )
@@ -333,6 +342,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// TODO update control visibility here
 		// TODO consider hiding dimming channels not in use
 		// TODO consider hiding custom variables not in use
+		// TODO consider hiding io channels not in use
 
 		// if ( ! showMessageText )
 		// messageText.setVisibility(View.GONE);
@@ -441,6 +451,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			String[] rf;
 			String[] vt;
 			String[] ai;
+			String[] io;
 			String[] custom;
 			short r, ron, roff;
 			short[] expr = new short[Controller.MAX_EXPANSION_RELAYS];
@@ -455,6 +466,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				rf = getRadionValues( c );
 				vt = getVortechValues( c );
 				ai = getAIValues( c );
+				io = getIOValues( c );
 				custom = getCustomValues( c );
 				r = c.getShort( c.getColumnIndex( RAData.PCOL_RDATA ) );
 				ron = c.getShort( c.getColumnIndex( RAData.PCOL_RONMASK ) );
@@ -507,6 +519,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				rf = getNeverValues( Controller.MAX_RADION_LIGHT_CHANNELS );
 				vt = getNeverValues( Controller.MAX_VORTECH_VALUES );
 				ai = getNeverValues( Controller.MAX_AI_CHANNELS );
+				io = getNeverValues( Controller.MAX_IO_CHANNELS );
 				custom = getNeverValues( Controller.MAX_CUSTOM_VARIABLES );
 				r = ron = roff = 0;
 				for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
@@ -520,6 +533,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			widgetRadion.updateDisplay( rf );
 			widgetVortech.updateDisplay( vt );
 			widgetAI.updateDisplay( ai );
+			widgetIO.updateDisplay( io );
 			widgetCustom.updateDisplay( custom );
 			boolean fUseMask = rapp.isCommunicateController();
 			widgetMain.updateRelayValues( new Relay( r, ron, roff ), fUseMask );
@@ -664,6 +678,21 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		return sa;
 	}
 
+	private String[] getIOValues ( Cursor c ) {
+		String[] sa = new String[Controller.MAX_IO_CHANNELS];
+		short io = c.getShort( c.getColumnIndex( RAData.PCOL_IO ) );
+		String s;
+		for ( byte i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
+			if ( Controller.getIOChannel( io, i ) ) {
+				s = getString(R.string.labelON);
+			} else { 
+				s = getString(R.string.labelOFF);
+			}
+			sa[i] = s;
+		}
+		return sa;
+	}
+	
 	private String[] getCustomValues ( Cursor c ) {
 		return new String[] {	c.getString( c.getColumnIndex( RAData.PCOL_C0 ) ),
 								c.getString( c.getColumnIndex( RAData.PCOL_C1 ) ),
@@ -775,7 +804,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				case POS_IO:
 					if ( rapp.getIOModuleEnabled() ) {
 						Log.d( TAG, j + ": IO" );
-						appPages[j] = null; // widgetIO;
+						appPages[j] = widgetIO;
 						j++;
 					}
 					break;

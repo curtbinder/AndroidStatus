@@ -258,7 +258,46 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                     android:key="@string/prefExpAIEnableKey"
                     android:summary="@string/prefExpAIEnableSummary"
                     android:title="@string/prefExpAIEnableTitle" />
+                <PreferenceScreen
+                    android:summary="@string/prefExpIOSummary"
+                    android:title="@string/prefExpIOTitle" >
+                    <CheckBoxPreference
+                        android:defaultValue="false"
+                        android:key="@string/prefExpIOEnableKey"
+                        android:summary="@string/prefExpIOEnableSummary"
+                        android:title="@string/prefExpIOEnableTitle" />
 
+                    <PreferenceCategory android:title="@string/prefLabelsCategory" >
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpIO0LabelTitle"
+                            android:key="@string/prefExpIO0LabelKey"
+                            android:title="@string/prefExpIO0LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpIO1LabelTitle"
+                            android:key="@string/prefExpIO1LabelKey"
+                            android:title="@string/prefExpIO1LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpIO2LabelTitle"
+                            android:key="@string/prefExpIO2LabelKey"
+                            android:title="@string/prefExpIO2LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpIO3LabelTitle"
+                            android:key="@string/prefExpIO3LabelKey"
+                            android:title="@string/prefExpIO3LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpIO4LabelTitle"
+                            android:key="@string/prefExpIO4LabelKey"
+                            android:title="@string/prefExpIO4LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpIO5LabelTitle"
+                            android:key="@string/prefExpIO5LabelKey"
+                            android:title="@string/prefExpIO5LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpIO6LabelTitle"
+                            android:key="@string/prefExpIO6LabelKey"
+                            android:title="@string/prefExpIO6LabelTitle" />
+                    </PreferenceCategory>
+                </PreferenceScreen>
                 <PreferenceScreen
                     android:summary="@string/prefExpCustomSummary"
                     android:title="@string/prefExpCustomTitle" >
