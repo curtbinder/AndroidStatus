@@ -729,7 +729,81 @@ public class RAApplication extends Application {
 	}
 
 	public boolean getCustomModuleEnabled ( ) {
-		return false;
+		return prefs
+				.getBoolean(	getString( R.string.prefExpCustomEnableKey ),
+								false );
+	}
+
+	public String getCustomModuleChannelLabel ( int channel ) {
+		int k, d;
+		switch ( channel ) {
+			default:
+			case 0:
+				k = R.string.prefExpCustom0LabelKey;
+				d = R.string.prefExpCustom0LabelTitle;
+				break;
+			case 1:
+				k = R.string.prefExpCustom1LabelKey;
+				d = R.string.prefExpCustom1LabelTitle;
+				break;
+			case 2:
+				k = R.string.prefExpCustom2LabelKey;
+				d = R.string.prefExpCustom2LabelTitle;
+				break;
+			case 3:
+				k = R.string.prefExpCustom3LabelKey;
+				d = R.string.prefExpCustom3LabelTitle;
+				break;
+			case 4:
+				k = R.string.prefExpCustom4LabelKey;
+				d = R.string.prefExpCustom4LabelTitle;
+				break;
+			case 5:
+				k = R.string.prefExpCustom5LabelKey;
+				d = R.string.prefExpCustom5LabelTitle;
+				break;
+			case 6:
+				k = R.string.prefExpCustom6LabelKey;
+				d = R.string.prefExpCustom6LabelTitle;
+				break;
+			case 7:
+				k = R.string.prefExpCustom7LabelKey;
+				d = R.string.prefExpCustom7LabelTitle;
+				break;
+		}
+		return prefs.getString( getString( k ), getString( d ) );
+	}
+
+	public void setCustomModuleChannelLabel ( int channel, String label ) {
+		int k;
+		switch ( channel ) {
+			default:
+			case 0:
+				k = R.string.prefExpCustom0LabelKey;
+				break;
+			case 1:
+				k = R.string.prefExpCustom1LabelKey;
+				break;
+			case 2:
+				k = R.string.prefExpCustom2LabelKey;
+				break;
+			case 3:
+				k = R.string.prefExpCustom3LabelKey;
+				break;
+			case 4:
+				k = R.string.prefExpCustom4LabelKey;
+				break;
+			case 5:
+				k = R.string.prefExpCustom5LabelKey;
+				break;
+			case 6:
+				k = R.string.prefExpCustom6LabelKey;
+				break;
+			case 7:
+				k = R.string.prefExpCustom7LabelKey;
+				break;
+		}
+		setPref( k, label );
 	}
 
 	public void checkServiceRunning ( ) {
