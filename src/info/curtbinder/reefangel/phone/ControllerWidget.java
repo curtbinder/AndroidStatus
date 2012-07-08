@@ -18,37 +18,21 @@ import android.widget.TextView;
 
 public class ControllerWidget extends ScrollView {
 	private static final String TAG = ControllerWidget.class.getSimpleName();
-	private static final int T1_INDEX = 0;
-	private static final int T2_INDEX = 1;
-	private static final int T3_INDEX = 2;
-	private static final int PH_INDEX = 3;
-	private static final int DP_INDEX = 4;
-	private static final int AP_INDEX = 5;
-	private static final int SALINITY_INDEX = 6;
-	private static final int ORP_INDEX = 7;
-	private static final int PHE_INDEX = 8;
+	
+	public static final int T1_INDEX = 0;
+	public static final int T2_INDEX = 1;
+	public static final int T3_INDEX = 2;
+	public static final int PH_INDEX = 3;
+	public static final int DP_INDEX = 4;
+	public static final int AP_INDEX = 5;
+	public static final int SALINITY_INDEX = 6;
+	public static final int ORP_INDEX = 7;
+	public static final int PHE_INDEX = 8;
 
 	Context ctx; // saved context from parent
-	private TextView t1Text;
-	private TextView t2Text;
-	private TextView t3Text;
-	private TextView phText;
-	private TextView dpText;
-	private TextView apText;
-	private TextView salinityText;
-	private TextView orpText;
-	private TextView pheText;
-	private TextView t1Label;
-	private TextView t2Label;
-	private TextView t3Label;
-	private TextView phLabel;
-	private TextView dpLabel;
-	private TextView apLabel;
-	private TextView salinityLabel;
-	private TextView orpLabel;
-	private TextView pheLabel;
+	private TextView[] deviceText;
+	private TextView[] deviceLabel;
 
-	// private TextView orpLabel;
 
 	public ControllerWidget ( Context context ) {
 		super( context );
@@ -69,172 +53,64 @@ public class ControllerWidget extends ScrollView {
 				(LayoutInflater) context
 						.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
 		layoutInflater.inflate( R.layout.controller, this );
+		deviceText = new TextView[Controller.MAX_CONTROLLER_VALUES];
+		deviceLabel = new TextView[Controller.MAX_CONTROLLER_VALUES];
+		for ( int i = 0; i < Controller.MAX_CONTROLLER_VALUES; i++ ) {
+			deviceText[i] = new TextView ( context );
+			deviceLabel[i] = new TextView ( context );
+		}
 		findViews();
 	}
 
 	private void findViews ( ) {
-		t1Text = (TextView) findViewById( R.id.temp1 );
-		t2Text = (TextView) findViewById( R.id.temp2 );
-		t3Text = (TextView) findViewById( R.id.temp3 );
-		phText = (TextView) findViewById( R.id.ph );
-		dpText = (TextView) findViewById( R.id.dp );
-		apText = (TextView) findViewById( R.id.ap );
-		salinityText = (TextView) findViewById( R.id.salinity );
-		orpText = (TextView) findViewById( R.id.orp );
-		pheText = (TextView) findViewById( R.id.phe );
-		t1Label = (TextView) findViewById( R.id.t1_label );
-		t2Label = (TextView) findViewById( R.id.t2_label );
-		t3Label = (TextView) findViewById( R.id.t3_label );
-		phLabel = (TextView) findViewById( R.id.ph_label );
-		dpLabel = (TextView) findViewById( R.id.dp_label );
-		apLabel = (TextView) findViewById( R.id.ap_label );
-		salinityLabel = (TextView) findViewById( R.id.salinity_label );
-		orpLabel = (TextView) findViewById( R.id.orp_label );
-		pheLabel = (TextView) findViewById( R.id.phe_label );
+		deviceText[T1_INDEX] = (TextView) findViewById( R.id.temp1 );
+		deviceText[T2_INDEX] = (TextView) findViewById( R.id.temp2 );
+		deviceText[T3_INDEX] = (TextView) findViewById( R.id.temp3 );
+		deviceText[PH_INDEX] = (TextView) findViewById( R.id.ph );
+		deviceText[DP_INDEX] = (TextView) findViewById( R.id.dp );
+		deviceText[AP_INDEX] = (TextView) findViewById( R.id.ap );
+		deviceText[SALINITY_INDEX] = (TextView) findViewById( R.id.salinity );
+		deviceText[ORP_INDEX] = (TextView) findViewById( R.id.orp );
+		deviceText[PHE_INDEX] = (TextView) findViewById( R.id.phe );
+
+		deviceLabel[T1_INDEX] = (TextView) findViewById( R.id.t1_label );
+		deviceLabel[T2_INDEX] = (TextView) findViewById( R.id.t2_label );
+		deviceLabel[T3_INDEX] = (TextView) findViewById( R.id.t3_label );
+		deviceLabel[PH_INDEX] = (TextView) findViewById( R.id.ph_label );
+		deviceLabel[DP_INDEX] = (TextView) findViewById( R.id.dp_label );
+		deviceLabel[AP_INDEX] = (TextView) findViewById( R.id.ap_label );
+		deviceLabel[SALINITY_INDEX] = (TextView) findViewById( R.id.salinity_label );
+		deviceLabel[ORP_INDEX] = (TextView) findViewById( R.id.orp_label );
+		deviceLabel[PHE_INDEX] = (TextView) findViewById( R.id.phe_label );
 	}
 
-	public void setT1Label ( String label ) {
-		t1Label.setText( label );
-	}
-
-	public void setT2Label ( String label ) {
-		t2Label.setText( label );
-	}
-
-	public void setT3Label ( String label ) {
-		t3Label.setText( label );
-	}
-
-	public void setAPLabel ( String label ) {
-		apLabel.setText( label );
-	}
-
-	public void setDPLabel ( String label ) {
-		dpLabel.setText( label );
-	}
-
-	public void setPHLabel ( String label ) {
-		phLabel.setText( label );
-	}
-
-	public void setSalinityLabel ( String label ) {
-		salinityLabel.setText( label );
+	public void setLabel ( int device, String label ) {
+		deviceLabel[device].setText( label );
 	}
 	
-	public void setORPLabel ( String label ) {
-		orpLabel.setText( label );
-	}
-	
-	public void setPHExpLabel ( String label ) {
-		pheLabel.setText( label );
-	}
-
-	public void setT2Visibility ( boolean fVisible ) {
+	public void setVisibility ( int device, boolean fVisible ) {
+		int v;
 		if ( fVisible ) {
-			Log.d( TAG, "T2 visible" );
-			t2Text.setVisibility( View.VISIBLE );
-			t2Label.setVisibility( View.VISIBLE );
+			Log.d( TAG, device + " visible" );
+			v = View.VISIBLE;
 		} else {
-			Log.d( TAG, "T2 gone" );
-			t2Text.setVisibility( View.GONE );
-			t2Label.setVisibility( View.GONE );
+			Log.d( TAG, device + " gone" );
+			v = View.GONE;
 		}
-	}
-
-	public void setT3Visibility ( boolean fVisible ) {
-		if ( fVisible ) {
-			Log.d( TAG, "T3 visible" );
-			t3Text.setVisibility( View.VISIBLE );
-			t3Label.setVisibility( View.VISIBLE );
-		} else {
-			Log.d( TAG, "T3 gone" );
-			t3Text.setVisibility( View.GONE );
-			t3Label.setVisibility( View.GONE );
-		}
-	}
-
-	public void setPHVisibility ( boolean fVisible ) {
-		if ( fVisible ) {
-			Log.d( TAG, "PH visible" );
-			phText.setVisibility( View.VISIBLE );
-			phLabel.setVisibility( View.VISIBLE );
-		} else {
-			Log.d( TAG, "PH gone" );
-			phText.setVisibility( View.GONE );
-			phLabel.setVisibility( View.GONE );
-		}
-	}
-
-	public void setAPVisibility ( boolean fVisible ) {
-		if ( fVisible ) {
-			Log.d( TAG, "AP visible" );
-			apText.setVisibility( View.VISIBLE );
-			apLabel.setVisibility( View.VISIBLE );
-		} else {
-			Log.d( TAG, "AP gone" );
-			apText.setVisibility( View.GONE );
-			apLabel.setVisibility( View.GONE );
-		}
-	}
-
-	public void setDPVisibility ( boolean fVisible ) {
-		if ( fVisible ) {
-			Log.d( TAG, "DP visible" );
-			dpText.setVisibility( View.VISIBLE );
-			dpLabel.setVisibility( View.VISIBLE );
-		} else {
-			Log.d( TAG, "DP gone" );
-			dpText.setVisibility( View.GONE );
-			dpLabel.setVisibility( View.GONE );
-		}
-	}
-
-	public void setSalinityVisibility ( boolean fVisible ) {
-		if ( fVisible ) {
-			Log.d( TAG, "Salinity visible" );
-			salinityText.setVisibility( View.VISIBLE );
-			salinityLabel.setVisibility( View.VISIBLE );
-		} else {
-			Log.d( TAG, "Salinity gone" );
-			salinityText.setVisibility( View.GONE );
-			salinityLabel.setVisibility( View.GONE );
-		}
-	}
-	
-	public void setORPVisibility ( boolean fVisible ) {
-		if ( fVisible ) {
-			Log.d( TAG, "ORP visible" );
-			orpText.setVisibility( View.VISIBLE );
-			orpLabel.setVisibility( View.VISIBLE );
-		} else {
-			Log.d( TAG, "ORP gone" );
-			orpText.setVisibility( View.GONE );
-			orpLabel.setVisibility( View.GONE );
-		}
-	}
-	
-	public void setPHExpVisibility ( boolean fVisible ) {
-		if ( fVisible ) {
-			Log.d( TAG, "PH Exp visible" );
-			pheText.setVisibility( View.VISIBLE );
-			pheLabel.setVisibility( View.VISIBLE );
-		} else {
-			Log.d( TAG, "PH Exp gone" );
-			pheText.setVisibility( View.GONE );
-			pheLabel.setVisibility( View.GONE );
-		}		
+		deviceText[device].setVisibility( v );
+		deviceLabel[device].setVisibility( v );
 	}
 
 	public void updateDisplay ( String[] v ) {
-		t1Text.setText( v[T1_INDEX] );
-		t2Text.setText( v[T2_INDEX] );
-		t3Text.setText( v[T3_INDEX] );
-		phText.setText( v[PH_INDEX] );
-		dpText.setText( v[DP_INDEX] );
-		apText.setText( v[AP_INDEX] );
-		salinityText.setText( v[SALINITY_INDEX] );
-		orpText.setText( v[ORP_INDEX] );
-		pheText.setText( v[PHE_INDEX] );
+		deviceText[T1_INDEX].setText( v[T1_INDEX] );
+		deviceText[T2_INDEX].setText( v[T2_INDEX] );
+		deviceText[T3_INDEX].setText( v[T3_INDEX] );
+		deviceText[PH_INDEX].setText( v[PH_INDEX] );
+		deviceText[DP_INDEX].setText( v[DP_INDEX] );
+		deviceText[AP_INDEX].setText( v[AP_INDEX] );
+		deviceText[SALINITY_INDEX].setText( v[SALINITY_INDEX] );
+		deviceText[ORP_INDEX].setText( v[ORP_INDEX] );
+		deviceText[PHE_INDEX].setText( v[PHE_INDEX] );
 	}
 
 }

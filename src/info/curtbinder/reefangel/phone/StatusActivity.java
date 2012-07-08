@@ -206,16 +206,24 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// Labels
 		updateRefreshButtonLabel();
 		String separator = getString( R.string.labelSeparator );
-		widgetController.setT1Label( rapp.getPrefT1Label() + separator );
-		widgetController.setT2Label( rapp.getPrefT2Label() + separator );
-		widgetController.setT3Label( rapp.getPrefT3Label() + separator );
-		widgetController.setPHLabel( rapp.getPrefPHLabel() + separator );
-		widgetController.setDPLabel( rapp.getPrefDPLabel() + separator );
-		widgetController.setAPLabel( rapp.getPrefAPLabel() + separator );
-		widgetController.setSalinityLabel( rapp.getPrefSalinityLabel()
-											+ separator );
-		widgetController.setORPLabel( rapp.getPrefORPLabel() + separator );
-		widgetController.setPHExpLabel( rapp.getPrefPHExpLabel() + separator );
+		widgetController.setLabel(	ControllerWidget.T1_INDEX,
+									rapp.getPrefT1Label() + separator );
+		widgetController.setLabel(	ControllerWidget.T2_INDEX,
+									rapp.getPrefT2Label() + separator );
+		widgetController.setLabel(	ControllerWidget.T3_INDEX,
+									rapp.getPrefT3Label() + separator );
+		widgetController.setLabel(	ControllerWidget.PH_INDEX,
+									rapp.getPrefPHLabel() + separator );
+		widgetController.setLabel(	ControllerWidget.DP_INDEX,
+									rapp.getPrefDPLabel() + separator );
+		widgetController.setLabel(	ControllerWidget.AP_INDEX,
+									rapp.getPrefAPLabel() + separator );
+		widgetController.setLabel(	ControllerWidget.SALINITY_INDEX,
+									rapp.getPrefSalinityLabel() + separator );
+		widgetController.setLabel(	ControllerWidget.ORP_INDEX,
+									rapp.getPrefORPLabel() + separator );
+		widgetController.setLabel(	ControllerWidget.PHE_INDEX,
+									rapp.getPrefPHExpLabel() + separator );
 
 		int qty = rapp.getPrefExpansionRelayQuantity();
 		Log.d( TAG, "Expansion Relays: " + qty );
@@ -331,15 +339,22 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		}
 
 		// Visibility
-		widgetController.setT2Visibility( rapp.getPrefT2Visibility() );
-		widgetController.setT3Visibility( rapp.getPrefT3Visibility() );
-		widgetController.setDPVisibility( rapp.getPrefDPVisibility() );
-		widgetController.setAPVisibility( rapp.getPrefAPVisibility() );
-		widgetController.setPHVisibility( rapp.getPrefPHVisibility() );
-		widgetController.setSalinityVisibility( rapp
-				.getPrefSalinityVisibility() );
-		widgetController.setORPVisibility( rapp.getPrefORPVisibility() );
-		widgetController.setPHExpVisibility( rapp.getPrefPHExpVisibility() );
+		widgetController.setVisibility( ControllerWidget.T2_INDEX,
+										rapp.getPrefT2Visibility() );
+		widgetController.setVisibility( ControllerWidget.T3_INDEX,
+										rapp.getPrefT3Visibility() );
+		widgetController.setVisibility( ControllerWidget.DP_INDEX,
+										rapp.getPrefDPVisibility() );
+		widgetController.setVisibility( ControllerWidget.AP_INDEX,
+										rapp.getPrefAPVisibility() );
+		widgetController.setVisibility( ControllerWidget.PH_INDEX,
+										rapp.getPrefPHVisibility() );
+		widgetController.setVisibility( ControllerWidget.SALINITY_INDEX,
+										rapp.getPrefSalinityVisibility() );
+		widgetController.setVisibility( ControllerWidget.ORP_INDEX,
+										rapp.getPrefORPVisibility() );
+		widgetController.setVisibility( ControllerWidget.PHE_INDEX,
+										rapp.getPrefPHExpVisibility() );
 
 		// TODO update control visibility here
 		// TODO consider hiding dimming channels not in use
