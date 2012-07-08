@@ -215,6 +215,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		widgetController.setSalinityLabel( rapp.getPrefSalinityLabel()
 											+ separator );
 		widgetController.setORPLabel( rapp.getPrefORPLabel() + separator );
+		widgetController.setPHExpLabel( rapp.getPrefPHExpLabel() + separator );
 
 		int qty = rapp.getPrefExpansionRelayQuantity();
 		Log.d( TAG, "Expansion Relays: " + qty );
@@ -338,6 +339,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		widgetController.setSalinityVisibility( rapp
 				.getPrefSalinityVisibility() );
 		widgetController.setORPVisibility( rapp.getPrefORPVisibility() );
+		widgetController.setPHExpVisibility( rapp.getPrefPHExpVisibility() );
 
 		// TODO update control visibility here
 		// TODO consider hiding dimming channels not in use
@@ -514,7 +516,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 						c.getShort( c.getColumnIndex( RAData.PCOL_R8OFFMASK ) );
 			} else {
 				updateStatus = getString( R.string.messageNever );
-				values = getNeverValues( 8 );
+				values = getNeverValues( Controller.MAX_CONTROLLER_VALUES );
 				pwme = getNeverValues( Controller.MAX_PWM_EXPANSION_PORTS );
 				rf = getNeverValues( Controller.MAX_RADION_LIGHT_CHANNELS );
 				vt = getNeverValues( Controller.MAX_VORTECH_VALUES );
@@ -595,7 +597,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 								c.getString( c.getColumnIndex( RAData.PCOL_DP ) ),
 								c.getString( c.getColumnIndex( RAData.PCOL_AP ) ),
 								c.getString( c.getColumnIndex( RAData.PCOL_SAL ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_ORP ) ) };
+								c.getString( c.getColumnIndex( RAData.PCOL_ORP ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_PHE ) ) };
 	}
 
 	private String[] getPWMEValues ( Cursor c ) {
@@ -684,15 +687,15 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		String s;
 		for ( byte i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
 			if ( Controller.getIOChannel( io, i ) ) {
-				s = getString(R.string.labelON);
-			} else { 
-				s = getString(R.string.labelOFF);
+				s = getString( R.string.labelON );
+			} else {
+				s = getString( R.string.labelOFF );
 			}
 			sa[i] = s;
 		}
 		return sa;
 	}
-	
+
 	private String[] getCustomValues ( Cursor c ) {
 		return new String[] {	c.getString( c.getColumnIndex( RAData.PCOL_C0 ) ),
 								c.getString( c.getColumnIndex( RAData.PCOL_C1 ) ),

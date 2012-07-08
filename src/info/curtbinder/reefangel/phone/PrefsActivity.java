@@ -300,6 +300,7 @@ public class PrefsActivity extends PreferenceActivity implements
 		rapp.deletePref( R.string.prefPHLabelKey );
 		rapp.deletePref( R.string.prefSalinityLabelKey );
 		rapp.deletePref( R.string.prefORPLabelKey );
+		rapp.deletePref( R.string.prefPHExpLabelKey );
 		for ( int i = 0; i <= Controller.MAX_EXPANSION_RELAYS; i++ ) {
 			for ( int j = 0; j < Controller.MAX_RELAY_PORTS; j++ ) {
 				rapp.deletePref( rapp.getPrefRelayKey( i, j ) );

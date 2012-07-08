@@ -115,6 +115,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                         android:key="@string/prefORPVisibilityKey"
                         android:summary="@string/prefORPVisibilitySummary"
                         android:title="@string/prefORPVisibilityTitle" />
+                    <CheckBoxPreference
+                        android:defaultValue="false"
+                        android:key="@string/prefPHExpVisibilityKey"
+                        android:summary="@string/prefPHExpVisibilitySummary"
+                        android:title="@string/prefPHExpVisibilityTitle" />
                 </PreferenceScreen>
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/prefLabelsCategory" >
@@ -166,6 +171,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                         android:key="@string/prefORPLabelKey"
                         android:summary="@string/prefORPLabelSummary"
                         android:title="@string/prefORPLabelTitle" />
+                    <EditTextPreference
+                        android:defaultValue="@string/labelPHExp"
+                        android:key="@string/prefPHExpLabelKey"
+                        android:summary="@string/prefPHExpLabelSummary"
+                        android:title="@string/prefPHExpLabelTitle" />
                 </PreferenceScreen>
                 <PreferenceScreen
                     android:key="main_relay_labels"

@@ -525,6 +525,12 @@ public class RAApplication extends Application {
 									false );
 	}
 
+	public boolean getPrefPHExpVisibility ( ) {
+		return prefs
+				.getBoolean(	getString( R.string.prefPHExpVisibilityKey ),
+								false );
+	}
+
 	public String getPrefT1Label ( ) {
 		return prefs.getString( getString( R.string.prefT1LabelKey ),
 								getString( R.string.labelTemp1 ) );
@@ -563,6 +569,11 @@ public class RAApplication extends Application {
 	public String getPrefORPLabel ( ) {
 		return prefs.getString( getString( R.string.prefORPLabelKey ),
 								getString( R.string.labelORP ) );
+	}
+
+	public String getPrefPHExpLabel ( ) {
+		return prefs.getString( getString( R.string.prefPHExpLabelKey ),
+								getString( R.string.labelPHExp ) );
 	}
 
 	public String getPrefMainRelayLabel ( int port ) {

@@ -287,6 +287,9 @@ public class ControllerTask implements Runnable {
 		if ( !ra.getORPLabel().equals( "" ) ) {
 			rapp.setPref( R.string.prefORPLabelKey, ra.getORPLabel() );
 		}
+		if ( !ra.getPHExpLabel().equals( "" ) ) {
+			rapp.setPref( R.string.prefPHExpLabelKey, ra.getPHExpLabel() );
+		}
 		// TODO add other label downloading and setting here (PHE, Custom, IO,
 		// PWME)
 		for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {

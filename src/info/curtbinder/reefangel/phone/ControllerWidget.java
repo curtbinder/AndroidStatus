@@ -26,6 +26,7 @@ public class ControllerWidget extends ScrollView {
 	private static final int AP_INDEX = 5;
 	private static final int SALINITY_INDEX = 6;
 	private static final int ORP_INDEX = 7;
+	private static final int PHE_INDEX = 8;
 
 	Context ctx; // saved context from parent
 	private TextView t1Text;
@@ -36,6 +37,7 @@ public class ControllerWidget extends ScrollView {
 	private TextView apText;
 	private TextView salinityText;
 	private TextView orpText;
+	private TextView pheText;
 	private TextView t1Label;
 	private TextView t2Label;
 	private TextView t3Label;
@@ -44,6 +46,7 @@ public class ControllerWidget extends ScrollView {
 	private TextView apLabel;
 	private TextView salinityLabel;
 	private TextView orpLabel;
+	private TextView pheLabel;
 
 	// private TextView orpLabel;
 
@@ -78,6 +81,7 @@ public class ControllerWidget extends ScrollView {
 		apText = (TextView) findViewById( R.id.ap );
 		salinityText = (TextView) findViewById( R.id.salinity );
 		orpText = (TextView) findViewById( R.id.orp );
+		pheText = (TextView) findViewById( R.id.phe );
 		t1Label = (TextView) findViewById( R.id.t1_label );
 		t2Label = (TextView) findViewById( R.id.t2_label );
 		t3Label = (TextView) findViewById( R.id.t3_label );
@@ -86,6 +90,7 @@ public class ControllerWidget extends ScrollView {
 		apLabel = (TextView) findViewById( R.id.ap_label );
 		salinityLabel = (TextView) findViewById( R.id.salinity_label );
 		orpLabel = (TextView) findViewById( R.id.orp_label );
+		pheLabel = (TextView) findViewById( R.id.phe_label );
 	}
 
 	public void setT1Label ( String label ) {
@@ -118,6 +123,10 @@ public class ControllerWidget extends ScrollView {
 	
 	public void setORPLabel ( String label ) {
 		orpLabel.setText( label );
+	}
+	
+	public void setPHExpLabel ( String label ) {
+		pheLabel.setText( label );
 	}
 
 	public void setT2Visibility ( boolean fVisible ) {
@@ -203,6 +212,18 @@ public class ControllerWidget extends ScrollView {
 			orpLabel.setVisibility( View.GONE );
 		}
 	}
+	
+	public void setPHExpVisibility ( boolean fVisible ) {
+		if ( fVisible ) {
+			Log.d( TAG, "PH Exp visible" );
+			pheText.setVisibility( View.VISIBLE );
+			pheLabel.setVisibility( View.VISIBLE );
+		} else {
+			Log.d( TAG, "PH Exp gone" );
+			pheText.setVisibility( View.GONE );
+			pheLabel.setVisibility( View.GONE );
+		}		
+	}
 
 	public void updateDisplay ( String[] v ) {
 		t1Text.setText( v[T1_INDEX] );
@@ -213,6 +234,7 @@ public class ControllerWidget extends ScrollView {
 		apText.setText( v[AP_INDEX] );
 		salinityText.setText( v[SALINITY_INDEX] );
 		orpText.setText( v[ORP_INDEX] );
+		pheText.setText( v[PHE_INDEX] );
 	}
 
 }
