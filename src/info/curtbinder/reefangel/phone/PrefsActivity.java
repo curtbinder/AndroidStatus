@@ -299,25 +299,27 @@ public class PrefsActivity extends PreferenceActivity implements
 		rapp.deletePref( R.string.prefDPLabelKey );
 		rapp.deletePref( R.string.prefPHLabelKey );
 		rapp.deletePref( R.string.prefSalinityLabelKey );
-		int i;
-		for ( i = 0; i <= Controller.MAX_EXPANSION_RELAYS; i++ ) {
+		rapp.deletePref( R.string.prefORPLabelKey );
+		for ( int i = 0; i <= Controller.MAX_EXPANSION_RELAYS; i++ ) {
 			for ( int j = 0; j < Controller.MAX_RELAY_PORTS; j++ ) {
 				rapp.deletePref( rapp.getPrefRelayKey( i, j ) );
 			}
 		}
-		for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
-		}
-		for ( i = 0; i < Controller.MAX_RADION_LIGHT_CHANNELS; i++ ) {
-		}
-		for ( i = 0; i < Controller.MAX_VORTECH_VALUES; i++ ) {
-		}
-		for ( i = 0; i < Controller.MAX_AI_CHANNELS; i++ ) {
-		}
-		for ( i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
-			// TODO delete IO labels
-		}
-		for ( i = 0; i < Controller.MAX_CUSTOM_VARIABLES; i++ ) {
-		}
+		rapp.deletePref( R.string.prefExpDimmingCh0LabelKey );
+		rapp.deletePref( R.string.prefExpDimmingCh1LabelKey );
+		rapp.deletePref( R.string.prefExpDimmingCh2LabelKey );
+		rapp.deletePref( R.string.prefExpDimmingCh3LabelKey );
+		rapp.deletePref( R.string.prefExpDimmingCh4LabelKey );
+		rapp.deletePref( R.string.prefExpDimmingCh5LabelKey );
+		// TODO delete IO labels
+		rapp.deletePref( R.string.prefExpCustom0LabelKey );
+		rapp.deletePref( R.string.prefExpCustom1LabelKey );
+		rapp.deletePref( R.string.prefExpCustom2LabelKey );
+		rapp.deletePref( R.string.prefExpCustom3LabelKey );
+		rapp.deletePref( R.string.prefExpCustom4LabelKey );
+		rapp.deletePref( R.string.prefExpCustom5LabelKey );
+		rapp.deletePref( R.string.prefExpCustom6LabelKey );
+		rapp.deletePref( R.string.prefExpCustom7LabelKey );
 		
 		Toast.makeText( PrefsActivity.this,
 						rapp.getString( R.string.messageResetLabelsComplete ),
