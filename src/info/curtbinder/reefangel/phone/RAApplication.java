@@ -8,10 +8,12 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -410,11 +412,30 @@ public class RAApplication extends Application {
 		deletePref( R.string.prefFirstRunKey );
 	}
 
-	public void displayChangeLog ( ) {
-		// TODO complete this function
+	public void displayChangeLog ( Activity a ) {
 		// check version code stored in preferences vs the version stored in
 		// running code
 		// display the changelog if the values are different
+		Log.d( TAG, "display changelog" );
+		int previous =
+				prefs.getInt( getString( R.string.prefPreviousCodeVersion ), 0 );
+		int current = 0;
+		try {
+			current =
+					getPackageManager().getPackageInfo( getPackageName(), 0 ).versionCode;
+		} catch ( NameNotFoundException e ) {
+		}
+		Log.d( TAG, "Compare: " + current + " == " + previous );
+		if ( current > previous ) {
+			// save code version in preferences
+			prefs.edit()
+					.putInt( getString( R.string.prefPreviousCodeVersion ),
+								current ).commit();
+			// newer version, display changelog
+			Log.d( TAG, "Showing changelog" );
+			Changelog.displayChangelog( a );
+		}
+		// deletePref( R.string.prefPreviousCodeVersion );
 	}
 
 	public int getSelectedProfile ( ) {

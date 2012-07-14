@@ -152,7 +152,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		updateViewsVisibility();
 		updateDisplay();
 
-		// TODO either put the displaying of the changelog here or in OnStart
+		// the last thing we do is display the changelog if necessary
+		rapp.displayChangeLog( this );
 	}
 
 	private void createViews ( ) {
@@ -160,7 +161,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		pageController = new ControllerPage( ctx );
 		pageDimming = new DimmingPage( ctx );
 		pageRadion = new RadionPage( ctx );
-		// TODO create additional wigdets for main screen in app
 		pageVortech = new VortechPage( ctx );
 		pageAI = new AIPage( ctx );
 		pageIO = new IOPage( ctx );
@@ -275,7 +275,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 		}
 
-		// TODO set other control labels here
 		if ( rapp.getDimmingModuleEnabled() ) {
 			for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ )
 				pageDimming.setLabel( i,
@@ -461,7 +460,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		Log.d( TAG, "updateDisplay" );
 		try {
 			Cursor c = rapp.data.getLatestData();
-			// TODO get all the values here to be displayed
 			String updateStatus;
 			String[] values;
 			String[] pwme;

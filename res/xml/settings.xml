@@ -719,6 +719,10 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:summary="@string/prefLicenseSummary"
                 android:title="@string/prefLicenseTitle" />
             <PreferenceScreen
+                android:key="@string/prefChangelogKey"
+                android:summary="@string/prefChangelogSummary"
+                android:title="@string/titleChangelog" />
+            <PreferenceScreen
                 android:key="@string/prefReefAngelKey"
                 android:summary="@string/prefReefAngelSummary"
                 android:title="@string/prefReefAngelTitle" />

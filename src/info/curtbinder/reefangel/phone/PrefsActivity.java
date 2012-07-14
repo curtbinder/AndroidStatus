@@ -156,6 +156,19 @@ public class PrefsActivity extends PreferenceActivity implements
 			}
 		} );
 
+		Preference changelog =
+				getPreferenceScreen()
+						.findPreference(	rapp.getString( R.string.prefChangelogKey ) );
+		changelog
+				.setOnPreferenceClickListener( new OnPreferenceClickListener() {
+
+					@Override
+					public boolean onPreferenceClick ( Preference preference ) {
+						Changelog.displayChangelog( PrefsActivity.this );
+						return true;
+					}
+				} );
+
 		downloadkey =
 				getPreferenceScreen()
 						.findPreference(	rapp.getString( R.string.prefControllerLabelsDownloadKey ) );
@@ -312,13 +325,13 @@ public class PrefsActivity extends PreferenceActivity implements
 		rapp.deletePref( R.string.prefExpDimmingCh3LabelKey );
 		rapp.deletePref( R.string.prefExpDimmingCh4LabelKey );
 		rapp.deletePref( R.string.prefExpDimmingCh5LabelKey );
-		rapp.deletePref( R.string.prefExpIO0LabelKey);
-		rapp.deletePref( R.string.prefExpIO1LabelKey);
-		rapp.deletePref( R.string.prefExpIO2LabelKey);
-		rapp.deletePref( R.string.prefExpIO3LabelKey);
-		rapp.deletePref( R.string.prefExpIO4LabelKey);
-		rapp.deletePref( R.string.prefExpIO5LabelKey);
-		rapp.deletePref( R.string.prefExpIO6LabelKey);
+		rapp.deletePref( R.string.prefExpIO0LabelKey );
+		rapp.deletePref( R.string.prefExpIO1LabelKey );
+		rapp.deletePref( R.string.prefExpIO2LabelKey );
+		rapp.deletePref( R.string.prefExpIO3LabelKey );
+		rapp.deletePref( R.string.prefExpIO4LabelKey );
+		rapp.deletePref( R.string.prefExpIO5LabelKey );
+		rapp.deletePref( R.string.prefExpIO6LabelKey );
 		rapp.deletePref( R.string.prefExpCustom0LabelKey );
 		rapp.deletePref( R.string.prefExpCustom1LabelKey );
 		rapp.deletePref( R.string.prefExpCustom2LabelKey );
@@ -327,7 +340,7 @@ public class PrefsActivity extends PreferenceActivity implements
 		rapp.deletePref( R.string.prefExpCustom5LabelKey );
 		rapp.deletePref( R.string.prefExpCustom6LabelKey );
 		rapp.deletePref( R.string.prefExpCustom7LabelKey );
-		
+
 		Toast.makeText( PrefsActivity.this,
 						rapp.getString( R.string.messageResetLabelsComplete ),
 						Toast.LENGTH_SHORT ).show();
@@ -347,7 +360,7 @@ public class PrefsActivity extends PreferenceActivity implements
 			return rapp.validatePort( newValue );
 		} else if ( preference.getKey()
 				.equals( rapp.getString( R.string.prefHostAwayKey ) ) ) {
-			Log.d(TAG, "Change away host: " + newValue.toString());
+			Log.d( TAG, "Change away host: " + newValue.toString() );
 			// Away Host can be empty
 			if ( newValue.toString().equals( "" ) ) {
 				// set the selected profile to be the home profile

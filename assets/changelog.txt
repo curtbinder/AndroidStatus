@@ -1,0 +1,51 @@
+0.7
+ * fixed labels not downloading from portal
+ * added water level and ph expansion fields to database
+ * added radion page
+ * added aqua illuminations page
+ * added vortech page
+ * added custom variables page
+ * added dimming page
+
+0.6.1
+ * added support for new 1.0 memory locations and ability to choose what locations to reference
+ * added PH expansion and water level xml tags to string file, not parsed yet though
+ * fixed parsing issue with byte storage values
+ * changed controller summary to say Expansion Modules instead of Relays
+ * added PH visibility toggling
+ * added additional memory locations
+ 
+0.6.0
+ * added support for 0.8.5.x expansion relays with setting
+ * created custom widget for controller status information
+ * only set the labels for the expansion relay boxes displayed
+ * added swipe capabilities to change between screens
+ * separated main page into smaller screens: Status and Relay Boxes
+ * added remaining fields to database, all values are stored now just not displayed
+ * added ORP to status page
+ * changed 'first run' screen to be entirely scrollable
+ * added profiles
+ ** ability to configure a home / away profile with different HOST & PORT values
+ ** long press on Refresh button to change/select profile
+ ** Refresh button label changes to "Refresh - Home" or "Refresh - Away"
+
+ 0.5.0
+ * added date and time screen to internal memory page
+ * moved commands from internal memory to its own menu
+ * expansion relays
+ ** create expansion relay layouts
+ ** allow for expansion relay quantity settings in prefs
+ ** alters displays based on qty
+ ** additional relay labels screen based on quantity of relay labels installed
+ * downloading labels from portal no longer inserts NULL when no label is set
+ * added reset all labels that resets back to defaults
+ * finish button on First Run screen uses string resources
+ 
+ 0.4.4
+ * added in pwm expansion relay channel start %, end % and duration memory values
+ * added in new ato and ato high timeout memory locations
+ * added in ato clear and overheat clear buttons to commands page
+ * switched to new portal urls for parameters and controller labels
+ * added 'first run' screen when the app is first installed
+ * fixed sending commands in reefangel.com mode, displays popup that it's not a controller
+ 

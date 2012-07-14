@@ -32,6 +32,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <string name="titlePrefs">Status Settings</string>
     <string name="titleDateTime">Date / Time</string>
     <string name="titleSelectProfile">Select Profile</string>
+    <string name="titleChangelog">Changelog</string>
 
     <!-- Tabs for memory page -->
     <string name="tabMemory1">memory_tab_1</string>
@@ -241,6 +242,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefLicenseKey">license</string>
     <string name="prefLicenseTitle">License</string>
     <string name="prefLicenseSummary">This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</string>
+    <string name="prefChangelogKey">changelog</string>
+    <string name="prefChangelogSummary">Displays the application changelog</string>
     <string name="prefReefAngelKey">reefangel</string>
     <string name="prefReefAngelTitle">Reef Angel Controller</string>
     <string name="prefReefAngelSummary">http://www.reefangel.com/</string>
@@ -502,6 +505,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefPre10MemoryKey">pre_10_memory_locations</string>
     <string name="prefPre10MemorySummary">Select this if you have a version of the libraries before v1.0. This will allow you reference the proper internal memory locations.</string>
     <string name="prefPre10MemoryTitle">Pre v1.0 Locations </string>
+    <string name="prefPreviousCodeVersion">previous_version</string>
 
     <!-- Permissions -->
     <string name="permissionQueryStatusLabel">Query status of controller</string>
