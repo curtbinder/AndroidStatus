@@ -558,6 +558,12 @@ public class RAApplication extends Application {
 								false );
 	}
 
+	public boolean getPrefWaterLevelVisibility ( ) {
+		return prefs
+				.getBoolean(	getString( R.string.prefWaterLevelVisibilityKey ),
+								false );
+	}
+
 	public String getPrefT1Label ( ) {
 		return prefs.getString( getString( R.string.prefT1LabelKey ),
 								getString( R.string.labelTemp1 ) );
@@ -601,6 +607,11 @@ public class RAApplication extends Application {
 	public String getPrefPHExpLabel ( ) {
 		return prefs.getString( getString( R.string.prefPHExpLabelKey ),
 								getString( R.string.labelPHExp ) );
+	}
+
+	public String getPrefWaterLevelLabel ( ) {
+		return prefs.getString( getString( R.string.prefWaterLevelLabelKey ),
+								getString( R.string.labelWaterLevel ) );
 	}
 
 	public String getPrefMainRelayLabel ( int port ) {

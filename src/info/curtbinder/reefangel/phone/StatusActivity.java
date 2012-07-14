@@ -224,6 +224,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 									rapp.getPrefORPLabel() + separator );
 		pageController.setLabel(	ControllerPage.PHE_INDEX,
 									rapp.getPrefPHExpLabel() + separator );
+		pageController.setLabel(	ControllerPage.WL_INDEX,
+									rapp.getPrefWaterLevelLabel() + separator );
 
 		int qty = rapp.getPrefExpansionRelayQuantity();
 		Log.d( TAG, "Expansion Relays: " + qty );
@@ -354,6 +356,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 										rapp.getPrefORPVisibility() );
 		pageController.setVisibility(	ControllerPage.PHE_INDEX,
 										rapp.getPrefPHExpVisibility() );
+		pageController.setVisibility(	ControllerPage.WL_INDEX,
+										rapp.getPrefWaterLevelVisibility() );
 
 		// TODO update control visibility here
 		// TODO consider hiding dimming channels not in use
@@ -615,7 +619,9 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 										+ " ppt",
 								c.getString( c.getColumnIndex( RAData.PCOL_ORP ) )
 										+ " mV",
-								c.getString( c.getColumnIndex( RAData.PCOL_PHE ) ) };
+								c.getString( c.getColumnIndex( RAData.PCOL_PHE ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_WL ) )
+										+ "%" };
 	}
 
 	private String[] getPWMEValues ( Cursor c ) {

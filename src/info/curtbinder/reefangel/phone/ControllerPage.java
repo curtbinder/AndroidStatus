@@ -28,6 +28,7 @@ public class ControllerPage extends ScrollView {
 	public static final int SALINITY_INDEX = 6;
 	public static final int ORP_INDEX = 7;
 	public static final int PHE_INDEX = 8;
+	public static final int WL_INDEX = 9;
 
 	Context ctx; // saved context from parent
 	private TextView[] deviceText;
@@ -72,6 +73,7 @@ public class ControllerPage extends ScrollView {
 		deviceText[SALINITY_INDEX] = (TextView) findViewById( R.id.salinity );
 		deviceText[ORP_INDEX] = (TextView) findViewById( R.id.orp );
 		deviceText[PHE_INDEX] = (TextView) findViewById( R.id.phe );
+		deviceText[WL_INDEX] = (TextView) findViewById( R.id.water );
 
 		deviceLabel[T1_INDEX] = (TextView) findViewById( R.id.t1_label );
 		deviceLabel[T2_INDEX] = (TextView) findViewById( R.id.t2_label );
@@ -82,6 +84,7 @@ public class ControllerPage extends ScrollView {
 		deviceLabel[SALINITY_INDEX] = (TextView) findViewById( R.id.salinity_label );
 		deviceLabel[ORP_INDEX] = (TextView) findViewById( R.id.orp_label );
 		deviceLabel[PHE_INDEX] = (TextView) findViewById( R.id.phe_label );
+		deviceLabel[WL_INDEX] = (TextView) findViewById( R.id.water_label );
 	}
 
 	public void setLabel ( int device, String label ) {
@@ -111,6 +114,7 @@ public class ControllerPage extends ScrollView {
 		deviceText[SALINITY_INDEX].setText( v[SALINITY_INDEX] );
 		deviceText[ORP_INDEX].setText( v[ORP_INDEX] );
 		deviceText[PHE_INDEX].setText( v[PHE_INDEX] );
+		deviceText[WL_INDEX].setText( v[WL_INDEX] );
 	}
 
 }

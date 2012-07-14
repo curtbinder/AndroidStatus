@@ -104,6 +104,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="labelSalinity">Salinity</string>
     <string name="labelORP">ORP</string>
     <string name="labelPHExp">PH Exp</string>
+    <string name="labelWaterLevel">Water</string>
     <string name="labelAtoLow">ATO Low</string>
     <string name="labelAtoHigh">ATO High</string>
     <string name="labelPort1">Port 1</string>
@@ -279,6 +280,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefPHExpVisibilityKey">phe_visibility</string>
     <string name="prefPHExpVisibilityTitle">Display PH Exp</string>
     <string name="prefPHExpVisibilitySummary">Displays the PH Expansion probe</string>
+    <string name="prefWaterLevelVisibilityKey">wl_visibility</string>
+    <string name="prefWaterLevelVisibilityTitle">Display Water Level</string>
+    <string name="prefWaterLevelVisibilitySummary">Displays the water level</string>
 	<string name="prefResetCategory">Reset Settings</string>
 	<string name="prefResetLabelsKey">reset_labels</string>
 	<string name="prefResetLabelsTitle">Reset Labels</string>
@@ -316,6 +320,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefPHExpLabelKey">phe_label</string>
     <string name="prefPHExpLabelTitle">PH Expansion</string>
     <string name="prefPHExpLabelSummary">PH Expansion label</string>
+    <string name="prefWaterLevelLabelKey">wl_label</string>
+    <string name="prefWaterLevelLabelTitle">Water Level</string>
+    <string name="prefWaterLevelLabelSummary">Water Level label</string>
     <string name="prefPort1LabelTitle">Port 1 Label</string>
     <string name="prefPort2LabelTitle">Port 2 Label</string>
     <string name="prefPort3LabelTitle">Port 3 Label</string>

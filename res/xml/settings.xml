@@ -120,6 +120,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                         android:key="@string/prefPHExpVisibilityKey"
                         android:summary="@string/prefPHExpVisibilitySummary"
                         android:title="@string/prefPHExpVisibilityTitle" />
+                    <CheckBoxPreference
+                        android:defaultValue="false"
+                        android:key="@string/prefWaterLevelVisibilityKey"
+                        android:summary="@string/prefWaterLevelVisibilitySummary"
+                        android:title="@string/prefWaterLevelVisibilityTitle" />
                 </PreferenceScreen>
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/prefLabelsCategory" >
@@ -176,6 +181,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                         android:key="@string/prefPHExpLabelKey"
                         android:summary="@string/prefPHExpLabelSummary"
                         android:title="@string/prefPHExpLabelTitle" />
+                    <EditTextPreference
+                        android:defaultValue="@string/labelWaterLevel"
+                        android:key="@string/prefWaterLevelLabelKey"
+                        android:summary="@string/prefWaterLevelLabelSummary"
+                        android:title="@string/prefWaterLevelLabelTitle" />
                 </PreferenceScreen>
                 <PreferenceScreen
                     android:key="main_relay_labels"
