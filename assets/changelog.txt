@@ -6,6 +6,7 @@
  * added vortech page
  * added custom variables page
  * added dimming page
+ * added changelog displaying
 
 0.6.1
  * added support for new 1.0 memory locations and ability to choose what locations to reference
