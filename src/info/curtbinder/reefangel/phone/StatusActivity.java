@@ -206,18 +206,18 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// Labels
 		updateRefreshButtonLabel();
 		String separator = getString( R.string.labelSeparator );
-		pageController.setLabel(	ControllerPage.T1_INDEX,
-									rapp.getPrefT1Label() + separator );
-		pageController.setLabel(	ControllerPage.T2_INDEX,
-									rapp.getPrefT2Label() + separator );
-		pageController.setLabel(	ControllerPage.T3_INDEX,
-									rapp.getPrefT3Label() + separator );
-		pageController.setLabel(	ControllerPage.PH_INDEX,
-									rapp.getPrefPHLabel() + separator );
-		pageController.setLabel(	ControllerPage.DP_INDEX,
-									rapp.getPrefDPLabel() + separator );
-		pageController.setLabel(	ControllerPage.AP_INDEX,
-									rapp.getPrefAPLabel() + separator );
+		pageController.setLabel( ControllerPage.T1_INDEX, rapp.getPrefT1Label()
+															+ separator );
+		pageController.setLabel( ControllerPage.T2_INDEX, rapp.getPrefT2Label()
+															+ separator );
+		pageController.setLabel( ControllerPage.T3_INDEX, rapp.getPrefT3Label()
+															+ separator );
+		pageController.setLabel( ControllerPage.PH_INDEX, rapp.getPrefPHLabel()
+															+ separator );
+		pageController.setLabel( ControllerPage.DP_INDEX, rapp.getPrefDPLabel()
+															+ separator );
+		pageController.setLabel( ControllerPage.AP_INDEX, rapp.getPrefAPLabel()
+															+ separator );
 		pageController.setLabel(	ControllerPage.SALINITY_INDEX,
 									rapp.getPrefSalinityLabel() + separator );
 		pageController.setLabel(	ControllerPage.ORP_INDEX,
@@ -268,18 +268,18 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				// skip over the relays that are not installed
 				if ( (j + 1) > qty )
 					break;
-				pageExpRelays[j]
-						.setPortLabel( i, rapp.getPrefRelayLabel( j + 1, i )
-											+ separator );
+				pageExpRelays[j].setPortLabel(	i,
+												rapp.getPrefRelayLabel( j + 1,
+																		i )
+														+ separator );
 			}
 
 		}
 
 		if ( rapp.getDimmingModuleEnabled() ) {
 			for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ )
-				pageDimming.setLabel( i,
-										rapp.getDimmingModuleChannelLabel( i )
-												+ separator );
+				pageDimming.setLabel( i, rapp.getDimmingModuleChannelLabel( i )
+											+ separator );
 		}
 
 		if ( rapp.getRadionModuleEnabled() ) {
@@ -306,10 +306,10 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			pageVortech
 					.setLabel(	Controller.VORTECH_MODE,
 								getString( R.string.labelMode ) + separator );
-			pageVortech.setLabel( Controller.VORTECH_SPEED,
+			pageVortech.setLabel(	Controller.VORTECH_SPEED,
 									getString( R.string.labelSpeed )
 											+ separator );
-			pageVortech.setLabel( Controller.VORTECH_DURATION,
+			pageVortech.setLabel(	Controller.VORTECH_DURATION,
 									getString( R.string.labelDuration )
 											+ separator );
 		}
@@ -317,8 +317,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		if ( rapp.getAIModuleEnabled() ) {
 			pageAI.setLabel(	Controller.AI_WHITE,
 								getString( R.string.labelWhite ) + separator );
-			pageAI.setLabel(	Controller.AI_BLUE,
-								getString( R.string.labelBlue ) + separator );
+			pageAI.setLabel( Controller.AI_BLUE, getString( R.string.labelBlue )
+													+ separator );
 			pageAI.setLabel(	Controller.AI_ROYALBLUE,
 								getString( R.string.labelRoyalBlue )
 										+ separator );
@@ -327,32 +327,32 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		if ( rapp.getIOModuleEnabled() ) {
 			for ( i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
 				pageIO.setLabel( i, rapp.getIOModuleChannelLabel( i )
-										+ separator );
+									+ separator );
 			}
 		}
 
 		if ( rapp.getCustomModuleEnabled() ) {
 			for ( i = 0; i < Controller.MAX_CUSTOM_VARIABLES; i++ )
 				pageCustom.setLabel( i, rapp.getCustomModuleChannelLabel( i )
-											+ separator );
+										+ separator );
 		}
 
 		// Visibility
-		pageController.setVisibility( ControllerPage.T2_INDEX,
+		pageController.setVisibility(	ControllerPage.T2_INDEX,
 										rapp.getPrefT2Visibility() );
-		pageController.setVisibility( ControllerPage.T3_INDEX,
+		pageController.setVisibility(	ControllerPage.T3_INDEX,
 										rapp.getPrefT3Visibility() );
-		pageController.setVisibility( ControllerPage.DP_INDEX,
+		pageController.setVisibility(	ControllerPage.DP_INDEX,
 										rapp.getPrefDPVisibility() );
-		pageController.setVisibility( ControllerPage.AP_INDEX,
+		pageController.setVisibility(	ControllerPage.AP_INDEX,
 										rapp.getPrefAPVisibility() );
-		pageController.setVisibility( ControllerPage.PH_INDEX,
+		pageController.setVisibility(	ControllerPage.PH_INDEX,
 										rapp.getPrefPHVisibility() );
-		pageController.setVisibility( ControllerPage.SALINITY_INDEX,
+		pageController.setVisibility(	ControllerPage.SALINITY_INDEX,
 										rapp.getPrefSalinityVisibility() );
-		pageController.setVisibility( ControllerPage.ORP_INDEX,
+		pageController.setVisibility(	ControllerPage.ORP_INDEX,
 										rapp.getPrefORPVisibility() );
-		pageController.setVisibility( ControllerPage.PHE_INDEX,
+		pageController.setVisibility(	ControllerPage.PHE_INDEX,
 										rapp.getPrefPHExpVisibility() );
 
 		// TODO update control visibility here
@@ -607,26 +607,26 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 								c.getString( c.getColumnIndex( RAData.PCOL_T2 ) ),
 								c.getString( c.getColumnIndex( RAData.PCOL_T3 ) ),
 								c.getString( c.getColumnIndex( RAData.PCOL_PH ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_DP ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_AP ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_SAL ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_ORP ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_DP ) )
+										+ "%",
+								c.getString( c.getColumnIndex( RAData.PCOL_AP ) )
+										+ "%",
+								c.getString( c.getColumnIndex( RAData.PCOL_SAL ) )
+										+ " ppt",
+								c.getString( c.getColumnIndex( RAData.PCOL_ORP ) )
+										+ " mV",
 								c.getString( c.getColumnIndex( RAData.PCOL_PHE ) ) };
 	}
 
 	private String[] getPWMEValues ( Cursor c ) {
-		return new String[] {	c.getString( c
-										.getColumnIndex( RAData.PCOL_PWME0 ) ),
-								c.getString( c
-										.getColumnIndex( RAData.PCOL_PWME1 ) ),
-								c.getString( c
-										.getColumnIndex( RAData.PCOL_PWME2 ) ),
-								c.getString( c
-										.getColumnIndex( RAData.PCOL_PWME3 ) ),
-								c.getString( c
-										.getColumnIndex( RAData.PCOL_PWME4 ) ),
-								c.getString( c
-										.getColumnIndex( RAData.PCOL_PWME5 ) ) };
+		String[] sa = new String[Controller.MAX_PWM_EXPANSION_PORTS];
+		sa[0] = c.getString( c.getColumnIndex( RAData.PCOL_PWME0 ) ) + "%";
+		sa[1] = c.getString( c.getColumnIndex( RAData.PCOL_PWME1 ) ) + "%";
+		sa[2] = c.getString( c.getColumnIndex( RAData.PCOL_PWME2 ) ) + "%";
+		sa[3] = c.getString( c.getColumnIndex( RAData.PCOL_PWME3 ) ) + "%";
+		sa[4] = c.getString( c.getColumnIndex( RAData.PCOL_PWME4 ) ) + "%";
+		sa[5] = c.getString( c.getColumnIndex( RAData.PCOL_PWME5 ) ) + "%";
+		return sa;
 	}
 
 	private String[] getRadionValues ( Cursor c ) {
@@ -660,7 +660,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		sa[Controller.VORTECH_MODE] = s;
 		// speed
 		v = c.getInt( c.getColumnIndex( RAData.PCOL_RFS ) );
-		// TODO switch to locale dependent strings
 		s = String.format( "%d%c", v, '%' );
 		sa[Controller.VORTECH_SPEED] = s;
 		// duration
@@ -683,7 +682,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private String[] getAIValues ( Cursor c ) {
-		// TODO locale dependent of %
 		String[] sa = new String[Controller.MAX_AI_CHANNELS];
 		sa[Controller.AI_WHITE] =
 				c.getString( c.getColumnIndex( RAData.PCOL_AIW ) ) + "%";

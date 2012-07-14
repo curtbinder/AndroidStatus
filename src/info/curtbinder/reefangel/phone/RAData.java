@@ -20,7 +20,6 @@ public class RAData {
 	private static final String TAG = RAData.class.getSimpleName();
 
 	// Database constants
-	public static final String PTABLE_MAX_COUNT = "30";
 	public static final String PTABLE_NAME = "params";
 	// columns in params table
 	public static final String PCOL_ID = "_id";
@@ -96,7 +95,7 @@ public class RAData {
 
 	public class DbHelper extends SQLiteOpenHelper {
 		private static final String DB_NAME = "radata.db";
-		private static final int DB_VERSION = 3;
+		private static final int DB_VERSION = 4;
 		private static final String TAG = "DbHelper";
 
 		public DbHelper ( Context context ) {
@@ -126,8 +125,8 @@ public class RAData {
 			db.execSQL( "CREATE TABLE " + PTABLE_NAME + " (" + PCOL_ID
 						+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + PCOL_T1
 						+ " TEXT, " + PCOL_T2 + " TEXT, " + PCOL_T3 + " TEXT, "
-						+ PCOL_PH + " TEXT, " + PCOL_DP + " TEXT, " + PCOL_AP
-						+ " TEXT, " + PCOL_SAL + " TEXT, " + PCOL_ORP
+						+ PCOL_PH + " TEXT, " + PCOL_DP + " INTEGER, " + PCOL_AP
+						+ " INTEGER, " + PCOL_SAL + " TEXT, " + PCOL_ORP
 						+ " TEXT, " + PCOL_ATOHI + " INTEGER, " + PCOL_ATOLO
 						+ " INTEGER, " + PCOL_LOGDATE + " TEXT, " + PCOL_RDATA
 						+ " INTEGER, " + PCOL_RONMASK + " INTEGER, "
@@ -148,9 +147,9 @@ public class RAData {
 						+ PCOL_R7OFFMASK + " INTEGER, " + PCOL_R8DATA
 						+ " INTEGER, " + PCOL_R8ONMASK + " INTEGER, "
 						+ PCOL_R8OFFMASK + " INTEGER, " + PCOL_PWME0
-						+ " TEXT, " + PCOL_PWME1 + " TEXT, " + PCOL_PWME2
-						+ " TEXT, " + PCOL_PWME3 + " TEXT, " + PCOL_PWME4
-						+ " TEXT, " + PCOL_PWME5 + " INTEGER, " + PCOL_AIW
+						+ " INTEGER, " + PCOL_PWME1 + " INTEGER, " + PCOL_PWME2
+						+ " INTEGER, " + PCOL_PWME3 + " INTEGER, " + PCOL_PWME4
+						+ " INTEGER, " + PCOL_PWME5 + " INTEGER, " + PCOL_AIW
 						+ " INTEGER, " + PCOL_AIB + " INTEGER, " + PCOL_AIRB
 						+ " INTEGER, " + PCOL_RFM + " INTEGER, " + PCOL_RFS
 						+ " INTEGER, " + PCOL_RFD + " INTEGER, " + PCOL_RFW

@@ -76,8 +76,8 @@ public class RAApplication extends Application {
 		v.put( RAData.PCOL_T2, i.getStringExtra( RAData.PCOL_T2 ) );
 		v.put( RAData.PCOL_T3, i.getStringExtra( RAData.PCOL_T3 ) );
 		v.put( RAData.PCOL_PH, i.getStringExtra( RAData.PCOL_PH ) );
-		v.put( RAData.PCOL_DP, i.getStringExtra( RAData.PCOL_DP ) );
-		v.put( RAData.PCOL_AP, i.getStringExtra( RAData.PCOL_AP ) );
+		v.put( RAData.PCOL_DP, i.getShortExtra( RAData.PCOL_DP, (short) 0 ) );
+		v.put( RAData.PCOL_AP, i.getShortExtra( RAData.PCOL_AP, (short) 0 ) );
 		v.put( RAData.PCOL_SAL, i.getStringExtra( RAData.PCOL_SAL ) );
 		v.put( RAData.PCOL_ORP, i.getStringExtra( RAData.PCOL_ORP ) );
 		v.put( RAData.PCOL_ATOHI, i.getBooleanExtra( RAData.PCOL_ATOHI, false ) );
@@ -137,12 +137,18 @@ public class RAApplication extends Application {
 				i.getShortExtra( RAData.PCOL_R8ONMASK, (short) 0 ) );
 		v.put(	RAData.PCOL_R8OFFMASK,
 				i.getShortExtra( RAData.PCOL_R8OFFMASK, (short) 0 ) );
-		v.put( RAData.PCOL_PWME0, i.getStringExtra( RAData.PCOL_PWME0 ) );
-		v.put( RAData.PCOL_PWME1, i.getStringExtra( RAData.PCOL_PWME1 ) );
-		v.put( RAData.PCOL_PWME2, i.getStringExtra( RAData.PCOL_PWME2 ) );
-		v.put( RAData.PCOL_PWME3, i.getStringExtra( RAData.PCOL_PWME3 ) );
-		v.put( RAData.PCOL_PWME4, i.getStringExtra( RAData.PCOL_PWME4 ) );
-		v.put( RAData.PCOL_PWME5, i.getStringExtra( RAData.PCOL_PWME5 ) );
+		v.put(	RAData.PCOL_PWME0,
+				i.getShortExtra( RAData.PCOL_PWME0, (short) 0 ) );
+		v.put(	RAData.PCOL_PWME1,
+				i.getShortExtra( RAData.PCOL_PWME1, (short) 0 ) );
+		v.put(	RAData.PCOL_PWME2,
+				i.getShortExtra( RAData.PCOL_PWME2, (short) 0 ) );
+		v.put(	RAData.PCOL_PWME3,
+				i.getShortExtra( RAData.PCOL_PWME3, (short) 0 ) );
+		v.put(	RAData.PCOL_PWME4,
+				i.getShortExtra( RAData.PCOL_PWME4, (short) 0 ) );
+		v.put(	RAData.PCOL_PWME5,
+				i.getShortExtra( RAData.PCOL_PWME5, (short) 0 ) );
 		v.put( RAData.PCOL_AIW, i.getShortExtra( RAData.PCOL_AIW, (short) 0 ) );
 		v.put( RAData.PCOL_AIB, i.getShortExtra( RAData.PCOL_AIB, (short) 0 ) );
 		v.put( RAData.PCOL_AIRB, i.getShortExtra( RAData.PCOL_AIRB, (short) 0 ) );

@@ -249,27 +249,24 @@ public class Controller {
 		pwmA = v;
 	}
 
-	public String getPwmA ( ) {
-		// TODO change to be locale independent
-		return new String( String.format( "%d%c", pwmA, '%' ) );
+	public short getPwmA ( ) {
+		return pwmA;
 	}
 
 	public void setPwmD ( short v ) {
 		pwmD = v;
 	}
 
-	public String getPwmD ( ) {
-		// TODO change to be locale independent
-		return new String( String.format( "%d%c", pwmD, '%' ) );
+	public short getPwmD ( ) {
+		return pwmD;
 	}
 
 	public void setPwmExpansion ( short channel, short v ) {
 		pwmExpansion[channel].setData( v );
 	}
 
-	public String getPwmExpansion ( short channel ) {
-		// TODO change to be locale independent
-		return new String( String.format( "%d%c", pwmExpansion[channel].getData(), '%' ) );
+	public short getPwmExpansion ( short channel ) {
+		return pwmExpansion[channel].getData();
 	}
 	
 	public void setPwmExpansionLabel ( short channel, String label ) {
@@ -293,7 +290,7 @@ public class Controller {
 	}
 
 	public String getSalinity ( ) {
-		return salinity.getData() + " ppt";
+		return salinity.getData();
 	}
 	
 	public void setSalinityLabel ( String label ) {
@@ -309,7 +306,7 @@ public class Controller {
 	}
 
 	public String getORP ( ) {
-		return orp.getData() + " mV";
+		return orp.getData();
 	}
 	
 	public void setORPLabel ( String label ) {
