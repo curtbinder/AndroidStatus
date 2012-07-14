@@ -4,7 +4,7 @@ Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
  
 This work is made available under the terms of the 
 Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
-http://creativecommons.org/licenses/by-nc-sa/3.0/
+http://creativecommons.org/licenses/by-nc-sa/3.0/
 -->
 
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -100,6 +100,17 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
         <TextView
             android:id="@+id/orp"
+            style="@style/ParamsText.Values" />
+    </TableRow>
+
+    <TableRow style="@style/RARow" >
+
+        <TextView
+            android:id="@+id/phe_label"
+            style="@style/ParamsText.Labels" />
+
+        <TextView
+            android:id="@+id/phe"
             style="@style/ParamsText.Values" />
     </TableRow>
 
