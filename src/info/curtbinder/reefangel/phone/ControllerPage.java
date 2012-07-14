@@ -16,8 +16,8 @@ import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class ControllerWidget extends ScrollView {
-	private static final String TAG = ControllerWidget.class.getSimpleName();
+public class ControllerPage extends ScrollView {
+	private static final String TAG = ControllerPage.class.getSimpleName();
 	
 	public static final int T1_INDEX = 0;
 	public static final int T2_INDEX = 1;
@@ -34,14 +34,14 @@ public class ControllerWidget extends ScrollView {
 	private TextView[] deviceLabel;
 
 
-	public ControllerWidget ( Context context ) {
+	public ControllerPage ( Context context ) {
 		super( context );
 		addViewsFromLayout( context );
 		ctx = context;
 		// setDefaults();
 	}
 
-	public ControllerWidget ( Context context, AttributeSet attrs ) {
+	public ControllerPage ( Context context, AttributeSet attrs ) {
 		super( context, attrs );
 		addViewsFromLayout( context );
 		ctx = context;

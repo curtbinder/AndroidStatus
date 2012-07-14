@@ -14,20 +14,20 @@ import android.view.LayoutInflater;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class VortechWidget extends ScrollView {
+public class VortechPage extends ScrollView {
 	//private static final String TAG = VortechWidget.class.getSimpleName();
 
 	Context ctx; // saved context from parent
 	private TextView[] vortechText;
 	private TextView[] vortechLabels;
 
-	public VortechWidget ( Context context ) {
+	public VortechPage ( Context context ) {
 		super( context );
 		addViewsFromLayout( context );
 		ctx = context;
 	}
 
-	public VortechWidget ( Context context, AttributeSet attrs ) {
+	public VortechPage ( Context context, AttributeSet attrs ) {
 		super( context, attrs );
 		addViewsFromLayout( context );
 		ctx = context;

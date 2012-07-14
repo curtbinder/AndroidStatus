@@ -16,20 +16,20 @@ import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class CustomWidget extends ScrollView {
-	private static final String TAG = CustomWidget.class.getSimpleName();
+public class CustomPage extends ScrollView {
+	private static final String TAG = CustomPage.class.getSimpleName();
 
 	Context ctx; // saved context from parent
 	private TextView[] customText;
 	private TextView[] customLabels;
 
-	public CustomWidget ( Context context ) {
+	public CustomPage ( Context context ) {
 		super( context );
 		addViewsFromLayout( context );
 		ctx = context;
 	}
 
-	public CustomWidget ( Context context, AttributeSet attrs ) {
+	public CustomPage ( Context context, AttributeSet attrs ) {
 		super( context, attrs );
 		addViewsFromLayout( context );
 		ctx = context;

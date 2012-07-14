@@ -16,20 +16,20 @@ import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class IOWidget extends ScrollView {
-	private static final String TAG = IOWidget.class.getSimpleName();
+public class IOPage extends ScrollView {
+	private static final String TAG = IOPage.class.getSimpleName();
 
 	Context ctx; // saved context from parent
 	private TextView[] ioText;
 	private TextView[] ioLabels;
 
-	public IOWidget ( Context context ) {
+	public IOPage ( Context context ) {
 		super( context );
 		addViewsFromLayout( context );
 		ctx = context;
 	}
 
-	public IOWidget ( Context context, AttributeSet attrs ) {
+	public IOPage ( Context context, AttributeSet attrs ) {
 		super( context, attrs );
 		addViewsFromLayout( context );
 		ctx = context;

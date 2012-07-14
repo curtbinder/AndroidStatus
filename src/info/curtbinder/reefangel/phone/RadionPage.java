@@ -14,20 +14,20 @@ import android.view.LayoutInflater;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class RadionWidget extends ScrollView {
+public class RadionPage extends ScrollView {
 	//private static final String TAG = RadionWidget.class.getSimpleName();
 
 	Context ctx; // saved context from parent
 	private TextView[] radionText;
 	private TextView[] radionLabels;
 
-	public RadionWidget ( Context context ) {
+	public RadionPage ( Context context ) {
 		super( context );
 		addViewsFromLayout( context );
 		ctx = context;
 	}
 
-	public RadionWidget ( Context context, AttributeSet attrs ) {
+	public RadionPage ( Context context, AttributeSet attrs ) {
 		super( context, attrs );
 		addViewsFromLayout( context );
 		ctx = context;

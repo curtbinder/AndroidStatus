@@ -14,20 +14,20 @@ import android.view.LayoutInflater;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class AIWidget extends ScrollView {
+public class AIPage extends ScrollView {
 	// private static final String TAG = AIWidget.class.getSimpleName();
 
 	Context ctx; // saved context from parent
 	private TextView[] aiText;
 	private TextView[] aiLabels;
 
-	public AIWidget ( Context context ) {
+	public AIPage ( Context context ) {
 		super( context );
 		addViewsFromLayout( context );
 		ctx = context;
 	}
 
-	public AIWidget ( Context context, AttributeSet attrs ) {
+	public AIPage ( Context context, AttributeSet attrs ) {
 		super( context, attrs );
 		addViewsFromLayout( context );
 		ctx = context;

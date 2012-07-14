@@ -16,20 +16,20 @@ import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class DimmingWidget extends ScrollView {
-	private static final String TAG = DimmingWidget.class.getSimpleName();
+public class DimmingPage extends ScrollView {
+	private static final String TAG = DimmingPage.class.getSimpleName();
 
 	Context ctx; // saved context from parent
 	private TextView[] pwmeText;
 	private TextView[] pwmeLabels;
 
-	public DimmingWidget ( Context context ) {
+	public DimmingPage ( Context context ) {
 		super( context );
 		addViewsFromLayout( context );
 		ctx = context;
 	}
 
-	public DimmingWidget ( Context context, AttributeSet attrs ) {
+	public DimmingPage ( Context context, AttributeSet attrs ) {
 		super( context, attrs );
 		addViewsFromLayout( context );
 		ctx = context;
