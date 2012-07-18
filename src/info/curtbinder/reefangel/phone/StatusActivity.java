@@ -56,7 +56,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 	private static final int POS_CONTROLLER = POS_START;
 	
-	private static final int POS_MODULES = POS_CONTROLLER + 1;
+	private static final int POS_MODULES = POS_CONTROLLER + 10;
 	private static final int POS_DIMMING = POS_MODULES;
 	private static final int POS_RADION = POS_MODULES + 1;
 	private static final int POS_VORTECH = POS_MODULES + 2;
@@ -64,7 +64,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private static final int POS_IO = POS_MODULES + 4;
 	private static final int POS_CUSTOM = POS_MODULES + 5;
 
-	private static final int POS_MAIN_RELAY = POS_CONTROLLER + 7;
+	private static final int POS_MAIN_RELAY = POS_CONTROLLER + 1;
 	private static final int POS_EXP1_RELAY = POS_MAIN_RELAY + 1;
 	private static final int POS_EXP2_RELAY = POS_MAIN_RELAY + 2;
 	private static final int POS_EXP3_RELAY = POS_MAIN_RELAY + 3;
@@ -73,7 +73,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private static final int POS_EXP6_RELAY = POS_MAIN_RELAY + 6;
 	private static final int POS_EXP7_RELAY = POS_MAIN_RELAY + 7;
 	private static final int POS_EXP8_RELAY = POS_MAIN_RELAY + 8;
-	private static final int POS_END = POS_EXP8_RELAY;
+	
+	private static final int POS_END = POS_CUSTOM + 1;
 
 	private ControllerPage pageController;
 	private DimmingPage pageDimming;
