@@ -55,12 +55,14 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private static final int POS_START = 0;
 
 	private static final int POS_CONTROLLER = POS_START;
-	private static final int POS_DIMMING = POS_CONTROLLER + 1;
-	private static final int POS_RADION = POS_CONTROLLER + 2;
-	private static final int POS_VORTECH = POS_CONTROLLER + 3;
-	private static final int POS_AI = POS_CONTROLLER + 4;
-	private static final int POS_IO = POS_CONTROLLER + 5;
-	private static final int POS_CUSTOM = POS_CONTROLLER + 6;
+	
+	private static final int POS_MODULES = POS_CONTROLLER + 1;
+	private static final int POS_DIMMING = POS_MODULES;
+	private static final int POS_RADION = POS_MODULES + 1;
+	private static final int POS_VORTECH = POS_MODULES + 2;
+	private static final int POS_AI = POS_MODULES + 3;
+	private static final int POS_IO = POS_MODULES + 4;
+	private static final int POS_CUSTOM = POS_MODULES + 5;
 
 	private static final int POS_MAIN_RELAY = POS_CONTROLLER + 7;
 	private static final int POS_EXP1_RELAY = POS_MAIN_RELAY + 1;
