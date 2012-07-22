@@ -510,7 +510,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefAppSettingsTitle">Settings</string>
     <string name="prefAppSettingsSummary">Additional settings for the application and controller</string>
     <string name="prefPre10MemoryKey">pre_10_memory_locations</string>
-    <string name="prefPre10MemorySummary">Select this if you have a version of the libraries before v1.0. This will allow you reference the proper internal memory locations.</string>
+    <string name="prefPre10MemorySummary">Select this if you have a version of the libraries before v1.0. This will allow you to reference the proper internal memory locations.</string>
     <string name="prefPre10MemoryTitle">Pre v1.0 Locations </string>
     <string name="prefPreviousCodeVersion">previous_version</string>
 
