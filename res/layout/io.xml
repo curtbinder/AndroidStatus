@@ -85,16 +85,6 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 style="@style/ParamsText.Values" />
         </TableRow>
 
-        <TableRow style="@style/RARow" >
-
-            <TextView
-                android:id="@+id/io6_label"
-                style="@style/ParamsText.Labels" />
-
-            <TextView
-                android:id="@+id/io6"
-                style="@style/ParamsText.Values" />
-        </TableRow>
     </TableLayout>
 
 </ScrollView>

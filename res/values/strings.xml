@@ -484,8 +484,6 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExpIO4LabelTitle">I/O 4</string>
     <string name="prefExpIO5LabelKey">exp_io_5</string>
     <string name="prefExpIO5LabelTitle">I/O 5</string>
-    <string name="prefExpIO6LabelKey">exp_io_6</string>
-    <string name="prefExpIO6LabelTitle">I/O 6</string>
     <string name="prefExpCustomTitle">Custom</string>
     <string name="prefExpCustomSummary">Configure custom variables</string>
     <string name="prefExpCustomEnableKey">custom_expansion</string>

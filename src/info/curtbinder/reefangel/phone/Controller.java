@@ -18,7 +18,7 @@ public class Controller {
 	public static final byte MAX_PWM_EXPANSION_PORTS = 6;
 	public static final byte MAX_AI_CHANNELS = 3;
 	public static final byte MAX_CUSTOM_VARIABLES = 8;
-	public static final byte MAX_IO_CHANNELS = 7;
+	public static final byte MAX_IO_CHANNELS = 6;
 	public static final byte MAX_RADION_LIGHT_CHANNELS = 6;
 	public static final byte MAX_VORTECH_VALUES = 3;
 

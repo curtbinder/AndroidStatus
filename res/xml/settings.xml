@@ -312,10 +312,6 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                             android:defaultValue="@string/prefExpIO5LabelTitle"
                             android:key="@string/prefExpIO5LabelKey"
                             android:title="@string/prefExpIO5LabelTitle" />
-                        <EditTextPreference
-                            android:defaultValue="@string/prefExpIO6LabelTitle"
-                            android:key="@string/prefExpIO6LabelKey"
-                            android:title="@string/prefExpIO6LabelTitle" />
                     </PreferenceCategory>
                 </PreferenceScreen>
                 <PreferenceScreen

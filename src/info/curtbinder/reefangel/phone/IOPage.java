@@ -56,7 +56,6 @@ public class IOPage extends ScrollView {
 		ioText[3] = (TextView) findViewById( R.id.io3 );
 		ioText[4] = (TextView) findViewById( R.id.io4 );
 		ioText[5] = (TextView) findViewById( R.id.io5 );
-		ioText[6] = (TextView) findViewById( R.id.io6 );
 
 		ioLabels[0] = (TextView) findViewById( R.id.io0_label );
 		ioLabels[1] = (TextView) findViewById( R.id.io1_label );
@@ -64,7 +63,6 @@ public class IOPage extends ScrollView {
 		ioLabels[3] = (TextView) findViewById( R.id.io3_label );
 		ioLabels[4] = (TextView) findViewById( R.id.io4_label );
 		ioLabels[5] = (TextView) findViewById( R.id.io5_label );
-		ioLabels[6] = (TextView) findViewById( R.id.io6_label );
 	}
 
 	public void setLabel ( int channel, String label ) {
