@@ -806,10 +806,6 @@ public class RAApplication extends Application {
 				k = R.string.prefExpIO5LabelKey;
 				v = R.string.prefExpIO5LabelTitle;
 				break;
-			case 6:
-				k = R.string.prefExpIO6LabelKey;
-				v = R.string.prefExpIO6LabelTitle;
-				break;
 		}
 		return prefs.getString( getString( k ), getString( v ) );
 	}
@@ -835,9 +831,6 @@ public class RAApplication extends Application {
 				break;
 			case 5:
 				k = R.string.prefExpIO5LabelKey;
-				break;
-			case 6:
-				k = R.string.prefExpIO6LabelKey;
 				break;
 		}
 		setPref( k, label );
