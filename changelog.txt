@@ -106,3 +106,11 @@ Changelog of all the versions of AndroidStatus
  * added PH visibility toggling
  * added additional memory locations
  
+0.7
+ * fixed labels not downloading from portal
+ * added water level and ph expansion fields to database
+ * added dimming, radion, vortech, ai, io, custom variables pages (swipe)
+ * added ph expansion & water level displaying on status page
+ * added changelog displaying
+ * minor bug fixes and improvements
+ 

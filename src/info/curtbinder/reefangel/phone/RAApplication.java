@@ -8,10 +8,12 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -74,8 +76,8 @@ public class RAApplication extends Application {
 		v.put( RAData.PCOL_T2, i.getStringExtra( RAData.PCOL_T2 ) );
 		v.put( RAData.PCOL_T3, i.getStringExtra( RAData.PCOL_T3 ) );
 		v.put( RAData.PCOL_PH, i.getStringExtra( RAData.PCOL_PH ) );
-		v.put( RAData.PCOL_DP, i.getStringExtra( RAData.PCOL_DP ) );
-		v.put( RAData.PCOL_AP, i.getStringExtra( RAData.PCOL_AP ) );
+		v.put( RAData.PCOL_DP, i.getShortExtra( RAData.PCOL_DP, (short) 0 ) );
+		v.put( RAData.PCOL_AP, i.getShortExtra( RAData.PCOL_AP, (short) 0 ) );
 		v.put( RAData.PCOL_SAL, i.getStringExtra( RAData.PCOL_SAL ) );
 		v.put( RAData.PCOL_ORP, i.getStringExtra( RAData.PCOL_ORP ) );
 		v.put( RAData.PCOL_ATOHI, i.getBooleanExtra( RAData.PCOL_ATOHI, false ) );
@@ -135,35 +137,43 @@ public class RAApplication extends Application {
 				i.getShortExtra( RAData.PCOL_R8ONMASK, (short) 0 ) );
 		v.put(	RAData.PCOL_R8OFFMASK,
 				i.getShortExtra( RAData.PCOL_R8OFFMASK, (short) 0 ) );
-		v.put( RAData.PCOL_PWME0, i.getStringExtra( RAData.PCOL_PWME0 ) );
-		v.put( RAData.PCOL_PWME1, i.getStringExtra( RAData.PCOL_PWME1 ) );
-		v.put( RAData.PCOL_PWME2, i.getStringExtra( RAData.PCOL_PWME2 ) );
-		v.put( RAData.PCOL_PWME3, i.getStringExtra( RAData.PCOL_PWME3 ) );
-		v.put( RAData.PCOL_PWME4, i.getStringExtra( RAData.PCOL_PWME4 ) );
-		v.put( RAData.PCOL_PWME5, i.getStringExtra( RAData.PCOL_PWME5 ) );
-		v.put( RAData.PCOL_AIW, i.getByteExtra( RAData.PCOL_AIW, (byte) 0 ) );
-		v.put( RAData.PCOL_AIB, i.getByteExtra( RAData.PCOL_AIB, (byte) 0 ) );
-		v.put( RAData.PCOL_AIRB, i.getByteExtra( RAData.PCOL_AIRB, (byte) 0 ) );
-		v.put( RAData.PCOL_RFM, i.getByteExtra( RAData.PCOL_RFM, (byte) 0 ) );
-		v.put( RAData.PCOL_RFS, i.getByteExtra( RAData.PCOL_RFS, (byte) 0 ) );
-		v.put( RAData.PCOL_RFD, i.getByteExtra( RAData.PCOL_RFD, (byte) 0 ) );
-		v.put( RAData.PCOL_RFW, i.getByteExtra( RAData.PCOL_RFW, (byte) 0 ) );
-		v.put( RAData.PCOL_RFRB, i.getByteExtra( RAData.PCOL_RFRB, (byte) 0 ) );
-		v.put( RAData.PCOL_RFR, i.getByteExtra( RAData.PCOL_RFR, (byte) 0 ) );
-		v.put( RAData.PCOL_RFG, i.getByteExtra( RAData.PCOL_RFG, (byte) 0 ) );
-		v.put( RAData.PCOL_RFB, i.getByteExtra( RAData.PCOL_RFB, (byte) 0 ) );
-		v.put( RAData.PCOL_RFI, i.getByteExtra( RAData.PCOL_RFI, (byte) 0 ) );
-		v.put( RAData.PCOL_IO, i.getByteExtra( RAData.PCOL_IO, (byte) 0 ) );
-		v.put( RAData.PCOL_C0, i.getByteExtra( RAData.PCOL_C0, (byte) 0 ) );
-		v.put( RAData.PCOL_C1, i.getByteExtra( RAData.PCOL_C1, (byte) 0 ) );
-		v.put( RAData.PCOL_C2, i.getByteExtra( RAData.PCOL_C2, (byte) 0 ) );
-		v.put( RAData.PCOL_C3, i.getByteExtra( RAData.PCOL_C3, (byte) 0 ) );
-		v.put( RAData.PCOL_C4, i.getByteExtra( RAData.PCOL_C4, (byte) 0 ) );
-		v.put( RAData.PCOL_C5, i.getByteExtra( RAData.PCOL_C5, (byte) 0 ) );
-		v.put( RAData.PCOL_C6, i.getByteExtra( RAData.PCOL_C6, (byte) 0 ) );
-		v.put( RAData.PCOL_C7, i.getByteExtra( RAData.PCOL_C7, (byte) 0 ) );
-		v.put( RAData.PCOL_EM, i.getByteExtra( RAData.PCOL_EM, (byte) 0 ) );
-		v.put( RAData.PCOL_REM, i.getByteExtra( RAData.PCOL_REM, (byte) 0 ) );
+		v.put(	RAData.PCOL_PWME0,
+				i.getShortExtra( RAData.PCOL_PWME0, (short) 0 ) );
+		v.put(	RAData.PCOL_PWME1,
+				i.getShortExtra( RAData.PCOL_PWME1, (short) 0 ) );
+		v.put(	RAData.PCOL_PWME2,
+				i.getShortExtra( RAData.PCOL_PWME2, (short) 0 ) );
+		v.put(	RAData.PCOL_PWME3,
+				i.getShortExtra( RAData.PCOL_PWME3, (short) 0 ) );
+		v.put(	RAData.PCOL_PWME4,
+				i.getShortExtra( RAData.PCOL_PWME4, (short) 0 ) );
+		v.put(	RAData.PCOL_PWME5,
+				i.getShortExtra( RAData.PCOL_PWME5, (short) 0 ) );
+		v.put( RAData.PCOL_AIW, i.getShortExtra( RAData.PCOL_AIW, (short) 0 ) );
+		v.put( RAData.PCOL_AIB, i.getShortExtra( RAData.PCOL_AIB, (short) 0 ) );
+		v.put( RAData.PCOL_AIRB, i.getShortExtra( RAData.PCOL_AIRB, (short) 0 ) );
+		v.put( RAData.PCOL_RFM, i.getShortExtra( RAData.PCOL_RFM, (short) 0 ) );
+		v.put( RAData.PCOL_RFS, i.getShortExtra( RAData.PCOL_RFS, (short) 0 ) );
+		v.put( RAData.PCOL_RFD, i.getShortExtra( RAData.PCOL_RFD, (short) 0 ) );
+		v.put( RAData.PCOL_RFW, i.getShortExtra( RAData.PCOL_RFW, (short) 0 ) );
+		v.put( RAData.PCOL_RFRB, i.getShortExtra( RAData.PCOL_RFRB, (short) 0 ) );
+		v.put( RAData.PCOL_RFR, i.getShortExtra( RAData.PCOL_RFR, (short) 0 ) );
+		v.put( RAData.PCOL_RFG, i.getShortExtra( RAData.PCOL_RFG, (short) 0 ) );
+		v.put( RAData.PCOL_RFB, i.getShortExtra( RAData.PCOL_RFB, (short) 0 ) );
+		v.put( RAData.PCOL_RFI, i.getShortExtra( RAData.PCOL_RFI, (short) 0 ) );
+		v.put( RAData.PCOL_IO, i.getShortExtra( RAData.PCOL_IO, (short) 0 ) );
+		v.put( RAData.PCOL_C0, i.getShortExtra( RAData.PCOL_C0, (short) 0 ) );
+		v.put( RAData.PCOL_C1, i.getShortExtra( RAData.PCOL_C1, (short) 0 ) );
+		v.put( RAData.PCOL_C2, i.getShortExtra( RAData.PCOL_C2, (short) 0 ) );
+		v.put( RAData.PCOL_C3, i.getShortExtra( RAData.PCOL_C3, (short) 0 ) );
+		v.put( RAData.PCOL_C4, i.getShortExtra( RAData.PCOL_C4, (short) 0 ) );
+		v.put( RAData.PCOL_C5, i.getShortExtra( RAData.PCOL_C5, (short) 0 ) );
+		v.put( RAData.PCOL_C6, i.getShortExtra( RAData.PCOL_C6, (short) 0 ) );
+		v.put( RAData.PCOL_C7, i.getShortExtra( RAData.PCOL_C7, (short) 0 ) );
+		v.put( RAData.PCOL_EM, i.getShortExtra( RAData.PCOL_EM, (short) 0 ) );
+		v.put( RAData.PCOL_REM, i.getShortExtra( RAData.PCOL_REM, (short) 0 ) );
+		v.put( RAData.PCOL_PHE, i.getStringExtra( RAData.PCOL_PHE ) );
+		v.put( RAData.PCOL_WL, i.getShortExtra( RAData.PCOL_WL, (short) 0 ) );
 		data.insert( v );
 	}
 
@@ -362,9 +372,10 @@ public class RAApplication extends Application {
 	public boolean useOld085xExpansionRelays ( ) {
 		return prefs.getBoolean( getString( R.string.prefExp085xKey ), false );
 	}
-	
+
 	public boolean useOldPre10MemoryLocations ( ) {
-		return prefs.getBoolean( getString( R.string.prefPre10MemoryKey ), true );
+		return prefs
+				.getBoolean( getString( R.string.prefPre10MemoryKey ), true );
 	}
 
 	public boolean isFirstRun ( ) {
@@ -405,6 +416,32 @@ public class RAApplication extends Application {
 	protected void clearFirstRun ( ) {
 		// TODO remove this function, not needed to clear first run key
 		deletePref( R.string.prefFirstRunKey );
+	}
+
+	public void displayChangeLog ( Activity a ) {
+		// check version code stored in preferences vs the version stored in
+		// running code
+		// display the changelog if the values are different
+		Log.d( TAG, "display changelog" );
+		int previous =
+				prefs.getInt( getString( R.string.prefPreviousCodeVersion ), 0 );
+		int current = 0;
+		try {
+			current =
+					getPackageManager().getPackageInfo( getPackageName(), 0 ).versionCode;
+		} catch ( NameNotFoundException e ) {
+		}
+		Log.d( TAG, "Compare: " + current + " == " + previous );
+		if ( current > previous ) {
+			// save code version in preferences
+			prefs.edit()
+					.putInt( getString( R.string.prefPreviousCodeVersion ),
+								current ).commit();
+			// newer version, display changelog
+			Log.d( TAG, "Showing changelog" );
+			Changelog.displayChangelog( a );
+		}
+		// deletePref( R.string.prefPreviousCodeVersion );
 	}
 
 	public int getSelectedProfile ( ) {
@@ -515,6 +552,18 @@ public class RAApplication extends Application {
 									false );
 	}
 
+	public boolean getPrefPHExpVisibility ( ) {
+		return prefs
+				.getBoolean(	getString( R.string.prefPHExpVisibilityKey ),
+								false );
+	}
+
+	public boolean getPrefWaterLevelVisibility ( ) {
+		return prefs
+				.getBoolean(	getString( R.string.prefWaterLevelVisibilityKey ),
+								false );
+	}
+
 	public String getPrefT1Label ( ) {
 		return prefs.getString( getString( R.string.prefT1LabelKey ),
 								getString( R.string.labelTemp1 ) );
@@ -553,6 +602,16 @@ public class RAApplication extends Application {
 	public String getPrefORPLabel ( ) {
 		return prefs.getString( getString( R.string.prefORPLabelKey ),
 								getString( R.string.labelORP ) );
+	}
+
+	public String getPrefPHExpLabel ( ) {
+		return prefs.getString( getString( R.string.prefPHExpLabelKey ),
+								getString( R.string.labelPHExp ) );
+	}
+
+	public String getPrefWaterLevelLabel ( ) {
+		return prefs.getString( getString( R.string.prefWaterLevelLabelKey ),
+								getString( R.string.labelWaterLevel ) );
 	}
 
 	public String getPrefMainRelayLabel ( int port ) {
@@ -601,6 +660,265 @@ public class RAApplication extends Application {
 	public int getPrefExpansionRelayQuantity ( ) {
 		return Integer.parseInt( prefs
 				.getString( getString( R.string.prefExpQtyKey ), "0" ) );
+	}
+
+	public int getTotalInstalledModuleQuantity ( ) {
+		// this function gets all the installed modules for the controller
+		// that are displayed on their own separate pages
+		// the modules include:
+		// expansion relays, dimming, vortech, radion, ai, custom, io
+		int total = 0;
+		total += getPrefExpansionRelayQuantity();
+		// TODO check if needed
+		total += getInstalledModuleQuantity();
+		return total;
+	}
+
+	public int getInstalledModuleQuantity ( ) {
+		// returns the total installed modules
+		int total = 0;
+		if ( getDimmingModuleEnabled() )
+			total++;
+		if ( getRadionModuleEnabled() )
+			total++;
+		if ( getVortechModuleEnabled() )
+			total++;
+		if ( getAIModuleEnabled() )
+			total++;
+		if ( getIOModuleEnabled() )
+			total++;
+		if ( getCustomModuleEnabled() )
+			total++;
+		return total;
+	}
+
+	public boolean getDimmingModuleEnabled ( ) {
+		return prefs
+				.getBoolean(	getString( R.string.prefExpDimmingEnableKey ),
+								false );
+	}
+
+	public String getDimmingModuleChannelLabel ( int channel ) {
+		int k, v;
+		switch ( channel ) {
+			default:
+			case 0:
+				k = R.string.prefExpDimmingCh0LabelKey;
+				v = R.string.prefExpDimmingCh0LabelTitle;
+				break;
+			case 1:
+				k = R.string.prefExpDimmingCh1LabelKey;
+				v = R.string.prefExpDimmingCh1LabelTitle;
+				break;
+			case 2:
+				k = R.string.prefExpDimmingCh2LabelKey;
+				v = R.string.prefExpDimmingCh2LabelTitle;
+				break;
+			case 3:
+				k = R.string.prefExpDimmingCh3LabelKey;
+				v = R.string.prefExpDimmingCh3LabelTitle;
+				break;
+			case 4:
+				k = R.string.prefExpDimmingCh4LabelKey;
+				v = R.string.prefExpDimmingCh4LabelTitle;
+				break;
+			case 5:
+				k = R.string.prefExpDimmingCh5LabelKey;
+				v = R.string.prefExpDimmingCh5LabelTitle;
+				break;
+		}
+		return prefs.getString( getString( k ), getString( v ) );
+	}
+
+	public void setDimmingModuleChannelLabel ( int channel, String label ) {
+		int k;
+		switch ( channel ) {
+			default:
+			case 0:
+				k = R.string.prefExpDimmingCh0LabelKey;
+				break;
+			case 1:
+				k = R.string.prefExpDimmingCh1LabelKey;
+				break;
+			case 2:
+				k = R.string.prefExpDimmingCh2LabelKey;
+				break;
+			case 3:
+				k = R.string.prefExpDimmingCh3LabelKey;
+				break;
+			case 4:
+				k = R.string.prefExpDimmingCh4LabelKey;
+				break;
+			case 5:
+				k = R.string.prefExpDimmingCh5LabelKey;
+				break;
+		}
+		setPref( k, label );
+	}
+
+	public boolean getRadionModuleEnabled ( ) {
+		return prefs
+				.getBoolean(	getString( R.string.prefExpRadionEnableKey ),
+								false );
+	}
+
+	public boolean getVortechModuleEnabled ( ) {
+		return prefs
+				.getBoolean(	getString( R.string.prefExpVortechEnableKey ),
+								false );
+	}
+
+	public boolean getAIModuleEnabled ( ) {
+		return prefs.getBoolean(	getString( R.string.prefExpAIEnableKey ),
+									false );
+	}
+
+	public boolean getIOModuleEnabled ( ) {
+		return prefs.getBoolean(	getString( R.string.prefExpIOEnableKey ),
+									false );
+	}
+
+	public String getIOModuleChannelLabel ( int channel ) {
+		int k, v;
+		switch ( channel ) {
+			default:
+			case 0:
+				k = R.string.prefExpIO0LabelKey;
+				v = R.string.prefExpIO0LabelTitle;
+				break;
+			case 1:
+				k = R.string.prefExpIO1LabelKey;
+				v = R.string.prefExpIO1LabelTitle;
+				break;
+			case 2:
+				k = R.string.prefExpIO2LabelKey;
+				v = R.string.prefExpIO2LabelTitle;
+				break;
+			case 3:
+				k = R.string.prefExpIO3LabelKey;
+				v = R.string.prefExpIO3LabelTitle;
+				break;
+			case 4:
+				k = R.string.prefExpIO4LabelKey;
+				v = R.string.prefExpIO4LabelTitle;
+				break;
+			case 5:
+				k = R.string.prefExpIO5LabelKey;
+				v = R.string.prefExpIO5LabelTitle;
+				break;
+			case 6:
+				k = R.string.prefExpIO6LabelKey;
+				v = R.string.prefExpIO6LabelTitle;
+				break;
+		}
+		return prefs.getString( getString( k ), getString( v ) );
+	}
+
+	public void setIOModuleChannelLabel ( int channel, String label ) {
+		int k;
+		switch ( channel ) {
+			default:
+			case 0:
+				k = R.string.prefExpIO0LabelKey;
+				break;
+			case 1:
+				k = R.string.prefExpIO1LabelKey;
+				break;
+			case 2:
+				k = R.string.prefExpIO2LabelKey;
+				break;
+			case 3:
+				k = R.string.prefExpIO3LabelKey;
+				break;
+			case 4:
+				k = R.string.prefExpIO4LabelKey;
+				break;
+			case 5:
+				k = R.string.prefExpIO5LabelKey;
+				break;
+			case 6:
+				k = R.string.prefExpIO6LabelKey;
+				break;
+		}
+		setPref( k, label );
+	}
+
+	public boolean getCustomModuleEnabled ( ) {
+		return prefs
+				.getBoolean(	getString( R.string.prefExpCustomEnableKey ),
+								false );
+	}
+
+	public String getCustomModuleChannelLabel ( int channel ) {
+		int k, d;
+		switch ( channel ) {
+			default:
+			case 0:
+				k = R.string.prefExpCustom0LabelKey;
+				d = R.string.prefExpCustom0LabelTitle;
+				break;
+			case 1:
+				k = R.string.prefExpCustom1LabelKey;
+				d = R.string.prefExpCustom1LabelTitle;
+				break;
+			case 2:
+				k = R.string.prefExpCustom2LabelKey;
+				d = R.string.prefExpCustom2LabelTitle;
+				break;
+			case 3:
+				k = R.string.prefExpCustom3LabelKey;
+				d = R.string.prefExpCustom3LabelTitle;
+				break;
+			case 4:
+				k = R.string.prefExpCustom4LabelKey;
+				d = R.string.prefExpCustom4LabelTitle;
+				break;
+			case 5:
+				k = R.string.prefExpCustom5LabelKey;
+				d = R.string.prefExpCustom5LabelTitle;
+				break;
+			case 6:
+				k = R.string.prefExpCustom6LabelKey;
+				d = R.string.prefExpCustom6LabelTitle;
+				break;
+			case 7:
+				k = R.string.prefExpCustom7LabelKey;
+				d = R.string.prefExpCustom7LabelTitle;
+				break;
+		}
+		return prefs.getString( getString( k ), getString( d ) );
+	}
+
+	public void setCustomModuleChannelLabel ( int channel, String label ) {
+		int k;
+		switch ( channel ) {
+			default:
+			case 0:
+				k = R.string.prefExpCustom0LabelKey;
+				break;
+			case 1:
+				k = R.string.prefExpCustom1LabelKey;
+				break;
+			case 2:
+				k = R.string.prefExpCustom2LabelKey;
+				break;
+			case 3:
+				k = R.string.prefExpCustom3LabelKey;
+				break;
+			case 4:
+				k = R.string.prefExpCustom4LabelKey;
+				break;
+			case 5:
+				k = R.string.prefExpCustom5LabelKey;
+				break;
+			case 6:
+				k = R.string.prefExpCustom6LabelKey;
+				break;
+			case 7:
+				k = R.string.prefExpCustom7LabelKey;
+				break;
+		}
+		setPref( k, label );
 	}
 
 	public void checkServiceRunning ( ) {

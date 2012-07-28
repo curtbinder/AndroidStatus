@@ -8,23 +8,27 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
-public class TempSensor {
+public class ShortWithLabel {
 
-	private Number data;
+	private short data;
 	private String label;
 	
-	public TempSensor() {
-		data = new Number((byte) 1);
-		// TODO use strings.xml instead of hard code
-		label = "T";
+	public ShortWithLabel() {
+		data = 0;
+		label = "";
 	}
 	
-	public void setTemp(int temp) {
-		data.setValue(temp);
+	public ShortWithLabel(short d, String l) {
+		data = d;
+		label = l;
 	}
 	
-	public String getTemp() {
-		return data.toString();
+	public void setData(short d) {
+		data = d;
+	}
+	
+	public short getData() {
+		return data;
 	}
 	
 	public void setLabel(String label) {

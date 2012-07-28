@@ -11,12 +11,14 @@ package info.curtbinder.reefangel.phone;
 //import java.text.DecimalFormatSymbols;
 
 public class Controller {
+	public static final byte MAX_CONTROLLER_VALUES = 10;
 	public static final byte MAX_EXPANSION_RELAYS = 8;
 	public static final byte MAX_RELAY_PORTS = 8;
 	public static final byte MAX_TEMP_SENSORS = 3;
 	public static final byte MAX_PWM_EXPANSION_PORTS = 6;
 	public static final byte MAX_AI_CHANNELS = 3;
 	public static final byte MAX_CUSTOM_VARIABLES = 8;
+	public static final byte MAX_IO_CHANNELS = 7;
 	public static final byte MAX_RADION_LIGHT_CHANNELS = 6;
 	public static final byte MAX_VORTECH_VALUES = 3;
 
@@ -25,6 +27,9 @@ public class Controller {
 	public static final short MODULE_AI = 1 << 2;
 	public static final short MODULE_SALINITY = 1 << 3;
 	public static final short MODULE_ORP = 1 << 4;
+	public static final short MODULE_IO = 1 << 5;
+	public static final short MODULE_PHEXPANSION = 1 << 6;
+	public static final short MODULE_WATERLEVEL = 1 << 7;
 
 	// AI channels
 	public static final byte AI_WHITE = 0;
@@ -45,24 +50,27 @@ public class Controller {
 	public static final byte VORTECH_DURATION = 2;
 
 	private String updateLogDate;
-	private TempSensor[] tempSensors;
-	private Number pH;
+	private NumberWithLabel[] tempSensors;
+	private NumberWithLabel pH;
+	private NumberWithLabel pHExp;
 	private boolean atoLow;
 	private boolean atoHigh;
 	private short pwmA;
 	private short pwmD;
-	private Number salinity;
-	private Number orp;
+	private short waterlevel;
+	private NumberWithLabel salinity;
+	private NumberWithLabel orp;
 	private Relay main;
 	private byte qtyExpansionRelays;
 	private Relay[] expansionRelays;
 	private short expansionModules;
 	private short relayExpansionModules;
 	private short ioChannels;
-	private short[] pwmExpansion;
+	private String[] ioChannelsLabels;
+	private ShortWithLabel[] pwmExpansion;
 	private short[] aiChannels;
 	private short[] radionChannels;
-	private short[] customVariables;
+	private ShortWithLabel[] customVariables;
 	private short[] vortechValues;
 
 	public Controller () {
@@ -76,22 +84,24 @@ public class Controller {
 
 	private void init ( ) {
 		updateLogDate = "";
-		tempSensors = new TempSensor[MAX_TEMP_SENSORS];
+		tempSensors = new NumberWithLabel[MAX_TEMP_SENSORS];
 		int i;
 		for ( i = 0; i < MAX_TEMP_SENSORS; i++ ) {
-			tempSensors[i] = new TempSensor();
+			tempSensors[i] = new NumberWithLabel( (byte) 1 );
 		}
-		pH = new Number( (byte) 2 );
+		pH = new NumberWithLabel( (byte) 2 );
+		pHExp = new NumberWithLabel( (byte) 2 );
 		atoLow = false;
 		atoHigh = false;
 		pwmA = 0;
 		pwmD = 0;
-		pwmExpansion = new short[MAX_PWM_EXPANSION_PORTS];
+		pwmExpansion = new ShortWithLabel[MAX_PWM_EXPANSION_PORTS];
 		for ( i = 0; i < MAX_PWM_EXPANSION_PORTS; i++ ) {
-			pwmExpansion[i] = 0;
+			pwmExpansion[i] = new ShortWithLabel();
 		}
-		salinity = new Number( (byte) 1 );
-		orp = new Number();
+		waterlevel = 0;
+		salinity = new NumberWithLabel( (byte) 1 );
+		orp = new NumberWithLabel();
 		main = new Relay();
 		expansionRelays = new Relay[MAX_EXPANSION_RELAYS];
 		for ( i = 0; i < MAX_EXPANSION_RELAYS; i++ ) {
@@ -101,6 +111,10 @@ public class Controller {
 		expansionModules = 0;
 		relayExpansionModules = 0;
 		ioChannels = 0;
+		ioChannelsLabels = new String[MAX_IO_CHANNELS];
+		for ( i = 0; i < MAX_IO_CHANNELS; i++ ) {
+			ioChannelsLabels[i] = "";
+		}
 		aiChannels = new short[MAX_AI_CHANNELS];
 		for ( i = 0; i < MAX_AI_CHANNELS; i++ ) {
 			aiChannels[i] = 0;
@@ -109,9 +123,9 @@ public class Controller {
 		for ( i = 0; i < MAX_RADION_LIGHT_CHANNELS; i++ ) {
 			radionChannels[i] = 0;
 		}
-		customVariables = new short[MAX_CUSTOM_VARIABLES];
+		customVariables = new ShortWithLabel[MAX_CUSTOM_VARIABLES];
 		for ( i = 0; i < MAX_CUSTOM_VARIABLES; i++ ) {
-			customVariables[i] = 0;
+			customVariables[i] = new ShortWithLabel();
 		}
 		vortechValues = new short[MAX_VORTECH_VALUES];
 		for ( i = 0; i < MAX_VORTECH_VALUES; i++ ) {
@@ -135,10 +149,6 @@ public class Controller {
 		return updateLogDate;
 	}
 
-	// public void setTempValue(int sensor, int value) {
-	// tempSensors[sensor-1].setTemp(value);
-	// }
-
 	public void setTempLabel ( int sensor, String label ) {
 		tempSensors[sensor - 1].setLabel( label );
 	}
@@ -147,44 +157,62 @@ public class Controller {
 		return tempSensors[sensor - 1].getLabel();
 	}
 
-	// public String[] getTempLabels ( ) {
-	// return new String[] { tempSensors[0].getLabel(),
-	// tempSensors[1].getLabel(),
-	// tempSensors[2].getLabel() };
-	// }
-
 	public void setTemp1 ( int value ) {
-		tempSensors[0].setTemp( value );
+		tempSensors[0].setData( value );
 	}
 
 	public String getTemp1 ( ) {
-		return tempSensors[0].getTemp();
+		return tempSensors[0].getData();
 	}
 
 	public void setTemp2 ( int value ) {
-		tempSensors[1].setTemp( value );
+		tempSensors[1].setData( value );
 	}
 
 	public String getTemp2 ( ) {
-		return tempSensors[1].getTemp();
+		return tempSensors[1].getData();
 	}
 
 	public void setTemp3 ( int value ) {
-		tempSensors[2].setTemp( value );
+		tempSensors[2].setData( value );
 	}
 
 	public String getTemp3 ( ) {
-		return tempSensors[2].getTemp();
+		return tempSensors[2].getData();
 	}
 
 	public void setPH ( int value ) {
-		pH.setValue( value );
+		pH.setData( value );
 	}
 
 	public String getPH ( ) {
-		return pH.toString();
+		return pH.getData();
 	}
 
+	public void setPHLabel ( String label ) {
+		pH.setLabel( label );
+	}
+	
+	public String getPHLabel ( ) {
+		return pH.getLabel();
+	}
+	
+	public void setPHExp ( int value ) {
+		pHExp.setData( value );
+	}
+
+	public String getPHExp ( ) {
+		return pHExp.getData();
+	}
+
+	public void setPHExpLabel ( String label ) {
+		pHExp.setLabel( label );
+	}
+	
+	public String getPHExpLabel ( ) {
+		return pHExp.getLabel();
+	}
+	
 	public void setAtoLow ( boolean v ) {
 		atoLow = v;
 	}
@@ -221,43 +249,72 @@ public class Controller {
 		pwmA = v;
 	}
 
-	public String getPwmA ( ) {
-		// TODO change to be locale independent
-		return new String( String.format( "%d%c", pwmA, '%' ) );
+	public short getPwmA ( ) {
+		return pwmA;
 	}
 
 	public void setPwmD ( short v ) {
 		pwmD = v;
 	}
 
-	public String getPwmD ( ) {
-		// TODO change to be locale independent
-		return new String( String.format( "%d%c", pwmD, '%' ) );
+	public short getPwmD ( ) {
+		return pwmD;
 	}
 
 	public void setPwmExpansion ( short channel, short v ) {
-		pwmExpansion[channel] = v;
+		pwmExpansion[channel].setData( v );
 	}
 
-	public String getPwmExpansion ( int channel ) {
-		// TODO change to be locale independent
-		return new String( String.format( "%d%c", pwmExpansion[channel], '%' ) );
+	public short getPwmExpansion ( short channel ) {
+		return pwmExpansion[channel].getData();
+	}
+	
+	public void setPwmExpansionLabel ( short channel, String label ) {
+		pwmExpansion[channel].setLabel( label );
+	}
+	
+	public String getPwmExpansionLabel ( short channel ) {
+		return pwmExpansion[channel].getLabel();
 	}
 
+	public void setWaterLevel ( short value ) {
+		waterlevel = value;
+	}
+	
+	public short getWaterLevel ( ) {
+		return waterlevel;
+	}
+	
 	public void setSalinity ( int value ) {
-		salinity.setValue( value );
+		salinity.setData( value );
 	}
 
 	public String getSalinity ( ) {
-		return salinity.toString() + " ppt";
+		return salinity.getData();
+	}
+	
+	public void setSalinityLabel ( String label ) {
+		salinity.setLabel( label );
+	}
+	
+	public String getSalinityLabel ( ) {
+		return salinity.getLabel();
 	}
 
 	public void setORP ( int value ) {
-		orp.setValue( value );
+		orp.setData( value );
 	}
 
 	public String getORP ( ) {
-		return orp.toString() + " mV";
+		return orp.getData();
+	}
+	
+	public void setORPLabel ( String label ) {
+		orp.setLabel( label );
+	}
+	
+	public String getORPLabel ( ) {
+		return orp.getLabel();
 	}
 
 	public void setMainRelayData ( short data, short maskOn, short maskOff ) {
@@ -305,11 +362,19 @@ public class Controller {
 	}
 
 	public short getCustomVariable ( short var ) {
-		return customVariables[var];
+		return customVariables[var].getData();
 	}
 
 	public void setCustomVariable ( short var, short value ) {
-		customVariables[var] = value;
+		customVariables[var].setData( value );
+	}
+	
+	public String getCustomVariableLabel ( short var ) {
+		return customVariables[var].getLabel();
+	}
+
+	public void setCustomVariableLabel ( short var, String label ) {
+		customVariables[var].setLabel( label );
 	}
 
 	public short getAIChannel ( byte channel ) {
@@ -339,7 +404,7 @@ public class Controller {
 	public short getExpansionModules ( ) {
 		return expansionModules;
 	}
-	
+
 	public void setExpansionModules ( short em ) {
 		expansionModules = em;
 	}
@@ -357,40 +422,60 @@ public class Controller {
 	}
 
 	public static boolean isSalinityModuleInstalled ( short expansionModules ) {
-		return ( expansionModules & MODULE_SALINITY ) == 1;
+		return (expansionModules & MODULE_SALINITY) == 1;
 	}
 
 	public static boolean isORPModuleInstalled ( short expansionModules ) {
-		return ( expansionModules & MODULE_ORP ) == 1;
+		return (expansionModules & MODULE_ORP) == 1;
+	}
+	
+	public static boolean isIOModuleInstalled ( short expansionModules ) {
+		return (expansionModules & MODULE_IO) == 1;
+	}
+	
+	public static boolean isPHExpansionModuleInstalled ( short expansionModules ) {
+		return (expansionModules & MODULE_PHEXPANSION) == 1;
+	}
+	
+	public static boolean isWaterLevelModuleInstalled ( short expansionModules ) {
+		return (expansionModules & MODULE_WATERLEVEL) == 1;
 	}
 
 	public short getRelayExpansionModules ( ) {
 		return relayExpansionModules;
 	}
-	
+
 	public void setRelayExpansionModules ( short rem ) {
 		relayExpansionModules = rem;
 	}
-	
+
 	public static int getRelayExpansionModulesInstalled ( short rem ) {
 		int qty = 0;
 		for ( int i = 7; i >= 0; i-- ) {
-			if ( (rem & (1<<i)) == 1 ) {
-				qty = i+1;
+			if ( (rem & (1 << i)) == 1 ) {
+				qty = i + 1;
 				break;
 			}
 		}
 		return qty;
 	}
-	
+
 	public short getIOChannels ( ) {
 		return ioChannels;
 	}
-	
+
 	public void setIOChannels ( short ioChannels ) {
 		this.ioChannels = ioChannels;
 	}
 	
+	public String getIOChannelLabel ( short channel ) {
+		return ioChannelsLabels[channel];
+	}
+	
+	public void setIOChannelLabel ( short channel, String label ) {
+		ioChannelsLabels[channel] = label;
+	}
+
 	public static boolean getIOChannel ( short ioChannels, byte channel ) {
 		// channel is 0 based
 		return (ioChannels & (1 << channel)) == 1;

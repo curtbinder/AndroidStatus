@@ -4,7 +4,7 @@ Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
  
 This work is made available under the terms of the 
 Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
-http://creativecommons.org/licenses/by-nc-sa/3.0/
+http://creativecommons.org/licenses/by-nc-sa/3.0/
 -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
@@ -115,6 +115,16 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                         android:key="@string/prefORPVisibilityKey"
                         android:summary="@string/prefORPVisibilitySummary"
                         android:title="@string/prefORPVisibilityTitle" />
+                    <CheckBoxPreference
+                        android:defaultValue="false"
+                        android:key="@string/prefPHExpVisibilityKey"
+                        android:summary="@string/prefPHExpVisibilitySummary"
+                        android:title="@string/prefPHExpVisibilityTitle" />
+                    <CheckBoxPreference
+                        android:defaultValue="false"
+                        android:key="@string/prefWaterLevelVisibilityKey"
+                        android:summary="@string/prefWaterLevelVisibilitySummary"
+                        android:title="@string/prefWaterLevelVisibilityTitle" />
                 </PreferenceScreen>
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/prefLabelsCategory" >
@@ -166,6 +176,16 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                         android:key="@string/prefORPLabelKey"
                         android:summary="@string/prefORPLabelSummary"
                         android:title="@string/prefORPLabelTitle" />
+                    <EditTextPreference
+                        android:defaultValue="@string/labelPHExp"
+                        android:key="@string/prefPHExpLabelKey"
+                        android:summary="@string/prefPHExpLabelSummary"
+                        android:title="@string/prefPHExpLabelTitle" />
+                    <EditTextPreference
+                        android:defaultValue="@string/labelWaterLevel"
+                        android:key="@string/prefWaterLevelLabelKey"
+                        android:summary="@string/prefWaterLevelLabelSummary"
+                        android:title="@string/prefWaterLevelLabelTitle" />
                 </PreferenceScreen>
                 <PreferenceScreen
                     android:key="main_relay_labels"
@@ -206,6 +226,142 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 </PreferenceScreen>
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/prefExpansionCategory" >
+                <PreferenceScreen
+                    android:summary="@string/prefExpDimmingSummary"
+                    android:title="@string/prefExpDimmingTitle" >
+                    <CheckBoxPreference
+                        android:defaultValue="false"
+                        android:key="@string/prefExpDimmingEnableKey"
+                        android:summary="@string/prefExpDimmingEnableSummary"
+                        android:title="@string/prefExpDimmingEnableTitle" />
+
+                    <PreferenceCategory android:title="@string/prefLabelsCategory" >
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpDimmingCh0LabelTitle"
+                            android:key="@string/prefExpDimmingCh0LabelKey"
+                            android:title="@string/prefExpDimmingCh0LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpDimmingCh1LabelTitle"
+                            android:key="@string/prefExpDimmingCh1LabelKey"
+                            android:title="@string/prefExpDimmingCh1LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpDimmingCh2LabelTitle"
+                            android:key="@string/prefExpDimmingCh2LabelKey"
+                            android:title="@string/prefExpDimmingCh2LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpDimmingCh3LabelTitle"
+                            android:key="@string/prefExpDimmingCh3LabelKey"
+                            android:title="@string/prefExpDimmingCh3LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpDimmingCh4LabelTitle"
+                            android:key="@string/prefExpDimmingCh4LabelKey"
+                            android:title="@string/prefExpDimmingCh4LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpDimmingCh5LabelTitle"
+                            android:key="@string/prefExpDimmingCh5LabelKey"
+                            android:title="@string/prefExpDimmingCh5LabelTitle" />
+                    </PreferenceCategory>
+                </PreferenceScreen>
+
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:key="@string/prefExpRadionEnableKey"
+                    android:summary="@string/prefExpRadionEnableSummary"
+                    android:title="@string/prefExpRadionEnableTitle" />
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:key="@string/prefExpVortechEnableKey"
+                    android:summary="@string/prefExpVortechEnableSummary"
+                    android:title="@string/prefExpVortechEnableTitle" />
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:key="@string/prefExpAIEnableKey"
+                    android:summary="@string/prefExpAIEnableSummary"
+                    android:title="@string/prefExpAIEnableTitle" />
+                <PreferenceScreen
+                    android:summary="@string/prefExpIOSummary"
+                    android:title="@string/prefExpIOTitle" >
+                    <CheckBoxPreference
+                        android:defaultValue="false"
+                        android:key="@string/prefExpIOEnableKey"
+                        android:summary="@string/prefExpIOEnableSummary"
+                        android:title="@string/prefExpIOEnableTitle" />
+
+                    <PreferenceCategory android:title="@string/prefLabelsCategory" >
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpIO0LabelTitle"
+                            android:key="@string/prefExpIO0LabelKey"
+                            android:title="@string/prefExpIO0LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpIO1LabelTitle"
+                            android:key="@string/prefExpIO1LabelKey"
+                            android:title="@string/prefExpIO1LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpIO2LabelTitle"
+                            android:key="@string/prefExpIO2LabelKey"
+                            android:title="@string/prefExpIO2LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpIO3LabelTitle"
+                            android:key="@string/prefExpIO3LabelKey"
+                            android:title="@string/prefExpIO3LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpIO4LabelTitle"
+                            android:key="@string/prefExpIO4LabelKey"
+                            android:title="@string/prefExpIO4LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpIO5LabelTitle"
+                            android:key="@string/prefExpIO5LabelKey"
+                            android:title="@string/prefExpIO5LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpIO6LabelTitle"
+                            android:key="@string/prefExpIO6LabelKey"
+                            android:title="@string/prefExpIO6LabelTitle" />
+                    </PreferenceCategory>
+                </PreferenceScreen>
+                <PreferenceScreen
+                    android:summary="@string/prefExpCustomSummary"
+                    android:title="@string/prefExpCustomTitle" >
+                    <CheckBoxPreference
+                        android:defaultValue="false"
+                        android:key="@string/prefExpCustomEnableKey"
+                        android:summary="@string/prefExpCustomEnableSummary"
+                        android:title="@string/prefExpCustomEnableTitle" />
+
+                    <PreferenceCategory android:title="@string/prefLabelsCategory" >
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpCustom0LabelTitle"
+                            android:key="@string/prefExpCustom0LabelKey"
+                            android:title="@string/prefExpCustom0LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpCustom1LabelTitle"
+                            android:key="@string/prefExpCustom1LabelKey"
+                            android:title="@string/prefExpCustom1LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpCustom2LabelTitle"
+                            android:key="@string/prefExpCustom2LabelKey"
+                            android:title="@string/prefExpCustom2LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpCustom3LabelTitle"
+                            android:key="@string/prefExpCustom3LabelKey"
+                            android:title="@string/prefExpCustom3LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpCustom4LabelTitle"
+                            android:key="@string/prefExpCustom4LabelKey"
+                            android:title="@string/prefExpCustom4LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpCustom5LabelTitle"
+                            android:key="@string/prefExpCustom5LabelKey"
+                            android:title="@string/prefExpCustom5LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpCustom6LabelTitle"
+                            android:key="@string/prefExpCustom6LabelKey"
+                            android:title="@string/prefExpCustom6LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpCustom7LabelTitle"
+                            android:key="@string/prefExpCustom7LabelKey"
+                            android:title="@string/prefExpCustom7LabelTitle" />
+                    </PreferenceCategory>
+                </PreferenceScreen>
                 <PreferenceScreen
                     android:summary="@string/prefExpRelaySummary"
                     android:title="@string/prefExpRelayTitle" >
@@ -536,14 +692,14 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/prefsCategoryApp" >
         <PreferenceScreen
-            android:summary="@string/prefAppSettingsSummary" 
+            android:summary="@string/prefAppSettingsSummary"
             android:title="@string/prefAppSettingsTitle" >
-			<CheckBoxPreference 
-			    android:defaultValue="true"
-			    android:key="@string/prefPre10MemoryKey"
-			    android:summary="@string/prefPre10MemorySummary"
-			    android:title="@string/prefPre10MemoryTitle" />
-		</PreferenceScreen>
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="@string/prefPre10MemoryKey"
+                android:summary="@string/prefPre10MemorySummary"
+                android:title="@string/prefPre10MemoryTitle" />
+        </PreferenceScreen>
         <PreferenceScreen
             android:key="appinfo"
             android:summary="@string/prefAppSummary"
@@ -572,6 +728,10 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:key="@string/prefLicenseKey"
                 android:summary="@string/prefLicenseSummary"
                 android:title="@string/prefLicenseTitle" />
+            <PreferenceScreen
+                android:key="@string/prefChangelogKey"
+                android:summary="@string/prefChangelogSummary"
+                android:title="@string/titleChangelog" />
             <PreferenceScreen
                 android:key="@string/prefReefAngelKey"
                 android:summary="@string/prefReefAngelSummary"

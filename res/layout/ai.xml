@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
+ 
+This work is made available under the terms of the 
+Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+http://creativecommons.org/licenses/by-nc-sa/3.0/
+-->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            style="@style/ParamsText"
+            android:text="@string/labelAI" />
+
+        <TableRow style="@style/RARow" >
+
+            <TextView
+                android:id="@+id/ai_white_label"
+                style="@style/ParamsText.Labels"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/aiWhite"
+                style="@style/ParamsText.Values"
+                android:textColor="@color/white" />
+        </TableRow>
+
+        <TableRow style="@style/RARow" >
+
+            <TextView
+                android:id="@+id/ai_blue_label"
+                style="@style/ParamsText.Labels"
+                android:textColor="@color/blue" />
+
+            <TextView
+                android:id="@+id/aiBlue"
+                style="@style/ParamsText.Values"
+                android:textColor="@color/blue" />
+        </TableRow>
+
+        <TableRow style="@style/RARow" >
+
+            <TextView
+                android:id="@+id/ai_royalblue_label"
+                style="@style/ParamsText.Labels"
+                android:textColor="@color/royalblue" />
+
+            <TextView
+                android:id="@+id/aiRoyalBlue"
+                style="@style/ParamsText.Values"
+                android:textColor="@color/royalblue" />
+        </TableRow>
+    </TableLayout>
+
+</ScrollView>

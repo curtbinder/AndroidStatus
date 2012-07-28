@@ -10,7 +10,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 <resources>
 
     <string name="app_name">Reef Angel Status</string>
-    <string name="app_version">0.6.1</string>
+    <string name="app_version">0.7</string>
 
     <!-- Menu Labels -->
     <string name="menuMainSettings">Settings</string>
@@ -32,6 +32,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <string name="titlePrefs">Status Settings</string>
     <string name="titleDateTime">Date / Time</string>
     <string name="titleSelectProfile">Select Profile</string>
+    <string name="titleChangelog">Changelog</string>
 
     <!-- Tabs for memory page -->
     <string name="tabMemory1">memory_tab_1</string>
@@ -102,6 +103,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="labelAP">AP</string>
     <string name="labelSalinity">Salinity</string>
     <string name="labelORP">ORP</string>
+    <string name="labelPHExp">PH Exp</string>
+    <string name="labelWaterLevel">Water</string>
     <string name="labelAtoLow">ATO Low</string>
     <string name="labelAtoHigh">ATO High</string>
     <string name="labelPort1">Port 1</string>
@@ -126,6 +129,23 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="labelController">Controller:</string>
     <string name="labelTime">Time:</string>
     <string name="labelDate">Date:</string>
+    <string name="labelDimming">Dimming</string>
+    <string name="labelRadion">Radion</string>
+    <string name="labelWhite">White</string>
+    <string name="labelRoyalBlue">Royal Blue</string>
+    <string name="labelRed">Red</string>
+    <string name="labelGreen">Green</string>
+    <string name="labelBlue">Blue</string>
+    <string name="labelIntensity">Intensity</string>
+    <string name="labelVortech">Vortech</string>
+    <string name="labelMode">Mode</string>
+    <string name="labelSpeed">Speed</string>
+    <string name="labelDuration">Duration</string>
+    <string name="labelAI">Aqua Illuminations</string>
+    <string name="labelIO">I/O</string>
+    <string name="labelON">ON</string>
+    <string name="labelOFF">OFF</string>
+    <string name="labelCustom">Custom Variables</string>
     <string name="websiteReefangel">http://www.reefangel.com/</string>
     <string name="forumReefangel">http://forum.reefangel.com/</string>
     <string name="defaultStatusText">-</string>
@@ -223,6 +243,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefLicenseKey">license</string>
     <string name="prefLicenseTitle">License</string>
     <string name="prefLicenseSummary">This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</string>
+    <string name="prefChangelogKey">changelog</string>
+    <string name="prefChangelogSummary">Displays the application changelog</string>
     <string name="prefReefAngelKey">reefangel</string>
     <string name="prefReefAngelTitle">Reef Angel Controller</string>
     <string name="prefReefAngelSummary">http://www.reefangel.com/</string>
@@ -255,6 +277,12 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefORPVisibilityKey">orp_visibility</string>
     <string name="prefORPVisibilityTitle">Display ORP</string>
     <string name="prefORPVisibilitySummary">Displays the ORP</string>
+    <string name="prefPHExpVisibilityKey">phe_visibility</string>
+    <string name="prefPHExpVisibilityTitle">Display PH Exp</string>
+    <string name="prefPHExpVisibilitySummary">Displays the PH Expansion probe</string>
+    <string name="prefWaterLevelVisibilityKey">wl_visibility</string>
+    <string name="prefWaterLevelVisibilityTitle">Display Water Level</string>
+    <string name="prefWaterLevelVisibilitySummary">Displays the water level</string>
 	<string name="prefResetCategory">Reset Settings</string>
 	<string name="prefResetLabelsKey">reset_labels</string>
 	<string name="prefResetLabelsTitle">Reset Labels</string>
@@ -289,6 +317,12 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefORPLabelKey">orp_label</string>
     <string name="prefORPLabelTitle">ORP Label</string>
     <string name="prefORPLabelSummary">ORP probe label</string>
+    <string name="prefPHExpLabelKey">phe_label</string>
+    <string name="prefPHExpLabelTitle">PH Expansion</string>
+    <string name="prefPHExpLabelSummary">PH Expansion label</string>
+    <string name="prefWaterLevelLabelKey">wl_label</string>
+    <string name="prefWaterLevelLabelTitle">Water Level</string>
+    <string name="prefWaterLevelLabelSummary">Water Level label</string>
     <string name="prefPort1LabelTitle">Port 1 Label</string>
     <string name="prefPort2LabelTitle">Port 2 Label</string>
     <string name="prefPort3LabelTitle">Port 3 Label</string>
@@ -407,11 +441,78 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp085xKey">exp_085_relays</string>
     <string name="prefExp085xSummary">Select this if you have v0.8.5.X libraries and expansion relays. If you don\'t know, leave it alone.</string>
     <string name="prefExp085xTitle">Old v0.8.5.X Expansion</string>
+    <string name="prefExpDimmingTitle">Dimming</string>
+    <string name="prefExpDimmingSummary">Configure dimming expansion module</string>
+    <string name="prefExpDimmingEnableKey">dimming_expansion</string>
+    <string name="prefExpDimmingEnableTitle">Enable</string>
+    <string name="prefExpDimmingEnableSummary">Enable dimming expansion module</string>
+    <string name="prefExpDimmingCh0LabelKey">exp_dim_0</string>
+    <string name="prefExpDimmingCh0LabelTitle">Channel 0</string>
+    <string name="prefExpDimmingCh1LabelKey">exp_dim_1</string>
+    <string name="prefExpDimmingCh1LabelTitle">Channel 1</string>
+    <string name="prefExpDimmingCh2LabelKey">exp_dim_2</string>
+    <string name="prefExpDimmingCh2LabelTitle">Channel 2</string>
+    <string name="prefExpDimmingCh3LabelKey">exp_dim_3</string>
+    <string name="prefExpDimmingCh3LabelTitle">Channel 3</string>
+    <string name="prefExpDimmingCh4LabelKey">exp_dim_4</string>
+    <string name="prefExpDimmingCh4LabelTitle">Channel 4</string>
+    <string name="prefExpDimmingCh5LabelKey">exp_dim_5</string>
+    <string name="prefExpDimmingCh5LabelTitle">Channel 5</string>
+    <string name="prefExpRadionEnableKey">radion_expansion</string>
+    <string name="prefExpRadionEnableTitle">Radion</string>
+    <string name="prefExpRadionEnableSummary">Enable the radion expansion module</string>
+    <string name="prefExpVortechEnableKey">vortech_expansion</string>
+    <string name="prefExpVortechEnableTitle">Vortech</string>
+    <string name="prefExpVortechEnableSummary">Enable the vortech expansion module</string>
+    <string name="prefExpAIEnableKey">ai_expansion</string>
+    <string name="prefExpAIEnableTitle">Aqua Illuminations</string>
+    <string name="prefExpAIEnableSummary">Enable the aqua illuminations expansion module</string>
+    <string name="prefExpIOTitle">I/O</string>
+    <string name="prefExpIOSummary">Configure i/o expansion module</string>
+    <string name="prefExpIOEnableKey">io_expansion</string>
+    <string name="prefExpIOEnableTitle">Enable</string>
+    <string name="prefExpIOEnableSummary">Enable the displaying of the i/o module ports</string>
+    <string name="prefExpIO0LabelKey">exp_io_0</string>
+    <string name="prefExpIO0LabelTitle">I/O 0</string>
+    <string name="prefExpIO1LabelKey">exp_io_1</string>
+    <string name="prefExpIO1LabelTitle">I/O 1</string>
+    <string name="prefExpIO2LabelKey">exp_io_2</string>
+    <string name="prefExpIO2LabelTitle">I/O 2</string>
+    <string name="prefExpIO3LabelKey">exp_io_3</string>
+    <string name="prefExpIO3LabelTitle">I/O 3</string>
+    <string name="prefExpIO4LabelKey">exp_io_4</string>
+    <string name="prefExpIO4LabelTitle">I/O 4</string>
+    <string name="prefExpIO5LabelKey">exp_io_5</string>
+    <string name="prefExpIO5LabelTitle">I/O 5</string>
+    <string name="prefExpIO6LabelKey">exp_io_6</string>
+    <string name="prefExpIO6LabelTitle">I/O 6</string>
+    <string name="prefExpCustomTitle">Custom</string>
+    <string name="prefExpCustomSummary">Configure custom variables</string>
+    <string name="prefExpCustomEnableKey">custom_expansion</string>
+    <string name="prefExpCustomEnableTitle">Enable</string>
+    <string name="prefExpCustomEnableSummary">Enable the displaying of custom variables</string>
+    <string name="prefExpCustom0LabelKey">exp_custom_0</string>
+    <string name="prefExpCustom0LabelTitle">Custom 0</string>
+    <string name="prefExpCustom1LabelKey">exp_custom_1</string>
+    <string name="prefExpCustom1LabelTitle">Custom 1</string>
+    <string name="prefExpCustom2LabelKey">exp_custom_2</string>
+    <string name="prefExpCustom2LabelTitle">Custom 2</string>
+    <string name="prefExpCustom3LabelKey">exp_custom_3</string>
+    <string name="prefExpCustom3LabelTitle">Custom 3</string>
+    <string name="prefExpCustom4LabelKey">exp_custom_4</string>
+    <string name="prefExpCustom4LabelTitle">Custom 4</string>
+    <string name="prefExpCustom5LabelKey">exp_custom_5</string>
+    <string name="prefExpCustom5LabelTitle">Custom 5</string>
+    <string name="prefExpCustom6LabelKey">exp_custom_6</string>
+    <string name="prefExpCustom6LabelTitle">Custom 6</string>
+    <string name="prefExpCustom7LabelKey">exp_custom_7</string>
+    <string name="prefExpCustom7LabelTitle">Custom 7</string>
     <string name="prefAppSettingsTitle">Settings</string>
     <string name="prefAppSettingsSummary">Additional settings for the application and controller</string>
     <string name="prefPre10MemoryKey">pre_10_memory_locations</string>
-    <string name="prefPre10MemorySummary">Select this if you have a version of the libraries before v1.0. This will allow you reference the proper internal memory locations.</string>
+    <string name="prefPre10MemorySummary">Select this if you have a version of the libraries before v1.0. This will allow you to reference the proper internal memory locations.</string>
     <string name="prefPre10MemoryTitle">Pre v1.0 Locations </string>
+    <string name="prefPreviousCodeVersion">previous_version</string>
 
     <!-- Permissions -->
     <string name="permissionQueryStatusLabel">Query status of controller</string>

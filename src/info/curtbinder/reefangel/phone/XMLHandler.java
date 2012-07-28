@@ -110,7 +110,14 @@ public class XMLHandler extends DefaultHandler {
 			if ( tag.equals( Globals.xmlStatus ) ) {
 				return;
 			} else {
-				processStatusXml( tag );
+				// Parameter status and Labels are sent using the same XML outer
+				// tag
+				if ( tag.endsWith( Globals.xmlLabelEnd )
+						&& !tag.equals( Globals.xmlRelayMaskOn ) ) {
+					processLabelXml( tag );
+				} else {
+					processStatusXml( tag );
+				}
 			}
 		} else if ( requestType.equals( Globals.requestMemoryByte ) ) {
 			if ( tag.equals( Globals.xmlMemory ) ) {
@@ -188,6 +195,8 @@ public class XMLHandler extends DefaultHandler {
 			ra.setTemp3( Integer.parseInt( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlPH ) ) {
 			ra.setPH( Integer.parseInt( currentElementText ) );
+		} else if ( tag.equals( Globals.xmlPHExpansion ) ) {
+			ra.setPHExp( Integer.parseInt( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlATOLow ) ) {
 			boolean f = false;
 			if ( Short.parseShort( currentElementText ) == 1 ) {
@@ -216,6 +225,9 @@ public class XMLHandler extends DefaultHandler {
 			ra.setSalinity( Integer.parseInt( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlORP ) ) {
 			ra.setORP( Integer.parseInt( currentElementText ) );
+		} else if ( tag.equals( Globals.xmlWaterLevel ) ) {
+			short v = Short.parseShort( currentElementText );
+			ra.setWaterLevel( v );
 		} else if ( tag.equals( Globals.xmlRelay ) ) {
 			ra.setMainRelayData( Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRelayMaskOn ) ) {
@@ -231,29 +243,41 @@ public class XMLHandler extends DefaultHandler {
 			short v = Short.parseShort( currentElementText );
 			ra.setExpansionModules( v );
 		} else if ( tag.equals( Globals.xmlAIBlue ) ) {
-			ra.setAIChannel( Controller.AI_BLUE, Short.parseShort( currentElementText ) );
+			ra.setAIChannel(	Controller.AI_BLUE,
+								Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlAIRoyalBlue ) ) {
-			ra.setAIChannel( Controller.AI_ROYALBLUE, Short.parseShort( currentElementText ) );
+			ra.setAIChannel(	Controller.AI_ROYALBLUE,
+								Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlAIWhite ) ) {
-			ra.setAIChannel( Controller.AI_WHITE, Short.parseShort( currentElementText ) );
+			ra.setAIChannel(	Controller.AI_WHITE,
+								Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFMode ) ) {
-			ra.setVortechValue( Controller.VORTECH_MODE, Short.parseShort( currentElementText ) );
+			ra.setVortechValue( Controller.VORTECH_MODE,
+								Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFSpeed ) ) {
-			ra.setVortechValue( Controller.VORTECH_SPEED, Short.parseShort( currentElementText ) );
+			ra.setVortechValue( Controller.VORTECH_SPEED,
+								Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFDuration ) ) {
-			ra.setVortechValue( Controller.VORTECH_DURATION, Short.parseShort( currentElementText ) );
+			ra.setVortechValue( Controller.VORTECH_DURATION,
+								Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFWhite ) ) {
-			ra.setRadionChannel( Controller.RADION_WHITE, Short.parseShort( currentElementText ) );
+			ra.setRadionChannel(	Controller.RADION_WHITE,
+									Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFBlue ) ) {
-			ra.setRadionChannel( Controller.RADION_BLUE, Short.parseShort( currentElementText ) );
+			ra.setRadionChannel(	Controller.RADION_BLUE,
+									Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFGreen ) ) {
-			ra.setRadionChannel( Controller.RADION_GREEN, Short.parseShort( currentElementText ) );
+			ra.setRadionChannel(	Controller.RADION_GREEN,
+									Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFRed ) ) {
-			ra.setRadionChannel( Controller.RADION_RED, Short.parseShort( currentElementText ) );
+			ra.setRadionChannel(	Controller.RADION_RED,
+									Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFRoyalBlue ) ) {
-			ra.setRadionChannel( Controller.RADION_ROYALBLUE, Short.parseShort( currentElementText ) );
+			ra.setRadionChannel(	Controller.RADION_ROYALBLUE,
+									Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlRFIntensity ) ) {
-			ra.setRadionChannel( Controller.RADION_INTENSITY, Short.parseShort( currentElementText ) );
+			ra.setRadionChannel(	Controller.RADION_INTENSITY,
+									Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( Globals.xmlIO ) ) {
 			ra.setIOChannels( Short.parseShort( currentElementText ) );
 		} else if ( tag.startsWith( Globals.xmlCustom ) ) {
@@ -261,36 +285,6 @@ public class XMLHandler extends DefaultHandler {
 					Short.parseShort( tag.substring( Globals.xmlCustom.length() ) );
 			short c = Short.parseShort( currentElementText );
 			ra.setCustomVariable( v, c );
-		} else if ( tag.startsWith( Globals.xmlLabelTempBegin )
-					&& tag.endsWith( Globals.xmlLabelEnd ) ) {
-			// handle temp sensor labels
-			int sensor =
-					Integer.parseInt( getTagNumber( tag,
-													Globals.xmlLabelTempBegin,
-													Globals.xmlLabelEnd ) );
-			if ( sensor < 0 || sensor > Controller.MAX_TEMP_SENSORS )
-				Log.e( TAG, "Incorrect sensor number: " + tag );
-			ra.setTempLabel( sensor, currentElementText );
-		} else if ( tag.startsWith( Globals.xmlLabelRelayBegin )
-					&& tag.endsWith( Globals.xmlLabelEnd ) ) {
-			// handle relay labels
-			int relay =
-					Integer.parseInt( getTagNumber( tag,
-													Globals.xmlLabelRelayBegin,
-													Globals.xmlLabelEnd ) );
-			if ( relay < 10 ) {
-				// main relay
-				ra.getMainRelay().setPortLabel( relay, currentElementText );
-			} else {
-				// expansion relays, so split the port from the relay box
-				int box = relay / 10;
-				int port = relay % 10;
-				// portal sends null if there's no value stored for a port
-				// so don't save null
-				if ( !currentElementText.equals( "null" ) )
-					ra.getExpRelay( box ).setPortLabel( port,
-														currentElementText );
-			}
 		} else if ( tag.startsWith( Globals.xmlRelayMaskOn ) ) {
 			int relay =
 					Integer.parseInt( tag.substring( Globals.xmlRelayMaskOn
@@ -311,6 +305,8 @@ public class XMLHandler extends DefaultHandler {
 			if ( fUse085XRelays )
 				relay += 1;
 			ra.setExpRelayData( relay, Short.parseShort( currentElementText ) );
+		} else if ( tag.equals( Globals.xmlMyReefAngelID ) ) {
+			Log.d( TAG, "Reefangel ID: " + currentElementText );
 		} else {
 			Log.d( TAG, "Unhandled XML tag (" + tag + ") with data: "
 						+ currentElementText );
@@ -321,6 +317,79 @@ public class XMLHandler extends DefaultHandler {
 		int ep = tag.indexOf( end );
 		int bp = start.length();
 		return tag.substring( bp, ep );
+	}
+
+	private void processLabelXml ( String tag ) {
+		// Handle all labels here
+		if ( currentElementText.equals( "null" ) ) {
+			Log.d( TAG, tag + " is null, skipping" );
+			return;
+		}
+
+		if ( tag.startsWith( Globals.xmlLabelTempBegin ) ) {
+			// handle temp sensor labels
+			int sensor =
+					Integer.parseInt( getTagNumber( tag,
+													Globals.xmlLabelTempBegin,
+													Globals.xmlLabelEnd ) );
+			if ( sensor < 0 || sensor > Controller.MAX_TEMP_SENSORS )
+				Log.e( TAG, "Incorrect sensor number: " + tag );
+			ra.setTempLabel( sensor, currentElementText );
+		} else if ( tag.startsWith( Globals.xmlRelay ) ) {
+			// handle relay labels
+			int relay =
+					Integer.parseInt( getTagNumber( tag, Globals.xmlRelay,
+													Globals.xmlLabelEnd ) );
+			if ( relay < 10 ) {
+				// main relay
+				ra.getMainRelay().setPortLabel( relay, currentElementText );
+			} else {
+				// expansion relays, so split the port from the relay box
+				int box = relay / 10;
+				int port = relay % 10;
+				ra.getExpRelay( box ).setPortLabel( port, currentElementText );
+			}
+		} else if ( tag.startsWith( Globals.xmlPWMExpansion ) ) {
+			// PWME
+			short channel =
+					Short.parseShort( getTagNumber( tag,
+													Globals.xmlPWMExpansion,
+													Globals.xmlLabelEnd ) );
+			Log.d( TAG, "PWM #" + channel + ": " + currentElementText );
+			ra.setPwmExpansionLabel( channel, currentElementText );
+		} else if ( tag.equals( Globals.xmlPHExpansion + Globals.xmlLabelEnd ) ) {
+			// PHE
+			Log.d( TAG, "PHExp Label: " + currentElementText );
+			ra.setPHExpLabel( currentElementText );
+		} else if ( tag.equals( Globals.xmlPH + Globals.xmlLabelEnd ) ) {
+			// PH
+			Log.d( TAG, "PH Label: " + currentElementText );
+			ra.setPHLabel( currentElementText );
+		} else if ( tag.equals( Globals.xmlSalinity + Globals.xmlLabelEnd ) ) {
+			// SAL
+			Log.d( TAG, "Salinity Label: " + currentElementText );
+			ra.setSalinityLabel( currentElementText );
+		} else if ( tag.equals( Globals.xmlORP + Globals.xmlLabelEnd ) ) {
+			// ORP
+			Log.d( TAG, "ORP Label: " + currentElementText );
+			ra.setORPLabel( currentElementText );
+		} else if ( tag.startsWith( Globals.xmlCustom ) ) {
+			// C
+			short v =
+					Short.parseShort( getTagNumber( tag, Globals.xmlCustom,
+													Globals.xmlLabelEnd ) );
+			Log.d( TAG, "Custom #" + v + ": " + currentElementText );
+			ra.setCustomVariableLabel( v, currentElementText );
+		} else if ( tag.startsWith( Globals.xmlIO ) ) {
+			// IO
+			short v =
+					Short.parseShort( getTagNumber( tag, Globals.xmlIO,
+													Globals.xmlLabelEnd ) );
+			Log.d( TAG, "IO #" + v + ": " + currentElementText );
+			ra.setIOChannelLabel( v, currentElementText );
+		} else {
+			Log.d( TAG, "Unknown label: (" + tag + ") = " + currentElementText );
+		}
 	}
 
 	private void processDateTimeXml ( String tag ) {

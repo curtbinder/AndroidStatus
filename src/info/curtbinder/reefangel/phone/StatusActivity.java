@@ -37,6 +37,9 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		OnLongClickListener {
 	private static final String TAG = StatusActivity.class.getSimpleName();
 
+	// do we reload the pages or not?
+	private boolean fReloadPages = false;
+
 	// Display views
 	private Button refreshButton;
 	private TextView updateTime;
@@ -44,23 +47,45 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private ViewPager pager;
 	private CustomPagerAdapter pagerAdapter;
 	private String[] profiles;
+	private String[] vortechModes;
+	private View[] appPages;
 	// minimum number of pages: status, main relay
 	private static final int MIN_PAGES = 2;
-	private static final int POS_CONTROLLER = 0;
-	private static final int POS_MAIN_RELAY = 1;
-	private static final int POS_EXP1_RELAY = 2;
-	private static final int POS_EXP2_RELAY = 3;
-	private static final int POS_EXP3_RELAY = 4;
-	private static final int POS_EXP4_RELAY = 5;
-	private static final int POS_EXP5_RELAY = 6;
-	private static final int POS_EXP6_RELAY = 7;
-	private static final int POS_EXP7_RELAY = 8;
-	private static final int POS_EXP8_RELAY = 9;
+	// TODO change all these to be updated based on configuration
+	private static final int POS_START = 0;
 
-	private ControllerWidget controller;
-	private RelayBoxWidget main;
-	private RelayBoxWidget[] exprelays =
-			new RelayBoxWidget[Controller.MAX_EXPANSION_RELAYS];
+	private static final int POS_CONTROLLER = POS_START;
+	
+	private static final int POS_MODULES = POS_CONTROLLER + 10;
+	private static final int POS_DIMMING = POS_MODULES;
+	private static final int POS_RADION = POS_MODULES + 1;
+	private static final int POS_VORTECH = POS_MODULES + 2;
+	private static final int POS_AI = POS_MODULES + 3;
+	private static final int POS_IO = POS_MODULES + 4;
+	private static final int POS_CUSTOM = POS_MODULES + 5;
+
+	private static final int POS_MAIN_RELAY = POS_CONTROLLER + 1;
+	private static final int POS_EXP1_RELAY = POS_MAIN_RELAY + 1;
+	private static final int POS_EXP2_RELAY = POS_MAIN_RELAY + 2;
+	private static final int POS_EXP3_RELAY = POS_MAIN_RELAY + 3;
+	private static final int POS_EXP4_RELAY = POS_MAIN_RELAY + 4;
+	private static final int POS_EXP5_RELAY = POS_MAIN_RELAY + 5;
+	private static final int POS_EXP6_RELAY = POS_MAIN_RELAY + 6;
+	private static final int POS_EXP7_RELAY = POS_MAIN_RELAY + 7;
+	private static final int POS_EXP8_RELAY = POS_MAIN_RELAY + 8;
+	
+	private static final int POS_END = POS_CUSTOM + 1;
+
+	private ControllerPage pageController;
+	private DimmingPage pageDimming;
+	private RadionPage pageRadion;
+	private VortechPage pageVortech;
+	private AIPage pageAI;
+	private IOPage pageIO;
+	private CustomPage pageCustom;
+	private RelayBoxPage pageMain;
+	private RelayBoxPage[] pageExpRelays =
+			new RelayBoxPage[Controller.MAX_EXPANSION_RELAYS];
 
 	// Message Receivers
 	StatusReceiver receiver;
@@ -82,10 +107,15 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		filter.addAction( MessageCommands.ERROR_MESSAGE_INTENT );
 
 		profiles = getResources().getStringArray( R.array.profileLabels );
+		vortechModes =
+				getResources().getStringArray( R.array.vortechModeLabels );
 
 		createViews();
 		findViews();
 
+		// set the max number of pages that we can have
+		appPages = new View[POS_END];
+		updatePageOrder();
 		setPagerPrefs();
 
 		// TODO possibly move to onresume
@@ -113,19 +143,35 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	protected void onResume ( ) {
 		super.onResume();
 		registerReceiver( receiver, filter, Permissions.QUERY_STATUS, null );
+
+		// this forces all the pages to be redrawn when the app is restored
+		if ( fReloadPages ) {
+			Log.d( TAG, "Redraw the pages" );
+			updatePageOrder();
+			pagerAdapter.notifyDataSetChanged();
+			fReloadPages = false;
+		}
+
 		updateViewsVisibility();
 		updateDisplay();
 
-		// TODO either put the displaying of the changelog here or in OnStart
+		// the last thing we do is display the changelog if necessary
+		rapp.displayChangeLog( this );
 	}
 
 	private void createViews ( ) {
 		Context ctx = rapp.getBaseContext();
-		controller = new ControllerWidget( ctx );
-		main = new RelayBoxWidget( ctx );
+		pageController = new ControllerPage( ctx );
+		pageDimming = new DimmingPage( ctx );
+		pageRadion = new RadionPage( ctx );
+		pageVortech = new VortechPage( ctx );
+		pageAI = new AIPage( ctx );
+		pageIO = new IOPage( ctx );
+		pageCustom = new CustomPage( ctx );
+		pageMain = new RelayBoxPage( ctx );
 		for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
-			exprelays[i] = new RelayBoxWidget( ctx );
-			exprelays[i].setRelayBoxNumber( i + 1 );
+			pageExpRelays[i] = new RelayBoxPage( ctx );
+			pageExpRelays[i].setRelayBoxNumber( i + 1 );
 		}
 	}
 
@@ -141,16 +187,16 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// TODO consider clearing click listeners and updating clickable always
 		int i;
 		if ( rapp.isCommunicateController() ) {
-			main.setOnClickListeners();
+			pageMain.setOnClickListeners();
 
 			for ( i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ )
-				exprelays[i].setOnClickListeners();
+				pageExpRelays[i].setOnClickListeners();
 
 		} else {
-			main.setClickable( false );
+			pageMain.setClickable( false );
 
 			for ( i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ )
-				exprelays[i].setClickable( false );
+				pageExpRelays[i].setClickable( false );
 
 		}
 	}
@@ -163,44 +209,56 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// Labels
 		updateRefreshButtonLabel();
 		String separator = getString( R.string.labelSeparator );
-		controller.setT1Label( rapp.getPrefT1Label() + separator );
-		controller.setT2Label( rapp.getPrefT2Label() + separator );
-		controller.setT3Label( rapp.getPrefT3Label() + separator );
-		controller.setPHLabel( rapp.getPrefPHLabel() + separator );
-		controller.setDPLabel( rapp.getPrefDPLabel() + separator );
-		controller.setAPLabel( rapp.getPrefAPLabel() + separator );
-		controller.setSalinityLabel( rapp.getPrefSalinityLabel() + separator );
-		controller.setORPLabel( rapp.getPrefORPLabel() + separator );
+		pageController.setLabel( ControllerPage.T1_INDEX, rapp.getPrefT1Label()
+															+ separator );
+		pageController.setLabel( ControllerPage.T2_INDEX, rapp.getPrefT2Label()
+															+ separator );
+		pageController.setLabel( ControllerPage.T3_INDEX, rapp.getPrefT3Label()
+															+ separator );
+		pageController.setLabel( ControllerPage.PH_INDEX, rapp.getPrefPHLabel()
+															+ separator );
+		pageController.setLabel( ControllerPage.DP_INDEX, rapp.getPrefDPLabel()
+															+ separator );
+		pageController.setLabel( ControllerPage.AP_INDEX, rapp.getPrefAPLabel()
+															+ separator );
+		pageController.setLabel(	ControllerPage.SALINITY_INDEX,
+									rapp.getPrefSalinityLabel() + separator );
+		pageController.setLabel(	ControllerPage.ORP_INDEX,
+									rapp.getPrefORPLabel() + separator );
+		pageController.setLabel(	ControllerPage.PHE_INDEX,
+									rapp.getPrefPHExpLabel() + separator );
+		pageController.setLabel(	ControllerPage.WL_INDEX,
+									rapp.getPrefWaterLevelLabel() + separator );
 
 		int qty = rapp.getPrefExpansionRelayQuantity();
 		Log.d( TAG, "Expansion Relays: " + qty );
-		main.setRelayTitle( getString( R.string.prefMainRelayTitle ) );
+		pageMain.setRelayTitle( getString( R.string.prefMainRelayTitle ) );
 		// set the labels
 
 		switch ( qty ) {
 			case 8:
-				exprelays[7]
+				pageExpRelays[7]
 						.setRelayTitle( getString( R.string.prefExp8RelayTitle ) );
 			case 7:
-				exprelays[6]
+				pageExpRelays[6]
 						.setRelayTitle( getString( R.string.prefExp7RelayTitle ) );
 			case 6:
-				exprelays[5]
+				pageExpRelays[5]
 						.setRelayTitle( getString( R.string.prefExp6RelayTitle ) );
 			case 5:
-				exprelays[4]
+				pageExpRelays[4]
 						.setRelayTitle( getString( R.string.prefExp5RelayTitle ) );
 			case 4:
-				exprelays[3]
+				pageExpRelays[3]
 						.setRelayTitle( getString( R.string.prefExp4RelayTitle ) );
 			case 3:
-				exprelays[2]
+				pageExpRelays[2]
 						.setRelayTitle( getString( R.string.prefExp3RelayTitle ) );
 			case 2:
-				exprelays[1]
+				pageExpRelays[1]
 						.setRelayTitle( getString( R.string.prefExp2RelayTitle ) );
 			case 1:
-				exprelays[0]
+				pageExpRelays[0]
 						.setRelayTitle( getString( R.string.prefExp1RelayTitle ) );
 			default:
 				break;
@@ -208,26 +266,106 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 		int i, j;
 		for ( i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
-			main.setPortLabel( i, rapp.getPrefMainRelayLabel( i ) + separator );
+			pageMain.setPortLabel( i, rapp.getPrefMainRelayLabel( i )
+										+ separator );
 
 			for ( j = 0; j < Controller.MAX_EXPANSION_RELAYS; j++ ) {
 				// skip over the relays that are not installed
 				if ( (j + 1) > qty )
 					break;
-				exprelays[j].setPortLabel( i, rapp.getPrefRelayLabel( j + 1, i )
-												+ separator );
+				pageExpRelays[j].setPortLabel(	i,
+												rapp.getPrefRelayLabel( j + 1,
+																		i )
+														+ separator );
 			}
 
 		}
 
+		if ( rapp.getDimmingModuleEnabled() ) {
+			for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ )
+				pageDimming.setLabel( i, rapp.getDimmingModuleChannelLabel( i )
+											+ separator );
+		}
+
+		if ( rapp.getRadionModuleEnabled() ) {
+			pageRadion.setLabel(	Controller.RADION_WHITE,
+									getString( R.string.labelWhite )
+											+ separator );
+			pageRadion.setLabel(	Controller.RADION_ROYALBLUE,
+									getString( R.string.labelRoyalBlue )
+											+ separator );
+			pageRadion.setLabel(	Controller.RADION_RED,
+									getString( R.string.labelRed ) + separator );
+			pageRadion.setLabel(	Controller.RADION_GREEN,
+									getString( R.string.labelGreen )
+											+ separator );
+			pageRadion
+					.setLabel(	Controller.RADION_BLUE,
+								getString( R.string.labelBlue ) + separator );
+			pageRadion.setLabel(	Controller.RADION_INTENSITY,
+									getString( R.string.labelIntensity )
+											+ separator );
+		}
+
+		if ( rapp.getVortechModuleEnabled() ) {
+			pageVortech
+					.setLabel(	Controller.VORTECH_MODE,
+								getString( R.string.labelMode ) + separator );
+			pageVortech.setLabel(	Controller.VORTECH_SPEED,
+									getString( R.string.labelSpeed )
+											+ separator );
+			pageVortech.setLabel(	Controller.VORTECH_DURATION,
+									getString( R.string.labelDuration )
+											+ separator );
+		}
+
+		if ( rapp.getAIModuleEnabled() ) {
+			pageAI.setLabel(	Controller.AI_WHITE,
+								getString( R.string.labelWhite ) + separator );
+			pageAI.setLabel( Controller.AI_BLUE, getString( R.string.labelBlue )
+													+ separator );
+			pageAI.setLabel(	Controller.AI_ROYALBLUE,
+								getString( R.string.labelRoyalBlue )
+										+ separator );
+		}
+
+		if ( rapp.getIOModuleEnabled() ) {
+			for ( i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
+				pageIO.setLabel( i, rapp.getIOModuleChannelLabel( i )
+									+ separator );
+			}
+		}
+
+		if ( rapp.getCustomModuleEnabled() ) {
+			for ( i = 0; i < Controller.MAX_CUSTOM_VARIABLES; i++ )
+				pageCustom.setLabel( i, rapp.getCustomModuleChannelLabel( i )
+										+ separator );
+		}
+
 		// Visibility
-		controller.setT2Visibility( rapp.getPrefT2Visibility() );
-		controller.setT3Visibility( rapp.getPrefT3Visibility() );
-		controller.setDPVisibility( rapp.getPrefDPVisibility() );
-		controller.setAPVisibility( rapp.getPrefAPVisibility() );
-		controller.setPHVisibility( rapp.getPrefPHVisibility() );
-		controller.setSalinityVisibility( rapp.getPrefSalinityVisibility() );
-		controller.setORPVisibility( rapp.getPrefORPVisibility() );
+		pageController.setVisibility(	ControllerPage.T2_INDEX,
+										rapp.getPrefT2Visibility() );
+		pageController.setVisibility(	ControllerPage.T3_INDEX,
+										rapp.getPrefT3Visibility() );
+		pageController.setVisibility(	ControllerPage.DP_INDEX,
+										rapp.getPrefDPVisibility() );
+		pageController.setVisibility(	ControllerPage.AP_INDEX,
+										rapp.getPrefAPVisibility() );
+		pageController.setVisibility(	ControllerPage.PH_INDEX,
+										rapp.getPrefPHVisibility() );
+		pageController.setVisibility(	ControllerPage.SALINITY_INDEX,
+										rapp.getPrefSalinityVisibility() );
+		pageController.setVisibility(	ControllerPage.ORP_INDEX,
+										rapp.getPrefORPVisibility() );
+		pageController.setVisibility(	ControllerPage.PHE_INDEX,
+										rapp.getPrefPHExpVisibility() );
+		pageController.setVisibility(	ControllerPage.WL_INDEX,
+										rapp.getPrefWaterLevelVisibility() );
+
+		// TODO update control visibility here
+		// TODO consider hiding dimming channels not in use
+		// TODO consider hiding custom variables not in use
+		// TODO consider hiding io channels not in use
 
 		// if ( ! showMessageText )
 		// messageText.setVisibility(View.GONE);
@@ -248,7 +386,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	public boolean onLongClick ( View v ) {
 		// if it's not a controller, don't even bother processing
 		// the long clicks
-		if ( ! rapp.isCommunicateController() )
+		if ( !rapp.isCommunicateController() )
 			return true;
 
 		switch ( v.getId() ) {
@@ -295,8 +433,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// only allow for the changing of the label IF it's a controller
 		// AND if the away profile is enabled
 		String s;
-		if ( rapp.isAwayProfileEnabled() &&
-			 rapp.isCommunicateController() )
+		if ( rapp.isAwayProfileEnabled() && rapp.isCommunicateController() )
 			s =
 					String.format(	"%s - %s",
 									getString( R.string.buttonRefresh ),
@@ -332,6 +469,12 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			Cursor c = rapp.data.getLatestData();
 			String updateStatus;
 			String[] values;
+			String[] pwme;
+			String[] rf;
+			String[] vt;
+			String[] ai;
+			String[] io;
+			String[] custom;
 			short r, ron, roff;
 			short[] expr = new short[Controller.MAX_EXPANSION_RELAYS];
 			short[] expron = new short[Controller.MAX_EXPANSION_RELAYS];
@@ -340,23 +483,13 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			if ( c.moveToFirst() ) {
 				updateStatus =
 						c.getString( c.getColumnIndex( RAData.PCOL_LOGDATE ) );
-				values =
-						new String[] {	c.getString( c
-												.getColumnIndex( RAData.PCOL_T1 ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_T2 ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_T3 ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_PH ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_DP ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_AP ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_SAL ) ),
-										c.getString( c
-												.getColumnIndex( RAData.PCOL_ORP ) ) };
+				values = getControllerValues( c );
+				pwme = getPWMEValues( c );
+				rf = getRadionValues( c );
+				vt = getVortechValues( c );
+				ai = getAIValues( c );
+				io = getIOValues( c );
+				custom = getCustomValues( c );
 				r = c.getShort( c.getColumnIndex( RAData.PCOL_RDATA ) );
 				ron = c.getShort( c.getColumnIndex( RAData.PCOL_RONMASK ) );
 				roff = c.getShort( c.getColumnIndex( RAData.PCOL_ROFFMASK ) );
@@ -381,29 +514,35 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 						c.getShort( c.getColumnIndex( RAData.PCOL_R4ONMASK ) );
 				exproff[3] =
 						c.getShort( c.getColumnIndex( RAData.PCOL_R4OFFMASK ) );
-				expr[4] = c.getShort( c.getColumnIndex( RAData.PCOL_R1DATA ) );
+				expr[4] = c.getShort( c.getColumnIndex( RAData.PCOL_R5DATA ) );
 				expron[4] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R1ONMASK ) );
+						c.getShort( c.getColumnIndex( RAData.PCOL_R5ONMASK ) );
 				exproff[4] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R1OFFMASK ) );
-				expr[5] = c.getShort( c.getColumnIndex( RAData.PCOL_R2DATA ) );
+						c.getShort( c.getColumnIndex( RAData.PCOL_R5OFFMASK ) );
+				expr[5] = c.getShort( c.getColumnIndex( RAData.PCOL_R6DATA ) );
 				expron[5] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R2ONMASK ) );
+						c.getShort( c.getColumnIndex( RAData.PCOL_R6ONMASK ) );
 				exproff[5] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R2OFFMASK ) );
-				expr[6] = c.getShort( c.getColumnIndex( RAData.PCOL_R3DATA ) );
+						c.getShort( c.getColumnIndex( RAData.PCOL_R6OFFMASK ) );
+				expr[6] = c.getShort( c.getColumnIndex( RAData.PCOL_R7DATA ) );
 				expron[6] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R3ONMASK ) );
+						c.getShort( c.getColumnIndex( RAData.PCOL_R7ONMASK ) );
 				exproff[6] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R3OFFMASK ) );
-				expr[7] = c.getShort( c.getColumnIndex( RAData.PCOL_R4DATA ) );
+						c.getShort( c.getColumnIndex( RAData.PCOL_R7OFFMASK ) );
+				expr[7] = c.getShort( c.getColumnIndex( RAData.PCOL_R8DATA ) );
 				expron[7] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R4ONMASK ) );
+						c.getShort( c.getColumnIndex( RAData.PCOL_R8ONMASK ) );
 				exproff[7] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R4OFFMASK ) );
+						c.getShort( c.getColumnIndex( RAData.PCOL_R8OFFMASK ) );
 			} else {
 				updateStatus = getString( R.string.messageNever );
-				values = getNeverValues();
+				values = getNeverValues( Controller.MAX_CONTROLLER_VALUES );
+				pwme = getNeverValues( Controller.MAX_PWM_EXPANSION_PORTS );
+				rf = getNeverValues( Controller.MAX_RADION_LIGHT_CHANNELS );
+				vt = getNeverValues( Controller.MAX_VORTECH_VALUES );
+				ai = getNeverValues( Controller.MAX_AI_CHANNELS );
+				io = getNeverValues( Controller.MAX_IO_CHANNELS );
+				custom = getNeverValues( Controller.MAX_CUSTOM_VARIABLES );
 				r = ron = roff = 0;
 				for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 					expr[i] = expron[i] = exproff[i] = 0;
@@ -411,12 +550,18 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			}
 			c.close();
 			updateTime.setText( updateStatus );
-			controller.updateDisplay( values );
+			pageController.updateDisplay( values );
+			pageDimming.updateDisplay( pwme );
+			pageRadion.updateDisplay( rf );
+			pageVortech.updateDisplay( vt );
+			pageAI.updateDisplay( ai );
+			pageIO.updateDisplay( io );
+			pageCustom.updateDisplay( custom );
 			boolean fUseMask = rapp.isCommunicateController();
-			main.updateRelayValues( new Relay( r, ron, roff ), fUseMask );
+			pageMain.updateRelayValues( new Relay( r, ron, roff ), fUseMask );
 			for ( int i = 0; i < rapp.getPrefExpansionRelayQuantity(); i++ ) {
-				exprelays[i].updateRelayValues( new Relay( expr[i], expron[i],
-					exproff[i] ), fUseMask );
+				pageExpRelays[i].updateRelayValues( new Relay( expr[i],
+					expron[i], exproff[i] ), fUseMask );
 			}
 
 		} catch ( SQLException e ) {
@@ -456,15 +601,130 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		}
 	}
 
-	private String[] getNeverValues ( ) {
-		return new String[] {	getString( R.string.defaultStatusText ),
-								getString( R.string.defaultStatusText ),
-								getString( R.string.defaultStatusText ),
-								getString( R.string.defaultStatusText ),
-								getString( R.string.defaultStatusText ),
-								getString( R.string.defaultStatusText ),
-								getString( R.string.defaultStatusText ),
-								getString( R.string.defaultStatusText ) };
+	private String[] getNeverValues ( int qty ) {
+		String[] s = new String[qty];
+		for ( int i = 0; i < qty; i++ ) {
+			s[i] = getString( R.string.defaultStatusText );
+		}
+		return s;
+	}
+
+	private String[] getControllerValues ( Cursor c ) {
+		return new String[] {	c.getString( c.getColumnIndex( RAData.PCOL_T1 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_T2 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_T3 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_PH ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_DP ) )
+										+ "%",
+								c.getString( c.getColumnIndex( RAData.PCOL_AP ) )
+										+ "%",
+								c.getString( c.getColumnIndex( RAData.PCOL_SAL ) )
+										+ " ppt",
+								c.getString( c.getColumnIndex( RAData.PCOL_ORP ) )
+										+ " mV",
+								c.getString( c.getColumnIndex( RAData.PCOL_PHE ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_WL ) )
+										+ "%" };
+	}
+
+	private String[] getPWMEValues ( Cursor c ) {
+		String[] sa = new String[Controller.MAX_PWM_EXPANSION_PORTS];
+		sa[0] = c.getString( c.getColumnIndex( RAData.PCOL_PWME0 ) ) + "%";
+		sa[1] = c.getString( c.getColumnIndex( RAData.PCOL_PWME1 ) ) + "%";
+		sa[2] = c.getString( c.getColumnIndex( RAData.PCOL_PWME2 ) ) + "%";
+		sa[3] = c.getString( c.getColumnIndex( RAData.PCOL_PWME3 ) ) + "%";
+		sa[4] = c.getString( c.getColumnIndex( RAData.PCOL_PWME4 ) ) + "%";
+		sa[5] = c.getString( c.getColumnIndex( RAData.PCOL_PWME5 ) ) + "%";
+		return sa;
+	}
+
+	private String[] getRadionValues ( Cursor c ) {
+		String[] sa = new String[Controller.MAX_RADION_LIGHT_CHANNELS];
+		sa[0] = c.getString( c.getColumnIndex( RAData.PCOL_RFW ) ) + "%";
+		sa[1] = c.getString( c.getColumnIndex( RAData.PCOL_RFRB ) ) + "%";
+		sa[2] = c.getString( c.getColumnIndex( RAData.PCOL_RFR ) ) + "%";
+		sa[3] = c.getString( c.getColumnIndex( RAData.PCOL_RFG ) ) + "%";
+		sa[4] = c.getString( c.getColumnIndex( RAData.PCOL_RFB ) ) + "%";
+		sa[5] = c.getString( c.getColumnIndex( RAData.PCOL_RFI ) ) + "%";
+		return sa;
+	}
+
+	private String[] getVortechValues ( Cursor c ) {
+		String[] sa = new String[Controller.MAX_VORTECH_VALUES];
+		String s = "";
+		int v, mode;
+		// mode
+		v = c.getInt( c.getColumnIndex( RAData.PCOL_RFM ) );
+		mode = v;
+		if ( v >= 0 && v <= 11 ) {
+			// use the index value
+			s = vortechModes[v];
+		} else if ( v >= 97 && v <= 100 ) {
+			// use index 12
+			s = vortechModes[v - 85];
+		} else {
+			// unknown, so use default status
+			s = getString( R.string.defaultStatusText );
+		}
+		sa[Controller.VORTECH_MODE] = s;
+		// speed
+		v = c.getInt( c.getColumnIndex( RAData.PCOL_RFS ) );
+		s = String.format( "%d%c", v, '%' );
+		sa[Controller.VORTECH_SPEED] = s;
+		// duration
+		v = c.getInt( c.getColumnIndex( RAData.PCOL_RFD ) );
+		switch ( mode ) {
+			case 3:
+			case 5:
+				// value is in 100 milliseconds
+				s = String.format( "%d %s", v, "ms" );
+				break;
+			case 4:
+				// value is in seconds
+				s = String.format( "%d %c", v, 's' );
+				break;
+			default:
+				break;
+		}
+		sa[Controller.VORTECH_DURATION] = s;
+		return sa;
+	}
+
+	private String[] getAIValues ( Cursor c ) {
+		String[] sa = new String[Controller.MAX_AI_CHANNELS];
+		sa[Controller.AI_WHITE] =
+				c.getString( c.getColumnIndex( RAData.PCOL_AIW ) ) + "%";
+		sa[Controller.AI_BLUE] =
+				c.getString( c.getColumnIndex( RAData.PCOL_AIB ) ) + "%";
+		sa[Controller.AI_ROYALBLUE] =
+				c.getString( c.getColumnIndex( RAData.PCOL_AIRB ) ) + "%";
+		return sa;
+	}
+
+	private String[] getIOValues ( Cursor c ) {
+		String[] sa = new String[Controller.MAX_IO_CHANNELS];
+		short io = c.getShort( c.getColumnIndex( RAData.PCOL_IO ) );
+		String s;
+		for ( byte i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
+			if ( Controller.getIOChannel( io, i ) ) {
+				s = getString( R.string.labelON );
+			} else {
+				s = getString( R.string.labelOFF );
+			}
+			sa[i] = s;
+		}
+		return sa;
+	}
+
+	private String[] getCustomValues ( Cursor c ) {
+		return new String[] {	c.getString( c.getColumnIndex( RAData.PCOL_C0 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_C1 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_C2 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_C3 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_C4 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_C5 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_C6 ) ),
+								c.getString( c.getColumnIndex( RAData.PCOL_C7 ) ) };
 	}
 
 	@Override
@@ -483,6 +743,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				Log.d( TAG, "Settings clicked" );
 				// scroll to first page on entering settings
 				pager.setCurrentItem( POS_CONTROLLER );
+				// force the pages to be redrawn if we enter settings
+				fReloadPages = true;
 				startActivity( new Intent( this, PrefsActivity.class ) );
 				break;
 			case R.id.about:
@@ -519,12 +781,100 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		pager.setOffscreenPageLimit( MIN_PAGES );
 	}
 
+	private void updatePageOrder ( ) {
+		// updates the order of the pages for display
+		int i, j;
+		int qty = rapp.getPrefExpansionRelayQuantity();
+		// loop through all the possible pages
+		// keep track of the pages installed compared to total pages
+		// if the module is enabled, add it to the available pages list
+		// then increment the installed pages counter
+		for ( i = POS_START, j = POS_START; i <= POS_END; i++ ) {
+			switch ( i ) {
+				case POS_CONTROLLER:
+					Log.d( TAG, j + ": Controller" );
+					appPages[j] = pageController;
+					j++;
+					break;
+				case POS_DIMMING:
+					if ( rapp.getDimmingModuleEnabled() ) {
+						Log.d( TAG, j + ": Dimming" );
+						appPages[j] = pageDimming;
+						j++;
+					}
+					break;
+				case POS_RADION:
+					if ( rapp.getRadionModuleEnabled() ) {
+						Log.d( TAG, j + ": Radion" );
+						appPages[j] = pageRadion;
+						j++;
+					}
+					break;
+				case POS_VORTECH:
+					if ( rapp.getVortechModuleEnabled() ) {
+						Log.d( TAG, j + ": Vortech" );
+						appPages[j] = pageVortech;
+						j++;
+					}
+					break;
+				case POS_AI:
+					if ( rapp.getAIModuleEnabled() ) {
+						Log.d( TAG, j + ": AI" );
+						appPages[j] = pageAI;
+						j++;
+					}
+					break;
+				case POS_IO:
+					if ( rapp.getIOModuleEnabled() ) {
+						Log.d( TAG, j + ": IO" );
+						appPages[j] = pageIO;
+						j++;
+					}
+					break;
+				case POS_CUSTOM:
+					if ( rapp.getCustomModuleEnabled() ) {
+						Log.d( TAG, j + ": Custom" );
+						appPages[j] = pageCustom;
+						j++;
+					}
+					break;
+				case POS_MAIN_RELAY:
+					Log.d( TAG, j + ": Main Relay" );
+					appPages[j] = pageMain;
+					j++;
+					break;
+				case POS_EXP1_RELAY:
+				case POS_EXP2_RELAY:
+				case POS_EXP3_RELAY:
+				case POS_EXP4_RELAY:
+				case POS_EXP5_RELAY:
+				case POS_EXP6_RELAY:
+				case POS_EXP7_RELAY:
+				case POS_EXP8_RELAY:
+					if ( qty > 0 ) {
+						int relay = i - POS_EXP1_RELAY;
+						if ( relay < qty ) {
+							Log.d( TAG, j + ": Exp Relay " + relay );
+							appPages[j] = pageExpRelays[relay];
+							j++;
+						}
+					}
+					break;
+			}
+		}
+		if ( j < POS_END ) {
+			for ( ; j < POS_END; j++ ) {
+				appPages[j] = null;
+			}
+		}
+	}
+
 	private class CustomPagerAdapter extends PagerAdapter {
 		private final String TAG = CustomPagerAdapter.class.getSimpleName();
 
 		@Override
 		public int getCount ( ) {
-			int qty = MIN_PAGES + rapp.getPrefExpansionRelayQuantity();
+			int qty = MIN_PAGES + rapp.getTotalInstalledModuleQuantity();
 			return qty;
 		}
 
@@ -539,38 +889,19 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 		@Override
 		public Object instantiateItem ( ViewGroup container, int position ) {
-			View v;
-			switch ( position ) {
-				default:
-				case POS_CONTROLLER: // Controller Status
-					Log.d( TAG, "Create controller" );
-					v = controller;
-					break;
-				case POS_MAIN_RELAY: // Main Relay
-					Log.d( TAG, "Create main relay" );
-					v = main;
-					break;
-				case POS_EXP1_RELAY: // Expansion Relay 1
-				case POS_EXP2_RELAY: // Expansion Relay 2
-				case POS_EXP3_RELAY: // Expansion Relay 3
-				case POS_EXP4_RELAY: // Expansion Relay 4
-				case POS_EXP5_RELAY: // Expansion Relay 5
-				case POS_EXP6_RELAY: // Expansion Relay 6
-				case POS_EXP7_RELAY: // Expansion Relay 7
-				case POS_EXP8_RELAY: // Expansion Relay 8
-					int relay = position - MIN_PAGES;
-					Log.d( TAG, "Create exp relay " + relay + " (" + position
-								+ ")" );
-					v = exprelays[relay];
-					break;
-			}
-			((ViewPager) container).addView( v );
-			return v;
+			Log.d( TAG, "Position: " + position );
+			((ViewPager) container).addView( appPages[position] );
+			return appPages[position];
 		}
 
 		@Override
 		public boolean isViewFromObject ( View view, Object object ) {
 			return view == object;
+		}
+
+		@Override
+		public int getItemPosition ( Object object ) {
+			return POSITION_NONE;
 		}
 
 	}

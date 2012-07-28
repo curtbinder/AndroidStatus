@@ -278,6 +278,36 @@ public class ControllerTask implements Runnable {
 				rapp.setPrefRelayLabel( i + 1, j, r.getPortLabel( j + 1 ) );
 			}
 		}
+		if ( !ra.getPHLabel().equals( "" ) ) {
+			rapp.setPref( R.string.prefPHLabelKey, ra.getPHLabel() );
+		}
+		if ( !ra.getSalinityLabel().equals( "" ) ) {
+			rapp.setPref( R.string.prefSalinityLabelKey, ra.getSalinityLabel() );
+		}
+		if ( !ra.getORPLabel().equals( "" ) ) {
+			rapp.setPref( R.string.prefORPLabelKey, ra.getORPLabel() );
+		}
+		if ( !ra.getPHExpLabel().equals( "" ) ) {
+			rapp.setPref( R.string.prefPHExpLabelKey, ra.getPHExpLabel() );
+		}
+		// TODO add other label downloading and setting here (PHE, Custom, IO,
+		// PWME)
+		for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
+			if ( !ra.getPwmExpansionLabel( (short) i ).equals( "" ) )
+				rapp.setDimmingModuleChannelLabel( i, ra
+						.getPwmExpansionLabel( (short) i ) );
+		}
+		for ( i = 0; i < Controller.MAX_CUSTOM_VARIABLES; i++ ) {
+			if ( !ra.getCustomVariableLabel( (short) i ).equals( "" ) )
+				rapp.setCustomModuleChannelLabel( i, ra
+						.getCustomVariableLabel( (short) i ) );
+		}
+		for ( i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
+			if ( !ra.getIOChannelLabel( (short) i ).equals( "" ) )
+				rapp.setIOModuleChannelLabel( i, ra
+						.getIOChannelLabel( (short) i ) );
+		}
+
 		// Tell the activity we updated the labels
 		Intent intent = new Intent( MessageCommands.LABEL_RESPONSE_INTENT );
 		rapp.sendBroadcast( intent, Permissions.SEND_COMMAND );
@@ -339,12 +369,12 @@ public class ControllerTask implements Runnable {
 		i.putExtra( RAData.PCOL_R8ONMASK, ra.getExpRelay( 8 ).getRelayOnMask() );
 		i.putExtra( RAData.PCOL_R8OFFMASK, ra.getExpRelay( 8 )
 				.getRelayOffMask() );
-		i.putExtra( RAData.PCOL_PWME0, ra.getPwmExpansion( 0 ) );
-		i.putExtra( RAData.PCOL_PWME1, ra.getPwmExpansion( 1 ) );
-		i.putExtra( RAData.PCOL_PWME2, ra.getPwmExpansion( 2 ) );
-		i.putExtra( RAData.PCOL_PWME3, ra.getPwmExpansion( 3 ) );
-		i.putExtra( RAData.PCOL_PWME4, ra.getPwmExpansion( 4 ) );
-		i.putExtra( RAData.PCOL_PWME5, ra.getPwmExpansion( 5 ) );
+		i.putExtra( RAData.PCOL_PWME0, ra.getPwmExpansion( (short) 0 ) );
+		i.putExtra( RAData.PCOL_PWME1, ra.getPwmExpansion( (short) 1 ) );
+		i.putExtra( RAData.PCOL_PWME2, ra.getPwmExpansion( (short) 2 ) );
+		i.putExtra( RAData.PCOL_PWME3, ra.getPwmExpansion( (short) 3 ) );
+		i.putExtra( RAData.PCOL_PWME4, ra.getPwmExpansion( (short) 4 ) );
+		i.putExtra( RAData.PCOL_PWME5, ra.getPwmExpansion( (short) 5 ) );
 		i.putExtra( RAData.PCOL_AIW, ra.getAIChannel( Controller.AI_WHITE ) );
 		i.putExtra( RAData.PCOL_AIB, ra.getAIChannel( Controller.AI_BLUE ) );
 		i.putExtra( RAData.PCOL_AIRB, ra.getAIChannel( Controller.AI_ROYALBLUE ) );
@@ -377,6 +407,8 @@ public class ControllerTask implements Runnable {
 		i.putExtra( RAData.PCOL_C7, ra.getCustomVariable( (byte) 7 ) );
 		i.putExtra( RAData.PCOL_EM, ra.getExpansionModules() );
 		i.putExtra( RAData.PCOL_REM, ra.getRelayExpansionModules() );
+		i.putExtra( RAData.PCOL_PHE, ra.getPHExp() );
+		i.putExtra( RAData.PCOL_WL, ra.getWaterLevel() );
 		rapp.sendBroadcast( i, Permissions.QUERY_STATUS );
 	}
 

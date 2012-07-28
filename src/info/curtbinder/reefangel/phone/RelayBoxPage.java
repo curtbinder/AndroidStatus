@@ -19,8 +19,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-public class RelayBoxWidget extends ScrollView implements OnClickListener {
-	private static final String TAG = RelayBoxWidget.class.getSimpleName();
+public class RelayBoxPage extends ScrollView implements OnClickListener {
+	private static final String TAG = RelayBoxPage.class.getSimpleName();
 
 	Context ctx; // saved context from parent
 	private int relayNumber; // 0 : Main Relay, 1 - 8 : Expansion Relay
@@ -30,14 +30,14 @@ public class RelayBoxWidget extends ScrollView implements OnClickListener {
 			new ToggleButton[Controller.MAX_RELAY_PORTS];
 	private View[] portMaskBtns = new View[Controller.MAX_RELAY_PORTS];
 
-	public RelayBoxWidget ( Context context ) {
+	public RelayBoxPage ( Context context ) {
 		super( context );
 		addViewsFromLayout( context );
 		ctx = context;
 		setDefaults();
 	}
 
-	public RelayBoxWidget ( Context context, AttributeSet attrs ) {
+	public RelayBoxPage ( Context context, AttributeSet attrs ) {
 		super( context, attrs );
 		addViewsFromLayout( context );
 		ctx = context;

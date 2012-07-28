@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
+ 
+This work is made available under the terms of the 
+Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+http://creativecommons.org/licenses/by-nc-sa/3.0/
+-->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            style="@style/ParamsText"
+            android:text="@string/labelIO" />
+
+        <TableRow style="@style/RARow" >
+
+            <TextView
+                android:id="@+id/io0_label"
+                style="@style/ParamsText.Labels" />
+
+            <TextView
+                android:id="@+id/io0"
+                style="@style/ParamsText.Values" />
+        </TableRow>
+
+        <TableRow style="@style/RARow" >
+
+            <TextView
+                android:id="@+id/io1_label"
+                style="@style/ParamsText.Labels" />
+
+            <TextView
+                android:id="@+id/io1"
+                style="@style/ParamsText.Values" />
+        </TableRow>
+
+        <TableRow style="@style/RARow" >
+
+            <TextView
+                android:id="@+id/io2_label"
+                style="@style/ParamsText.Labels" />
+
+            <TextView
+                android:id="@+id/io2"
+                style="@style/ParamsText.Values" />
+        </TableRow>
+
+        <TableRow style="@style/RARow" >
+
+            <TextView
+                android:id="@+id/io3_label"
+                style="@style/ParamsText.Labels" />
+
+            <TextView
+                android:id="@+id/io3"
+                style="@style/ParamsText.Values" />
+        </TableRow>
+
+        <TableRow style="@style/RARow" >
+
+            <TextView
+                android:id="@+id/io4_label"
+                style="@style/ParamsText.Labels" />
+
+            <TextView
+                android:id="@+id/io4"
+                style="@style/ParamsText.Values" />
+        </TableRow>
+
+        <TableRow style="@style/RARow" >
+
+            <TextView
+                android:id="@+id/io5_label"
+                style="@style/ParamsText.Labels" />
+
+            <TextView
+                android:id="@+id/io5"
+                style="@style/ParamsText.Values" />
+        </TableRow>
+
+        <TableRow style="@style/RARow" >
+
+            <TextView
+                android:id="@+id/io6_label"
+                style="@style/ParamsText.Labels" />
+
+            <TextView
+                android:id="@+id/io6"
+                style="@style/ParamsText.Values" />
+        </TableRow>
+    </TableLayout>
+
+</ScrollView>
