@@ -8,7 +8,6 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
-//import java.text.DecimalFormatSymbols;
 
 public class Controller {
 	public static final byte MAX_CONTROLLER_VALUES = 10;
@@ -192,11 +191,11 @@ public class Controller {
 	public void setPHLabel ( String label ) {
 		pH.setLabel( label );
 	}
-	
+
 	public String getPHLabel ( ) {
 		return pH.getLabel();
 	}
-	
+
 	public void setPHExp ( int value ) {
 		pHExp.setData( value );
 	}
@@ -208,11 +207,11 @@ public class Controller {
 	public void setPHExpLabel ( String label ) {
 		pHExp.setLabel( label );
 	}
-	
+
 	public String getPHExpLabel ( ) {
 		return pHExp.getLabel();
 	}
-	
+
 	public void setAtoLow ( boolean v ) {
 		atoLow = v;
 	}
@@ -268,11 +267,11 @@ public class Controller {
 	public short getPwmExpansion ( short channel ) {
 		return pwmExpansion[channel].getData();
 	}
-	
+
 	public void setPwmExpansionLabel ( short channel, String label ) {
 		pwmExpansion[channel].setLabel( label );
 	}
-	
+
 	public String getPwmExpansionLabel ( short channel ) {
 		return pwmExpansion[channel].getLabel();
 	}
@@ -280,11 +279,11 @@ public class Controller {
 	public void setWaterLevel ( short value ) {
 		waterlevel = value;
 	}
-	
+
 	public short getWaterLevel ( ) {
 		return waterlevel;
 	}
-	
+
 	public void setSalinity ( int value ) {
 		salinity.setData( value );
 	}
@@ -292,11 +291,11 @@ public class Controller {
 	public String getSalinity ( ) {
 		return salinity.getData();
 	}
-	
+
 	public void setSalinityLabel ( String label ) {
 		salinity.setLabel( label );
 	}
-	
+
 	public String getSalinityLabel ( ) {
 		return salinity.getLabel();
 	}
@@ -308,11 +307,11 @@ public class Controller {
 	public String getORP ( ) {
 		return orp.getData();
 	}
-	
+
 	public void setORPLabel ( String label ) {
 		orp.setLabel( label );
 	}
-	
+
 	public String getORPLabel ( ) {
 		return orp.getLabel();
 	}
@@ -368,7 +367,7 @@ public class Controller {
 	public void setCustomVariable ( short var, short value ) {
 		customVariables[var].setData( value );
 	}
-	
+
 	public String getCustomVariableLabel ( short var ) {
 		return customVariables[var].getLabel();
 	}
@@ -428,15 +427,15 @@ public class Controller {
 	public static boolean isORPModuleInstalled ( short expansionModules ) {
 		return (expansionModules & MODULE_ORP) == 1;
 	}
-	
+
 	public static boolean isIOModuleInstalled ( short expansionModules ) {
 		return (expansionModules & MODULE_IO) == 1;
 	}
-	
+
 	public static boolean isPHExpansionModuleInstalled ( short expansionModules ) {
 		return (expansionModules & MODULE_PHEXPANSION) == 1;
 	}
-	
+
 	public static boolean isWaterLevelModuleInstalled ( short expansionModules ) {
 		return (expansionModules & MODULE_WATERLEVEL) == 1;
 	}
@@ -467,17 +466,20 @@ public class Controller {
 	public void setIOChannels ( short ioChannels ) {
 		this.ioChannels = ioChannels;
 	}
-	
+
 	public String getIOChannelLabel ( short channel ) {
 		return ioChannelsLabels[channel];
 	}
-	
+
 	public void setIOChannelLabel ( short channel, String label ) {
 		ioChannelsLabels[channel] = label;
 	}
 
 	public static boolean getIOChannel ( short ioChannels, byte channel ) {
 		// channel is 0 based
-		return (ioChannels & (1 << channel)) == 1;
+		int v = (1 << channel);
+		int w = (ioChannels & v);
+		boolean f = w == v;
+		return f;
 	}
 }

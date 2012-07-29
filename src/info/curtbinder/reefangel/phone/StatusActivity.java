@@ -707,9 +707,9 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		String s;
 		for ( byte i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
 			if ( Controller.getIOChannel( io, i ) ) {
-				s = getString( R.string.labelON );
-			} else {
 				s = getString( R.string.labelOFF );
+			} else {
+				s = getString( R.string.labelON );
 			}
 			sa[i] = s;
 		}
