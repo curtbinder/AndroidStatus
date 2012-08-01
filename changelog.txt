@@ -114,3 +114,9 @@ Changelog of all the versions of AndroidStatus
  * added changelog displaying
  * minor bug fixes and improvements
  
+0.7.1
+ * fixed I/O port 0 only updating
+ * removed extra I/O port displaying
+ * updated module pages to be after the relay pages
+ * minor bug fixes
+ 
