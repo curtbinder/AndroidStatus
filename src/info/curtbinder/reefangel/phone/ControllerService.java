@@ -16,6 +16,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ public class ControllerService extends Service {
 	private static RAApplication rapp;
 	private ServiceReceiver receiver;
 	private IntentFilter filter;
+	private boolean canSend;
 
 	private ExecutorService serviceThread;
 
@@ -50,6 +52,7 @@ public class ControllerService extends Service {
 		filter.addAction( MessageCommands.VERSION_QUERY_INTENT );
 		filter.addAction( MessageCommands.DATE_QUERY_INTENT );
 		filter.addAction( MessageCommands.DATE_SEND_INTENT );
+		filter.addAction( android.net.ConnectivityManager.CONNECTIVITY_ACTION );
 	}
 
 	@Override
@@ -61,6 +64,7 @@ public class ControllerService extends Service {
 		if ( rapp.isServiceRunning ) {
 			unregisterReceiver( receiver );
 			rapp.isServiceRunning = false;
+			canSend = false;
 		}
 	}
 
@@ -80,6 +84,8 @@ public class ControllerService extends Service {
 			serviceThread = Executors.newSingleThreadExecutor();
 
 			rapp.isServiceRunning = true;
+			// TODO check current network state to see if we actually can send
+			canSend = true;
 		}
 	}
 
@@ -91,6 +97,12 @@ public class ControllerService extends Service {
 			// create new ControllerTask based on values received
 			// post ControllerTask to serviceThread
 			String action = intent.getAction();
+			if ( action
+					.equals( android.net.ConnectivityManager.CONNECTIVITY_ACTION ) ) {
+				processNetworkChange( intent );
+				return;
+			}
+
 			String command = Globals.requestNone;
 			boolean isController = rapp.isCommunicateController();
 			Host h = new Host();
@@ -195,7 +207,12 @@ public class ControllerService extends Service {
 			}
 			Log.d( TAG, "Task Host: " + h.toString() );
 			// submit to thread for execution
-			serviceThread.submit( new ControllerTask( rapp, h ) );
+			if ( canSend )
+				serviceThread.submit( new ControllerTask( rapp, h ) );
+			else
+				Toast.makeText( rapp.getBaseContext(),
+								R.string.messageNetworkOffline,
+								Toast.LENGTH_LONG ).show();
 		}
 	}
 
@@ -204,5 +221,19 @@ public class ControllerService extends Service {
 		Log.d( TAG, "Not a controller" );
 		Toast.makeText( rapp.getBaseContext(), R.string.messageNotController,
 						Toast.LENGTH_LONG ).show();
+	}
+
+	private void processNetworkChange ( Intent i ) {
+		// handle network changes
+		boolean isNetworkDown =
+				i.getBooleanExtra(	ConnectivityManager.EXTRA_NO_CONNECTIVITY,
+									false );
+		if ( isNetworkDown ) {
+			Log.d( TAG, "Network is down, unable to send request" );
+			canSend = false;
+		} else {
+			Log.d( TAG, "Network back online" );
+			canSend = true;
+		}
 	}
 }

@@ -176,6 +176,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="messageNotController">Not a controller</string>
     <string name="messageResetLabelsPrompt">Reset all labels?</string>
     <string name="messageResetLabelsComplete">Labels reset to default</string>
+    <string name="messageNetworkOffline">Unable to send, no network connection</string>
 
     <!-- Status strings -->
     <string name="statusStart">Starting update</string>
