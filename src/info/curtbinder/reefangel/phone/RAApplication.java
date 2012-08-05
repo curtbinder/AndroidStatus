@@ -59,6 +59,12 @@ public class RAApplication extends Application {
 		checkServiceRunning();
 
 	}
+	
+	public void checkServiceRunning ( ) {
+		// Check if the service is running, if not start it
+		if ( !isServiceRunning && !isFirstRun() )
+			startService( new Intent( this, ControllerService.class ) );
+	}
 
 	@Override
 	public void onTerminate ( ) {
@@ -914,9 +920,4 @@ public class RAApplication extends Application {
 		setPref( k, label );
 	}
 
-	public void checkServiceRunning ( ) {
-		// Check if the service is running, if not start it
-		if ( !isServiceRunning && !isFirstRun() )
-			startService( new Intent( this, ControllerService.class ) );
-	}
 }
