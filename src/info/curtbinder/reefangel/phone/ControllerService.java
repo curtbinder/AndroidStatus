@@ -17,6 +17,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -27,7 +28,6 @@ public class ControllerService extends Service {
 	private static RAApplication rapp;
 	private ServiceReceiver receiver;
 	private IntentFilter filter;
-	private boolean canSend;
 
 	private ExecutorService serviceThread;
 
@@ -52,7 +52,6 @@ public class ControllerService extends Service {
 		filter.addAction( MessageCommands.VERSION_QUERY_INTENT );
 		filter.addAction( MessageCommands.DATE_QUERY_INTENT );
 		filter.addAction( MessageCommands.DATE_SEND_INTENT );
-		filter.addAction( android.net.ConnectivityManager.CONNECTIVITY_ACTION );
 	}
 
 	@Override
@@ -64,7 +63,6 @@ public class ControllerService extends Service {
 		if ( rapp.isServiceRunning ) {
 			unregisterReceiver( receiver );
 			rapp.isServiceRunning = false;
-			canSend = false;
 		}
 	}
 
@@ -84,9 +82,21 @@ public class ControllerService extends Service {
 			serviceThread = Executors.newSingleThreadExecutor();
 
 			rapp.isServiceRunning = true;
-			// TODO check current network state to see if we actually can send
-			canSend = true;
 		}
+	}
+
+	private boolean isNetworkAvailable ( ) {
+		boolean fAvailable = false;
+		ConnectivityManager con =
+				(ConnectivityManager) rapp
+						.getSystemService( CONNECTIVITY_SERVICE );
+		NetworkInfo n = con.getActiveNetworkInfo();
+		if ( n != null ) {
+			if ( n.isConnected() ) {
+				fAvailable = true;
+			}
+		}
+		return fAvailable;
 	}
 
 	class ServiceReceiver extends BroadcastReceiver {
@@ -94,12 +104,6 @@ public class ControllerService extends Service {
 		public void onReceive ( Context context, Intent intent ) {
 			// Log.d(TAG, "onReceive");
 			// receive messages
-			String action = intent.getAction();
-			if ( action
-					.equals( android.net.ConnectivityManager.CONNECTIVITY_ACTION ) ) {
-				processNetworkChange( intent );
-				return;
-			}
 
 			processRACommand( intent );
 		}
@@ -219,7 +223,7 @@ public class ControllerService extends Service {
 		}
 		Log.d( TAG, "Task Host: " + h.toString() );
 		// submit to thread for execution
-		if ( canSend )
+		if ( isNetworkAvailable() )
 			serviceThread.submit( new ControllerTask( rapp, h ) );
 		else
 			Toast.makeText( rapp.getBaseContext(),
@@ -227,17 +231,4 @@ public class ControllerService extends Service {
 					.show();
 	}
 
-	private void processNetworkChange ( Intent i ) {
-		// handle network changes
-		boolean isNetworkDown =
-				i.getBooleanExtra(	ConnectivityManager.EXTRA_NO_CONNECTIVITY,
-									false );
-		if ( isNetworkDown ) {
-			Log.d( TAG, "Network is down, unable to send request" );
-			canSend = false;
-		} else {
-			Log.d( TAG, "Network back online" );
-			canSend = true;
-		}
-	}
 }
