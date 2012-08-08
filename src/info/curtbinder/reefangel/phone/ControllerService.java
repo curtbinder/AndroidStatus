@@ -71,6 +71,11 @@ public class ControllerService extends Service {
 		super.onStart( intent, startId );
 
 		Log.d( TAG, "onStart" );
+		
+		if ( rapp.isFirstRun() ) {
+			Log.d( TAG, "first run, not starting service until configured" );
+			return;
+		}
 
 		if ( !rapp.isServiceRunning ) {
 			Log.d( TAG, "start Service" );
