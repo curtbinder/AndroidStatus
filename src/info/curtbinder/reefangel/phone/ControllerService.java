@@ -67,11 +67,15 @@ public class ControllerService extends Service {
 	}
 
 	@Override
-	public synchronized void onStart ( Intent intent, int startId ) {
-		super.onStart( intent, startId );
-
-		Log.d( TAG, "onStart" );
+	public synchronized int onStartCommand ( Intent intent, int flags, int startId ) {
+		super.onStartCommand( intent, flags, startId );
 		
+		Log.d( TAG, "onStartCommand" );
+		handleStart( intent, startId );
+		return START_STICKY;
+	}
+
+	private synchronized void handleStart ( Intent intent, int startId ) {
 		if ( rapp.isFirstRun() ) {
 			Log.d( TAG, "first run, not starting service until configured" );
 			return;
