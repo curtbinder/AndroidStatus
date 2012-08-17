@@ -695,6 +695,13 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:key="@string/prefPre10MemoryKey"
                 android:summary="@string/prefPre10MemorySummary"
                 android:title="@string/prefPre10MemoryTitle" />
+	        <ListPreference
+	            android:defaultValue="@string/prefAutoUpdateIntervalDefault"
+	            android:entries="@array/updateInterval"
+	            android:entryValues="@array/updateIntervalValues"
+	            android:key="@string/prefAutoUpdateIntervalKey"
+	            android:summary="@string/prefAutoUpdateIntervalSummary"
+	            android:title="@string/prefAutoUpdateIntervalTitle" />
         </PreferenceScreen>
         <PreferenceScreen
             android:key="appinfo"
