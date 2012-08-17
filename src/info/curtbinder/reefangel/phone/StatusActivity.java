@@ -587,9 +587,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			} else if ( action
 					.equals( MessageCommands.UPDATE_DISPLAY_DATA_INTENT ) ) {
 				Log.d( TAG, "update data intent" );
-				// TODO have insert be done by the task and only updateDisplay
-				// here
-				rapp.insertData( intent );
 				updateDisplay();
 			} else if ( action.equals( MessageCommands.ERROR_MESSAGE_INTENT ) ) {
 				Log.d( TAG, intent

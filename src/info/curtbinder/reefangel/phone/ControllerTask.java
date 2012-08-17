@@ -18,6 +18,8 @@ import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.text.DateFormat;
+import java.util.Date;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -52,6 +54,9 @@ public class ControllerTask implements Runnable {
 		String res = "";
 		broadcastUpdateStatus( R.string.statusStart );
 		long start = System.currentTimeMillis();
+		Log.i(	TAG,
+				"Update: "
+						+ DateFormat.getDateTimeInstance().format( new Date() ) );
 		try {
 			URL url = new URL( host.toString() );
 			con = (HttpURLConnection) url.openConnection();
@@ -322,7 +327,7 @@ public class ControllerTask implements Runnable {
 	}
 
 	private void broadcastUpdateDisplayData ( Controller ra ) {
-		Intent i = new Intent( MessageCommands.UPDATE_DISPLAY_DATA_INTENT );
+		Intent i = new Intent( );
 		i.putExtra( RAData.PCOL_T1, ra.getTemp1() );
 		i.putExtra( RAData.PCOL_T2, ra.getTemp2() );
 		i.putExtra( RAData.PCOL_T3, ra.getTemp3() );
@@ -409,7 +414,9 @@ public class ControllerTask implements Runnable {
 		i.putExtra( RAData.PCOL_REM, ra.getRelayExpansionModules() );
 		i.putExtra( RAData.PCOL_PHE, ra.getPHExp() );
 		i.putExtra( RAData.PCOL_WL, ra.getWaterLevel() );
-		rapp.sendBroadcast( i, Permissions.QUERY_STATUS );
+		rapp.insertData( i );
+		Intent u = new Intent( MessageCommands.UPDATE_DISPLAY_DATA_INTENT );
+		rapp.sendBroadcast( u, Permissions.QUERY_STATUS );
 	}
 
 	private void broadcastUpdateStatus ( int msgid ) {
