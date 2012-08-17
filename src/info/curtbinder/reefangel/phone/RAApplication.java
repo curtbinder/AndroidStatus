@@ -75,12 +75,28 @@ public class RAApplication extends Application {
 			stopService( new Intent( this, ControllerService.class ) );
 	}
 
-	public void restartService ( ) {
-		Log.d( TAG, "restarting service" );
+	public void restartAutoUpdateService ( ) {
+		Log.d( TAG, "restarting auto update service" );
+		/*
 		if ( isServiceRunning ) {
 			stopService( new Intent( this, ControllerService.class ) );
 		}
 		startService( new Intent( this, ControllerService.class ) );
+		*/
+	}
+	
+	public void cancelAutoUpdateService ( ) {
+		
+	}
+	
+	public void startAutoUpdateService ( ) {
+		
+	}
+	
+	public Intent getUpdateIntent ( ) {
+		Intent i = new Intent( this, UpdateService.class );
+		i.setAction( MessageCommands.QUERY_STATUS_INTENT );
+		return i;
 	}
 	
 	// Data handling
@@ -478,7 +494,7 @@ public class RAApplication extends Application {
 		String s = "" + profile;
 		Log.d( TAG, "Changed Profile: " + s );
 		setPref( R.string.prefProfileSelectedKey, s );
-		restartService();
+		restartAutoUpdateService();
 	}
 
 	public boolean isAwayProfileEnabled ( ) {

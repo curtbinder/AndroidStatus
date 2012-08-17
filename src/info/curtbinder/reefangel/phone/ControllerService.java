@@ -78,37 +78,39 @@ public class ControllerService extends Service {
 			registerReceiver( receiver, filter, Permissions.QUERY_STATUS, null );
 
 			/*
-			long interval = rapp.getUpdateInterval();
-			if ( interval > 0 ) {
-				Log.d( TAG, "auto update interval " + interval / 60
-							+ " minutes" );
-				// createScheduledUpdate( interval );
-			}
-			*/
+			 * long interval = rapp.getUpdateInterval(); if ( interval > 0 ) {
+			 * Log.d( TAG, "auto update interval " + interval / 60 + " minutes"
+			 * ); // createScheduledUpdate( interval ); }
+			 */
 
 			rapp.isServiceRunning = true;
 		}
 		return START_STICKY;
 	}
 
-	/*
-	 * private void createScheduledUpdate ( long interval ) { // repeating
-	 * update is only for the status // create a host and configure it Host h =
-	 * new Host(); if ( rapp.isCommunicateController() ) { // controller
-	 * h.setHost( rapp.getPrefHost() ); h.setPort( rapp.getPrefPort() );
-	 * h.setCommand( Globals.requestStatus ); } else { // reeefangel.com
-	 * h.setUserId( rapp.getPrefUserId() ); h.setCommand(
-	 * Globals.requestReefAngel ); } Log.d( TAG, "AutoUpdate: " + h.toString()
-	 * ); serviceThread.scheduleAtFixedRate( new ControllerTask( rapp, h ), 0L,
-	 * interval, TimeUnit.SECONDS ); }
-	 */
+//	private void createScheduledUpdate ( long interval ) {
+//		// repeating update is only for the status
+//		// create a host and configure it
+//		Host h = new Host();
+//		if ( rapp.isCommunicateController() ) { // controller
+//			h.setHost( rapp.getPrefHost() );
+//			h.setPort( rapp.getPrefPort() );
+//			h.setCommand( Globals.requestStatus );
+//		} else { // reeefangel.com
+//			h.setUserId( rapp.getPrefUserId() );
+//			h.setCommand( Globals.requestReefAngel );
+//		}
+//		Log.d( TAG, "AutoUpdate: " + h.toString() );
+//		//serviceThread.scheduleAtFixedRate(	new ControllerTask( rapp, h ), 0L,
+//		//									interval, TimeUnit.SECONDS );
+//	}
 
 	class ServiceReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive ( Context context, Intent intent ) {
 			// Log.d(TAG, "onReceive");
 			// receive messages and pass on to updater service
-			Intent i = new Intent(context, UpdateService.class);
+			Intent i = new Intent( context, UpdateService.class );
 			i.setAction( intent.getAction() );
 			i.putExtras( intent );
 			context.startService( i );

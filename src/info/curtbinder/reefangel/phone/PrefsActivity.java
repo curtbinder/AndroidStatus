@@ -387,7 +387,7 @@ public class PrefsActivity extends PreferenceActivity implements
 			Log.d( TAG, "Change Interval:  " + o + " - " + n );
 			if ( n != o ) {
 				// Old and new values differ, restart the service
-				rapp.restartService();
+				rapp.restartAutoUpdateService();
 			}
 		}
 		return true;
