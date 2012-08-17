@@ -128,6 +128,7 @@ public class ControllerService extends Service {
 			h.setUserId( rapp.getPrefUserId() );
 			h.setCommand( Globals.requestReefAngel );
 		}
+		Log.d( TAG, "AutoUpdate: " + h.toString() );
 		serviceThread.scheduleAtFixedRate(	new ControllerTask( rapp, h ), 0L,
 											interval, TimeUnit.SECONDS );
 	}
@@ -255,10 +256,9 @@ public class ControllerService extends Service {
 			return;
 		}
 		Log.d( TAG, "Task Host: " + h.toString() );
-		// schedule the task to execute after 0 second delay (aka, immediately)
+		// submit the task for execution
 		if ( isNetworkAvailable() )
-			serviceThread.schedule( new ControllerTask( rapp, h ), 0L,
-									TimeUnit.SECONDS );
+			serviceThread.submit( new ControllerTask( rapp, h ) );
 		else
 			// TODO remove Toast
 			Toast.makeText( rapp.getBaseContext(),
