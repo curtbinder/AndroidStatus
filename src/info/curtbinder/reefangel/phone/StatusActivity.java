@@ -55,7 +55,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private static final int POS_START = 0;
 
 	private static final int POS_CONTROLLER = POS_START;
-	
+
 	private static final int POS_MODULES = POS_CONTROLLER + 10;
 	private static final int POS_DIMMING = POS_MODULES;
 	private static final int POS_RADION = POS_MODULES + 1;
@@ -73,7 +73,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private static final int POS_EXP6_RELAY = POS_MAIN_RELAY + 6;
 	private static final int POS_EXP7_RELAY = POS_MAIN_RELAY + 7;
 	private static final int POS_EXP8_RELAY = POS_MAIN_RELAY + 8;
-	
+
 	private static final int POS_END = POS_CUSTOM + 1;
 
 	private ControllerPage pageController;
@@ -146,10 +146,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 		// this forces all the pages to be redrawn when the app is restored
 		if ( fReloadPages ) {
-			Log.d( TAG, "Redraw the pages" );
-			updatePageOrder();
-			pagerAdapter.notifyDataSetChanged();
-			fReloadPages = false;
+			redrawPages();
 		}
 
 		updateViewsVisibility();
@@ -475,7 +472,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			String[] ai;
 			String[] io;
 			String[] custom;
-			short r, ron, roff;
+			short r, ron, roff, newEM, newREM;
 			short[] expr = new short[Controller.MAX_EXPANSION_RELAYS];
 			short[] expron = new short[Controller.MAX_EXPANSION_RELAYS];
 			short[] exproff = new short[Controller.MAX_EXPANSION_RELAYS];
@@ -534,6 +531,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 						c.getShort( c.getColumnIndex( RAData.PCOL_R8ONMASK ) );
 				exproff[7] =
 						c.getShort( c.getColumnIndex( RAData.PCOL_R8OFFMASK ) );
+				newEM = c.getShort( c.getColumnIndex( RAData.PCOL_EM ) );
+				newREM = c.getShort( c.getColumnIndex( RAData.PCOL_REM ) );
 			} else {
 				updateStatus = getString( R.string.messageNever );
 				values = getNeverValues( Controller.MAX_CONTROLLER_VALUES );
@@ -543,7 +542,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				ai = getNeverValues( Controller.MAX_AI_CHANNELS );
 				io = getNeverValues( Controller.MAX_IO_CHANNELS );
 				custom = getNeverValues( Controller.MAX_CUSTOM_VARIABLES );
-				r = ron = roff = 0;
+				r = ron = roff = newEM = newREM = 0;
 				for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 					expr[i] = expron[i] = exproff[i] = 0;
 				}
@@ -562,6 +561,11 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			for ( int i = 0; i < rapp.getPrefExpansionRelayQuantity(); i++ ) {
 				pageExpRelays[i].updateRelayValues( new Relay( expr[i],
 					expron[i], exproff[i] ), fUseMask );
+			}
+
+			if ( rapp.isAutoUpdateModulesEnabled() ) {
+				// update the screen / pages if necessary
+				checkDeviceModules( newEM, newREM );
 			}
 
 		} catch ( SQLException e ) {
@@ -724,6 +728,105 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 								c.getString( c.getColumnIndex( RAData.PCOL_C7 ) ) };
 	}
 
+	private void checkDeviceModules ( short newEM, short newREM ) {
+		Log.d( TAG, "check modules" );
+		boolean fReload = false;
+		short oldEM = (short) rapp.getPreviousEM();
+		Log.d( TAG, "Old: " + oldEM + " New: " + newEM );
+		if ( oldEM != newEM ) {
+			// expansion modules different
+			// set flag to reload the pages
+			fReload = true;
+			// check which expansion modules are installed
+			// set the installed modules in the preferences
+			boolean f = false;
+			if ( Controller.isAIModuleInstalled( newEM ) )
+				f = true;
+			else
+				f = false;
+			Log.d( TAG, "AI: " + f );
+			rapp.setPref( R.string.prefExpAIEnableKey, f );
+			if ( Controller.isDimmingModuleInstalled( newEM ) )
+				f = true;
+			else
+				f = false;
+			Log.d( TAG, "Dimming: " + f );
+			rapp.setPref( R.string.prefExpDimmingEnableKey, f );
+			if ( Controller.isIOModuleInstalled( newEM ) )
+				f = true;
+			else
+				f = false;
+			Log.d( TAG, "IO: " + f );
+			rapp.setPref( R.string.prefExpIOEnableKey, f );
+			if ( Controller.isORPModuleInstalled( newEM ) )
+				f = true;
+			else
+				f = false;
+			Log.d( TAG, "ORP: " + f );
+			rapp.setPref( R.string.prefORPVisibilityKey, f );
+			if ( Controller.isPHExpansionModuleInstalled( newEM ) )
+				f = true;
+			else
+				f = false;
+			Log.d( TAG, "PHE: " + f );
+			rapp.setPref( R.string.prefPHExpVisibilityKey, f );
+			if ( Controller.isRFModuleInstalled( newEM ) )
+				f = true;
+			else
+				f = false;
+			Log.d( TAG, "RF: " + f );
+			rapp.setPref( R.string.prefExpRadionEnableKey, f );
+			if ( Controller.isSalinityModuleInstalled( newEM ) )
+				f = true;
+			else
+				f = false;
+			Log.d( TAG, "Salinity: " + f );
+			rapp.setPref( R.string.prefSalinityVisibilityKey, f );
+			if ( Controller.isWaterLevelModuleInstalled( newEM ) )
+				f = true;
+			else
+				f = false;
+			Log.d( TAG, "WATER: " + f );
+			rapp.setPref( R.string.prefWaterLevelVisibilityKey, f );
+
+			// update the previous settings to the new ones after we change
+			rapp.setPreviousEM( newEM );
+		}
+
+		int newRQty = Controller.getRelayExpansionModulesInstalled( newREM );
+		int oldRQty = rapp.getPrefExpansionRelayQuantity();
+		Log.d( TAG, "Old Qty: " + oldRQty + " New Qty: " + newRQty );
+		if ( oldRQty != newRQty ) {
+			// expansion relay modules different
+			// set flag to reload the pages
+			fReload = true;
+			// set the installed relays in the preferences
+			Log.d( TAG, "Relays: " + newRQty );
+			rapp.setPref( R.string.prefExpQtyKey, Integer.toString( newRQty ) );
+		}
+
+		if ( fReload ) {
+			reloadPages();
+			updateViewsVisibility();
+			redrawPages();
+		}
+	}
+
+	private void reloadPages ( ) {
+		// scroll to first page on entering settings
+		pager.setCurrentItem( POS_CONTROLLER );
+		// force the pages to be redrawn if we enter settings
+		fReloadPages = true;
+	}
+
+	private void redrawPages ( ) {
+		// redraw the pages
+		Log.d( TAG, "Redraw the pages" );
+		updatePageOrder();
+		pagerAdapter.notifyDataSetChanged();
+		fReloadPages = false;
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu ( Menu menu ) {
 		MenuInflater inflater = getMenuInflater();
@@ -738,10 +841,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			case R.id.settings:
 				// launch settings
 				Log.d( TAG, "Settings clicked" );
-				// scroll to first page on entering settings
-				pager.setCurrentItem( POS_CONTROLLER );
-				// force the pages to be redrawn if we enter settings
-				fReloadPages = true;
+				reloadPages();
 				startActivity( new Intent( this, PrefsActivity.class ) );
 				break;
 			case R.id.about:

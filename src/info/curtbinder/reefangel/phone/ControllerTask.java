@@ -327,7 +327,7 @@ public class ControllerTask implements Runnable {
 	}
 
 	private void broadcastUpdateDisplayData ( Controller ra ) {
-		Intent i = new Intent( );
+		Intent i = new Intent();
 		i.putExtra( RAData.PCOL_T1, ra.getTemp1() );
 		i.putExtra( RAData.PCOL_T2, ra.getTemp2() );
 		i.putExtra( RAData.PCOL_T3, ra.getTemp3() );
@@ -415,6 +415,12 @@ public class ControllerTask implements Runnable {
 		i.putExtra( RAData.PCOL_PHE, ra.getPHExp() );
 		i.putExtra( RAData.PCOL_WL, ra.getWaterLevel() );
 		rapp.insertData( i );
+		// check previous EM version and update appropriately if changed
+		int previous = rapp.getPreviousEM();
+		if ( previous < 0 ) {
+			Log.d( TAG, "Update previous EM" );
+			rapp.setPreviousEM( ra.getExpansionModules() );
+		}
 		Intent u = new Intent( MessageCommands.UPDATE_DISPLAY_DATA_INTENT );
 		rapp.sendBroadcast( u, Permissions.QUERY_STATUS );
 	}

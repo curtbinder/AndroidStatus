@@ -59,7 +59,7 @@ public class RAApplication extends Application {
 		checkServiceRunning();
 
 	}
-	
+
 	public void checkServiceRunning ( ) {
 		// Check if the service is running, if not start it
 		if ( !isServiceRunning && !isFirstRun() )
@@ -476,6 +476,16 @@ public class RAApplication extends Application {
 		return true;
 	}
 
+	public int getPreviousEM ( ) {
+		int previous = prefs.getInt( getString( R.string.prefPreviousEM ), -1 );
+		return previous;
+	}
+
+	public void setPreviousEM ( short em ) {
+		prefs.edit().putInt( getString( R.string.prefPreviousEM ), em )
+				.commit();
+	}
+
 	public String getPrefHost ( ) {
 		int profile = getSelectedProfile();
 		if ( profile == 1 ) {
@@ -647,6 +657,11 @@ public class RAApplication extends Application {
 		setPref( getString( keyid ), value );
 	}
 
+	public void setPref ( int keyid, boolean value ) {
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putBoolean( getString( keyid ), value ).commit();
+	}
+
 	public void deletePref ( int keyid ) {
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.remove( getString( keyid ) );
@@ -663,6 +678,12 @@ public class RAApplication extends Application {
 								getString( R.string.prefUserIdDefault ) );
 	}
 
+	public boolean isAutoUpdateModulesEnabled ( ) {
+		return prefs
+				.getBoolean(	getString( R.string.prefAutoUpdateModulesKey ),
+								true );
+	}
+
 	public int getPrefExpansionRelayQuantity ( ) {
 		return Integer.parseInt( prefs
 				.getString( getString( R.string.prefExpQtyKey ), "0" ) );
@@ -675,7 +696,6 @@ public class RAApplication extends Application {
 		// expansion relays, dimming, vortech, radion, ai, custom, io
 		int total = 0;
 		total += getPrefExpansionRelayQuantity();
-		// TODO check if needed
 		total += getInstalledModuleQuantity();
 		return total;
 	}

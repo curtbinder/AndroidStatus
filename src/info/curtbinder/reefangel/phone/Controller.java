@@ -409,35 +409,35 @@ public class Controller {
 	}
 
 	public static boolean isDimmingModuleInstalled ( short expansionModules ) {
-		return (expansionModules & MODULE_DIMMING) == 1;
+		return (expansionModules & MODULE_DIMMING) == MODULE_DIMMING;
 	}
 
 	public static boolean isRFModuleInstalled ( short expansionModules ) {
-		return (expansionModules & MODULE_RF) == 1;
+		return (expansionModules & MODULE_RF) == MODULE_RF;
 	}
 
 	public static boolean isAIModuleInstalled ( short expansionModules ) {
-		return (expansionModules & MODULE_AI) == 1;
+		return (expansionModules & MODULE_AI) == MODULE_AI;
 	}
 
 	public static boolean isSalinityModuleInstalled ( short expansionModules ) {
-		return (expansionModules & MODULE_SALINITY) == 1;
+		return (expansionModules & MODULE_SALINITY) == MODULE_SALINITY;
 	}
 
 	public static boolean isORPModuleInstalled ( short expansionModules ) {
-		return (expansionModules & MODULE_ORP) == 1;
+		return (expansionModules & MODULE_ORP) == MODULE_ORP;
 	}
 
 	public static boolean isIOModuleInstalled ( short expansionModules ) {
-		return (expansionModules & MODULE_IO) == 1;
+		return (expansionModules & MODULE_IO) == MODULE_IO;
 	}
 
 	public static boolean isPHExpansionModuleInstalled ( short expansionModules ) {
-		return (expansionModules & MODULE_PHEXPANSION) == 1;
+		return (expansionModules & MODULE_PHEXPANSION) == MODULE_PHEXPANSION;
 	}
 
 	public static boolean isWaterLevelModuleInstalled ( short expansionModules ) {
-		return (expansionModules & MODULE_WATERLEVEL) == 1;
+		return (expansionModules & MODULE_WATERLEVEL) == MODULE_WATERLEVEL;
 	}
 
 	public short getRelayExpansionModules ( ) {

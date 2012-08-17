@@ -512,10 +512,14 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefPre10MemorySummary">Select this if you have a version of the libraries before v1.0. This will allow you to reference the proper internal memory locations.</string>
     <string name="prefPre10MemoryTitle">Pre v1.0 Locations </string>
     <string name="prefPreviousCodeVersion">previous_version</string>
+    <string name="prefPreviousEM">previous_em</string>
     <string name="prefAutoUpdateIntervalKey">update_interval</string>
     <string name="prefAutoUpdateIntervalSummary">Interval for retrieving the status</string>
     <string name="prefAutoUpdateIntervalTitle">Update Interval</string>
     <string name="prefAutoUpdateIntervalDefault">0</string>
+    <string name="prefAutoUpdateModulesKey">update_modules</string>
+    <string name="prefAutoUpdateModulesSummary">Automatically update the modules based on controller settings</string>
+    <string name="prefAutoUpdateModulesTitle">Auto Update Modules</string>
 
     <!-- Permissions -->
     <string name="permissionQueryStatusLabel">Query status of controller</string>
