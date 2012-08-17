@@ -63,6 +63,7 @@ public class ControllerService extends Service {
 
 		if ( rapp.isServiceRunning ) {
 			unregisterReceiver( receiver );
+			serviceThread.shutdown();
 			rapp.isServiceRunning = false;
 		}
 	}
@@ -91,7 +92,8 @@ public class ControllerService extends Service {
 
 			long interval = rapp.getUpdateInterval();
 			if ( interval > 0 ) {
-				Log.d( TAG, "auto update interval " + interval/60 + " minutes" );
+				Log.d( TAG, "auto update interval " + interval / 60
+							+ " minutes" );
 				createScheduledUpdate( interval );
 			}
 
