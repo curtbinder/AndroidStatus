@@ -420,8 +420,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		String s = "Switched to profile: " + profiles[id];
 		Log.d( TAG, s );
 		Toast.makeText( getApplicationContext(), s, Toast.LENGTH_SHORT ).show();
-		s = String.format( "%d", id );
-		rapp.setPref( R.string.prefProfileSelectedKey, s );
+		rapp.setSelectedProfile( id );
 		updateRefreshButtonLabel();
 	}
 

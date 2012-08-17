@@ -8,8 +8,9 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -29,7 +30,7 @@ public class ControllerService extends Service {
 	private ServiceReceiver receiver;
 	private IntentFilter filter;
 
-	private ExecutorService serviceThread;
+	private ScheduledExecutorService serviceThread;
 
 	@Override
 	public IBinder onBind ( Intent intent ) {
@@ -62,14 +63,18 @@ public class ControllerService extends Service {
 
 		if ( rapp.isServiceRunning ) {
 			unregisterReceiver( receiver );
+			serviceThread.shutdown();
 			rapp.isServiceRunning = false;
 		}
 	}
 
 	@Override
-	public synchronized int onStartCommand ( Intent intent, int flags, int startId ) {
+	public synchronized int onStartCommand (
+			Intent intent,
+			int flags,
+			int startId ) {
 		super.onStartCommand( intent, flags, startId );
-		
+
 		Log.d( TAG, "onStartCommand" );
 		if ( rapp.isFirstRun() ) {
 			Log.d( TAG, "first run, not starting service until configured" );
@@ -83,7 +88,14 @@ public class ControllerService extends Service {
 			registerReceiver( receiver, filter, Permissions.QUERY_STATUS, null );
 
 			// create the thread executor
-			serviceThread = Executors.newSingleThreadExecutor();
+			serviceThread = Executors.newSingleThreadScheduledExecutor();
+
+			long interval = rapp.getUpdateInterval();
+			if ( interval > 0 ) {
+				Log.d( TAG, "auto update interval " + interval / 60
+							+ " minutes" );
+				createScheduledUpdate( interval );
+			}
 
 			rapp.isServiceRunning = true;
 		}
@@ -102,6 +114,25 @@ public class ControllerService extends Service {
 			}
 		}
 		return fAvailable;
+	}
+
+	private void createScheduledUpdate ( long interval ) {
+		// repeating update is only for the status
+		// create a host and configure it
+		Host h = new Host();
+		if ( rapp.isCommunicateController() ) {
+			// controller
+			h.setHost( rapp.getPrefHost() );
+			h.setPort( rapp.getPrefPort() );
+			h.setCommand( Globals.requestStatus );
+		} else {
+			// reeefangel.com
+			h.setUserId( rapp.getPrefUserId() );
+			h.setCommand( Globals.requestReefAngel );
+		}
+		Log.d( TAG, "AutoUpdate: " + h.toString() );
+		serviceThread.scheduleAtFixedRate(	new ControllerTask( rapp, h ), 0L,
+											interval, TimeUnit.SECONDS );
 	}
 
 	class ServiceReceiver extends BroadcastReceiver {
@@ -227,10 +258,11 @@ public class ControllerService extends Service {
 			return;
 		}
 		Log.d( TAG, "Task Host: " + h.toString() );
-		// submit to thread for execution
+		// submit the task for execution
 		if ( isNetworkAvailable() )
 			serviceThread.submit( new ControllerTask( rapp, h ) );
 		else
+			// TODO remove Toast
 			Toast.makeText( rapp.getBaseContext(),
 							R.string.messageNetworkOffline, Toast.LENGTH_LONG )
 					.show();

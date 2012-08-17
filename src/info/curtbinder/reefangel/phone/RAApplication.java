@@ -75,6 +75,14 @@ public class RAApplication extends Application {
 			stopService( new Intent( this, ControllerService.class ) );
 	}
 
+	public void restartService ( ) {
+		Log.d( TAG, "restarting service" );
+		if ( isServiceRunning ) {
+			stopService( new Intent( this, ControllerService.class ) );
+		}
+		startService( new Intent( this, ControllerService.class ) );
+	}
+	
 	// Data handling
 	public void insertData ( Intent i ) {
 		ContentValues v = new ContentValues();
@@ -384,6 +392,14 @@ public class RAApplication extends Application {
 				.getBoolean( getString( R.string.prefPre10MemoryKey ), true );
 	}
 
+	public long getUpdateInterval ( ) {
+		String s =
+				prefs.getString(	getString( R.string.prefAutoUpdateIntervalKey ),
+									getString( R.string.prefAutoUpdateIntervalDefault ) );
+		long i = Long.parseLong( s );
+		return i;
+	}
+
 	public boolean isFirstRun ( ) {
 		// First run will be determined by:
 		// if the first run key is NOT set AND
@@ -462,6 +478,7 @@ public class RAApplication extends Application {
 		String s = "" + profile;
 		Log.d( TAG, "Changed Profile: " + s );
 		setPref( R.string.prefProfileSelectedKey, s );
+		restartService();
 	}
 
 	public boolean isAwayProfileEnabled ( ) {
