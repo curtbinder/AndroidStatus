@@ -478,6 +478,7 @@ public class RAApplication extends Application {
 		String s = "" + profile;
 		Log.d( TAG, "Changed Profile: " + s );
 		setPref( R.string.prefProfileSelectedKey, s );
+		restartService();
 	}
 
 	public boolean isAwayProfileEnabled ( ) {
