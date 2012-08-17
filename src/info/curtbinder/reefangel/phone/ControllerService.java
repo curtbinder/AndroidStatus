@@ -87,6 +87,10 @@ public class ControllerService extends Service {
 			serviceThread = Executors.newSingleThreadScheduledExecutor();
 			
 			// TODO create the repeating schedule if the interval is greater than 0
+			long interval = rapp.getUpdateInterval();
+			if ( interval > 0 ) {
+				Log.d( TAG, "auto update interval " + interval + " minutes" );
+			}
 
 			rapp.isServiceRunning = true;
 		}

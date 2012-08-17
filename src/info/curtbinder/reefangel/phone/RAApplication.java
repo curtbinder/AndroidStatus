@@ -59,7 +59,7 @@ public class RAApplication extends Application {
 		checkServiceRunning();
 
 	}
-	
+
 	public void checkServiceRunning ( ) {
 		// Check if the service is running, if not start it
 		if ( !isServiceRunning && !isFirstRun() )
@@ -382,6 +382,14 @@ public class RAApplication extends Application {
 	public boolean useOldPre10MemoryLocations ( ) {
 		return prefs
 				.getBoolean( getString( R.string.prefPre10MemoryKey ), true );
+	}
+
+	public long getUpdateInterval ( ) {
+		String s =
+				prefs.getString(	getString( R.string.prefAutoUpdateIntervalKey ),
+									getString( R.string.prefAutoUpdateIntervalDefault ) );
+		long i = Long.parseLong( s );
+		return i;
 	}
 
 	public boolean isFirstRun ( ) {
