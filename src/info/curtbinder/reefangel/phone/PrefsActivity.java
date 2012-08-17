@@ -28,11 +28,6 @@ public class PrefsActivity extends PreferenceActivity implements
 
 	private static final String TAG = PrefsActivity.class.getSimpleName();
 
-	private Preference porthomekey;
-	private Preference hosthomekey;
-	private Preference portawaykey;
-	private Preference hostawaykey;
-	private Preference useridkey;
 	private Preference downloadkey;
 	private Preference explabelkey;
 	private Preference exp085xkey;
@@ -52,23 +47,23 @@ public class PrefsActivity extends PreferenceActivity implements
 		receiver = new PrefsReceiver();
 		filter = new IntentFilter( MessageCommands.LABEL_RESPONSE_INTENT );
 
-		porthomekey =
+		Preference porthomekey =
 				getPreferenceScreen()
 						.findPreference( rapp.getString( R.string.prefPortKey ) );
 		porthomekey.setOnPreferenceChangeListener( this );
-		hosthomekey =
+		Preference hosthomekey =
 				getPreferenceScreen()
 						.findPreference( rapp.getString( R.string.prefHostKey ) );
 		hosthomekey.setOnPreferenceChangeListener( this );
-		portawaykey =
+		Preference portawaykey =
 				getPreferenceScreen()
 						.findPreference(	rapp.getString( R.string.prefPortAwayKey ) );
 		portawaykey.setOnPreferenceChangeListener( this );
-		hostawaykey =
+		Preference hostawaykey =
 				getPreferenceScreen()
 						.findPreference(	rapp.getString( R.string.prefHostAwayKey ) );
 		hostawaykey.setOnPreferenceChangeListener( this );
-		useridkey =
+		Preference useridkey =
 				getPreferenceScreen()
 						.findPreference(	rapp.getString( R.string.prefUserIdKey ) );
 		useridkey.setOnPreferenceChangeListener( this );
@@ -76,6 +71,10 @@ public class PrefsActivity extends PreferenceActivity implements
 				getPreferenceScreen()
 						.findPreference(	rapp.getString( R.string.prefDeviceKey ) );
 		devicekey.setOnPreferenceChangeListener( this );
+		Preference updatekey =
+				getPreferenceScreen()
+						.findPreference(	rapp.getString( R.string.prefAutoUpdateIntervalKey ) );
+		updatekey.setOnPreferenceChangeListener( this );
 
 		Preference expqtykey =
 				getPreferenceScreen()
@@ -258,6 +257,7 @@ public class PrefsActivity extends PreferenceActivity implements
 				return true;
 			}
 		} );
+
 	}
 
 	@Override
@@ -379,6 +379,15 @@ public class PrefsActivity extends PreferenceActivity implements
 			// many expansion relays selected
 			updateExpansionLabelsVisibility( Integer.parseInt( newValue
 					.toString() ) );
+		} else if ( preference.getKey()
+				.equals( rapp.getString( R.string.prefAutoUpdateIntervalKey ) ) ) {
+			long o = rapp.getUpdateInterval();
+			long n = Long.parseLong( newValue.toString() );
+			Log.d( TAG, "Change Interval:  " + o + " - " + n );
+			if ( n != o ) {
+				// Old and new values differ, restart the service
+				rapp.restartService();
+			}
 		}
 		return true;
 	}
