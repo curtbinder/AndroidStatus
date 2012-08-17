@@ -494,14 +494,14 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     </string-array>
     <string-array name="updateIntervalValues">
         <item>0</item>
-        <item>5</item>
-        <item>10</item>
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>240</item>
-        <item>360</item>
-        <item>720</item>
+        <item>300</item>
+        <item>600</item>
+        <item>900</item>
+        <item>1800</item>
+        <item>3600</item>
+        <item>14400</item>
+        <item>21600</item>
+        <item>43200</item>
     </string-array>
 
 </resources>

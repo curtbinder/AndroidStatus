@@ -68,9 +68,12 @@ public class ControllerService extends Service {
 	}
 
 	@Override
-	public synchronized int onStartCommand ( Intent intent, int flags, int startId ) {
+	public synchronized int onStartCommand (
+			Intent intent,
+			int flags,
+			int startId ) {
 		super.onStartCommand( intent, flags, startId );
-		
+
 		Log.d( TAG, "onStartCommand" );
 		if ( rapp.isFirstRun() ) {
 			Log.d( TAG, "first run, not starting service until configured" );
@@ -85,11 +88,10 @@ public class ControllerService extends Service {
 
 			// create the thread executor
 			serviceThread = Executors.newSingleThreadScheduledExecutor();
-			
-			// TODO create the repeating schedule if the interval is greater than 0
+
 			long interval = rapp.getUpdateInterval();
 			if ( interval > 0 ) {
-				Log.d( TAG, "auto update interval " + interval + " minutes" );
+				Log.d( TAG, "auto update interval " + interval/60 + " minutes" );
 			}
 
 			rapp.isServiceRunning = true;
@@ -109,6 +111,24 @@ public class ControllerService extends Service {
 			}
 		}
 		return fAvailable;
+	}
+
+	private void createScheduledUpdate ( long interval ) {
+		// repeating update is only for the status
+		// create a host and configure it
+		Host h = new Host();
+		if ( rapp.isCommunicateController() ) {
+			// controller
+			h.setHost( rapp.getPrefHost() );
+			h.setPort( rapp.getPrefPort() );
+			h.setCommand( Globals.requestStatus );
+		} else {
+			// reeefangel.com
+			h.setUserId( rapp.getPrefUserId() );
+			h.setCommand( Globals.requestReefAngel );
+		}
+		serviceThread.scheduleAtFixedRate(	new ControllerTask( rapp, h ), 0L,
+											interval, TimeUnit.SECONDS );
 	}
 
 	class ServiceReceiver extends BroadcastReceiver {
@@ -236,8 +256,10 @@ public class ControllerService extends Service {
 		Log.d( TAG, "Task Host: " + h.toString() );
 		// schedule the task to execute after 0 second delay (aka, immediately)
 		if ( isNetworkAvailable() )
-			serviceThread.schedule( new ControllerTask( rapp, h ), 0L, TimeUnit.SECONDS );
+			serviceThread.schedule( new ControllerTask( rapp, h ), 0L,
+									TimeUnit.SECONDS );
 		else
+			// TODO remove Toast
 			Toast.makeText( rapp.getBaseContext(),
 							R.string.messageNetworkOffline, Toast.LENGTH_LONG )
 					.show();

@@ -75,6 +75,14 @@ public class RAApplication extends Application {
 			stopService( new Intent( this, ControllerService.class ) );
 	}
 
+	public void restartService ( ) {
+		Log.d( TAG, "restarting service" );
+		if ( isServiceRunning ) {
+			stopService( new Intent( this, ControllerService.class ) );
+		}
+		startService( new Intent( this, ControllerService.class ) );
+	}
+	
 	// Data handling
 	public void insertData ( Intent i ) {
 		ContentValues v = new ContentValues();
