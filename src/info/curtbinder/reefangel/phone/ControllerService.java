@@ -8,8 +8,9 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -29,7 +30,7 @@ public class ControllerService extends Service {
 	private ServiceReceiver receiver;
 	private IntentFilter filter;
 
-	private ExecutorService serviceThread;
+	private ScheduledExecutorService serviceThread;
 
 	@Override
 	public IBinder onBind ( Intent intent ) {
@@ -83,7 +84,9 @@ public class ControllerService extends Service {
 			registerReceiver( receiver, filter, Permissions.QUERY_STATUS, null );
 
 			// create the thread executor
-			serviceThread = Executors.newSingleThreadExecutor();
+			serviceThread = Executors.newSingleThreadScheduledExecutor();
+			
+			// TODO create the repeating schedule if the interval is greater than 0
 
 			rapp.isServiceRunning = true;
 		}
@@ -227,9 +230,9 @@ public class ControllerService extends Service {
 			return;
 		}
 		Log.d( TAG, "Task Host: " + h.toString() );
-		// submit to thread for execution
+		// schedule the task to execute after 0 second delay (aka, immediately)
 		if ( isNetworkAvailable() )
-			serviceThread.submit( new ControllerTask( rapp, h ) );
+			serviceThread.schedule( new ControllerTask( rapp, h ), 0L, TimeUnit.SECONDS );
 		else
 			Toast.makeText( rapp.getBaseContext(),
 							R.string.messageNetworkOffline, Toast.LENGTH_LONG )
