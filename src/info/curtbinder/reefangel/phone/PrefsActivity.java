@@ -381,13 +381,7 @@ public class PrefsActivity extends PreferenceActivity implements
 					.toString() ) );
 		} else if ( preference.getKey()
 				.equals( rapp.getString( R.string.prefAutoUpdateIntervalKey ) ) ) {
-			long o = rapp.getUpdateInterval();
-			long n = Long.parseLong( newValue.toString() );
-			Log.d( TAG, "Change Interval:  " + o + " - " + n );
-			if ( n != o ) {
-				// Old and new values differ, restart the service
-				rapp.restartService();
-			}
+			// when interval changes, update the repeat service
 		}
 		return true;
 	}
