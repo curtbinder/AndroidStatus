@@ -103,6 +103,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
         <service android:name=".ControllerService" >
         </service>
+        <service android:name=".UpdateService" >
+        </service>
 
         <receiver android:name=".BootReceiver" >
             <intent-filter>
