@@ -71,11 +71,6 @@ public class ControllerService extends Service {
 		super.onStartCommand( intent, flags, startId );
 		
 		Log.d( TAG, "onStartCommand" );
-		handleStart( intent, startId );
-		return START_STICKY;
-	}
-
-	private synchronized void handleStart ( Intent intent, int startId ) {
 		if ( rapp.isFirstRun() ) {
 			Log.d( TAG, "first run, not starting service until configured" );
 			return;
@@ -92,6 +87,7 @@ public class ControllerService extends Service {
 
 			rapp.isServiceRunning = true;
 		}
+		return START_STICKY;
 	}
 
 	private boolean isNetworkAvailable ( ) {
