@@ -73,7 +73,7 @@ public class ControllerService extends Service {
 		Log.d( TAG, "onStartCommand" );
 		if ( rapp.isFirstRun() ) {
 			Log.d( TAG, "first run, not starting service until configured" );
-			return;
+			return START_STICKY;
 		}
 
 		if ( !rapp.isServiceRunning ) {
