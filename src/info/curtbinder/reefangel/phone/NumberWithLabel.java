@@ -8,6 +8,8 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
+import info.curtbinder.reefangel.controller.Number;
+
 public class NumberWithLabel {
 
 	private Number data;

@@ -1,4 +1,5 @@
-package info.curtbinder.reefangel.phone;
+package info.curtbinder.reefangel.controller;
+
 
 /*
  * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
@@ -10,12 +11,12 @@ package info.curtbinder.reefangel.phone;
 
 public class Relay {
 	// All Port Referencing functions are 1 based
-	static final byte PORT_OFF = 0;
-	static final byte PORT_ON = 1;
+	public static final byte PORT_OFF = 0;
+	public static final byte PORT_ON = 1;
 
-	static final byte PORT_STATE_OFF = 0;
-	static final byte PORT_STATE_ON = 1;
-	static final byte PORT_STATE_AUTO = 2;
+	public static final byte PORT_STATE_OFF = 0;
+	public static final byte PORT_STATE_ON = 1;
+	public static final byte PORT_STATE_AUTO = 2;
 
 	private short data;
 	private short maskOn;

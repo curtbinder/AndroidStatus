@@ -1,4 +1,4 @@
-package info.curtbinder.reefangel.phone;
+package info.curtbinder.reefangel.phone.pages;
 
 /*
  * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
@@ -8,6 +8,11 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
+import info.curtbinder.reefangel.controller.Controller;
+import info.curtbinder.reefangel.controller.Relay;
+import info.curtbinder.reefangel.phone.MessageCommands;
+import info.curtbinder.reefangel.phone.Permissions;
+import info.curtbinder.reefangel.phone.R;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;

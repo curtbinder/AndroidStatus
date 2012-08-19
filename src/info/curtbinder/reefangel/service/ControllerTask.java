@@ -8,15 +8,14 @@ package info.curtbinder.reefangel.service;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
-import info.curtbinder.reefangel.phone.Controller;
+import info.curtbinder.reefangel.controller.Controller;
+import info.curtbinder.reefangel.controller.Relay;
 import info.curtbinder.reefangel.phone.Globals;
 import info.curtbinder.reefangel.phone.MessageCommands;
 import info.curtbinder.reefangel.phone.Permissions;
 import info.curtbinder.reefangel.phone.R;
 import info.curtbinder.reefangel.phone.RAApplication;
 import info.curtbinder.reefangel.phone.RAData;
-import info.curtbinder.reefangel.phone.Relay;
-import info.curtbinder.reefangel.phone.XMLHandler;
 
 import java.io.IOException;
 import java.io.InputStream;

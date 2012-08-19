@@ -8,6 +8,16 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
+import info.curtbinder.reefangel.controller.Controller;
+import info.curtbinder.reefangel.controller.Relay;
+import info.curtbinder.reefangel.phone.pages.AIPage;
+import info.curtbinder.reefangel.phone.pages.ControllerPage;
+import info.curtbinder.reefangel.phone.pages.CustomPage;
+import info.curtbinder.reefangel.phone.pages.DimmingPage;
+import info.curtbinder.reefangel.phone.pages.IOPage;
+import info.curtbinder.reefangel.phone.pages.RadionPage;
+import info.curtbinder.reefangel.phone.pages.RelayBoxPage;
+import info.curtbinder.reefangel.phone.pages.VortechPage;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;

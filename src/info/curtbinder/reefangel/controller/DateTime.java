@@ -1,4 +1,6 @@
-package info.curtbinder.reefangel.phone;
+package info.curtbinder.reefangel.controller;
+
+import info.curtbinder.reefangel.phone.Globals;
 
 import java.text.DateFormat;
 import java.util.Calendar;
