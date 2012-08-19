@@ -31,6 +31,7 @@ public class UpdateService extends IntentService {
 		Toast.makeText( rapp.getBaseContext(), R.string.messageNotController,
 						Toast.LENGTH_LONG ).show();
 	}
+
 	private boolean isNetworkAvailable ( ) {
 		boolean fAvailable = false;
 		ConnectivityManager con =
@@ -51,6 +52,56 @@ public class UpdateService extends IntentService {
 		// create new ControllerTask based on values received
 		// run the task
 		rapp = (RAApplication) getApplication();
+		String action = intent.getAction();
+		int profile_update =
+				intent.getIntExtra( MessageCommands.AUTO_UPDATE_PROFILE_INT, -1 );
+		if ( action.equals( MessageCommands.QUERY_STATUS_INTENT )
+				&& (profile_update > -1) ) {
+			processAutoUpdate( profile_update );
+			return;
+		}
+		processRACommand( intent );
+	}
+
+	private void processAutoUpdate ( int profile_update ) {
+		Host h = new Host();
+		if ( rapp.isCommunicateController() ) {
+			// controller
+			String host, port;
+			if ( rapp.isAwayProfileEnabled() ) {
+				// only check if the away profile is enabled
+				switch ( profile_update ) {
+					default:
+					case Globals.profileAlways:
+						host = rapp.getPrefHost();
+						port = rapp.getPrefPort();
+						break;
+					case Globals.profileOnlyAway:
+						host = rapp.getPrefAwayHost();
+						port = rapp.getPrefAwayPort();
+						break;
+					case Globals.profileOnlyHome:
+						host = rapp.getPrefHomeHost();
+						port = rapp.getPrefHomePort();
+						break;
+				}
+			} else {
+				host = rapp.getPrefHost();
+				port = rapp.getPrefPort();				
+			}
+			h.setHost( host );
+			h.setPort( port );
+			h.setCommand( Globals.requestStatus );
+		} else {
+			// reeefangel.com / portal
+			h.setUserId( rapp.getPrefUserId() );
+			h.setCommand( Globals.requestReefAngel );
+		}
+		Log.d( TAG, "AutoUpdate: " + h.toString() );
+		runTask( h );
+	}
+
+	private void processRACommand ( Intent intent ) {
 		String action = intent.getAction();
 		String command = Globals.requestNone;
 		boolean isController = rapp.isCommunicateController();
@@ -154,6 +205,10 @@ public class UpdateService extends IntentService {
 			return;
 		}
 		Log.d( TAG, "Task Host: " + h.toString() );
+		runTask( h );
+	}
+
+	private void runTask ( Host h ) {
 		// run the task
 		if ( isNetworkAvailable() ) {
 			ControllerTask ct = new ControllerTask( rapp, h );
@@ -165,5 +220,4 @@ public class UpdateService extends IntentService {
 					.show();
 		}
 	}
-
 }

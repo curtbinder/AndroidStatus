@@ -74,4 +74,11 @@ public final class Globals {
 	public static final String xmlPHExpansion = "PHE";
 	public static final String xmlWaterLevel = "WL";
 	public static final String xmlMyReefAngelID = "MYREEFANGELID";
+	
+	// profile updating
+	public static final int profileAlways = 0;
+	public static final int profileOnlyAway = 1;
+	public static final int profileOnlyHome = 2;
+	public static final int profileHome = 0;
+	public static final int profileAway = 1;
 }

@@ -4,7 +4,7 @@ Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
  
 This work is made available under the terms of the 
 Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
-http://creativecommons.org/licenses/by-nc-sa/3.0/
+http://creativecommons.org/licenses/by-nc-sa/3.0/
 -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
@@ -696,20 +696,28 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:key="@string/prefPre10MemoryKey"
                 android:summary="@string/prefPre10MemorySummary"
                 android:title="@string/prefPre10MemoryTitle" />
-
-            <ListPreference
-                android:defaultValue="@string/prefAutoUpdateIntervalDefault"
-                android:entries="@array/updateInterval"
-                android:entryValues="@array/updateIntervalValues"
-                android:key="@string/prefAutoUpdateIntervalKey"
-                android:summary="@string/prefAutoUpdateIntervalSummary"
-                android:title="@string/prefAutoUpdateIntervalTitle" />
-
             <CheckBoxPreference
                 android:defaultValue="true"
                 android:key="@string/prefAutoUpdateModulesKey"
                 android:summary="@string/prefAutoUpdateModulesSummary"
                 android:title="@string/prefAutoUpdateModulesTitle" />
+
+            <PreferenceCategory android:title="@string/prefAutoUpdateCategory" >
+                <ListPreference
+                    android:defaultValue="@string/prefAutoUpdateIntervalDefault"
+                    android:entries="@array/updateInterval"
+                    android:entryValues="@array/updateIntervalValues"
+                    android:key="@string/prefAutoUpdateIntervalKey"
+                    android:summary="@string/prefAutoUpdateIntervalSummary"
+                    android:title="@string/prefAutoUpdateIntervalTitle" />
+                <ListPreference
+                    android:defaultValue="@string/prefAutoUpdateProfileDefault"
+                    android:entries="@array/updateProfile"
+                    android:entryValues="@array/updateProfileValues"
+                    android:key="@string/prefAutoUpdateProfileKey"
+                    android:summary="@string/prefAutoUpdateProfileSummary"
+                    android:title="@string/prefAutoUpdateProfileTitle" />
+            </PreferenceCategory>
         </PreferenceScreen>
         <PreferenceScreen
             android:key="appinfo"

@@ -516,10 +516,15 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefAutoUpdateIntervalKey">update_interval</string>
     <string name="prefAutoUpdateIntervalSummary">Interval for retrieving the status</string>
     <string name="prefAutoUpdateIntervalTitle">Update Interval</string>
-    <string name="prefAutoUpdateIntervalDefault">0</string>
+    <string name="prefAutoUpdateIntervalDefault">900000</string>
     <string name="prefAutoUpdateModulesKey">update_modules</string>
     <string name="prefAutoUpdateModulesSummary">Automatically update the modules based on controller settings</string>
     <string name="prefAutoUpdateModulesTitle">Auto Update Modules</string>
+    <string name="prefAutoUpdateProfileKey">update_profile</string>
+    <string name="prefAutoUpdateProfileSummary">Choose what profile automatic updates will run</string>
+    <string name="prefAutoUpdateProfileTitle">Update Profile</string>
+    <string name="prefAutoUpdateProfileDefault">1</string>
+    <string name="prefAutoUpdateCategory">Automatic Updating</string>
 
     <!-- Permissions -->
     <string name="permissionQueryStatusLabel">Query status of controller</string>

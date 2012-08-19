@@ -9,8 +9,11 @@ package info.curtbinder.reefangel.phone;
  */
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.Application;
+import android.app.PendingIntent;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -77,28 +80,77 @@ public class RAApplication extends Application {
 
 	public void restartAutoUpdateService ( ) {
 		Log.d( TAG, "restarting auto update service" );
-		/*
-		if ( isServiceRunning ) {
-			stopService( new Intent( this, ControllerService.class ) );
-		}
-		startService( new Intent( this, ControllerService.class ) );
-		*/
+		cancelAutoUpdateService();
+		startAutoUpdateService();
 	}
-	
+
 	public void cancelAutoUpdateService ( ) {
-		
+		Log.d( TAG, "cancel auto update" );
+		PendingIntent pi = getUpdateIntent();
+		AlarmManager am =
+				(AlarmManager) getSystemService( Context.ALARM_SERVICE );
+		// cancel the repeating service
+		am.cancel( pi );
 	}
-	
+
 	public void startAutoUpdateService ( ) {
-		
+		// check to see if we need to start the repeating update service
+		// grab the service interval, make sure it's greater than 0
+		long interval = getUpdateInterval();
+		if ( interval == 0 ) {
+			Log.d( TAG, "disabled autoupdate" );
+			return;
+		}
+
+		int up = getUpdateProfile();
+		if ( isCommunicateController() ) {
+			int p = getSelectedProfile();
+			Log.d( TAG, "UP: " + up + " P: " + p );
+			if ( isAwayProfileEnabled() ) {
+				Log.d( TAG, "profiles enabled, checking proper profile" );
+				if ( (up == Globals.profileOnlyAway)
+						&& (p != Globals.profileAway) ) {
+					// only run on away profile and we are not on away profile
+					Log.d( TAG, "only run on away, not away" );
+					return;
+				} else if ( (up == Globals.profileOnlyHome)
+							&& (p != Globals.profileHome) ) {
+					// only run on home profile and we are not on home profile
+					Log.d( TAG, "only run on home, not home" );
+					return;
+				}
+			}
+		}
+
+		// create a status query message
+		PendingIntent pi = getUpdateIntent();
+		// setup alarm service to wake up and start the service periodically
+		AlarmManager am =
+				(AlarmManager) getSystemService( Context.ALARM_SERVICE );
+		int type;
+		if ( isWakeupEnabled() )
+			type = AlarmManager.RTC_WAKEUP;
+		else
+			type = AlarmManager.RTC;
+		am.setInexactRepeating( type, System.currentTimeMillis(), interval, pi );
+		// Profile, interval, wakeup
+		String s =
+				String.format(	"%d, %d m, %s", up, interval / 60000,
+								(type == AlarmManager.RTC_WAKEUP)	? "wakeup"
+																	: "none" );
+		Log.d( TAG, "started auto update: " + s );
 	}
-	
-	public Intent getUpdateIntent ( ) {
+
+	private PendingIntent getUpdateIntent ( ) {
 		Intent i = new Intent( this, UpdateService.class );
 		i.setAction( MessageCommands.QUERY_STATUS_INTENT );
-		return i;
+		i.putExtra( MessageCommands.AUTO_UPDATE_PROFILE_INT, getUpdateProfile() );
+		PendingIntent pi =
+				PendingIntent.getService(	this, -1, i,
+											PendingIntent.FLAG_CANCEL_CURRENT );
+		return pi;
 	}
-	
+
 	// Data handling
 	public void insertData ( Intent i ) {
 		ContentValues v = new ContentValues();
@@ -416,6 +468,19 @@ public class RAApplication extends Application {
 		return i;
 	}
 
+	public boolean isWakeupEnabled ( ) {
+		// TODO do we wake up the device to run the auto status updates or not?
+		return false;
+	}
+
+	public int getUpdateProfile ( ) {
+		String s =
+				prefs.getString(	getString( R.string.prefAutoUpdateProfileKey ),
+									getString( R.string.prefAutoUpdateProfileDefault ) );
+		int i = Integer.parseInt( s );
+		return i;
+	}
+
 	public boolean isFirstRun ( ) {
 		// First run will be determined by:
 		// if the first run key is NOT set AND
@@ -489,11 +554,12 @@ public class RAApplication extends Application {
 	}
 
 	public void setSelectedProfile ( int profile ) {
-		if ( profile > 1 )
+		if ( profile > Globals.profileAway )
 			return;
 		String s = "" + profile;
 		Log.d( TAG, "Changed Profile: " + s );
 		setPref( R.string.prefProfileSelectedKey, s );
+		// TODO update this
 		restartAutoUpdateService();
 	}
 
@@ -534,7 +600,7 @@ public class RAApplication extends Application {
 
 	public String getPrefPort ( ) {
 		int profile = getSelectedProfile();
-		if ( profile == 1 ) {
+		if ( profile == Globals.profileAway ) {
 			// Away profile
 			if ( isAwayProfileEnabled() ) {
 				// away profile is filled in and enabled

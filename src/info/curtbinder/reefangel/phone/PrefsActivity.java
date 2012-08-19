@@ -33,6 +33,7 @@ public class PrefsActivity extends PreferenceActivity implements
 	private Preference exp085xkey;
 	private Preference[] explabels =
 			new Preference[Controller.MAX_EXPANSION_RELAYS];
+	private Preference updateprofilekey;
 
 	RAApplication rapp;
 	PrefsReceiver receiver;
@@ -111,6 +112,17 @@ public class PrefsActivity extends PreferenceActivity implements
 				getPreferenceScreen()
 						.findPreference(	rapp.getString( R.string.prefExp8RelayKey ) );
 		updateExpansionLabelsVisibility( rapp.getPrefExpansionRelayQuantity() );
+
+		updateprofilekey =
+				getPreferenceScreen()
+						.findPreference(	rapp.getString( R.string.prefAutoUpdateProfileKey ) );
+		updateprofilekey.setOnPreferenceChangeListener( this );
+		// TODO check this, update visibility appropriately
+		if ( rapp.isAwayProfileEnabled() ) {
+			updateAutoUpdateProfileVisibility( true );
+		} else {
+			updateAutoUpdateProfileVisibility( false );
+		}
 
 		Preference raWebsite =
 				getPreferenceScreen()
@@ -350,29 +362,83 @@ public class PrefsActivity extends PreferenceActivity implements
 		// return true to change, false to not
 		if ( preference.getKey()
 				.equals( rapp.getString( R.string.prefPortKey ) ) ) {
-			return rapp.validatePort( newValue );
+			boolean f = rapp.validatePort( newValue );
+			if ( f ) {
+				rapp.setPref( R.string.prefPortKey, newValue.toString() );
+				// only restart service if it's enabled AND
+				// the profile is not only away
+				if ( (rapp.getUpdateInterval() > 0)
+						&& (rapp.getUpdateProfile() != Globals.profileOnlyAway) ) {
+					rapp.restartAutoUpdateService();
+				}
+			}
+			return f;
 		} else if ( preference.getKey()
 				.equals( rapp.getString( R.string.prefHostKey ) ) ) {
-			return rapp.validateHost( newValue );
+			boolean f = rapp.validateHost( newValue );
+			if ( f ) {
+				rapp.setPref( R.string.prefHostKey, newValue.toString() );
+				// only restart service if it's enabled AND
+				// the profile is not only away
+				if ( (rapp.getUpdateInterval() > 0)
+						&& (rapp.getUpdateProfile() != Globals.profileOnlyAway) ) {
+					rapp.restartAutoUpdateService();
+				}
+			}
+			return f;
 		} else if ( preference.getKey()
 				.equals( rapp.getString( R.string.prefPortAwayKey ) ) ) {
-			return rapp.validatePort( newValue );
+			boolean f = rapp.validatePort( newValue );
+			if ( f ) {
+				rapp.setPref( R.string.prefPortAwayKey, newValue.toString() );
+				// only restart if away is enabled
+				if ( rapp.isAwayProfileEnabled() ) {
+					// only restart service if it's enabled AND
+					// the profile is not only home
+					if ( (rapp.getUpdateInterval() > 0)
+							&& (rapp.getUpdateProfile() != Globals.profileOnlyHome) ) {
+						rapp.restartAutoUpdateService();
+					}
+				}
+			}
+			return f;
 		} else if ( preference.getKey()
 				.equals( rapp.getString( R.string.prefHostAwayKey ) ) ) {
 			Log.d( TAG, "Change away host: " + newValue.toString() );
 			// Away Host can be empty
 			if ( newValue.toString().equals( "" ) ) {
 				// set the selected profile to be the home profile
-				rapp.setSelectedProfile( 0 );
+				// service gets restarted with setSelectedProfile call
+				rapp.setPref( R.string.prefHostAwayKey, "" );
+				rapp.setSelectedProfile( Globals.profileHome );
+				// disable the selecting of the AutoUpdateProfiles
+				// when away is disabled
+				updateAutoUpdateProfileVisibility( false );
 				return true;
 			}
 			// If it's not empty, validate the host
-			return rapp.validateHost( newValue );
+			boolean f = rapp.validateHost( newValue );
+			if ( f ) {
+				rapp.setPref( R.string.prefHostAwayKey, newValue.toString() );
+				// only restart service if it's enabled AND
+				// the profile is not only home
+				if ( (rapp.getUpdateInterval() > 0)
+						&& (rapp.getUpdateProfile() != Globals.profileOnlyHome) ) {
+					rapp.restartAutoUpdateService();
+				}
+				updateAutoUpdateProfileVisibility( true );
+			}
+			return f;
 		} else if ( preference.getKey()
 				.equals( rapp.getString( R.string.prefUserIdKey ) ) ) {
 			if ( !rapp.validateUser( newValue ) )
 				return false;
 			updateDownloadLabelUserId( newValue.toString() );
+			if ( (rapp.getUpdateInterval() > 0)
+					&& (rapp.isCommunicateController()) ) {
+				rapp.setPref( R.string.prefUserIdKey, newValue.toString() );
+				rapp.restartAutoUpdateService();
+			}
 		} else if ( preference.getKey()
 				.equals( rapp.getString( R.string.prefExpQtyKey ) ) ) {
 			// enable / disable the Expansion Labels based on how
@@ -387,10 +453,42 @@ public class PrefsActivity extends PreferenceActivity implements
 			Log.d( TAG, "Change Interval:  " + o + " - " + n );
 			if ( n != o ) {
 				// Old and new values differ, restart the service
+				rapp.setPref(	R.string.prefAutoUpdateIntervalKey,
+								newValue.toString() );
+				// TODO check if parameter needed with previous value storing
 				rapp.restartAutoUpdateService();
 			}
+			boolean fVisible = false;
+			// TODO check this, update visibility appropriately
+			if ( rapp.isAwayProfileEnabled() && (n > 0) ) {
+				Log.d( TAG, "enable update profile" );
+				fVisible = true;
+			}
+			updateAutoUpdateProfileVisibility( fVisible );
+		} else if ( preference.getKey()
+				.equals( rapp.getString( R.string.prefAutoUpdateProfileKey ) ) ) {
+			// restart the update service if we change the update profile
+			rapp.setPref(	R.string.prefAutoUpdateProfileKey,
+							newValue.toString() );
+			rapp.restartAutoUpdateService();
+		} else if ( preference.getKey()
+				.equals( rapp.getString( R.string.prefDeviceKey ) ) ) {
+			// device changes
+			rapp.setPref( R.string.prefDeviceKey, newValue.toString() );
+			boolean f = false;
+			if ( rapp.isCommunicateController() ) {
+				if ( rapp.isAwayProfileEnabled() )
+					f = true;
+			}
+			rapp.restartAutoUpdateService();
+			updateAutoUpdateProfileVisibility( f );
 		}
 		return true;
+	}
+
+	private void updateAutoUpdateProfileVisibility ( boolean fVisible ) {
+		updateprofilekey.setEnabled( fVisible );
+		updateprofilekey.setSelectable( fVisible );
 	}
 
 	class PrefsReceiver extends BroadcastReceiver {

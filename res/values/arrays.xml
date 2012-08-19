@@ -503,5 +503,15 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>21600000</item>
         <item>43200000</item>
     </string-array>
+    <string-array name="updateProfile">
+        <item>Always</item>
+        <item>Only on Away</item>
+        <item>Only on Home</item>
+    </string-array>
+    <string-array name="updateProfileValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 
 </resources>
