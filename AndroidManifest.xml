@@ -101,9 +101,9 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:label="@string/titleDateTime" >
         </activity>
 
-        <service android:name=".ControllerService" >
+        <service android:name="info.curtbinder.reefangel.service.ControllerService" >
         </service>
-        <service android:name=".UpdateService" >
+        <service android:name="info.curtbinder.reefangel.service.UpdateService" >
         </service>
 
         <receiver android:name=".BootReceiver" >
