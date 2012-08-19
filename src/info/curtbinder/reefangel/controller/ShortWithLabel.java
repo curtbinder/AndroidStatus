@@ -1,4 +1,4 @@
-package info.curtbinder.reefangel.phone;
+package info.curtbinder.reefangel.controller;
 
 /*
  * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)

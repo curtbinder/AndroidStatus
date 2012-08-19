@@ -1,7 +1,5 @@
 package info.curtbinder.reefangel.controller;
 
-import info.curtbinder.reefangel.phone.NumberWithLabel;
-import info.curtbinder.reefangel.phone.ShortWithLabel;
 
 /*
  * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)

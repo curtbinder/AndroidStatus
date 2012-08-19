@@ -1,4 +1,4 @@
-package info.curtbinder.reefangel.phone;
+package info.curtbinder.reefangel.controller;
 
 /*
  * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
@@ -8,7 +8,6 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
-import info.curtbinder.reefangel.controller.Number;
 
 public class NumberWithLabel {
 
