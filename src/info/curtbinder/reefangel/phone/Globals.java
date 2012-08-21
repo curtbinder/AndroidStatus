@@ -29,50 +29,6 @@ public final class Globals {
 	public static final int memoryReadOnly = -1;
 	public static final int defaultPort = 9;
 	
-	// XML tags
-	public static final String xmlStatus = "RA";
-	public static final String xmlMemory = "MEM";
-	public static final String xmlMemorySingle = "M";
-	public static final String xmlDateTime = "D";
-	public static final String xmlVersion = "V";
-	public static final String xmlMode = "MODE";
-	public static final String xmlT1 = "T1";
-	public static final String xmlT2 = "T2";
-	public static final String xmlT3 = "T3";
-	public static final String xmlPH = "PH";
-	public static final String xmlATOLow = "ATOLOW";
-	public static final String xmlATOHigh = "ATOHIGH";
-	public static final String xmlSalinity = "SAL";
-	public static final String xmlORP = "ORP";
-	public static final String xmlPWMDaylight = "PWMD";
-	public static final String xmlPWMActinic = "PWMA";
-	public static final String xmlPWMExpansion = "PWME";
-	public static final String xmlRelay = "R";
-	public static final String xmlRelayMaskOn = "RON";
-	public static final String xmlRelayMaskOff = "ROFF";
-	public static final String xmlLogDate = "LOGDATE";
-	public static final String xmlLabelTempBegin = "T";
-	public static final String xmlLabelEnd = "N";
-	public static final String xmlRelayExpansionModules = "REM";
-	public static final String xmlExpansionModules = "EM";
-	public static final String xmlAIWhite = "AIW";
-	public static final String xmlAIBlue = "AIB";
-	public static final String xmlAIRoyalBlue = "AIRB";
-	public static final String xmlRFMode = "RFM";
-	public static final String xmlRFSpeed = "RFS";
-	public static final String xmlRFDuration = "RFD";
-	public static final String xmlRFWhite = "RFW";
-	public static final String xmlRFRoyalBlue = "RFRB";
-	public static final String xmlRFRed = "RFR";
-	public static final String xmlRFGreen = "RFG";
-	public static final String xmlRFBlue = "RFB";
-	public static final String xmlRFIntensity = "RFI";
-	public static final String xmlIO = "IO";
-	public static final String xmlCustom = "C";
-	public static final String xmlPHExpansion = "PHE";
-	public static final String xmlWaterLevel = "WL";
-	public static final String xmlMyReefAngelID = "MYREEFANGELID";
-	
 	// profile updating
 	public static final int profileAlways = 0;
 	public static final int profileOnlyAway = 1;
