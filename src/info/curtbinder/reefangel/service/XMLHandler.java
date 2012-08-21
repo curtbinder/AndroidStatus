@@ -10,7 +10,6 @@ package info.curtbinder.reefangel.service;
 
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.controller.DateTime;
-import info.curtbinder.reefangel.phone.Globals;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -108,9 +107,9 @@ public class XMLHandler extends DefaultHandler {
 		}
 		// Log.d(TAG, "End: r'" + requestType + "', t'" + tag + "', '" +
 		// currentElementText + "'");
-		// if ( (requestType.equals( Globals.requestStatus )) ||
-		// (requestType.startsWith( Globals.requestRelay )) ) {
-		if ( requestType.equals( Globals.requestStatus ) ) {
+		// if ( (requestType.equals( RequestCommands.Status )) ||
+		// (requestType.startsWith( RequestCommands.Relay )) ) {
+		if ( requestType.equals( RequestCommands.Status ) ) {
 			if ( tag.equals( XMLTags.xmlStatus ) ) {
 				return;
 			} else {
@@ -123,14 +122,14 @@ public class XMLHandler extends DefaultHandler {
 					processStatusXml( tag );
 				}
 			}
-		} else if ( requestType.equals( Globals.requestMemoryByte ) ) {
+		} else if ( requestType.equals( RequestCommands.MemoryByte ) ) {
 			if ( tag.equals( XMLTags.xmlMemory ) ) {
 				return;
 			} else {
 				processMemoryXml( tag );
 			}
 
-		} else if ( requestType.equals( Globals.requestDateTime ) ) {
+		} else if ( requestType.equals( RequestCommands.DateTime ) ) {
 			if ( tag.equals( XMLTags.xmlDateTime ) ) {
 				if ( !currentElementText.equals( "" ) ) {
 					// not empty meaning we have a status to report
@@ -142,9 +141,9 @@ public class XMLHandler extends DefaultHandler {
 				processDateTimeXml( tag );
 			}
 
-		} else if ( requestType.equals( Globals.requestVersion ) ) {
+		} else if ( requestType.equals( RequestCommands.Version ) ) {
 			processVersionXml( tag );
-		} else if ( requestType.equals( Globals.requestExitMode ) ) {
+		} else if ( requestType.equals( RequestCommands.ExitMode ) ) {
 			processModeXml( tag );
 		} else {
 			// TODO request none, set an error?
@@ -171,20 +170,20 @@ public class XMLHandler extends DefaultHandler {
 		if ( requestType.equals( "" ) ) {
 			// no request type, so set it based on the first element we process
 			if ( tag.equals( XMLTags.xmlStatus ) ) {
-				requestType = Globals.requestStatus;
+				requestType = RequestCommands.Status;
 			} else if ( qName.equals( XMLTags.xmlDateTime ) ) {
-				requestType = Globals.requestDateTime;
+				requestType = RequestCommands.DateTime;
 			} else if ( tag.equals( XMLTags.xmlVersion ) ) {
-				requestType = Globals.requestVersion;
+				requestType = RequestCommands.Version;
 			} else if ( tag.equals( XMLTags.xmlMode ) ) {
 				// all modes return the same response, just chose to use Exit
 				// Mode
-				requestType = Globals.requestExitMode;
+				requestType = RequestCommands.ExitMode;
 			} else if ( tag.startsWith( XMLTags.xmlMemorySingle ) ) {
 				// can be either type, just chose to use Bytes
-				requestType = Globals.requestMemoryByte;
+				requestType = RequestCommands.MemoryByte;
 			} else {
-				requestType = Globals.requestNone;
+				requestType = RequestCommands.None;
 			}
 		}
 	}

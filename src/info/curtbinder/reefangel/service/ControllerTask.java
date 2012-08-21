@@ -10,7 +10,6 @@ package info.curtbinder.reefangel.service;
 
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.controller.Relay;
-import info.curtbinder.reefangel.phone.Globals;
 import info.curtbinder.reefangel.phone.Permissions;
 import info.curtbinder.reefangel.phone.R;
 import info.curtbinder.reefangel.phone.RAApplication;
@@ -127,40 +126,40 @@ public class ControllerTask implements Runnable {
 			broadcastUpdateStatus( R.string.statusUpdatingDisplay );
 			if ( host.isRequestForLabels() ) {
 				broadcastLabelsResponse( xml.getRa() );
-			} else if ( host.getCommand().startsWith( Globals.requestRelay )
-						|| host.getCommand().equals( Globals.requestReefAngel ) ) {
+			} else if ( host.getCommand().startsWith( RequestCommands.Relay )
+						|| host.getCommand().equals( RequestCommands.ReefAngel ) ) {
 				broadcastUpdateDisplayData( xml.getRa() );
-			} else if ( host.getCommand().equals( Globals.requestMemoryByte )
-						|| host.getCommand().equals( Globals.requestMemoryInt ) ) {
+			} else if ( host.getCommand().equals( RequestCommands.MemoryByte )
+						|| host.getCommand().equals( RequestCommands.MemoryInt ) ) {
 				broadcastMemoryResponse(	xml.getMemoryResponse(),
 											host.isWrite() );
-			} else if ( host.getCommand().equals( Globals.requestFeedingMode ) ) {
+			} else if ( host.getCommand().equals( RequestCommands.FeedingMode ) ) {
 				broadcastCommandResponse(	R.string.labelFeedingMode,
 											xml.getModeResponse() );
-			} else if ( host.getCommand().equals( Globals.requestWaterMode ) ) {
+			} else if ( host.getCommand().equals( RequestCommands.WaterMode ) ) {
 				broadcastCommandResponse(	R.string.labelWaterMode,
 											xml.getModeResponse() );
-			} else if ( host.getCommand().equals( Globals.requestExitMode ) ) {
+			} else if ( host.getCommand().equals( RequestCommands.ExitMode ) ) {
 				broadcastCommandResponse(	R.string.labelExitMode,
 											xml.getModeResponse() );
-			} else if ( host.getCommand().equals( Globals.requestAtoClear ) ) {
+			} else if ( host.getCommand().equals( RequestCommands.AtoClear ) ) {
 				broadcastCommandResponse(	R.string.labelAtoClear,
 											xml.getModeResponse() );
-			} else if ( host.getCommand().equals( Globals.requestOverheatClear ) ) {
+			} else if ( host.getCommand().equals( RequestCommands.OverheatClear ) ) {
 				broadcastCommandResponse(	R.string.labelOverheatClear,
 											xml.getModeResponse() );
-			} else if ( host.getCommand().equals( Globals.requestVersion ) ) {
+			} else if ( host.getCommand().equals( RequestCommands.Version ) ) {
 				Intent i = new Intent( MessageCommands.VERSION_RESPONSE_INTENT );
 				i.putExtra( MessageCommands.VERSION_RESPONSE_STRING,
 							xml.getVersion() );
 				rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
-			} else if ( host.getCommand().equals( Globals.requestDateTime ) ) {
+			} else if ( host.getCommand().equals( RequestCommands.DateTime ) ) {
 				Intent i =
 						new Intent( MessageCommands.DATE_QUERY_RESPONSE_INTENT );
 				i.putExtra( MessageCommands.DATE_QUERY_RESPONSE_STRING,
 							xml.getDateTime() );
 				rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
-			} else if ( host.getCommand().startsWith( Globals.requestDateTime ) ) {
+			} else if ( host.getCommand().startsWith( RequestCommands.DateTime ) ) {
 				Intent i =
 						new Intent( MessageCommands.DATE_SEND_RESPONSE_INTENT );
 				i.putExtra( MessageCommands.DATE_SEND_RESPONSE_STRING,

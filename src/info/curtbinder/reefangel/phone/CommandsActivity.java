@@ -9,6 +9,7 @@ package info.curtbinder.reefangel.phone;
  */
 
 import info.curtbinder.reefangel.service.MessageCommands;
+import info.curtbinder.reefangel.service.RequestCommands;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -86,12 +87,12 @@ public class CommandsActivity extends BaseActivity implements OnClickListener {
 			case R.id.command_button_feed:
 				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
 				i.putExtra( MessageCommands.COMMAND_SEND_STRING,
-							Globals.requestFeedingMode );
+							RequestCommands.FeedingMode );
 				break;
 			case R.id.command_button_water:
 				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
 				i.putExtra( MessageCommands.COMMAND_SEND_STRING,
-							Globals.requestWaterMode );
+							RequestCommands.WaterMode );
 				break;
 			case R.id.command_button_version:
 				i.setAction( MessageCommands.VERSION_QUERY_INTENT );
@@ -99,18 +100,18 @@ public class CommandsActivity extends BaseActivity implements OnClickListener {
 			case R.id.command_button_ato_clear:
 				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
 				i.putExtra(  MessageCommands.COMMAND_SEND_STRING,
-				             Globals.requestAtoClear );
+				             RequestCommands.AtoClear );
 				break;
 			case R.id.command_button_overheat_clear:
 				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
 				i.putExtra(  MessageCommands.COMMAND_SEND_STRING,
-				             Globals.requestOverheatClear );
+				             RequestCommands.OverheatClear );
 				break;
 			default:
 			case R.id.command_button_exit:
 				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
 				i.putExtra( MessageCommands.COMMAND_SEND_STRING,
-							Globals.requestExitMode );
+							RequestCommands.ExitMode );
 				break;
 		}
 		sendBroadcast( i, Permissions.SEND_COMMAND );

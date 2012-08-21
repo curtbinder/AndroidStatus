@@ -8,8 +8,6 @@ package info.curtbinder.reefangel.service;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
-import info.curtbinder.reefangel.phone.Globals;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -39,11 +37,11 @@ public class Host {
 	private boolean labels;
 
 	Host () {
-		setDefaults( "", 80, Globals.requestNone );
+		setDefaults( "", 80, RequestCommands.None );
 	}
 
 	Host ( String userid ) {
-		setDefaults( "", 80, Globals.requestReefAngel );
+		setDefaults( "", 80, RequestCommands.ReefAngel );
 		raUserid = userid;
 	}
 
@@ -86,13 +84,13 @@ public class Host {
 
 	public void setUserId ( String userid ) {
 		raUserid = userid;
-		setCommand( Globals.requestReefAngel );
+		setCommand( RequestCommands.ReefAngel );
 	}
 
 	public void setGetLabelsOnly ( boolean getLabels ) {
 		// TODO consider putting a check for a valid raUserid
 		this.labels = true;
-		setCommand( Globals.requestReefAngel );
+		setCommand( RequestCommands.ReefAngel );
 	}
 
 	public boolean isRequestForLabels ( ) {
@@ -125,20 +123,20 @@ public class Host {
 
 	public String toString ( ) {
 		String s = "";
-		if ( (command.startsWith( Globals.requestRelay ))
-				|| (command.equals( Globals.requestStatus ))
-				|| (command.equals( Globals.requestVersion ))
-				|| (command.equals( Globals.requestFeedingMode ))
-				|| (command.equals( Globals.requestExitMode ))
-				|| (command.equals( Globals.requestWaterMode ))
-				|| (command.equals( Globals.requestAtoClear ))
-				|| (command.equals( Globals.requestOverheatClear ))
-				|| (command.startsWith( Globals.requestDateTime )) ) {
+		if ( (command.startsWith( RequestCommands.Relay ))
+				|| (command.equals( RequestCommands.Status ))
+				|| (command.equals( RequestCommands.Version ))
+				|| (command.equals( RequestCommands.FeedingMode ))
+				|| (command.equals( RequestCommands.ExitMode ))
+				|| (command.equals( RequestCommands.WaterMode ))
+				|| (command.equals( RequestCommands.AtoClear ))
+				|| (command.equals( RequestCommands.OverheatClear ))
+				|| (command.startsWith( RequestCommands.DateTime )) ) {
 			s =
 					new String( String.format(	"http://%s:%d%s", host, port,
 												command ) );
-		} else if ( (command.equals( Globals.requestMemoryInt ))
-					|| (command.equals( Globals.requestMemoryByte )) ) {
+		} else if ( (command.equals( RequestCommands.MemoryInt ))
+					|| (command.equals( RequestCommands.MemoryByte )) ) {
 			if ( write ) {
 				s =
 						new String( String.format(	"http://%s:%d%s%d,%d",
@@ -150,7 +148,7 @@ public class Host {
 						new String( String.format(	"http://%s:%d%s%d", host,
 													port, command, location ) );
 			}
-		} else if ( command.equals( Globals.requestReefAngel ) ) {
+		} else if ( command.equals( RequestCommands.ReefAngel ) ) {
 			String encodedId;
 			try {
 				encodedId = URLEncoder.encode( raUserid, "UTF-8" );

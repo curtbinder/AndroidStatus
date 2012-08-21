@@ -9,6 +9,7 @@ package info.curtbinder.reefangel.phone;
  */
 
 import info.curtbinder.reefangel.service.MessageCommands;
+import info.curtbinder.reefangel.service.RequestCommands;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -348,7 +349,7 @@ public class MemoryActivity extends BaseActivity {
 	private void sendMessage ( boolean write ) {
 		Log.d( TAG, "sendMessage" );
 		Intent i = new Intent( MessageCommands.MEMORY_SEND_INTENT );
-		String type = Globals.requestMemoryByte;
+		String type = RequestCommands.MemoryByte;
 		int value = Globals.memoryReadOnly;
 		int id = R.string.messageReadingMemory;
 
@@ -358,7 +359,7 @@ public class MemoryActivity extends BaseActivity {
 		}
 
 		if ( intButton.isChecked() )
-			type = Globals.requestMemoryInt;
+			type = RequestCommands.MemoryInt;
 
 		i.putExtra( MessageCommands.MEMORY_SEND_TYPE_STRING, type );
 		i.putExtra( MessageCommands.MEMORY_SEND_LOCATION_INT,

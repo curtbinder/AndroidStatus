@@ -1,6 +1,14 @@
 package info.curtbinder.reefangel.controller;
 
-import info.curtbinder.reefangel.phone.Globals;
+/*
+ * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
+ * 
+ * This work is made available under the terms of the Creative Commons
+ * Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * http://creativecommons.org/licenses/by-nc-sa/3.0/
+ */
+
+import info.curtbinder.reefangel.service.RequestCommands;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -135,7 +143,7 @@ public class DateTime {
 			int mon,
 			int day,
 			int yr ) {
-		String cmd = Globals.requestDateTime;
+		String cmd = RequestCommands.DateTime;
 		cmd +=
 				String.format(	"%02d%02d,%02d%02d,%02d", hr, min, mon + 1,
 								day,

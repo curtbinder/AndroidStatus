@@ -94,11 +94,11 @@ public class UpdateService extends IntentService {
 			}
 			h.setHost( host );
 			h.setPort( port );
-			h.setCommand( Globals.requestStatus );
+			h.setCommand( RequestCommands.Status );
 		} else {
 			// reeefangel.com / portal
 			h.setUserId( rapp.getPrefUserId() );
-			h.setCommand( Globals.requestReefAngel );
+			h.setCommand( RequestCommands.ReefAngel );
 		}
 		Log.d( TAG, "AutoUpdate: " + h.toString() );
 		runTask( h );
@@ -106,7 +106,7 @@ public class UpdateService extends IntentService {
 
 	private void processRACommand ( Intent intent ) {
 		String action = intent.getAction();
-		String command = Globals.requestNone;
+		String command = RequestCommands.None;
 		boolean isController = rapp.isCommunicateController();
 		Host h = new Host();
 
@@ -123,9 +123,9 @@ public class UpdateService extends IntentService {
 		if ( action.equals( MessageCommands.QUERY_STATUS_INTENT ) ) {
 			Log.d( TAG, "Query status" );
 			if ( isController )
-				command = Globals.requestStatus;
+				command = RequestCommands.Status;
 			else
-				command = Globals.requestReefAngel;
+				command = RequestCommands.ReefAngel;
 
 			h.setCommand( command );
 		} else if ( action.equals( MessageCommands.TOGGLE_RELAY_INTENT ) ) {
@@ -134,13 +134,13 @@ public class UpdateService extends IntentService {
 				command =
 						new String(
 							String.format(	"%s%d%d",
-											Globals.requestRelay,
+											RequestCommands.Relay,
 											intent.getIntExtra( MessageCommands.TOGGLE_RELAY_PORT_INT,
 																Globals.defaultPort ),
 											intent.getIntExtra( MessageCommands.TOGGLE_RELAY_MODE_INT,
 																Globals.defaultPort ) ) );
 			else
-				command = Globals.requestReefAngel;
+				command = RequestCommands.ReefAngel;
 
 			h.setCommand( command );
 		} else if ( action.equals( MessageCommands.MEMORY_SEND_INTENT ) ) {
@@ -187,14 +187,14 @@ public class UpdateService extends IntentService {
 				notControllerMessage();
 				return;
 			}
-			h.setCommand( Globals.requestVersion );
+			h.setCommand( RequestCommands.Version );
 		} else if ( action.equals( MessageCommands.DATE_QUERY_INTENT ) ) {
 			Log.d( TAG, "Query Date" );
 			if ( !isController ) {
 				notControllerMessage();
 				return;
 			}
-			h.setCommand( Globals.requestDateTime );
+			h.setCommand( RequestCommands.DateTime );
 		} else if ( action.equals( MessageCommands.DATE_SEND_INTENT ) ) {
 			Log.d( TAG, "Set Date" );
 			if ( !isController ) {
