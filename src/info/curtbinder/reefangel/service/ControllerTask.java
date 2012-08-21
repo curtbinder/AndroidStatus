@@ -11,7 +11,6 @@ package info.curtbinder.reefangel.service;
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.controller.Relay;
 import info.curtbinder.reefangel.phone.Globals;
-import info.curtbinder.reefangel.phone.MessageCommands;
 import info.curtbinder.reefangel.phone.Permissions;
 import info.curtbinder.reefangel.phone.R;
 import info.curtbinder.reefangel.phone.RAApplication;

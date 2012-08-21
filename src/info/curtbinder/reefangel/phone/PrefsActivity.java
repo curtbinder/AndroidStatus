@@ -9,6 +9,7 @@ package info.curtbinder.reefangel.phone;
  */
 
 import info.curtbinder.reefangel.controller.Controller;
+import info.curtbinder.reefangel.service.MessageCommands;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;

@@ -9,9 +9,7 @@ package info.curtbinder.reefangel.phone;
  */
 
 
-public final class Globals {
-	public static final String PACKAGE_BASE = "info.curtbinder.reefangel.phone";
-	
+public final class Globals {	
 	// Requests
 	public static final String requestMemoryByte = "/mb";
 	public static final String requestMemoryInt = "/mi";

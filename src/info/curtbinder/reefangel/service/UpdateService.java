@@ -9,7 +9,6 @@ package info.curtbinder.reefangel.service;
  */
 
 import info.curtbinder.reefangel.phone.Globals;
-import info.curtbinder.reefangel.phone.MessageCommands;
 import info.curtbinder.reefangel.phone.R;
 import info.curtbinder.reefangel.phone.RAApplication;
 import android.app.IntentService;

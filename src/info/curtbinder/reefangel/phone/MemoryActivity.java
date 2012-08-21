@@ -8,6 +8,7 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
+import info.curtbinder.reefangel.service.MessageCommands;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;

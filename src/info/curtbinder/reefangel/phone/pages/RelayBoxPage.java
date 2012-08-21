@@ -10,9 +10,9 @@ package info.curtbinder.reefangel.phone.pages;
 
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.controller.Relay;
-import info.curtbinder.reefangel.phone.MessageCommands;
 import info.curtbinder.reefangel.phone.Permissions;
 import info.curtbinder.reefangel.phone.R;
+import info.curtbinder.reefangel.service.MessageCommands;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;

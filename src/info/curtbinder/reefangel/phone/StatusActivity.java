@@ -18,6 +18,7 @@ import info.curtbinder.reefangel.phone.pages.IOPage;
 import info.curtbinder.reefangel.phone.pages.RadionPage;
 import info.curtbinder.reefangel.phone.pages.RelayBoxPage;
 import info.curtbinder.reefangel.phone.pages.VortechPage;
+import info.curtbinder.reefangel.service.MessageCommands;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
