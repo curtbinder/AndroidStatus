@@ -110,27 +110,27 @@ public class XMLHandler extends DefaultHandler {
 		// if ( (requestType.equals( RequestCommands.Status )) ||
 		// (requestType.startsWith( RequestCommands.Relay )) ) {
 		if ( requestType.equals( RequestCommands.Status ) ) {
-			if ( tag.equals( XMLTags.xmlStatus ) ) {
+			if ( tag.equals( XMLTags.Status ) ) {
 				return;
 			} else {
 				// Parameter status and Labels are sent using the same XML outer
 				// tag
-				if ( tag.endsWith( XMLTags.xmlLabelEnd )
-						&& !tag.equals( XMLTags.xmlRelayMaskOn ) ) {
+				if ( tag.endsWith( XMLTags.LabelEnd )
+						&& !tag.equals( XMLTags.RelayMaskOn ) ) {
 					processLabelXml( tag );
 				} else {
 					processStatusXml( tag );
 				}
 			}
 		} else if ( requestType.equals( RequestCommands.MemoryByte ) ) {
-			if ( tag.equals( XMLTags.xmlMemory ) ) {
+			if ( tag.equals( XMLTags.Memory ) ) {
 				return;
 			} else {
 				processMemoryXml( tag );
 			}
 
 		} else if ( requestType.equals( RequestCommands.DateTime ) ) {
-			if ( tag.equals( XMLTags.xmlDateTime ) ) {
+			if ( tag.equals( XMLTags.DateTime ) ) {
 				if ( !currentElementText.equals( "" ) ) {
 					// not empty meaning we have a status to report
 					// either OK or ERR
@@ -169,17 +169,17 @@ public class XMLHandler extends DefaultHandler {
 		// Log.d(TAG, "start: r'" + requestType + "', t'" + tag + "'");
 		if ( requestType.equals( "" ) ) {
 			// no request type, so set it based on the first element we process
-			if ( tag.equals( XMLTags.xmlStatus ) ) {
+			if ( tag.equals( XMLTags.Status ) ) {
 				requestType = RequestCommands.Status;
-			} else if ( qName.equals( XMLTags.xmlDateTime ) ) {
+			} else if ( qName.equals( XMLTags.DateTime ) ) {
 				requestType = RequestCommands.DateTime;
-			} else if ( tag.equals( XMLTags.xmlVersion ) ) {
+			} else if ( tag.equals( XMLTags.Version ) ) {
 				requestType = RequestCommands.Version;
-			} else if ( tag.equals( XMLTags.xmlMode ) ) {
+			} else if ( tag.equals( XMLTags.Mode ) ) {
 				// all modes return the same response, just chose to use Exit
 				// Mode
 				requestType = RequestCommands.ExitMode;
-			} else if ( tag.startsWith( XMLTags.xmlMemorySingle ) ) {
+			} else if ( tag.startsWith( XMLTags.MemorySingle ) ) {
 				// can be either type, just chose to use Bytes
 				requestType = RequestCommands.MemoryByte;
 			} else {
@@ -190,125 +190,125 @@ public class XMLHandler extends DefaultHandler {
 
 	private void processStatusXml ( String tag ) {
 		Log.d( TAG, "statusXML: " + tag );
-		if ( tag.equals( XMLTags.xmlT1 ) ) {
+		if ( tag.equals( XMLTags.T1 ) ) {
 			ra.setTemp1( Integer.parseInt( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlT2 ) ) {
+		} else if ( tag.equals( XMLTags.T2 ) ) {
 			ra.setTemp2( Integer.parseInt( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlT3 ) ) {
+		} else if ( tag.equals( XMLTags.T3 ) ) {
 			ra.setTemp3( Integer.parseInt( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlPH ) ) {
+		} else if ( tag.equals( XMLTags.PH ) ) {
 			ra.setPH( Integer.parseInt( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlPHExpansion ) ) {
+		} else if ( tag.equals( XMLTags.PHExpansion ) ) {
 			ra.setPHExp( Integer.parseInt( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlATOLow ) ) {
+		} else if ( tag.equals( XMLTags.ATOLow ) ) {
 			boolean f = false;
 			if ( Short.parseShort( currentElementText ) == 1 ) {
 				f = true;
 			}
 			ra.setAtoLow( f );
-		} else if ( tag.equals( XMLTags.xmlATOHigh ) ) {
+		} else if ( tag.equals( XMLTags.ATOHigh ) ) {
 			boolean f = false;
 			if ( Short.parseShort( currentElementText ) == 1 ) {
 				f = true;
 			}
 			ra.setAtoHigh( f );
-		} else if ( tag.equals( XMLTags.xmlPWMActinic ) ) {
+		} else if ( tag.equals( XMLTags.PWMActinic ) ) {
 			short v = Short.parseShort( currentElementText );
 			ra.setPwmA( v );
-		} else if ( tag.equals( XMLTags.xmlPWMDaylight ) ) {
+		} else if ( tag.equals( XMLTags.PWMDaylight ) ) {
 			short v = Short.parseShort( currentElementText );
 			ra.setPwmD( v );
-		} else if ( tag.startsWith( XMLTags.xmlPWMExpansion ) ) {
+		} else if ( tag.startsWith( XMLTags.PWMExpansion ) ) {
 			short channel =
-					Short.parseShort( tag.substring( XMLTags.xmlPWMExpansion
+					Short.parseShort( tag.substring( XMLTags.PWMExpansion
 							.length() ) );
 			short v = Short.parseShort( currentElementText );
 			ra.setPwmExpansion( channel, v );
-		} else if ( tag.equals( XMLTags.xmlSalinity ) ) {
+		} else if ( tag.equals( XMLTags.Salinity ) ) {
 			ra.setSalinity( Integer.parseInt( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlORP ) ) {
+		} else if ( tag.equals( XMLTags.ORP ) ) {
 			ra.setORP( Integer.parseInt( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlWaterLevel ) ) {
+		} else if ( tag.equals( XMLTags.WaterLevel ) ) {
 			short v = Short.parseShort( currentElementText );
 			ra.setWaterLevel( v );
-		} else if ( tag.equals( XMLTags.xmlRelay ) ) {
+		} else if ( tag.equals( XMLTags.Relay ) ) {
 			ra.setMainRelayData( Short.parseShort( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlRelayMaskOn ) ) {
+		} else if ( tag.equals( XMLTags.RelayMaskOn ) ) {
 			ra.setMainRelayOnMask( Short.parseShort( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlRelayMaskOff ) ) {
+		} else if ( tag.equals( XMLTags.RelayMaskOff ) ) {
 			ra.setMainRelayOffMask( Short.parseShort( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlLogDate ) ) {
+		} else if ( tag.equals( XMLTags.LogDate ) ) {
 			ra.setLogDate( currentElementText );
-		} else if ( tag.equals( XMLTags.xmlRelayExpansionModules ) ) {
+		} else if ( tag.equals( XMLTags.RelayExpansionModules ) ) {
 			short v = Short.parseShort( currentElementText );
 			ra.setRelayExpansionModules( v );
-		} else if ( tag.equals( XMLTags.xmlExpansionModules ) ) {
+		} else if ( tag.equals( XMLTags.ExpansionModules ) ) {
 			short v = Short.parseShort( currentElementText );
 			ra.setExpansionModules( v );
-		} else if ( tag.equals( XMLTags.xmlAIBlue ) ) {
+		} else if ( tag.equals( XMLTags.AIBlue ) ) {
 			ra.setAIChannel(	Controller.AI_BLUE,
 								Short.parseShort( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlAIRoyalBlue ) ) {
+		} else if ( tag.equals( XMLTags.AIRoyalBlue ) ) {
 			ra.setAIChannel(	Controller.AI_ROYALBLUE,
 								Short.parseShort( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlAIWhite ) ) {
+		} else if ( tag.equals( XMLTags.AIWhite ) ) {
 			ra.setAIChannel(	Controller.AI_WHITE,
 								Short.parseShort( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlRFMode ) ) {
+		} else if ( tag.equals( XMLTags.RFMode ) ) {
 			ra.setVortechValue( Controller.VORTECH_MODE,
 								Short.parseShort( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlRFSpeed ) ) {
+		} else if ( tag.equals( XMLTags.RFSpeed ) ) {
 			ra.setVortechValue( Controller.VORTECH_SPEED,
 								Short.parseShort( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlRFDuration ) ) {
+		} else if ( tag.equals( XMLTags.RFDuration ) ) {
 			ra.setVortechValue( Controller.VORTECH_DURATION,
 								Short.parseShort( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlRFWhite ) ) {
+		} else if ( tag.equals( XMLTags.RFWhite ) ) {
 			ra.setRadionChannel(	Controller.RADION_WHITE,
 									Short.parseShort( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlRFBlue ) ) {
+		} else if ( tag.equals( XMLTags.RFBlue ) ) {
 			ra.setRadionChannel(	Controller.RADION_BLUE,
 									Short.parseShort( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlRFGreen ) ) {
+		} else if ( tag.equals( XMLTags.RFGreen ) ) {
 			ra.setRadionChannel(	Controller.RADION_GREEN,
 									Short.parseShort( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlRFRed ) ) {
+		} else if ( tag.equals( XMLTags.RFRed ) ) {
 			ra.setRadionChannel(	Controller.RADION_RED,
 									Short.parseShort( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlRFRoyalBlue ) ) {
+		} else if ( tag.equals( XMLTags.RFRoyalBlue ) ) {
 			ra.setRadionChannel(	Controller.RADION_ROYALBLUE,
 									Short.parseShort( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlRFIntensity ) ) {
+		} else if ( tag.equals( XMLTags.RFIntensity ) ) {
 			ra.setRadionChannel(	Controller.RADION_INTENSITY,
 									Short.parseShort( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlIO ) ) {
+		} else if ( tag.equals( XMLTags.IO ) ) {
 			ra.setIOChannels( Short.parseShort( currentElementText ) );
-		} else if ( tag.startsWith( XMLTags.xmlCustom ) ) {
+		} else if ( tag.startsWith( XMLTags.Custom ) ) {
 			short v =
-					Short.parseShort( tag.substring( XMLTags.xmlCustom.length() ) );
+					Short.parseShort( tag.substring( XMLTags.Custom.length() ) );
 			short c = Short.parseShort( currentElementText );
 			ra.setCustomVariable( v, c );
-		} else if ( tag.startsWith( XMLTags.xmlRelayMaskOn ) ) {
+		} else if ( tag.startsWith( XMLTags.RelayMaskOn ) ) {
 			int relay =
-					Integer.parseInt( tag.substring( XMLTags.xmlRelayMaskOn
+					Integer.parseInt( tag.substring( XMLTags.RelayMaskOn
 							.length() ) );
 			if ( fUse085XRelays )
 				relay += 1;
 			ra.setExpRelayOnMask( relay, Short.parseShort( currentElementText ) );
-		} else if ( tag.startsWith( XMLTags.xmlRelayMaskOff ) ) {
+		} else if ( tag.startsWith( XMLTags.RelayMaskOff ) ) {
 			int relay =
-					Integer.parseInt( tag.substring( XMLTags.xmlRelayMaskOff
+					Integer.parseInt( tag.substring( XMLTags.RelayMaskOff
 							.length() ) );
 			if ( fUse085XRelays )
 				relay += 1;
 			ra.setExpRelayOffMask( relay, Short.parseShort( currentElementText ) );
-		} else if ( tag.startsWith( XMLTags.xmlRelay ) ) {
+		} else if ( tag.startsWith( XMLTags.Relay ) ) {
 			int relay =
-					Integer.parseInt( tag.substring( XMLTags.xmlRelay.length() ) );
+					Integer.parseInt( tag.substring( XMLTags.Relay.length() ) );
 			if ( fUse085XRelays )
 				relay += 1;
 			ra.setExpRelayData( relay, Short.parseShort( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlMyReefAngelID ) ) {
+		} else if ( tag.equals( XMLTags.MyReefAngelID ) ) {
 			Log.d( TAG, "Reefangel ID: " + currentElementText );
 		} else {
 			Log.d( TAG, "Unhandled XML tag (" + tag + ") with data: "
@@ -329,20 +329,20 @@ public class XMLHandler extends DefaultHandler {
 			return;
 		}
 
-		if ( tag.startsWith( XMLTags.xmlLabelTempBegin ) ) {
+		if ( tag.startsWith( XMLTags.LabelTempBegin ) ) {
 			// handle temp sensor labels
 			int sensor =
 					Integer.parseInt( getTagNumber( tag,
-													XMLTags.xmlLabelTempBegin,
-													XMLTags.xmlLabelEnd ) );
+													XMLTags.LabelTempBegin,
+													XMLTags.LabelEnd ) );
 			if ( sensor < 0 || sensor > Controller.MAX_TEMP_SENSORS )
 				Log.e( TAG, "Incorrect sensor number: " + tag );
 			ra.setTempLabel( sensor, currentElementText );
-		} else if ( tag.startsWith( XMLTags.xmlRelay ) ) {
+		} else if ( tag.startsWith( XMLTags.Relay ) ) {
 			// handle relay labels
 			int relay =
-					Integer.parseInt( getTagNumber( tag, XMLTags.xmlRelay,
-													XMLTags.xmlLabelEnd ) );
+					Integer.parseInt( getTagNumber( tag, XMLTags.Relay,
+													XMLTags.LabelEnd ) );
 			if ( relay < 10 ) {
 				// main relay
 				ra.getMainRelay().setPortLabel( relay, currentElementText );
@@ -352,42 +352,42 @@ public class XMLHandler extends DefaultHandler {
 				int port = relay % 10;
 				ra.getExpRelay( box ).setPortLabel( port, currentElementText );
 			}
-		} else if ( tag.startsWith( XMLTags.xmlPWMExpansion ) ) {
+		} else if ( tag.startsWith( XMLTags.PWMExpansion ) ) {
 			// PWME
 			short channel =
 					Short.parseShort( getTagNumber( tag,
-													XMLTags.xmlPWMExpansion,
-													XMLTags.xmlLabelEnd ) );
+													XMLTags.PWMExpansion,
+													XMLTags.LabelEnd ) );
 			Log.d( TAG, "PWM #" + channel + ": " + currentElementText );
 			ra.setPwmExpansionLabel( channel, currentElementText );
-		} else if ( tag.equals( XMLTags.xmlPHExpansion + XMLTags.xmlLabelEnd ) ) {
+		} else if ( tag.equals( XMLTags.PHExpansion + XMLTags.LabelEnd ) ) {
 			// PHE
 			Log.d( TAG, "PHExp Label: " + currentElementText );
 			ra.setPHExpLabel( currentElementText );
-		} else if ( tag.equals( XMLTags.xmlPH + XMLTags.xmlLabelEnd ) ) {
+		} else if ( tag.equals( XMLTags.PH + XMLTags.LabelEnd ) ) {
 			// PH
 			Log.d( TAG, "PH Label: " + currentElementText );
 			ra.setPHLabel( currentElementText );
-		} else if ( tag.equals( XMLTags.xmlSalinity + XMLTags.xmlLabelEnd ) ) {
+		} else if ( tag.equals( XMLTags.Salinity + XMLTags.LabelEnd ) ) {
 			// SAL
 			Log.d( TAG, "Salinity Label: " + currentElementText );
 			ra.setSalinityLabel( currentElementText );
-		} else if ( tag.equals( XMLTags.xmlORP + XMLTags.xmlLabelEnd ) ) {
+		} else if ( tag.equals( XMLTags.ORP + XMLTags.LabelEnd ) ) {
 			// ORP
 			Log.d( TAG, "ORP Label: " + currentElementText );
 			ra.setORPLabel( currentElementText );
-		} else if ( tag.startsWith( XMLTags.xmlCustom ) ) {
+		} else if ( tag.startsWith( XMLTags.Custom ) ) {
 			// C
 			short v =
-					Short.parseShort( getTagNumber( tag, XMLTags.xmlCustom,
-													XMLTags.xmlLabelEnd ) );
+					Short.parseShort( getTagNumber( tag, XMLTags.Custom,
+													XMLTags.LabelEnd ) );
 			Log.d( TAG, "Custom #" + v + ": " + currentElementText );
 			ra.setCustomVariableLabel( v, currentElementText );
-		} else if ( tag.startsWith( XMLTags.xmlIO ) ) {
+		} else if ( tag.startsWith( XMLTags.IO ) ) {
 			// IO
 			short v =
-					Short.parseShort( getTagNumber( tag, XMLTags.xmlIO,
-													XMLTags.xmlLabelEnd ) );
+					Short.parseShort( getTagNumber( tag, XMLTags.IO,
+													XMLTags.LabelEnd ) );
 			Log.d( TAG, "IO #" + v + ": " + currentElementText );
 			ra.setIOChannelLabel( v, currentElementText );
 		} else {
@@ -397,38 +397,38 @@ public class XMLHandler extends DefaultHandler {
 
 	private void processDateTimeXml ( String tag ) {
 		// Response will be more XML data or OK
-		if ( tag.equals( XMLTags.xmlHour ) ) {
+		if ( tag.equals( XMLTags.Hour ) ) {
 			dt.setHour( Integer.parseInt( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlMinute ) ) {
+		} else if ( tag.equals( XMLTags.Minute ) ) {
 			dt.setMinute( Integer.parseInt( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlMonth ) ) {
+		} else if ( tag.equals( XMLTags.Month ) ) {
 			// controller uses 1 based for month
 			// java uses 0 based for month
 			dt.setMonth( Integer.parseInt( currentElementText ) - 1 );
-		} else if ( tag.equals( XMLTags.xmlDay ) ) {
+		} else if ( tag.equals( XMLTags.Day ) ) {
 			dt.setDay( Integer.parseInt( currentElementText ) );
-		} else if ( tag.equals( XMLTags.xmlYear ) ) {
+		} else if ( tag.equals( XMLTags.Year ) ) {
 			dt.setYear( Integer.parseInt( currentElementText ) );
 		}
 	}
 
 	private void processVersionXml ( String tag ) {
 		// Response will be the Version
-		if ( tag.equals( XMLTags.xmlVersion ) ) {
+		if ( tag.equals( XMLTags.Version ) ) {
 			version = currentElementText;
 		}
 	}
 
 	private void processMemoryXml ( String tag ) {
 		// Responses will be either: OK, value, ERR
-		if ( tag.startsWith( XMLTags.xmlMemorySingle ) ) {
+		if ( tag.startsWith( XMLTags.MemorySingle ) ) {
 			memoryResponse = currentElementText;
 		}
 	}
 
 	private void processModeXml ( String tag ) {
 		// Response will be either: OK or ERR
-		if ( tag.startsWith( XMLTags.xmlMode ) ) {
+		if ( tag.startsWith( XMLTags.Mode ) ) {
 			modeResponse = currentElementText;
 		}
 	}
