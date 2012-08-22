@@ -53,75 +53,61 @@ public class PrefsActivity extends PreferenceActivity implements
 		filter = new IntentFilter( MessageCommands.LABEL_RESPONSE_INTENT );
 
 		Preference porthomekey =
-				getPreferenceScreen()
-						.findPreference( rapp.getString( R.string.prefPortKey ) );
+				findPreference( rapp.getString( R.string.prefPortKey ) );
 		porthomekey.setOnPreferenceChangeListener( this );
 		Preference hosthomekey =
-				getPreferenceScreen()
-						.findPreference( rapp.getString( R.string.prefHostKey ) );
+				findPreference( rapp.getString( R.string.prefHostKey ) );
 		hosthomekey.setOnPreferenceChangeListener( this );
 		Preference portawaykey =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefPortAwayKey ) );
+				findPreference( rapp.getString( R.string.prefPortAwayKey ) );
 		portawaykey.setOnPreferenceChangeListener( this );
 		Preference hostawaykey =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefHostAwayKey ) );
+				findPreference( rapp.getString( R.string.prefHostAwayKey ) );
 		hostawaykey.setOnPreferenceChangeListener( this );
 		Preference useridkey =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefUserIdKey ) );
+				findPreference( rapp.getString( R.string.prefUserIdKey ) );
 		useridkey.setOnPreferenceChangeListener( this );
 		explabelkey =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefExpLabelsKey ) );
-		exp085xkey =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefExp085xKey ) );
+				findPreference( rapp.getString( R.string.prefExpLabelsKey ) );
+		exp085xkey = findPreference( rapp.getString( R.string.prefExp085xKey ) );
 		explabels[0] =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefExp1RelayKey ) );
+				findPreference( rapp.getString( R.string.prefExp1RelayKey ) );
 		explabels[1] =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefExp2RelayKey ) );
+				findPreference( rapp.getString( R.string.prefExp2RelayKey ) );
 		explabels[2] =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefExp3RelayKey ) );
+				findPreference( rapp.getString( R.string.prefExp3RelayKey ) );
 		explabels[3] =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefExp4RelayKey ) );
+				findPreference( rapp.getString( R.string.prefExp4RelayKey ) );
 		explabels[4] =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefExp5RelayKey ) );
+				findPreference( rapp.getString( R.string.prefExp5RelayKey ) );
 		explabels[5] =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefExp6RelayKey ) );
+				findPreference( rapp.getString( R.string.prefExp6RelayKey ) );
 		explabels[6] =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefExp7RelayKey ) );
+				findPreference( rapp.getString( R.string.prefExp7RelayKey ) );
 		explabels[7] =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefExp8RelayKey ) );
+				findPreference( rapp.getString( R.string.prefExp8RelayKey ) );
 		updateExpansionLabelsVisibility( rapp.getPrefExpansionRelayQuantity() );
 
 		profilekey =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefProfileSelectedKey ) );
+				findPreference( rapp
+						.getString( R.string.prefProfileSelectedKey ) );
 		updateSelectedProfileVisibility();
 
 		updateprofilekey =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefAutoUpdateProfileKey ) );
+				findPreference( rapp
+						.getString( R.string.prefAutoUpdateProfileKey ) );
 		updateprofilekey.setOnPreferenceChangeListener( this );
 		if ( rapp.isAwayProfileEnabled() ) {
 			updateAutoUpdateProfileVisibility( true );
 		} else {
 			updateAutoUpdateProfileVisibility( false );
 		}
+		updateprofilekey.setSummary( rapp.getUpdateProfileDisplay() );
+		findPreference( rapp.getString( R.string.prefAutoUpdateIntervalKey ) )
+				.setSummary( rapp.getUpdateIntervalDisplay() );
 
 		Preference changelog =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefChangelogKey ) );
+				findPreference( rapp.getString( R.string.prefChangelogKey ) );
 		changelog
 				.setOnPreferenceClickListener( new OnPreferenceClickListener() {
 
@@ -133,8 +119,8 @@ public class PrefsActivity extends PreferenceActivity implements
 				} );
 
 		downloadkey =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefControllerLabelsDownloadKey ) );
+				findPreference( rapp
+						.getString( R.string.prefControllerLabelsDownloadKey ) );
 		downloadkey
 				.setOnPreferenceClickListener( new OnPreferenceClickListener() {
 					@Override
@@ -186,8 +172,7 @@ public class PrefsActivity extends PreferenceActivity implements
 		updateDownloadLabelUserId( rapp.getPrefUserId() );
 
 		Preference resetkey =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefResetLabelsKey ) );
+				findPreference( rapp.getString( R.string.prefResetLabelsKey ) );
 		resetkey.setOnPreferenceClickListener( new OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick ( Preference preference ) {
@@ -424,6 +409,9 @@ public class PrefsActivity extends PreferenceActivity implements
 		} else if ( key.equals( rapp
 				.getString( R.string.prefAutoUpdateIntervalKey ) ) ) {
 			// when interval changes, update the repeat service
+			// updateprofilekey.setSummary( rapp.getUpdateIntervalDisplay() );
+			findPreference( rapp.getString( R.string.prefAutoUpdateIntervalKey ) )
+					.setSummary( rapp.getUpdateIntervalDisplay() );
 			rapp.restartAutoUpdateService();
 			boolean fVisible = false;
 			if ( rapp.isAwayProfileEnabled() && (rapp.getUpdateInterval() > 0) ) {
@@ -434,6 +422,7 @@ public class PrefsActivity extends PreferenceActivity implements
 		} else if ( key.equals( rapp
 				.getString( R.string.prefAutoUpdateProfileKey ) ) ) {
 			// restart the update service if we change the update profile
+			updateprofilekey.setSummary( rapp.getUpdateProfileDisplay() );
 			rapp.restartAutoUpdateService();
 		} else if ( key.equals( rapp.getString( R.string.prefDeviceKey ) ) ) {
 			// device changes

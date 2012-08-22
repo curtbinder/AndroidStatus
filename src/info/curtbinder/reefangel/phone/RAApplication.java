@@ -152,7 +152,7 @@ public class RAApplication extends Application {
 				break;
 		}
 		String s =
-				String.format(	"%s, %d m, %s", profile, interval / 60000,
+				String.format(	"%s, %s m, %s", profile, getUpdateIntervalDisplay(),
 								(type == AlarmManager.RTC_WAKEUP)	? "wakeup"
 																	: "none" );
 		Log.d( TAG, "started auto update: " + s );
@@ -167,7 +167,7 @@ public class RAApplication extends Application {
 											PendingIntent.FLAG_CANCEL_CURRENT );
 		return pi;
 	}
-
+	
 	// Data handling
 	public void insertData ( Intent i ) {
 		ContentValues v = new ContentValues();
@@ -484,6 +484,22 @@ public class RAApplication extends Application {
 		long i = Long.parseLong( s );
 		return i;
 	}
+	
+	public String getUpdateIntervalDisplay ( ) {
+		int pos = 0;
+		long value = getUpdateInterval();
+		String[] interval = getResources().getStringArray( R.array.updateIntervalValues );
+		String[] intervaldisplay =
+				getResources().getStringArray( R.array.updateInterval );
+		for ( int i = 0; i < interval.length; i++ ) {
+			if ( Long.parseLong( interval[i] ) == value ) {
+				// found value
+				pos = i;
+				break;
+			}
+		}
+		return intervaldisplay[pos];
+	}
 
 	public boolean isWakeupEnabled ( ) {
 		// TODO do we wake up the device to run the auto status updates or not?
@@ -496,6 +512,22 @@ public class RAApplication extends Application {
 									getString( R.string.prefAutoUpdateProfileDefault ) );
 		int i = Integer.parseInt( s );
 		return i;
+	}
+	
+	public String getUpdateProfileDisplay ( ) {
+		int pos = 0;
+		int value = getUpdateProfile();
+		String[] profile = getResources().getStringArray( R.array.updateProfileValues );
+		String[] profiledisplay =
+				getResources().getStringArray( R.array.updateProfile );
+		for ( int i = 0; i < profile.length; i++ ) {
+			if ( Integer.parseInt( profile[i] ) == value ) {
+				// found value
+				pos = i;
+				break;
+			}
+		}
+		return profiledisplay[pos];
 	}
 
 	public boolean isFirstRun ( ) {
