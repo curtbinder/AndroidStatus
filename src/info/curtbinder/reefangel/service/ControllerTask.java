@@ -455,7 +455,7 @@ public class ControllerTask implements Runnable {
 					(NotificationManager) rapp
 							.getSystemService( Context.NOTIFICATION_SERVICE );
 			Notification n =
-					new Notification( android.R.drawable.stat_notify_chat,
+					new Notification( R.drawable.st_notify,
 						rapp.getString( R.string.app_name ) + " " + er,
 						System.currentTimeMillis() );
 			n.flags |= Notification.FLAG_AUTO_CANCEL;
