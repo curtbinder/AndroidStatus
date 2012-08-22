@@ -178,6 +178,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="messageResetLabelsPrompt">Reset all labels?</string>
     <string name="messageResetLabelsComplete">Labels reset to default</string>
     <string name="messageNetworkOffline">Unable to send, no network connection</string>
+    <string name="messageDeleteLogPrompt">Delete log file?</string>
 
     <!-- Status strings -->
     <string name="statusStart">Starting update</string>
@@ -488,6 +489,12 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefNotificationEnableSummary">Display in status bar</string>
     <string name="prefNotificationSoundKey">notification_sound</string>
     <string name="prefNotificationSoundTitle">Choose ringtone</string>
+    <string name="prefLoggingCategory">Logging</string>
+    <string name="prefLoggingEnableKey">logging</string>
+    <string name="prefLoggingUpdateKey">logging_update</string>
+    <string name="prefLoggingUpdateTitle">File Updating</string>
+    <string name="prefLoggingDeleteKey">logging_delete_file</string>
+    <string name="prefLoggingDeleteTitle">Delete log file</string>
 
     <!-- Permissions -->
     <string name="permissionQueryStatusLabel">Query status of controller</string>

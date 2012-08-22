@@ -11,6 +11,14 @@ package info.curtbinder.reefangel.phone;
 import info.curtbinder.reefangel.service.ControllerService;
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Application;
@@ -152,7 +160,8 @@ public class RAApplication extends Application {
 				break;
 		}
 		String s =
-				String.format(	"%s, %s m, %s", profile, getUpdateIntervalDisplay(),
+				String.format(	"%s, %s m, %s", profile,
+								getUpdateIntervalDisplay(),
 								(type == AlarmManager.RTC_WAKEUP)	? "wakeup"
 																	: "none" );
 		Log.d( TAG, "started auto update: " + s );
@@ -167,7 +176,7 @@ public class RAApplication extends Application {
 											PendingIntent.FLAG_CANCEL_CURRENT );
 		return pi;
 	}
-	
+
 	// Data handling
 	public void insertData ( Intent i ) {
 		ContentValues v = new ContentValues();
@@ -280,6 +289,32 @@ public class RAApplication extends Application {
 	public void error ( int errorCodeIndex, Throwable t, String msg ) {
 		errorCode = Integer.parseInt( errorCodes[errorCodeIndex] );
 		Log.e( TAG, msg, t );
+
+		// if logging enabled, save the log
+		if ( isLoggingEnabled() ) {
+			boolean keepFile = isLoggingAppendFile();
+			try {
+				String sFile = getLoggingFile();
+				Log.d( TAG, "File: " + sFile );
+				FileWriter fw = new FileWriter( sFile, keepFile );
+				PrintWriter pw = new PrintWriter( fw );
+				DateFormat dft =
+						DateFormat.getDateTimeInstance( DateFormat.DEFAULT,
+														DateFormat.DEFAULT,
+														Locale.getDefault() );
+				pw.println( dft.format( Calendar.getInstance().getTime() ) );
+				pw.println( msg );
+				pw.println( t.toString() );
+				pw.println( "Stack Trace:" );
+				pw.flush();
+				t.printStackTrace( pw );
+				pw.println( "----" );
+				pw.flush();
+				pw.close();
+			} catch ( IOException e ) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public String getErrorMessage ( ) {
@@ -298,6 +333,23 @@ public class RAApplication extends Application {
 			}
 		}
 		return s;
+	}
+
+	private boolean isLoggingEnabled ( ) {
+		return prefs.getBoolean(	getString( R.string.prefLoggingEnableKey ),
+									false );
+	}
+	
+	private boolean isLoggingAppendFile ( ) {
+		int i = getLoggingUpdateValue();
+		boolean f = false;
+		if ( i == Globals.logAppend )
+			f = true;
+		return f;
+	}
+
+	public String getLoggingFile ( ) {
+		return getFilesDir() + "/" + Globals.loggingFile;
 	}
 
 	private boolean isNumber ( Object value ) {
@@ -484,11 +536,12 @@ public class RAApplication extends Application {
 		long i = Long.parseLong( s );
 		return i;
 	}
-	
+
 	public String getUpdateIntervalDisplay ( ) {
 		int pos = 0;
 		long value = getUpdateInterval();
-		String[] interval = getResources().getStringArray( R.array.updateIntervalValues );
+		String[] interval =
+				getResources().getStringArray( R.array.updateIntervalValues );
 		String[] intervaldisplay =
 				getResources().getStringArray( R.array.updateInterval );
 		for ( int i = 0; i < interval.length; i++ ) {
@@ -513,11 +566,12 @@ public class RAApplication extends Application {
 		int i = Integer.parseInt( s );
 		return i;
 	}
-	
+
 	public String getUpdateProfileDisplay ( ) {
 		int pos = 0;
 		int value = getUpdateProfile();
-		String[] profile = getResources().getStringArray( R.array.updateProfileValues );
+		String[] profile =
+				getResources().getStringArray( R.array.updateProfileValues );
 		String[] profiledisplay =
 				getResources().getStringArray( R.array.updateProfile );
 		for ( int i = 0; i < profile.length; i++ ) {
@@ -528,6 +582,30 @@ public class RAApplication extends Application {
 			}
 		}
 		return profiledisplay[pos];
+	}
+
+	public int getLoggingUpdateValue ( ) {
+		return Integer.parseInt( prefs
+		 						.getString( getString( R.string.prefLoggingUpdateKey ),
+										"0" ) );
+	}
+	
+	public String getLoggingUpdateDisplay ( ) {
+		int pos = 0;
+		int value = getLoggingUpdateValue();
+		
+		String[] logging =
+				getResources().getStringArray( R.array.loggingUpdateValues );
+		String[] loggingdisplay =
+				getResources().getStringArray( R.array.loggingUpdate );
+		for ( int i = 0; i < logging.length; i++ ) {
+			if ( Integer.parseInt( logging[i] ) == value ) {
+				// found value
+				pos = i;
+				break;
+			}
+		}
+		return loggingdisplay[pos];
 	}
 
 	public boolean isFirstRun ( ) {
@@ -640,9 +718,9 @@ public class RAApplication extends Application {
 	}
 
 	public Uri getNotificationSound ( ) {
-		String s = prefs
-					.getString( getString( R.string.prefNotificationSoundKey ),
-					            "content://settings/system/notification_sound" );
+		String s =
+				prefs.getString(	getString( R.string.prefNotificationSoundKey ),
+									"content://settings/system/notification_sound" );
 		return Uri.parse( s );
 	}
 

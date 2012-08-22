@@ -9,7 +9,11 @@ package info.curtbinder.reefangel.phone;
  */
 
 
-public final class Globals {	
+public final class Globals {
+	public static final String loggingFile = "ra_log.txt";
+	public static final int logReplace = 0;
+	public static final int logAppend = 1;
+	
 	public static final int memoryReadOnly = -1;
 	public static final int defaultPort = 9;
 	

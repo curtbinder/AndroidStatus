@@ -105,6 +105,8 @@ public class PrefsActivity extends PreferenceActivity implements
 		updateprofilekey.setSummary( rapp.getUpdateProfileDisplay() );
 		findPreference( rapp.getString( R.string.prefAutoUpdateIntervalKey ) )
 				.setSummary( rapp.getUpdateIntervalDisplay() );
+		findPreference( rapp.getString( R.string.prefLoggingUpdateKey ) )
+				.setSummary( rapp.getLoggingUpdateDisplay() );
 
 		Preference changelog =
 				findPreference( rapp.getString( R.string.prefChangelogKey ) );
@@ -207,6 +209,44 @@ public class PrefsActivity extends PreferenceActivity implements
 			}
 		} );
 
+		Preference deletelog =
+				findPreference( rapp.getString( R.string.prefLoggingDeleteKey ) );
+		deletelog
+				.setOnPreferenceClickListener( new OnPreferenceClickListener() {
+					@Override
+					public boolean onPreferenceClick ( Preference preference ) {
+
+						AlertDialog.Builder builder =
+								new AlertDialog.Builder( PrefsActivity.this );
+						builder.setMessage( rapp.getString( R.string.messageDeleteLogPrompt ) )
+								.setCancelable( false )
+								.setPositiveButton( rapp.getString( R.string.buttonYes ),
+													new DialogInterface.OnClickListener() {
+														public void onClick (
+																DialogInterface dialog,
+																int id ) {
+															Log.d(	TAG,
+																	"Delete log file" );
+															dialog.dismiss();
+															deleteFile( Globals.loggingFile );
+														}
+													} )
+								.setNegativeButton( rapp.getString( R.string.buttonNo ),
+													new DialogInterface.OnClickListener() {
+														public void onClick (
+																DialogInterface dialog,
+																int id ) {
+															Log.d(	TAG,
+																	"Delete log cancelled" );
+															dialog.cancel();
+														}
+													} );
+
+						AlertDialog alert = builder.create();
+						alert.show();
+						return true;
+					}
+				} );
 	}
 
 	@Override
@@ -440,6 +480,10 @@ public class PrefsActivity extends PreferenceActivity implements
 				Log.d( TAG, "profile changed, restart" );
 				rapp.restartAutoUpdateService();
 			}
+		} else if ( key
+				.equals( rapp.getString( R.string.prefLoggingUpdateKey ) ) ) {
+			findPreference( rapp.getString( R.string.prefLoggingUpdateKey ) )
+					.setSummary( rapp.getLoggingUpdateDisplay() );
 		}
 	}
 

@@ -717,6 +717,22 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                     android:dependency="@string/prefNotificationEnableKey"
                     android:defaultValue="content://settings/system/notification_sound" />
             </PreferenceCategory>
+            <PreferenceCategory android:title="@string/prefLoggingCategory" >
+                <CheckBoxPreference 
+                    android:defaultValue="false"
+                    android:key="@string/prefLoggingEnableKey"
+                    android:title="@string/labelEnable" />
+                <ListPreference 
+                    android:defaultValue="0"
+                    android:entries="@array/loggingUpdate"
+                    android:entryValues="@array/loggingUpdateValues"
+                    android:key="@string/prefLoggingUpdateKey" 
+                    android:title="@string/prefLoggingUpdateTitle" 
+                    android:dependency="@string/prefLoggingEnableKey" />
+                <Preference
+                    android:key="@string/prefLoggingDeleteKey"
+                    android:title="@string/prefLoggingDeleteTitle" />
+            </PreferenceCategory>
         </PreferenceScreen>
         <PreferenceScreen
             android:key="appinfo"
