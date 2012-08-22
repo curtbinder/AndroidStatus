@@ -758,22 +758,32 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:selectable="false"
                 android:summary="@string/prefCopyrightSummary"
                 android:title="@string/prefCopyrightTitle" />
-            <PreferenceScreen
-                android:key="@string/prefLicenseKey"
-                android:summary="@string/prefLicenseSummary"
-                android:title="@string/prefLicenseTitle" />
+			<Preference
+			    android:summary="@string/prefLicenseSummary"
+			    android:title="@string/prefLicenseTitle" >
+			    <intent
+			        android:action="android.intent.action.VIEW"
+			        android:targetPackage="info.curtbinder.reefangel.phone"
+			        android:targetClass="info.curtbinder.reefangel.phone.LicenseActivity" />
+			</Preference>
             <PreferenceScreen
                 android:key="@string/prefChangelogKey"
                 android:summary="@string/prefChangelogSummary"
                 android:title="@string/titleChangelog" />
-            <PreferenceScreen
-                android:key="@string/prefReefAngelKey"
+            <Preference
                 android:summary="@string/prefReefAngelSummary"
-                android:title="@string/prefReefAngelTitle" />
-            <PreferenceScreen
-                android:key="@string/prefForumKey"
+                android:title="@string/prefReefAngelTitle" >
+                <intent
+                    android:action="android.intent.action.VIEW"
+                    android:data="@string/websiteReefangel" />
+            </Preference>
+            <Preference
                 android:summary="@string/prefForumSummary"
-                android:title="@string/prefForumTitle" />
+                android:title="@string/prefForumTitle" >
+                <intent
+                    android:action="android.intent.action.VIEW"
+                    android:data="@string/forumReefangel" />
+            </Preference>
         </PreferenceScreen>
     </PreferenceCategory>
 

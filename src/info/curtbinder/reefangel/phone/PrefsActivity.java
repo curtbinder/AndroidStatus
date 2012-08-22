@@ -16,7 +16,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -119,55 +118,11 @@ public class PrefsActivity extends PreferenceActivity implements
 				getPreferenceScreen()
 						.findPreference(	rapp.getString( R.string.prefAutoUpdateProfileKey ) );
 		updateprofilekey.setOnPreferenceChangeListener( this );
-		// TODO check this, update visibility appropriately
 		if ( rapp.isAwayProfileEnabled() ) {
 			updateAutoUpdateProfileVisibility( true );
 		} else {
 			updateAutoUpdateProfileVisibility( false );
 		}
-
-		Preference raWebsite =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefReefAngelKey ) );
-		raWebsite
-				.setOnPreferenceClickListener( new OnPreferenceClickListener() {
-
-					@Override
-					public boolean onPreferenceClick ( Preference preference ) {
-						Intent browserIntent =
-								new Intent(
-									Intent.ACTION_VIEW,
-									Uri.parse( rapp
-											.getString( R.string.websiteReefangel ) ) );
-						startActivity( browserIntent );
-						return true;
-					}
-				} );
-		Preference raForum =
-				getPreferenceScreen()
-						.findPreference( rapp.getString( R.string.prefForumKey ) );
-		raForum.setOnPreferenceClickListener( new OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick ( Preference preference ) {
-				Intent browserIntent =
-						new Intent( Intent.ACTION_VIEW, Uri.parse( rapp
-								.getString( R.string.forumReefangel ) ) );
-				startActivity( browserIntent );
-				return true;
-			}
-		} );
-		Preference license =
-				getPreferenceScreen()
-						.findPreference(	rapp.getString( R.string.prefLicenseKey ) );
-		license.setOnPreferenceClickListener( new OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick ( Preference preference ) {
-				startActivity( new Intent( rapp, LicenseActivity.class ) );
-				return true;
-			}
-		} );
 
 		Preference changelog =
 				getPreferenceScreen()
