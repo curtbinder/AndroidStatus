@@ -138,8 +138,21 @@ public class RAApplication extends Application {
 			type = AlarmManager.RTC;
 		am.setInexactRepeating( type, System.currentTimeMillis(), interval, pi );
 		// Profile, interval, wakeup
+		String profile;
+		switch ( up ) {
+			default:
+			case Globals.profileAlways:
+				profile = "always";
+				break;
+			case Globals.profileOnlyAway:
+				profile = "only away";
+				break;
+			case Globals.profileOnlyHome:
+				profile = "only home";
+				break;
+		}
 		String s =
-				String.format(	"%d, %d m, %s", up, interval / 60000,
+				String.format(	"%s, %d m, %s", profile, interval / 60000,
 								(type == AlarmManager.RTC_WAKEUP)	? "wakeup"
 																	: "none" );
 		Log.d( TAG, "started auto update: " + s );
