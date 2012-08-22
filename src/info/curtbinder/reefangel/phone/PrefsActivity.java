@@ -44,7 +44,7 @@ public class PrefsActivity extends PreferenceActivity implements
 	@Override
 	protected void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
-		addPreferencesFromResource( R.xml.settings );
+		addPreferencesFromResource( R.xml.preferences );
 		rapp = (RAApplication) getApplication();
 
 		receiver = new PrefsReceiver();
