@@ -14,6 +14,7 @@ import info.curtbinder.reefangel.phone.Permissions;
 import info.curtbinder.reefangel.phone.R;
 import info.curtbinder.reefangel.phone.RAApplication;
 import info.curtbinder.reefangel.phone.RAData;
+import info.curtbinder.reefangel.phone.StatusActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,6 +37,10 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
@@ -145,7 +150,8 @@ public class ControllerTask implements Runnable {
 			} else if ( host.getCommand().equals( RequestCommands.AtoClear ) ) {
 				broadcastCommandResponse(	R.string.labelAtoClear,
 											xml.getModeResponse() );
-			} else if ( host.getCommand().equals( RequestCommands.OverheatClear ) ) {
+			} else if ( host.getCommand()
+					.equals( RequestCommands.OverheatClear ) ) {
 				broadcastCommandResponse(	R.string.labelOverheatClear,
 											xml.getModeResponse() );
 			} else if ( host.getCommand().equals( RequestCommands.Version ) ) {
@@ -440,11 +446,37 @@ public class ControllerTask implements Runnable {
 	}
 
 	private void broadcastErrorMessage ( ) {
-		// TODO maybe a notification message or something
 		// Log.d(TAG, "broadcastErrorMessage");
+		String er = rapp.getErrorMessage();
+
+		// notification
+		NotificationManager nm =
+				(NotificationManager) rapp
+						.getSystemService( Context.NOTIFICATION_SERVICE );
+		Notification n =
+				new Notification( android.R.drawable.stat_notify_chat,
+					rapp.getString( R.string.app_name ) + " " + er,
+					System.currentTimeMillis() );
+		n.flags |= Notification.FLAG_AUTO_CANCEL;
+		n.defaults |= Notification.DEFAULT_SOUND;
+
+		// create intent to launch status activity when notification selected
+		Intent si = new Intent( rapp, StatusActivity.class );
+		si.addFlags( Intent.FLAG_ACTIVITY_SINGLE_TOP );
+		si.addFlags( Intent.FLAG_ACTIVITY_REORDER_TO_FRONT );
+		PendingIntent pi =
+				PendingIntent.getActivity(	rapp, -1, si,
+											PendingIntent.FLAG_UPDATE_CURRENT );
+		
+		// send notification
+		n.setLatestEventInfo( rapp, rapp.getString( R.string.app_name ), er, pi );
+		nm.notify( 0, n );
+		
+		// broadcast
 		Intent i = new Intent( MessageCommands.ERROR_MESSAGE_INTENT );
-		i.putExtra( MessageCommands.ERROR_MESSAGE_STRING,
-					rapp.getErrorMessage() );
+		i.putExtra( MessageCommands.ERROR_MESSAGE_STRING, er );
+
+		// send broadcast
 		rapp.sendBroadcast( i, Permissions.QUERY_STATUS );
 	}
 }
