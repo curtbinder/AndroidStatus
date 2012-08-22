@@ -724,6 +724,14 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                     android:key="@string/prefNotificationEnableKey"
                     android:summary="@string/prefNotificationEnableSummary"
                     android:title="@string/prefNotificationCategory" />
+                <RingtonePreference
+                    android:key="@string/prefNotificationSoundKey" 
+                    android:title="@string/prefNotificationSoundTitle"
+                    android:ringtoneType="notification"
+                    android:showSilent="true"
+                    android:showDefault="true"
+                    android:dependency="@string/prefNotificationEnableKey"
+                    android:defaultValue="content://settings/system/notification_sound" />
             </PreferenceCategory>
         </PreferenceScreen>
         <PreferenceScreen

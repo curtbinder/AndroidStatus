@@ -459,7 +459,7 @@ public class ControllerTask implements Runnable {
 						rapp.getString( R.string.app_name ) + " " + er,
 						System.currentTimeMillis() );
 			n.flags |= Notification.FLAG_AUTO_CANCEL;
-			n.defaults |= Notification.DEFAULT_SOUND;
+			n.sound = rapp.getNotificationSound();
 
 			// create intent to launch status activity when notification
 			// selected

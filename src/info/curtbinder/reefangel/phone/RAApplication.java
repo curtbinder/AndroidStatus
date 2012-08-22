@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -591,6 +592,13 @@ public class RAApplication extends Application {
 		return prefs
 				.getBoolean(	getString( R.string.prefNotificationEnableKey ),
 								true );
+	}
+
+	public Uri getNotificationSound ( ) {
+		String s = prefs
+					.getString( getString( R.string.prefNotificationSoundKey ),
+					            "content://settings/system/notification_sound" );
+		return Uri.parse( s );
 	}
 
 	public String getPrefHost ( ) {
