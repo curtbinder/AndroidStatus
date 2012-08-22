@@ -587,6 +587,12 @@ public class RAApplication extends Application {
 				.commit();
 	}
 
+	public boolean isNotificationEnabled ( ) {
+		return prefs
+				.getBoolean(	getString( R.string.prefNotificationEnableKey ),
+								true );
+	}
+
 	public String getPrefHost ( ) {
 		int profile = getSelectedProfile();
 		if ( profile == 1 ) {

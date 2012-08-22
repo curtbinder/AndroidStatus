@@ -449,28 +449,33 @@ public class ControllerTask implements Runnable {
 		// Log.d(TAG, "broadcastErrorMessage");
 		String er = rapp.getErrorMessage();
 
-		// notification
-		NotificationManager nm =
-				(NotificationManager) rapp
-						.getSystemService( Context.NOTIFICATION_SERVICE );
-		Notification n =
-				new Notification( android.R.drawable.stat_notify_chat,
-					rapp.getString( R.string.app_name ) + " " + er,
-					System.currentTimeMillis() );
-		n.flags |= Notification.FLAG_AUTO_CANCEL;
-		n.defaults |= Notification.DEFAULT_SOUND;
+		if ( rapp.isNotificationEnabled() ) {
+			// notification
+			NotificationManager nm =
+					(NotificationManager) rapp
+							.getSystemService( Context.NOTIFICATION_SERVICE );
+			Notification n =
+					new Notification( android.R.drawable.stat_notify_chat,
+						rapp.getString( R.string.app_name ) + " " + er,
+						System.currentTimeMillis() );
+			n.flags |= Notification.FLAG_AUTO_CANCEL;
+			n.defaults |= Notification.DEFAULT_SOUND;
 
-		// create intent to launch status activity when notification selected
-		Intent si = new Intent( rapp, StatusActivity.class );
-		si.addFlags( Intent.FLAG_ACTIVITY_SINGLE_TOP );
-		si.addFlags( Intent.FLAG_ACTIVITY_REORDER_TO_FRONT );
-		PendingIntent pi =
-				PendingIntent.getActivity(	rapp, -1, si,
+			// create intent to launch status activity when notification
+			// selected
+			Intent si = new Intent( rapp, StatusActivity.class );
+			si.addFlags( Intent.FLAG_ACTIVITY_SINGLE_TOP );
+			si.addFlags( Intent.FLAG_ACTIVITY_REORDER_TO_FRONT );
+			PendingIntent pi =
+					PendingIntent
+							.getActivity(	rapp, -1, si,
 											PendingIntent.FLAG_UPDATE_CURRENT );
-		
-		// send notification
-		n.setLatestEventInfo( rapp, rapp.getString( R.string.app_name ), er, pi );
-		nm.notify( 0, n );
+
+			// send notification
+			n.setLatestEventInfo(	rapp, rapp.getString( R.string.app_name ),
+									er, pi );
+			nm.notify( 0, n );
+		}
 		
 		// broadcast
 		Intent i = new Intent( MessageCommands.ERROR_MESSAGE_INTENT );

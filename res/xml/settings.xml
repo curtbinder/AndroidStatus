@@ -718,6 +718,13 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                     android:summary="@string/prefAutoUpdateProfileSummary"
                     android:title="@string/prefAutoUpdateProfileTitle" />
             </PreferenceCategory>
+            <PreferenceCategory android:title="@string/prefNotificationCategory" >
+                <CheckBoxPreference
+                    android:defaultValue="true"
+                    android:key="@string/prefNotificationEnableKey"
+                    android:summary="@string/prefNotificationEnableSummary"
+                    android:title="@string/prefNotificationCategory" />
+            </PreferenceCategory>
         </PreferenceScreen>
         <PreferenceScreen
             android:key="appinfo"

@@ -525,6 +525,11 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefAutoUpdateProfileTitle">Update Profile</string>
     <string name="prefAutoUpdateProfileDefault">1</string>
     <string name="prefAutoUpdateCategory">Automatic Updating</string>
+    <string name="prefNotificationCategory">Notifications</string>
+    <string name="prefNotificationEnableKey">notification</string>
+    <string name="prefNotificationEnableSummary">Display error notifications in status bar</string>
+    <string name="prefNotificationSoundKey">notification_sound</string>
+    <string name="prefNotificationSoundTitle">Choose ringtone</string>
 
     <!-- Permissions -->
     <string name="permissionQueryStatusLabel">Query status of controller</string>
