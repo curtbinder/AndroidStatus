@@ -222,7 +222,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefProfileSelectedDefault">0</string>
     <string name="prefProfileSelectedKey">profileselected</string>
     <string name="prefProfileSelectedTitle">Selected Profile</string>
-    <string name="prefProfileSelectedSummary">Profile to be used when querying controller, can long press on refresh button to change quickly)</string>
+    <string name="prefProfileSelectedSummary">Profile to be used when querying controller, can long press on refresh button to change quickly</string>
     <string name="prefProfileHomeTitle">Home</string>
     <string name="prefProfileHomeSummary">Default profile or for use while on home network.  Must be set.</string>
     <string name="prefProfileAwayTitle">Away</string>
