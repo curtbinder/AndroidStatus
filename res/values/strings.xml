@@ -179,6 +179,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="messageResetLabelsComplete">Labels reset to default</string>
     <string name="messageNetworkOffline">Unable to send, no network connection</string>
     <string name="messageDeleteLogPrompt">Delete log file?</string>
+    <string name="messageSendLogPrompt">Email log to developer?</string>
+    <string name="messageNoExternalStorage">Need SD card for log file</string>
 
     <!-- Status strings -->
     <string name="statusStart">Starting update</string>
@@ -495,6 +497,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefLoggingUpdateTitle">File Updating</string>
     <string name="prefLoggingDeleteKey">logging_delete_file</string>
     <string name="prefLoggingDeleteTitle">Delete log file</string>
+    <string name="prefLoggingSendKey">logging_send</string>
+    <string name="prefLoggingSendTitle">Send log file</string>
+    <string name="prefLoggingSendSummary">Emails log file to developer</string>
 
     <!-- Permissions -->
     <string name="permissionQueryStatusLabel">Query status of controller</string>

@@ -12,6 +12,7 @@ import info.curtbinder.reefangel.service.ControllerService;
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,6 +30,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -292,6 +294,14 @@ public class RAApplication extends Application {
 
 		// if logging enabled, save the log
 		if ( isLoggingEnabled() ) {
+			if ( !hasExternalStorage() ) {
+				// doesn't have external storage
+				Log.d( TAG, "No external storage" );
+				Toast.makeText( this,
+								getString( R.string.messageNoExternalStorage ),
+								Toast.LENGTH_LONG ).show();
+				return;
+			}
 			boolean keepFile = isLoggingAppendFile();
 			try {
 				String sFile = getLoggingFile();
@@ -303,6 +313,13 @@ public class RAApplication extends Application {
 														DateFormat.DEFAULT,
 														Locale.getDefault() );
 				pw.println( dft.format( Calendar.getInstance().getTime() ) );
+				String s =
+						String.format(	"Profile: %s\nHost: %s:%s\nUser ID: %s",
+										(getSelectedProfile() == 1)	? "Away"
+																	: "Home",
+										getPrefHost(), getPrefPort(),
+										getPrefUserId() );
+				pw.println( s );
 				pw.println( msg );
 				pw.println( t.toString() );
 				pw.println( "Stack Trace:" );
@@ -339,7 +356,7 @@ public class RAApplication extends Application {
 		return prefs.getBoolean(	getString( R.string.prefLoggingEnableKey ),
 									false );
 	}
-	
+
 	private boolean isLoggingAppendFile ( ) {
 		int i = getLoggingUpdateValue();
 		boolean f = false;
@@ -348,8 +365,31 @@ public class RAApplication extends Application {
 		return f;
 	}
 
+	public String getLoggingDirectory ( ) {
+		String s =
+				"" + Environment.getExternalStorageDirectory()
+						+ Environment.getDataDirectory() + "/"
+						+ Globals.PACKAGE + "/";
+		return s;
+	}
+
 	public String getLoggingFile ( ) {
-		return getFilesDir() + "/" + Globals.loggingFile;
+		return getLoggingDirectory() + Globals.loggingFile;
+	}
+
+	public boolean hasExternalStorage ( ) {
+		boolean f = false;
+		File path = new File( getLoggingDirectory() );
+		path.mkdirs();
+		File file = new File( path, "test.txt" );
+		file.mkdirs();
+		if ( file != null ) {
+			if ( file.exists() ) {
+				f = true;
+				file.delete();
+			}
+		}
+		return f;
 	}
 
 	private boolean isNumber ( Object value ) {
@@ -586,14 +626,13 @@ public class RAApplication extends Application {
 
 	public int getLoggingUpdateValue ( ) {
 		return Integer.parseInt( prefs
-		 						.getString( getString( R.string.prefLoggingUpdateKey ),
-										"0" ) );
+				.getString( getString( R.string.prefLoggingUpdateKey ), "0" ) );
 	}
-	
+
 	public String getLoggingUpdateDisplay ( ) {
 		int pos = 0;
 		int value = getLoggingUpdateValue();
-		
+
 		String[] logging =
 				getResources().getStringArray( R.array.loggingUpdateValues );
 		String[] loggingdisplay =

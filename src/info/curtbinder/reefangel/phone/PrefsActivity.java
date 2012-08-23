@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -247,6 +248,45 @@ public class PrefsActivity extends PreferenceActivity implements
 						return true;
 					}
 				} );
+
+		Preference sendemail =
+				findPreference( rapp.getString( R.string.prefLoggingSendKey ) );
+		sendemail
+				.setOnPreferenceClickListener( new OnPreferenceClickListener() {
+					@Override
+					public boolean onPreferenceClick ( Preference preference ) {
+
+						AlertDialog.Builder builder =
+								new AlertDialog.Builder( PrefsActivity.this );
+						builder.setMessage( rapp.getString( R.string.messageSendLogPrompt ) )
+								.setCancelable( false )
+								.setPositiveButton( rapp.getString( R.string.buttonYes ),
+													new DialogInterface.OnClickListener() {
+														public void onClick (
+																DialogInterface dialog,
+																int id ) {
+															Log.d(	TAG,
+																	"Send file" );
+															dialog.dismiss();
+															sendEmail();
+														}
+													} )
+								.setNegativeButton( rapp.getString( R.string.buttonNo ),
+													new DialogInterface.OnClickListener() {
+														public void onClick (
+																DialogInterface dialog,
+																int id ) {
+															Log.d(	TAG,
+																	"Send cancelled" );
+															dialog.cancel();
+														}
+													} );
+
+						AlertDialog alert = builder.create();
+						alert.show();
+						return true;
+					}
+				} );
 	}
 
 	@Override
@@ -302,6 +342,19 @@ public class PrefsActivity extends PreferenceActivity implements
 			exp085xkey.setEnabled( false );
 			exp085xkey.setSelectable( false );
 		}
+	}
+
+	private void sendEmail ( ) {
+		Intent email = new Intent( Intent.ACTION_SEND );
+		email.putExtra( Intent.EXTRA_EMAIL,
+						new String[] { "android@curtbinder.info" } );
+		email.putExtra( Intent.EXTRA_SUBJECT, "Status Logfile" );
+		email.setType( "text/plain" );
+		email.putExtra( Intent.EXTRA_TEXT, "Logfile from my session." );
+		Log.d( TAG, "Logfile: " + Uri.parse( "file://" + rapp.getLoggingFile() ) );
+		email.putExtra( Intent.EXTRA_STREAM,
+						Uri.parse( "file://" + rapp.getLoggingFile() ) );
+		startActivity( Intent.createChooser( email, "Send email..." ) );
 	}
 
 	private void resetLabels ( ) {

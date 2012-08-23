@@ -730,6 +730,10 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                     android:title="@string/prefLoggingUpdateTitle" 
                     android:dependency="@string/prefLoggingEnableKey" />
                 <Preference
+                    android:key="@string/prefLoggingSendKey"
+                    android:title="@string/prefLoggingSendTitle"
+                    android:summary="@string/prefLoggingSendSummary" />
+                <Preference
                     android:key="@string/prefLoggingDeleteKey"
                     android:title="@string/prefLoggingDeleteTitle" />
             </PreferenceCategory>

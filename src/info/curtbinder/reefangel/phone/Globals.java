@@ -8,15 +8,16 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
-
 public final class Globals {
+	public static final String PACKAGE = "info.curtbinder.reefangel.phone";
+
 	public static final String loggingFile = "ra_log.txt";
 	public static final int logReplace = 0;
 	public static final int logAppend = 1;
-	
+
 	public static final int memoryReadOnly = -1;
 	public static final int defaultPort = 9;
-	
+
 	// profile updating
 	public static final int profileAlways = 0;
 	public static final int profileOnlyAway = 1;
