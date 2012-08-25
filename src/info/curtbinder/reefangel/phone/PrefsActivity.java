@@ -287,6 +287,12 @@ public class PrefsActivity extends PreferenceActivity implements
 						return true;
 					}
 				} );
+		
+		// disable deleting and sending of the log file if not present
+		if ( ! rapp.isLoggingFilePresent() ) {
+			deletelog.setEnabled( false );
+			sendemail.setEnabled( false );
+		}
 	}
 
 	@Override

@@ -377,6 +377,14 @@ public class RAApplication extends Application {
 		return getLoggingDirectory() + Globals.loggingFile;
 	}
 
+	public boolean isLoggingFilePresent ( ) {
+		boolean f = false;
+		File l = new File( getLoggingFile() );
+		if ( (l != null) && (l.exists()) )
+			f = true;
+		return f;
+	}
+
 	public boolean hasExternalStorage ( ) {
 		boolean f = false;
 		File path = new File( getLoggingDirectory() );
