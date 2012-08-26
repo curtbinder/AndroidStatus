@@ -229,7 +229,7 @@ public class PrefsActivity extends PreferenceActivity implements
 															Log.d(	TAG,
 																	"Delete log file" );
 															dialog.dismiss();
-															deleteFile( Globals.loggingFile );
+															deleteLogFile();
 														}
 													} )
 								.setNegativeButton( rapp.getString( R.string.buttonNo ),
@@ -287,9 +287,9 @@ public class PrefsActivity extends PreferenceActivity implements
 						return true;
 					}
 				} );
-		
+
 		// disable deleting and sending of the log file if not present
-		if ( ! rapp.isLoggingFilePresent() ) {
+		if ( !rapp.isLoggingFilePresent() ) {
 			deletelog.setEnabled( false );
 			sendemail.setEnabled( false );
 		}
@@ -361,6 +361,17 @@ public class PrefsActivity extends PreferenceActivity implements
 		email.putExtra( Intent.EXTRA_STREAM,
 						Uri.parse( "file://" + rapp.getLoggingFile() ) );
 		startActivity( Intent.createChooser( email, "Send email..." ) );
+	}
+
+	private void deleteLogFile ( ) {
+		rapp.deleteLoggingFile();
+		// disable deleting and sending of the log file if not present
+		if ( !rapp.isLoggingFilePresent() ) {
+			findPreference( rapp.getString( R.string.prefLoggingDeleteKey ) )
+					.setEnabled( false );
+			findPreference( rapp.getString( R.string.prefLoggingSendKey ) )
+					.setEnabled( false );
+		}
 	}
 
 	private void resetLabels ( ) {

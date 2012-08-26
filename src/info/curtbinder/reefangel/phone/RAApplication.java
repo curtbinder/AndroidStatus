@@ -384,6 +384,12 @@ public class RAApplication extends Application {
 			f = true;
 		return f;
 	}
+	
+	public void deleteLoggingFile ( ) {
+		File l = new File( getLoggingFile() );
+		if ( l != null && l.exists() )
+			l.delete();
+	}
 
 	public boolean hasExternalStorage ( ) {
 		boolean f = false;
