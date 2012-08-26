@@ -112,6 +112,9 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        
+        <provider android:name=".StatusProvider"
+            android:authorities="info.curtbinder.reefangel.db" />
     </application>
 
 </manifest>

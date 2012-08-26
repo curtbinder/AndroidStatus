@@ -10,10 +10,10 @@ package info.curtbinder.reefangel.service;
 
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.controller.Relay;
+import info.curtbinder.reefangel.db.RAData;
 import info.curtbinder.reefangel.phone.Permissions;
 import info.curtbinder.reefangel.phone.R;
 import info.curtbinder.reefangel.phone.RAApplication;
-import info.curtbinder.reefangel.phone.RAData;
 import info.curtbinder.reefangel.phone.StatusActivity;
 
 import java.io.IOException;

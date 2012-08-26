@@ -8,6 +8,7 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
+import info.curtbinder.reefangel.db.RAData;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
