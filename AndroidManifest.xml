@@ -113,7 +113,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             </intent-filter>
         </receiver>
         
-        <provider android:name=".StatusProvider"
+        <provider android:name="info.curtbinder.reefangel.db.StatusProvider"
             android:authorities="info.curtbinder.reefangel.db" />
     </application>
 

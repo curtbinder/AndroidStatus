@@ -22,23 +22,25 @@ public class StatusProvider extends ContentProvider {
 
 	private static final String CONTENT = StatusProvider.class.getPackage()
 			.getName();
+	private static final String PATH_LATEST = "latest";
+	private static final String PATH_STATUS = "status";
 	public static final Uri CONTENT_URI = Uri.parse( "content://" + CONTENT );
 
 	public static final String LATEST_MIME_TYPE =
-			"vnd.android.cursor.item/vnd.curtbinder.reefangel.db.latest";
+			"vnd.android.cursor.item/vnd." + CONTENT + "." + PATH_LATEST;
 	public static final String STATUS_ID_MIME_TYPE =
-			"vnd.android.cursor.item/vnd.curtbinder.reefangel.db.status";
+			"vnd.android.cursor.item/vnd." + CONTENT + "." + PATH_STATUS;
 	public static final String STATUS_MIME_TYPE =
-			"vnd.android.cursor.dir/vnd.curtbinder.reefangel.db.status";
+			"vnd.android.cursor.dir/vnd." + CONTENT + "." + PATH_STATUS;
 	private static final int CODE_LATEST = 1;
 	private static final int CODE_STATUS = 2;
 	private static final int CODE_STATUS_ID = 3;
 	private static final UriMatcher sUriMatcher = new UriMatcher(
 		UriMatcher.NO_MATCH );
 	{
-		sUriMatcher.addURI( CONTENT, "latest", CODE_LATEST );
-		sUriMatcher.addURI( CONTENT, "status", CODE_STATUS );
-		sUriMatcher.addURI( CONTENT, "status/#", CODE_STATUS_ID );
+		sUriMatcher.addURI( CONTENT, PATH_LATEST, CODE_LATEST );
+		sUriMatcher.addURI( CONTENT, PATH_STATUS, CODE_STATUS );
+		sUriMatcher.addURI( CONTENT, PATH_STATUS + "/#", CODE_STATUS_ID );
 	}
 
 	@Override
