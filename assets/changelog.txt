@@ -1,3 +1,24 @@
+0.8.0
+ * created ContentProvider for external apps to access the stored parameters
+ * added automatic updating of status
+ ** enabled by default, 15 minute intervals
+ * added logging capabilities
+ ** disabled by default, can email log to developer
+ ** log file stored on sdcard, must have to work
+ ** log file location /sdcard/data/info.curtbinder.reefangel.phone/
+ * added system notifications if an error occurs while communicating
+ ** enabled by default, uses default system notification sound
+ ** notifications can be disabled and sound updated
+ * modules displayed updates based on controller settings
+ ** enabled by default
+ * all new settings are under Settings -> Settings
+ * service starts at device boot / start
+ * service not started if app not configured
+ * app won't try to update if network is down, will resume when network connection returns 
+ * updated preference descriptions
+ * dropped support for devices below Android 2.0
+ * lots of code updates and reorganization
+ 
 0.7.1
  * fixed I/O port 0 only updating
  * removed extra I/O port displaying
