@@ -514,5 +514,7 @@ Allows this application to send commands to the controller.  The following comma
 * Version query
 * Get / set date and time
 </string>
+	<string name="permissionReadProviderDescription">Allow other apps to get access to controller history</string>
+	<string name="permissionReadProviderLabel">Read Reef Angel Status Data</string>
 
 </resources>

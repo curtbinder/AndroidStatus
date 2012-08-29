@@ -36,6 +36,12 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         android:label="@string/permissionSendCommandLabel"
         android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
         android:protectionLevel="normal" />
+    <permission
+        android:name="info.curtbinder.reefangel.permission.READ_PROVIDER"
+        android:description="@string/permissionReadProviderDescription"
+        android:label="@string/permissionReadProviderLabel"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="normal" />
 
     <application
         android:name="RAApplication"
@@ -114,7 +120,9 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         </receiver>
         
         <provider android:name="info.curtbinder.reefangel.db.StatusProvider"
-            android:authorities="info.curtbinder.reefangel.db" />
+            android:authorities="info.curtbinder.reefangel.db"
+            android:readPermission="info.curtbinder.reefangel.permission.READ_PROVIDER" >
+        </provider>
     </application>
 
 </manifest>
