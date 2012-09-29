@@ -19,7 +19,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             style="@style/ParamsText"
             android:text="@string/labelStatus" />
 
-        <TableRow style="@style/RARow" >
+        <TableRow style="@style/RARow"
+            android:id="@+id/t1_row" >
 
             <TextView
                 android:id="@+id/t1_label"
@@ -32,7 +33,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:textColor="@color/t1" />
         </TableRow>
 
-        <TableRow style="@style/RARow" >
+        <TableRow style="@style/RARow" 
+            android:id="@+id/t2_row" >
 
             <TextView
                 android:id="@+id/t2_label"
@@ -45,7 +47,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:textColor="@color/t2" />
         </TableRow>
 
-        <TableRow style="@style/RARow" >
+        <TableRow style="@style/RARow"
+            android:id="@+id/t3_row" >
 
             <TextView
                 android:id="@+id/t3_label"
@@ -58,7 +61,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:textColor="@color/t3" />
         </TableRow>
 
-        <TableRow style="@style/RARow" >
+        <TableRow style="@style/RARow"
+            android:id="@+id/ph_row" >
 
             <TextView
                 android:id="@+id/ph_label"
@@ -71,7 +75,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:textColor="@color/ph" />
         </TableRow>
 
-        <TableRow style="@style/RARow" >
+        <TableRow style="@style/RARow"
+            android:id="@+id/dp_row" >
 
             <TextView
                 android:id="@+id/dp_label"
@@ -84,7 +89,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:textColor="@color/dp" />
         </TableRow>
 
-        <TableRow style="@style/RARow" >
+        <TableRow style="@style/RARow"
+            android:id="@+id/ap_row" >
 
             <TextView
                 android:id="@+id/ap_label"
@@ -97,7 +103,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:textColor="@color/ap" />
         </TableRow>
 
-        <TableRow style="@style/RARow" >
+        <TableRow style="@style/RARow"
+            android:id="@+id/salinity_row" >
 
             <TextView
                 android:id="@+id/salinity_label"
@@ -108,7 +115,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 style="@style/ParamsText.Values" />
         </TableRow>
 
-        <TableRow style="@style/RARow" >
+        <TableRow style="@style/RARow"
+            android:id="@+id/orp_row" >
 
             <TextView
                 android:id="@+id/orp_label"
@@ -119,7 +127,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 style="@style/ParamsText.Values" />
         </TableRow>
 
-        <TableRow style="@style/RARow" >
+        <TableRow style="@style/RARow"
+            android:id="@+id/phe_row" >
 
             <TextView
                 android:id="@+id/phe_label"
@@ -130,7 +139,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 style="@style/ParamsText.Values" />
         </TableRow>
 
-        <TableRow style="@style/RARow" >
+        <TableRow style="@style/RARow"
+            android:id="@+id/water_row" >
 
             <TextView
                 android:id="@+id/water_label"

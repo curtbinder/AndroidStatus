@@ -16,11 +16,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ScrollView;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 public class ControllerPage extends ScrollView {
 	private static final String TAG = ControllerPage.class.getSimpleName();
-	
+
 	public static final int T1_INDEX = 0;
 	public static final int T2_INDEX = 1;
 	public static final int T3_INDEX = 2;
@@ -35,7 +36,7 @@ public class ControllerPage extends ScrollView {
 	Context ctx; // saved context from parent
 	private TextView[] deviceText;
 	private TextView[] deviceLabel;
-
+	private TableRow[] deviceRow;
 
 	public ControllerPage ( Context context ) {
 		super( context );
@@ -58,9 +59,11 @@ public class ControllerPage extends ScrollView {
 		layoutInflater.inflate( R.layout.controller, this );
 		deviceText = new TextView[Controller.MAX_CONTROLLER_VALUES];
 		deviceLabel = new TextView[Controller.MAX_CONTROLLER_VALUES];
+		deviceRow = new TableRow[Controller.MAX_CONTROLLER_VALUES];
 		for ( int i = 0; i < Controller.MAX_CONTROLLER_VALUES; i++ ) {
-			deviceText[i] = new TextView ( context );
-			deviceLabel[i] = new TextView ( context );
+			deviceText[i] = new TextView( context );
+			deviceLabel[i] = new TextView( context );
+			deviceRow[i] = new TableRow( context );
 		}
 		findViews();
 	}
@@ -83,16 +86,29 @@ public class ControllerPage extends ScrollView {
 		deviceLabel[PH_INDEX] = (TextView) findViewById( R.id.ph_label );
 		deviceLabel[DP_INDEX] = (TextView) findViewById( R.id.dp_label );
 		deviceLabel[AP_INDEX] = (TextView) findViewById( R.id.ap_label );
-		deviceLabel[SALINITY_INDEX] = (TextView) findViewById( R.id.salinity_label );
+		deviceLabel[SALINITY_INDEX] =
+				(TextView) findViewById( R.id.salinity_label );
 		deviceLabel[ORP_INDEX] = (TextView) findViewById( R.id.orp_label );
 		deviceLabel[PHE_INDEX] = (TextView) findViewById( R.id.phe_label );
 		deviceLabel[WL_INDEX] = (TextView) findViewById( R.id.water_label );
+
+//		deviceRow[T1_INDEX] = (TableRow) findViewById( R.id.t1_row );
+//		deviceRow[T2_INDEX] = (TableRow) findViewById( R.id.t2_row );
+//		deviceRow[T3_INDEX] = (TableRow) findViewById( R.id.t3_row );
+//		deviceRow[PH_INDEX] = (TableRow) findViewById( R.id.ph_row );
+//		deviceRow[DP_INDEX] = (TableRow) findViewById( R.id.dp_row );
+//		deviceRow[AP_INDEX] = (TableRow) findViewById( R.id.ap_row );
+//		deviceRow[SALINITY_INDEX] = (TableRow) findViewById( R.id.salinity_row );
+//		deviceRow[ORP_INDEX] = (TableRow) findViewById( R.id.orp_row );
+//		deviceRow[PHE_INDEX] = (TableRow) findViewById( R.id.phe_row );
+//		deviceRow[WL_INDEX] = (TableRow) findViewById( R.id.water_row );
+
 	}
 
 	public void setLabel ( int device, String label ) {
 		deviceLabel[device].setText( label );
 	}
-	
+
 	public void setVisibility ( int device, boolean fVisible ) {
 		int v;
 		if ( fVisible ) {
@@ -104,6 +120,7 @@ public class ControllerPage extends ScrollView {
 		}
 		deviceText[device].setVisibility( v );
 		deviceLabel[device].setVisibility( v );
+		//deviceRow[device].setVisibility( v );
 	}
 
 	public void updateDisplay ( String[] v ) {
