@@ -16,11 +16,6 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         android:key="@string/prefDeviceKey"
         android:title="@string/prefDeviceTitle" />
 
-    <PreferenceCategory android:title="@string/prefsCategoryHost" >
-        <PreferenceScreen
-            android:key="@string/prefHostScreenKey"
-            android:summary="@string/prefHostScreenSummary"
-            android:title="@string/prefHostScreenTitle" >
             <PreferenceCategory android:title="@string/prefsCategoryProfiles" >
                 <ListPreference
                     android:defaultValue="@string/prefProfileSelectedDefault"
@@ -66,8 +61,6 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                     android:summary="@string/prefUserIdSummary"
                     android:title="@string/prefUserIdTitle" />
             </PreferenceCategory>
-        </PreferenceScreen>
-    </PreferenceCategory>
     <PreferenceCategory android:title="@string/prefsCategoryController" >
         <PreferenceScreen
             android:key="controller"
