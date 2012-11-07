@@ -1,3 +1,6 @@
+0.8.1
+ * updated the settings page to make it simpler and fewer screens
+
 0.8.0
  * created ContentProvider for external apps to access the stored parameters
  * added automatic updating of status
