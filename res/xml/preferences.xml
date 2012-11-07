@@ -652,72 +652,71 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             </PreferenceCategory>
         </PreferenceScreen>
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/prefsCategoryAdvanced" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/prefPre10MemoryKey"
+            android:summary="@string/prefPre10MemorySummary"
+            android:title="@string/prefPre10MemoryTitle" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/prefAutoUpdateModulesKey"
+            android:summary="@string/prefAutoUpdateModulesSummary"
+            android:title="@string/prefAutoUpdateModulesTitle" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/prefAutoUpdateCategory" >
+        <ListPreference
+            android:defaultValue="@string/prefAutoUpdateIntervalDefault"
+            android:entries="@array/updateInterval"
+            android:entryValues="@array/updateIntervalValues"
+            android:key="@string/prefAutoUpdateIntervalKey"
+            android:title="@string/prefAutoUpdateIntervalTitle" />
+        <ListPreference
+            android:defaultValue="@string/prefAutoUpdateProfileDefault"
+            android:entries="@array/updateProfile"
+            android:entryValues="@array/updateProfileValues"
+            android:key="@string/prefAutoUpdateProfileKey"
+            android:title="@string/prefAutoUpdateProfileTitle" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/prefNotificationCategory" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/prefNotificationEnableKey"
+            android:summary="@string/prefNotificationEnableSummary"
+            android:title="@string/prefNotificationCategory" />
+
+        <RingtonePreference
+            android:defaultValue="content://settings/system/notification_sound"
+            android:dependency="@string/prefNotificationEnableKey"
+            android:key="@string/prefNotificationSoundKey"
+            android:ringtoneType="notification"
+            android:showDefault="true"
+            android:showSilent="true"
+            android:title="@string/prefNotificationSoundTitle" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/prefLoggingCategory" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/prefLoggingEnableKey"
+            android:title="@string/labelEnable" />
+
+        <ListPreference
+            android:defaultValue="0"
+            android:dependency="@string/prefLoggingEnableKey"
+            android:entries="@array/loggingUpdate"
+            android:entryValues="@array/loggingUpdateValues"
+            android:key="@string/prefLoggingUpdateKey"
+            android:title="@string/prefLoggingUpdateTitle" />
+
+        <Preference
+            android:key="@string/prefLoggingSendKey"
+            android:summary="@string/prefLoggingSendSummary"
+            android:title="@string/prefLoggingSendTitle" />
+        <Preference
+            android:key="@string/prefLoggingDeleteKey"
+            android:title="@string/prefLoggingDeleteTitle" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/prefsCategoryApp" >
-        <PreferenceScreen android:title="@string/prefAppSettingsTitle" >
-            <CheckBoxPreference
-                android:defaultValue="true"
-                android:key="@string/prefPre10MemoryKey"
-                android:summary="@string/prefPre10MemorySummary"
-                android:title="@string/prefPre10MemoryTitle" />
-            <CheckBoxPreference
-                android:defaultValue="true"
-                android:key="@string/prefAutoUpdateModulesKey"
-                android:summary="@string/prefAutoUpdateModulesSummary"
-                android:title="@string/prefAutoUpdateModulesTitle" />
-
-            <PreferenceCategory android:title="@string/prefAutoUpdateCategory" >
-                <ListPreference
-                    android:defaultValue="@string/prefAutoUpdateIntervalDefault"
-                    android:entries="@array/updateInterval"
-                    android:entryValues="@array/updateIntervalValues"
-                    android:key="@string/prefAutoUpdateIntervalKey"
-                    android:title="@string/prefAutoUpdateIntervalTitle" />
-                <ListPreference
-                    android:defaultValue="@string/prefAutoUpdateProfileDefault"
-                    android:entries="@array/updateProfile"
-                    android:entryValues="@array/updateProfileValues"
-                    android:key="@string/prefAutoUpdateProfileKey"
-                    android:title="@string/prefAutoUpdateProfileTitle" />
-            </PreferenceCategory>
-            <PreferenceCategory android:title="@string/prefNotificationCategory" >
-                <CheckBoxPreference
-                    android:defaultValue="true"
-                    android:key="@string/prefNotificationEnableKey"
-                    android:summary="@string/prefNotificationEnableSummary"
-                    android:title="@string/prefNotificationCategory" />
-
-                <RingtonePreference
-                    android:defaultValue="content://settings/system/notification_sound"
-                    android:dependency="@string/prefNotificationEnableKey"
-                    android:key="@string/prefNotificationSoundKey"
-                    android:ringtoneType="notification"
-                    android:showDefault="true"
-                    android:showSilent="true"
-                    android:title="@string/prefNotificationSoundTitle" />
-            </PreferenceCategory>
-            <PreferenceCategory android:title="@string/prefLoggingCategory" >
-                <CheckBoxPreference
-                    android:defaultValue="false"
-                    android:key="@string/prefLoggingEnableKey"
-                    android:title="@string/labelEnable" />
-
-                <ListPreference
-                    android:defaultValue="0"
-                    android:dependency="@string/prefLoggingEnableKey"
-                    android:entries="@array/loggingUpdate"
-                    android:entryValues="@array/loggingUpdateValues"
-                    android:key="@string/prefLoggingUpdateKey"
-                    android:title="@string/prefLoggingUpdateTitle" />
-
-                <Preference
-                    android:key="@string/prefLoggingSendKey"
-                    android:summary="@string/prefLoggingSendSummary"
-                    android:title="@string/prefLoggingSendTitle" />
-                <Preference
-                    android:key="@string/prefLoggingDeleteKey"
-                    android:title="@string/prefLoggingDeleteTitle" />
-            </PreferenceCategory>
-        </PreferenceScreen>
         <PreferenceScreen
             android:key="appinfo"
             android:title="@string/prefAppTitle" >

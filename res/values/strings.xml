@@ -201,6 +201,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefsCategoryPortal">Portal</string>
     <string name="prefsCategoryController">Controller</string>
     <string name="prefsCategoryApp">Application</string>
+    <string name="prefsCategoryAdvanced">Advanced</string>
     <string name="prefDeviceKey">device</string>
     <string name="prefDeviceTitle">Device</string>
     <string name="prefDeviceSummary">Query data from your controller directly or your portal on reefangel.com</string>
