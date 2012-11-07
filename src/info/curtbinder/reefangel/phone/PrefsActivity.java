@@ -57,7 +57,7 @@ public class PrefsActivity extends PreferenceActivity implements
 
 		// set the device label
 		updateDeviceKeySummary();
-		
+
 		Preference porthomekey =
 				findPreference( rapp.getString( R.string.prefPortKey ) );
 		porthomekey.setOnPreferenceChangeListener( this );
@@ -177,7 +177,7 @@ public class PrefsActivity extends PreferenceActivity implements
 						return true;
 					}
 				} );
-		updateDownloadLabelUserId( rapp.getPrefUserId() );
+		updateUserIds();
 
 		Preference resetkey =
 				findPreference( rapp.getString( R.string.prefResetLabelsKey ) );
@@ -330,6 +330,16 @@ public class PrefsActivity extends PreferenceActivity implements
 				rapp.getString( R.string.prefControllerLabelsDownloadSummary )
 						+ " " + userId;
 		downloadkey.setSummary( cs );
+	}
+
+	private void updateUserIdSummary ( String s ) {
+		findPreference( rapp.getString( R.string.prefUserIdKey ) )
+				.setSummary( s );
+	}
+
+	private void updateUserIds ( ) {
+		updateUserIdSummary( rapp.getPrefUserId() );
+		updateDownloadLabelUserId( rapp.getPrefUserId() );
 	}
 
 	private void updateExpansionLabelsVisibility ( int qty ) {
@@ -523,7 +533,7 @@ public class PrefsActivity extends PreferenceActivity implements
 			updateAutoUpdateProfileVisibility( f );
 			updateSelectedProfileVisibility();
 		} else if ( key.equals( rapp.getString( R.string.prefUserIdKey ) ) ) {
-			updateDownloadLabelUserId( rapp.getPrefUserId() );
+			updateUserIds();
 			if ( (rapp.getUpdateInterval() > 0)
 					&& (!rapp.isCommunicateController()) ) {
 				Log.d( TAG, "restart based on userid changing" );

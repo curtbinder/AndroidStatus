@@ -58,7 +58,6 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 <EditTextPreference
                     android:defaultValue="@string/prefUserIdDefault"
                     android:key="@string/prefUserIdKey"
-                    android:summary="@string/prefUserIdSummary"
                     android:title="@string/prefUserIdTitle" />
             </PreferenceCategory>
     <PreferenceCategory android:title="@string/prefsCategoryController" >
