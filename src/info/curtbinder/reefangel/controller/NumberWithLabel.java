@@ -8,7 +8,6 @@ package info.curtbinder.reefangel.controller;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
-
 public class NumberWithLabel {
 
 	private Number data;

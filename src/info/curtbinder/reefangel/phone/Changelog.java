@@ -32,7 +32,7 @@ public class Changelog {
 		bld.setMessage( readChangelog( a ) );
 		bld.setPositiveButton(	a.getString( R.string.buttonOk ),
 								new DialogInterface.OnClickListener() {
-									@Override
+
 									public void onClick (
 											DialogInterface dialog,
 											int which ) {

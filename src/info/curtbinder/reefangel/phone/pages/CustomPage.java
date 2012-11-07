@@ -74,7 +74,7 @@ public class CustomPage extends ScrollView {
 	public void setLabel ( int channel, String label ) {
 		customLabels[channel].setText( label );
 	}
-	
+
 	public void setVisibility ( int channel, boolean fVisible ) {
 		// this function is most likely unnecessary
 		int v;

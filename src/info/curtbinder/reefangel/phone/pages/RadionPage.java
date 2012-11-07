@@ -17,7 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class RadionPage extends ScrollView {
-	//private static final String TAG = RadionWidget.class.getSimpleName();
+	// private static final String TAG = RadionWidget.class.getSimpleName();
 
 	Context ctx; // saved context from parent
 	private TextView[] radionText;
@@ -68,7 +68,7 @@ public class RadionPage extends ScrollView {
 	public void setLabel ( int channel, String label ) {
 		radionLabels[channel].setText( label );
 	}
-	
+
 	public void updateDisplay ( String[] v ) {
 		for ( int i = 0; i < Controller.MAX_RADION_LIGHT_CHANNELS; i++ ) {
 			radionText[i].setText( v[i] );

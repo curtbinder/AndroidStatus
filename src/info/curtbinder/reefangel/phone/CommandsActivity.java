@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 public class CommandsActivity extends BaseActivity implements OnClickListener {
 
-	//private static final String TAG = CommandsActivity.class.getSimpleName();
+	// private static final String TAG = CommandsActivity.class.getSimpleName();
 
 	private Button feedingButton;
 	private Button waterButton;
@@ -36,7 +36,6 @@ public class CommandsActivity extends BaseActivity implements OnClickListener {
 	CommandsReceiver receiver;
 	IntentFilter filter;
 
-	@Override
 	protected void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.commands );
@@ -49,13 +48,11 @@ public class CommandsActivity extends BaseActivity implements OnClickListener {
 		setOnClickListeners();
 	}
 
-	@Override
 	protected void onPause ( ) {
 		super.onPause();
 		unregisterReceiver( receiver );
 	}
 
-	@Override
 	protected void onResume ( ) {
 		super.onResume();
 		registerReceiver( receiver, filter, Permissions.SEND_COMMAND, null );
@@ -67,7 +64,8 @@ public class CommandsActivity extends BaseActivity implements OnClickListener {
 		exitButton = (Button) findViewById( R.id.command_button_exit );
 		versionButton = (Button) findViewById( R.id.command_button_version );
 		atoButton = (Button) findViewById( R.id.command_button_ato_clear );
-		overheatButton = (Button) findViewById( R.id.command_button_overheat_clear );
+		overheatButton =
+				(Button) findViewById( R.id.command_button_overheat_clear );
 		versionText = (TextView) findViewById( R.id.textInstalledVersion );
 	}
 
@@ -80,7 +78,6 @@ public class CommandsActivity extends BaseActivity implements OnClickListener {
 		overheatButton.setOnClickListener( this );
 	}
 
-	@Override
 	public void onClick ( View v ) {
 		Intent i = new Intent();
 		switch ( v.getId() ) {
@@ -99,13 +96,13 @@ public class CommandsActivity extends BaseActivity implements OnClickListener {
 				break;
 			case R.id.command_button_ato_clear:
 				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
-				i.putExtra(  MessageCommands.COMMAND_SEND_STRING,
-				             RequestCommands.AtoClear );
+				i.putExtra( MessageCommands.COMMAND_SEND_STRING,
+							RequestCommands.AtoClear );
 				break;
 			case R.id.command_button_overheat_clear:
 				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
-				i.putExtra(  MessageCommands.COMMAND_SEND_STRING,
-				             RequestCommands.OverheatClear );
+				i.putExtra( MessageCommands.COMMAND_SEND_STRING,
+							RequestCommands.OverheatClear );
 				break;
 			default:
 			case R.id.command_button_exit:
@@ -119,7 +116,6 @@ public class CommandsActivity extends BaseActivity implements OnClickListener {
 
 	class CommandsReceiver extends BroadcastReceiver {
 
-		@Override
 		public void onReceive ( Context context, Intent intent ) {
 			if ( intent.getAction()
 					.equals( MessageCommands.COMMAND_RESPONSE_INTENT ) ) {

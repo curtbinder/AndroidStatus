@@ -12,30 +12,30 @@ public class ShortWithLabel {
 
 	private short data;
 	private String label;
-	
-	public ShortWithLabel() {
+
+	public ShortWithLabel () {
 		data = 0;
 		label = "";
 	}
-	
-	public ShortWithLabel(short d, String l) {
+
+	public ShortWithLabel ( short d, String l ) {
 		data = d;
 		label = l;
 	}
-	
-	public void setData(short d) {
+
+	public void setData ( short d ) {
 		data = d;
 	}
-	
-	public short getData() {
+
+	public short getData ( ) {
 		return data;
 	}
-	
-	public void setLabel(String label) {
+
+	public void setLabel ( String label ) {
 		this.label = label;
 	}
-	
-	public String getLabel() {
+
+	public String getLabel ( ) {
 		return label;
 	}
 }

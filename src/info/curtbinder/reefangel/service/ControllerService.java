@@ -25,12 +25,10 @@ public class ControllerService extends Service {
 	private ServiceReceiver receiver;
 	private IntentFilter filter;
 
-	@Override
 	public IBinder onBind ( Intent intent ) {
 		return null;
 	}
 
-	@Override
 	public synchronized void onCreate ( ) {
 		super.onCreate();
 
@@ -48,7 +46,6 @@ public class ControllerService extends Service {
 		filter.addAction( MessageCommands.DATE_SEND_INTENT );
 	}
 
-	@Override
 	public synchronized void onDestroy ( ) {
 		super.onDestroy();
 
@@ -60,7 +57,6 @@ public class ControllerService extends Service {
 		}
 	}
 
-	@Override
 	public synchronized int onStartCommand (
 			Intent intent,
 			int flags,
@@ -85,7 +81,7 @@ public class ControllerService extends Service {
 	}
 
 	class ServiceReceiver extends BroadcastReceiver {
-		@Override
+
 		public void onReceive ( Context context, Intent intent ) {
 			// Log.d(TAG, "onReceive");
 			// receive messages and pass on to updater service

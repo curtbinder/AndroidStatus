@@ -17,7 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class VortechPage extends ScrollView {
-	//private static final String TAG = VortechWidget.class.getSimpleName();
+	// private static final String TAG = VortechWidget.class.getSimpleName();
 
 	Context ctx; // saved context from parent
 	private TextView[] vortechText;
@@ -56,13 +56,14 @@ public class VortechPage extends ScrollView {
 
 		vortechLabels[0] = (TextView) findViewById( R.id.vortech_mode_label );
 		vortechLabels[1] = (TextView) findViewById( R.id.vortech_speed_label );
-		vortechLabels[2] = (TextView) findViewById( R.id.vortech_duration_label );
+		vortechLabels[2] =
+				(TextView) findViewById( R.id.vortech_duration_label );
 	}
 
 	public void setLabel ( int channel, String label ) {
 		vortechLabels[channel].setText( label );
 	}
-	
+
 	public void updateDisplay ( String[] v ) {
 		for ( int i = 0; i < Controller.MAX_VORTECH_VALUES; i++ ) {
 			vortechText[i].setText( v[i] );

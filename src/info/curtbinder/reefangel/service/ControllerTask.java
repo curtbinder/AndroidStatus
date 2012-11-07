@@ -56,7 +56,6 @@ public class ControllerTask implements Runnable {
 		this.host = host;
 	}
 
-	@Override
 	public void run ( ) {
 		// Communicate with controller
 
@@ -476,7 +475,7 @@ public class ControllerTask implements Runnable {
 									er, pi );
 			nm.notify( 0, n );
 		}
-		
+
 		// broadcast
 		Intent i = new Intent( MessageCommands.ERROR_MESSAGE_INTENT );
 		i.putExtra( MessageCommands.ERROR_MESSAGE_STRING, er );

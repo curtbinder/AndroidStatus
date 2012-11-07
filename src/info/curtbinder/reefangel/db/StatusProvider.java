@@ -30,8 +30,9 @@ public class StatusProvider extends ContentProvider {
 			"vnd.android.cursor.item/vnd." + CONTENT + "." + PATH_LATEST;
 	public static final String STATUS_ID_MIME_TYPE =
 			"vnd.android.cursor.item/vnd." + CONTENT + "." + PATH_STATUS;
-	public static final String STATUS_MIME_TYPE =
-			"vnd.android.cursor.dir/vnd." + CONTENT + "." + PATH_STATUS;
+	public static final String STATUS_MIME_TYPE = "vnd.android.cursor.dir/vnd."
+													+ CONTENT + "."
+													+ PATH_STATUS;
 	private static final int CODE_LATEST = 1;
 	private static final int CODE_STATUS = 2;
 	private static final int CODE_STATUS_ID = 3;
@@ -43,13 +44,11 @@ public class StatusProvider extends ContentProvider {
 		sUriMatcher.addURI( CONTENT, PATH_STATUS + "/#", CODE_STATUS_ID );
 	}
 
-	@Override
 	public int delete ( Uri arg0, String arg1, String[] arg2 ) {
 		Log.d( TAG, "Delete not implemented" );
 		return 0;
 	}
 
-	@Override
 	public String getType ( Uri url ) {
 		int match = sUriMatcher.match( url );
 		switch ( match ) {
@@ -64,19 +63,16 @@ public class StatusProvider extends ContentProvider {
 		return null;
 	}
 
-	@Override
 	public Uri insert ( Uri arg0, ContentValues arg1 ) {
 		Log.d( TAG, "Insert not implemented" );
 		return null;
 	}
 
-	@Override
 	public boolean onCreate ( ) {
 		data = new RAData( getContext() );
 		return false;
 	}
 
-	@Override
 	public Cursor query (
 			Uri uri,
 			String[] projection,
@@ -96,7 +92,6 @@ public class StatusProvider extends ContentProvider {
 		return null;
 	}
 
-	@Override
 	public int update ( Uri arg0, ContentValues arg1, String arg2, String[] arg3 ) {
 		Log.d( TAG, "Update not implemented" );
 		return 0;

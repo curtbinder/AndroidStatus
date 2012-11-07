@@ -15,27 +15,22 @@ import android.widget.TabHost;
 
 public class CommandTabsActivity extends TabActivity {
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	protected void onCreate ( Bundle savedInstanceState ) {
+		super.onCreate( savedInstanceState );
 
 		final TabHost t = getTabHost();
 
-		t.addTab(t
-				.newTabSpec(getString(R.string.tabCommand1))
-				.setIndicator(
-						getString(R.string.titleCommands),
-						getResources().getDrawable(
-								android.R.drawable.ic_menu_upload))
-				.setContent(new Intent(this, CommandsActivity.class)));
+		t.addTab( t
+				.newTabSpec( getString( R.string.tabCommand1 ) )
+				.setIndicator(	getString( R.string.titleCommands ),
+								getResources()
+										.getDrawable(	android.R.drawable.ic_menu_upload ) )
+				.setContent( new Intent( this, CommandsActivity.class ) ) );
 		/*
-		t.addTab(t
-				.newTabSpec(getString(R.string.tabCommand2))
-				.setIndicator(
-						getString(R.string.titleDateTime),
-						getResources().getDrawable(
-								android.R.drawable.ic_menu_my_calendar))
-				.setContent(new Intent(this, DateTimeActivity.class)));
-		*/
+		 * t.addTab(t .newTabSpec(getString(R.string.tabCommand2))
+		 * .setIndicator( getString(R.string.titleDateTime),
+		 * getResources().getDrawable( android.R.drawable.ic_menu_my_calendar))
+		 * .setContent(new Intent(this, DateTimeActivity.class)));
+		 */
 	}
 }

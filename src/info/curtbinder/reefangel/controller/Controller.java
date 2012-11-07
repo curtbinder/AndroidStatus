@@ -1,6 +1,5 @@
 package info.curtbinder.reefangel.controller;
 
-
 /*
  * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
  *
@@ -8,7 +7,6 @@ package info.curtbinder.reefangel.controller;
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
-
 
 public class Controller {
 	public static final byte MAX_CONTROLLER_VALUES = 10;

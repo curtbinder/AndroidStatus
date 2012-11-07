@@ -61,7 +61,6 @@ public class RAApplication extends Application {
 	// Service Stuff
 	public boolean isServiceRunning;
 
-	@Override
 	public void onCreate ( ) {
 		prefs = PreferenceManager.getDefaultSharedPreferences( this );
 		errorCodes = getResources().getStringArray( R.array.errorCodes );
@@ -84,7 +83,6 @@ public class RAApplication extends Application {
 			startService( new Intent( this, ControllerService.class ) );
 	}
 
-	@Override
 	public void onTerminate ( ) {
 		super.onTerminate();
 		data.close();
@@ -385,7 +383,7 @@ public class RAApplication extends Application {
 			f = true;
 		return f;
 	}
-	
+
 	public void deleteLoggingFile ( ) {
 		File l = new File( getLoggingFile() );
 		if ( l != null && l.exists() )

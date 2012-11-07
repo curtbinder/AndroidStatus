@@ -68,7 +68,6 @@ public class MemoryActivity extends BaseActivity {
 	MemoryReceiver receiver;
 	IntentFilter filter;
 
-	@Override
 	protected void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.memory );
@@ -88,13 +87,11 @@ public class MemoryActivity extends BaseActivity {
 		setInitialValues();
 	}
 
-	@Override
 	protected void onPause ( ) {
 		super.onPause();
 		unregisterReceiver( receiver );
 	}
 
-	@Override
 	protected void onResume ( ) {
 		super.onResume();
 		registerReceiver( receiver, filter, Permissions.SEND_COMMAND, null );
@@ -277,7 +274,7 @@ public class MemoryActivity extends BaseActivity {
 		} );
 		locationSpinner
 				.setOnItemSelectedListener( new OnItemSelectedListener() {
-					@Override
+
 					public void onItemSelected (
 							AdapterView<?> parent,
 							View v,
@@ -286,7 +283,6 @@ public class MemoryActivity extends BaseActivity {
 						setItemSelected( (int) id );
 					}
 
-					@Override
 					public void onNothingSelected ( AdapterView<?> arg0 ) {
 					}
 				} );
@@ -371,7 +367,7 @@ public class MemoryActivity extends BaseActivity {
 	}
 
 	class MemoryReceiver extends BroadcastReceiver {
-		@Override
+
 		public void onReceive ( Context context, Intent intent ) {
 			String action = intent.getAction();
 			if ( action.equals( MessageCommands.MEMORY_RESPONSE_INTENT ) ) {

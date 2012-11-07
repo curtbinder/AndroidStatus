@@ -76,7 +76,7 @@ public class RelayBoxPage extends ScrollView implements OnClickListener {
 	public boolean isExpansionRelay ( ) {
 		return relayNumber > 0;
 	}
-	
+
 	private int getBoxNumber ( ) {
 		return relayNumber * 10;
 	}
@@ -119,9 +119,7 @@ public class RelayBoxPage extends ScrollView implements OnClickListener {
 		portMaskBtns[6] = findViewById( R.id.relayPort7Mask );
 		portMaskBtns[7] = findViewById( R.id.relayPort8Mask );
 	}
-	
 
-	@Override
 	public void setClickable ( boolean clickable ) {
 		for ( int i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
 			portBtns[i].setClickable( false );
@@ -162,8 +160,13 @@ public class RelayBoxPage extends ScrollView implements OnClickListener {
 				s1 = "OFF";
 			}
 			s =
-					new String( String.format( "Port %d%d: %s(%s)", relayNumber, i + 1, r
-							.isPortOn( i + 1, fUseMask ) ? "ON" : "OFF", s1 ) );
+					new String(
+						String.format(	"Port %d%d: %s(%s)",
+										relayNumber,
+										i + 1,
+										r.isPortOn( i + 1, fUseMask )	? "ON"
+																		: "OFF",
+										s1 ) );
 			Log.d( TAG, s );
 
 			portBtns[i].setChecked( r.isPortOn( i + 1, fUseMask ) );
@@ -177,7 +180,6 @@ public class RelayBoxPage extends ScrollView implements OnClickListener {
 		}
 	}
 
-	@Override
 	public void onClick ( View v ) {
 		int box = getBoxNumber();
 		// inside Log.d, the + is string concatenation

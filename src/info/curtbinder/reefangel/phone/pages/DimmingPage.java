@@ -70,7 +70,7 @@ public class DimmingPage extends ScrollView {
 	public void setLabel ( int channel, String label ) {
 		pwmeLabels[channel].setText( label );
 	}
-	
+
 	public void setVisibility ( int channel, boolean fVisible ) {
 		// this function is most likely unnecessary
 		int v;

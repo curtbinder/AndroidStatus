@@ -15,20 +15,17 @@ import android.os.Bundle;
 public class BaseActivity extends Activity {
 	RAApplication rapp;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	protected void onCreate ( Bundle savedInstanceState ) {
+		super.onCreate( savedInstanceState );
 
 		rapp = (RAApplication) getApplication();
 	}
 
-	@Override
-	protected void onPause() {
+	protected void onPause ( ) {
 		super.onPause();
 	}
 
-	@Override
-	protected void onResume() {
+	protected void onResume ( ) {
 		super.onResume();
 
 		// if the service isn't running, start it

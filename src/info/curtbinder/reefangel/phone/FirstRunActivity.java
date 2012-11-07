@@ -25,13 +25,12 @@ public class FirstRunActivity extends BaseActivity implements OnClickListener {
 	private EditText portText;
 	private EditText useridText;
 
-	@Override
 	protected void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.firstrun );
 
 		findViews();
-		
+
 		finishButton.setOnClickListener( this );
 	}
 
@@ -42,40 +41,40 @@ public class FirstRunActivity extends BaseActivity implements OnClickListener {
 		useridText = (EditText) findViewById( R.id.firstUsernameText );
 	}
 
-	@Override
 	public void onClick ( View v ) {
 
 		boolean fPort = false;
 		boolean fUser = false;
-		if ( ! rapp.validateHost( hostText.getText() ) )
+		if ( !rapp.validateHost( hostText.getText() ) )
 			// not valid, stay on the page
 			return;
-		
-		if ( ! portText.getText().toString().equals( "" ) ) {
+
+		if ( !portText.getText().toString().equals( "" ) ) {
 			// not empty, so we need to validate it
-			if ( ! rapp.validatePort( portText.getText() ) )
+			if ( !rapp.validatePort( portText.getText() ) )
 				// not valid, stay on page
 				return;
 			fPort = true;
 		}
-		
-		if ( ! useridText.getText().toString().equals( "" ) ) {
+
+		if ( !useridText.getText().toString().equals( "" ) ) {
 			// not empty, so we need to validate it
-			if ( ! rapp.validateUser( useridText.getText() ) ) 
+			if ( !rapp.validateUser( useridText.getText() ) )
 				// not valid, stay on page
 				return;
 			fUser = true;
 		}
-		
-		Log.w(TAG, "Saving settings");
-		rapp.setPref( R.string.prefHostKey, hostText.getText().toString() ); 
+
+		Log.w( TAG, "Saving settings" );
+		rapp.setPref( R.string.prefHostKey, hostText.getText().toString() );
 		if ( fPort ) {
 			rapp.setPref( R.string.prefPortKey, portText.getText().toString() );
 		}
 		if ( fUser ) {
-			rapp.setPref( R.string.prefUserIdKey, useridText.getText().toString() );
+			rapp.setPref( R.string.prefUserIdKey, useridText.getText()
+					.toString() );
 		}
-		Log.w(TAG, "Configured, starting app");
+		Log.w( TAG, "Configured, starting app" );
 		rapp.disableFirstRun();
 		Intent i = new Intent( rapp.getBaseContext(), StatusActivity.class );
 		i.addFlags( Intent.FLAG_ACTIVITY_SINGLE_TOP );

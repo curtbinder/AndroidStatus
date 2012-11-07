@@ -36,15 +36,15 @@ public class Number {
 	private void computeNumber ( ) {
 		int divisor = 1;
 		switch ( decimalPlaces ) {
-		case 2:
-			divisor = 100;
-			break;
-		case 1:
-			divisor = 10;
-			break;
-		default:
-			divisor = 1;
-			break;
+			case 2:
+				divisor = 100;
+				break;
+			case 1:
+				divisor = 10;
+				break;
+			default:
+				divisor = 1;
+				break;
 		}
 		whole = value / divisor;
 		fraction = value % divisor;
@@ -69,17 +69,17 @@ public class Number {
 	public String toString ( ) {
 		String s = "";
 		switch ( decimalPlaces ) {
-		case 2:
-			// TODO change to be locale independent
-			s = String.format("%d%c%02d", whole, '.', fraction);
-			break;
-		case 1:
-			// TODO change to be locale independent
-			s = String.format("%d%c%01d", whole, '.', fraction);
-			break;
-		default:
-			s = String.format("%d", whole);
-			break;
+			case 2:
+				// TODO change to be locale independent
+				s = String.format( "%d%c%02d", whole, '.', fraction );
+				break;
+			case 1:
+				// TODO change to be locale independent
+				s = String.format( "%d%c%01d", whole, '.', fraction );
+				break;
+			default:
+				s = String.format( "%d", whole );
+				break;
 		}
 		return s;
 	}

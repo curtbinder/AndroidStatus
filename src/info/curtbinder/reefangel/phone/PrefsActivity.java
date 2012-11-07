@@ -46,7 +46,6 @@ public class PrefsActivity extends PreferenceActivity implements
 	PrefsReceiver receiver;
 	IntentFilter filter;
 
-	@Override
 	protected void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		addPreferencesFromResource( R.xml.preferences );
@@ -124,7 +123,6 @@ public class PrefsActivity extends PreferenceActivity implements
 		changelog
 				.setOnPreferenceClickListener( new OnPreferenceClickListener() {
 
-					@Override
 					public boolean onPreferenceClick ( Preference preference ) {
 						Changelog.displayChangelog( PrefsActivity.this );
 						return true;
@@ -136,7 +134,7 @@ public class PrefsActivity extends PreferenceActivity implements
 						.getString( R.string.prefControllerLabelsDownloadKey ) );
 		downloadkey
 				.setOnPreferenceClickListener( new OnPreferenceClickListener() {
-					@Override
+
 					public boolean onPreferenceClick ( Preference preference ) {
 
 						AlertDialog.Builder builder =
@@ -187,7 +185,7 @@ public class PrefsActivity extends PreferenceActivity implements
 		Preference resetkey =
 				findPreference( rapp.getString( R.string.prefResetLabelsKey ) );
 		resetkey.setOnPreferenceClickListener( new OnPreferenceClickListener() {
-			@Override
+
 			public boolean onPreferenceClick ( Preference preference ) {
 
 				AlertDialog.Builder builder =
@@ -224,7 +222,7 @@ public class PrefsActivity extends PreferenceActivity implements
 				findPreference( rapp.getString( R.string.prefLoggingDeleteKey ) );
 		deletelog
 				.setOnPreferenceClickListener( new OnPreferenceClickListener() {
-					@Override
+
 					public boolean onPreferenceClick ( Preference preference ) {
 
 						AlertDialog.Builder builder =
@@ -263,7 +261,7 @@ public class PrefsActivity extends PreferenceActivity implements
 				findPreference( rapp.getString( R.string.prefLoggingSendKey ) );
 		sendemail
 				.setOnPreferenceClickListener( new OnPreferenceClickListener() {
-					@Override
+
 					public boolean onPreferenceClick ( Preference preference ) {
 
 						AlertDialog.Builder builder =
@@ -305,7 +303,6 @@ public class PrefsActivity extends PreferenceActivity implements
 		}
 	}
 
-	@Override
 	protected void onPause ( ) {
 		super.onPause();
 		unregisterReceiver( receiver );
@@ -313,7 +310,6 @@ public class PrefsActivity extends PreferenceActivity implements
 				.unregisterOnSharedPreferenceChangeListener( this );
 	}
 
-	@Override
 	protected void onResume ( ) {
 		super.onResume();
 		registerReceiver( receiver, filter, Permissions.SEND_COMMAND, null );
@@ -481,7 +477,6 @@ public class PrefsActivity extends PreferenceActivity implements
 						Toast.LENGTH_SHORT ).show();
 	}
 
-	@Override
 	public boolean onPreferenceChange ( Preference preference, Object newValue ) {
 		// return true to change, false to not
 		if ( preference.getKey()
@@ -515,7 +510,6 @@ public class PrefsActivity extends PreferenceActivity implements
 		updateprofilekey.setSelectable( fVisible );
 	}
 
-	@Override
 	public void onSharedPreferenceChanged (
 			SharedPreferences sharedPreferences,
 			String key ) {
@@ -628,7 +622,7 @@ public class PrefsActivity extends PreferenceActivity implements
 	}
 
 	class PrefsReceiver extends BroadcastReceiver {
-		@Override
+
 		public void onReceive ( Context context, Intent intent ) {
 			Log.d( TAG, "Warn about labels" );
 			// Toast.makeText( PrefsActivity.this,

@@ -107,7 +107,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	// private boolean showMessageText;
 
 	/** Called when the activity is first created. */
-	@Override
+
 	public void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.status );
@@ -145,13 +145,11 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		}
 	}
 
-	@Override
 	protected void onPause ( ) {
 		super.onPause();
 		unregisterReceiver( receiver );
 	}
 
-	@Override
 	protected void onResume ( ) {
 		super.onResume();
 		registerReceiver( receiver, filter, Permissions.QUERY_STATUS, null );
@@ -380,7 +378,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// messageText.setVisibility(View.GONE);
 	}
 
-	@Override
 	public void onClick ( View v ) {
 		switch ( v.getId() ) {
 			case R.id.refresh_button:
@@ -391,7 +388,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		}
 	}
 
-	@Override
 	public boolean onLongClick ( View v ) {
 		// if it's not a controller, don't even bother processing
 		// the long clicks
@@ -409,7 +405,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				DialogInterface.OnClickListener ocl =
 						new DialogInterface.OnClickListener() {
 
-							@Override
 							public void onClick (
 									DialogInterface dialog,
 									int item ) {
@@ -451,7 +446,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		refreshButton.setText( s );
 	}
 
-	@Override
 	public boolean onKeyDown ( int keyCode, KeyEvent event ) {
 		switch ( keyCode ) {
 			case KeyEvent.KEYCODE_R:
@@ -589,7 +583,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	class StatusReceiver extends BroadcastReceiver {
 		private final String TAG = StatusReceiver.class.getSimpleName();
 
-		@Override
 		public void onReceive ( Context context, Intent intent ) {
 			// Log.d(TAG, "onReceive");
 			String action = intent.getAction();
@@ -838,14 +831,12 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		fReloadPages = false;
 	}
 
-	@Override
 	public boolean onCreateOptionsMenu ( Menu menu ) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate( R.menu.status_menu, menu );
 		return true;
 	}
 
-	@Override
 	public boolean onOptionsItemSelected ( MenuItem item ) {
 		// Handle item selection
 		switch ( item.getItemId() ) {
@@ -980,13 +971,11 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private class CustomPagerAdapter extends PagerAdapter {
 		private final String TAG = CustomPagerAdapter.class.getSimpleName();
 
-		@Override
 		public int getCount ( ) {
 			int qty = MIN_PAGES + rapp.getTotalInstalledModuleQuantity();
 			return qty;
 		}
 
-		@Override
 		public void destroyItem (
 				ViewGroup container,
 				int position,
@@ -995,19 +984,16 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			((ViewPager) container).removeView( (View) object );
 		}
 
-		@Override
 		public Object instantiateItem ( ViewGroup container, int position ) {
 			Log.d( TAG, "Position: " + position );
 			((ViewPager) container).addView( appPages[position] );
 			return appPages[position];
 		}
 
-		@Override
 		public boolean isViewFromObject ( View view, Object object ) {
 			return view == object;
 		}
 
-		@Override
 		public int getItemPosition ( Object object ) {
 			return POSITION_NONE;
 		}

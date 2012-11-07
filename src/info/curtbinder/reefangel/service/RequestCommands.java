@@ -13,7 +13,7 @@ public final class RequestCommands {
 	public static final String MemoryByte = "/mb";
 	public static final String MemoryInt = "/mi";
 	public static final String Status = "/r99";
-	//public static final String Status = "/sr";
+	// public static final String Status = "/sr";
 	public static final String DateTime = "/d";
 	public static final String Version = "/v";
 	public static final String FeedingMode = "/mf";

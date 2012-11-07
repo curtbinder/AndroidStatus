@@ -48,7 +48,6 @@ public class DateTimeActivity extends BaseActivity implements OnClickListener {
 	CommandsReceiver receiver;
 	IntentFilter filter;
 
-	@Override
 	protected void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.datetime );
@@ -61,13 +60,11 @@ public class DateTimeActivity extends BaseActivity implements OnClickListener {
 		setOnClickListeners();
 	}
 
-	@Override
 	protected void onPause ( ) {
 		super.onPause();
 		unregisterReceiver( receiver );
 	}
 
-	@Override
 	protected void onResume ( ) {
 		super.onResume();
 		registerReceiver( receiver, filter, Permissions.SEND_COMMAND, null );
@@ -104,7 +101,6 @@ public class DateTimeActivity extends BaseActivity implements OnClickListener {
 				new DatePickerDialog( this,
 					new DatePickerDialog.OnDateSetListener() {
 
-						@Override
 						public void onDateSet (
 								DatePicker view,
 								int year,
@@ -130,7 +126,6 @@ public class DateTimeActivity extends BaseActivity implements OnClickListener {
 				new TimePickerDialog( this,
 					new TimePickerDialog.OnTimeSetListener() {
 
-						@Override
 						public void onTimeSet (
 								TimePicker view,
 								int hourOfDay,
@@ -157,7 +152,6 @@ public class DateTimeActivity extends BaseActivity implements OnClickListener {
 		return true;
 	}
 
-	@Override
 	public void onClick ( View v ) {
 		Intent i = new Intent();
 		boolean fSend = false;
@@ -205,7 +199,6 @@ public class DateTimeActivity extends BaseActivity implements OnClickListener {
 
 	class CommandsReceiver extends BroadcastReceiver {
 
-		@Override
 		public void onReceive ( Context context, Intent intent ) {
 			if ( intent.getAction()
 					.equals( MessageCommands.DATE_QUERY_RESPONSE_INTENT ) ) {

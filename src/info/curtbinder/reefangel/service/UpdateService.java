@@ -49,7 +49,6 @@ public class UpdateService extends IntentService {
 		return fAvailable;
 	}
 
-	@Override
 	protected void onHandleIntent ( Intent intent ) {
 		Log.d( TAG, "onHandleIntent" );
 		// create new ControllerTask based on values received
@@ -90,7 +89,7 @@ public class UpdateService extends IntentService {
 				}
 			} else {
 				host = rapp.getPrefHost();
-				port = rapp.getPrefPort();				
+				port = rapp.getPrefPort();
 			}
 			h.setHost( host );
 			h.setPort( port );

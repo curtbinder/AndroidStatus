@@ -102,13 +102,11 @@ public class RAData {
 			super( context, DB_NAME, null, DB_VERSION );
 		}
 
-		@Override
 		public void onCreate ( SQLiteDatabase db ) {
 			// create the tables here
 			createParamsTable( db );
 		}
 
-		@Override
 		public void onUpgrade (
 				SQLiteDatabase db,
 				int oldVersion,
@@ -125,44 +123,44 @@ public class RAData {
 			db.execSQL( "CREATE TABLE " + PTABLE_NAME + " (" + PCOL_ID
 						+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + PCOL_T1
 						+ " TEXT, " + PCOL_T2 + " TEXT, " + PCOL_T3 + " TEXT, "
-						+ PCOL_PH + " TEXT, " + PCOL_DP + " INTEGER, " + PCOL_AP
-						+ " INTEGER, " + PCOL_SAL + " TEXT, " + PCOL_ORP
-						+ " TEXT, " + PCOL_ATOHI + " INTEGER, " + PCOL_ATOLO
-						+ " INTEGER, " + PCOL_LOGDATE + " TEXT, " + PCOL_RDATA
-						+ " INTEGER, " + PCOL_RONMASK + " INTEGER, "
-						+ PCOL_ROFFMASK + " INTEGER, " + PCOL_R1DATA
-						+ " INTEGER, " + PCOL_R1ONMASK + " INTEGER, "
-						+ PCOL_R1OFFMASK + " INTEGER, " + PCOL_R2DATA
-						+ " INTEGER, " + PCOL_R2ONMASK + " INTEGER, "
-						+ PCOL_R2OFFMASK + " INTEGER, " + PCOL_R3DATA
-						+ " INTEGER, " + PCOL_R3ONMASK + " INTEGER, "
-						+ PCOL_R3OFFMASK + " INTEGER, " + PCOL_R4DATA
-						+ " INTEGER, " + PCOL_R4ONMASK + " INTEGER, "
-						+ PCOL_R4OFFMASK + " INTEGER, " + PCOL_R5DATA
-						+ " INTEGER, " + PCOL_R5ONMASK + " INTEGER, "
-						+ PCOL_R5OFFMASK + " INTEGER, " + PCOL_R6DATA
-						+ " INTEGER, " + PCOL_R6ONMASK + " INTEGER, "
-						+ PCOL_R6OFFMASK + " INTEGER, " + PCOL_R7DATA
-						+ " INTEGER, " + PCOL_R7ONMASK + " INTEGER, "
-						+ PCOL_R7OFFMASK + " INTEGER, " + PCOL_R8DATA
-						+ " INTEGER, " + PCOL_R8ONMASK + " INTEGER, "
-						+ PCOL_R8OFFMASK + " INTEGER, " + PCOL_PWME0
-						+ " INTEGER, " + PCOL_PWME1 + " INTEGER, " + PCOL_PWME2
-						+ " INTEGER, " + PCOL_PWME3 + " INTEGER, " + PCOL_PWME4
-						+ " INTEGER, " + PCOL_PWME5 + " INTEGER, " + PCOL_AIW
-						+ " INTEGER, " + PCOL_AIB + " INTEGER, " + PCOL_AIRB
-						+ " INTEGER, " + PCOL_RFM + " INTEGER, " + PCOL_RFS
-						+ " INTEGER, " + PCOL_RFD + " INTEGER, " + PCOL_RFW
-						+ " INTEGER, " + PCOL_RFRB + " INTEGER, " + PCOL_RFR
-						+ " INTEGER, " + PCOL_RFG + " INTEGER, " + PCOL_RFB
-						+ " INTEGER, " + PCOL_RFI + " INTEGER, " + PCOL_IO
-						+ " INTEGER, " + PCOL_C0 + " INTEGER, " + PCOL_C1
-						+ " INTEGER, " + PCOL_C2 + " INTEGER, " + PCOL_C3
-						+ " INTEGER, " + PCOL_C4 + " INTEGER, " + PCOL_C5
-						+ " INTEGER, " + PCOL_C6 + " INTEGER, " + PCOL_C7
-						+ " INTEGER, " + PCOL_EM + " INTEGER, " + PCOL_REM
-						+ " INTEGER, " + PCOL_PHE + " TEXT, " + PCOL_WL
-						+ " INTEGER " + ");" );
+						+ PCOL_PH + " TEXT, " + PCOL_DP + " INTEGER, "
+						+ PCOL_AP + " INTEGER, " + PCOL_SAL + " TEXT, "
+						+ PCOL_ORP + " TEXT, " + PCOL_ATOHI + " INTEGER, "
+						+ PCOL_ATOLO + " INTEGER, " + PCOL_LOGDATE + " TEXT, "
+						+ PCOL_RDATA + " INTEGER, " + PCOL_RONMASK
+						+ " INTEGER, " + PCOL_ROFFMASK + " INTEGER, "
+						+ PCOL_R1DATA + " INTEGER, " + PCOL_R1ONMASK
+						+ " INTEGER, " + PCOL_R1OFFMASK + " INTEGER, "
+						+ PCOL_R2DATA + " INTEGER, " + PCOL_R2ONMASK
+						+ " INTEGER, " + PCOL_R2OFFMASK + " INTEGER, "
+						+ PCOL_R3DATA + " INTEGER, " + PCOL_R3ONMASK
+						+ " INTEGER, " + PCOL_R3OFFMASK + " INTEGER, "
+						+ PCOL_R4DATA + " INTEGER, " + PCOL_R4ONMASK
+						+ " INTEGER, " + PCOL_R4OFFMASK + " INTEGER, "
+						+ PCOL_R5DATA + " INTEGER, " + PCOL_R5ONMASK
+						+ " INTEGER, " + PCOL_R5OFFMASK + " INTEGER, "
+						+ PCOL_R6DATA + " INTEGER, " + PCOL_R6ONMASK
+						+ " INTEGER, " + PCOL_R6OFFMASK + " INTEGER, "
+						+ PCOL_R7DATA + " INTEGER, " + PCOL_R7ONMASK
+						+ " INTEGER, " + PCOL_R7OFFMASK + " INTEGER, "
+						+ PCOL_R8DATA + " INTEGER, " + PCOL_R8ONMASK
+						+ " INTEGER, " + PCOL_R8OFFMASK + " INTEGER, "
+						+ PCOL_PWME0 + " INTEGER, " + PCOL_PWME1 + " INTEGER, "
+						+ PCOL_PWME2 + " INTEGER, " + PCOL_PWME3 + " INTEGER, "
+						+ PCOL_PWME4 + " INTEGER, " + PCOL_PWME5 + " INTEGER, "
+						+ PCOL_AIW + " INTEGER, " + PCOL_AIB + " INTEGER, "
+						+ PCOL_AIRB + " INTEGER, " + PCOL_RFM + " INTEGER, "
+						+ PCOL_RFS + " INTEGER, " + PCOL_RFD + " INTEGER, "
+						+ PCOL_RFW + " INTEGER, " + PCOL_RFRB + " INTEGER, "
+						+ PCOL_RFR + " INTEGER, " + PCOL_RFG + " INTEGER, "
+						+ PCOL_RFB + " INTEGER, " + PCOL_RFI + " INTEGER, "
+						+ PCOL_IO + " INTEGER, " + PCOL_C0 + " INTEGER, "
+						+ PCOL_C1 + " INTEGER, " + PCOL_C2 + " INTEGER, "
+						+ PCOL_C3 + " INTEGER, " + PCOL_C4 + " INTEGER, "
+						+ PCOL_C5 + " INTEGER, " + PCOL_C6 + " INTEGER, "
+						+ PCOL_C7 + " INTEGER, " + PCOL_EM + " INTEGER, "
+						+ PCOL_REM + " INTEGER, " + PCOL_PHE + " TEXT, "
+						+ PCOL_WL + " INTEGER " + ");" );
 
 		}
 	}

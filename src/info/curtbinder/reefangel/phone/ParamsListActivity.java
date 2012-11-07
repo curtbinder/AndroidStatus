@@ -41,7 +41,6 @@ public class ParamsListActivity extends ListActivity {
 											RAData.PCOL_T3 };
 	RAApplication rapp;
 
-	@Override
 	public void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.paramslist );
@@ -69,14 +68,12 @@ public class ParamsListActivity extends ListActivity {
 		}
 	}
 
-	@Override
 	public boolean onCreateOptionsMenu ( Menu menu ) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate( R.menu.paramslist_menu, menu );
 		return true;
 	}
 
-	@Override
 	public boolean onOptionsItemSelected ( MenuItem item ) {
 		switch ( item.getItemId() ) {
 			case R.id.params_delete:
@@ -116,7 +113,6 @@ public class ParamsListActivity extends ListActivity {
 		return true;
 	}
 
-	@Override
 	protected void onListItemClick ( ListView l, View v, int position, long id ) {
 		// super.onListItemClick( l, v, position, id );
 		// Log.d(TAG, "Clicked: position:" + position + ", id:" + id);

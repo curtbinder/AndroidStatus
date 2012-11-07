@@ -92,16 +92,17 @@ public class ControllerPage extends ScrollView {
 		deviceLabel[PHE_INDEX] = (TextView) findViewById( R.id.phe_label );
 		deviceLabel[WL_INDEX] = (TextView) findViewById( R.id.water_label );
 
-//		deviceRow[T1_INDEX] = (TableRow) findViewById( R.id.t1_row );
-//		deviceRow[T2_INDEX] = (TableRow) findViewById( R.id.t2_row );
-//		deviceRow[T3_INDEX] = (TableRow) findViewById( R.id.t3_row );
-//		deviceRow[PH_INDEX] = (TableRow) findViewById( R.id.ph_row );
-//		deviceRow[DP_INDEX] = (TableRow) findViewById( R.id.dp_row );
-//		deviceRow[AP_INDEX] = (TableRow) findViewById( R.id.ap_row );
-//		deviceRow[SALINITY_INDEX] = (TableRow) findViewById( R.id.salinity_row );
-//		deviceRow[ORP_INDEX] = (TableRow) findViewById( R.id.orp_row );
-//		deviceRow[PHE_INDEX] = (TableRow) findViewById( R.id.phe_row );
-//		deviceRow[WL_INDEX] = (TableRow) findViewById( R.id.water_row );
+		// deviceRow[T1_INDEX] = (TableRow) findViewById( R.id.t1_row );
+		// deviceRow[T2_INDEX] = (TableRow) findViewById( R.id.t2_row );
+		// deviceRow[T3_INDEX] = (TableRow) findViewById( R.id.t3_row );
+		// deviceRow[PH_INDEX] = (TableRow) findViewById( R.id.ph_row );
+		// deviceRow[DP_INDEX] = (TableRow) findViewById( R.id.dp_row );
+		// deviceRow[AP_INDEX] = (TableRow) findViewById( R.id.ap_row );
+		// deviceRow[SALINITY_INDEX] = (TableRow) findViewById(
+		// R.id.salinity_row );
+		// deviceRow[ORP_INDEX] = (TableRow) findViewById( R.id.orp_row );
+		// deviceRow[PHE_INDEX] = (TableRow) findViewById( R.id.phe_row );
+		// deviceRow[WL_INDEX] = (TableRow) findViewById( R.id.water_row );
 
 	}
 
@@ -120,7 +121,7 @@ public class ControllerPage extends ScrollView {
 		}
 		deviceText[device].setVisibility( v );
 		deviceLabel[device].setVisibility( v );
-		//deviceRow[device].setVisibility( v );
+		// deviceRow[device].setVisibility( v );
 	}
 
 	public void updateDisplay ( String[] v ) {

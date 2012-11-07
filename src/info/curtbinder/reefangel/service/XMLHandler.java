@@ -75,7 +75,6 @@ public class XMLHandler extends DefaultHandler {
 		this.fUse085XRelays = f;
 	}
 
-	@Override
 	public void endDocument ( ) throws SAXException {
 		if ( ra.getLogDate().equals( "" ) ) {
 			// No log date found, set the date to be the current date/time
@@ -87,14 +86,12 @@ public class XMLHandler extends DefaultHandler {
 		}
 	}
 
-	@Override
 	public void characters ( char[] ch, int start, int length )
 			throws SAXException {
 		String s = new String( ch, start, length );
 		currentElementText += s;
 	}
 
-	@Override
 	public void endElement ( String uri, String localName, String qName )
 			throws SAXException {
 		String tag;
@@ -152,7 +149,7 @@ public class XMLHandler extends DefaultHandler {
 		currentElementText = "";
 	}
 
-	// @Override
+	//
 	public void startElement (
 			String uri,
 			String localName,
@@ -355,8 +352,7 @@ public class XMLHandler extends DefaultHandler {
 		} else if ( tag.startsWith( XMLTags.PWMExpansion ) ) {
 			// PWME
 			short channel =
-					Short.parseShort( getTagNumber( tag,
-													XMLTags.PWMExpansion,
+					Short.parseShort( getTagNumber( tag, XMLTags.PWMExpansion,
 													XMLTags.LabelEnd ) );
 			Log.d( TAG, "PWM #" + channel + ": " + currentElementText );
 			ra.setPwmExpansionLabel( channel, currentElementText );

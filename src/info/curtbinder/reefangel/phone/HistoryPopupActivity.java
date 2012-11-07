@@ -34,7 +34,6 @@ public class HistoryPopupActivity extends BaseActivity {
 	private TextView historyAtoHi;
 	private Button okButton;
 
-	@Override
 	protected void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.historypopup );
@@ -48,7 +47,7 @@ public class HistoryPopupActivity extends BaseActivity {
 			loadData( id );
 
 		okButton.setOnClickListener( new OnClickListener() {
-			@Override
+
 			public void onClick ( View v ) {
 				finish();
 			}
