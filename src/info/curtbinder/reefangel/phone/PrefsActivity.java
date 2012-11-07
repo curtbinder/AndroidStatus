@@ -40,6 +40,7 @@ public class PrefsActivity extends PreferenceActivity implements
 			new Preference[Controller.MAX_EXPANSION_RELAYS];
 	private Preference updateprofilekey;
 	private String[] devicesArray;
+	private String[] profilesArray;
 
 	RAApplication rapp;
 	PrefsReceiver receiver;
@@ -51,6 +52,8 @@ public class PrefsActivity extends PreferenceActivity implements
 		addPreferencesFromResource( R.xml.preferences );
 		rapp = (RAApplication) getApplication();
 		devicesArray = rapp.getResources().getStringArray( R.array.devices );
+		profilesArray =
+				rapp.getResources().getStringArray( R.array.profileLabels );
 
 		receiver = new PrefsReceiver();
 		filter = new IntentFilter( MessageCommands.LABEL_RESPONSE_INTENT );
@@ -98,6 +101,8 @@ public class PrefsActivity extends PreferenceActivity implements
 				findPreference( rapp
 						.getString( R.string.prefProfileSelectedKey ) );
 		updateSelectedProfileVisibility();
+		updateSelectedProfileSummary();
+		updateHostsSummary();
 
 		updateprofilekey =
 				findPreference( rapp
@@ -342,6 +347,37 @@ public class PrefsActivity extends PreferenceActivity implements
 		updateDownloadLabelUserId( rapp.getPrefUserId() );
 	}
 
+	private void updateSelectedProfileSummary ( ) {
+		profilekey.setSummary( profilesArray[rapp.getSelectedProfile()] );
+	}
+
+	private void updateHostsSummary ( ) {
+		updateHomeHostSummary();
+		updateHomePortSummary();
+		updateAwayHostSummary();
+		updateAwayPortSummary();
+	}
+
+	private void updateHomeHostSummary ( ) {
+		findPreference( rapp.getString( R.string.prefHostKey ) )
+				.setSummary( rapp.getPrefHomeHost() );
+	}
+
+	private void updateHomePortSummary ( ) {
+		findPreference( rapp.getString( R.string.prefPortKey ) )
+				.setSummary( rapp.getPrefHomePort() );
+	}
+
+	private void updateAwayHostSummary ( ) {
+		findPreference( rapp.getString( R.string.prefHostAwayKey ) )
+				.setSummary( rapp.getPrefAwayHost() );
+	}
+
+	private void updateAwayPortSummary ( ) {
+		findPreference( rapp.getString( R.string.prefPortAwayKey ) )
+				.setSummary( rapp.getPrefAwayPort() );
+	}
+
 	private void updateExpansionLabelsVisibility ( int qty ) {
 		boolean fEnable;
 		if ( qty > 0 ) {
@@ -485,6 +521,8 @@ public class PrefsActivity extends PreferenceActivity implements
 			String key ) {
 		if ( key.equals( rapp.getString( R.string.prefHostKey ) )
 				|| key.equals( rapp.getString( R.string.prefPortKey ) ) ) {
+			updateHomeHostSummary();
+			updateHomePortSummary();
 			// only restart service if:
 			// - enabled (interval > 0)
 			// -- away profile enabled AND the profile is not only away
@@ -504,6 +542,8 @@ public class PrefsActivity extends PreferenceActivity implements
 			}
 		} else if ( key.equals( rapp.getString( R.string.prefPortAwayKey ) )
 					|| key.equals( rapp.getString( R.string.prefHostAwayKey ) ) ) {
+			updateAwayHostSummary();
+			updateAwayPortSummary();
 			// only restart service if:
 			// - away profile enabled
 			// - enabled (interval > 0) AND the profile is not only home
@@ -579,6 +619,7 @@ public class PrefsActivity extends PreferenceActivity implements
 				Log.d( TAG, "profile changed, restart" );
 				rapp.restartAutoUpdateService();
 			}
+			updateSelectedProfileSummary();
 		} else if ( key
 				.equals( rapp.getString( R.string.prefLoggingUpdateKey ) ) ) {
 			findPreference( rapp.getString( R.string.prefLoggingUpdateKey ) )
