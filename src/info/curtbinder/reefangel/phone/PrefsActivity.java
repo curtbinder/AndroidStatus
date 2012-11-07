@@ -39,6 +39,7 @@ public class PrefsActivity extends PreferenceActivity implements
 	private Preference[] explabels =
 			new Preference[Controller.MAX_EXPANSION_RELAYS];
 	private Preference updateprofilekey;
+	private String[] devicesArray;
 
 	RAApplication rapp;
 	PrefsReceiver receiver;
@@ -49,10 +50,14 @@ public class PrefsActivity extends PreferenceActivity implements
 		super.onCreate( savedInstanceState );
 		addPreferencesFromResource( R.xml.preferences );
 		rapp = (RAApplication) getApplication();
+		devicesArray = rapp.getResources().getStringArray( R.array.devices );
 
 		receiver = new PrefsReceiver();
 		filter = new IntentFilter( MessageCommands.LABEL_RESPONSE_INTENT );
 
+		// set the device label
+		updateDeviceKeySummary();
+		
 		Preference porthomekey =
 				findPreference( rapp.getString( R.string.prefPortKey ) );
 		porthomekey.setOnPreferenceChangeListener( this );
@@ -350,6 +355,19 @@ public class PrefsActivity extends PreferenceActivity implements
 		}
 	}
 
+	private void updateDeviceKeySummary ( ) {
+		String s;
+		if ( rapp.isCommunicateController() ) {
+			// 0 index is controller
+			s = devicesArray[0];
+		} else {
+			// 1 index is Portal
+			s = devicesArray[1];
+		}
+		findPreference( rapp.getString( R.string.prefDeviceKey ) )
+				.setSummary( s );
+	}
+
 	private void sendEmail ( ) {
 		Intent email = new Intent( Intent.ACTION_SEND );
 		email.putExtra( Intent.EXTRA_EMAIL,
@@ -544,6 +562,7 @@ public class PrefsActivity extends PreferenceActivity implements
 				rapp.restartAutoUpdateService();
 			updateAutoUpdateProfileVisibility( f );
 			updateSelectedProfileVisibility();
+			updateDeviceKeySummary();
 		} else if ( key.equals( rapp
 				.getString( R.string.prefProfileSelectedKey ) ) ) {
 			if ( rapp.getUpdateInterval() > 0 ) {

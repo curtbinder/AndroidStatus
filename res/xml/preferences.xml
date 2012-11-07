@@ -9,15 +9,13 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <PreferenceCategory android:title="@string/prefsCategoryDevice" >
-        <ListPreference
-            android:defaultValue="@string/prefDeviceDefault"
-            android:entries="@array/devices"
-            android:entryValues="@array/devicesValues"
-            android:key="@string/prefDeviceKey"
-            android:summary="@string/prefDeviceSummary"
-            android:title="@string/prefDeviceTitle" />
-    </PreferenceCategory>
+    <ListPreference
+        android:defaultValue="@string/prefDeviceDefault"
+        android:entries="@array/devices"
+        android:entryValues="@array/devicesValues"
+        android:key="@string/prefDeviceKey"
+        android:title="@string/prefDeviceTitle" />
+
     <PreferenceCategory android:title="@string/prefsCategoryHost" >
         <PreferenceScreen
             android:key="@string/prefHostScreenKey"
@@ -216,34 +214,34 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                     <PreferenceCategory android:title="@string/prefLabelsCategory" >
                         <EditTextPreference
                             android:defaultValue="@string/prefExpDimmingCh0LabelTitle"
+                            android:dependency="@string/prefExpDimmingEnableKey"
                             android:key="@string/prefExpDimmingCh0LabelKey"
-                            android:title="@string/prefExpDimmingCh0LabelTitle"
-                            android:dependency="@string/prefExpDimmingEnableKey" />
+                            android:title="@string/prefExpDimmingCh0LabelTitle" />
                         <EditTextPreference
                             android:defaultValue="@string/prefExpDimmingCh1LabelTitle"
+                            android:dependency="@string/prefExpDimmingEnableKey"
                             android:key="@string/prefExpDimmingCh1LabelKey"
-                            android:title="@string/prefExpDimmingCh1LabelTitle" 
-                            android:dependency="@string/prefExpDimmingEnableKey" />
+                            android:title="@string/prefExpDimmingCh1LabelTitle" />
                         <EditTextPreference
                             android:defaultValue="@string/prefExpDimmingCh2LabelTitle"
+                            android:dependency="@string/prefExpDimmingEnableKey"
                             android:key="@string/prefExpDimmingCh2LabelKey"
-                            android:title="@string/prefExpDimmingCh2LabelTitle"
-                            android:dependency="@string/prefExpDimmingEnableKey" />
+                            android:title="@string/prefExpDimmingCh2LabelTitle" />
                         <EditTextPreference
                             android:defaultValue="@string/prefExpDimmingCh3LabelTitle"
+                            android:dependency="@string/prefExpDimmingEnableKey"
                             android:key="@string/prefExpDimmingCh3LabelKey"
-                            android:title="@string/prefExpDimmingCh3LabelTitle"
-                            android:dependency="@string/prefExpDimmingEnableKey" />
+                            android:title="@string/prefExpDimmingCh3LabelTitle" />
                         <EditTextPreference
                             android:defaultValue="@string/prefExpDimmingCh4LabelTitle"
+                            android:dependency="@string/prefExpDimmingEnableKey"
                             android:key="@string/prefExpDimmingCh4LabelKey"
-                            android:title="@string/prefExpDimmingCh4LabelTitle"
-                            android:dependency="@string/prefExpDimmingEnableKey" />
+                            android:title="@string/prefExpDimmingCh4LabelTitle" />
                         <EditTextPreference
                             android:defaultValue="@string/prefExpDimmingCh5LabelTitle"
+                            android:dependency="@string/prefExpDimmingEnableKey"
                             android:key="@string/prefExpDimmingCh5LabelKey"
-                            android:title="@string/prefExpDimmingCh5LabelTitle"
-                            android:dependency="@string/prefExpDimmingEnableKey" />
+                            android:title="@string/prefExpDimmingCh5LabelTitle" />
                     </PreferenceCategory>
                 </PreferenceScreen>
 
@@ -274,34 +272,34 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                     <PreferenceCategory android:title="@string/prefLabelsCategory" >
                         <EditTextPreference
                             android:defaultValue="@string/prefExpIO0LabelTitle"
+                            android:dependency="@string/prefExpIOEnableKey"
                             android:key="@string/prefExpIO0LabelKey"
-                            android:title="@string/prefExpIO0LabelTitle"
-                            android:dependency="@string/prefExpIOEnableKey" />
+                            android:title="@string/prefExpIO0LabelTitle" />
                         <EditTextPreference
                             android:defaultValue="@string/prefExpIO1LabelTitle"
+                            android:dependency="@string/prefExpIOEnableKey"
                             android:key="@string/prefExpIO1LabelKey"
-                            android:title="@string/prefExpIO1LabelTitle"
-                            android:dependency="@string/prefExpIOEnableKey" />
+                            android:title="@string/prefExpIO1LabelTitle" />
                         <EditTextPreference
                             android:defaultValue="@string/prefExpIO2LabelTitle"
+                            android:dependency="@string/prefExpIOEnableKey"
                             android:key="@string/prefExpIO2LabelKey"
-                            android:title="@string/prefExpIO2LabelTitle"
-                            android:dependency="@string/prefExpIOEnableKey" />
+                            android:title="@string/prefExpIO2LabelTitle" />
                         <EditTextPreference
                             android:defaultValue="@string/prefExpIO3LabelTitle"
+                            android:dependency="@string/prefExpIOEnableKey"
                             android:key="@string/prefExpIO3LabelKey"
-                            android:title="@string/prefExpIO3LabelTitle"
-                            android:dependency="@string/prefExpIOEnableKey" />
+                            android:title="@string/prefExpIO3LabelTitle" />
                         <EditTextPreference
                             android:defaultValue="@string/prefExpIO4LabelTitle"
+                            android:dependency="@string/prefExpIOEnableKey"
                             android:key="@string/prefExpIO4LabelKey"
-                            android:title="@string/prefExpIO4LabelTitle"
-                            android:dependency="@string/prefExpIOEnableKey" />
+                            android:title="@string/prefExpIO4LabelTitle" />
                         <EditTextPreference
                             android:defaultValue="@string/prefExpIO5LabelTitle"
+                            android:dependency="@string/prefExpIOEnableKey"
                             android:key="@string/prefExpIO5LabelKey"
-                            android:title="@string/prefExpIO5LabelTitle"
-                            android:dependency="@string/prefExpIOEnableKey" />
+                            android:title="@string/prefExpIO5LabelTitle" />
                     </PreferenceCategory>
                 </PreferenceScreen>
                 <PreferenceScreen
@@ -315,44 +313,44 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                     <PreferenceCategory android:title="@string/prefLabelsCategory" >
                         <EditTextPreference
                             android:defaultValue="@string/prefExpCustom0LabelTitle"
+                            android:dependency="@string/prefExpCustomEnableKey"
                             android:key="@string/prefExpCustom0LabelKey"
-                            android:title="@string/prefExpCustom0LabelTitle"
-                            android:dependency="@string/prefExpCustomEnableKey" />
+                            android:title="@string/prefExpCustom0LabelTitle" />
                         <EditTextPreference
                             android:defaultValue="@string/prefExpCustom1LabelTitle"
+                            android:dependency="@string/prefExpCustomEnableKey"
                             android:key="@string/prefExpCustom1LabelKey"
-                            android:title="@string/prefExpCustom1LabelTitle"
-                            android:dependency="@string/prefExpCustomEnableKey" />
+                            android:title="@string/prefExpCustom1LabelTitle" />
                         <EditTextPreference
                             android:defaultValue="@string/prefExpCustom2LabelTitle"
+                            android:dependency="@string/prefExpCustomEnableKey"
                             android:key="@string/prefExpCustom2LabelKey"
-                            android:title="@string/prefExpCustom2LabelTitle"
-                            android:dependency="@string/prefExpCustomEnableKey" />
+                            android:title="@string/prefExpCustom2LabelTitle" />
                         <EditTextPreference
                             android:defaultValue="@string/prefExpCustom3LabelTitle"
+                            android:dependency="@string/prefExpCustomEnableKey"
                             android:key="@string/prefExpCustom3LabelKey"
-                            android:title="@string/prefExpCustom3LabelTitle"
-                            android:dependency="@string/prefExpCustomEnableKey" />
+                            android:title="@string/prefExpCustom3LabelTitle" />
                         <EditTextPreference
                             android:defaultValue="@string/prefExpCustom4LabelTitle"
+                            android:dependency="@string/prefExpCustomEnableKey"
                             android:key="@string/prefExpCustom4LabelKey"
-                            android:title="@string/prefExpCustom4LabelTitle"
-                            android:dependency="@string/prefExpCustomEnableKey" />
+                            android:title="@string/prefExpCustom4LabelTitle" />
                         <EditTextPreference
                             android:defaultValue="@string/prefExpCustom5LabelTitle"
+                            android:dependency="@string/prefExpCustomEnableKey"
                             android:key="@string/prefExpCustom5LabelKey"
-                            android:title="@string/prefExpCustom5LabelTitle"
-                            android:dependency="@string/prefExpCustomEnableKey" />
+                            android:title="@string/prefExpCustom5LabelTitle" />
                         <EditTextPreference
                             android:defaultValue="@string/prefExpCustom6LabelTitle"
+                            android:dependency="@string/prefExpCustomEnableKey"
                             android:key="@string/prefExpCustom6LabelKey"
-                            android:title="@string/prefExpCustom6LabelTitle"
-                            android:dependency="@string/prefExpCustomEnableKey" />
+                            android:title="@string/prefExpCustom6LabelTitle" />
                         <EditTextPreference
                             android:defaultValue="@string/prefExpCustom7LabelTitle"
+                            android:dependency="@string/prefExpCustomEnableKey"
                             android:key="@string/prefExpCustom7LabelKey"
-                            android:title="@string/prefExpCustom7LabelTitle"
-                            android:dependency="@string/prefExpCustomEnableKey" />
+                            android:title="@string/prefExpCustom7LabelTitle" />
                     </PreferenceCategory>
                 </PreferenceScreen>
                 <PreferenceScreen
@@ -675,8 +673,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/prefsCategoryApp" >
-        <PreferenceScreen
-            android:title="@string/prefAppSettingsTitle" >
+        <PreferenceScreen android:title="@string/prefAppSettingsTitle" >
             <CheckBoxPreference
                 android:defaultValue="true"
                 android:key="@string/prefPre10MemoryKey"
@@ -708,31 +705,34 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                     android:key="@string/prefNotificationEnableKey"
                     android:summary="@string/prefNotificationEnableSummary"
                     android:title="@string/prefNotificationCategory" />
+
                 <RingtonePreference
-                    android:key="@string/prefNotificationSoundKey" 
-                    android:title="@string/prefNotificationSoundTitle"
-                    android:ringtoneType="notification"
-                    android:showSilent="true"
-                    android:showDefault="true"
+                    android:defaultValue="content://settings/system/notification_sound"
                     android:dependency="@string/prefNotificationEnableKey"
-                    android:defaultValue="content://settings/system/notification_sound" />
+                    android:key="@string/prefNotificationSoundKey"
+                    android:ringtoneType="notification"
+                    android:showDefault="true"
+                    android:showSilent="true"
+                    android:title="@string/prefNotificationSoundTitle" />
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/prefLoggingCategory" >
-                <CheckBoxPreference 
+                <CheckBoxPreference
                     android:defaultValue="false"
                     android:key="@string/prefLoggingEnableKey"
                     android:title="@string/labelEnable" />
-                <ListPreference 
+
+                <ListPreference
                     android:defaultValue="0"
+                    android:dependency="@string/prefLoggingEnableKey"
                     android:entries="@array/loggingUpdate"
                     android:entryValues="@array/loggingUpdateValues"
-                    android:key="@string/prefLoggingUpdateKey" 
-                    android:title="@string/prefLoggingUpdateTitle" 
-                    android:dependency="@string/prefLoggingEnableKey" />
+                    android:key="@string/prefLoggingUpdateKey"
+                    android:title="@string/prefLoggingUpdateTitle" />
+
                 <Preference
                     android:key="@string/prefLoggingSendKey"
-                    android:title="@string/prefLoggingSendTitle"
-                    android:summary="@string/prefLoggingSendSummary" />
+                    android:summary="@string/prefLoggingSendSummary"
+                    android:title="@string/prefLoggingSendTitle" />
                 <Preference
                     android:key="@string/prefLoggingDeleteKey"
                     android:title="@string/prefLoggingDeleteTitle" />
@@ -761,18 +761,21 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:selectable="false"
                 android:summary="@string/prefCopyrightSummary"
                 android:title="@string/prefCopyrightTitle" />
-			<Preference
-			    android:summary="@string/prefLicenseSummary"
-			    android:title="@string/prefLicenseTitle" >
-			    <intent
-			        android:action="android.intent.action.VIEW"
-			        android:targetPackage="info.curtbinder.reefangel.phone"
-			        android:targetClass="info.curtbinder.reefangel.phone.LicenseActivity" />
-			</Preference>
+
+            <Preference
+                android:summary="@string/prefLicenseSummary"
+                android:title="@string/prefLicenseTitle" >
+                <intent
+                    android:action="android.intent.action.VIEW"
+                    android:targetClass="info.curtbinder.reefangel.phone.LicenseActivity"
+                    android:targetPackage="info.curtbinder.reefangel.phone" />
+            </Preference>
+
             <PreferenceScreen
                 android:key="@string/prefChangelogKey"
                 android:summary="@string/prefChangelogSummary"
                 android:title="@string/titleChangelog" />
+
             <Preference
                 android:summary="@string/prefReefAngelSummary"
                 android:title="@string/prefReefAngelTitle" >
