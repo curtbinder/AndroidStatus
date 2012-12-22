@@ -1,5 +1,7 @@
 0.8.1
  * updated the settings page to make it simpler and fewer screens
+ * updated for ics and jellybean
+ * updated to new logo
 
 0.8.0
  * created ContentProvider for external apps to access the stored parameters

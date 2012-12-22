@@ -10,7 +10,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="info.curtbinder.reefangel.phone"
-    android:versionCode="20"
+    android:versionCode="21"
     android:versionName="@string/app_version" >
 
     <uses-sdk
@@ -46,7 +46,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <application
         android:name="RAApplication"
         android:icon="@drawable/ic_icon"
-        android:label="@string/app_name" >
+        android:label="@string/app_name"
+        android:theme="@style/DarkTheme" >
         <activity
             android:name=".StatusActivity"
             android:label="@string/app_name" >
@@ -59,12 +60,12 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <activity
             android:name=".AboutActivity"
             android:label="@string/titleAbout"
-            android:theme="@android:style/Theme.Dialog" >
+            android:theme="@style/Dialog" >
         </activity>
         <activity
             android:name=".LicenseActivity"
             android:label="@string/titleLicense"
-            android:theme="@android:style/Theme.Dialog" >
+            android:theme="@style/Dialog" >
         </activity>
         <activity
             android:name=".PrefsActivity"
@@ -85,17 +86,17 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <activity
             android:name=".MemoryTabsActivity"
             android:label="@string/titleMemoryTabs"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:theme="@style/NoTitleBar" >
         </activity>
         <activity
             android:name=".CommandTabsActivity"
             android:label="@string/titleCommandTabs"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:theme="@style/NoTitleBar" >
         </activity>
         <activity
             android:name=".HistoryPopupActivity"
             android:label="@string/titleHistory"
-            android:theme="@android:style/Theme.Dialog" >
+            android:theme="@style/Dialog" >
         </activity>
         <activity
             android:name=".FirstRunActivity"

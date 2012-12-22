@@ -140,3 +140,8 @@ Changelog of all the versions of AndroidStatus
  * updated preference descriptions
  * dropped support for devices below Android 2.0
  * lots of code updates and reorganization
+
+0.8.1
+ * updated the settings page to make it simpler and fewer screens
+ * updated for ics and jellybean
+ * updated to new logo

@@ -42,4 +42,10 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item name="android:gravity">center</item>
         <item name="android:padding">10sp</item>
     </style>
+    
+    <style name="LightTheme" parent="android:Theme.Light"></style>
+    <style name="DarkTheme" parent="android:Theme.Black"></style>
+    <style name="Dialog" parent="android:Theme.Dialog">
+    </style>
+    <style name="NoTitleBar" parent="android:Theme.Black.NoTitleBar"></style>
 </resources>
