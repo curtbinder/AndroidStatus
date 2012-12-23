@@ -41,6 +41,7 @@ public class PrefsActivity extends PreferenceActivity implements
 	private Preference updateprofilekey;
 	private String[] devicesArray;
 	private String[] profilesArray;
+	private String[] expRelayQtyArray;
 
 	RAApplication rapp;
 	PrefsReceiver receiver;
@@ -53,6 +54,8 @@ public class PrefsActivity extends PreferenceActivity implements
 		devicesArray = rapp.getResources().getStringArray( R.array.devices );
 		profilesArray =
 				rapp.getResources().getStringArray( R.array.profileLabels );
+		expRelayQtyArray =
+				rapp.getResources().getStringArray( R.array.expansionRelays );
 
 		receiver = new PrefsReceiver();
 		filter = new IntentFilter( MessageCommands.LABEL_RESPONSE_INTENT );
@@ -102,6 +105,7 @@ public class PrefsActivity extends PreferenceActivity implements
 		updateSelectedProfileVisibility();
 		updateSelectedProfileSummary();
 		updateHostsSummary();
+		updateExpRelayQuantitySummary();
 
 		updateprofilekey =
 				findPreference( rapp
@@ -410,6 +414,21 @@ public class PrefsActivity extends PreferenceActivity implements
 				.setSummary( s );
 	}
 
+	private void updateExpRelayQuantitySummary ( ) {
+		// change to use array list instead
+		int value = rapp.getPrefExpansionRelayQuantity();
+		findPreference( rapp.getString( R.string.prefExpQtyKey ) )
+				.setSummary( expRelayQtyArray[value] );
+	}
+
+	private void updateSummary ( int key, String s ) {
+		findPreference( rapp.getString( key ) ).setSummary( s );
+	}
+
+	private void updateControllerLabelVisibilitySummary ( ) {
+		updateSummary( R.string.prefT2LabelKey, "" );
+	}
+
 	private void updateSummaryFormat (
 			int key,
 			int formatString,
@@ -595,6 +614,7 @@ public class PrefsActivity extends PreferenceActivity implements
 			// many expansion relays selected
 			updateExpansionLabelsVisibility( rapp
 					.getPrefExpansionRelayQuantity() );
+			updateExpRelayQuantitySummary();
 		} else if ( key.equals( rapp
 				.getString( R.string.prefAutoUpdateIntervalKey ) ) ) {
 			// when interval changes, update the repeat service
@@ -635,7 +655,7 @@ public class PrefsActivity extends PreferenceActivity implements
 				.equals( rapp.getString( R.string.prefLoggingUpdateKey ) ) ) {
 			findPreference( rapp.getString( R.string.prefLoggingUpdateKey ) )
 					.setSummary( rapp.getLoggingUpdateDisplay() );
-		} 
+		}
 	}
 
 	class PrefsReceiver extends BroadcastReceiver {

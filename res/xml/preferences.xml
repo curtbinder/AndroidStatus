@@ -335,7 +335,6 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                         android:entries="@array/expansionRelays"
                         android:entryValues="@array/expansionRelaysValues"
                         android:key="@string/prefExpQtyKey"
-                        android:summary="@string/prefExpQtySummary"
                         android:title="@string/prefExpQtyTitle" />
 
                     <PreferenceScreen

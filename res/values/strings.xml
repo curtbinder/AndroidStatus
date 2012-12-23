@@ -329,7 +329,6 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExpRelaySummary">Quantity and labels</string>
     <string name="prefExpQtyKey">expansion_quantity</string>
     <string name="prefExpQtyTitle">Quantity</string>
-    <string name="prefExpQtySummary">Number of expansion relays installed</string>
     <string name="prefExpLabelsKey">exp_relay_labels</string>
     <string name="prefExpLabelsTitle">Expansion Labels</string>
     <string name="prefExp1RelayKey">exp1_relay_labels</string>
