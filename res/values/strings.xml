@@ -412,8 +412,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp8Port7LabelKey">exp8_port7_label</string>
     <string name="prefExp8Port8LabelKey">exp8_port8_label</string>
     <string name="prefExp085xKey">exp_085_relays</string>
-    <string name="prefExp085xSummary">Enable support for v0.8.5.X library expansion relays.</string>
-    <string name="prefExp085xTitle">Old v0.8.5.X Expansion</string>
+    <string name="prefExp085xSummary">v0.8.5.X libraries support</string>
+    <string name="prefExp085xTitle">Old Expansion</string>
     <string name="prefExpDimmingTitle">Dimming</string>
     <string name="prefExpDimmingSummary">Configure dimming expansion module</string>
     <string name="prefExpDimmingEnableKey">dimming_expansion</string>
