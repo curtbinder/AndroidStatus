@@ -281,7 +281,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
 	<string name="prefResetCategory">Reset Settings</string>
 	<string name="prefResetLabelsKey">reset_labels</string>
 	<string name="prefResetLabelsTitle">Reset Labels</string>
-	<string name="prefResetLabelsSummary">Resets to defaults</string>
+	<string name="prefResetLabelsSummary">Defaults</string>
     <string name="prefLabelsCategory">Label Settings</string>
     <string name="prefControllerLabelsDownloadKey">download_labels</string>
     <string name="prefControllerLabelsDownloadTitle">Download</string>
@@ -326,7 +326,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefMainPort8LabelKey">main_port8_label</string>
     <string name="prefExpansionCategory">Expansion Settings</string>
     <string name="prefExpRelayTitle">Relay</string>
-    <string name="prefExpRelaySummary">Configure quantity and labels for the expansion relays.</string>
+    <string name="prefExpRelaySummary">Quantity and labels</string>
     <string name="prefExpQtyKey">expansion_quantity</string>
     <string name="prefExpQtyTitle">Quantity</string>
     <string name="prefExpQtySummary">Number of expansion relays installed</string>
@@ -432,15 +432,11 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExpDimmingCh5LabelTitle">Channel 5</string>
     <string name="prefExpRadionEnableKey">radion_expansion</string>
     <string name="prefExpRadionEnableTitle">Radion</string>
-    <string name="prefExpRadionEnableSummary">Enable the radion expansion module</string>
     <string name="prefExpVortechEnableKey">vortech_expansion</string>
     <string name="prefExpVortechEnableTitle">Vortech</string>
-    <string name="prefExpVortechEnableSummary">Enable the vortech expansion module</string>
     <string name="prefExpAIEnableKey">ai_expansion</string>
     <string name="prefExpAIEnableTitle">Aqua Illuminations</string>
-    <string name="prefExpAIEnableSummary">Enable the aqua illuminations expansion module</string>
     <string name="prefExpIOTitle">I/O</string>
-    <string name="prefExpIOSummary">Configure i/o expansion module</string>
     <string name="prefExpIOEnableKey">io_expansion</string>
     <string name="prefExpIO0LabelKey">exp_io_0</string>
     <string name="prefExpIO0LabelTitle">I/O 0</string>
@@ -454,8 +450,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExpIO4LabelTitle">I/O 4</string>
     <string name="prefExpIO5LabelKey">exp_io_5</string>
     <string name="prefExpIO5LabelTitle">I/O 5</string>
-    <string name="prefExpCustomTitle">Custom</string>
-    <string name="prefExpCustomSummary">Configure custom variables</string>
+    <string name="prefExpCustomTitle">Custom Variables</string>
     <string name="prefExpCustomEnableKey">custom_expansion</string>
     <string name="prefExpCustom0LabelKey">exp_custom_0</string>
     <string name="prefExpCustom0LabelTitle">Custom 0</string>

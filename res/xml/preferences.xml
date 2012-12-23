@@ -184,7 +184,6 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/prefExpansionCategory" >
                 <PreferenceScreen
-                    android:summary="@string/prefExpDimmingSummary"
                     android:title="@string/prefExpDimmingTitle" >
                     <CheckBoxPreference
                         android:defaultValue="false"
@@ -228,21 +227,17 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 <CheckBoxPreference
                     android:defaultValue="false"
                     android:key="@string/prefExpRadionEnableKey"
-                    android:summary="@string/prefExpRadionEnableSummary"
                     android:title="@string/prefExpRadionEnableTitle" />
                 <CheckBoxPreference
                     android:defaultValue="false"
                     android:key="@string/prefExpVortechEnableKey"
-                    android:summary="@string/prefExpVortechEnableSummary"
                     android:title="@string/prefExpVortechEnableTitle" />
                 <CheckBoxPreference
                     android:defaultValue="false"
                     android:key="@string/prefExpAIEnableKey"
-                    android:summary="@string/prefExpAIEnableSummary"
                     android:title="@string/prefExpAIEnableTitle" />
 
                 <PreferenceScreen
-                    android:summary="@string/prefExpIOSummary"
                     android:title="@string/prefExpIOTitle" >
                     <CheckBoxPreference
                         android:defaultValue="false"
@@ -283,7 +278,6 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                     </PreferenceCategory>
                 </PreferenceScreen>
                 <PreferenceScreen
-                    android:summary="@string/prefExpCustomSummary"
                     android:title="@string/prefExpCustomTitle" >
                     <CheckBoxPreference
                         android:defaultValue="false"
