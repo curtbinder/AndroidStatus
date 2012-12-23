@@ -475,9 +475,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExpCustom7LabelTitle">Custom 7</string>
     <string name="prefAppSettingsTitle">Settings</string>
     <string name="prefPre10MemoryKey">pre_10_memory_locations</string>
-    <string name="prefPre10MemorySummary">Use %1$s memory locations</string>
-    <string name="prefPre10MemorySummaryValuePre">pre v1.0</string>
-    <string name="prefPre10MemorySummaryValueCurrent">v1.0 and later</string>
+    <string name="prefPre10MemorySummary">Memory locations</string>
     <string name="prefPre10MemoryTitle">Pre v1.0 Locations </string>
     <string name="prefPreviousCodeVersion">previous_version</string>
     <string name="prefPreviousEM">previous_em</string>
@@ -485,9 +483,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefAutoUpdateIntervalTitle">Interval</string>
     <string name="prefAutoUpdateIntervalDefault">900000</string>
     <string name="prefAutoUpdateModulesKey">update_modules</string>
-    <string name="prefAutoUpdateModulesSummary">%1$s the modules displayed based on the controller</string>
-    <string name="prefAutoUpdateModulesSummaryEnabled">Update</string>
-    <string name="prefAutoUpdateModulesSummaryDisabled">Does not update</string>
+    <string name="prefAutoUpdateModulesSummary">Based on the controller</string>
     <string name="prefAutoUpdateModulesTitle">Auto Update Modules</string>
     <string name="prefAutoUpdateProfileKey">update_profile</string>
     <string name="prefAutoUpdateProfileTitle">Profile</string>

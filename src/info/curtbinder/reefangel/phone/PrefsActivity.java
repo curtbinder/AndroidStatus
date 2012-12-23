@@ -102,7 +102,6 @@ public class PrefsActivity extends PreferenceActivity implements
 		updateSelectedProfileVisibility();
 		updateSelectedProfileSummary();
 		updateHostsSummary();
-		updatePreMemoryLocationsSummary();
 
 		updateprofilekey =
 				findPreference( rapp
@@ -411,19 +410,21 @@ public class PrefsActivity extends PreferenceActivity implements
 				.setSummary( s );
 	}
 
-	private void updatePreMemoryLocationsSummary ( ) {
-		String s;
-		String format = rapp.getString( R.string.prefPre10MemorySummary );
+	private void updateSummaryFormat (
+			int key,
+			int formatString,
+			int enabledString,
+			int disabledString,
+			boolean cond ) {
+		String f = rapp.getString( formatString );
 		String value;
-		if ( rapp.useOldPre10MemoryLocations() ) {
-			value = rapp.getString( R.string.prefPre10MemorySummaryValuePre );
+		if ( cond ) {
+			value = rapp.getString( enabledString );
 		} else {
-			value =
-					rapp.getString( R.string.prefPre10MemorySummaryValueCurrent );
+			value = rapp.getString( disabledString );
 		}
-		s = String.format( format, value );
-		findPreference( rapp.getString( R.string.prefPre10MemoryKey ) )
-				.setSummary( s );
+		findPreference( rapp.getString( key ) )
+				.setSummary( String.format( f, value ) );
 	}
 
 	private void sendEmail ( ) {
@@ -634,9 +635,7 @@ public class PrefsActivity extends PreferenceActivity implements
 				.equals( rapp.getString( R.string.prefLoggingUpdateKey ) ) ) {
 			findPreference( rapp.getString( R.string.prefLoggingUpdateKey ) )
 					.setSummary( rapp.getLoggingUpdateDisplay() );
-		} else if ( key.equals( rapp.getString( R.string.prefPre10MemoryKey ) ) ) {
-			updatePreMemoryLocationsSummary();
-		}
+		} 
 	}
 
 	class PrefsReceiver extends BroadcastReceiver {
