@@ -102,6 +102,7 @@ public class PrefsActivity extends PreferenceActivity implements
 		updateSelectedProfileVisibility();
 		updateSelectedProfileSummary();
 		updateHostsSummary();
+		updatePreMemoryLocationsSummary();
 
 		updateprofilekey =
 				findPreference( rapp
@@ -410,6 +411,21 @@ public class PrefsActivity extends PreferenceActivity implements
 				.setSummary( s );
 	}
 
+	private void updatePreMemoryLocationsSummary ( ) {
+		String s;
+		String format = rapp.getString( R.string.prefPre10MemorySummary );
+		String value;
+		if ( rapp.useOldPre10MemoryLocations() ) {
+			value = rapp.getString( R.string.prefPre10MemorySummaryValuePre );
+		} else {
+			value =
+					rapp.getString( R.string.prefPre10MemorySummaryValueCurrent );
+		}
+		s = String.format( format, value );
+		findPreference( rapp.getString( R.string.prefPre10MemoryKey ) )
+				.setSummary( s );
+	}
+
 	private void sendEmail ( ) {
 		Intent email = new Intent( Intent.ACTION_SEND );
 		email.putExtra( Intent.EXTRA_EMAIL,
@@ -618,6 +634,8 @@ public class PrefsActivity extends PreferenceActivity implements
 				.equals( rapp.getString( R.string.prefLoggingUpdateKey ) ) ) {
 			findPreference( rapp.getString( R.string.prefLoggingUpdateKey ) )
 					.setSummary( rapp.getLoggingUpdateDisplay() );
+		} else if ( key.equals( rapp.getString( R.string.prefPre10MemoryKey ) ) ) {
+			updatePreMemoryLocationsSummary();
 		}
 	}
 
