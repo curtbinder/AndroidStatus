@@ -421,31 +421,6 @@ public class PrefsActivity extends PreferenceActivity implements
 				.setSummary( expRelayQtyArray[value] );
 	}
 
-	private void updateSummary ( int key, String s ) {
-		findPreference( rapp.getString( key ) ).setSummary( s );
-	}
-
-	private void updateControllerLabelVisibilitySummary ( ) {
-		updateSummary( R.string.prefT2LabelKey, "" );
-	}
-
-	private void updateSummaryFormat (
-			int key,
-			int formatString,
-			int enabledString,
-			int disabledString,
-			boolean cond ) {
-		String f = rapp.getString( formatString );
-		String value;
-		if ( cond ) {
-			value = rapp.getString( enabledString );
-		} else {
-			value = rapp.getString( disabledString );
-		}
-		findPreference( rapp.getString( key ) )
-				.setSummary( String.format( f, value ) );
-	}
-
 	private void sendEmail ( ) {
 		Intent email = new Intent( Intent.ACTION_SEND );
 		email.putExtra( Intent.EXTRA_EMAIL,
