@@ -1,85 +1,119 @@
-0.8.1
- * updated the settings page to make it simpler and fewer screens
- * updated for ics and jellybean
- * updated to new logo
- * error retry count to retry connection before displaying error
- ** disabled by default
- ** default 5 second interval between retries
-
-0.8.0
- * created ContentProvider for external apps to access the stored parameters
- * added automatic updating of status
- ** enabled by default, 15 minute intervals
- * added logging capabilities
- ** disabled by default, can email log to developer
- ** log file stored on sdcard, must have to work
- ** log file location /sdcard/data/info.curtbinder.reefangel.phone/
- * added system notifications if an error occurs while communicating
- ** enabled by default, uses default system notification sound
- ** notifications can be disabled and sound updated
- * modules displayed updates based on controller settings
- ** enabled by default
- * all new settings are under Settings -> Settings
- * service starts at device boot / start
- * service not started if app not configured
- * app won't try to update if network is down, will resume when network connection returns 
- * updated preference descriptions
- * dropped support for devices below Android 2.0
- * lots of code updates and reorganization
- 
-0.7.1
- * fixed I/O port 0 only updating
- * removed extra I/O port displaying
- * updated module pages to be after the relay pages
- * minor bug fixes
- 
-0.7
- * fixed labels not downloading from portal
- * added water level and ph expansion fields to database
- * added dimming, radion, vortech, ai, io, custom variables pages (swipe)
- * added ph expansion & water level displaying on status page
- * added changelog displaying
- * minor bug fixes and improvements
-
-0.6.1
- * added support for new 1.0 memory locations and ability to choose what locations to reference
- * added PH expansion and water level xml tags to string file, not parsed yet though
- * fixed parsing issue with byte storage values
- * changed controller summary to say Expansion Modules instead of Relays
- * added PH visibility toggling
- * added additional memory locations
- 
-0.6.0
- * added support for 0.8.5.x expansion relays with setting
- * created custom widget for controller status information
- * only set the labels for the expansion relay boxes displayed
- * added swipe capabilities to change between screens
- * separated main page into smaller screens: Status and Relay Boxes
- * added remaining fields to database, all values are stored now just not displayed
- * added ORP to status page
- * changed 'first run' screen to be entirely scrollable
- * added profiles
- ** ability to configure a home / away profile with different HOST & PORT values
- ** long press on Refresh button to change/select profile
- ** Refresh button label changes to "Refresh - Home" or "Refresh - Away"
-
- 0.5.0
- * added date and time screen to internal memory page
- * moved commands from internal memory to its own menu
- * expansion relays
- ** create expansion relay layouts
- ** allow for expansion relay quantity settings in prefs
- ** alters displays based on qty
- ** additional relay labels screen based on quantity of relay labels installed
- * downloading labels from portal no longer inserts NULL when no label is set
- * added reset all labels that resets back to defaults
- * finish button on First Run screen uses string resources
- 
- 0.4.4
- * added in pwm expansion relay channel start %, end % and duration memory values
- * added in new ato and ato high timeout memory locations
- * added in ato clear and overheat clear buttons to commands page
- * switched to new portal urls for parameters and controller labels
- * added 'first run' screen when the app is first installed
- * fixed sending commands in reefangel.com mode, displays popup that it's not a controller
- 
+<html>
+<body>
+<b>0.8.1</b>
+<ul>
+<li>updated the settings page to make it simpler and fewer screens</li>
+<li>updated for ics and jellybean</li>
+<li>updated to new logo</li>
+<li>error retry count to retry connection before displaying error</li>
+	<ul>
+	<li>disabled by default</li>
+	<li>default 5 second interval between retries</li>
+	</ul>
+<li>switched changelog to html view</li>
+</ul>
+<br>
+<b>0.8.0</b>
+<ul>
+<li>created ContentProvider for external apps to access the stored parameters</li>
+<li>added automatic updating of status</li>
+	<ul>
+ 	<li>enabled by default, 15 minute intervals</li>
+ 	</ul>
+<li>added logging capabilities</li>
+	<ul>
+	<li>disabled by default, can email log to developer</li>
+	<li>log file stored on sdcard, must have to work</li>	
+	<li>log file location /sdcard/data/info.curtbinder.reefangel.phone/</li>
+	</ul>
+<li>added system notifications if an error occurs while communicating</li>
+	<ul>
+	<li>enabled by default, uses default system notification sound</li>
+	<li> notifications can be disabled and sound updated</li>
+	</ul>
+<li>modules displayed updates based on controller settings</li>
+	<ul>
+	<li>enabled by default</li>
+	</ul>
+<li>all new settings are under Settings -> Settings</li>
+<li>service starts at device boot / start</li>
+<li>service not started if app not configured</li>
+<li>app won't try to update if network is down, will resume when network connection returns</li> 
+<li>updated preference descriptions</li>
+<li>dropped support for devices below Android 2.0</li>
+<li>lots of code updates and reorganization</li>
+</ul>
+<br>
+<b>0.7.1</b>
+<ul>
+<li>fixed I/O port 0 only updating</li>
+<li>removed extra I/O port displaying</li>
+<li>updated module pages to be after the relay pages</li>
+<li>minor bug fixes</li>
+</ul>
+<br>
+<b>0.7</b>
+<ul>
+<li>fixed labels not downloading from portal</li>
+<li>added water level and ph expansion fields to database</li>
+<li>added dimming, radion, vortech, ai, io, custom variables pages (swipe)</li>
+<li>added ph expansion & water level displaying on status page</li>
+<li>added changelog displaying</li>
+<li>minor bug fixes and improvements</li>
+</ul>
+<br>
+<b>0.6.1</b>
+<ul>
+<li>added support for new 1.0 memory locations and ability to choose what locations to reference</li>
+<li>added PH expansion and water level xml tags to string file, not parsed yet though</li>
+<li>fixed parsing issue with byte storage values</li>
+<li>changed controller summary to say Expansion Modules instead of Relays</li>
+<li>added PH visibility toggling</li>
+<li>added additional memory locations</li>
+</ul>
+<br>
+<b>0.6.0</b>
+<ul>
+<li>added support for 0.8.5.x expansion relays with setting</li>
+<li>created custom widget for controller status information</li>
+<li>only set the labels for the expansion relay boxes displayed</li>
+<li>added swipe capabilities to change between screens</li>
+<li>separated main page into smaller screens: Status and Relay Boxes</li>
+<li>added remaining fields to database, all values are stored now just not displayed</li>
+<li>added ORP to status page</li>
+<li>changed 'first run' screen to be entirely scrollable</li>
+<li>added profiles</li>
+	<ul>
+	<li>ability to configure a home / away profile with different HOST & PORT values</li>
+	<li>long press on Refresh button to change/select profile</li>
+	<li>Refresh button label changes to "Refresh - Home" or "Refresh - Away"</li>
+	</ul>
+</ul>
+<br>
+<b>0.5.0</b>
+<ul>
+<li>added date and time screen to internal memory page</li>
+<li>moved commands from internal memory to its own menu</li>
+<li>expansion relays</li>
+	<ul>
+	<li>create expansion relay layouts</li>
+	<li>allow for expansion relay quantity settings in prefs</li>
+	<li>alters displays based on qty</li>
+	<li>additional relay labels screen based on quantity of relay labels installed</li>
+	</ul>
+<li>downloading labels from portal no longer inserts NULL when no label is set</li>
+<li>added reset all labels that resets back to defaults</li>
+<li>finish button on First Run screen uses string resources</li>
+</ul>
+<br>
+<b>0.4.4</b>
+<ul>
+<li>added in pwm expansion relay channel start %, end % and duration memory values</li>
+<li>added in new ato and ato high timeout memory locations</li>
+<li>added in ato clear and overheat clear buttons to commands page</li>
+<li>switched to new portal urls for parameters and controller labels</li>
+<li>added 'first run' screen when the app is first installed</li>
+<li>fixed sending commands in reefangel.com mode, displays popup that it's not a controller</li>
+</ul>
+</body>
+</html>

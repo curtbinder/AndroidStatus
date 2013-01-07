@@ -16,6 +16,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.webkit.WebView;
 
 /*
  * Displays the changelog
@@ -29,7 +32,12 @@ public class Changelog {
 		final AlertDialog.Builder bld = new AlertDialog.Builder( a );
 		bld.setCancelable( false );
 		bld.setTitle( a.getString( R.string.titleChangelog ) );
-		bld.setMessage( readChangelog( a ) );
+		LayoutInflater inf =
+				(LayoutInflater) a.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+		View layout = inf.inflate( R.layout.changelog, null );
+		WebView wv = (WebView) layout.findViewById( R.id.changelogText );
+		wv.loadDataWithBaseURL( null, readChangelog(a), "text/html", "utf-8", null );
+		bld.setView( layout );
 		bld.setPositiveButton(	a.getString( R.string.buttonOk ),
 								new DialogInterface.OnClickListener() {
 
@@ -42,7 +50,7 @@ public class Changelog {
 		bld.create().show();
 	}
 
-	private static CharSequence readChangelog ( Context a ) {
+	private static String readChangelog ( Context a ) {
 		BufferedReader in = null;
 		StringBuilder buf;
 		try {
@@ -63,6 +71,6 @@ public class Changelog {
 				}
 			}
 		}
-		return buf;
+		return buf.toString();
 	}
 }

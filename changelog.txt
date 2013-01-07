@@ -148,4 +148,5 @@ Changelog of all the versions of AndroidStatus
  * error retry count to retry connection before displaying error
  ** disabled by default
  ** default 5 second interval between retries
+ * switched changelog to html view
  
