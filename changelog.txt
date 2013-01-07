@@ -147,4 +147,5 @@ Changelog of all the versions of AndroidStatus
  * updated to new logo
  * error retry count to retry connection before displaying error
  ** disabled by default
- ** 5 second interval between retries
+ ** default 5 second interval between retries
+ 

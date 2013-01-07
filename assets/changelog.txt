@@ -4,7 +4,7 @@
  * updated to new logo
  * error retry count to retry connection before displaying error
  ** disabled by default
- ** 5 second interval between retries
+ ** default 5 second interval between retries
 
 0.8.0
  * created ContentProvider for external apps to access the stored parameters
