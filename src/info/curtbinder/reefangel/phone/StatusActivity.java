@@ -600,10 +600,13 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				rapp.clearErrorRetryCount();
 			} else if ( action.equals( MessageCommands.ERROR_MESSAGE_INTENT ) ) {
 				boolean fDisplayUpdate = true;
-				if ( rapp.isErrorRetryEnabled() ) {
+				if ( rapp.isNotificationEnabled() && rapp.isErrorRetryEnabled() ) {
+					// Only proceed if notifications are enabled
 					// we are to retry connection before displaying an error
 					// increment the error count
-					String s = rapp.getString( R.string.messageErrorRetry, rapp.errorCount );
+					String s =
+							rapp.getString( R.string.messageErrorRetry,
+											rapp.errorCount );
 					Log.d( TAG, s );
 					if ( rapp.canErrorRetry() ) {
 						// if error count is less than the max,

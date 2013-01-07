@@ -106,6 +106,8 @@ public class PrefsActivity extends PreferenceActivity implements
 		updateSelectedProfileSummary();
 		updateHostsSummary();
 		updateExpRelayQuantitySummary();
+		updateErrorRetryCountSummary();
+		updateErrorRetryIntervalSummary();
 
 		updateprofilekey =
 				findPreference( rapp
@@ -421,6 +423,47 @@ public class PrefsActivity extends PreferenceActivity implements
 				.setSummary( expRelayQtyArray[value] );
 	}
 
+	private void updateErrorRetryCountSummary ( ) {
+		String[] sa =
+				rapp.getResources().getStringArray( R.array.errorRetryCount );
+		int count = rapp.getErrorRetryMax();
+		Preference pe =
+				findPreference( rapp
+						.getString( R.string.prefNotificationErrorRetryKey ) );
+		pe.setSummary( sa[count] );
+
+		// only enable the retry interval if we are supposed to retry
+		// AND if we are enabled
+		boolean fEnable = false;
+		if ( (pe.isEnabled()) && (count > Globals.errorRetryNone) )
+			fEnable = true;
+		Preference p =
+				findPreference( rapp
+						.getString( R.string.prefNotificationErrorRetryIntervalKey ) );
+		p.setEnabled( fEnable );
+		p.setSelectable( fEnable );
+	}
+
+	private void updateErrorRetryIntervalSummary ( ) {
+		int pos = 0;
+		long value = rapp.getErrorRetryInterval();
+		String[] interval =
+				getResources()
+						.getStringArray( R.array.errorRetryIntervalValues );
+		String[] intervaldisplay =
+				getResources().getStringArray( R.array.errorRetryInterval );
+		for ( int i = 0; i < interval.length; i++ ) {
+			if ( Long.parseLong( interval[i] ) == value ) {
+				// found value
+				pos = i;
+				break;
+			}
+		}
+		findPreference(
+						rapp.getString( R.string.prefNotificationErrorRetryIntervalKey ) )
+				.setSummary( intervaldisplay[pos] );
+	}
+
 	private void sendEmail ( ) {
 		Intent email = new Intent( Intent.ACTION_SEND );
 		email.putExtra( Intent.EXTRA_EMAIL,
@@ -630,6 +673,15 @@ public class PrefsActivity extends PreferenceActivity implements
 				.equals( rapp.getString( R.string.prefLoggingUpdateKey ) ) ) {
 			findPreference( rapp.getString( R.string.prefLoggingUpdateKey ) )
 					.setSummary( rapp.getLoggingUpdateDisplay() );
+		} else if ( key.equals( rapp
+				.getString( R.string.prefNotificationErrorRetryKey ) ) ) {
+			// error retry count changed, update the summary and
+			// visibility of the retry interval
+			updateErrorRetryCountSummary();
+		} else if ( key.equals( rapp
+				.getString( R.string.prefNotificationErrorRetryIntervalKey ) ) ) {
+			// interval changed
+			updateErrorRetryIntervalSummary();
 		}
 	}
 

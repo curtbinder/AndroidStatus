@@ -448,12 +448,6 @@ public class ControllerTask implements Runnable {
 		// Log.d(TAG, "broadcastErrorMessage");
 		String er = rapp.getErrorMessage();
 
-		// if error notification is enabled, increase the error count
-		// as soon as we know it's an error
-		if ( rapp.isErrorRetryEnabled() ) {
-			rapp.errorCount++;
-		}
-
 		if ( rapp.isNotificationEnabled() ) {
 			// create intent to launch status activity when notification
 			// selected
@@ -465,6 +459,12 @@ public class ControllerTask implements Runnable {
 							.getActivity(	rapp, -1, si,
 											PendingIntent.FLAG_UPDATE_CURRENT );
 
+			// if error notification is enabled, increase the error count
+			// as soon as we know it's an error
+			if ( rapp.isErrorRetryEnabled() ) {
+				rapp.errorCount++;
+			}
+			
 			boolean fCanNotify = true;
 			// if error retry is enabled, don't notify unless we fail the error
 			// retries

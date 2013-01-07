@@ -489,6 +489,12 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefNotificationEnableSummary">Display in status bar</string>
     <string name="prefNotificationSoundKey">notification_sound</string>
     <string name="prefNotificationSoundTitle">Choose ringtone</string>
+    <string name="prefNotificationErrorRetryKey">error_retry_count</string>
+    <string name="prefNotificationErrorRetryTitle">Error Retries</string>
+    <string name="prefNotificationErrorRetryDefault">0</string>
+    <string name="prefNotificationErrorRetryIntervalKey">error_retry_interval</string>
+    <string name="prefNotificationErrorRetryIntervalDefault">5000</string>
+    <string name="prefNotificationErrorRetryIntervalTitle">Error Retry Interval</string>
     <string name="prefLoggingCategory">Logging</string>
     <string name="prefLoggingEnableKey">logging</string>
     <string name="prefLoggingUpdateKey">logging_update</string>

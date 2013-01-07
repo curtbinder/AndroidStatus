@@ -357,7 +357,10 @@ public class RAApplication extends Application {
 	}
 
 	public int getErrorRetryMax ( ) {
-		return 2;
+		return Integer
+				.parseInt( prefs
+						.getString( getString( R.string.prefNotificationErrorRetryKey ),
+									"0" ) );
 	}
 
 	public boolean canErrorRetry ( ) {
@@ -369,16 +372,20 @@ public class RAApplication extends Application {
 	}
 
 	public boolean isErrorRetryEnabled ( ) {
-		return (getErrorRetryMax() > 0);
+		return (getErrorRetryMax() > Globals.errorRetryNone);
 	}
 
 	public void clearErrorRetryCount ( ) {
-		errorCount = 0;
+		errorCount = Globals.errorRetryNone;
 	}
-	
+
 	public long getErrorRetryInterval ( ) {
 		// time between error retries
-		return 5000;
+		return Long
+				.parseLong( prefs
+						.getString( getString( R.string.prefNotificationErrorRetryIntervalKey ),
+									getString( R.string.prefNotificationErrorRetryIntervalDefault ) ) );
+
 	}
 
 	private boolean isLoggingEnabled ( ) {
