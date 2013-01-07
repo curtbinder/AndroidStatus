@@ -448,18 +448,13 @@ public class ControllerTask implements Runnable {
 		// Log.d(TAG, "broadcastErrorMessage");
 		String er = rapp.getErrorMessage();
 
-		if ( rapp.isNotificationEnabled() ) {
-			// notification
-			NotificationManager nm =
-					(NotificationManager) rapp
-							.getSystemService( Context.NOTIFICATION_SERVICE );
-			Notification n =
-					new Notification( R.drawable.st_notify,
-						rapp.getString( R.string.app_name ) + " " + er,
-						System.currentTimeMillis() );
-			n.flags |= Notification.FLAG_AUTO_CANCEL;
-			n.sound = rapp.getNotificationSound();
+		// if error notification is enabled, increase the error count
+		// as soon as we know it's an error
+		if ( rapp.isErrorRetryEnabled() ) {
+			rapp.errorCount++;
+		}
 
+		if ( rapp.isNotificationEnabled() ) {
 			// create intent to launch status activity when notification
 			// selected
 			Intent si = new Intent( rapp, StatusActivity.class );
@@ -470,10 +465,30 @@ public class ControllerTask implements Runnable {
 							.getActivity(	rapp, -1, si,
 											PendingIntent.FLAG_UPDATE_CURRENT );
 
+			boolean fCanNotify = true;
+			// if error retry is enabled, don't notify unless we fail the error
+			// retries
+			if ( rapp.isErrorRetryEnabled() && rapp.canErrorRetry() ) {
+				fCanNotify = false;
+			}
+
 			// send notification
-			n.setLatestEventInfo(	rapp, rapp.getString( R.string.app_name ),
-									er, pi );
-			nm.notify( 0, n );
+			if ( fCanNotify ) {
+				// notification
+				NotificationManager nm =
+						(NotificationManager) rapp
+								.getSystemService( Context.NOTIFICATION_SERVICE );
+				Notification n =
+						new Notification( R.drawable.st_notify,
+							rapp.getString( R.string.app_name ) + " " + er,
+							System.currentTimeMillis() );
+				n.flags |= Notification.FLAG_AUTO_CANCEL;
+				n.sound = rapp.getNotificationSound();
+				n.setLatestEventInfo(	rapp,
+										rapp.getString( R.string.app_name ),
+										er, pi );
+				nm.notify( 0, n );
+			}
 		}
 
 		// broadcast

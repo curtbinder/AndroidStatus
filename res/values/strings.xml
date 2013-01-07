@@ -181,6 +181,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="messageDeleteLogPrompt">Delete log file?</string>
     <string name="messageSendLogPrompt">Email log to developer?</string>
     <string name="messageNoExternalStorage">Need SD card for log file</string>
+    <string name="messageErrorRetry">Error retry count: %1$d</string>
 
     <!-- Status strings -->
     <string name="statusStart">Starting update</string>

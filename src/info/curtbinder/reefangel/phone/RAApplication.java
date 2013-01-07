@@ -48,6 +48,8 @@ public class RAApplication extends Application {
 	private String[] errorCodes;
 	private String[] errorCodesStrings;
 	public int errorCode;
+	public int errorCount;
+
 	// Devices stuff
 	private String[] devicesArray;
 
@@ -70,6 +72,9 @@ public class RAApplication extends Application {
 		data = new RAData( this );
 		devicesArray = getResources().getStringArray( R.array.devicesValues );
 		isServiceRunning = false;
+
+		// initialize the error count
+		errorCount = 0;
 
 		fillRelayLabels();
 
@@ -349,6 +354,31 @@ public class RAApplication extends Application {
 			}
 		}
 		return s;
+	}
+
+	public int getErrorRetryMax ( ) {
+		return 2;
+	}
+
+	public boolean canErrorRetry ( ) {
+		boolean f = false;
+		if ( errorCount <= getErrorRetryMax() ) {
+			f = true;
+		}
+		return f;
+	}
+
+	public boolean isErrorRetryEnabled ( ) {
+		return (getErrorRetryMax() > 0);
+	}
+
+	public void clearErrorRetryCount ( ) {
+		errorCount = 0;
+	}
+	
+	public long getErrorRetryInterval ( ) {
+		// time between error retries
+		return 5000;
 	}
 
 	private boolean isLoggingEnabled ( ) {

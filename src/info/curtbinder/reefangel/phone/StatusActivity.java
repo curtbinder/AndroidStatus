@@ -30,6 +30,7 @@ import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.database.SQLException;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -596,12 +597,38 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 					.equals( MessageCommands.UPDATE_DISPLAY_DATA_INTENT ) ) {
 				Log.d( TAG, "update data intent" );
 				updateDisplay();
+				rapp.clearErrorRetryCount();
 			} else if ( action.equals( MessageCommands.ERROR_MESSAGE_INTENT ) ) {
-				Log.d( TAG, intent
-						.getStringExtra( MessageCommands.ERROR_MESSAGE_STRING ) );
-				updateTime
-						.setText( intent
-								.getStringExtra( MessageCommands.ERROR_MESSAGE_STRING ) );
+				boolean fDisplayUpdate = true;
+				if ( rapp.isErrorRetryEnabled() ) {
+					// we are to retry connection before displaying an error
+					// increment the error count
+					String s = rapp.getString( R.string.messageErrorRetry, rapp.errorCount );
+					Log.d( TAG, s );
+					if ( rapp.canErrorRetry() ) {
+						// if error count is less than the max,
+						// we need to retry the communication
+						Log.d( TAG, "Error Re-launch" );
+						updateTime.setText( s );
+						fDisplayUpdate = false;
+						Runnable r = new Runnable() {
+							public void run ( ) {
+								launchStatusTask();
+							}
+						};
+						Handler h = new Handler();
+						h.postDelayed( r, rapp.getErrorRetryInterval() );
+					}
+					// otherwise if we have exceeded the max count, then we
+					// display the error
+				}
+				if ( fDisplayUpdate ) {
+					Log.d(	TAG,
+							intent.getStringExtra( MessageCommands.ERROR_MESSAGE_STRING ) );
+					updateTime
+							.setText( intent
+									.getStringExtra( MessageCommands.ERROR_MESSAGE_STRING ) );
+				}
 			}
 		}
 	}
