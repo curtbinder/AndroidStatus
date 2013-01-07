@@ -675,8 +675,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/prefNotificationEnableKey"
-            android:summary="@string/prefNotificationEnableSummary"
-            android:title="@string/prefNotificationCategory" />
+            android:title="@string/labelEnable" />
 
         <RingtonePreference
             android:defaultValue="content://settings/system/notification_sound"
