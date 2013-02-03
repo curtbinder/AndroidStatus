@@ -317,6 +317,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefPort7LabelTitle">Port 7</string>
     <string name="prefPort8LabelTitle">Port 8</string>
     <string name="prefMainRelayTitle">Main Relay</string>
+    <string name="prefMainRelayEnableTitle">Main Relay Button enable/disable</string>
+    
     <string name="prefMainPort1LabelKey">main_port1_label</string>
     <string name="prefMainPort2LabelKey">main_port2_label</string>
     <string name="prefMainPort3LabelKey">main_port3_label</string>
@@ -325,6 +327,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefMainPort6LabelKey">main_port6_label</string>
     <string name="prefMainPort7LabelKey">main_port7_label</string>
     <string name="prefMainPort8LabelKey">main_port8_label</string>
+    
     <string name="prefExpansionCategory">Expansion Settings</string>
     <string name="prefExpRelayTitle">Relay</string>
     <string name="prefExpRelaySummary">Quantity and labels</string>

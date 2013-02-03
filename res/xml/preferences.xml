@@ -181,6 +181,42 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                         android:key="@string/prefMainPort8LabelKey"
                         android:title="@string/prefPort8LabelTitle" />
                 </PreferenceScreen>
+                <PreferenceScreen
+                    android:key="main_relay_controls_enabled"
+                    android:title="@string/prefMainRelayEnableTitle" >
+                    <CheckBoxPreference
+                        android:defaultValue="true"
+                        android:key="prefMainPort1EnabledKey"
+                        android:title="@string/prefPort1LabelTitle" />
+                    <CheckBoxPreference
+                        android:defaultValue="true"
+                        android:key="prefMainPort2EnabledKey"
+                        android:title="@string/prefPort2LabelTitle" />
+                    <CheckBoxPreference
+                        android:defaultValue="true"
+                        android:key="prefMainPort3EnabledKey"
+                        android:title="@string/prefPort3LabelTitle" />
+                    <CheckBoxPreference
+                        android:defaultValue="true"
+                        android:key="prefMainPort4EnabledKey"
+                        android:title="@string/prefPort4LabelTitle" />
+                    <CheckBoxPreference
+                        android:defaultValue="true"
+                        android:key="prefMainPort5EnabledKey"
+                        android:title="@string/prefPort5LabelTitle" />
+                    <CheckBoxPreference
+                        android:defaultValue="true"
+                        android:key="prefMainPort6EnabledKey"
+                        android:title="@string/prefPort6LabelTitle" />
+                    <CheckBoxPreference
+                        android:defaultValue="true"
+                        android:key="prefMainPort7EnabledKey"
+                        android:title="@string/prefPort7LabelTitle" />
+                    <CheckBoxPreference
+                        android:defaultValue="true"
+                        android:key="prefMainPort8EnabledKey"
+                        android:title="@string/prefPort8LabelTitle" />
+                </PreferenceScreen>
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/prefExpansionCategory" >
                 <PreferenceScreen android:title="@string/prefExpDimmingTitle" >

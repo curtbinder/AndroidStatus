@@ -132,6 +132,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		setPagerPrefs();
 
 		// TODO possibly move to onresume
+		disableRelayButtons();
 		setOnClickListeners();
 
 		// Check if this is the first run, if so we need to prompt the user
@@ -189,6 +190,15 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		pager = (ViewPager) findViewById( R.id.pager );
 	}
 
+	private void disableRelayButtons() {
+		int i;
+		pageMain.refreshButtonEnablement();
+
+		for ( i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
+			pageExpRelays[i].refreshButtonEnablement();
+		}
+	}
+	
 	private void setOnClickListeners ( ) {
 		refreshButton.setOnClickListener( this );
 		refreshButton.setOnLongClickListener( this );
@@ -274,17 +284,16 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 		int i, j;
 		for ( i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
-			pageMain.setPortLabel( i, rapp.getPrefMainRelayLabel( i )
-										+ separator );
+			pageMain.setPortLabel( i, rapp.getPrefMainRelayLabel( i ) + separator );
+			boolean enabled = rapp.getPrefMainRelayControlEnabled( i );
+			pageMain.setControlEnabled(i, enabled);
 
 			for ( j = 0; j < Controller.MAX_EXPANSION_RELAYS; j++ ) {
 				// skip over the relays that are not installed
 				if ( (j + 1) > qty )
 					break;
-				pageExpRelays[j].setPortLabel(	i,
-												rapp.getPrefRelayLabel( j + 1,
-																		i )
-														+ separator );
+				pageExpRelays[j].setPortLabel(	i, rapp.getPrefRelayLabel( j + 1, i )+ separator );
+				pageExpRelays[j].setControlEnabled(	i, rapp.getPrefRelayControlEnabled( j + 1, i ));
 			}
 
 		}
