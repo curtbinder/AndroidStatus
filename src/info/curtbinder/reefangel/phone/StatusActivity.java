@@ -132,6 +132,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		setPagerPrefs();
 
 		// TODO possibly move to onresume
+		disableRelayButtons();
 		setOnClickListeners();
 
 		// Check if this is the first run, if so we need to prompt the user
@@ -189,6 +190,15 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		pager = (ViewPager) findViewById( R.id.pager );
 	}
 
+	private void disableRelayButtons() {
+		int i;
+		pageMain.disableRelayButtons();
+
+		for ( i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
+			pageExpRelays[i].disableRelayButtons();
+		}
+	}
+	
 	private void setOnClickListeners ( ) {
 		refreshButton.setOnClickListener( this );
 		refreshButton.setOnLongClickListener( this );

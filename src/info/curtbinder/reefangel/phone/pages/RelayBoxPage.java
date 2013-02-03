@@ -129,8 +129,10 @@ public class RelayBoxPage extends ScrollView implements OnClickListener {
 
 	public void setOnClickListeners ( ) {
 		for ( int i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
-			portBtns[i].setOnClickListener( this );
-			portMaskBtns[i].setOnClickListener( this );
+			if (isEnabled(i)){
+				portBtns[i].setOnClickListener( this );
+				portMaskBtns[i].setOnClickListener( this );
+			}
 		}
 	}
 
@@ -280,5 +282,18 @@ public class RelayBoxPage extends ScrollView implements OnClickListener {
 		i.putExtra( MessageCommands.TOGGLE_RELAY_PORT_INT, relay );
 		i.putExtra( MessageCommands.TOGGLE_RELAY_MODE_INT, status );
 		ctx.sendBroadcast( i, Permissions.SEND_COMMAND );
+	}
+
+	public void disableRelayButtons() {
+		for ( int i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
+			boolean enabled = isEnabled(i);
+			
+			portBtns[i].setEnabled(enabled);
+			portMaskBtns[i].setClickable(enabled);
+		}
+	}
+
+	private boolean isEnabled(int i) {
+		return false;
 	}
 }
