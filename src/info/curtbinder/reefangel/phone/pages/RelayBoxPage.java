@@ -35,6 +35,8 @@ public class RelayBoxPage extends ScrollView implements OnClickListener {
 			new ToggleButton[Controller.MAX_RELAY_PORTS];
 	private View[] portMaskBtns = new View[Controller.MAX_RELAY_PORTS];
 
+	private boolean[] controlsEnabled = new boolean[Controller.MAX_RELAY_PORTS];
+	
 	public RelayBoxPage ( Context context ) {
 		super( context );
 		addViewsFromLayout( context );
@@ -129,10 +131,8 @@ public class RelayBoxPage extends ScrollView implements OnClickListener {
 
 	public void setOnClickListeners ( ) {
 		for ( int i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
-			if (isEnabled(i)){
-				portBtns[i].setOnClickListener( this );
-				portMaskBtns[i].setOnClickListener( this );
-			}
+			portBtns[i].setOnClickListener( this );
+			portMaskBtns[i].setOnClickListener( this );
 		}
 	}
 
@@ -284,16 +284,22 @@ public class RelayBoxPage extends ScrollView implements OnClickListener {
 		ctx.sendBroadcast( i, Permissions.SEND_COMMAND );
 	}
 
-	public void disableRelayButtons() {
+	public void refreshButtonEnablement() {
 		for ( int i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
-			boolean enabled = isEnabled(i);
+			boolean enabled = isControlEnabled(i);
 			
 			portBtns[i].setEnabled(enabled);
 			portMaskBtns[i].setClickable(enabled);
 		}
 	}
+	
+	public void setControlEnabled ( int port, boolean enabled ) {
+		Log.d( TAG, relayNumber + " Enable: " + port + ", " + enabled );
+		controlsEnabled[port] = enabled;
+		refreshButtonEnablement();
+	}
 
-	private boolean isEnabled(int i) {
-		return false;
+	private boolean isControlEnabled(int port) {
+		return controlsEnabled[port];
 	}
 }

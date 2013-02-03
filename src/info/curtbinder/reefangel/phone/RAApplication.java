@@ -1267,4 +1267,12 @@ public class RAApplication extends Application {
 		setPref( k, label );
 	}
 
+	public boolean getPrefRelayControlEnabled(int relay, int port) {
+		return prefs.getBoolean( "prefMainPort" + (port + 1) + "EnabledKey", true );
+	}
+
+	public boolean getPrefMainRelayControlEnabled(int port) {
+		return getPrefRelayControlEnabled(0, port);
+	}
+
 }
