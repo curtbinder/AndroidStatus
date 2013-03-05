@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
+ 
+This work is made available under the terms of the 
+Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+http://creativecommons.org/licenses/by-nc-sa/3.0/
+-->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="@string/prefNotificationCategory" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/prefNotificationEnableKey"
+            android:title="@string/labelEnable" />
+
+        <RingtonePreference
+            android:defaultValue="content://settings/system/notification_sound"
+            android:dependency="@string/prefNotificationEnableKey"
+            android:key="@string/prefNotificationSoundKey"
+            android:ringtoneType="notification"
+            android:showDefault="true"
+            android:showSilent="true"
+            android:title="@string/prefNotificationSoundTitle" />
+
+        <ListPreference
+            android:defaultValue="@string/prefNotificationErrorRetryDefault"
+            android:dependency="@string/prefNotificationEnableKey"
+            android:entries="@array/errorRetryCount"
+            android:entryValues="@array/errorRetryCountValues"
+            android:key="@string/prefNotificationErrorRetryKey"
+            android:title="@string/prefNotificationErrorRetryTitle" />
+        <ListPreference
+            android:defaultValue="@string/prefNotificationErrorRetryIntervalDefault"
+            android:dependency="@string/prefNotificationEnableKey"
+            android:entries="@array/errorRetryInterval"
+            android:entryValues="@array/errorRetryIntervalValues"
+            android:key="@string/prefNotificationErrorRetryIntervalKey"
+            android:title="@string/prefNotificationErrorRetryIntervalTitle" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

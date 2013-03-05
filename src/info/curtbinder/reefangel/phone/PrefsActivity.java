@@ -49,7 +49,15 @@ public class PrefsActivity extends PreferenceActivity implements
 
 	protected void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
-		addPreferencesFromResource( R.xml.preferences );
+		addPreferencesFromResource( R.xml.pref_device );
+		addPreferencesFromResource( R.xml.pref_profiles );
+		addPreferencesFromResource( R.xml.pref_controller );
+		addPreferencesFromResource( R.xml.pref_advanced );
+		addPreferencesFromResource( R.xml.pref_autoupdate );
+		addPreferencesFromResource( R.xml.pref_notifications );
+		addPreferencesFromResource( R.xml.pref_logging );
+		addPreferencesFromResource( R.xml.pref_appinfo );
+		
 		rapp = (RAApplication) getApplication();
 		devicesArray = rapp.getResources().getStringArray( R.array.devices );
 		profilesArray =
