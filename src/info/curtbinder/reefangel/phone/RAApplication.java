@@ -8,6 +8,7 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
+import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.db.RAData;
 import info.curtbinder.reefangel.service.ControllerService;
 import info.curtbinder.reefangel.service.MessageCommands;
@@ -743,7 +744,8 @@ public class RAApplication extends Application {
 		// display the changelog if the values are different
 		Log.d( TAG, "display changelog" );
 		int previous =
-				prefs.getInt( getString( R.string.prefPreviousCodeVersionKey ), 0 );
+				prefs.getInt(	getString( R.string.prefPreviousCodeVersionKey ),
+								0 );
 		int current = 0;
 		try {
 			current =
@@ -791,7 +793,8 @@ public class RAApplication extends Application {
 	}
 
 	public int getPreviousEM ( ) {
-		int previous = prefs.getInt( getString( R.string.prefPreviousEMKey ), -1 );
+		int previous =
+				prefs.getInt( getString( R.string.prefPreviousEMKey ), -1 );
 		return previous;
 	}
 
@@ -990,8 +993,12 @@ public class RAApplication extends Application {
 	}
 
 	public void deletePref ( int keyid ) {
+		deletePref( getString( keyid ) );
+	}
+
+	public void deletePref ( String key ) {
 		SharedPreferences.Editor editor = prefs.edit();
-		editor.remove( getString( keyid ) );
+		editor.remove( key );
 		editor.commit();
 	}
 
@@ -1284,6 +1291,14 @@ public class RAApplication extends Application {
 
 	public boolean getPrefMainRelayControlEnabled ( int port ) {
 		return getPrefRelayControlEnabled( 0, port );
+	}
+
+	public void deleteRelayControlEnabledPorts ( ) {
+		for ( int i = 0; i <= Controller.MAX_EXPANSION_RELAYS; i++ ) {
+			for ( int j = 0; j < Controller.MAX_RELAY_PORTS; j++ ) {
+				deletePref( getRelayControlEnabledKey( i, j ) );
+			}
+		}
 	}
 
 }

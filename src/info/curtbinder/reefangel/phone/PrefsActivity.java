@@ -60,7 +60,7 @@ public class PrefsActivity extends PreferenceActivity implements
 		addPreferencesFromResource( R.xml.pref_notifications );
 		addPreferencesFromResource( R.xml.pref_logging );
 		addPreferencesFromResource( R.xml.pref_appinfo );
-		
+
 		rapp = (RAApplication) getApplication();
 		devicesArray = rapp.getResources().getStringArray( R.array.devices );
 		profilesArray =
@@ -108,23 +108,33 @@ public class PrefsActivity extends PreferenceActivity implements
 				findPreference( rapp.getString( R.string.prefExp7RelayKey ) );
 		explabels[7] =
 				findPreference( rapp.getString( R.string.prefExp8RelayKey ) );
-		expenabledkey = findPreference(rapp.getString(R.string.prefExpRelayEnabledKey));
+		expenabledkey =
+				findPreference( rapp
+						.getString( R.string.prefExpRelayEnabledKey ) );
 		exprelays[0] =
-				findPreference( rapp.getString( R.string.prefExp1RelayEnabledKey ) );
+				findPreference( rapp
+						.getString( R.string.prefExp1RelayEnabledKey ) );
 		exprelays[1] =
-				findPreference( rapp.getString( R.string.prefExp2RelayEnabledKey ) );
+				findPreference( rapp
+						.getString( R.string.prefExp2RelayEnabledKey ) );
 		exprelays[2] =
-				findPreference( rapp.getString( R.string.prefExp3RelayEnabledKey ) );
+				findPreference( rapp
+						.getString( R.string.prefExp3RelayEnabledKey ) );
 		exprelays[3] =
-				findPreference( rapp.getString( R.string.prefExp4RelayEnabledKey ) );
+				findPreference( rapp
+						.getString( R.string.prefExp4RelayEnabledKey ) );
 		exprelays[4] =
-				findPreference( rapp.getString( R.string.prefExp5RelayEnabledKey ) );
+				findPreference( rapp
+						.getString( R.string.prefExp5RelayEnabledKey ) );
 		exprelays[5] =
-				findPreference( rapp.getString( R.string.prefExp6RelayEnabledKey ) );
+				findPreference( rapp
+						.getString( R.string.prefExp6RelayEnabledKey ) );
 		exprelays[6] =
-				findPreference( rapp.getString( R.string.prefExp7RelayEnabledKey ) );
+				findPreference( rapp
+						.getString( R.string.prefExp7RelayEnabledKey ) );
 		exprelays[7] =
-				findPreference( rapp.getString( R.string.prefExp8RelayEnabledKey ) );
+				findPreference( rapp
+						.getString( R.string.prefExp8RelayEnabledKey ) );
 		updateExpansionLabelsVisibility( rapp.getPrefExpansionRelayQuantity() );
 
 		profilekey =
@@ -251,6 +261,46 @@ public class PrefsActivity extends PreferenceActivity implements
 				return true;
 			}
 		} );
+
+		Preference resetenabledkey =
+				findPreference( rapp
+						.getString( R.string.prefResetEnabledPortsKey ) );
+		resetenabledkey
+				.setOnPreferenceClickListener( new OnPreferenceClickListener() {
+
+					public boolean onPreferenceClick ( Preference preference ) {
+
+						AlertDialog.Builder builder =
+								new AlertDialog.Builder( PrefsActivity.this );
+						builder.setMessage( rapp.getString( R.string.messageResetEnabledPortsPrompt ) )
+								.setCancelable( false )
+								.setPositiveButton( rapp.getString( R.string.buttonYes ),
+													new DialogInterface.OnClickListener() {
+														public void onClick (
+																DialogInterface dialog,
+																int id ) {
+															Log.d(	TAG,
+																	"Reset enabled ports" );
+															dialog.dismiss();
+															resetEnabledPorts();
+														}
+													} )
+								.setNegativeButton( rapp.getString( R.string.buttonNo ),
+													new DialogInterface.OnClickListener() {
+														public void onClick (
+																DialogInterface dialog,
+																int id ) {
+															Log.d(	TAG,
+																	"Cancel reset enabled ports" );
+															dialog.cancel();
+														}
+													} );
+
+						AlertDialog alert = builder.create();
+						alert.show();
+						return true;
+					}
+				} );
 
 		Preference deletelog =
 				findPreference( rapp.getString( R.string.prefLoggingDeleteKey ) );
@@ -561,6 +611,14 @@ public class PrefsActivity extends PreferenceActivity implements
 
 		Toast.makeText( PrefsActivity.this,
 						rapp.getString( R.string.messageResetLabelsComplete ),
+						Toast.LENGTH_SHORT ).show();
+	}
+
+	public void resetEnabledPorts ( ) {
+		rapp.deleteRelayControlEnabledPorts();
+		
+		Toast.makeText( PrefsActivity.this,
+						rapp.getString( R.string.messageResetEanbledPortsComplete ),
 						Toast.LENGTH_SHORT ).show();
 	}
 

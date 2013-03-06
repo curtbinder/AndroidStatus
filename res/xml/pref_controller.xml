@@ -928,8 +928,12 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             <PreferenceCategory android:title="@string/prefResetCategory" >
                 <PreferenceScreen
                     android:key="@string/prefResetLabelsKey"
-                    android:summary="@string/prefResetLabelsSummary"
+                    android:summary="@string/prefResetSummary"
                     android:title="@string/prefResetLabelsTitle" />
+                <PreferenceScreen
+                    android:key="@string/prefResetEnabledPortsKey"
+                    android:summary="@string/prefResetSummary"
+                    android:title="@string/prefResetEnabledPortsTitle" />
             </PreferenceCategory>
         </PreferenceScreen>
     </PreferenceCategory>
