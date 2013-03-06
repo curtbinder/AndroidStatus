@@ -8,6 +8,8 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
+import java.util.Locale;
+
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.controller.Relay;
 import info.curtbinder.reefangel.db.RAData;
@@ -718,7 +720,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		sa[Controller.VORTECH_MODE] = s;
 		// speed
 		v = c.getInt( c.getColumnIndex( RAData.PCOL_RFS ) );
-		s = String.format( "%d%c", v, '%' );
+		s = String.format(Locale.US, "%d%c", v, '%' );
 		sa[Controller.VORTECH_SPEED] = s;
 		// duration
 		v = c.getInt( c.getColumnIndex( RAData.PCOL_RFD ) );
@@ -726,11 +728,11 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			case 3:
 			case 5:
 				// value is in 100 milliseconds
-				s = String.format( "%d %s", v, "ms" );
+				s = String.format(Locale.US, "%d %s", v, "ms" );
 				break;
 			case 4:
 				// value is in seconds
-				s = String.format( "%d %c", v, 's' );
+				s = String.format(Locale.US, "%d %c", v, 's' );
 				break;
 			default:
 				break;
