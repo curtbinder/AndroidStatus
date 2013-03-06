@@ -743,7 +743,7 @@ public class RAApplication extends Application {
 		// display the changelog if the values are different
 		Log.d( TAG, "display changelog" );
 		int previous =
-				prefs.getInt( getString( R.string.prefPreviousCodeVersion ), 0 );
+				prefs.getInt( getString( R.string.prefPreviousCodeVersionKey ), 0 );
 		int current = 0;
 		try {
 			current =
@@ -754,7 +754,7 @@ public class RAApplication extends Application {
 		if ( current > previous ) {
 			// save code version in preferences
 			prefs.edit()
-					.putInt( getString( R.string.prefPreviousCodeVersion ),
+					.putInt( getString( R.string.prefPreviousCodeVersionKey ),
 								current ).commit();
 			// newer version, display changelog
 			Log.d( TAG, "Showing changelog" );
@@ -791,12 +791,12 @@ public class RAApplication extends Application {
 	}
 
 	public int getPreviousEM ( ) {
-		int previous = prefs.getInt( getString( R.string.prefPreviousEM ), -1 );
+		int previous = prefs.getInt( getString( R.string.prefPreviousEMKey ), -1 );
 		return previous;
 	}
 
 	public void setPreviousEM ( short em ) {
-		prefs.edit().putInt( getString( R.string.prefPreviousEM ), em )
+		prefs.edit().putInt( getString( R.string.prefPreviousEMKey ), em )
 				.commit();
 	}
 
