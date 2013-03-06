@@ -153,4 +153,5 @@ Changelog of all the versions of AndroidStatus
 0.8.2
  * added ability to disable specific relays to prevent accidental toggling from the app (from triggerNZ)
  ** default all relays are enabled
+ * code updates
  
