@@ -150,3 +150,7 @@ Changelog of all the versions of AndroidStatus
  ** default 5 second interval between retries
  * switched changelog to html view
  
+0.8.2
+ * added ability to disable specific relays to prevent accidental toggling from the app (from triggerNZ)
+ ** default all relays are enabled
+ 

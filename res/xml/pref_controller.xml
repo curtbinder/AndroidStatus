@@ -144,8 +144,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 </PreferenceScreen>
                 <PreferenceScreen
                     android:key="main_relay_controls_enabled"
-                    android:summary="Disabled ports cannot be toggled, only displayed"
-                    android:title="Enabled Ports" >
+                    android:summary="@string/prefRelayEnabledPortsSummary"
+                    android:title="@string/prefRelayEnabledPortsTitle" >
                     <CheckBoxPreference
                         android:defaultValue="true"
                         android:key="prefMainPort1EnabledKey"
@@ -624,13 +624,12 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                                 android:title="@string/prefPort8LabelTitle" />
                         </PreferenceScreen>
                     </PreferenceScreen>
-                    <!-- 
                     <PreferenceScreen
-                        android:key="exp_relay_controls_enabled"
-                        android:summary="If ports are disabled, only the status of the port is displayed"
-                        android:title="Expansion Enabled Ports" >
+                        android:key="@string/prefExpRelayEnabledKey"
+                        android:summary="@string/prefRelayEnabledPortsSummary"
+                        android:title="@string/prefExpEnabledPortsTitle" >
                         <PreferenceScreen
-                            android:key="@string/prefExp1RelayKey"
+                            android:key="@string/prefExp1RelayEnabledKey"
                             android:title="@string/prefExp1RelayTitle" >
                             <CheckBoxPreference
                                 android:defaultValue="true"
@@ -665,8 +664,259 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                                 android:key="prefExp1Port8EnabledKey"
                                 android:title="@string/prefPort8LabelTitle" />
                         </PreferenceScreen>
+                        <PreferenceScreen
+                            android:key="@string/prefExp2RelayEnabledKey"
+                            android:title="@string/prefExp2RelayTitle" >
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp2Port1EnabledKey"
+                                android:title="@string/prefPort1LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp2Port2EnabledKey"
+                                android:title="@string/prefPort2LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp2Port3EnabledKey"
+                                android:title="@string/prefPort3LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp2Port4EnabledKey"
+                                android:title="@string/prefPort4LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp2Port5EnabledKey"
+                                android:title="@string/prefPort5LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp2Port6EnabledKey"
+                                android:title="@string/prefPort6LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp2Port7EnabledKey"
+                                android:title="@string/prefPort7LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp2Port8EnabledKey"
+                                android:title="@string/prefPort8LabelTitle" />
+                        </PreferenceScreen>
+                        <PreferenceScreen
+                            android:key="@string/prefExp3RelayEnabledKey"
+                            android:title="@string/prefExp3RelayTitle" >
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp3Port1EnabledKey"
+                                android:title="@string/prefPort1LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp3Port2EnabledKey"
+                                android:title="@string/prefPort2LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp3Port3EnabledKey"
+                                android:title="@string/prefPort3LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp3Port4EnabledKey"
+                                android:title="@string/prefPort4LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp3Port5EnabledKey"
+                                android:title="@string/prefPort5LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp3Port6EnabledKey"
+                                android:title="@string/prefPort6LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp3Port7EnabledKey"
+                                android:title="@string/prefPort7LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp3Port8EnabledKey"
+                                android:title="@string/prefPort8LabelTitle" />
+                        </PreferenceScreen>
+                        <PreferenceScreen
+                            android:key="@string/prefExp4RelayEnabledKey"
+                            android:title="@string/prefExp4RelayTitle" >
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp4Port1EnabledKey"
+                                android:title="@string/prefPort1LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp4Port2EnabledKey"
+                                android:title="@string/prefPort2LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp4Port3EnabledKey"
+                                android:title="@string/prefPort3LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp4Port4EnabledKey"
+                                android:title="@string/prefPort4LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp4Port5EnabledKey"
+                                android:title="@string/prefPort5LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp4Port6EnabledKey"
+                                android:title="@string/prefPort6LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp4Port7EnabledKey"
+                                android:title="@string/prefPort7LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp4Port8EnabledKey"
+                                android:title="@string/prefPort8LabelTitle" />
+                        </PreferenceScreen>
+                        <PreferenceScreen
+                            android:key="@string/prefExp5RelayEnabledKey"
+                            android:title="@string/prefExp5RelayTitle" >
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp5Port1EnabledKey"
+                                android:title="@string/prefPort1LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp5Port2EnabledKey"
+                                android:title="@string/prefPort2LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp5Port3EnabledKey"
+                                android:title="@string/prefPort3LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp5Port4EnabledKey"
+                                android:title="@string/prefPort4LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp5Port5EnabledKey"
+                                android:title="@string/prefPort5LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp5Port6EnabledKey"
+                                android:title="@string/prefPort6LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp5Port7EnabledKey"
+                                android:title="@string/prefPort7LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp5Port8EnabledKey"
+                                android:title="@string/prefPort8LabelTitle" />
+                        </PreferenceScreen>
+                        <PreferenceScreen
+                            android:key="@string/prefExp6RelayEnabledKey"
+                            android:title="@string/prefExp6RelayTitle" >
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp6Port1EnabledKey"
+                                android:title="@string/prefPort1LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp6Port2EnabledKey"
+                                android:title="@string/prefPort2LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp6Port3EnabledKey"
+                                android:title="@string/prefPort3LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp6Port4EnabledKey"
+                                android:title="@string/prefPort4LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp6Port5EnabledKey"
+                                android:title="@string/prefPort5LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp6Port6EnabledKey"
+                                android:title="@string/prefPort6LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp6Port7EnabledKey"
+                                android:title="@string/prefPort7LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp6Port8EnabledKey"
+                                android:title="@string/prefPort8LabelTitle" />
+                        </PreferenceScreen>
+                        <PreferenceScreen
+                            android:key="@string/prefExp7RelayEnabledKey"
+                            android:title="@string/prefExp7RelayTitle" >
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp7Port1EnabledKey"
+                                android:title="@string/prefPort1LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp7Port2EnabledKey"
+                                android:title="@string/prefPort2LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp7Port3EnabledKey"
+                                android:title="@string/prefPort3LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp7Port4EnabledKey"
+                                android:title="@string/prefPort4LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp7Port5EnabledKey"
+                                android:title="@string/prefPort5LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp7Port6EnabledKey"
+                                android:title="@string/prefPort6LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp7Port7EnabledKey"
+                                android:title="@string/prefPort7LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp7Port8EnabledKey"
+                                android:title="@string/prefPort8LabelTitle" />
+                        </PreferenceScreen>
+                        <PreferenceScreen
+                            android:key="@string/prefExp8RelayEnabledKey"
+                            android:title="@string/prefExp8RelayTitle" >
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp8Port1EnabledKey"
+                                android:title="@string/prefPort1LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp8Port2EnabledKey"
+                                android:title="@string/prefPort2LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp8Port3EnabledKey"
+                                android:title="@string/prefPort3LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp8Port4EnabledKey"
+                                android:title="@string/prefPort4LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp8Port5EnabledKey"
+                                android:title="@string/prefPort5LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp8Port6EnabledKey"
+                                android:title="@string/prefPort6LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp8Port7EnabledKey"
+                                android:title="@string/prefPort7LabelTitle" />
+                            <CheckBoxPreference
+                                android:defaultValue="true"
+                                android:key="prefExp8Port8EnabledKey"
+                                android:title="@string/prefPort8LabelTitle" />
+                        </PreferenceScreen>
                     </PreferenceScreen>
-                    -->
 
                     <CheckBoxPreference
                         android:defaultValue="false"

@@ -2,10 +2,9 @@
 <!--
 Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
  
-This work is made available under the terms of the 
+This work is made available under the terms of the
 Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
-http://creativecommons.org/licenses/by-nc-sa/3.0/
--->
+http://creativecommons.org/licenses/by-nc-sa/3.0/-->
 
 <resources>
 
@@ -279,10 +278,10 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefPHExpVisibilityTitle">PH Expansion</string>
     <string name="prefWaterLevelVisibilityKey">wl_visibility</string>
     <string name="prefWaterLevelVisibilityTitle">Water Level</string>
-	<string name="prefResetCategory">Reset Settings</string>
-	<string name="prefResetLabelsKey">reset_labels</string>
-	<string name="prefResetLabelsTitle">Reset Labels</string>
-	<string name="prefResetLabelsSummary">Defaults</string>
+    <string name="prefResetCategory">Reset Settings</string>
+    <string name="prefResetLabelsKey">reset_labels</string>
+    <string name="prefResetLabelsTitle">Reset Labels</string>
+    <string name="prefResetLabelsSummary">Defaults</string>
     <string name="prefLabelsCategory">Label Settings</string>
     <string name="prefControllerLabelsDownloadKey">download_labels</string>
     <string name="prefControllerLabelsDownloadTitle">Download</string>
@@ -318,7 +317,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefPort8LabelTitle">Port 8</string>
     <string name="prefMainRelayTitle">Main Relay</string>
     <string name="prefMainRelayEnableTitle">Main Relay Button enable/disable</string>
-    
+    <string name="prefRelayEnabledPortsTitle">Enabled Ports</string>
+    <string name="prefRelayEnabledPortsSummary">Disabled ports cannot be toggled, only displayed</string>
     <string name="prefMainPort1LabelKey">main_port1_label</string>
     <string name="prefMainPort2LabelKey">main_port2_label</string>
     <string name="prefMainPort3LabelKey">main_port3_label</string>
@@ -327,7 +327,6 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefMainPort6LabelKey">main_port6_label</string>
     <string name="prefMainPort7LabelKey">main_port7_label</string>
     <string name="prefMainPort8LabelKey">main_port8_label</string>
-    
     <string name="prefExpansionCategory">Expansion Settings</string>
     <string name="prefExpRelayTitle">Relay</string>
     <string name="prefExpRelaySummary">Quantity and labels</string>
@@ -415,6 +414,16 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExp8Port6LabelKey">exp8_port6_label</string>
     <string name="prefExp8Port7LabelKey">exp8_port7_label</string>
     <string name="prefExp8Port8LabelKey">exp8_port8_label</string>
+    <string name="prefExpEnabledPortsTitle">Expansion Enabled Ports</string>
+	<string name="prefExpRelayEnabledKey">exp_relay_controls_enabled</string>
+	<string name="prefExp1RelayEnabledKey">exp1_relay_controls_enabled</string>
+	<string name="prefExp2RelayEnabledKey">exp2_relay_controls_enabled</string>
+	<string name="prefExp3RelayEnabledKey">exp3_relay_controls_enabled</string>
+    <string name="prefExp4RelayEnabledKey">exp4_relay_controls_enabled</string>
+    <string name="prefExp5RelayEnabledKey">exp5_relay_controls_enabled</string>
+	<string name="prefExp6RelayEnabledKey">exp6_relay_controls_enabled</string>
+	<string name="prefExp7RelayEnabledKey">exp7_relay_controls_enabled</string>
+    <string name="prefExp8RelayEnabledKey">exp8_relay_controls_enabled</string>
     <string name="prefExp085xKey">exp_085_relays</string>
     <string name="prefExp085xSummary">v0.8.5.X libraries support</string>
     <string name="prefExp085xTitle">Old Expansion</string>
@@ -519,9 +528,8 @@ Allows this application to send commands to the controller.  The following comma
 * Reading / writing internal memory
 * Toggling relay status
 * Version query
-* Get / set date and time
-</string>
-	<string name="permissionReadProviderDescription">Allow other apps to get access to controller history</string>
-	<string name="permissionReadProviderLabel">Read Reef Angel Status Data</string>
+* Get / set date and time</string>
+    <string name="permissionReadProviderDescription">Allow other apps to get access to controller history</string>
+    <string name="permissionReadProviderLabel">Read Reef Angel Status Data</string>
 
 </resources>

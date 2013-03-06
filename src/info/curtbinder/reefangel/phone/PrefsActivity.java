@@ -38,6 +38,9 @@ public class PrefsActivity extends PreferenceActivity implements
 	private Preference exp085xkey;
 	private Preference[] explabels =
 			new Preference[Controller.MAX_EXPANSION_RELAYS];
+	private Preference expenabledkey;
+	private Preference[] exprelays =
+			new Preference[Controller.MAX_EXPANSION_RELAYS];
 	private Preference updateprofilekey;
 	private String[] devicesArray;
 	private String[] profilesArray;
@@ -105,6 +108,23 @@ public class PrefsActivity extends PreferenceActivity implements
 				findPreference( rapp.getString( R.string.prefExp7RelayKey ) );
 		explabels[7] =
 				findPreference( rapp.getString( R.string.prefExp8RelayKey ) );
+		expenabledkey = findPreference(rapp.getString(R.string.prefExpRelayEnabledKey));
+		exprelays[0] =
+				findPreference( rapp.getString( R.string.prefExp1RelayEnabledKey ) );
+		exprelays[1] =
+				findPreference( rapp.getString( R.string.prefExp2RelayEnabledKey ) );
+		exprelays[2] =
+				findPreference( rapp.getString( R.string.prefExp3RelayEnabledKey ) );
+		exprelays[3] =
+				findPreference( rapp.getString( R.string.prefExp4RelayEnabledKey ) );
+		exprelays[4] =
+				findPreference( rapp.getString( R.string.prefExp5RelayEnabledKey ) );
+		exprelays[5] =
+				findPreference( rapp.getString( R.string.prefExp6RelayEnabledKey ) );
+		exprelays[6] =
+				findPreference( rapp.getString( R.string.prefExp7RelayEnabledKey ) );
+		exprelays[7] =
+				findPreference( rapp.getString( R.string.prefExp8RelayEnabledKey ) );
 		updateExpansionLabelsVisibility( rapp.getPrefExpansionRelayQuantity() );
 
 		profilekey =
@@ -395,12 +415,15 @@ public class PrefsActivity extends PreferenceActivity implements
 			exp085xkey.setSelectable( true );
 			explabelkey.setEnabled( true );
 			explabelkey.setSelectable( true );
+			expenabledkey.setEnabled( true );
+			expenabledkey.setSelectable( true );
 			for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 				if ( (i + 1) <= qty )
 					fEnable = true;
 				else
 					fEnable = false;
 				explabels[i].setEnabled( fEnable );
+				exprelays[i].setEnabled( fEnable );
 			}
 		} else {
 			// no expansion relays, disable the menu
@@ -408,6 +431,8 @@ public class PrefsActivity extends PreferenceActivity implements
 			explabelkey.setSelectable( false );
 			exp085xkey.setEnabled( false );
 			exp085xkey.setSelectable( false );
+			expenabledkey.setEnabled( false );
+			expenabledkey.setSelectable( false );
 		}
 	}
 
