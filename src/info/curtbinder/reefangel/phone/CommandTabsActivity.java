@@ -26,11 +26,12 @@ public class CommandTabsActivity extends TabActivity {
 								getResources()
 										.getDrawable(	android.R.drawable.ic_menu_upload ) )
 				.setContent( new Intent( this, CommandsActivity.class ) ) );
-		/*
-		 * t.addTab(t .newTabSpec(getString(R.string.tabCommand2))
-		 * .setIndicator( getString(R.string.titleDateTime),
-		 * getResources().getDrawable( android.R.drawable.ic_menu_my_calendar))
-		 * .setContent(new Intent(this, DateTimeActivity.class)));
-		 */
+		t.addTab( t
+				.newTabSpec( getString( R.string.tabCommand2 ) )
+				.setIndicator(	getString( R.string.titleDateTime ),
+								getResources()
+										.getDrawable(	android.R.drawable.ic_menu_my_calendar ) )
+				.setContent( new Intent( this, DateTimeActivity.class ) ) );
+
 	}
 }
