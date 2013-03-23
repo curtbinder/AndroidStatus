@@ -2,3 +2,4 @@ gen/
 bin/
 release/
 dist/
+.settings/
