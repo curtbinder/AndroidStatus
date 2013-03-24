@@ -8,8 +8,6 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
-import java.util.Locale;
-
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.controller.Relay;
 import info.curtbinder.reefangel.db.RAData;
@@ -22,6 +20,9 @@ import info.curtbinder.reefangel.phone.pages.RadionPage;
 import info.curtbinder.reefangel.phone.pages.RelayBoxPage;
 import info.curtbinder.reefangel.phone.pages.VortechPage;
 import info.curtbinder.reefangel.service.MessageCommands;
+
+import java.util.Locale;
+
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -120,6 +121,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		filter = new IntentFilter( MessageCommands.UPDATE_DISPLAY_DATA_INTENT );
 		filter.addAction( MessageCommands.UPDATE_STATUS_INTENT );
 		filter.addAction( MessageCommands.ERROR_MESSAGE_INTENT );
+		filter.addAction( MessageCommands.VORTECH_UPDATE_INTENT );
+		filter.addAction( MessageCommands.MEMORY_RESPONSE_INTENT );
 
 		profiles = getResources().getStringArray( R.array.profileLabels );
 		vortechModes =
@@ -157,6 +160,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	protected void onResume ( ) {
 		super.onResume();
 		registerReceiver( receiver, filter, Permissions.QUERY_STATUS, null );
+		registerReceiver( receiver, filter, Permissions.SEND_COMMAND, null );
 
 		// this forces all the pages to be redrawn when the app is restored
 		if ( fReloadPages ) {
@@ -648,6 +652,23 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 							.setText( intent
 									.getStringExtra( MessageCommands.ERROR_MESSAGE_STRING ) );
 				}
+			} else if ( action.equals( MessageCommands.VORTECH_UPDATE_INTENT ) ) {
+				int type =
+						intent.getIntExtra( MessageCommands.VORTECH_UPDATE_TYPE,
+											0 );
+				Intent i =
+						new Intent( StatusActivity.this,
+							VortechPopupActivity.class );
+				i.putExtra( VortechPopupActivity.TYPE, type );
+				startActivity( i );
+			} else if ( action.equals( MessageCommands.MEMORY_RESPONSE_INTENT ) ) {
+				String response =
+						intent.getStringExtra( MessageCommands.MEMORY_RESPONSE_STRING );
+				Toast.makeText( StatusActivity.this, response,
+								Toast.LENGTH_LONG ).show();
+				updateDisplay();
+				// TODO instead of updateDisplay, may want to launchStatusTask
+				// to get the display to update properly
 			}
 		}
 	}
@@ -720,7 +741,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		sa[Controller.VORTECH_MODE] = s;
 		// speed
 		v = c.getInt( c.getColumnIndex( RAData.PCOL_RFS ) );
-		s = String.format(Locale.US, "%d%c", v, '%' );
+		s = String.format( Locale.US, "%d%c", v, '%' );
 		sa[Controller.VORTECH_SPEED] = s;
 		// duration
 		v = c.getInt( c.getColumnIndex( RAData.PCOL_RFD ) );
@@ -728,11 +749,11 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			case 3:
 			case 5:
 				// value is in 100 milliseconds
-				s = String.format(Locale.US, "%d %s", v, "ms" );
+				s = String.format( Locale.US, "%d %s", v, "ms" );
 				break;
 			case 4:
 				// value is in seconds
-				s = String.format(Locale.US, "%d %c", v, 's' );
+				s = String.format( Locale.US, "%d %c", v, 's' );
 				break;
 			default:
 				break;

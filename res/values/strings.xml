@@ -32,6 +32,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/-->
     <string name="titleDateTime">Date / Time</string>
     <string name="titleSelectProfile">Select Profile</string>
     <string name="titleChangelog">Changelog</string>
+    <string name="titleVortech">Vortech Config</string>
 
     <!-- Tabs for memory page -->
     <string name="tabMemory1">memory_tab_1</string>
@@ -66,6 +67,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <!-- Date and Time screen -->
     <string name="descriptionCurrentControllerTime">Press \'Get Time\' to retrieve the current date and time from the controller.  Press \'Set Current Time\' to set the date and time to match your device.</string>
     <string name="descriptionCustomControllerTime">You can enter a custom date and time. Use \'Change Time\' or \'Change Date\' to enter the custom date and time. Use \'Set Custom Time\' to set it.</string>
+    <string name="descriptionMode">Change the Vortech Mode</string>
+    <string name="descriptionSpeed">Change the Vortech Speed</string>
+    <string name="descriptionDuration">Change the Vortech Duration</string>
 
     <!-- Buttons -->
     <string name="buttonRefresh">Refresh</string>
@@ -87,6 +91,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="buttonChangeDate">Change Date</string>
     <string name="buttonChangeTime">Change Time</string>
     <string name="buttonSetCustomTime">Set Custom Time</string>
+    <string name="buttonCancel">Cancel</string>
+    <string name="buttonUpdate">Update</string>
     <string name="buttonFinish">Finish</string>
     <string name="radioByte">Byte</string>
     <string name="radioInt">Int</string>

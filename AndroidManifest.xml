@@ -108,6 +108,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:name=".DateTimeActivity"
             android:label="@string/titleDateTime" >
         </activity>
+        <activity
+            android:name=".VortechPopupActivity"
+            android:label="@string/titleVortech"
+            android:theme="@style/Dialog" >
+        </activity>
 
         <service android:name="info.curtbinder.reefangel.service.ControllerService" >
         </service>
