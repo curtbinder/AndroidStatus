@@ -1,7 +1,7 @@
 package info.curtbinder.reefangel.phone.pages;
 
 /*
- * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
+ * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  * 
  * This work is made available under the terms of the Creative Commons
  * Attribution-NonCommercial-ShareAlike 3.0 Unported License
