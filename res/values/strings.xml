@@ -200,6 +200,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="statusInitParser">Init parser</string>
     <string name="statusParsing">Parsing</string>
     <string name="statusFinished">Finished</string>
+    <string name="statusRefreshNeeded">Refresh to update screen</string>
 
     <!-- Settings / Preference Labels -->
     <string name="prefsCategoryDevice">Device</string>

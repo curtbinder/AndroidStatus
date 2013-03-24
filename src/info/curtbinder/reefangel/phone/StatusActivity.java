@@ -20,6 +20,7 @@ import info.curtbinder.reefangel.phone.pages.RadionPage;
 import info.curtbinder.reefangel.phone.pages.RelayBoxPage;
 import info.curtbinder.reefangel.phone.pages.VortechPage;
 import info.curtbinder.reefangel.service.MessageCommands;
+import info.curtbinder.reefangel.service.XMLTags;
 
 import java.util.Locale;
 
@@ -612,7 +613,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 						intent.getIntExtra( MessageCommands.UPDATE_STATUS_ID,
 											R.string.defaultStatusText );
 				Log.d( TAG, getResources().getString( id ) );
-				updateTime.setText( getResources().getString( id ) );
+				updateTime.setText( id );
 			} else if ( action
 					.equals( MessageCommands.UPDATE_DISPLAY_DATA_INTENT ) ) {
 				Log.d( TAG, "update data intent" );
@@ -664,11 +665,12 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			} else if ( action.equals( MessageCommands.MEMORY_RESPONSE_INTENT ) ) {
 				String response =
 						intent.getStringExtra( MessageCommands.MEMORY_RESPONSE_STRING );
-				Toast.makeText( StatusActivity.this, response,
-								Toast.LENGTH_LONG ).show();
-				updateDisplay();
-				// TODO instead of updateDisplay, may want to launchStatusTask
-				// to get the display to update properly
+				if ( response.equals( XMLTags.Ok ) ) {
+					updateTime.setText( R.string.statusRefreshNeeded );
+				} else {
+					Toast.makeText( StatusActivity.this, response,
+									Toast.LENGTH_LONG ).show();
+				}
 			}
 		}
 	}
