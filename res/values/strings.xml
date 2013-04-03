@@ -9,7 +9,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/-->
 <resources>
 
     <string name="app_name">Reef Angel Status</string>
-    <string name="app_version">0.8.1</string>
+    <string name="app_version">0.8.2</string>
 
     <!-- Menu Labels -->
     <string name="menuMainSettings">Settings</string>
@@ -244,7 +244,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefAuthorTitle">Author</string>
     <string name="prefAuthorSummary">Curt Binder</string>
     <string name="prefContributorTitle">Contributors</string>
-    <string name="prefContributorSummary">Roberto Imai, Mathieu Brisson</string>
+    <string name="prefContributorSummary">Roberto Imai, Mathieu Brisson, Tin Pavlinic</string>
     <string name="prefCopyrightTitle">Copyright</string>
     <string name="prefCopyrightSummary">Copyright 2011–13 Curt Binder</string>
     <string name="prefLicenseTitle">License</string>

@@ -1,5 +1,16 @@
 <html>
 <body>
+<b>0.8.2</b>
+<ul>
+<li>added ability to disable specific relays to prevent accidental toggling from the app (from triggerNZ)</li>
+	<ul>
+	<li>default all relays are enabled</li>
+	</ul>
+<li>ability to reset disabled ports to defaults</li>
+<li>added vortech popup menu, long press on the value to prompt for immediate value change</li>
+<li>code updates</li>
+</ul>
+<br>
 <b>0.8.1</b>
 <ul>
 <li>updated the settings page to make it simpler and fewer screens</li>

@@ -154,5 +154,6 @@ Changelog of all the versions of AndroidStatus
  * added ability to disable specific relays to prevent accidental toggling from the app (from triggerNZ)
  ** default all relays are enabled
  * ability to reset disabled ports to defaults
+ * added vortech popup menu, long press on the value to prompt for immediate value change
  * code updates
  
