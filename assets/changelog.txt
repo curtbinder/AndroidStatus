@@ -8,6 +8,7 @@
 	</ul>
 <li>ability to reset disabled ports to defaults</li>
 <li>added vortech popup menu, long press on the value to prompt for immediate value change</li>
+<li>moved date and time tab from memory to commands page</li>
 <li>code updates</li>
 </ul>
 <br>
