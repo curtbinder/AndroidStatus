@@ -1,7 +1,7 @@
 package info.curtbinder.reefangel.service;
 
 /*
- * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
+ * Copyright (c) 2011-1 by Curt Binder (http://curtbinder.info)
  *
  * This work is made available under the terms of the 
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -335,20 +335,6 @@ public class XMLHandler extends DefaultHandler {
 			if ( sensor < 0 || sensor > Controller.MAX_TEMP_SENSORS )
 				Log.e( TAG, "Incorrect sensor number: " + tag );
 			ra.setTempLabel( sensor, currentElementText );
-		} else if ( tag.startsWith( XMLTags.Relay ) ) {
-			// handle relay labels
-			int relay =
-					Integer.parseInt( getTagNumber( tag, XMLTags.Relay,
-													XMLTags.LabelEnd ) );
-			if ( relay < 10 ) {
-				// main relay
-				ra.getMainRelay().setPortLabel( relay, currentElementText );
-			} else {
-				// expansion relays, so split the port from the relay box
-				int box = relay / 10;
-				int port = relay % 10;
-				ra.getExpRelay( box ).setPortLabel( port, currentElementText );
-			}
 		} else if ( tag.startsWith( XMLTags.PWMExpansion ) ) {
 			// PWME
 			short channel =
@@ -356,6 +342,14 @@ public class XMLHandler extends DefaultHandler {
 													XMLTags.LabelEnd ) );
 			Log.d( TAG, "PWM #" + channel + ": " + currentElementText );
 			ra.setPwmExpansionLabel( channel, currentElementText );
+		} else if ( tag.startsWith( XMLTags.PWMActinic ) ) {
+			// PWMA
+			Log.d( TAG, "AP: " + currentElementText );
+			ra.setPwmALabel( currentElementText );
+		} else if ( tag.startsWith( XMLTags.PWMDaylight ) ) {
+			// PWMD
+			Log.d( TAG, "DP: " + currentElementText );
+			ra.setPwmDLabel( currentElementText );
 		} else if ( tag.equals( XMLTags.PHExpansion + XMLTags.LabelEnd ) ) {
 			// PHE
 			Log.d( TAG, "PHExp Label: " + currentElementText );
@@ -364,14 +358,18 @@ public class XMLHandler extends DefaultHandler {
 			// PH
 			Log.d( TAG, "PH Label: " + currentElementText );
 			ra.setPHLabel( currentElementText );
-		} else if ( tag.equals( XMLTags.Salinity + XMLTags.LabelEnd ) ) {
+		} else if ( tag.startsWith( XMLTags.Salinity ) ) {
 			// SAL
 			Log.d( TAG, "Salinity Label: " + currentElementText );
 			ra.setSalinityLabel( currentElementText );
-		} else if ( tag.equals( XMLTags.ORP + XMLTags.LabelEnd ) ) {
+		} else if ( tag.startsWith( XMLTags.ORP ) ) {
 			// ORP
 			Log.d( TAG, "ORP Label: " + currentElementText );
 			ra.setORPLabel( currentElementText );
+		} else if ( tag.startsWith( XMLTags.WaterLevel ) ) {
+			// Water Level
+			Log.d( TAG, "Water Level Label: " + currentElementText );
+			ra.setWaterLevelLabel( currentElementText );
 		} else if ( tag.startsWith( XMLTags.Custom ) ) {
 			// C
 			short v =
@@ -386,6 +384,30 @@ public class XMLHandler extends DefaultHandler {
 													XMLTags.LabelEnd ) );
 			Log.d( TAG, "IO #" + v + ": " + currentElementText );
 			ra.setIOChannelLabel( v, currentElementText );
+		} else if ( tag.startsWith( XMLTags.RFBlue )
+					|| tag.startsWith( XMLTags.RFGreen )
+					|| tag.startsWith( XMLTags.RFIntensity )
+					|| tag.startsWith( XMLTags.RFRed )
+					|| tag.startsWith( XMLTags.RFRoyalBlue )
+					|| tag.startsWith( XMLTags.RFWhite ) ) {
+			// RF labels, not stored only handled to prevent
+			// errors due to processing like a Relay label because
+			// they start with R
+			Log.d( TAG, "RF Label" );
+		} else if ( tag.startsWith( XMLTags.Relay ) ) {
+			// handle relay labels
+			int relay =
+					Integer.parseInt( getTagNumber( tag, XMLTags.Relay,
+													XMLTags.LabelEnd ) );
+			if ( relay < 10 ) {
+				// main relay
+				ra.getMainRelay().setPortLabel( relay, currentElementText );
+			} else {
+				// expansion relays, so split the port from the relay box
+				int box = relay / 10;
+				int port = relay % 10;
+				ra.getExpRelay( box ).setPortLabel( port, currentElementText );
+			}
 		} else {
 			Log.d( TAG, "Unknown label: (" + tag + ") = " + currentElementText );
 		}

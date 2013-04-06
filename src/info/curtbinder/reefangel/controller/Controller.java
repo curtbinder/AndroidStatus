@@ -1,7 +1,7 @@
 package info.curtbinder.reefangel.controller;
 
 /*
- * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
+ * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  *
  * This work is made available under the terms of the 
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -53,9 +53,9 @@ public class Controller {
 	private NumberWithLabel pHExp;
 	private boolean atoLow;
 	private boolean atoHigh;
-	private short pwmA;
-	private short pwmD;
-	private short waterlevel;
+	private ShortWithLabel pwmA;
+	private ShortWithLabel pwmD;
+	private ShortWithLabel waterlevel;
 	private NumberWithLabel salinity;
 	private NumberWithLabel orp;
 	private Relay main;
@@ -91,13 +91,13 @@ public class Controller {
 		pHExp = new NumberWithLabel( (byte) 2 );
 		atoLow = false;
 		atoHigh = false;
-		pwmA = 0;
-		pwmD = 0;
+		pwmA = new ShortWithLabel();
+		pwmD = new ShortWithLabel();
 		pwmExpansion = new ShortWithLabel[MAX_PWM_EXPANSION_PORTS];
 		for ( i = 0; i < MAX_PWM_EXPANSION_PORTS; i++ ) {
 			pwmExpansion[i] = new ShortWithLabel();
 		}
-		waterlevel = 0;
+		waterlevel = new ShortWithLabel();
 		salinity = new NumberWithLabel( (byte) 1 );
 		orp = new NumberWithLabel();
 		main = new Relay();
@@ -244,19 +244,35 @@ public class Controller {
 	}
 
 	public void setPwmA ( short v ) {
-		pwmA = v;
+		pwmA.setData( v );
 	}
 
 	public short getPwmA ( ) {
-		return pwmA;
+		return pwmA.getData();
+	}
+
+	public void setPwmALabel ( String label ) {
+		pwmA.setLabel( label );
+	}
+
+	public String getPwmALabel ( ) {
+		return pwmA.getLabel();
 	}
 
 	public void setPwmD ( short v ) {
-		pwmD = v;
+		pwmD.setData( v );
 	}
 
 	public short getPwmD ( ) {
-		return pwmD;
+		return pwmD.getData();
+	}
+
+	public void setPwmDLabel ( String label ) {
+		pwmD.setLabel( label );
+	}
+
+	public String getPwmDLabel ( ) {
+		return pwmD.getLabel();
 	}
 
 	public void setPwmExpansion ( short channel, short v ) {
@@ -276,11 +292,19 @@ public class Controller {
 	}
 
 	public void setWaterLevel ( short value ) {
-		waterlevel = value;
+		waterlevel.setData( value );
 	}
 
 	public short getWaterLevel ( ) {
-		return waterlevel;
+		return waterlevel.getData();
+	}
+
+	public void setWaterLevelLabel ( String label ) {
+		waterlevel.setLabel( label );
+	}
+
+	public String getWaterLevelLabel ( ) {
+		return waterlevel.getLabel();
 	}
 
 	public void setSalinity ( int value ) {
