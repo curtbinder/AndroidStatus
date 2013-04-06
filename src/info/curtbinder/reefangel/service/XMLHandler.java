@@ -342,11 +342,11 @@ public class XMLHandler extends DefaultHandler {
 													XMLTags.LabelEnd ) );
 			Log.d( TAG, "PWM #" + channel + ": " + currentElementText );
 			ra.setPwmExpansionLabel( channel, currentElementText );
-		} else if ( tag.startsWith( XMLTags.PWMActinic ) ) {
+		} else if ( tag.startsWith( XMLTags.PWMActinic + "1" ) ) {
 			// PWMA
 			Log.d( TAG, "AP: " + currentElementText );
 			ra.setPwmALabel( currentElementText );
-		} else if ( tag.startsWith( XMLTags.PWMDaylight ) ) {
+		} else if ( tag.startsWith( XMLTags.PWMDaylight + "1" ) ) {
 			// PWMD
 			Log.d( TAG, "DP: " + currentElementText );
 			ra.setPwmDLabel( currentElementText );
