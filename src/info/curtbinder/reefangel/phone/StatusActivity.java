@@ -849,6 +849,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				f = false;
 			Log.d( TAG, "RF: " + f );
 			rapp.setPref( R.string.prefExpRadionEnableKey, f );
+			rapp.setPref( R.string.prefExpVortechEnableKey, f );
 			if ( Controller.isSalinityModuleInstalled( newEM ) )
 				f = true;
 			else
