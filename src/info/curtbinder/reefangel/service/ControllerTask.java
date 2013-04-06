@@ -1,7 +1,7 @@
 package info.curtbinder.reefangel.service;
 
 /*
- * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
+ * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  *
  * This work is made available under the terms of the 
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -307,6 +307,16 @@ public class ControllerTask implements Runnable {
 		if ( !ra.getPHExpLabel().equals( "" ) ) {
 			rapp.setPref( R.string.prefPHExpLabelKey, ra.getPHExpLabel() );
 		}
+		if ( !ra.getPwmALabel().equals( "" ) ) {
+			rapp.setPref( R.string.prefAPLabelKey, ra.getPwmALabel() );
+		}
+		if ( !ra.getPwmDLabel().equals( "" ) ) {
+			rapp.setPref( R.string.prefDPLabelKey, ra.getPwmDLabel() );
+		}
+		if ( !ra.getWaterLevelLabel().equals( "" ) ) {
+			rapp.setPref(	R.string.prefWaterLevelLabelKey,
+							ra.getWaterLevelLabel() );
+		}
 		// TODO add other label downloading and setting here (PHE, Custom, IO,
 		// PWME)
 		for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
@@ -426,13 +436,7 @@ public class ControllerTask implements Runnable {
 		i.putExtra( RAData.PCOL_REM, ra.getRelayExpansionModules() );
 		i.putExtra( RAData.PCOL_PHE, ra.getPHExp() );
 		i.putExtra( RAData.PCOL_WL, ra.getWaterLevel() );
-		rapp.insertData( i );
-		// check previous EM version and update appropriately if changed
-		int previous = rapp.getPreviousEM();
-		if ( previous < 0 ) {
-			Log.d( TAG, "Update previous EM" );
-			rapp.setPreviousEM( ra.getExpansionModules() );
-		}
+		rapp.insertData( i );		
 		Intent u = new Intent( MessageCommands.UPDATE_DISPLAY_DATA_INTENT );
 		rapp.sendBroadcast( u, Permissions.QUERY_STATUS );
 	}
@@ -464,7 +468,7 @@ public class ControllerTask implements Runnable {
 			if ( rapp.isErrorRetryEnabled() ) {
 				rapp.errorCount++;
 			}
-			
+
 			boolean fCanNotify = true;
 			// if error retry is enabled, don't notify unless we fail the error
 			// retries
