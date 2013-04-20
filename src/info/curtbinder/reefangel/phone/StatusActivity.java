@@ -12,6 +12,7 @@ import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.controller.Relay;
 import info.curtbinder.reefangel.db.RAData;
 import info.curtbinder.reefangel.phone.pages.AIPage;
+import info.curtbinder.reefangel.phone.pages.CommandsPage;
 import info.curtbinder.reefangel.phone.pages.ControllerPage;
 import info.curtbinder.reefangel.phone.pages.CustomPage;
 import info.curtbinder.reefangel.phone.pages.DimmingPage;
@@ -67,11 +68,12 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private String[] vortechModes;
 	private View[] appPages;
 	// minimum number of pages: status, main relay
-	private static final int MIN_PAGES = 2;
+	private static final int MIN_PAGES = 3;
 	// TODO change all these to be updated based on configuration
 	private static final int POS_START = 0;
 
-	private static final int POS_CONTROLLER = POS_START;
+	private static final int POS_COMMANDS = POS_START;
+	private static final int POS_CONTROLLER = POS_START + 1;
 
 	private static final int POS_MODULES = POS_CONTROLLER + 10;
 	private static final int POS_DIMMING = POS_MODULES;
@@ -93,6 +95,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 	private static final int POS_END = POS_CUSTOM + 1;
 
+	private CommandsPage pageCommands;
 	private ControllerPage pageController;
 	private DimmingPage pageDimming;
 	private RadionPage pageRadion;
@@ -124,6 +127,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		filter.addAction( MessageCommands.ERROR_MESSAGE_INTENT );
 		filter.addAction( MessageCommands.VORTECH_UPDATE_INTENT );
 		filter.addAction( MessageCommands.MEMORY_RESPONSE_INTENT );
+		filter.addAction( MessageCommands.COMMAND_RESPONSE_INTENT );
 
 		profiles = getResources().getStringArray( R.array.profileLabels );
 		vortechModes =
@@ -151,6 +155,9 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			startActivity( i );
 			finish();
 		}
+
+		// Scroll to controller page
+		pager.setCurrentItem( POS_CONTROLLER );
 	}
 
 	protected void onPause ( ) {
@@ -177,6 +184,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 	private void createViews ( ) {
 		Context ctx = rapp.getBaseContext();
+		pageCommands = new CommandsPage( ctx );
 		pageController = new ControllerPage( ctx );
 		pageDimming = new DimmingPage( ctx );
 		pageRadion = new RadionPage( ctx );
@@ -671,6 +679,15 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 					Toast.makeText( StatusActivity.this, response,
 									Toast.LENGTH_LONG ).show();
 				}
+			} else if ( action.equals( MessageCommands.COMMAND_RESPONSE_INTENT ) ) {
+				String response =
+						intent.getStringExtra( MessageCommands.COMMAND_RESPONSE_STRING );
+				if ( response.equals( XMLTags.Ok ) ) {
+					updateTime.setText( R.string.statusRefreshNeeded );
+				} else {
+					Toast.makeText( StatusActivity.this, response,
+									Toast.LENGTH_LONG ).show();
+				}
 			}
 		}
 	}
@@ -887,6 +904,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private void reloadPages ( ) {
+		Log.d( TAG, "reload pages" );
 		// scroll to first page on entering settings
 		pager.setCurrentItem( POS_CONTROLLER );
 		// force the pages to be redrawn if we enter settings
@@ -960,6 +978,11 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// then increment the installed pages counter
 		for ( i = POS_START, j = POS_START; i <= POS_END; i++ ) {
 			switch ( i ) {
+				case POS_COMMANDS:
+					Log.d( TAG, j + ": Commands" );
+					appPages[j] = pageCommands;
+					j++;
+					break;
 				case POS_CONTROLLER:
 					Log.d( TAG, j + ": Controller" );
 					appPages[j] = pageController;

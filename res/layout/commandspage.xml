@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
+ 
+This work is made available under the terms of the 
+Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+http://creativecommons.org/licenses/by-nc-sa/3.0/
+-->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            style="@style/ParamsText"
+            android:paddingBottom="10sp"
+            android:text="@string/titleCommands" />
+
+        <Button
+            android:id="@+id/command_button_feed"
+            style="@style/CommandButtons"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/buttonFeeding" />
+
+        <Button
+            android:id="@+id/command_button_water"
+            style="@style/CommandButtons"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/buttonWater" />
+
+        <Button
+            android:id="@+id/command_button_exit"
+            style="@style/CommandButtons"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/buttonExit" />
+
+        <Button
+            android:id="@+id/command_button_ato_clear"
+            style="@style/CommandButtons"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/buttonAtoClear" />
+
+        <Button
+            android:id="@+id/command_button_overheat_clear"
+            style="@style/CommandButtons"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/buttonOverheatClear" />
+    </TableLayout>
+
+</ScrollView>
