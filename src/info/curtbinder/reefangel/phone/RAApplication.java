@@ -347,7 +347,7 @@ public class RAApplication extends Application {
 			if ( Integer.parseInt( errorCodes[i] ) == errorCode ) {
 				// found code
 				s =
-						String.format(	"%s %d: %s",
+						String.format(	Locale.getDefault(), "%s %d: %s",
 										getResources()
 												.getText( R.string.messageError ),
 										errorCode, errorCodesStrings[i] );

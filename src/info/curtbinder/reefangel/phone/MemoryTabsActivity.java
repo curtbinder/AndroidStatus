@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TabHost;
 
+@SuppressWarnings("deprecation")
 public class MemoryTabsActivity extends TabActivity {
 
 	protected void onCreate ( Bundle savedInstanceState ) {

@@ -27,6 +27,7 @@ import android.preference.PreferenceActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+@SuppressWarnings("deprecation")
 public class PrefsActivity extends PreferenceActivity implements
 		OnPreferenceChangeListener, OnSharedPreferenceChangeListener {
 

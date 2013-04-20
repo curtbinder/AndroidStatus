@@ -448,6 +448,7 @@ public class ControllerTask implements Runnable {
 		rapp.sendBroadcast( i, Permissions.QUERY_STATUS );
 	}
 
+	@SuppressWarnings("deprecation")
 	private void broadcastErrorMessage ( ) {
 		// Log.d(TAG, "broadcastErrorMessage");
 		String er = rapp.getErrorMessage();

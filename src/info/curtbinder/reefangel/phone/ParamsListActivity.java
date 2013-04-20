@@ -48,6 +48,7 @@ public class ParamsListActivity extends ListActivity {
 		updateData();
 	}
 
+	@SuppressWarnings("deprecation")
 	private void showEvents ( Cursor cursor ) {
 		Log.d( TAG, "showEvents" );
 		SimpleCursorAdapter adapter =
@@ -56,6 +57,7 @@ public class ParamsListActivity extends ListActivity {
 		this.setListAdapter( adapter );
 	}
 
+	@SuppressWarnings("deprecation")
 	private void updateData ( ) {
 		try {
 			Cursor c = rapp.data.getAllData();
