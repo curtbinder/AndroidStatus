@@ -34,9 +34,11 @@ public class ControllerPage extends ScrollView {
 	public static final int WL_INDEX = 9;
 
 	Context ctx; // saved context from parent
-	private TextView[] deviceText;
-	private TableRow[] deviceRow;
-	private int[] colors;
+	private TextView[] deviceText =
+			new TextView[Controller.MAX_CONTROLLER_VALUES];
+	private TableRow[] deviceRow =
+			new TableRow[Controller.MAX_CONTROLLER_VALUES];
+	private int[] colors = new int[Controller.MAX_CONTROLLER_VALUES];
 
 	public ControllerPage ( Context context ) {
 		super( context );
@@ -55,14 +57,6 @@ public class ControllerPage extends ScrollView {
 				(LayoutInflater) context
 						.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
 		layoutInflater.inflate( R.layout.controller, this );
-		colors = new int[Controller.MAX_CONTROLLER_VALUES];
-		deviceText = new TextView[Controller.MAX_CONTROLLER_VALUES];
-		deviceRow = new TableRow[Controller.MAX_CONTROLLER_VALUES];
-		for ( int i = 0; i < Controller.MAX_CONTROLLER_VALUES; i++ ) {
-			deviceText[i] = new TextView( context );
-			deviceRow[i] = new TableRow( context );
-			colors[i] = 0;
-		}
 		findViews();
 	}
 
@@ -93,20 +87,18 @@ public class ControllerPage extends ScrollView {
 			deviceText[i] =
 					(TextView) deviceRow[i].findViewById( R.id.rowValue );
 			deviceText[i].setTextColor( colors[i] );
-			((TextView) deviceRow[i].findViewById( R.id.rowTitle ))
-					.setTextColor( colors[i] );
-			((TextView) deviceRow[i].findViewById( R.id.rowSubTitle ))
-					.setTextColor( colors[i] );
 		}
 
 	}
 
 	public void setLabel ( int device, String title, String subtitle ) {
-		((TextView) deviceRow[device].findViewById( R.id.rowTitle ))
-				.setText( title );
-		((TextView) deviceRow[device].findViewById( R.id.rowSubTitle ))
-				.setText( subtitle );
-
+		TextView tv;
+		tv = (TextView) deviceRow[device].findViewById( R.id.rowTitle );
+		tv.setText( title );
+		tv.setTextColor( colors[device] );
+		tv = (TextView) deviceRow[device].findViewById( R.id.rowSubTitle );
+		tv.setTextColor( colors[device] );
+		tv.setText( subtitle );
 	}
 
 	public void setVisibility ( int device, boolean fVisible ) {
