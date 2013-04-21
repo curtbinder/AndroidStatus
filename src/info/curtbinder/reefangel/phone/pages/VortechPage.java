@@ -33,14 +33,14 @@ public class VortechPage extends ScrollView implements OnLongClickListener {
 
 	public VortechPage ( Context context ) {
 		super( context );
-		addViewsFromLayout( context );
 		ctx = context;
+		addViewsFromLayout( context );
 	}
 
 	public VortechPage ( Context context, AttributeSet attrs ) {
 		super( context, attrs );
-		addViewsFromLayout( context );
 		ctx = context;
+		addViewsFromLayout( context );
 	}
 
 	private void addViewsFromLayout ( Context context ) {

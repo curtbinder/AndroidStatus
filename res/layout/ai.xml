@@ -4,7 +4,7 @@ Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
  
 This work is made available under the terms of the 
 Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
-http://creativecommons.org/licenses/by-nc-sa/3.0/
+http://creativecommons.org/licenses/by-nc-sa/3.0/
 -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -13,50 +13,25 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
     <TableLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:stretchColumns="1" >
 
         <TextView
             style="@style/ParamsText"
             android:text="@string/labelAI" />
 
-        <TableRow style="@style/RARow" >
+        <include
+            android:id="@+id/rowAIWhite"
+            layout="@layout/genericlabelsinglerow" />
 
-            <TextView
-                android:id="@+id/ai_white_label"
-                style="@style/ParamsText.Labels"
-                android:textColor="@color/white" />
+        <include
+            android:id="@+id/rowAIBlue"
+            layout="@layout/genericlabelsinglerow" />
 
-            <TextView
-                android:id="@+id/aiWhite"
-                style="@style/ParamsText.Values"
-                android:textColor="@color/white" />
-        </TableRow>
-
-        <TableRow style="@style/RARow" >
-
-            <TextView
-                android:id="@+id/ai_blue_label"
-                style="@style/ParamsText.Labels"
-                android:textColor="@color/blue" />
-
-            <TextView
-                android:id="@+id/aiBlue"
-                style="@style/ParamsText.Values"
-                android:textColor="@color/blue" />
-        </TableRow>
-
-        <TableRow style="@style/RARow" >
-
-            <TextView
-                android:id="@+id/ai_royalblue_label"
-                style="@style/ParamsText.Labels"
-                android:textColor="@color/royalblue" />
-
-            <TextView
-                android:id="@+id/aiRoyalBlue"
-                style="@style/ParamsText.Values"
-                android:textColor="@color/royalblue" />
-        </TableRow>
+        <include
+            android:id="@+id/rowAIRoyalBlue"
+            layout="@layout/genericlabelsinglerow" />
     </TableLayout>
 
 </ScrollView>

@@ -359,12 +359,10 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 		if ( rapp.getAIModuleEnabled() ) {
 			pageAI.setLabel(	Controller.AI_WHITE,
-								getString( R.string.labelWhite ) + separator );
-			pageAI.setLabel( Controller.AI_BLUE, getString( R.string.labelBlue )
-													+ separator );
+								getString( R.string.labelWhite ) );
+			pageAI.setLabel( Controller.AI_BLUE, getString( R.string.labelBlue ) );
 			pageAI.setLabel(	Controller.AI_ROYALBLUE,
-								getString( R.string.labelRoyalBlue )
-										+ separator );
+								getString( R.string.labelRoyalBlue ) );
 		}
 
 		if ( rapp.getIOModuleEnabled() ) {
