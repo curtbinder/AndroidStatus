@@ -49,17 +49,17 @@ public class DimmingPage extends ScrollView {
 	}
 
 	private void findViews ( ) {
-		pwmeRow[0] = (TableRow) findViewById( R.id.pwme0_row );
+		pwmeRow[0] = (TableRow) findViewById( R.id.rowPWME0 );
 		pwmeText[0] = (TextView) pwmeRow[0].findViewById( R.id.rowValue );
-		pwmeRow[1] = (TableRow) findViewById( R.id.pwme1_row );
+		pwmeRow[1] = (TableRow) findViewById( R.id.rowPWME1 );
 		pwmeText[1] = (TextView) pwmeRow[1].findViewById( R.id.rowValue );
-		pwmeRow[2] = (TableRow) findViewById( R.id.pwme2_row );
+		pwmeRow[2] = (TableRow) findViewById( R.id.rowPWME2 );
 		pwmeText[2] = (TextView) pwmeRow[2].findViewById( R.id.rowValue );
-		pwmeRow[3] = (TableRow) findViewById( R.id.pwme3_row );
+		pwmeRow[3] = (TableRow) findViewById( R.id.rowPWME3 );
 		pwmeText[3] = (TextView) pwmeRow[3].findViewById( R.id.rowValue );
-		pwmeRow[4] = (TableRow) findViewById( R.id.pwme4_row );
+		pwmeRow[4] = (TableRow) findViewById( R.id.rowPWME4 );
 		pwmeText[4] = (TextView) pwmeRow[4].findViewById( R.id.rowValue );
-		pwmeRow[5] = (TableRow) findViewById( R.id.pwme5_row );
+		pwmeRow[5] = (TableRow) findViewById( R.id.rowPWME5 );
 		pwmeText[5] = (TextView) pwmeRow[5].findViewById( R.id.rowValue );
 
 	}

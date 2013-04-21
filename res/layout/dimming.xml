@@ -22,27 +22,27 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:text="@string/labelDimming" />
 
         <include
-            android:id="@+id/pwme0_row"
+            android:id="@+id/rowPWME0"
             layout="@layout/genericlabelrow" />
 
         <include
-            android:id="@+id/pwme1_row"
+            android:id="@+id/rowPWME1"
             layout="@layout/genericlabelrow" />
 
         <include
-            android:id="@+id/pwme2_row"
+            android:id="@+id/rowPWME2"
             layout="@layout/genericlabelrow" />
 
         <include
-            android:id="@+id/pwme3_row"
+            android:id="@+id/rowPWME3"
             layout="@layout/genericlabelrow" />
 
         <include
-            android:id="@+id/pwme4_row"
+            android:id="@+id/rowPWME4"
             layout="@layout/genericlabelrow" />
 
         <include
-            android:id="@+id/pwme5_row"
+            android:id="@+id/rowPWME5"
             layout="@layout/genericlabelrow" />
     </TableLayout>
 
