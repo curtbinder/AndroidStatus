@@ -242,26 +242,36 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// Labels
 		updateRefreshButtonLabel();
 		String separator = getString( R.string.labelSeparator );
-		pageController.setLabel( ControllerPage.T1_INDEX, rapp.getPrefT1Label()
-															+ separator );
-		pageController.setLabel( ControllerPage.T2_INDEX, rapp.getPrefT2Label()
-															+ separator );
-		pageController.setLabel( ControllerPage.T3_INDEX, rapp.getPrefT3Label()
-															+ separator );
-		pageController.setLabel( ControllerPage.PH_INDEX, rapp.getPrefPHLabel()
-															+ separator );
-		pageController.setLabel( ControllerPage.DP_INDEX, rapp.getPrefDPLabel()
-															+ separator );
-		pageController.setLabel( ControllerPage.AP_INDEX, rapp.getPrefAPLabel()
-															+ separator );
+		pageController.setLabel(	ControllerPage.T1_INDEX,
+									rapp.getPrefT1Label(),
+									getString( R.string.labelTemp1 ) );
+		pageController.setLabel(	ControllerPage.T2_INDEX,
+									rapp.getPrefT2Label(),
+									getString( R.string.labelTemp2 ) );
+		pageController.setLabel(	ControllerPage.T3_INDEX,
+									rapp.getPrefT3Label(),
+									getString( R.string.labelTemp3 ) );
+		pageController.setLabel(	ControllerPage.PH_INDEX,
+									rapp.getPrefPHLabel(),
+									getString( R.string.labelPH ) );
+		pageController.setLabel(	ControllerPage.DP_INDEX,
+									rapp.getPrefDPLabel(),
+									getString( R.string.labelDP ) );
+		pageController.setLabel(	ControllerPage.AP_INDEX,
+									rapp.getPrefAPLabel(),
+									getString( R.string.labelAP ) );
 		pageController.setLabel(	ControllerPage.SALINITY_INDEX,
-									rapp.getPrefSalinityLabel() + separator );
+									rapp.getPrefSalinityLabel(),
+									getString( R.string.labelSalinity ) );
 		pageController.setLabel(	ControllerPage.ORP_INDEX,
-									rapp.getPrefORPLabel() + separator );
+									rapp.getPrefORPLabel(),
+									getString( R.string.labelORP ) );
 		pageController.setLabel(	ControllerPage.PHE_INDEX,
-									rapp.getPrefPHExpLabel() + separator );
+									rapp.getPrefPHExpLabel(),
+									getString( R.string.labelPHExp ) );
 		pageController.setLabel(	ControllerPage.WL_INDEX,
-									rapp.getPrefWaterLevelLabel() + separator );
+									rapp.getPrefWaterLevelLabel(),
+									getString( R.string.labelWaterLevel ) );
 
 		int qty = rapp.getPrefExpansionRelayQuantity();
 		Log.d( TAG, "Expansion Relays: " + qty );

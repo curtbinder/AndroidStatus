@@ -1,7 +1,7 @@
 package info.curtbinder.reefangel.phone.pages;
 
 /*
- * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
+ * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  * 
  * This work is made available under the terms of the Creative Commons
  * Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -35,21 +35,19 @@ public class ControllerPage extends ScrollView {
 
 	Context ctx; // saved context from parent
 	private TextView[] deviceText;
-	private TextView[] deviceLabel;
 	private TableRow[] deviceRow;
+	private int[] colors;
 
 	public ControllerPage ( Context context ) {
 		super( context );
-		addViewsFromLayout( context );
 		ctx = context;
-		// setDefaults();
+		addViewsFromLayout( context );
 	}
 
 	public ControllerPage ( Context context, AttributeSet attrs ) {
 		super( context, attrs );
-		addViewsFromLayout( context );
 		ctx = context;
-		// setDefaults();
+		addViewsFromLayout( context );
 	}
 
 	private void addViewsFromLayout ( Context context ) {
@@ -57,57 +55,58 @@ public class ControllerPage extends ScrollView {
 				(LayoutInflater) context
 						.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
 		layoutInflater.inflate( R.layout.controller, this );
+		colors = new int[Controller.MAX_CONTROLLER_VALUES];
 		deviceText = new TextView[Controller.MAX_CONTROLLER_VALUES];
-		deviceLabel = new TextView[Controller.MAX_CONTROLLER_VALUES];
 		deviceRow = new TableRow[Controller.MAX_CONTROLLER_VALUES];
 		for ( int i = 0; i < Controller.MAX_CONTROLLER_VALUES; i++ ) {
 			deviceText[i] = new TextView( context );
-			deviceLabel[i] = new TextView( context );
 			deviceRow[i] = new TableRow( context );
+			colors[i] = 0;
 		}
 		findViews();
 	}
 
 	private void findViews ( ) {
-		deviceText[T1_INDEX] = (TextView) findViewById( R.id.temp1 );
-		deviceText[T2_INDEX] = (TextView) findViewById( R.id.temp2 );
-		deviceText[T3_INDEX] = (TextView) findViewById( R.id.temp3 );
-		deviceText[PH_INDEX] = (TextView) findViewById( R.id.ph );
-		deviceText[DP_INDEX] = (TextView) findViewById( R.id.dp );
-		deviceText[AP_INDEX] = (TextView) findViewById( R.id.ap );
-		deviceText[SALINITY_INDEX] = (TextView) findViewById( R.id.salinity );
-		deviceText[ORP_INDEX] = (TextView) findViewById( R.id.orp );
-		deviceText[PHE_INDEX] = (TextView) findViewById( R.id.phe );
-		deviceText[WL_INDEX] = (TextView) findViewById( R.id.water );
+		colors[T1_INDEX] = ctx.getResources().getColor( R.color.t1 );
+		colors[T2_INDEX] = ctx.getResources().getColor( R.color.t2 );
+		colors[T3_INDEX] = ctx.getResources().getColor( R.color.t3 );
+		colors[PH_INDEX] = ctx.getResources().getColor( R.color.ph );
+		colors[DP_INDEX] = ctx.getResources().getColor( R.color.dp );
+		colors[AP_INDEX] = ctx.getResources().getColor( R.color.ap );
+		colors[SALINITY_INDEX] = ctx.getResources().getColor( R.color.white );
+		colors[ORP_INDEX] = ctx.getResources().getColor( R.color.white );
+		colors[PHE_INDEX] = ctx.getResources().getColor( R.color.ph );
+		colors[WL_INDEX] = ctx.getResources().getColor( R.color.blue );
 
-		deviceLabel[T1_INDEX] = (TextView) findViewById( R.id.t1_label );
-		deviceLabel[T2_INDEX] = (TextView) findViewById( R.id.t2_label );
-		deviceLabel[T3_INDEX] = (TextView) findViewById( R.id.t3_label );
-		deviceLabel[PH_INDEX] = (TextView) findViewById( R.id.ph_label );
-		deviceLabel[DP_INDEX] = (TextView) findViewById( R.id.dp_label );
-		deviceLabel[AP_INDEX] = (TextView) findViewById( R.id.ap_label );
-		deviceLabel[SALINITY_INDEX] =
-				(TextView) findViewById( R.id.salinity_label );
-		deviceLabel[ORP_INDEX] = (TextView) findViewById( R.id.orp_label );
-		deviceLabel[PHE_INDEX] = (TextView) findViewById( R.id.phe_label );
-		deviceLabel[WL_INDEX] = (TextView) findViewById( R.id.water_label );
+		deviceRow[T1_INDEX] = (TableRow) findViewById( R.id.t1_row );
+		deviceRow[T2_INDEX] = (TableRow) findViewById( R.id.t2_row );
+		deviceRow[T3_INDEX] = (TableRow) findViewById( R.id.t3_row );
+		deviceRow[PH_INDEX] = (TableRow) findViewById( R.id.ph_row );
+		deviceRow[DP_INDEX] = (TableRow) findViewById( R.id.dp_row );
+		deviceRow[AP_INDEX] = (TableRow) findViewById( R.id.ap_row );
+		deviceRow[SALINITY_INDEX] = (TableRow) findViewById( R.id.salinity_row );
+		deviceRow[ORP_INDEX] = (TableRow) findViewById( R.id.orp_row );
+		deviceRow[PHE_INDEX] = (TableRow) findViewById( R.id.phe_row );
+		deviceRow[WL_INDEX] = (TableRow) findViewById( R.id.water_row );
 
-		// deviceRow[T1_INDEX] = (TableRow) findViewById( R.id.t1_row );
-		// deviceRow[T2_INDEX] = (TableRow) findViewById( R.id.t2_row );
-		// deviceRow[T3_INDEX] = (TableRow) findViewById( R.id.t3_row );
-		// deviceRow[PH_INDEX] = (TableRow) findViewById( R.id.ph_row );
-		// deviceRow[DP_INDEX] = (TableRow) findViewById( R.id.dp_row );
-		// deviceRow[AP_INDEX] = (TableRow) findViewById( R.id.ap_row );
-		// deviceRow[SALINITY_INDEX] = (TableRow) findViewById(
-		// R.id.salinity_row );
-		// deviceRow[ORP_INDEX] = (TableRow) findViewById( R.id.orp_row );
-		// deviceRow[PHE_INDEX] = (TableRow) findViewById( R.id.phe_row );
-		// deviceRow[WL_INDEX] = (TableRow) findViewById( R.id.water_row );
+		for ( int i = 0; i < Controller.MAX_CONTROLLER_VALUES; i++ ) {
+			deviceText[i] =
+					(TextView) deviceRow[i].findViewById( R.id.rowValue );
+			deviceText[i].setTextColor( colors[i] );
+			((TextView) deviceRow[i].findViewById( R.id.rowTitle ))
+					.setTextColor( colors[i] );
+			((TextView) deviceRow[i].findViewById( R.id.rowSubTitle ))
+					.setTextColor( colors[i] );
+		}
 
 	}
 
-	public void setLabel ( int device, String label ) {
-		deviceLabel[device].setText( label );
+	public void setLabel ( int device, String title, String subtitle ) {
+		((TextView) deviceRow[device].findViewById( R.id.rowTitle ))
+				.setText( title );
+		((TextView) deviceRow[device].findViewById( R.id.rowSubTitle ))
+				.setText( subtitle );
+
 	}
 
 	public void setVisibility ( int device, boolean fVisible ) {
@@ -119,9 +118,7 @@ public class ControllerPage extends ScrollView {
 			Log.d( TAG, device + " gone" );
 			v = View.GONE;
 		}
-		deviceText[device].setVisibility( v );
-		deviceLabel[device].setVisibility( v );
-		// deviceRow[device].setVisibility( v );
+		deviceRow[device].setVisibility( v );
 	}
 
 	public void updateDisplay ( String[] v ) {
