@@ -13,44 +13,25 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
     <TableLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:stretchColumns="1" >
 
         <TextView
             style="@style/ParamsText"
             android:text="@string/labelVortech" />
 
-        <TableRow style="@style/RARow" >
+        <include
+            android:id="@+id/rowMode"
+            layout="@layout/genericlabelsinglerow" />
 
-            <TextView
-                android:id="@+id/vortech_mode_label"
-                style="@style/ParamsText.Labels" />
+        <include
+            android:id="@+id/rowSpeed"
+            layout="@layout/genericlabelsinglerow" />
 
-            <TextView
-                android:id="@+id/vortechMode"
-                style="@style/ParamsText.Values" />
-        </TableRow>
-
-        <TableRow style="@style/RARow" >
-
-            <TextView
-                android:id="@+id/vortech_speed_label"
-                style="@style/ParamsText.Labels" />
-
-            <TextView
-                android:id="@+id/vortechSpeed"
-                style="@style/ParamsText.Values" />
-        </TableRow>
-
-        <TableRow style="@style/RARow" >
-
-            <TextView
-                android:id="@+id/vortech_duration_label"
-                style="@style/ParamsText.Labels" />
-
-            <TextView
-                android:id="@+id/vortechDuration"
-                style="@style/ParamsText.Values" />
-        </TableRow>
+        <include
+            android:id="@+id/rowDuration"
+            layout="@layout/genericlabelsinglerow" />
     </TableLayout>
 
 </ScrollView>

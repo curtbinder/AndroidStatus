@@ -21,14 +21,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.ScrollView;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 public class VortechPage extends ScrollView implements OnLongClickListener {
 	private static final String TAG = VortechPage.class.getSimpleName();
 
 	Context ctx; // saved context from parent
-	private TextView[] vortechText;
-	private TextView[] vortechLabels;
+	private TextView[] vortechText =
+			new TextView[Controller.MAX_VORTECH_VALUES];
 
 	public VortechPage ( Context context ) {
 		super( context );
@@ -47,34 +48,28 @@ public class VortechPage extends ScrollView implements OnLongClickListener {
 				(LayoutInflater) context
 						.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
 		layoutInflater.inflate( R.layout.vortech, this );
-		vortechText = new TextView[Controller.MAX_VORTECH_VALUES];
-		vortechLabels = new TextView[Controller.MAX_VORTECH_VALUES];
-		for ( int i = 0; i < Controller.MAX_VORTECH_VALUES; i++ ) {
-			vortechText[i] = new TextView( context );
-			vortechLabels[i] = new TextView( context );
-		}
 		findViews();
 	}
 
 	private void findViews ( ) {
-		vortechText[0] = (TextView) findViewById( R.id.vortechMode );
-		vortechText[1] = (TextView) findViewById( R.id.vortechSpeed );
-		vortechText[2] = (TextView) findViewById( R.id.vortechDuration );
+		TableRow tr;
+		tr = (TableRow) findViewById( R.id.rowMode );
+		vortechText[0] = (TextView) tr.findViewById( R.id.rowValue );
+		tr = (TableRow) findViewById( R.id.rowSpeed );
+		vortechText[1] = (TextView) tr.findViewById( R.id.rowValue );
+		tr = (TableRow) findViewById( R.id.rowDuration );
+		vortechText[2] = (TextView) tr.findViewById( R.id.rowValue );
 		vortechText[0].setOnLongClickListener( this );
 		vortechText[0].setLongClickable( true );
 		vortechText[1].setOnLongClickListener( this );
 		vortechText[1].setLongClickable( true );
 		vortechText[2].setOnLongClickListener( this );
 		vortechText[2].setLongClickable( true );
-
-		vortechLabels[0] = (TextView) findViewById( R.id.vortech_mode_label );
-		vortechLabels[1] = (TextView) findViewById( R.id.vortech_speed_label );
-		vortechLabels[2] =
-				(TextView) findViewById( R.id.vortech_duration_label );
 	}
 
 	public void setLabel ( int channel, String label ) {
-		vortechLabels[channel].setText( label );
+		TableRow tr = (TableRow) vortechText[channel].getParent();
+		((TextView) tr.findViewById( R.id.rowTitle )).setText( label );
 	}
 
 	public void updateDisplay ( String[] v ) {
@@ -86,19 +81,22 @@ public class VortechPage extends ScrollView implements OnLongClickListener {
 	@Override
 	public boolean onLongClick ( View v ) {
 		// Display popup that allows for memory setting
-		switch ( v.getId() ) {
-			case R.id.vortechMode:
+		// view for long click is embedded in a TableRow
+		// get the parent to determine what item was long clicked
+		View parent = (View)v.getParent();
+		switch ( parent.getId() ) {
+			case R.id.rowMode:
 				// display mode choices
 				Log.d( TAG, "Vortech Mode change" );
 				displayPopup( VortechPopupActivity.MODE );
 				break;
-			case R.id.vortechSpeed:
+			case R.id.rowSpeed:
 				// display speed choices
 				// Speed 0-100
 				Log.d( TAG, "Vortech Speed change" );
 				displayPopup( VortechPopupActivity.SPEED );
 				break;
-			case R.id.vortechDuration:
+			case R.id.rowDuration:
 				// display duration choices
 				// Duration 0-255
 				Log.d( TAG, "Vortech Duration change" );

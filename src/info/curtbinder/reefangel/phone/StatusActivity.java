@@ -349,15 +349,12 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		}
 
 		if ( rapp.getVortechModuleEnabled() ) {
-			pageVortech
-					.setLabel(	Controller.VORTECH_MODE,
-								getString( R.string.labelMode ) + separator );
+			pageVortech.setLabel(	Controller.VORTECH_MODE,
+									getString( R.string.labelMode ) );
 			pageVortech.setLabel(	Controller.VORTECH_SPEED,
-									getString( R.string.labelSpeed )
-											+ separator );
+									getString( R.string.labelSpeed ) );
 			pageVortech.setLabel(	Controller.VORTECH_DURATION,
-									getString( R.string.labelDuration )
-											+ separator );
+									getString( R.string.labelDuration ) );
 		}
 
 		if ( rapp.getAIModuleEnabled() ) {
