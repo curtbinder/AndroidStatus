@@ -1,7 +1,7 @@
 package info.curtbinder.reefangel.phone.pages;
 
 /*
- * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
+ * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  * 
  * This work is made available under the terms of the Creative Commons
  * Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -16,25 +16,28 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ScrollView;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 public class CustomPage extends ScrollView {
 	private static final String TAG = CustomPage.class.getSimpleName();
 
 	Context ctx; // saved context from parent
-	private TextView[] customText;
-	private TextView[] customLabels;
+	private TextView[] customText =
+			new TextView[Controller.MAX_CUSTOM_VARIABLES];
+	private TableRow[] customRow =
+			new TableRow[Controller.MAX_CUSTOM_VARIABLES];
 
 	public CustomPage ( Context context ) {
 		super( context );
-		addViewsFromLayout( context );
 		ctx = context;
+		addViewsFromLayout( context );
 	}
 
 	public CustomPage ( Context context, AttributeSet attrs ) {
 		super( context, attrs );
-		addViewsFromLayout( context );
 		ctx = context;
+		addViewsFromLayout( context );
 	}
 
 	private void addViewsFromLayout ( Context context ) {
@@ -42,37 +45,36 @@ public class CustomPage extends ScrollView {
 				(LayoutInflater) context
 						.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
 		layoutInflater.inflate( R.layout.custom, this );
-		customText = new TextView[Controller.MAX_CUSTOM_VARIABLES];
-		customLabels = new TextView[Controller.MAX_CUSTOM_VARIABLES];
-		for ( int i = 0; i < Controller.MAX_CUSTOM_VARIABLES; i++ ) {
-			customText[i] = new TextView( context );
-			customLabels[i] = new TextView( context );
-		}
 		findViews();
 	}
 
 	private void findViews ( ) {
-		customText[0] = (TextView) findViewById( R.id.custom0 );
-		customText[1] = (TextView) findViewById( R.id.custom1 );
-		customText[2] = (TextView) findViewById( R.id.custom2 );
-		customText[3] = (TextView) findViewById( R.id.custom3 );
-		customText[4] = (TextView) findViewById( R.id.custom4 );
-		customText[5] = (TextView) findViewById( R.id.custom5 );
-		customText[6] = (TextView) findViewById( R.id.custom6 );
-		customText[7] = (TextView) findViewById( R.id.custom7 );
-
-		customLabels[0] = (TextView) findViewById( R.id.custom0_label );
-		customLabels[1] = (TextView) findViewById( R.id.custom1_label );
-		customLabels[2] = (TextView) findViewById( R.id.custom2_label );
-		customLabels[3] = (TextView) findViewById( R.id.custom3_label );
-		customLabels[4] = (TextView) findViewById( R.id.custom4_label );
-		customLabels[5] = (TextView) findViewById( R.id.custom5_label );
-		customLabels[6] = (TextView) findViewById( R.id.custom6_label );
-		customLabels[7] = (TextView) findViewById( R.id.custom7_label );
+		customRow[0] = (TableRow) findViewById( R.id.rowCustom0 );
+		customText[0] = (TextView) customRow[0].findViewById( R.id.rowValue );
+		customRow[1] = (TableRow) findViewById( R.id.rowCustom1 );
+		customText[1] = (TextView) customRow[1].findViewById( R.id.rowValue );
+		customRow[2] = (TableRow) findViewById( R.id.rowCustom2 );
+		customText[2] = (TextView) customRow[2].findViewById( R.id.rowValue );
+		customRow[3] = (TableRow) findViewById( R.id.rowCustom3 );
+		customText[3] = (TextView) customRow[3].findViewById( R.id.rowValue );
+		customRow[4] = (TableRow) findViewById( R.id.rowCustom4 );
+		customText[4] = (TextView) customRow[4].findViewById( R.id.rowValue );
+		customRow[5] = (TableRow) findViewById( R.id.rowCustom5 );
+		customText[5] = (TextView) customRow[5].findViewById( R.id.rowValue );
+		customRow[6] = (TableRow) findViewById( R.id.rowCustom6 );
+		customText[6] = (TextView) customRow[6].findViewById( R.id.rowValue );
+		customRow[7] = (TableRow) findViewById( R.id.rowCustom7 );
+		customText[7] = (TextView) customRow[7].findViewById( R.id.rowValue );
 	}
 
 	public void setLabel ( int channel, String label ) {
-		customLabels[channel].setText( label );
+		((TextView) customRow[channel].findViewById( R.id.rowTitle ))
+				.setText( label );
+		String s =
+				new String( String.format( "%s %d", ctx.getResources()
+						.getString( R.string.labelCustom ), channel ) );
+		((TextView) customRow[channel].findViewById( R.id.rowSubTitle ))
+				.setText( s );
 	}
 
 	public void setVisibility ( int channel, boolean fVisible ) {
@@ -85,8 +87,7 @@ public class CustomPage extends ScrollView {
 			Log.d( TAG, channel + " gone" );
 			v = View.GONE;
 		}
-		customText[channel].setVisibility( v );
-		customLabels[channel].setVisibility( v );
+		customRow[channel].setVisibility( v );
 	}
 
 	public void updateDisplay ( String[] v ) {

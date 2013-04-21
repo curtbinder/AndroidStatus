@@ -241,7 +241,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 		// Labels
 		updateRefreshButtonLabel();
-		String separator = getString( R.string.labelSeparator );
 		pageController.setLabel(	ControllerPage.T1_INDEX,
 									rapp.getPrefT1Label(),
 									getString( R.string.labelTemp1 ) );
@@ -373,8 +372,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 		if ( rapp.getCustomModuleEnabled() ) {
 			for ( i = 0; i < Controller.MAX_CUSTOM_VARIABLES; i++ )
-				pageCustom.setLabel( i, rapp.getCustomModuleChannelLabel( i )
-										+ separator );
+				pageCustom.setLabel( i, rapp.getCustomModuleChannelLabel( i ) );
 		}
 
 		// Visibility

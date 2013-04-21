@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
+Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  
 This work is made available under the terms of the 
 Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
-http://creativecommons.org/licenses/by-nc-sa/3.0/
+http://creativecommons.org/licenses/by-nc-sa/3.0/
 -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -13,99 +13,45 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
     <TableLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:stretchColumns="1" >
 
         <TextView
             style="@style/ParamsText"
-            android:text="@string/labelCustom" />
+            android:text="@string/labelCustomVariables" />
 
-        <TableRow style="@style/RARow" >
+        <include
+            android:id="@+id/rowCustom0"
+            layout="@layout/genericlabelrow" />
 
-            <TextView
-                android:id="@+id/custom0_label"
-                style="@style/ParamsText.Labels" />
+        <include
+            android:id="@+id/rowCustom1"
+            layout="@layout/genericlabelrow" />
 
-            <TextView
-                android:id="@+id/custom0"
-                style="@style/ParamsText.Values" />
-        </TableRow>
+        <include
+            android:id="@+id/rowCustom2"
+            layout="@layout/genericlabelrow" />
 
-        <TableRow style="@style/RARow" >
+        <include
+            android:id="@+id/rowCustom3"
+            layout="@layout/genericlabelrow" />
 
-            <TextView
-                android:id="@+id/custom1_label"
-                style="@style/ParamsText.Labels" />
+        <include
+            android:id="@+id/rowCustom4"
+            layout="@layout/genericlabelrow" />
 
-            <TextView
-                android:id="@+id/custom1"
-                style="@style/ParamsText.Values" />
-        </TableRow>
+        <include
+            android:id="@+id/rowCustom5"
+            layout="@layout/genericlabelrow" />
 
-        <TableRow style="@style/RARow" >
+        <include
+            android:id="@+id/rowCustom6"
+            layout="@layout/genericlabelrow" />
 
-            <TextView
-                android:id="@+id/custom2_label"
-                style="@style/ParamsText.Labels" />
-
-            <TextView
-                android:id="@+id/custom2"
-                style="@style/ParamsText.Values" />
-        </TableRow>
-
-        <TableRow style="@style/RARow" >
-
-            <TextView
-                android:id="@+id/custom3_label"
-                style="@style/ParamsText.Labels" />
-
-            <TextView
-                android:id="@+id/custom3"
-                style="@style/ParamsText.Values" />
-        </TableRow>
-
-        <TableRow style="@style/RARow" >
-
-            <TextView
-                android:id="@+id/custom4_label"
-                style="@style/ParamsText.Labels" />
-
-            <TextView
-                android:id="@+id/custom4"
-                style="@style/ParamsText.Values" />
-        </TableRow>
-
-        <TableRow style="@style/RARow" >
-
-            <TextView
-                android:id="@+id/custom5_label"
-                style="@style/ParamsText.Labels" />
-
-            <TextView
-                android:id="@+id/custom5"
-                style="@style/ParamsText.Values" />
-        </TableRow>
-
-        <TableRow style="@style/RARow" >
-
-            <TextView
-                android:id="@+id/custom6_label"
-                style="@style/ParamsText.Labels" />
-
-            <TextView
-                android:id="@+id/custom6"
-                style="@style/ParamsText.Values" />
-        </TableRow>
-
-        <TableRow style="@style/RARow" >
-
-            <TextView
-                android:id="@+id/custom7_label"
-                style="@style/ParamsText.Labels" />
-
-            <TextView
-                android:id="@+id/custom7"
-                style="@style/ParamsText.Values" />
-        </TableRow>
+        <include
+            android:id="@+id/rowCustom7"
+            layout="@layout/genericlabelrow" />
     </TableLayout>
 
 </ScrollView>

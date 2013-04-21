@@ -150,7 +150,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="labelIO">I/O</string>
     <string name="labelON">ON</string>
     <string name="labelOFF">OFF</string>
-    <string name="labelCustom">Custom Variables</string>
+    <string name="labelCustomVariables">Custom Variables</string>
+    <string name="labelCustom">Custom</string>
     <string name="labelEnable">Enable</string>
     <string name="labelChannel">Channel</string>
     <string name="websiteReefangel">http://www.reefangel.com/</string>
