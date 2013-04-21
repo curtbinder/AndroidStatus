@@ -18,30 +18,6 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <style name="ParamsText" parent="@android:style/TextAppearance">
         <item name="android:textSize">24sp</item>
     </style>
-    <style name="ParamsText.Labels">
-        <item name="android:gravity">right</item>
-    </style>
-    <style name="ParamsText.Labels.RightColumn">
-        <item name="android:layout_marginLeft">30sp</item>
-    </style>
-    <style name="ParamsText.Values">
-        <item name="android:layout_marginLeft">15sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-    <style name="ParamsButton">
-        <item name="android:layout_width">fill_parent</item>
-    </style>
-    <style name="ParamsButton.Toggle">
-        <item name="android:layout_marginLeft">15sp</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-    <style name="ParamsButton.Mask">
-		<item name="android:padding">10dp</item>
-    </style>
-    <style name="RARow">
-        <item name="android:gravity">center</item>
-        <item name="android:padding">10dp</item>
-    </style>
     <style name="CommandButtons">
         <item name="android:padding">10dp</item>
         <item name="android:layout_margin">8dp</item>

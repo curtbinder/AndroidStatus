@@ -157,4 +157,9 @@ Changelog of all the versions of AndroidStatus
  * added vortech popup menu, long press on the value to prompt for immediate value change
  * moved date and time tab from memory to commands page
  * code updates
+
+0.8.3
+ * added commands page to swipe left from the status page
+ * improved / updated all page layouts to be more consistent
+ * fixed crash with downloading labels
  
