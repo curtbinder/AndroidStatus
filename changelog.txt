@@ -162,4 +162,5 @@ Changelog of all the versions of AndroidStatus
  * added commands page to swipe left from the status page
  * improved / updated all page layouts to be more consistent
  * fixed crash with downloading labels
+ * code updates
  

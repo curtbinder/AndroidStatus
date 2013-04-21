@@ -1,5 +1,13 @@
 <html>
 <body>
+<b>0.8.3</b>
+<ul>
+<li>added commands page to swipe left from the status page</li>
+<li>improved / updated all page layouts to be more consistent</li>
+<li>fixed crash with downloading labels</li>
+<li>code updates</li>
+</ul>
+<br>
 <b>0.8.2</b>
 <ul>
 <li>added ability to disable specific relays to prevent accidental toggling from the app (from triggerNZ)</li>
