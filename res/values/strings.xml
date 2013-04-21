@@ -281,11 +281,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefT1LabelTitle">Temp Sensor 1</string>
     <string name="prefT2LabelTitle">Temp Sensor 2</string>
     <string name="prefT3LabelTitle">Temp Sensor 3</string>
-    <string name="prefPHLabelTitle">PH</string>
     <string name="prefDPLabelTitle">Daylight Channel</string>
     <string name="prefAPLabelTitle">Actinic Channel</string>
-    <string name="prefSalinityLabelTitle">Salinity</string>
-    <string name="prefORPLabelTitle">ORP</string>
     <string name="prefPHExpLabelTitle">PH Expansion</string>
     <string name="prefWaterLevelLabelTitle">Water Level</string>
     <string name="prefPort1LabelTitle">Port 1</string>
@@ -316,7 +313,6 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExpEnabledPortsTitle">Expansion Enabled Ports</string>
     <string name="prefExp085xSummary">v0.8.5.X libraries support</string>
     <string name="prefExp085xTitle">Old Expansion</string>
-    <string name="prefExpDimmingTitle">Dimming</string>
     <string name="prefExpDimmingSummary">Configure dimming expansion module</string>
     <string name="prefExpDimmingCh0LabelTitle">Channel 0</string>
     <string name="prefExpDimmingCh1LabelTitle">Channel 1</string>
@@ -324,17 +320,12 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExpDimmingCh3LabelTitle">Channel 3</string>
     <string name="prefExpDimmingCh4LabelTitle">Channel 4</string>
     <string name="prefExpDimmingCh5LabelTitle">Channel 5</string>
-    <string name="prefExpRadionEnableTitle">Radion</string>
-    <string name="prefExpVortechEnableTitle">Vortech</string>
-    <string name="prefExpAIEnableTitle">Aqua Illuminations</string>
-    <string name="prefExpIOTitle">I/O</string>
     <string name="prefExpIO0LabelTitle">I/O 0</string>
     <string name="prefExpIO1LabelTitle">I/O 1</string>
     <string name="prefExpIO2LabelTitle">I/O 2</string>
     <string name="prefExpIO3LabelTitle">I/O 3</string>
     <string name="prefExpIO4LabelTitle">I/O 4</string>
     <string name="prefExpIO5LabelTitle">I/O 5</string>
-    <string name="prefExpCustomTitle">Custom Variables</string>
     <string name="prefExpCustom0LabelTitle">Custom 0</string>
     <string name="prefExpCustom1LabelTitle">Custom 1</string>
     <string name="prefExpCustom2LabelTitle">Custom 2</string>

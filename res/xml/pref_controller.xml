@@ -50,11 +50,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                     <EditTextPreference
                         android:defaultValue="@string/labelSalinity"
                         android:key="@string/prefSalinityLabelKey"
-                        android:title="@string/prefSalinityLabelTitle" />
+                        android:title="@string/labelSalinity" />
                     <EditTextPreference
                         android:defaultValue="@string/labelORP"
                         android:key="@string/prefORPLabelKey"
-                        android:title="@string/prefORPLabelTitle" />
+                        android:title="@string/labelORP" />
                     <EditTextPreference
                         android:defaultValue="@string/labelPHExp"
                         android:key="@string/prefPHExpLabelKey"
@@ -181,7 +181,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 </PreferenceScreen>
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/prefExpansionCategory" >
-                <PreferenceScreen android:title="@string/prefExpDimmingTitle" >
+                <PreferenceScreen android:title="@string/labelDimming" >
                     <CheckBoxPreference
                         android:defaultValue="false"
                         android:key="@string/prefExpDimmingEnableKey"
@@ -224,17 +224,17 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 <CheckBoxPreference
                     android:defaultValue="false"
                     android:key="@string/prefExpRadionEnableKey"
-                    android:title="@string/prefExpRadionEnableTitle" />
+                    android:title="@string/labelRadion" />
                 <CheckBoxPreference
                     android:defaultValue="false"
                     android:key="@string/prefExpVortechEnableKey"
-                    android:title="@string/prefExpVortechEnableTitle" />
+                    android:title="@string/labelVortech" />
                 <CheckBoxPreference
                     android:defaultValue="false"
                     android:key="@string/prefExpAIEnableKey"
-                    android:title="@string/prefExpAIEnableTitle" />
+                    android:title="@string/labelAI" />
 
-                <PreferenceScreen android:title="@string/prefExpIOTitle" >
+                <PreferenceScreen android:title="@string/labelIO" >
                     <CheckBoxPreference
                         android:defaultValue="false"
                         android:key="@string/prefExpIOEnableKey"
@@ -273,7 +273,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                             android:title="@string/prefExpIO5LabelTitle" />
                     </PreferenceCategory>
                 </PreferenceScreen>
-                <PreferenceScreen android:title="@string/prefExpCustomTitle" >
+                <PreferenceScreen android:title="@string/labelCustomVariables" >
                     <CheckBoxPreference
                         android:defaultValue="false"
                         android:key="@string/prefExpCustomEnableKey"
