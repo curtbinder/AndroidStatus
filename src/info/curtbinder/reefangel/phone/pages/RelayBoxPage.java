@@ -1,7 +1,7 @@
 package info.curtbinder.reefangel.phone.pages;
 
 /*
- * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
+ * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  * 
  * This work is made available under the terms of the Creative Commons
  * Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ScrollView;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -30,7 +31,6 @@ public class RelayBoxPage extends ScrollView implements OnClickListener {
 	Context ctx; // saved context from parent
 	private int relayNumber; // 0 : Main Relay, 1 - 8 : Expansion Relay
 	private TextView titleText;
-	private TextView[] portLabels = new TextView[Controller.MAX_RELAY_PORTS];
 	private ToggleButton[] portBtns =
 			new ToggleButton[Controller.MAX_RELAY_PORTS];
 	private View[] portMaskBtns = new View[Controller.MAX_RELAY_PORTS];
@@ -39,15 +39,15 @@ public class RelayBoxPage extends ScrollView implements OnClickListener {
 	
 	public RelayBoxPage ( Context context ) {
 		super( context );
-		addViewsFromLayout( context );
 		ctx = context;
+		addViewsFromLayout( context );
 		setDefaults();
 	}
 
 	public RelayBoxPage ( Context context, AttributeSet attrs ) {
 		super( context, attrs );
-		addViewsFromLayout( context );
 		ctx = context;
+		addViewsFromLayout( context );
 		setDefaults();
 	}
 
@@ -92,34 +92,32 @@ public class RelayBoxPage extends ScrollView implements OnClickListener {
 	}
 
 	private void findViews ( ) {
-		titleText = (TextView) findViewById( R.id.relayTitle );
-
-		portLabels[0] = (TextView) findViewById( R.id.relayPort1Label );
-		portLabels[1] = (TextView) findViewById( R.id.relayPort2Label );
-		portLabels[2] = (TextView) findViewById( R.id.relayPort3Label );
-		portLabels[3] = (TextView) findViewById( R.id.relayPort4Label );
-		portLabels[4] = (TextView) findViewById( R.id.relayPort5Label );
-		portLabels[5] = (TextView) findViewById( R.id.relayPort6Label );
-		portLabels[6] = (TextView) findViewById( R.id.relayPort7Label );
-		portLabels[7] = (TextView) findViewById( R.id.relayPort8Label );
-
-		portBtns[0] = (ToggleButton) findViewById( R.id.relayPort1 );
-		portBtns[1] = (ToggleButton) findViewById( R.id.relayPort2 );
-		portBtns[2] = (ToggleButton) findViewById( R.id.relayPort3 );
-		portBtns[3] = (ToggleButton) findViewById( R.id.relayPort4 );
-		portBtns[4] = (ToggleButton) findViewById( R.id.relayPort5 );
-		portBtns[5] = (ToggleButton) findViewById( R.id.relayPort6 );
-		portBtns[6] = (ToggleButton) findViewById( R.id.relayPort7 );
-		portBtns[7] = (ToggleButton) findViewById( R.id.relayPort8 );
-
-		portMaskBtns[0] = findViewById( R.id.relayPort1Mask );
-		portMaskBtns[1] = findViewById( R.id.relayPort2Mask );
-		portMaskBtns[2] = findViewById( R.id.relayPort3Mask );
-		portMaskBtns[3] = findViewById( R.id.relayPort4Mask );
-		portMaskBtns[4] = findViewById( R.id.relayPort5Mask );
-		portMaskBtns[5] = findViewById( R.id.relayPort6Mask );
-		portMaskBtns[6] = findViewById( R.id.relayPort7Mask );
-		portMaskBtns[7] = findViewById( R.id.relayPort8Mask );
+		titleText = (TextView) findViewById( R.id.relayTitle );		
+		TableRow tr;
+		tr = (TableRow)findViewById(R.id.rowPort1);
+		portBtns[0] = (ToggleButton)tr.findViewById( R.id.rowToggle );
+		portMaskBtns[0] = tr.findViewById( R.id.rowOverrideToggle );
+		tr = (TableRow)findViewById(R.id.rowPort2);
+		portBtns[1] = (ToggleButton)tr.findViewById( R.id.rowToggle );
+		portMaskBtns[1] = tr.findViewById( R.id.rowOverrideToggle );
+		tr = (TableRow)findViewById(R.id.rowPort3);
+		portBtns[2] = (ToggleButton)tr.findViewById( R.id.rowToggle );
+		portMaskBtns[2] = tr.findViewById( R.id.rowOverrideToggle );
+		tr = (TableRow)findViewById(R.id.rowPort4);
+		portBtns[3] = (ToggleButton)tr.findViewById( R.id.rowToggle );
+		portMaskBtns[3] = tr.findViewById( R.id.rowOverrideToggle );
+		tr = (TableRow)findViewById(R.id.rowPort5);
+		portBtns[4] = (ToggleButton)tr.findViewById( R.id.rowToggle );
+		portMaskBtns[4] = tr.findViewById( R.id.rowOverrideToggle );
+		tr = (TableRow)findViewById(R.id.rowPort6);
+		portBtns[5] = (ToggleButton)tr.findViewById( R.id.rowToggle );
+		portMaskBtns[5] = tr.findViewById( R.id.rowOverrideToggle );
+		tr = (TableRow)findViewById(R.id.rowPort7);
+		portBtns[6] = (ToggleButton)tr.findViewById( R.id.rowToggle );
+		portMaskBtns[6] = tr.findViewById( R.id.rowOverrideToggle );
+		tr = (TableRow)findViewById(R.id.rowPort8);
+		portBtns[7] = (ToggleButton)tr.findViewById( R.id.rowToggle );
+		portMaskBtns[7] = tr.findViewById( R.id.rowOverrideToggle );
 	}
 
 	public void setClickable ( boolean clickable ) {
@@ -136,11 +134,42 @@ public class RelayBoxPage extends ScrollView implements OnClickListener {
 		}
 	}
 
-	public void setPortLabel ( int port, String label ) {
+	public void setPortLabel ( int port, String title, String subtitle ) {
 		// relay is 0 based
 		// label is text to set
-		Log.d( TAG, relayNumber + " Label: " + port + ", " + label );
-		portLabels[port].setText( label );
+		Log.d( TAG, relayNumber + " Label: " + port + ", " + title );
+		int id;
+		switch ( port ) {
+			default:
+			case 0:
+				id = R.id.rowPort1;
+				break;
+			case 1:
+				id = R.id.rowPort2;
+				break;
+			case 2:
+				id = R.id.rowPort3;
+				break;
+			case 3:
+				id = R.id.rowPort4;
+				break;
+			case 4:
+				id = R.id.rowPort5;
+				break;
+			case 5:
+				id = R.id.rowPort6;
+				break;
+			case 6:
+				id = R.id.rowPort7;
+				break;
+			case 7:
+				id = R.id.rowPort8;
+				break;
+		}
+		TableRow tr;
+		tr = (TableRow)findViewById(id);
+		((TextView)tr.findViewById( R.id.rowTitle )).setText( title );
+		((TextView)tr.findViewById( R.id.rowSubTitle )).setText( subtitle);
 	}
 
 	public void setRelayTitle ( String s ) {
@@ -187,71 +216,44 @@ public class RelayBoxPage extends ScrollView implements OnClickListener {
 		// inside Log.d, the + is string concatenation
 		// so relayNumber + NUM is actually like doing 1 + 1 == 11
 		// however, when you get into arithmetic 1 + 1 = 2 and not 11
-		switch ( v.getId() ) {
-			case R.id.relayPort1:
-				Log.d( TAG, "toggle port " + relayNumber + 1 );
-				sendRelayToggleTask( box + 1 );
+		
+		// The buttons are nested inside a LinearLayout and then inside a TableRow
+		// The TableRow is the View that contains the row id
+		int port = 1;
+		View parent = (View) v.getParent().getParent();
+		switch ( parent.getId() ) {
+			default:
+			case R.id.rowPort1:
+				port = 1;
 				break;
-			case R.id.relayPort2:
-				Log.d( TAG, "toggle port " + relayNumber + 2 );
-				sendRelayToggleTask( box + 2 );
+			case R.id.rowPort2:
+				port = 2;
 				break;
-			case R.id.relayPort3:
-				Log.d( TAG, "toggle port " + relayNumber + 3 );
-				sendRelayToggleTask( box + 3 );
+			case R.id.rowPort3:
+				port = 3;
 				break;
-			case R.id.relayPort4:
-				Log.d( TAG, "toggle port " + relayNumber + 4 );
-				sendRelayToggleTask( box + 4 );
+			case R.id.rowPort4:
+				port = 4;
 				break;
-			case R.id.relayPort5:
-				Log.d( TAG, "toggle port " + relayNumber + 5 );
-				sendRelayToggleTask( box + 5 );
+			case R.id.rowPort5:
+				port = 5;
 				break;
-			case R.id.relayPort6:
-				Log.d( TAG, "toggle port " + relayNumber + 6 );
-				sendRelayToggleTask( box + 6 );
+			case R.id.rowPort6:
+				port = 6;
 				break;
-			case R.id.relayPort7:
-				Log.d( TAG, "toggle port " + relayNumber + 7 );
-				sendRelayToggleTask( box + 7 );
+			case R.id.rowPort7:
+				port = 7;
 				break;
-			case R.id.relayPort8:
-				Log.d( TAG, "toggle port " + relayNumber + 8 );
-				sendRelayToggleTask( box + 8 );
+			case R.id.rowPort8:
+				port = 8;
 				break;
-			case R.id.relayPort1Mask:
-				Log.d( TAG, "clear mask " + relayNumber + 1 );
-				sendRelayClearMaskTask( box + 1 );
-				break;
-			case R.id.relayPort2Mask:
-				Log.d( TAG, "clear mask " + relayNumber + 2 );
-				sendRelayClearMaskTask( box + 2 );
-				break;
-			case R.id.relayPort3Mask:
-				Log.d( TAG, "clear mask " + relayNumber + 3 );
-				sendRelayClearMaskTask( box + 3 );
-				break;
-			case R.id.relayPort4Mask:
-				Log.d( TAG, "clear mask " + relayNumber + 4 );
-				sendRelayClearMaskTask( box + 4 );
-				break;
-			case R.id.relayPort5Mask:
-				Log.d( TAG, "clear mask " + relayNumber + 5 );
-				sendRelayClearMaskTask( box + 5 );
-				break;
-			case R.id.relayPort6Mask:
-				Log.d( TAG, "clear mask " + relayNumber + 6 );
-				sendRelayClearMaskTask( box + 6 );
-				break;
-			case R.id.relayPort7Mask:
-				Log.d( TAG, "clear mask " + relayNumber + 7 );
-				sendRelayClearMaskTask( box + 7 );
-				break;
-			case R.id.relayPort8Mask:
-				Log.d( TAG, "clear mask " + relayNumber + 8 );
-				sendRelayClearMaskTask( box + 8 );
-				break;
+		}
+		if ( v.getId() == R.id.rowOverrideToggle ) {
+			Log.d( TAG, "clear mask " + relayNumber + port );
+			sendRelayClearMaskTask( box + port );
+		} else if ( v.getId() == R.id.rowToggle ) {
+			Log.d( TAG, "toggle port " + relayNumber + port );
+			sendRelayToggleTask( box + port );
 		}
 	}
 
