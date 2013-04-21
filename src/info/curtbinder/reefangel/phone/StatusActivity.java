@@ -367,8 +367,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 		if ( rapp.getIOModuleEnabled() ) {
 			for ( i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
-				pageIO.setLabel( i, rapp.getIOModuleChannelLabel( i )
-									+ separator );
+				pageIO.setLabel( i, rapp.getIOModuleChannelLabel( i ) );
 			}
 		}
 

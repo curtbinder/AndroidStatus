@@ -1,7 +1,7 @@
 package info.curtbinder.reefangel.phone.pages;
 
 /*
- * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
+ * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  * 
  * This work is made available under the terms of the Creative Commons
  * Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -16,25 +16,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ScrollView;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 public class IOPage extends ScrollView {
 	private static final String TAG = IOPage.class.getSimpleName();
 
 	Context ctx; // saved context from parent
-	private TextView[] ioText;
-	private TextView[] ioLabels;
+	private TextView[] ioText = new TextView[Controller.MAX_IO_CHANNELS];
+	private TableRow[] ioRow = new TableRow[Controller.MAX_IO_CHANNELS];
 
 	public IOPage ( Context context ) {
 		super( context );
-		addViewsFromLayout( context );
 		ctx = context;
+		addViewsFromLayout( context );
 	}
 
 	public IOPage ( Context context, AttributeSet attrs ) {
 		super( context, attrs );
-		addViewsFromLayout( context );
 		ctx = context;
+		addViewsFromLayout( context );
 	}
 
 	private void addViewsFromLayout ( Context context ) {
@@ -42,33 +43,32 @@ public class IOPage extends ScrollView {
 				(LayoutInflater) context
 						.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
 		layoutInflater.inflate( R.layout.io, this );
-		ioText = new TextView[Controller.MAX_IO_CHANNELS];
-		ioLabels = new TextView[Controller.MAX_IO_CHANNELS];
-		for ( int i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
-			ioText[i] = new TextView( context );
-			ioLabels[i] = new TextView( context );
-		}
 		findViews();
 	}
 
 	private void findViews ( ) {
-		ioText[0] = (TextView) findViewById( R.id.io0 );
-		ioText[1] = (TextView) findViewById( R.id.io1 );
-		ioText[2] = (TextView) findViewById( R.id.io2 );
-		ioText[3] = (TextView) findViewById( R.id.io3 );
-		ioText[4] = (TextView) findViewById( R.id.io4 );
-		ioText[5] = (TextView) findViewById( R.id.io5 );
-
-		ioLabels[0] = (TextView) findViewById( R.id.io0_label );
-		ioLabels[1] = (TextView) findViewById( R.id.io1_label );
-		ioLabels[2] = (TextView) findViewById( R.id.io2_label );
-		ioLabels[3] = (TextView) findViewById( R.id.io3_label );
-		ioLabels[4] = (TextView) findViewById( R.id.io4_label );
-		ioLabels[5] = (TextView) findViewById( R.id.io5_label );
+		ioRow[0] = (TableRow) findViewById( R.id.rowIO0 );
+		ioText[0] = (TextView) ioRow[0].findViewById( R.id.rowValue );
+		ioRow[1] = (TableRow) findViewById( R.id.rowIO1 );
+		ioText[1] = (TextView) ioRow[1].findViewById( R.id.rowValue );
+		ioRow[2] = (TableRow) findViewById( R.id.rowIO2 );
+		ioText[2] = (TextView) ioRow[2].findViewById( R.id.rowValue );
+		ioRow[3] = (TableRow) findViewById( R.id.rowIO3 );
+		ioText[3] = (TextView) ioRow[3].findViewById( R.id.rowValue );
+		ioRow[4] = (TableRow) findViewById( R.id.rowIO4 );
+		ioText[4] = (TextView) ioRow[4].findViewById( R.id.rowValue );
+		ioRow[5] = (TableRow) findViewById( R.id.rowIO5 );
+		ioText[5] = (TextView) ioRow[5].findViewById( R.id.rowValue );
 	}
 
 	public void setLabel ( int channel, String label ) {
-		ioLabels[channel].setText( label );
+		((TextView) ioRow[channel].findViewById( R.id.rowTitle ))
+				.setText( label );
+		String s =
+				new String( String.format( "%s %d", ctx.getResources()
+						.getString( R.string.labelIO ), channel ) );
+		((TextView) ioRow[channel].findViewById( R.id.rowSubTitle ))
+				.setText( s );
 	}
 
 	public void setVisibility ( int channel, boolean fVisible ) {
@@ -81,8 +81,7 @@ public class IOPage extends ScrollView {
 			Log.d( TAG, channel + " gone" );
 			v = View.GONE;
 		}
-		ioText[channel].setVisibility( v );
-		ioLabels[channel].setVisibility( v );
+		ioRow[channel].setVisibility( v );
 	}
 
 	public void updateDisplay ( String[] v ) {
