@@ -329,27 +329,23 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 		if ( rapp.getDimmingModuleEnabled() ) {
 			for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ )
-				pageDimming.setLabel( i, rapp.getDimmingModuleChannelLabel( i ) );
+				pageDimming
+						.setLabel( i, rapp.getDimmingModuleChannelLabel( i ) );
 		}
 
 		if ( rapp.getRadionModuleEnabled() ) {
 			pageRadion.setLabel(	Controller.RADION_WHITE,
-									getString( R.string.labelWhite )
-											+ separator );
+									getString( R.string.labelWhite ) );
 			pageRadion.setLabel(	Controller.RADION_ROYALBLUE,
-									getString( R.string.labelRoyalBlue )
-											+ separator );
+									getString( R.string.labelRoyalBlue ) );
 			pageRadion.setLabel(	Controller.RADION_RED,
-									getString( R.string.labelRed ) + separator );
+									getString( R.string.labelRed ) );
 			pageRadion.setLabel(	Controller.RADION_GREEN,
-									getString( R.string.labelGreen )
-											+ separator );
-			pageRadion
-					.setLabel(	Controller.RADION_BLUE,
-								getString( R.string.labelBlue ) + separator );
+									getString( R.string.labelGreen ) );
+			pageRadion.setLabel(	Controller.RADION_BLUE,
+									getString( R.string.labelBlue ) );
 			pageRadion.setLabel(	Controller.RADION_INTENSITY,
-									getString( R.string.labelIntensity )
-											+ separator );
+									getString( R.string.labelIntensity ) );
 		}
 
 		if ( rapp.getVortechModuleEnabled() ) {
