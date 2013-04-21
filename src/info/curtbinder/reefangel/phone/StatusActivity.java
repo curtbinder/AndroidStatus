@@ -329,8 +329,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 		if ( rapp.getDimmingModuleEnabled() ) {
 			for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ )
-				pageDimming.setLabel( i, rapp.getDimmingModuleChannelLabel( i )
-											+ separator );
+				pageDimming.setLabel( i, rapp.getDimmingModuleChannelLabel( i ) );
 		}
 
 		if ( rapp.getRadionModuleEnabled() ) {

@@ -23,44 +23,44 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
         <include
             android:id="@+id/t1_row"
-            layout="@layout/controllerrow" />
+            layout="@layout/genericlabelrow" />
 
         <include
             android:id="@+id/t2_row"
-            layout="@layout/controllerrow" />
+            layout="@layout/genericlabelrow" />
 
         <include
             android:id="@+id/t3_row"
-            layout="@layout/controllerrow" />
+            layout="@layout/genericlabelrow" />
 
         <include
             android:id="@+id/ph_row"
-            layout="@layout/controllerrow" />
+            layout="@layout/genericlabelrow" />
 
         <include
             android:id="@+id/dp_row"
-            layout="@layout/controllerrow" />
+            layout="@layout/genericlabelrow" />
 
         <include
             android:id="@+id/ap_row"
-            layout="@layout/controllerrow" />
+            layout="@layout/genericlabelrow" />
 
         <include
             android:id="@+id/salinity_row"
-            layout="@layout/controllerrow" />
+            layout="@layout/genericlabelrow" />
 
         <include
             android:id="@+id/orp_row"
-            layout="@layout/controllerrow" />
+            layout="@layout/genericlabelrow" />
 
         <include
             android:id="@+id/phe_row"
-            layout="@layout/controllerrow" />
+            layout="@layout/genericlabelrow" />
 
         <include
             android:id="@+id/water_row"
             android:layout_width="fill_parent"
-            layout="@layout/controllerrow" />
+            layout="@layout/genericlabelrow" />
     </TableLayout>
 
 </ScrollView>
