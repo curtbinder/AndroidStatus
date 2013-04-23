@@ -23,9 +23,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item name="android:layout_margin">8dp</item>
     </style>
     
-    <style name="LightTheme" parent="android:Theme.Light"></style>
-    <style name="DarkTheme" parent="android:Theme.Black"></style>
+    <style name="LightTheme" parent="Theme.Sherlock.Light"></style>
+    <style name="DarkTheme" parent="Theme.Sherlock"></style>
     <style name="Dialog" parent="android:Theme.Dialog">
     </style>
-    <style name="NoTitleBar" parent="android:Theme.Black.NoTitleBar"></style>
 </resources>

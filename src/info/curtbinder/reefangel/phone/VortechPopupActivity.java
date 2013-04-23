@@ -1,5 +1,3 @@
-package info.curtbinder.reefangel.phone;
-
 /*
  * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  *
@@ -7,6 +5,8 @@ package info.curtbinder.reefangel.phone;
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
+
+package info.curtbinder.reefangel.phone;
 
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.RequestCommands;
@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,19 +27,20 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class VortechPopupActivity extends BaseActivity implements
-		OnClickListener {
+public class VortechPopupActivity extends Activity implements OnClickListener {
 
 	private static final String TAG = VortechPopupActivity.class
 			.getSimpleName();
 
 	public static final String TYPE = "vtType";
+	public static final String PRE10_LOCATIONS = "vtPreLocations";
 	public static final int MODE = 0;
 	public static final int SPEED = 1;
 	public static final int DURATION = 2;
 	public static final int LOCATION_OFFSET = 55;
 
 	private int popupType;
+	private boolean preLocations;
 
 	private TextView desc;
 	private Spinner sp;
@@ -49,7 +51,10 @@ public class VortechPopupActivity extends BaseActivity implements
 		setContentView( R.layout.vortechpopup );
 		Bundle b = getIntent().getExtras();
 		if ( b != null ) {
-			popupType = b.getInt( "vtType" );
+			popupType = b.getInt( TYPE );
+			preLocations = b.getBoolean( PRE10_LOCATIONS );
+		} else {
+			preLocations = false;
 		}
 		desc = (TextView) findViewById( R.id.vtDescription );
 		sp = (Spinner) findViewById( R.id.vtSpinner );
@@ -121,7 +126,7 @@ public class VortechPopupActivity extends BaseActivity implements
 		// send the memory command
 		Intent i = new Intent( MessageCommands.MEMORY_SEND_INTENT );
 		int location;
-		if ( rapp.useOldPre10MemoryLocations() ) {
+		if ( preLocations ) {
 			location = MemoryActivity.LOCATION_START_OLD;
 		} else {
 			location = MemoryActivity.LOCATION_START;

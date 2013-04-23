@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
 Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  
@@ -68,6 +67,16 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:theme="@style/Dialog" >
         </activity>
         <activity
+            android:name=".HistoryPopupActivity"
+            android:label="@string/titleHistory"
+            android:theme="@style/Dialog" >
+        </activity>
+        <activity
+            android:name=".VortechPopupActivity"
+            android:label="@string/titleVortech"
+            android:theme="@style/Dialog" >
+        </activity>
+        <activity
             android:name=".PrefsActivity"
             android:label="@string/titlePrefs" >
         </activity>
@@ -85,18 +94,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         </activity>
         <activity
             android:name=".MemoryTabsActivity"
-            android:label="@string/titleMemoryTabs"
-            android:theme="@style/NoTitleBar" >
+            android:label="@string/titleMemoryTabs" >
         </activity>
         <activity
             android:name=".CommandTabsActivity"
-            android:label="@string/titleCommandTabs"
-            android:theme="@style/NoTitleBar" >
-        </activity>
-        <activity
-            android:name=".HistoryPopupActivity"
-            android:label="@string/titleHistory"
-            android:theme="@style/Dialog" >
+            android:label="@string/titleCommandTabs" >
         </activity>
         <activity
             android:name=".FirstRunActivity"
@@ -107,11 +109,6 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <activity
             android:name=".DateTimeActivity"
             android:label="@string/titleDateTime" >
-        </activity>
-        <activity
-            android:name=".VortechPopupActivity"
-            android:label="@string/titleVortech"
-            android:theme="@style/Dialog" >
         </activity>
 
         <service android:name="info.curtbinder.reefangel.service.ControllerService" >
@@ -124,8 +121,9 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        
-        <provider android:name="info.curtbinder.reefangel.db.StatusProvider"
+
+        <provider
+            android:name="info.curtbinder.reefangel.db.StatusProvider"
             android:authorities="info.curtbinder.reefangel.db"
             android:readPermission="info.curtbinder.reefangel.permission.READ_PROVIDER" >
         </provider>

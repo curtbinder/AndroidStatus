@@ -1,5 +1,3 @@
-package info.curtbinder.reefangel.phone;
-
 /*
  * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
  *
@@ -8,9 +6,12 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
+package info.curtbinder.reefangel.phone;
+
 import info.curtbinder.reefangel.db.RAData;
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -65,8 +66,6 @@ public class ParamsListActivity extends ListActivity {
 			showEvents( c );
 		} catch ( SQLException e ) {
 			Log.d( TAG, "SQL Exception" );
-		} finally {
-			// rapp.getRAData().close();
 		}
 	}
 
@@ -119,7 +118,39 @@ public class ParamsListActivity extends ListActivity {
 		// super.onListItemClick( l, v, position, id );
 		// Log.d(TAG, "Clicked: position:" + position + ", id:" + id);
 		Intent i = new Intent( this, HistoryPopupActivity.class );
-		i.putExtra( RAData.PCOL_ID, id );
+		ContentValues cv = loadData( id );
+		i.putExtra( HistoryPopupActivity.DATA, cv );
 		startActivity( i );
+	}
+
+	private ContentValues loadData ( long id ) throws SQLException {
+		ContentValues cv = new ContentValues();
+		Cursor c = rapp.data.getDataById( id );
+		// short r = 0, ron = 0, roff = 0;
+
+		if ( c.moveToFirst() ) {
+			cv.put( RAData.PCOL_LOGDATE,
+					c.getString( c.getColumnIndex( RAData.PCOL_LOGDATE ) ) );
+			cv.put( RAData.PCOL_T1,
+					c.getString( c.getColumnIndex( RAData.PCOL_T1 ) ) );
+			cv.put( RAData.PCOL_T2,
+					c.getString( c.getColumnIndex( RAData.PCOL_T2 ) ) );
+			cv.put( RAData.PCOL_T3,
+					c.getString( c.getColumnIndex( RAData.PCOL_T3 ) ) );
+			cv.put( RAData.PCOL_PH,
+					c.getString( c.getColumnIndex( RAData.PCOL_PH ) ) );
+			cv.put( RAData.PCOL_SAL,
+					c.getString( c.getColumnIndex( RAData.PCOL_SAL ) ) );
+			cv.put( RAData.PCOL_DP,
+					c.getString( c.getColumnIndex( RAData.PCOL_DP ) ) );
+			cv.put( RAData.PCOL_AP,
+					c.getString( c.getColumnIndex( RAData.PCOL_AP ) ) );
+			cv.put( RAData.PCOL_ATOLO,
+					c.getString( c.getColumnIndex( RAData.PCOL_ATOLO ) ) );
+			cv.put( RAData.PCOL_ATOHI,
+					c.getString( c.getColumnIndex( RAData.PCOL_ATOHI ) ) );
+		}
+		c.close();
+		return cv;
 	}
 }

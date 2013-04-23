@@ -1,5 +1,3 @@
-package info.curtbinder.reefangel.phone;
-
 /*
  * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  *
@@ -7,6 +5,8 @@ package info.curtbinder.reefangel.phone;
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
+
+package info.curtbinder.reefangel.phone;
 
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.controller.Relay;
@@ -40,9 +40,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
@@ -50,6 +47,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 
 public class StatusActivity extends BaseActivity implements OnClickListener,
 		OnLongClickListener {
@@ -665,6 +666,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 						new Intent( StatusActivity.this,
 							VortechPopupActivity.class );
 				i.putExtra( VortechPopupActivity.TYPE, type );
+				i.putExtra( VortechPopupActivity.PRE10_LOCATIONS,
+							rapp.useOldPre10MemoryLocations() );
 				startActivity( i );
 			} else if ( action.equals( MessageCommands.MEMORY_RESPONSE_INTENT ) ) {
 				String response =
@@ -915,12 +918,14 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		fReloadPages = false;
 	}
 
+	@Override
 	public boolean onCreateOptionsMenu ( Menu menu ) {
-		MenuInflater inflater = getMenuInflater();
+		MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate( R.menu.status_menu, menu );
 		return true;
 	}
 
+	@Override
 	public boolean onOptionsItemSelected ( MenuItem item ) {
 		// Handle item selection
 		switch ( item.getItemId() ) {

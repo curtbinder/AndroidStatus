@@ -8,10 +8,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 -->
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android">    
-    <style name="LightTheme" parent="android:Theme.Holo.Light"></style>
-    <style name="DarkTheme" parent="android:Theme.Holo"></style>
+    <style name="LightTheme" parent="Theme.Sherlock.Light"></style>
+    <style name="DarkTheme" parent="Theme.Sherlock"></style>
     <style name="Dialog" parent="android:Theme.Holo.Dialog"></style>
-    <style name="NoTitleBar" parent="android:Theme.Holo">
-        <item name="android:windowNoTitle">true</item>
-    </style>
 </resources>
