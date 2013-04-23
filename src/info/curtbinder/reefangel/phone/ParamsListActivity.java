@@ -10,7 +10,6 @@ package info.curtbinder.reefangel.phone;
 
 import info.curtbinder.reefangel.db.RAData;
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,15 +17,17 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
-public class ParamsListActivity extends ListActivity {
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
+public class ParamsListActivity extends SherlockListActivity {
 
 	private static final String TAG = ParamsListActivity.class.getSimpleName();
 	private static final int[] TO = { R.id.plog, R.id.pt1, R.id.pt2, R.id.pt3,
@@ -70,7 +71,7 @@ public class ParamsListActivity extends ListActivity {
 	}
 
 	public boolean onCreateOptionsMenu ( Menu menu ) {
-		MenuInflater inflater = getMenuInflater();
+		MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate( R.menu.paramslist_menu, menu );
 		return true;
 	}
