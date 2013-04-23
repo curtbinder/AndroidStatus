@@ -1,5 +1,3 @@
-package info.curtbinder.reefangel.phone;
-
 /*
  * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
  *
@@ -7,6 +5,8 @@ package info.curtbinder.reefangel.phone;
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
+
+package info.curtbinder.reefangel.phone;
 
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.service.MessageCommands;
@@ -23,12 +23,13 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
+
 @SuppressWarnings("deprecation")
-public class PrefsActivity extends PreferenceActivity implements
+public class PrefsActivity extends SherlockPreferenceActivity implements
 		OnPreferenceChangeListener, OnSharedPreferenceChangeListener {
 
 	private static final String TAG = PrefsActivity.class.getSimpleName();
