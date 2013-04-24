@@ -666,7 +666,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 						new Intent( StatusActivity.this,
 							VortechPopupActivity.class );
 				i.putExtra( VortechPopupActivity.TYPE, type );
-				i.putExtra( VortechPopupActivity.PRE10_LOCATIONS,
+				i.putExtra( Globals.PRE10_LOCATIONS,
 							rapp.useOldPre10MemoryLocations() );
 				startActivity( i );
 			} else if ( action.equals( MessageCommands.MEMORY_RESPONSE_INTENT ) ) {
@@ -947,7 +947,10 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			case R.id.memory:
 				// launch memory
 				Log.d( TAG, "Memory clicked" );
-				startActivity( new Intent( this, MemoryTabsActivity.class ) );
+				Intent i = new Intent( this, MemoryTabsActivity.class );
+				i.putExtra( Globals.PRE10_LOCATIONS,
+							rapp.useOldPre10MemoryLocations() );
+				startActivity( i );
 				break;
 			case R.id.commands:
 				// launch commands

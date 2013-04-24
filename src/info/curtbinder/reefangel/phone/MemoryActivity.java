@@ -1,5 +1,3 @@
-package info.curtbinder.reefangel.phone;
-
 /*
  * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
  *
@@ -8,8 +6,11 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
+package info.curtbinder.reefangel.phone;
+
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.RequestCommands;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +28,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class MemoryActivity extends BaseActivity {
+public class MemoryActivity extends Activity {
 
 	private final static String TAG = MemoryActivity.class.getSimpleName();
 
@@ -64,6 +65,7 @@ public class MemoryActivity extends BaseActivity {
 	private RadioButton intButton;
 	private int[] memoryLocations;
 	private int[] memoryLocationsTypes;
+	private boolean preLocations;
 
 	MemoryReceiver receiver;
 	IntentFilter filter;
@@ -72,6 +74,13 @@ public class MemoryActivity extends BaseActivity {
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.memory );
 
+		Bundle b = getIntent().getExtras();
+		if ( b != null ) {
+			preLocations = b.getBoolean( Globals.PRE10_LOCATIONS );
+		} else {
+			preLocations = false;
+		}
+		
 		// Message receiver
 		receiver = new MemoryReceiver();
 		filter = new IntentFilter( MessageCommands.MEMORY_RESPONSE_INTENT );
@@ -291,7 +300,7 @@ public class MemoryActivity extends BaseActivity {
 	private void setItemSelected ( int id ) {
 		boolean enable = false;
 		int start;
-		if ( rapp.useOldPre10MemoryLocations() ) {
+		if ( preLocations ) {
 			start = LOCATION_START_OLD;
 		} else {
 			start = LOCATION_START;
@@ -362,7 +371,7 @@ public class MemoryActivity extends BaseActivity {
 					(int) Integer.parseInt( locationText.getText().toString() ) );
 		i.putExtra( MessageCommands.MEMORY_SEND_VALUE_INT, value );
 		sendBroadcast( i, Permissions.SEND_COMMAND );
-		Toast.makeText( MemoryActivity.this, rapp.getString( id ),
+		Toast.makeText( MemoryActivity.this, getResources().getString( id ),
 						Toast.LENGTH_LONG ).show();
 	}
 

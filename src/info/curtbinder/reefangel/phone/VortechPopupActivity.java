@@ -33,7 +33,6 @@ public class VortechPopupActivity extends Activity implements OnClickListener {
 			.getSimpleName();
 
 	public static final String TYPE = "vtType";
-	public static final String PRE10_LOCATIONS = "vtPreLocations";
 	public static final int MODE = 0;
 	public static final int SPEED = 1;
 	public static final int DURATION = 2;
@@ -52,7 +51,7 @@ public class VortechPopupActivity extends Activity implements OnClickListener {
 		Bundle b = getIntent().getExtras();
 		if ( b != null ) {
 			popupType = b.getInt( TYPE );
-			preLocations = b.getBoolean( PRE10_LOCATIONS );
+			preLocations = b.getBoolean( Globals.PRE10_LOCATIONS );
 		} else {
 			preLocations = false;
 		}

@@ -1,5 +1,3 @@
-package info.curtbinder.reefangel.phone;
-
 /*
  * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
  *
@@ -7,6 +5,8 @@ package info.curtbinder.reefangel.phone;
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
+
+package info.curtbinder.reefangel.phone;
 
 import android.app.TabActivity;
 import android.content.Intent;
@@ -21,13 +21,17 @@ public class MemoryTabsActivity extends TabActivity {
 
 		final TabHost t = getTabHost();
 
+		Intent i = new Intent( this, MemoryActivity.class );
+		i.putExtra( Globals.PRE10_LOCATIONS, getIntent().getExtras()
+				.getBoolean( Globals.PRE10_LOCATIONS, false ) );
+
 		t.addTab( t
 				.newTabSpec( getString( R.string.tabMemory1 ) )
 				.setIndicator(	getString( R.string.titleMemory ),
 								getResources()
 										.getDrawable(	android.R.drawable.ic_menu_agenda ) )
-				.setContent( new Intent( this, MemoryActivity.class ) ) );
-		
+				.setContent( i ) );
+
 		// t.addTab( t
 		// .newTabSpec( getString( R.string.tabMemory2 ) )
 		// .setIndicator( getString( R.string.titleDateTime ),
