@@ -1,5 +1,3 @@
-package info.curtbinder.reefangel.phone;
-
 /*
  * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
  *
@@ -8,8 +6,11 @@ package info.curtbinder.reefangel.phone;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
+package info.curtbinder.reefangel.phone;
+
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.RequestCommands;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -21,7 +22,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class CommandsActivity extends BaseActivity implements OnClickListener {
+public class CommandsActivity extends Activity implements OnClickListener {
 
 	// private static final String TAG = CommandsActivity.class.getSimpleName();
 
