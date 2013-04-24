@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
+Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  
 This work is made available under the terms of the 
 Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -11,27 +11,22 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
     <item
         android:id="@+id/settings"
-        android:alphabeticShortcut="@string/shortcutSettings"
         android:icon="@android:drawable/ic_menu_preferences"
         android:title="@string/menuMainSettings"/>
     <item
         android:id="@+id/params"
-        android:alphabeticShortcut="@string/shortcutParams"
         android:icon="@android:drawable/ic_menu_recent_history"
         android:title="@string/menuMainParams"/>
     <item
         android:id="@+id/commands"
-        android:alphabeticShortcut="@string/shortcutCommands"
         android:icon="@android:drawable/ic_menu_upload"
         android:title="@string/menuMainCommands"/>
     <item
         android:id="@+id/memory"
-        android:alphabeticShortcut="@string/shortcutMemory"
         android:icon="@android:drawable/ic_menu_agenda"
         android:title="@string/menuMainMemory"/>
     <item
         android:id="@+id/about"
-        android:alphabeticShortcut="@string/shortcutAbout"
         android:icon="@android:drawable/ic_menu_info_details"
         android:title="@string/menuMainAbout"/>
 

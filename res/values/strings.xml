@@ -42,14 +42,6 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/-->
     <string name="tabCommand1">command_tab_1</string>
     <string name="tabCommand2">command_tab_2</string>
 
-    <!-- Shortcut Keys -->
-    <string name="shortcutSettings">s</string>
-    <string name="shortcutAbout">a</string>
-    <string name="shortcutRefresh">r</string>
-    <string name="shortcutMemory">m</string>
-    <string name="shortcutParams">p</string>
-    <string name="shortcutCommands">c</string>
-
     <!-- Text descriptions -->
     <string name="textAbout">Monitors the status of your Reef Angel Controller and displays the values.  You must have a wifi attachment installed on
 your controller or have a ReefAngel UserID to use this app.</string>

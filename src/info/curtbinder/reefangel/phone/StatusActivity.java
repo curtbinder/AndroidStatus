@@ -473,19 +473,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		refreshButton.setText( s );
 	}
 
-	public boolean onKeyDown ( int keyCode, KeyEvent event ) {
-		switch ( keyCode ) {
-			case KeyEvent.KEYCODE_R:
-				// launch the update
-				Log.d( TAG, "onKeyDown R" );
-				launchStatusTask();
-				break;
-			default:
-				return super.onKeyDown( keyCode, event );
-		}
-		return true;
-	}
-
 	private void launchStatusTask ( ) {
 		Log.d( TAG, "launchStatusTask" );
 		Intent i = new Intent( MessageCommands.QUERY_STATUS_INTENT );
