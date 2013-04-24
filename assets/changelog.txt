@@ -1,6 +1,6 @@
 <html>
 <body>
-<b>0.8.3</b>
+<b>0.9.0</b>
 <ul>
 <li>added commands page to swipe left from the status page</li>
 <li>improved / updated all page layouts to be more consistent</li>
@@ -62,78 +62,6 @@
 <li>updated preference descriptions</li>
 <li>dropped support for devices below Android 2.0</li>
 <li>lots of code updates and reorganization</li>
-</ul>
-<br>
-<b>0.7.1</b>
-<ul>
-<li>fixed I/O port 0 only updating</li>
-<li>removed extra I/O port displaying</li>
-<li>updated module pages to be after the relay pages</li>
-<li>minor bug fixes</li>
-</ul>
-<br>
-<b>0.7</b>
-<ul>
-<li>fixed labels not downloading from portal</li>
-<li>added water level and ph expansion fields to database</li>
-<li>added dimming, radion, vortech, ai, io, custom variables pages (swipe)</li>
-<li>added ph expansion & water level displaying on status page</li>
-<li>added changelog displaying</li>
-<li>minor bug fixes and improvements</li>
-</ul>
-<br>
-<b>0.6.1</b>
-<ul>
-<li>added support for new 1.0 memory locations and ability to choose what locations to reference</li>
-<li>added PH expansion and water level xml tags to string file, not parsed yet though</li>
-<li>fixed parsing issue with byte storage values</li>
-<li>changed controller summary to say Expansion Modules instead of Relays</li>
-<li>added PH visibility toggling</li>
-<li>added additional memory locations</li>
-</ul>
-<br>
-<b>0.6.0</b>
-<ul>
-<li>added support for 0.8.5.x expansion relays with setting</li>
-<li>created custom widget for controller status information</li>
-<li>only set the labels for the expansion relay boxes displayed</li>
-<li>added swipe capabilities to change between screens</li>
-<li>separated main page into smaller screens: Status and Relay Boxes</li>
-<li>added remaining fields to database, all values are stored now just not displayed</li>
-<li>added ORP to status page</li>
-<li>changed 'first run' screen to be entirely scrollable</li>
-<li>added profiles</li>
-	<ul>
-	<li>ability to configure a home / away profile with different HOST & PORT values</li>
-	<li>long press on Refresh button to change/select profile</li>
-	<li>Refresh button label changes to "Refresh - Home" or "Refresh - Away"</li>
-	</ul>
-</ul>
-<br>
-<b>0.5.0</b>
-<ul>
-<li>added date and time screen to internal memory page</li>
-<li>moved commands from internal memory to its own menu</li>
-<li>expansion relays</li>
-	<ul>
-	<li>create expansion relay layouts</li>
-	<li>allow for expansion relay quantity settings in prefs</li>
-	<li>alters displays based on qty</li>
-	<li>additional relay labels screen based on quantity of relay labels installed</li>
-	</ul>
-<li>downloading labels from portal no longer inserts NULL when no label is set</li>
-<li>added reset all labels that resets back to defaults</li>
-<li>finish button on First Run screen uses string resources</li>
-</ul>
-<br>
-<b>0.4.4</b>
-<ul>
-<li>added in pwm expansion relay channel start %, end % and duration memory values</li>
-<li>added in new ato and ato high timeout memory locations</li>
-<li>added in ato clear and overheat clear buttons to commands page</li>
-<li>switched to new portal urls for parameters and controller labels</li>
-<li>added 'first run' screen when the app is first installed</li>
-<li>fixed sending commands in reefangel.com mode, displays popup that it's not a controller</li>
 </ul>
 </body>
 </html>

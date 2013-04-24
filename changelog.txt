@@ -158,7 +158,7 @@ Changelog of all the versions of AndroidStatus
  * moved date and time tab from memory to commands page
  * code updates
 
-0.8.3
+0.9.0
  * added commands page to swipe left from the status page
  * improved / updated all page layouts to be more consistent
  * fixed crash with downloading labels
