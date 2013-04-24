@@ -1,18 +1,19 @@
-package info.curtbinder.reefangel.phone;
-
 /*
- * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
+ * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  *
  * This work is made available under the terms of the 
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
+package info.curtbinder.reefangel.phone;
+
 import info.curtbinder.reefangel.controller.DateTime;
 import info.curtbinder.reefangel.service.MessageCommands;
 
 import java.util.Calendar;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
@@ -29,7 +30,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-public class DateTimeActivity extends BaseActivity implements OnClickListener {
+public class DateTimeActivity extends Activity implements OnClickListener {
 
 	private static final String TAG = DateTimeActivity.class.getSimpleName();
 

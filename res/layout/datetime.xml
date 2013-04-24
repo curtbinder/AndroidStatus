@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
+Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  
 This work is made available under the terms of the 
 Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
-http://creativecommons.org/licenses/by-nc-sa/3.0/
+http://creativecommons.org/licenses/by-nc-sa/3.0/
 -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scrollView1"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
     <TableLayout
         android:id="@+id/tableLayout1"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:text="@string/descriptionCurrentControllerTime" />
 
         <TableRow
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp" >
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:text="@string/labelController" />
@@ -40,40 +40,43 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             <TextView
                 android:id="@+id/timeTextControllerTime"
                 style="@style/UpdateText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp" />
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:gravity="center" />
+
         </TableRow>
 
         <Button
             android:id="@+id/timeButtonGetControllerTime"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/buttonGetControllerTime" />
 
         <Button
             android:id="@+id/timeButtonSetCurrentTime"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/buttonSetCurrentTime" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:text="@string/descriptionCustomControllerTime" />
 
         <TableRow
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp" >
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:text="@string/labelTime" />
@@ -81,20 +84,22 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             <TextView
                 android:id="@+id/timeTextCustomTime"
                 style="@style/UpdateText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp" />
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:gravity="center" />
         </TableRow>
 
         <TableRow
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp" >
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:text="@string/labelDate" />
@@ -102,27 +107,29 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             <TextView
                 android:id="@+id/timeTextCustomDate"
                 style="@style/UpdateText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp" />
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:gravity="center" />
         </TableRow>
 
         <TableRow
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp" >
 
             <Button
                 android:id="@+id/timeButtonChangeTime"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/buttonChangeTime" />
 
             <Button
                 android:id="@+id/timeButtonChangeDate"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/buttonChangeDate" />
@@ -130,7 +137,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
         <Button
             android:id="@+id/timeButtonSetCustomTime"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/buttonSetCustomTime" />
     </TableLayout>
