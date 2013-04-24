@@ -12,6 +12,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/-->
     <string name="app_version">0.9.0</string>
 
     <!-- Menu Labels -->
+    <string name="menuMainRefresh">Refresh</string>
     <string name="menuMainSettings">Settings</string>
     <string name="menuMainAbout">About</string>
     <string name="menuMainCommands">Commands</string>

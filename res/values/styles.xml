@@ -8,23 +8,29 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 -->
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+
     <style name="UpdateText" parent="@android:style/TextAppearance">
         <item name="android:textSize">14sp</item>
     </style>
+
     <style name="UpdateText.Status">
         <item name="android:textColor">@color/updated_text</item>
         <item name="android:padding">10dp</item>
     </style>
+
     <style name="ParamsText" parent="@android:style/TextAppearance">
         <item name="android:textSize">24sp</item>
     </style>
+
     <style name="CommandButtons">
         <item name="android:padding">10dp</item>
         <item name="android:layout_margin">8dp</item>
     </style>
-    
+
     <style name="LightTheme" parent="Theme.Sherlock.Light"></style>
+
     <style name="DarkTheme" parent="Theme.Sherlock"></style>
-    <style name="Dialog" parent="android:Theme.Dialog">
-    </style>
+
+    <style name="Dialog" parent="android:Theme.Dialog"></style>
+
 </resources>

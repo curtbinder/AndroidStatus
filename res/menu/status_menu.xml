@@ -10,24 +10,34 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
+        android:id="@+id/refresh"
+        android:icon="@drawable/ic_action_reload"
+        android:showAsAction="always"
+        android:title="@string/menuMainRefresh"/>
+    <item
         android:id="@+id/settings"
-        android:icon="@android:drawable/ic_menu_preferences"
+        android:icon="@drawable/ic_action_settings"
+        android:showAsAction="never"
         android:title="@string/menuMainSettings"/>
     <item
+        android:id="@+id/memory"
+        android:icon="@drawable/ic_action_flash"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/menuMainMemory"/>
+    <item
         android:id="@+id/params"
-        android:icon="@android:drawable/ic_menu_recent_history"
+        android:icon="@drawable/ic_action_list"
+        android:showAsAction="ifRoom|withText"
         android:title="@string/menuMainParams"/>
     <item
         android:id="@+id/commands"
-        android:icon="@android:drawable/ic_menu_upload"
+        android:icon="@drawable/ic_action_upload"
+        android:showAsAction="never"
         android:title="@string/menuMainCommands"/>
     <item
-        android:id="@+id/memory"
-        android:icon="@android:drawable/ic_menu_agenda"
-        android:title="@string/menuMainMemory"/>
-    <item
         android:id="@+id/about"
-        android:icon="@android:drawable/ic_menu_info_details"
+        android:icon="@drawable/ic_action_info"
+        android:showAsAction="never"
         android:title="@string/menuMainAbout"/>
 
 </menu>
