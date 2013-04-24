@@ -25,10 +25,8 @@ import info.curtbinder.reefangel.service.XMLTags;
 
 import java.util.Locale;
 
-import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
@@ -43,7 +41,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,9 +56,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private boolean fReloadPages = false;
 
 	// Display views
-	private Button refreshButton;
+//	private Button refreshButton;
 	private TextView updateTime;
-	// private TextView messageText;
 	private ViewPager pager;
 	private CustomPagerAdapter pagerAdapter;
 	private String[] profiles;
@@ -110,9 +106,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	// Message Receivers
 	StatusReceiver receiver;
 	IntentFilter filter;
-
-	// View visibility
-	// private boolean showMessageText;
 
 	/** Called when the activity is first created. */
 
@@ -200,7 +193,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private void findViews ( ) {
-		refreshButton = (Button) findViewById( R.id.refresh_button );
 		updateTime = (TextView) findViewById( R.id.updated );
 		pager = (ViewPager) findViewById( R.id.pager );
 	}
@@ -215,8 +207,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private void setOnClickListeners ( ) {
-		refreshButton.setOnClickListener( this );
-		refreshButton.setOnLongClickListener( this );
+//		refreshButton.setOnClickListener( this );
+//		refreshButton.setOnLongClickListener( this );
 		// TODO consider clearing click listeners and updating clickable always
 		int i;
 		if ( rapp.isCommunicateController() ) {
@@ -237,8 +229,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private void updateViewsVisibility ( ) {
 		// updates all the views visibility based on user settings
 		// get values from Preferences
-		// showMessageText = false;
 
+		// TODO split into multiple functions
 		// Labels
 		updateRefreshButtonLabel();
 		pageController.setLabel(	ControllerPage.T1_INDEX,
@@ -399,19 +391,16 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// TODO consider hiding dimming channels not in use
 		// TODO consider hiding custom variables not in use
 		// TODO consider hiding io channels not in use
-
-		// if ( ! showMessageText )
-		// messageText.setVisibility(View.GONE);
 	}
 
 	public void onClick ( View v ) {
-		switch ( v.getId() ) {
-			case R.id.refresh_button:
-				// launch the update
-				Log.d( TAG, "onClick Refresh button" );
-				launchStatusTask();
-				break;
-		}
+//		switch ( v.getId() ) {
+//			case R.id.refresh_button:
+//				// launch the update
+//				Log.d( TAG, "onClick Refresh button" );
+//				launchStatusTask();
+//				break;
+//		}
 	}
 
 	public boolean onLongClick ( View v ) {
@@ -419,45 +408,47 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// the long clicks
 		if ( !rapp.isCommunicateController() )
 			return true;
-
-		switch ( v.getId() ) {
-			case R.id.refresh_button:
-				// launch the profile selector
-				Log.d( TAG, "onLongClick Refresh button" );
-				if ( !rapp.isAwayProfileEnabled() ) {
-					Log.d( TAG, "Away profile not enabled, cancelling" );
-					return true;
-				}
-				DialogInterface.OnClickListener ocl =
-						new DialogInterface.OnClickListener() {
-
-							public void onClick (
-									DialogInterface dialog,
-									int item ) {
-								switchProfiles( item );
-								dialog.dismiss();
-							}
-						};
-				AlertDialog.Builder builder = new AlertDialog.Builder( this );
-				builder.setTitle( R.string.titleSelectProfile );
-				builder.setSingleChoiceItems(	profiles,
-												rapp.getSelectedProfile(), ocl );
-				AlertDialog dlg = builder.create();
-				dlg.show();
-				return true;
-		}
+		// TODO fix switching profiles
+//
+//		switch ( v.getId() ) {
+//			case R.id.refresh_button:
+//				// launch the profile selector
+//				Log.d( TAG, "onLongClick Refresh button" );
+//				if ( !rapp.isAwayProfileEnabled() ) {
+//					Log.d( TAG, "Away profile not enabled, cancelling" );
+//					return true;
+//				}
+//				DialogInterface.OnClickListener ocl =
+//						new DialogInterface.OnClickListener() {
+//
+//							public void onClick (
+//									DialogInterface dialog,
+//									int item ) {
+//								switchProfiles( item );
+//								dialog.dismiss();
+//							}
+//						};
+//				AlertDialog.Builder builder = new AlertDialog.Builder( this );
+//				builder.setTitle( R.string.titleSelectProfile );
+//				builder.setSingleChoiceItems(	profiles,
+//												rapp.getSelectedProfile(), ocl );
+//				AlertDialog dlg = builder.create();
+//				dlg.show();
+//				return true;
+//		}
 		return false;
 	}
 
-	private void switchProfiles ( int id ) {
-		String s = "Switched to profile: " + profiles[id];
-		Log.d( TAG, s );
-		Toast.makeText( getApplicationContext(), s, Toast.LENGTH_SHORT ).show();
-		rapp.setSelectedProfile( id );
-		updateRefreshButtonLabel();
-	}
+//	private void switchProfiles ( int id ) {
+//		String s = "Switched to profile: " + profiles[id];
+//		Log.d( TAG, s );
+//		Toast.makeText( getApplicationContext(), s, Toast.LENGTH_SHORT ).show();
+//		rapp.setSelectedProfile( id );
+//		updateRefreshButtonLabel();
+//	}
 
 	private void updateRefreshButtonLabel ( ) {
+		// TODO update function to reflect switching profile
 		// button label will be: Refresh - PROFILE
 		// only allow for the changing of the label IF it's a controller
 		// AND if the away profile is enabled
@@ -469,7 +460,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 									profiles[rapp.getSelectedProfile()] );
 		else
 			s = getString( R.string.buttonRefresh );
-		refreshButton.setText( s );
+		Log.d( TAG, "Refresh Label: " + s );
+//		refreshButton.setText( s );
 	}
 
 	private void launchStatusTask ( ) {
@@ -804,7 +796,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private void checkDeviceModules ( short newEM, short newREM ) {
-		Log.d( TAG, "check modules" );
 		boolean fReload = false;
 		short oldEM = (short) rapp.getPreviousEM();
 		Log.d( TAG, "Old: " + oldEM + " New: " + newEM );
@@ -889,7 +880,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private void reloadPages ( ) {
-		Log.d( TAG, "reload pages" );
 		// scroll to first page on entering settings
 		pager.setCurrentItem( POS_CONTROLLER );
 		// force the pages to be redrawn if we enter settings
@@ -898,7 +888,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 	private void redrawPages ( ) {
 		// redraw the pages
-		Log.d( TAG, "Redraw the pages" );
 		updatePageOrder();
 		pagerAdapter.notifyDataSetChanged();
 		fReloadPages = false;
@@ -915,24 +904,24 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	public boolean onOptionsItemSelected ( MenuItem item ) {
 		// Handle item selection
 		switch ( item.getItemId() ) {
+			case R.id.refresh:
+				// launch the update
+				launchStatusTask();
+				break;
 			case R.id.settings:
 				// launch settings
-				Log.d( TAG, "Settings clicked" );
 				reloadPages();
 				startActivity( new Intent( this, PrefsActivity.class ) );
 				break;
 			case R.id.about:
 				// launch about box
-				Log.d( TAG, "About clicked" );
 				startActivity( new Intent( this, AboutActivity.class ) );
 				break;
 			case R.id.params:
-				Log.d( TAG, "Parameters clicked" );
 				startActivity( new Intent( this, ParamsListActivity.class ) );
 				break;
 			case R.id.memory:
 				// launch memory
-				Log.d( TAG, "Memory clicked" );
 				Intent i = new Intent( this, MemoryTabsActivity.class );
 				i.putExtra( Globals.PRE10_LOCATIONS,
 							rapp.useOldPre10MemoryLocations() );
@@ -940,7 +929,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 				break;
 			case R.id.commands:
 				// launch commands
-				Log.d( TAG, "Commands clicked" );
 				startActivity( new Intent( this, CommandTabsActivity.class ) );
 				break;
 			default:
@@ -950,7 +938,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private void setPagerPrefs ( ) {
-		Log.d( TAG, "Create pager adapter" );
 		pagerAdapter = new CustomPagerAdapter();
 		pager.setAdapter( pagerAdapter );
 		// Set the minimum pages to keep loaded
@@ -969,59 +956,59 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		for ( i = POS_START, j = POS_START; i <= POS_END; i++ ) {
 			switch ( i ) {
 				case POS_COMMANDS:
-					Log.d( TAG, j + ": Commands" );
+					//Log.d( TAG, j + ": Commands" );
 					appPages[j] = pageCommands;
 					j++;
 					break;
 				case POS_CONTROLLER:
-					Log.d( TAG, j + ": Controller" );
+					//Log.d( TAG, j + ": Controller" );
 					appPages[j] = pageController;
 					j++;
 					break;
 				case POS_DIMMING:
 					if ( rapp.getDimmingModuleEnabled() ) {
-						Log.d( TAG, j + ": Dimming" );
+						//Log.d( TAG, j + ": Dimming" );
 						appPages[j] = pageDimming;
 						j++;
 					}
 					break;
 				case POS_RADION:
 					if ( rapp.getRadionModuleEnabled() ) {
-						Log.d( TAG, j + ": Radion" );
+						//Log.d( TAG, j + ": Radion" );
 						appPages[j] = pageRadion;
 						j++;
 					}
 					break;
 				case POS_VORTECH:
 					if ( rapp.getVortechModuleEnabled() ) {
-						Log.d( TAG, j + ": Vortech" );
+						//Log.d( TAG, j + ": Vortech" );
 						appPages[j] = pageVortech;
 						j++;
 					}
 					break;
 				case POS_AI:
 					if ( rapp.getAIModuleEnabled() ) {
-						Log.d( TAG, j + ": AI" );
+						//Log.d( TAG, j + ": AI" );
 						appPages[j] = pageAI;
 						j++;
 					}
 					break;
 				case POS_IO:
 					if ( rapp.getIOModuleEnabled() ) {
-						Log.d( TAG, j + ": IO" );
+						//Log.d( TAG, j + ": IO" );
 						appPages[j] = pageIO;
 						j++;
 					}
 					break;
 				case POS_CUSTOM:
 					if ( rapp.getCustomModuleEnabled() ) {
-						Log.d( TAG, j + ": Custom" );
+						//Log.d( TAG, j + ": Custom" );
 						appPages[j] = pageCustom;
 						j++;
 					}
 					break;
 				case POS_MAIN_RELAY:
-					Log.d( TAG, j + ": Main Relay" );
+					//Log.d( TAG, j + ": Main Relay" );
 					appPages[j] = pageMain;
 					j++;
 					break;
@@ -1036,7 +1023,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 					if ( qty > 0 ) {
 						int relay = i - POS_EXP1_RELAY;
 						if ( relay < qty ) {
-							Log.d( TAG, j + ": Exp Relay " + relay );
+							//Log.d( TAG, j + ": Exp Relay " + relay );
 							appPages[j] = pageExpRelays[relay];
 							j++;
 						}
