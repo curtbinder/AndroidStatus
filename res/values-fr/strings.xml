@@ -83,8 +83,9 @@ Attribution - Pas d\'Utilisation Commerciale - Partage à l\'Identique 3.0</stri
     <string name="labelOverheatClear">Surchauffe effacée</string>
     <string name="labelVersion">Version Installée:</string>
     <string name="labelValue">Valeur:</string>
-	<string name="labelController">Contrôleur:</string>
-	<string name="labelTime">Heure:</string>
+	<string name="labelDateController">Contrôleur:</string>
+	<string name="labelController">Contrôleur</string>
+	<string name="labelDateTime">Heure:</string>
 
     <!-- Messages -->
 	<string name="messageEmptyParams">Aucun paramètre trouvé</string>

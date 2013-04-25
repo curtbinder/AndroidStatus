@@ -1,5 +1,3 @@
-package info.curtbinder.reefangel.phone.pages;
-
 /*
  * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  * 
@@ -7,6 +5,8 @@ package info.curtbinder.reefangel.phone.pages;
  * Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
+
+package info.curtbinder.reefangel.phone.pages;
 
 import info.curtbinder.reefangel.phone.Permissions;
 import info.curtbinder.reefangel.phone.R;
@@ -19,10 +19,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ScrollView;
 
-public class CommandsPage extends ScrollView implements OnClickListener {
-	//private static final String TAG = CommandsPage.class.getSimpleName();
+public class CommandsPage extends RAPage implements OnClickListener {
+	// private static final String TAG = CommandsPage.class.getSimpleName();
 
 	Context ctx; // saved context from parent
 
@@ -47,15 +46,15 @@ public class CommandsPage extends ScrollView implements OnClickListener {
 	}
 
 	private void findViews ( ) {
-		Button b = (Button)findViewById(R.id.command_button_feed);
+		Button b = (Button) findViewById( R.id.command_button_feed );
 		b.setOnClickListener( this );
-		b = (Button)findViewById(R.id.command_button_water);
+		b = (Button) findViewById( R.id.command_button_water );
 		b.setOnClickListener( this );
-		b = (Button)findViewById(R.id.command_button_exit);
+		b = (Button) findViewById( R.id.command_button_exit );
 		b.setOnClickListener( this );
-		b = (Button)findViewById(R.id.command_button_ato_clear);
+		b = (Button) findViewById( R.id.command_button_ato_clear );
 		b.setOnClickListener( this );
-		b = (Button)findViewById(R.id.command_button_overheat_clear);
+		b = (Button) findViewById( R.id.command_button_overheat_clear );
 		b.setOnClickListener( this );
 	}
 
@@ -91,6 +90,11 @@ public class CommandsPage extends ScrollView implements OnClickListener {
 				break;
 		}
 		ctx.sendBroadcast( i, Permissions.SEND_COMMAND );
+	}
+
+	@Override
+	public String getPageTitle ( ) {
+		return ctx.getResources().getString( R.string.titleCommands );
 	}
 
 }

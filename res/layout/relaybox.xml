@@ -17,11 +17,6 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         android:padding="8dp"
         android:stretchColumns="1" >
 
-        <TextView
-            android:id="@+id/relayTitle"
-            style="@style/ParamsText"
-            android:text="@string/labelRelayBox" />
-
         <include
             android:id="@+id/rowPort1"
             layout="@layout/relayboxrow" />

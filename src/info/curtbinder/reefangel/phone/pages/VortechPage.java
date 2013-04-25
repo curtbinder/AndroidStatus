@@ -20,11 +20,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
-import android.widget.ScrollView;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-public class VortechPage extends ScrollView implements OnLongClickListener {
+public class VortechPage extends RAPage implements OnLongClickListener {
 	private static final String TAG = VortechPage.class.getSimpleName();
 
 	Context ctx; // saved context from parent
@@ -119,5 +118,10 @@ public class VortechPage extends ScrollView implements OnLongClickListener {
 		Intent i = new Intent( MessageCommands.VORTECH_UPDATE_INTENT );
 		i.putExtra( MessageCommands.VORTECH_UPDATE_TYPE, type );
 		ctx.sendBroadcast( i, Permissions.SEND_COMMAND );
+	}
+
+	@Override
+	public String getPageTitle ( ) {
+		return ctx.getResources().getString( R.string.labelVortech );
 	}
 }

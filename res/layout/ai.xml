@@ -17,10 +17,6 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         android:padding="8dp"
         android:stretchColumns="1" >
 
-        <TextView
-            style="@style/ParamsText"
-            android:text="@string/labelAI" />
-
         <include
             android:id="@+id/rowAIWhite"
             layout="@layout/genericlabelsinglerow" />

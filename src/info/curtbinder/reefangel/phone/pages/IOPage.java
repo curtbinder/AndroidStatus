@@ -1,5 +1,3 @@
-package info.curtbinder.reefangel.phone.pages;
-
 /*
  * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  * 
@@ -8,6 +6,8 @@ package info.curtbinder.reefangel.phone.pages;
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
+package info.curtbinder.reefangel.phone.pages;
+
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.phone.R;
 import android.content.Context;
@@ -15,11 +15,10 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ScrollView;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-public class IOPage extends ScrollView {
+public class IOPage extends RAPage {
 	private static final String TAG = IOPage.class.getSimpleName();
 
 	Context ctx; // saved context from parent
@@ -88,6 +87,11 @@ public class IOPage extends ScrollView {
 		for ( int i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
 			ioText[i].setText( v[i] );
 		}
+	}
+
+	@Override
+	public String getPageTitle ( ) {
+		return ctx.getResources().getString( R.string.labelIO );
 	}
 
 }

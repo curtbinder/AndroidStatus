@@ -13,11 +13,10 @@ import info.curtbinder.reefangel.phone.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.widget.ScrollView;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-public class RadionPage extends ScrollView {
+public class RadionPage extends RAPage {
 	// private static final String TAG = RadionWidget.class.getSimpleName();
 
 	Context ctx; // saved context from parent
@@ -56,31 +55,27 @@ public class RadionPage extends ScrollView {
 		radionText[1].setTextColor( ctx.getResources()
 				.getColor( R.color.royalblue ) );
 		tv = (TextView) tr.findViewById( R.id.rowTitle );
-		tv.setTextColor( ctx
-				.getResources().getColor( R.color.royalblue ) );
+		tv.setTextColor( ctx.getResources().getColor( R.color.royalblue ) );
 		tv.setText( R.string.labelRoyalBlue );
 		tr = (TableRow) findViewById( R.id.rowRed );
 		radionText[2] = (TextView) tr.findViewById( R.id.rowValue );
 		radionText[2].setTextColor( ctx.getResources().getColor( R.color.red ) );
 		tv = (TextView) tr.findViewById( R.id.rowTitle );
-		tv.setTextColor( ctx
-				.getResources().getColor( R.color.red ) );
+		tv.setTextColor( ctx.getResources().getColor( R.color.red ) );
 		tv.setText( R.string.labelRed );
 		tr = (TableRow) findViewById( R.id.rowGreen );
 		radionText[3] = (TextView) tr.findViewById( R.id.rowValue );
 		radionText[3]
 				.setTextColor( ctx.getResources().getColor( R.color.green ) );
 		tv = (TextView) tr.findViewById( R.id.rowTitle );
-		tv.setTextColor( ctx
-				.getResources().getColor( R.color.green ) );
+		tv.setTextColor( ctx.getResources().getColor( R.color.green ) );
 		tv.setText( R.string.labelGreen );
 		tr = (TableRow) findViewById( R.id.rowBlue );
 		radionText[4] = (TextView) tr.findViewById( R.id.rowValue );
 		radionText[4]
 				.setTextColor( ctx.getResources().getColor( R.color.blue ) );
 		tv = (TextView) tr.findViewById( R.id.rowTitle );
-		tv.setTextColor( ctx
-				.getResources().getColor( R.color.blue ) );
+		tv.setTextColor( ctx.getResources().getColor( R.color.blue ) );
 		tv.setText( R.string.labelBlue );
 		tr = (TableRow) findViewById( R.id.rowIntensity );
 		radionText[5] = (TextView) tr.findViewById( R.id.rowValue );
@@ -98,6 +93,11 @@ public class RadionPage extends ScrollView {
 		for ( int i = 0; i < Controller.MAX_RADION_LIGHT_CHANNELS; i++ ) {
 			radionText[i].setText( v[i] );
 		}
+	}
+
+	@Override
+	public String getPageTitle ( ) {
+		return ctx.getResources().getString( R.string.labelRadion );
 	}
 
 }

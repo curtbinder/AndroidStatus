@@ -13,11 +13,10 @@ import info.curtbinder.reefangel.phone.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.widget.ScrollView;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-public class AIPage extends ScrollView {
+public class AIPage extends RAPage {
 	// private static final String TAG = AIWidget.class.getSimpleName();
 
 	Context ctx; // saved context from parent
@@ -74,6 +73,11 @@ public class AIPage extends ScrollView {
 		for ( int i = 0; i < Controller.MAX_AI_CHANNELS; i++ ) {
 			aiText[i].setText( v[i] );
 		}
+	}
+
+	@Override
+	public String getPageTitle ( ) {
+		return ctx.getResources().getString( R.string.labelAI );
 	}
 
 }

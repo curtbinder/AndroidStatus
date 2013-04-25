@@ -15,11 +15,6 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
-        <TextView
-            style="@style/ParamsText"
-            android:paddingBottom="10sp"
-            android:text="@string/titleCommands" />
-
         <Button
             android:id="@+id/command_button_feed"
             style="@style/CommandButtons"

@@ -17,6 +17,7 @@ import info.curtbinder.reefangel.phone.pages.ControllerPage;
 import info.curtbinder.reefangel.phone.pages.CustomPage;
 import info.curtbinder.reefangel.phone.pages.DimmingPage;
 import info.curtbinder.reefangel.phone.pages.IOPage;
+import info.curtbinder.reefangel.phone.pages.RAPage;
 import info.curtbinder.reefangel.phone.pages.RadionPage;
 import info.curtbinder.reefangel.phone.pages.RelayBoxPage;
 import info.curtbinder.reefangel.phone.pages.VortechPage;
@@ -47,6 +48,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.viewpagerindicator.TitlePageIndicator;
 
 public class StatusActivity extends BaseActivity implements OnClickListener,
 		OnLongClickListener {
@@ -60,6 +62,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private TextView updateTime;
 	private ViewPager pager;
 	private CustomPagerAdapter pagerAdapter;
+	private TitlePageIndicator titleIndicator;
 	//private String[] profiles;
 	private String[] vortechModes;
 	private View[] appPages;
@@ -195,6 +198,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private void findViews ( ) {
 		updateTime = (TextView) findViewById( R.id.updated );
 		pager = (ViewPager) findViewById( R.id.pager );
+		titleIndicator = (TitlePageIndicator) findViewById( R.id.indicator );
 	}
 
 	private void disableRelayButtons ( ) {
@@ -295,37 +299,6 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	
 	private void setRelayLabels ( ) {
 		int qty = rapp.getPrefExpansionRelayQuantity();
-		pageMain.setRelayTitle( getString( R.string.prefMainRelayTitle ) );
-		// set the labels
-
-		switch ( qty ) {
-			case 8:
-				pageExpRelays[7]
-						.setRelayTitle( getString( R.string.prefExp8RelayTitle ) );
-			case 7:
-				pageExpRelays[6]
-						.setRelayTitle( getString( R.string.prefExp7RelayTitle ) );
-			case 6:
-				pageExpRelays[5]
-						.setRelayTitle( getString( R.string.prefExp6RelayTitle ) );
-			case 5:
-				pageExpRelays[4]
-						.setRelayTitle( getString( R.string.prefExp5RelayTitle ) );
-			case 4:
-				pageExpRelays[3]
-						.setRelayTitle( getString( R.string.prefExp4RelayTitle ) );
-			case 3:
-				pageExpRelays[2]
-						.setRelayTitle( getString( R.string.prefExp3RelayTitle ) );
-			case 2:
-				pageExpRelays[1]
-						.setRelayTitle( getString( R.string.prefExp2RelayTitle ) );
-			case 1:
-				pageExpRelays[0]
-						.setRelayTitle( getString( R.string.prefExp1RelayTitle ) );
-			default:
-				break;
-		}
 		
 		String defaultPort = getString( R.string.defaultPortName );
 		for ( int i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
@@ -916,6 +889,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		// Set the minimum pages to keep loaded
 		// will set to minimum pages since the pages are not complex
 		pager.setOffscreenPageLimit( MIN_PAGES );
+		titleIndicator.setViewPager( pager );
 	}
 
 	private void updatePageOrder ( ) {
@@ -1017,6 +991,10 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		public int getCount ( ) {
 			int qty = MIN_PAGES + rapp.getTotalInstalledModuleQuantity();
 			return qty;
+		}
+		
+		public CharSequence getPageTitle ( int position ) {
+			return ((RAPage)appPages[position]).getPageTitle();
 		}
 
 		public void destroyItem (

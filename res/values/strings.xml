@@ -93,6 +93,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <!-- Labels -->
     <string name="labelLastUpdated">Last Updated:</string>
     <string name="labelStatus">Status</string>
+    <string name="labelController">Controller</string>
     <string name="labelTemp1">T1</string>
     <string name="labelTemp2">T2</string>
     <string name="labelTemp3">T3</string>
@@ -124,8 +125,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="labelLocation">Location:</string>
     <string name="labelValue">Value:</string>
     <string name="labelType">Type:</string>
-    <string name="labelController">Controller:</string>
-    <string name="labelTime">Time:</string>
+    <string name="labelDateController">Controller:</string>
+    <string name="labelDateTime">Time:</string>
     <string name="labelDate">Date:</string>
     <string name="labelDimming">Dimming</string>
     <string name="labelRadion">Radion</string>

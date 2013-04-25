@@ -35,7 +35,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:text="@string/labelController" />
+                android:text="@string/labelDateController" />
 
             <TextView
                 android:id="@+id/timeTextControllerTime"
@@ -45,8 +45,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:gravity="center" />
-
+                android:gravity="center"
+                android:textIsSelectable="false" />
         </TableRow>
 
         <Button
@@ -79,7 +79,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:text="@string/labelTime" />
+                android:text="@string/labelDateTime" />
 
             <TextView
                 android:id="@+id/timeTextCustomTime"
@@ -89,7 +89,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:gravity="center" />
+                android:gravity="center"
+                android:textIsSelectable="false" />
         </TableRow>
 
         <TableRow
@@ -112,7 +113,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:gravity="center" />
+                android:gravity="center"
+                android:textIsSelectable="false" />
         </TableRow>
 
         <TableRow
