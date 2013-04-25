@@ -159,8 +159,11 @@ Changelog of all the versions of AndroidStatus
  * code updates
 
 0.9.0
+ * added actionbar support
+ * added indicators to pages
  * added commands page to swipe left from the status page
  * improved / updated all page layouts to be more consistent
  * fixed crash with downloading labels
- * code updates
+ * code updates and cleanup
+ * added new icons
  

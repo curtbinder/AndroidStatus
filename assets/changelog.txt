@@ -2,6 +2,9 @@
 <body>
 <b>0.9.0</b>
 <ul>
+<li>added actionbar support</li>
+<li>added indicators to pages</li>
+<li>added new icons</li>
 <li>added commands page to swipe left from the status page</li>
 <li>improved / updated all page layouts to be more consistent</li>
 <li>fixed crash with downloading labels</li>
