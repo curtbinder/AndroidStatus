@@ -1,5 +1,3 @@
-package info.curtbinder.reefangel.phone.pages;
-
 /*
  * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  * 
@@ -7,6 +5,8 @@ package info.curtbinder.reefangel.phone.pages;
  * Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
+
+package info.curtbinder.reefangel.phone.pages;
 
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.phone.R;
@@ -46,33 +46,46 @@ public class RadionPage extends ScrollView {
 
 	private void findViews ( ) {
 		TableRow tr;
+		TextView tv;
 		tr = (TableRow) findViewById( R.id.rowWhite );
 		radionText[0] = (TextView) tr.findViewById( R.id.rowValue );
+		tv = (TextView) tr.findViewById( R.id.rowTitle );
+		tv.setText( R.string.labelWhite );
 		tr = (TableRow) findViewById( R.id.rowRoyalBlue );
 		radionText[1] = (TextView) tr.findViewById( R.id.rowValue );
 		radionText[1].setTextColor( ctx.getResources()
 				.getColor( R.color.royalblue ) );
-		((TextView) tr.findViewById( R.id.rowTitle )).setTextColor( ctx
+		tv = (TextView) tr.findViewById( R.id.rowTitle );
+		tv.setTextColor( ctx
 				.getResources().getColor( R.color.royalblue ) );
+		tv.setText( R.string.labelRoyalBlue );
 		tr = (TableRow) findViewById( R.id.rowRed );
 		radionText[2] = (TextView) tr.findViewById( R.id.rowValue );
 		radionText[2].setTextColor( ctx.getResources().getColor( R.color.red ) );
-		((TextView) tr.findViewById( R.id.rowTitle )).setTextColor( ctx
+		tv = (TextView) tr.findViewById( R.id.rowTitle );
+		tv.setTextColor( ctx
 				.getResources().getColor( R.color.red ) );
+		tv.setText( R.string.labelRed );
 		tr = (TableRow) findViewById( R.id.rowGreen );
 		radionText[3] = (TextView) tr.findViewById( R.id.rowValue );
 		radionText[3]
 				.setTextColor( ctx.getResources().getColor( R.color.green ) );
-		((TextView) tr.findViewById( R.id.rowTitle )).setTextColor( ctx
+		tv = (TextView) tr.findViewById( R.id.rowTitle );
+		tv.setTextColor( ctx
 				.getResources().getColor( R.color.green ) );
+		tv.setText( R.string.labelGreen );
 		tr = (TableRow) findViewById( R.id.rowBlue );
 		radionText[4] = (TextView) tr.findViewById( R.id.rowValue );
 		radionText[4]
 				.setTextColor( ctx.getResources().getColor( R.color.blue ) );
-		((TextView) tr.findViewById( R.id.rowTitle )).setTextColor( ctx
+		tv = (TextView) tr.findViewById( R.id.rowTitle );
+		tv.setTextColor( ctx
 				.getResources().getColor( R.color.blue ) );
+		tv.setText( R.string.labelBlue );
 		tr = (TableRow) findViewById( R.id.rowIntensity );
 		radionText[5] = (TextView) tr.findViewById( R.id.rowValue );
+		tv = (TextView) tr.findViewById( R.id.rowTitle );
+		tv.setText( R.string.labelIntensity );
 
 	}
 

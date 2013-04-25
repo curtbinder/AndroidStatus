@@ -1,5 +1,3 @@
-package info.curtbinder.reefangel.phone.pages;
-
 /*
  * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  * 
@@ -7,6 +5,8 @@ package info.curtbinder.reefangel.phone.pages;
  * Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
+
+package info.curtbinder.reefangel.phone.pages;
 
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.phone.R;
@@ -45,19 +45,24 @@ public class AIPage extends ScrollView {
 
 	private void findViews ( ) {
 		TableRow tr;
+		TextView tv;
 		tr = (TableRow) findViewById( R.id.rowAIWhite );
 		aiText[0] = (TextView) tr.findViewById( R.id.rowValue );
+		tv = (TextView) tr.findViewById( R.id.rowTitle );
+		tv.setText( R.string.labelWhite );
 		tr = (TableRow) findViewById( R.id.rowAIBlue );
 		aiText[1] = (TextView) tr.findViewById( R.id.rowValue );
 		aiText[1].setTextColor( ctx.getResources().getColor( R.color.blue ) );
-		((TextView) tr.findViewById( R.id.rowTitle )).setTextColor( ctx
-				.getResources().getColor( R.color.blue ) );
+		tv = (TextView) tr.findViewById( R.id.rowTitle );
+		tv.setTextColor( ctx.getResources().getColor( R.color.blue ) );
+		tv.setText( R.string.labelBlue );
 		tr = (TableRow) findViewById( R.id.rowAIRoyalBlue );
 		aiText[2] = (TextView) tr.findViewById( R.id.rowValue );
 		aiText[2]
 				.setTextColor( ctx.getResources().getColor( R.color.royalblue ) );
-		((TextView) tr.findViewById( R.id.rowTitle )).setTextColor( ctx
-				.getResources().getColor( R.color.royalblue ) );
+		tv = (TextView) tr.findViewById( R.id.rowTitle );
+		tv.setTextColor( ctx.getResources().getColor( R.color.royalblue ) );
+		tv.setText( R.string.labelRoyalBlue );
 	}
 
 	public void setLabel ( int channel, String label ) {

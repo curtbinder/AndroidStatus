@@ -1,5 +1,3 @@
-package info.curtbinder.reefangel.phone.pages;
-
 /*
  * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  * 
@@ -7,6 +5,8 @@ package info.curtbinder.reefangel.phone.pages;
  * Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
+
+package info.curtbinder.reefangel.phone.pages;
 
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.phone.Permissions;
@@ -53,12 +53,19 @@ public class VortechPage extends ScrollView implements OnLongClickListener {
 
 	private void findViews ( ) {
 		TableRow tr;
+		TextView tv;
 		tr = (TableRow) findViewById( R.id.rowMode );
 		vortechText[0] = (TextView) tr.findViewById( R.id.rowValue );
+		tv = (TextView) tr.findViewById( R.id.rowTitle );
+		tv.setText( R.string.labelMode );
 		tr = (TableRow) findViewById( R.id.rowSpeed );
 		vortechText[1] = (TextView) tr.findViewById( R.id.rowValue );
+		tv = (TextView) tr.findViewById( R.id.rowTitle );
+		tv.setText( R.string.labelSpeed );
 		tr = (TableRow) findViewById( R.id.rowDuration );
 		vortechText[2] = (TextView) tr.findViewById( R.id.rowValue );
+		tv = (TextView) tr.findViewById( R.id.rowTitle );
+		tv.setText( R.string.labelDuration );
 		vortechText[0].setOnLongClickListener( this );
 		vortechText[0].setLongClickable( true );
 		vortechText[1].setOnLongClickListener( this );
@@ -83,7 +90,7 @@ public class VortechPage extends ScrollView implements OnLongClickListener {
 		// Display popup that allows for memory setting
 		// view for long click is embedded in a TableRow
 		// get the parent to determine what item was long clicked
-		View parent = (View)v.getParent();
+		View parent = (View) v.getParent();
 		switch ( parent.getId() ) {
 			case R.id.rowMode:
 				// display mode choices

@@ -60,7 +60,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	private TextView updateTime;
 	private ViewPager pager;
 	private CustomPagerAdapter pagerAdapter;
-	private String[] profiles;
+	//private String[] profiles;
 	private String[] vortechModes;
 	private View[] appPages;
 	// minimum number of pages: status, main relay
@@ -122,7 +122,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		filter.addAction( MessageCommands.MEMORY_RESPONSE_INTENT );
 		filter.addAction( MessageCommands.COMMAND_RESPONSE_INTENT );
 
-		profiles = getResources().getStringArray( R.array.profileLabels );
+		//profiles = getResources().getStringArray( R.array.profileLabels );
 		vortechModes =
 				getResources().getStringArray( R.array.vortechModeLabels );
 
@@ -198,10 +198,9 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private void disableRelayButtons ( ) {
-		int i;
 		pageMain.refreshButtonEnablement();
 
-		for ( i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
+		for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 			pageExpRelays[i].refreshButtonEnablement();
 		}
 	}
@@ -232,7 +231,36 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 
 		// TODO split into multiple functions
 		// Labels
-		updateRefreshButtonLabel();
+		//updateRefreshButtonLabel();
+		setControllerLabels();
+
+		setRelayLabels( );
+
+		if ( rapp.getDimmingModuleEnabled() ) {
+			for ( int i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ )
+				pageDimming
+						.setLabel( i, rapp.getDimmingModuleChannelLabel( i ) );
+		}
+
+		if ( rapp.getIOModuleEnabled() ) {
+			for ( int i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
+				pageIO.setLabel( i, rapp.getIOModuleChannelLabel( i ) );
+			}
+		}
+
+		if ( rapp.getCustomModuleEnabled() ) {
+			for ( int i = 0; i < Controller.MAX_CUSTOM_VARIABLES; i++ )
+				pageCustom.setLabel( i, rapp.getCustomModuleChannelLabel( i ) );
+		}
+
+		setControllerVisibility();
+		// TODO update control visibility here
+		// TODO consider hiding dimming channels not in use
+		// TODO consider hiding custom variables not in use
+		// TODO consider hiding io channels not in use
+	}
+	
+	private void setControllerLabels ( ) {
 		pageController.setLabel(	ControllerPage.T1_INDEX,
 									rapp.getPrefT1Label(),
 									getString( R.string.labelTemp1 ) );
@@ -263,9 +291,10 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		pageController.setLabel(	ControllerPage.WL_INDEX,
 									rapp.getPrefWaterLevelLabel(),
 									getString( R.string.labelWaterLevel ) );
-
+	}
+	
+	private void setRelayLabels ( ) {
 		int qty = rapp.getPrefExpansionRelayQuantity();
-		Log.d( TAG, "Expansion Relays: " + qty );
 		pageMain.setRelayTitle( getString( R.string.prefMainRelayTitle ) );
 		// set the labels
 
@@ -297,16 +326,15 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			default:
 				break;
 		}
-
-		int i, j;
+		
 		String defaultPort = getString( R.string.defaultPortName );
-		for ( i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
+		for ( int i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
 			pageMain.setPortLabel(	i, rapp.getPrefMainRelayLabel( i ),
 									defaultPort + (i + 1) );
 			boolean enabled = rapp.getPrefMainRelayControlEnabled( i );
 			pageMain.setControlEnabled( i, enabled );
 
-			for ( j = 0; j < Controller.MAX_EXPANSION_RELAYS; j++ ) {
+			for ( int j = 0; j < Controller.MAX_EXPANSION_RELAYS; j++ ) {
 				// skip over the relays that are not installed
 				if ( (j + 1) > qty )
 					break;
@@ -317,56 +345,9 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			}
 
 		}
-
-		if ( rapp.getDimmingModuleEnabled() ) {
-			for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ )
-				pageDimming
-						.setLabel( i, rapp.getDimmingModuleChannelLabel( i ) );
-		}
-
-		if ( rapp.getRadionModuleEnabled() ) {
-			pageRadion.setLabel(	Controller.RADION_WHITE,
-									getString( R.string.labelWhite ) );
-			pageRadion.setLabel(	Controller.RADION_ROYALBLUE,
-									getString( R.string.labelRoyalBlue ) );
-			pageRadion.setLabel(	Controller.RADION_RED,
-									getString( R.string.labelRed ) );
-			pageRadion.setLabel(	Controller.RADION_GREEN,
-									getString( R.string.labelGreen ) );
-			pageRadion.setLabel(	Controller.RADION_BLUE,
-									getString( R.string.labelBlue ) );
-			pageRadion.setLabel(	Controller.RADION_INTENSITY,
-									getString( R.string.labelIntensity ) );
-		}
-
-		if ( rapp.getVortechModuleEnabled() ) {
-			pageVortech.setLabel(	Controller.VORTECH_MODE,
-									getString( R.string.labelMode ) );
-			pageVortech.setLabel(	Controller.VORTECH_SPEED,
-									getString( R.string.labelSpeed ) );
-			pageVortech.setLabel(	Controller.VORTECH_DURATION,
-									getString( R.string.labelDuration ) );
-		}
-
-		if ( rapp.getAIModuleEnabled() ) {
-			pageAI.setLabel(	Controller.AI_WHITE,
-								getString( R.string.labelWhite ) );
-			pageAI.setLabel( Controller.AI_BLUE, getString( R.string.labelBlue ) );
-			pageAI.setLabel(	Controller.AI_ROYALBLUE,
-								getString( R.string.labelRoyalBlue ) );
-		}
-
-		if ( rapp.getIOModuleEnabled() ) {
-			for ( i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
-				pageIO.setLabel( i, rapp.getIOModuleChannelLabel( i ) );
-			}
-		}
-
-		if ( rapp.getCustomModuleEnabled() ) {
-			for ( i = 0; i < Controller.MAX_CUSTOM_VARIABLES; i++ )
-				pageCustom.setLabel( i, rapp.getCustomModuleChannelLabel( i ) );
-		}
-
+	}
+	
+	private void setControllerVisibility ( ) {
 		// Visibility
 		pageController.setVisibility(	ControllerPage.T2_INDEX,
 										rapp.getPrefT2Visibility() );
@@ -386,13 +367,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 										rapp.getPrefPHExpVisibility() );
 		pageController.setVisibility(	ControllerPage.WL_INDEX,
 										rapp.getPrefWaterLevelVisibility() );
-
-		// TODO update control visibility here
-		// TODO consider hiding dimming channels not in use
-		// TODO consider hiding custom variables not in use
-		// TODO consider hiding io channels not in use
 	}
-
+	
 	public void onClick ( View v ) {
 //		switch ( v.getId() ) {
 //			case R.id.refresh_button:
@@ -406,8 +382,8 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 	public boolean onLongClick ( View v ) {
 		// if it's not a controller, don't even bother processing
 		// the long clicks
-		if ( !rapp.isCommunicateController() )
-			return true;
+//		if ( !rapp.isCommunicateController() )
+//			return true;
 		// TODO fix switching profiles
 //
 //		switch ( v.getId() ) {
@@ -447,31 +423,28 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 //		updateRefreshButtonLabel();
 //	}
 
-	private void updateRefreshButtonLabel ( ) {
+//	private void updateRefreshButtonLabel ( ) {
 		// TODO update function to reflect switching profile
 		// button label will be: Refresh - PROFILE
 		// only allow for the changing of the label IF it's a controller
 		// AND if the away profile is enabled
-		String s;
-		if ( rapp.isAwayProfileEnabled() && rapp.isCommunicateController() )
-			s =
-					String.format(	"%s - %s",
-									getString( R.string.buttonRefresh ),
-									profiles[rapp.getSelectedProfile()] );
-		else
-			s = getString( R.string.buttonRefresh );
-		Log.d( TAG, "Refresh Label: " + s );
+//		String s;
+//		if ( rapp.isAwayProfileEnabled() && rapp.isCommunicateController() )
+//			s =
+//					String.format(	"%s - %s",
+//									getString( R.string.buttonRefresh ),
+//									profiles[rapp.getSelectedProfile()] );
+//		else
+//			s = getString( R.string.buttonRefresh );
 //		refreshButton.setText( s );
-	}
+//	}
 
 	private void launchStatusTask ( ) {
-		Log.d( TAG, "launchStatusTask" );
 		Intent i = new Intent( MessageCommands.QUERY_STATUS_INTENT );
 		sendBroadcast( i, Permissions.QUERY_STATUS );
 	}
 
 	public void updateDisplay ( ) {
-		Log.d( TAG, "updateDisplay" );
 		try {
 			Cursor c = rapp.data.getLatestData();
 			String updateStatus;
