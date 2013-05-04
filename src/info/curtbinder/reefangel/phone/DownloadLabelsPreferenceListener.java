@@ -18,14 +18,14 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
 import android.widget.Toast;
 
-public class DownloadLabelsListener implements OnPreferenceClickListener {
+public class DownloadLabelsPreferenceListener implements OnPreferenceClickListener {
 
-	private static final String TAG = DownloadLabelsListener.class.getSimpleName();
+	private static final String TAG = DownloadLabelsPreferenceListener.class.getSimpleName();
 	
 	private Context ctx;
 	private RAApplication rapp;
 	
-	public DownloadLabelsListener ( Context context, RAApplication ra ) {
+	public DownloadLabelsPreferenceListener ( Context context, RAApplication ra ) {
 		this.ctx = context;
 		this.rapp = ra;
 	}

@@ -179,7 +179,8 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 				findPreference( rapp
 						.getString( R.string.prefControllerLabelsDownloadKey ) );
 		downloadkey
-				.setOnPreferenceClickListener( new DownloadLabelsListener(this, rapp)  );
+				.setOnPreferenceClickListener( new DownloadLabelsPreferenceListener(
+					this, rapp ) );
 		updateUserIds();
 
 		Preference resetkey =
@@ -572,7 +573,7 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 
 	public void resetEnabledPorts ( ) {
 		rapp.deleteRelayControlEnabledPorts();
-		
+
 		Toast.makeText( PrefsActivity.this,
 						rapp.getString( R.string.messageResetEanbledPortsComplete ),
 						Toast.LENGTH_SHORT ).show();
