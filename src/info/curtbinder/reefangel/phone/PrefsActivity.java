@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
- *
- * This work is made available under the terms of the 
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * Copyright (c) 2011-2013 by Curt Binder (http://curtbinder.info)
+ * 
+ * This work is made available under the terms of the Creative Commons
+ * Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
@@ -18,11 +18,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 
@@ -177,33 +179,28 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 				findPreference( rapp
 						.getString( R.string.prefControllerLabelsDownloadKey ) );
 		downloadkey
-				.setOnPreferenceClickListener( new DownloadLabelsPreferenceListener(
-					this, rapp ) );
+				.setOnPreferenceClickListener( new DownloadLabelsPreferenceListener() );
 		updateUserIds();
 
 		Preference resetkey =
 				findPreference( rapp.getString( R.string.prefResetLabelsKey ) );
-		resetkey.setOnPreferenceClickListener( new ResetLabelsPreferenceListener(
-			this, rapp ) );
+		resetkey.setOnPreferenceClickListener( new ResetLabelsPreferenceListener() );
 
 		Preference resetenabledkey =
 				findPreference( rapp
 						.getString( R.string.prefResetEnabledPortsKey ) );
 		resetenabledkey
-				.setOnPreferenceClickListener( new ResetEnabledPortsPreferenceListener(
-					this, rapp ) );
+				.setOnPreferenceClickListener( new ResetEnabledPortsPreferenceListener() );
 
 		Preference deletelog =
 				findPreference( rapp.getString( R.string.prefLoggingDeleteKey ) );
 		deletelog
-				.setOnPreferenceClickListener( new DeleteLogPreferenceListener(
-					this, rapp ) );
+				.setOnPreferenceClickListener( new DeleteLogPreferenceListener() );
 
 		Preference sendemail =
 				findPreference( rapp.getString( R.string.prefLoggingSendKey ) );
 		sendemail
-				.setOnPreferenceClickListener( new SendEmailPreferenceListener(
-					this, rapp ) );
+				.setOnPreferenceClickListener( new SendEmailPreferenceListener() );
 
 		// disable deleting and sending of the log file if not present
 		if ( !rapp.isLoggingFilePresent() ) {
@@ -550,4 +547,270 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 			alert.show();
 		}
 	}
+
+	class DeleteLogPreferenceListener implements OnPreferenceClickListener {
+
+		@Override
+		public boolean onPreferenceClick ( Preference preference ) {
+			AlertDialog.Builder builder =
+					new AlertDialog.Builder( PrefsActivity.this );
+			builder.setMessage( rapp.getString( R.string.messageDeleteLogPrompt ) )
+					.setCancelable( false )
+					.setPositiveButton( rapp.getString( R.string.buttonYes ),
+										new DialogInterface.OnClickListener() {
+											public void onClick (
+													DialogInterface dialog,
+													int id ) {
+												Log.d( TAG, "Delete log file" );
+												dialog.dismiss();
+												deleteLogFile();
+											}
+										} )
+					.setNegativeButton( rapp.getString( R.string.buttonNo ),
+										new DialogInterface.OnClickListener() {
+											public void onClick (
+													DialogInterface dialog,
+													int id ) {
+												Log.d(	TAG,
+														"Delete log cancelled" );
+												dialog.cancel();
+											}
+										} );
+
+			AlertDialog alert = builder.create();
+			alert.show();
+			return true;
+		}
+
+		private void deleteLogFile ( ) {
+			rapp.deleteLoggingFile();
+			// disable deleting and sending of the log file if not present
+			if ( !rapp.isLoggingFilePresent() ) {
+				findPreference( rapp.getString( R.string.prefLoggingDeleteKey ) )
+						.setEnabled( false );
+				findPreference( rapp.getString( R.string.prefLoggingSendKey ) )
+						.setEnabled( false );
+			}
+		}
+
+	}
+
+	class DownloadLabelsPreferenceListener implements OnPreferenceClickListener {
+
+		@Override
+		public boolean onPreferenceClick ( Preference preference ) {
+			AlertDialog.Builder builder =
+					new AlertDialog.Builder( PrefsActivity.this );
+			builder.setMessage( rapp.getString( R.string.messageDownloadLabelsPrompt )
+										+ " " + rapp.getPrefUserId() + "?" )
+					.setCancelable( false )
+					.setPositiveButton( rapp.getString( R.string.buttonYes ),
+										new DialogInterface.OnClickListener() {
+											public void onClick (
+													DialogInterface dialog,
+													int id ) {
+												// launch download
+												Log.d( TAG, "Download labels" );
+												Intent i =
+														new Intent(
+															MessageCommands.LABEL_QUERY_INTENT );
+												rapp.sendBroadcast( i,
+																	Permissions.SEND_COMMAND );
+												dialog.dismiss();
+												Toast.makeText( PrefsActivity.this,
+																rapp.getString( R.string.messageDownloadLabels ),
+																Toast.LENGTH_SHORT )
+														.show();
+											}
+										} )
+					.setNegativeButton( rapp.getString( R.string.buttonNo ),
+										new DialogInterface.OnClickListener() {
+											public void onClick (
+													DialogInterface dialog,
+													int id ) {
+												Log.d( TAG, "Cancel download" );
+												dialog.cancel();
+											}
+										} );
+
+			AlertDialog alert = builder.create();
+			alert.show();
+			return true;
+		}
+
+	}
+
+	class ResetEnabledPortsPreferenceListener implements
+			OnPreferenceClickListener {
+
+		@Override
+		public boolean onPreferenceClick ( Preference preference ) {
+			AlertDialog.Builder builder =
+					new AlertDialog.Builder( PrefsActivity.this );
+			builder.setMessage( rapp.getString( R.string.messageResetEnabledPortsPrompt ) )
+					.setCancelable( false )
+					.setPositiveButton( rapp.getString( R.string.buttonYes ),
+										new DialogInterface.OnClickListener() {
+											public void onClick (
+													DialogInterface dialog,
+													int id ) {
+												Log.d(	TAG,
+														"Reset enabled ports" );
+												dialog.dismiss();
+												resetEnabledPorts();
+											}
+										} )
+					.setNegativeButton( rapp.getString( R.string.buttonNo ),
+										new DialogInterface.OnClickListener() {
+											public void onClick (
+													DialogInterface dialog,
+													int id ) {
+												Log.d(	TAG,
+														"Cancel reset enabled ports" );
+												dialog.cancel();
+											}
+										} );
+
+			AlertDialog alert = builder.create();
+			alert.show();
+			return true;
+		}
+
+		private void resetEnabledPorts ( ) {
+			rapp.deleteRelayControlEnabledPorts();
+
+			Toast.makeText( PrefsActivity.this,
+							rapp.getString( R.string.messageResetEanbledPortsComplete ),
+							Toast.LENGTH_SHORT ).show();
+		}
+
+	}
+
+	class ResetLabelsPreferenceListener implements OnPreferenceClickListener {
+
+		@Override
+		public boolean onPreferenceClick ( Preference preference ) {
+			AlertDialog.Builder builder =
+					new AlertDialog.Builder( PrefsActivity.this );
+			builder.setMessage( rapp.getString( R.string.messageResetLabelsPrompt ) )
+					.setCancelable( false )
+					.setPositiveButton( rapp.getString( R.string.buttonYes ),
+										new DialogInterface.OnClickListener() {
+											public void onClick (
+													DialogInterface dialog,
+													int id ) {
+												Log.d( TAG, "Reset labels" );
+												dialog.dismiss();
+												resetLabels();
+											}
+										} )
+					.setNegativeButton( rapp.getString( R.string.buttonNo ),
+										new DialogInterface.OnClickListener() {
+											public void onClick (
+													DialogInterface dialog,
+													int id ) {
+												Log.d( TAG, "Cancel reset" );
+												dialog.cancel();
+											}
+										} );
+
+			AlertDialog alert = builder.create();
+			alert.show();
+			return true;
+		}
+
+		private void resetLabels ( ) {
+			Log.d( TAG, "Deleting all labels" );
+			// delete all controller labels
+			rapp.deletePref( R.string.prefT1LabelKey );
+			rapp.deletePref( R.string.prefT2LabelKey );
+			rapp.deletePref( R.string.prefT3LabelKey );
+			rapp.deletePref( R.string.prefAPLabelKey );
+			rapp.deletePref( R.string.prefDPLabelKey );
+			rapp.deletePref( R.string.prefPHLabelKey );
+			rapp.deletePref( R.string.prefSalinityLabelKey );
+			rapp.deletePref( R.string.prefORPLabelKey );
+			rapp.deletePref( R.string.prefPHExpLabelKey );
+			for ( int i = 0; i <= Controller.MAX_EXPANSION_RELAYS; i++ ) {
+				for ( int j = 0; j < Controller.MAX_RELAY_PORTS; j++ ) {
+					rapp.deletePref( rapp.getPrefRelayKey( i, j ) );
+				}
+			}
+			rapp.deletePref( R.string.prefExpDimmingCh0LabelKey );
+			rapp.deletePref( R.string.prefExpDimmingCh1LabelKey );
+			rapp.deletePref( R.string.prefExpDimmingCh2LabelKey );
+			rapp.deletePref( R.string.prefExpDimmingCh3LabelKey );
+			rapp.deletePref( R.string.prefExpDimmingCh4LabelKey );
+			rapp.deletePref( R.string.prefExpDimmingCh5LabelKey );
+			rapp.deletePref( R.string.prefExpIO0LabelKey );
+			rapp.deletePref( R.string.prefExpIO1LabelKey );
+			rapp.deletePref( R.string.prefExpIO2LabelKey );
+			rapp.deletePref( R.string.prefExpIO3LabelKey );
+			rapp.deletePref( R.string.prefExpIO4LabelKey );
+			rapp.deletePref( R.string.prefExpIO5LabelKey );
+			rapp.deletePref( R.string.prefExpCustom0LabelKey );
+			rapp.deletePref( R.string.prefExpCustom1LabelKey );
+			rapp.deletePref( R.string.prefExpCustom2LabelKey );
+			rapp.deletePref( R.string.prefExpCustom3LabelKey );
+			rapp.deletePref( R.string.prefExpCustom4LabelKey );
+			rapp.deletePref( R.string.prefExpCustom5LabelKey );
+			rapp.deletePref( R.string.prefExpCustom6LabelKey );
+			rapp.deletePref( R.string.prefExpCustom7LabelKey );
+
+			Toast.makeText( PrefsActivity.this,
+							rapp.getString( R.string.messageResetLabelsComplete ),
+							Toast.LENGTH_SHORT ).show();
+		}
+
+	}
+
+	class SendEmailPreferenceListener implements OnPreferenceClickListener {
+
+		@Override
+		public boolean onPreferenceClick ( Preference preference ) {
+			AlertDialog.Builder builder =
+					new AlertDialog.Builder( PrefsActivity.this );
+			builder.setMessage( rapp.getString( R.string.messageSendLogPrompt ) )
+					.setCancelable( false )
+					.setPositiveButton( rapp.getString( R.string.buttonYes ),
+										new DialogInterface.OnClickListener() {
+											public void onClick (
+													DialogInterface dialog,
+													int id ) {
+												Log.d( TAG, "Send file" );
+												dialog.dismiss();
+												sendEmail();
+											}
+										} )
+					.setNegativeButton( rapp.getString( R.string.buttonNo ),
+										new DialogInterface.OnClickListener() {
+											public void onClick (
+													DialogInterface dialog,
+													int id ) {
+												Log.d( TAG, "Send cancelled" );
+												dialog.cancel();
+											}
+										} );
+
+			AlertDialog alert = builder.create();
+			alert.show();
+			return true;
+		}
+
+		private void sendEmail ( ) {
+			Intent email = new Intent( Intent.ACTION_SEND );
+			email.putExtra( Intent.EXTRA_EMAIL,
+							new String[] { "android@curtbinder.info" } );
+			email.putExtra( Intent.EXTRA_SUBJECT, "Status Logfile" );
+			email.setType( "text/plain" );
+			email.putExtra( Intent.EXTRA_TEXT, "Logfile from my session." );
+			Log.d(	TAG,
+					"Logfile: " + Uri.parse( "file://" + rapp.getLoggingFile() ) );
+			email.putExtra( Intent.EXTRA_STREAM,
+							Uri.parse( "file://" + rapp.getLoggingFile() ) );
+			PrefsActivity.this.startActivity( Intent
+					.createChooser( email, "Send email..." ) );
+		}
+	}
+
 }
