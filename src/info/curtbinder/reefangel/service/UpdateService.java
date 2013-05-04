@@ -26,12 +26,10 @@ public class UpdateService extends IntentService {
 
 	public UpdateService () {
 		super( TAG );
-		Log.d( TAG, "UpdateService()" );
 	}
 
 	private void notControllerMessage ( ) {
 		// TODO update this for portal
-		Log.d( TAG, "Not a controller" );
 		Toast.makeText( rapp.getBaseContext(), R.string.messageNotController,
 						Toast.LENGTH_LONG ).show();
 	}
@@ -51,7 +49,6 @@ public class UpdateService extends IntentService {
 	}
 
 	protected void onHandleIntent ( Intent intent ) {
-		Log.d( TAG, "onHandleIntent" );
 		// create new ControllerTask based on values received
 		// run the task
 		rapp = (RAApplication) getApplication();

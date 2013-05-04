@@ -372,7 +372,7 @@ public class RAPreferences {
 		set( relayLabels[relay][port], label );
 	}
 
-	// TODO check if getRelayKey is used
+	// TODO getRelayKey used in PrefsActivity
 	public int getRelayKey ( int relay, int port ) {
 		return relayLabels[relay][port];
 	}
