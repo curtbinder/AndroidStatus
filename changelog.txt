@@ -166,4 +166,5 @@ Changelog of all the versions of AndroidStatus
  * fixed crash with downloading labels
  * code updates and cleanup
  * added new icons
+ * added lights on / off commands
  

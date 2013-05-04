@@ -35,6 +35,20 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/buttonExit" />
+        
+        <Button
+            android:id="@+id/command_button_lights_on"
+            style="@style/CommandButtons"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/labelLightsOn" />
+        
+        <Button
+            android:id="@+id/command_button_lights_off"
+            style="@style/CommandButtons"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/labelLightsOff" />
 
         <Button
             android:id="@+id/command_button_ato_clear"

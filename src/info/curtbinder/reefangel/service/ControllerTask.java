@@ -1,12 +1,12 @@
-package info.curtbinder.reefangel.service;
-
 /*
- * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
- *
- * This work is made available under the terms of the 
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * Copyright (c) 2011-2013 by Curt Binder (http://curtbinder.info)
+ * 
+ * This work is made available under the terms of the Creative Commons
+ * Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
+
+package info.curtbinder.reefangel.service;
 
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.controller.Relay;
@@ -45,7 +45,6 @@ import android.content.Intent;
 import android.util.Log;
 
 public class ControllerTask implements Runnable {
-	// Messages broadcast from the task
 
 	private static final String TAG = ControllerTask.class.getSimpleName();
 	private final Host host;
@@ -98,12 +97,13 @@ public class ControllerTask implements Runnable {
 			res =
 					(String) rapp.getResources()
 							.getText( R.string.messageCancelled );
-		} finally {
-			if ( con != null ) {
-				con.disconnect();
-				broadcastUpdateStatus( R.string.statusDisconnected );
-			}
+		} 
+		
+		if ( con != null ) {
+			con.disconnect();
+			broadcastUpdateStatus( R.string.statusDisconnected );
 		}
+		
 		long end = System.currentTimeMillis();
 		Log.d(	TAG,
 				new String( String.format( "sendCommand (%d ms)", end - start ) ) );
@@ -128,49 +128,7 @@ public class ControllerTask implements Runnable {
 				return;
 			}
 			broadcastUpdateStatus( R.string.statusUpdatingDisplay );
-			if ( host.isRequestForLabels() ) {
-				broadcastLabelsResponse( xml.getRa() );
-			} else if ( host.getCommand().startsWith( RequestCommands.Relay )
-						|| host.getCommand().equals( RequestCommands.ReefAngel ) ) {
-				broadcastUpdateDisplayData( xml.getRa() );
-			} else if ( host.getCommand().equals( RequestCommands.MemoryByte )
-						|| host.getCommand().equals( RequestCommands.MemoryInt ) ) {
-				broadcastMemoryResponse(	xml.getMemoryResponse(),
-											host.isWrite() );
-			} else if ( host.getCommand().equals( RequestCommands.FeedingMode ) ) {
-				broadcastCommandResponse(	R.string.labelFeedingMode,
-											xml.getModeResponse() );
-			} else if ( host.getCommand().equals( RequestCommands.WaterMode ) ) {
-				broadcastCommandResponse(	R.string.labelWaterMode,
-											xml.getModeResponse() );
-			} else if ( host.getCommand().equals( RequestCommands.ExitMode ) ) {
-				broadcastCommandResponse(	R.string.labelExitMode,
-											xml.getModeResponse() );
-			} else if ( host.getCommand().equals( RequestCommands.AtoClear ) ) {
-				broadcastCommandResponse(	R.string.labelAtoClear,
-											xml.getModeResponse() );
-			} else if ( host.getCommand()
-					.equals( RequestCommands.OverheatClear ) ) {
-				broadcastCommandResponse(	R.string.labelOverheatClear,
-											xml.getModeResponse() );
-			} else if ( host.getCommand().equals( RequestCommands.Version ) ) {
-				Intent i = new Intent( MessageCommands.VERSION_RESPONSE_INTENT );
-				i.putExtra( MessageCommands.VERSION_RESPONSE_STRING,
-							xml.getVersion() );
-				rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
-			} else if ( host.getCommand().equals( RequestCommands.DateTime ) ) {
-				Intent i =
-						new Intent( MessageCommands.DATE_QUERY_RESPONSE_INTENT );
-				i.putExtra( MessageCommands.DATE_QUERY_RESPONSE_STRING,
-							xml.getDateTime() );
-				rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
-			} else if ( host.getCommand().startsWith( RequestCommands.DateTime ) ) {
-				Intent i =
-						new Intent( MessageCommands.DATE_SEND_RESPONSE_INTENT );
-				i.putExtra( MessageCommands.DATE_SEND_RESPONSE_STRING,
-							xml.getDateTimeUpdateStatus() );
-				rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
-			}
+			broadcastResponses( xml );
 		}
 	}
 
@@ -263,6 +221,58 @@ public class ControllerTask implements Runnable {
 	}
 
 	// Broadcast Stuff
+	private void broadcastResponses ( XMLHandler xml ) {
+		if ( host.isRequestForLabels() ) {
+			broadcastLabelsResponse( xml.getRa() );
+		} else if ( host.getCommand().startsWith( RequestCommands.Relay )
+					|| host.getCommand().equals( RequestCommands.ReefAngel ) ) {
+			broadcastUpdateDisplayData( xml.getRa() );
+		} else if ( host.getCommand().equals( RequestCommands.MemoryByte )
+					|| host.getCommand().equals( RequestCommands.MemoryInt ) ) {
+			broadcastMemoryResponse(	xml.getMemoryResponse(),
+										host.isWrite() );
+		} else if ( host.getCommand().equals( RequestCommands.FeedingMode ) ) {
+			broadcastCommandResponse(	R.string.labelFeedingMode,
+										xml.getModeResponse() );
+		} else if ( host.getCommand().equals( RequestCommands.WaterMode ) ) {
+			broadcastCommandResponse(	R.string.labelWaterMode,
+										xml.getModeResponse() );
+		} else if ( host.getCommand().equals( RequestCommands.ExitMode ) ) {
+			broadcastCommandResponse(	R.string.labelExitMode,
+										xml.getModeResponse() );
+		} else if ( host.getCommand().equals( RequestCommands.AtoClear ) ) {
+			broadcastCommandResponse(	R.string.labelAtoClear,
+										xml.getModeResponse() );
+		} else if ( host.getCommand()
+				.equals( RequestCommands.OverheatClear ) ) {
+			broadcastCommandResponse(	R.string.labelOverheatClear,
+										xml.getModeResponse() );
+		} else if ( host.getCommand().equals( RequestCommands.LightsOn ) ) {
+			broadcastCommandResponse(	R.string.labelLightsOn,
+										xml.getModeResponse() );
+		} else if ( host.getCommand().equals( RequestCommands.LightsOff ) ) {
+			broadcastCommandResponse(	R.string.labelLightsOff,
+										xml.getModeResponse() );
+		} else if ( host.getCommand().equals( RequestCommands.Version ) ) {
+			Intent i = new Intent( MessageCommands.VERSION_RESPONSE_INTENT );
+			i.putExtra( MessageCommands.VERSION_RESPONSE_STRING,
+						xml.getVersion() );
+			rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
+		} else if ( host.getCommand().equals( RequestCommands.DateTime ) ) {
+			Intent i =
+					new Intent( MessageCommands.DATE_QUERY_RESPONSE_INTENT );
+			i.putExtra( MessageCommands.DATE_QUERY_RESPONSE_STRING,
+						xml.getDateTime() );
+			rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
+		} else if ( host.getCommand().startsWith( RequestCommands.DateTime ) ) {
+			Intent i =
+					new Intent( MessageCommands.DATE_SEND_RESPONSE_INTENT );
+			i.putExtra( MessageCommands.DATE_SEND_RESPONSE_STRING,
+						xml.getDateTimeUpdateStatus() );
+			rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
+		}
+	}
+	
 	private void broadcastCommandResponse ( int id, String response ) {
 		Log.d(	TAG,
 				rapp.getString( id ) + rapp.getString( R.string.labelSeparator )
@@ -436,7 +446,7 @@ public class ControllerTask implements Runnable {
 		i.putExtra( RAData.PCOL_REM, ra.getRelayExpansionModules() );
 		i.putExtra( RAData.PCOL_PHE, ra.getPHExp() );
 		i.putExtra( RAData.PCOL_WL, ra.getWaterLevel() );
-		rapp.insertData( i );		
+		rapp.insertData( i );
 		Intent u = new Intent( MessageCommands.UPDATE_DISPLAY_DATA_INTENT );
 		rapp.sendBroadcast( u, Permissions.QUERY_STATUS );
 	}

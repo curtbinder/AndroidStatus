@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
+ * Copyright (c) 2011-2013 by Curt Binder (http://curtbinder.info)
  * 
  * This work is made available under the terms of the Creative Commons
  * Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -52,6 +52,10 @@ public class CommandsPage extends RAPage implements OnClickListener {
 		b.setOnClickListener( this );
 		b = (Button) findViewById( R.id.command_button_exit );
 		b.setOnClickListener( this );
+		b = (Button) findViewById( R.id.command_button_lights_on );
+		b.setOnClickListener( this );
+		b = (Button) findViewById( R.id.command_button_lights_off );
+		b.setOnClickListener( this );
 		b = (Button) findViewById( R.id.command_button_ato_clear );
 		b.setOnClickListener( this );
 		b = (Button) findViewById( R.id.command_button_overheat_clear );
@@ -61,34 +65,29 @@ public class CommandsPage extends RAPage implements OnClickListener {
 	@Override
 	public void onClick ( View v ) {
 		Intent i = new Intent();
+		String s = RequestCommands.ExitMode;
 		switch ( v.getId() ) {
 			case R.id.command_button_feed:
-				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
-				i.putExtra( MessageCommands.COMMAND_SEND_STRING,
-							RequestCommands.FeedingMode );
+				s = RequestCommands.FeedingMode;
 				break;
 			case R.id.command_button_water:
-				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
-				i.putExtra( MessageCommands.COMMAND_SEND_STRING,
-							RequestCommands.WaterMode );
+				s = RequestCommands.WaterMode;
+				break;
+			case R.id.command_button_lights_on:
+				s = RequestCommands.LightsOn;
+				break;
+			case R.id.command_button_lights_off:
+				s = RequestCommands.LightsOff;
 				break;
 			case R.id.command_button_ato_clear:
-				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
-				i.putExtra( MessageCommands.COMMAND_SEND_STRING,
-							RequestCommands.AtoClear );
+				s = RequestCommands.AtoClear;
 				break;
 			case R.id.command_button_overheat_clear:
-				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
-				i.putExtra( MessageCommands.COMMAND_SEND_STRING,
-							RequestCommands.OverheatClear );
-				break;
-			default:
-			case R.id.command_button_exit:
-				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
-				i.putExtra( MessageCommands.COMMAND_SEND_STRING,
-							RequestCommands.ExitMode );
+				s = RequestCommands.OverheatClear;
 				break;
 		}
+		i.setAction( MessageCommands.COMMAND_SEND_INTENT );
+		i.putExtra( MessageCommands.COMMAND_SEND_STRING, s );
 		ctx.sendBroadcast( i, Permissions.SEND_COMMAND );
 	}
 

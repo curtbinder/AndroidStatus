@@ -1,12 +1,12 @@
-package info.curtbinder.reefangel.service;
-
 /*
- * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
- *
- * This work is made available under the terms of the 
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * Copyright (c) 2011-2013 by Curt Binder (http://curtbinder.info)
+ * 
+ * This work is made available under the terms of the Creative Commons
+ * Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
+
+package info.curtbinder.reefangel.service;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -21,8 +21,7 @@ public class Host {
 	private int timeoutConnect;
 	private int timeoutRead;
 	private String raUserid;
-	// private final String RAHOST =
-	// "http://www.reefangel.com/status/xml.aspx?id=";
+
 	private final String RAPARAMS =
 			"http://forum.reefangel.com/status/params.aspx?id=";
 	private final String RALABELS =
@@ -122,6 +121,7 @@ public class Host {
 	}
 
 	public String toString ( ) {
+		// TODO improve error message with a null host string
 		String s = "";
 		if ( (command.startsWith( RequestCommands.Relay ))
 				|| (command.equals( RequestCommands.Status ))
@@ -131,7 +131,9 @@ public class Host {
 				|| (command.equals( RequestCommands.WaterMode ))
 				|| (command.equals( RequestCommands.AtoClear ))
 				|| (command.equals( RequestCommands.OverheatClear ))
-				|| (command.startsWith( RequestCommands.DateTime )) ) {
+				|| (command.startsWith( RequestCommands.DateTime ))
+				|| (command.equals( RequestCommands.LightsOn ))
+				|| (command.equals( RequestCommands.LightsOff )) ) {
 			s =
 					new String( String.format(	"http://%s:%d%s", host, port,
 												command ) );
@@ -156,7 +158,7 @@ public class Host {
 				Log.e( TAG, "Failed URL encoder" );
 				encodedId = "";
 			}
-			// s = RAHOST + encodedId;
+
 			if ( labels ) {
 				s = RALABELS + encodedId;
 			} else {

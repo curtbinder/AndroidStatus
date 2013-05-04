@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
+ * Copyright (c) 2011-2013 by Curt Binder (http://curtbinder.info)
  *
  * This work is made available under the terms of the 
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -24,14 +24,6 @@ import android.widget.Toast;
 
 public class CommandsActivity extends Activity implements OnClickListener {
 
-	// private static final String TAG = CommandsActivity.class.getSimpleName();
-
-	private Button feedingButton;
-	private Button waterButton;
-	private Button exitButton;
-	private Button versionButton;
-	private Button atoButton;
-	private Button overheatButton;
 	private TextView versionText;
 
 	CommandsReceiver receiver;
@@ -45,8 +37,6 @@ public class CommandsActivity extends Activity implements OnClickListener {
 		receiver = new CommandsReceiver();
 		filter = new IntentFilter( MessageCommands.COMMAND_RESPONSE_INTENT );
 		filter.addAction( MessageCommands.VERSION_RESPONSE_INTENT );
-
-		setOnClickListeners();
 	}
 
 	protected void onPause ( ) {
@@ -60,58 +50,58 @@ public class CommandsActivity extends Activity implements OnClickListener {
 	}
 
 	private void findViews ( ) {
-		feedingButton = (Button) findViewById( R.id.command_button_feed );
-		waterButton = (Button) findViewById( R.id.command_button_water );
-		exitButton = (Button) findViewById( R.id.command_button_exit );
-		versionButton = (Button) findViewById( R.id.command_button_version );
-		atoButton = (Button) findViewById( R.id.command_button_ato_clear );
-		overheatButton =
-				(Button) findViewById( R.id.command_button_overheat_clear );
 		versionText = (TextView) findViewById( R.id.textInstalledVersion );
+		Button b = (Button) findViewById( R.id.command_button_feed );
+		b.setOnClickListener( this );
+		b = (Button) findViewById( R.id.command_button_water );
+		b.setOnClickListener( this );
+		b = (Button) findViewById( R.id.command_button_exit );
+		b.setOnClickListener( this );
+		b = (Button) findViewById( R.id.command_button_lights_on );
+		b.setOnClickListener( this );
+		b = (Button) findViewById( R.id.command_button_lights_off );
+		b.setOnClickListener( this );
+		b = (Button) findViewById( R.id.command_button_ato_clear );
+		b.setOnClickListener( this );
+		b = (Button) findViewById( R.id.command_button_overheat_clear );
+		b.setOnClickListener( this );
+		b = (Button) findViewById( R.id.command_button_version );
+		b.setOnClickListener( this );
 	}
 
-	private void setOnClickListeners ( ) {
-		feedingButton.setOnClickListener( this );
-		waterButton.setOnClickListener( this );
-		exitButton.setOnClickListener( this );
-		versionButton.setOnClickListener( this );
-		atoButton.setOnClickListener( this );
-		overheatButton.setOnClickListener( this );
-	}
-
+	@Override
 	public void onClick ( View v ) {
 		Intent i = new Intent();
+		String s = RequestCommands.ExitMode;
+		String action = MessageCommands.COMMAND_SEND_INTENT;
 		switch ( v.getId() ) {
 			case R.id.command_button_feed:
-				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
-				i.putExtra( MessageCommands.COMMAND_SEND_STRING,
-							RequestCommands.FeedingMode );
+				s = RequestCommands.FeedingMode;
 				break;
 			case R.id.command_button_water:
-				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
-				i.putExtra( MessageCommands.COMMAND_SEND_STRING,
-							RequestCommands.WaterMode );
+				s = RequestCommands.WaterMode;
 				break;
-			case R.id.command_button_version:
-				i.setAction( MessageCommands.VERSION_QUERY_INTENT );
+			case R.id.command_button_lights_on:
+				s = RequestCommands.LightsOn;
+				break;
+			case R.id.command_button_lights_off:
+				s = RequestCommands.LightsOff;
 				break;
 			case R.id.command_button_ato_clear:
-				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
-				i.putExtra( MessageCommands.COMMAND_SEND_STRING,
-							RequestCommands.AtoClear );
+				s = RequestCommands.AtoClear;
 				break;
 			case R.id.command_button_overheat_clear:
-				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
-				i.putExtra( MessageCommands.COMMAND_SEND_STRING,
-							RequestCommands.OverheatClear );
+				s = RequestCommands.OverheatClear;
 				break;
-			default:
-			case R.id.command_button_exit:
-				i.setAction( MessageCommands.COMMAND_SEND_INTENT );
-				i.putExtra( MessageCommands.COMMAND_SEND_STRING,
-							RequestCommands.ExitMode );
+			case R.id.command_button_version:
+				action = MessageCommands.VERSION_QUERY_INTENT;
+				// Next line is not needed because this is handled by the service
+				// added only for completeness
+				s = RequestCommands.Version;
 				break;
 		}
+		i.setAction( action );
+		i.putExtra( MessageCommands.COMMAND_SEND_STRING, s );
 		sendBroadcast( i, Permissions.SEND_COMMAND );
 	}
 
