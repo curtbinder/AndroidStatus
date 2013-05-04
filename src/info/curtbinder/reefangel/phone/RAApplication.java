@@ -1,14 +1,13 @@
-package info.curtbinder.reefangel.phone;
-
 /*
- * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
- *
- * This work is made available under the terms of the 
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * Copyright (c) 2011-2013 by Curt Binder (http://curtbinder.info)
+ * 
+ * This work is made available under the terms of the Creative Commons
+ * Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
 
-import info.curtbinder.reefangel.controller.Controller;
+package info.curtbinder.reefangel.phone;
+
 import info.curtbinder.reefangel.db.RAData;
 import info.curtbinder.reefangel.service.ControllerService;
 import info.curtbinder.reefangel.service.MessageCommands;
@@ -29,11 +28,8 @@ import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.net.Uri;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -44,40 +40,34 @@ public class RAApplication extends Application {
 	private static final String HOST_PATTERN =
 			"^(?i:[[0-9][a-z]]+)(?i:[\\w\\.\\-]*)(?i:[[0-9][a-z]]+)$";
 	private static final String USERID_PATTERN = "[\\w\\-\\.]+";
-	private SharedPreferences prefs;
+
+	// Preferences
+	public RAPreferences raprefs;
+
 	// Error code stuff
 	private String[] errorCodes;
 	private String[] errorCodesStrings;
 	public int errorCode;
 	public int errorCount;
 
-	// Devices stuff
-	private String[] devicesArray;
-
 	// Controller Data
 	public RAData data;
-
-	// Relay labels
-	private int[][] relayLabels;
-	private int[] relayDefaultLabels;
 
 	// Service Stuff
 	public boolean isServiceRunning;
 
 	public void onCreate ( ) {
-		prefs = PreferenceManager.getDefaultSharedPreferences( this );
+		// prefs = PreferenceManager.getDefaultSharedPreferences( this );
 		errorCodes = getResources().getStringArray( R.array.errorCodes );
 		errorCodesStrings =
 				getResources().getStringArray( R.array.errorCodesStrings );
 		errorCode = 0; // set to no error initially
 		data = new RAData( this );
-		devicesArray = getResources().getStringArray( R.array.devicesValues );
+		raprefs = new RAPreferences( this );
 		isServiceRunning = false;
 
 		// initialize the error count
 		errorCount = 0;
-
-		fillRelayLabels();
 
 		checkServiceRunning();
 
@@ -115,14 +105,14 @@ public class RAApplication extends Application {
 	public void startAutoUpdateService ( ) {
 		// check to see if we need to start the repeating update service
 		// grab the service interval, make sure it's greater than 0
-		long interval = getUpdateInterval();
+		long interval = raprefs.getUpdateInterval();
 		if ( interval == 0 ) {
 			Log.d( TAG, "disabled autoupdate" );
 			return;
 		}
 
-		int up = getUpdateProfile();
-		if ( isCommunicateController() ) {
+		int up = raprefs.getUpdateProfile();
+		if ( raprefs.isCommunicateController() ) {
 			int p = getSelectedProfile();
 			Log.d( TAG, "UP: " + up + " P: " + p );
 			if ( isAwayProfileEnabled() ) {
@@ -146,38 +136,33 @@ public class RAApplication extends Application {
 		// setup alarm service to wake up and start the service periodically
 		AlarmManager am =
 				(AlarmManager) getSystemService( Context.ALARM_SERVICE );
-		int type;
-		if ( isWakeupEnabled() )
-			type = AlarmManager.RTC_WAKEUP;
-		else
-			type = AlarmManager.RTC;
-		am.setInexactRepeating( type, System.currentTimeMillis(), interval, pi );
+		am.setInexactRepeating( AlarmManager.RTC, System.currentTimeMillis(),
+								interval, pi );
 		// Profile, interval, wakeup
-		String profile;
-		switch ( up ) {
-			default:
-			case Globals.profileAlways:
-				profile = "always";
-				break;
-			case Globals.profileOnlyAway:
-				profile = "only away";
-				break;
-			case Globals.profileOnlyHome:
-				profile = "only home";
-				break;
-		}
-		String s =
-				String.format(	"%s, %s m, %s", profile,
-								getUpdateIntervalDisplay(),
-								(type == AlarmManager.RTC_WAKEUP)	? "wakeup"
-																	: "none" );
-		Log.d( TAG, "started auto update: " + s );
+		// String profile;
+		// switch ( up ) {
+		// default:
+		// case Globals.profileAlways:
+		// profile = "always";
+		// break;
+		// case Globals.profileOnlyAway:
+		// profile = "only away";
+		// break;
+		// case Globals.profileOnlyHome:
+		// profile = "only home";
+		// break;
+		// }
+		// String s =
+		// String.format( "%s, %s m", profile,
+		// raprefs.getUpdateIntervalDisplay() );
+		// Log.d( TAG, "started auto update: " + s );
 	}
 
 	private PendingIntent getUpdateIntent ( ) {
 		Intent i = new Intent( this, UpdateService.class );
 		i.setAction( MessageCommands.QUERY_STATUS_INTENT );
-		i.putExtra( MessageCommands.AUTO_UPDATE_PROFILE_INT, getUpdateProfile() );
+		i.putExtra( MessageCommands.AUTO_UPDATE_PROFILE_INT,
+					raprefs.getUpdateProfile() );
 		PendingIntent pi =
 				PendingIntent.getService(	this, -1, i,
 											PendingIntent.FLAG_CANCEL_CURRENT );
@@ -298,7 +283,7 @@ public class RAApplication extends Application {
 		Log.e( TAG, msg, t );
 
 		// if logging enabled, save the log
-		if ( isLoggingEnabled() ) {
+		if ( raprefs.isLoggingEnabled() ) {
 			if ( !hasExternalStorage() ) {
 				// doesn't have external storage
 				Log.d( TAG, "No external storage" );
@@ -307,7 +292,7 @@ public class RAApplication extends Application {
 								Toast.LENGTH_LONG ).show();
 				return;
 			}
-			boolean keepFile = isLoggingAppendFile();
+			boolean keepFile = raprefs.isLoggingAppendFile();
 			try {
 				String sFile = getLoggingFile();
 				Log.d( TAG, "File: " + sFile );
@@ -322,8 +307,8 @@ public class RAApplication extends Application {
 						String.format(	"Profile: %s\nHost: %s:%s\nUser ID: %s",
 										(getSelectedProfile() == 1)	? "Away"
 																	: "Home",
-										getPrefHost(), getPrefPort(),
-										getPrefUserId() );
+										raprefs.getHost(), raprefs.getPort(),
+										raprefs.getUserId() );
 				pw.println( s );
 				pw.println( msg );
 				pw.println( t.toString() );
@@ -347,7 +332,8 @@ public class RAApplication extends Application {
 			if ( Integer.parseInt( errorCodes[i] ) == errorCode ) {
 				// found code
 				s =
-						String.format(	Locale.getDefault(), "%s %d: %s",
+						String.format(	Locale.getDefault(),
+										"%s %d: %s",
 										getResources()
 												.getText( R.string.messageError ),
 										errorCode, errorCodesStrings[i] );
@@ -357,49 +343,16 @@ public class RAApplication extends Application {
 		return s;
 	}
 
-	public int getErrorRetryMax ( ) {
-		return Integer
-				.parseInt( prefs
-						.getString( getString( R.string.prefNotificationErrorRetryKey ),
-									"0" ) );
-	}
-
 	public boolean canErrorRetry ( ) {
 		boolean f = false;
-		if ( errorCount <= getErrorRetryMax() ) {
+		if ( errorCount <= raprefs.getNotificationErrorRetryMax() ) {
 			f = true;
 		}
 		return f;
 	}
 
-	public boolean isErrorRetryEnabled ( ) {
-		return (getErrorRetryMax() > Globals.errorRetryNone);
-	}
-
 	public void clearErrorRetryCount ( ) {
 		errorCount = Globals.errorRetryNone;
-	}
-
-	public long getErrorRetryInterval ( ) {
-		// time between error retries
-		return Long
-				.parseLong( prefs
-						.getString( getString( R.string.prefNotificationErrorRetryIntervalKey ),
-									getString( R.string.prefNotificationErrorRetryIntervalDefault ) ) );
-
-	}
-
-	private boolean isLoggingEnabled ( ) {
-		return prefs.getBoolean(	getString( R.string.prefLoggingEnableKey ),
-									false );
-	}
-
-	private boolean isLoggingAppendFile ( ) {
-		int i = getLoggingUpdateValue();
-		boolean f = false;
-		if ( i == Globals.logAppend )
-			f = true;
-		return f;
 	}
 
 	public String getLoggingDirectory ( ) {
@@ -518,224 +471,29 @@ public class RAApplication extends Application {
 	}
 
 	// Preferences
-	protected void fillRelayLabels ( ) {
-		relayLabels =
-				new int[][] {	{	R.string.prefMainPort1LabelKey,
-									R.string.prefMainPort2LabelKey,
-									R.string.prefMainPort3LabelKey,
-									R.string.prefMainPort4LabelKey,
-									R.string.prefMainPort5LabelKey,
-									R.string.prefMainPort6LabelKey,
-									R.string.prefMainPort7LabelKey,
-									R.string.prefMainPort8LabelKey },
-								{	R.string.prefExp1Port1LabelKey,
-									R.string.prefExp1Port2LabelKey,
-									R.string.prefExp1Port3LabelKey,
-									R.string.prefExp1Port4LabelKey,
-									R.string.prefExp1Port5LabelKey,
-									R.string.prefExp1Port6LabelKey,
-									R.string.prefExp1Port7LabelKey,
-									R.string.prefExp1Port8LabelKey },
-								{	R.string.prefExp2Port1LabelKey,
-									R.string.prefExp2Port2LabelKey,
-									R.string.prefExp2Port3LabelKey,
-									R.string.prefExp2Port4LabelKey,
-									R.string.prefExp2Port5LabelKey,
-									R.string.prefExp2Port6LabelKey,
-									R.string.prefExp2Port7LabelKey,
-									R.string.prefExp2Port8LabelKey },
-								{	R.string.prefExp3Port1LabelKey,
-									R.string.prefExp3Port2LabelKey,
-									R.string.prefExp3Port3LabelKey,
-									R.string.prefExp3Port4LabelKey,
-									R.string.prefExp3Port5LabelKey,
-									R.string.prefExp3Port6LabelKey,
-									R.string.prefExp3Port7LabelKey,
-									R.string.prefExp3Port8LabelKey },
-								{	R.string.prefExp4Port1LabelKey,
-									R.string.prefExp4Port2LabelKey,
-									R.string.prefExp4Port3LabelKey,
-									R.string.prefExp4Port4LabelKey,
-									R.string.prefExp4Port5LabelKey,
-									R.string.prefExp4Port6LabelKey,
-									R.string.prefExp4Port7LabelKey,
-									R.string.prefExp4Port8LabelKey },
-								{	R.string.prefExp5Port1LabelKey,
-									R.string.prefExp5Port2LabelKey,
-									R.string.prefExp5Port3LabelKey,
-									R.string.prefExp5Port4LabelKey,
-									R.string.prefExp5Port5LabelKey,
-									R.string.prefExp5Port6LabelKey,
-									R.string.prefExp5Port7LabelKey,
-									R.string.prefExp5Port8LabelKey },
-								{	R.string.prefExp6Port1LabelKey,
-									R.string.prefExp6Port2LabelKey,
-									R.string.prefExp6Port3LabelKey,
-									R.string.prefExp6Port4LabelKey,
-									R.string.prefExp6Port5LabelKey,
-									R.string.prefExp6Port6LabelKey,
-									R.string.prefExp6Port7LabelKey,
-									R.string.prefExp6Port8LabelKey },
-								{	R.string.prefExp7Port1LabelKey,
-									R.string.prefExp7Port2LabelKey,
-									R.string.prefExp7Port3LabelKey,
-									R.string.prefExp7Port4LabelKey,
-									R.string.prefExp7Port5LabelKey,
-									R.string.prefExp7Port6LabelKey,
-									R.string.prefExp7Port7LabelKey,
-									R.string.prefExp7Port8LabelKey },
-								{	R.string.prefExp8Port1LabelKey,
-									R.string.prefExp8Port2LabelKey,
-									R.string.prefExp8Port3LabelKey,
-									R.string.prefExp8Port4LabelKey,
-									R.string.prefExp8Port5LabelKey,
-									R.string.prefExp8Port6LabelKey,
-									R.string.prefExp8Port7LabelKey,
-									R.string.prefExp8Port8LabelKey } };
-		relayDefaultLabels =
-				new int[] { R.string.labelPort1,
-							R.string.labelPort2,
-							R.string.labelPort3,
-							R.string.labelPort4,
-							R.string.labelPort5,
-							R.string.labelPort6,
-							R.string.labelPort7,
-							R.string.labelPort8 };
-	}
-
-	public boolean isCommunicateController ( ) {
-		boolean b = false;
-		if ( getPrefDevice().equals( devicesArray[0] ) ) {
-			b = true;
-		}
-		return b;
-	}
-
-	public boolean useOld085xExpansionRelays ( ) {
-		return prefs.getBoolean( getString( R.string.prefExp085xKey ), false );
-	}
-
-	public boolean useOldPre10MemoryLocations ( ) {
-		return prefs
-				.getBoolean( getString( R.string.prefPre10MemoryKey ), true );
-	}
-
-	public long getUpdateInterval ( ) {
-		String s =
-				prefs.getString(	getString( R.string.prefAutoUpdateIntervalKey ),
-									getString( R.string.prefAutoUpdateIntervalDefault ) );
-		long i = Long.parseLong( s );
-		return i;
-	}
-
-	public String getUpdateIntervalDisplay ( ) {
-		int pos = 0;
-		long value = getUpdateInterval();
-		String[] interval =
-				getResources().getStringArray( R.array.updateIntervalValues );
-		String[] intervaldisplay =
-				getResources().getStringArray( R.array.updateInterval );
-		for ( int i = 0; i < interval.length; i++ ) {
-			if ( Long.parseLong( interval[i] ) == value ) {
-				// found value
-				pos = i;
-				break;
-			}
-		}
-		return intervaldisplay[pos];
-	}
-
-	public boolean isWakeupEnabled ( ) {
-		// TODO do we wake up the device to run the auto status updates or not?
-		return false;
-	}
-
-	public int getUpdateProfile ( ) {
-		String s =
-				prefs.getString(	getString( R.string.prefAutoUpdateProfileKey ),
-									getString( R.string.prefAutoUpdateProfileDefault ) );
-		int i = Integer.parseInt( s );
-		return i;
-	}
-
-	public String getUpdateProfileDisplay ( ) {
-		int pos = 0;
-		int value = getUpdateProfile();
-		String[] profile =
-				getResources().getStringArray( R.array.updateProfileValues );
-		String[] profiledisplay =
-				getResources().getStringArray( R.array.updateProfile );
-		for ( int i = 0; i < profile.length; i++ ) {
-			if ( Integer.parseInt( profile[i] ) == value ) {
-				// found value
-				pos = i;
-				break;
-			}
-		}
-		return profiledisplay[pos];
-	}
-
-	public int getLoggingUpdateValue ( ) {
-		return Integer.parseInt( prefs
-				.getString( getString( R.string.prefLoggingUpdateKey ), "0" ) );
-	}
-
-	public String getLoggingUpdateDisplay ( ) {
-		int pos = 0;
-		int value = getLoggingUpdateValue();
-
-		String[] logging =
-				getResources().getStringArray( R.array.loggingUpdateValues );
-		String[] loggingdisplay =
-				getResources().getStringArray( R.array.loggingUpdate );
-		for ( int i = 0; i < logging.length; i++ ) {
-			if ( Integer.parseInt( logging[i] ) == value ) {
-				// found value
-				pos = i;
-				break;
-			}
-		}
-		return loggingdisplay[pos];
-	}
 
 	public boolean isFirstRun ( ) {
 		// First run will be determined by:
 		// if the first run key is NOT set AND
 		// if the host key is NOT set OR if it's the same as the default
-		boolean fFirst =
-				prefs.getBoolean( getString( R.string.prefFirstRunKey ), true );
+		boolean fFirst = raprefs.isFirstRun();
+
 		// if it's already set, no need to compare the hosts
 		if ( !fFirst ) {
-			Log.w( TAG, "First run already set" );
+			// Log.w( TAG, "First run already set" );
 			return false;
 		}
 
 		// if it's not set (as in existing installations), check the host
 		// the host should be set and it should not be the same as the default
-		boolean fHost = true;
-		String host = prefs.getString( getString( R.string.prefHostKey ), "" );
-		if ( host.equals( "" ) )
-			fHost = false;
-		Log.w( TAG, "Host:  '" + host + "',  host set: " + fHost );
-		if ( !fHost )
+		if ( !raprefs.isMainHostSet() )
 			return true;
 
 		// if we have made it here, then it's an existing install where the user
 		// has the host set to something other than the default
 		// so we will go ahead and clear the first run prompt for them
-		disableFirstRun();
+		raprefs.disableFirstRun();
 		return false;
-	}
-
-	public void disableFirstRun ( ) {
-		SharedPreferences.Editor editor = prefs.edit();
-		editor.putBoolean( getString( R.string.prefFirstRunKey ), false );
-		editor.commit();
-	}
-
-	protected void clearFirstRun ( ) {
-		// TODO remove this function, not needed to clear first run key
-		deletePref( R.string.prefFirstRunKey );
 	}
 
 	public void displayChangeLog ( Activity a ) {
@@ -743,562 +501,41 @@ public class RAApplication extends Application {
 		// running code
 		// display the changelog if the values are different
 		Log.d( TAG, "display changelog" );
-		int previous =
-				prefs.getInt(	getString( R.string.prefPreviousCodeVersionKey ),
-								0 );
+		int previous = raprefs.getPreviousCodeVersion();
+
 		int current = 0;
 		try {
 			current =
 					getPackageManager().getPackageInfo( getPackageName(), 0 ).versionCode;
 		} catch ( NameNotFoundException e ) {
 		}
-		Log.d( TAG, "Compare: " + current + " == " + previous );
 		if ( current > previous ) {
 			// save code version in preferences
-			prefs.edit()
-					.putInt( getString( R.string.prefPreviousCodeVersionKey ),
-								current ).commit();
+			raprefs.setPreviousCodeVersion( current );
 			// newer version, display changelog
-			Log.d( TAG, "Showing changelog" );
 			Changelog.displayChangelog( a );
 		}
 		// deletePref( R.string.prefPreviousCodeVersion );
 	}
 
+	// Profiles
 	public int getSelectedProfile ( ) {
-		return Integer.parseInt( prefs
-				.getString( getString( R.string.prefProfileSelectedKey ),
-							getString( R.string.prefProfileSelectedDefault ) ) );
+		return raprefs.getSelectedProfile();
 	}
 
 	public void setSelectedProfile ( int profile ) {
 		if ( profile > Globals.profileAway )
 			return;
-		String s = "" + profile;
-		Log.d( TAG, "Changed Profile: " + s );
-		setPref( R.string.prefProfileSelectedKey, s );
+		raprefs.setSelectedProfile( profile );
 		restartAutoUpdateService();
 	}
 
 	public boolean isAwayProfileEnabled ( ) {
+		// String host = raprefs.getAwayHost();
+		// Log.d( TAG, "isAwayProfileEnabled: " + host );
 		// get away host, compare to empty host
 		// if host is set, then the profile is enabled
 		// if port is not set, that implies default port
-		String host = getPrefAwayHost();
-		Log.d( TAG, "isAwayProfileEnabled: " + host );
-		if ( host.equals( getString( R.string.prefHostAwayDefault ) ) ) {
-			return false;
-		}
-		return true;
+		return raprefs.isAwayHostSet();
 	}
-
-	public int getPreviousEM ( ) {
-		int previous =
-				prefs.getInt( getString( R.string.prefPreviousEMKey ), -1 );
-		return previous;
-	}
-
-	public void setPreviousEM ( short em ) {
-		prefs.edit().putInt( getString( R.string.prefPreviousEMKey ), em )
-				.commit();
-	}
-
-	public boolean isNotificationEnabled ( ) {
-		return prefs
-				.getBoolean(	getString( R.string.prefNotificationEnableKey ),
-								true );
-	}
-
-	public Uri getNotificationSound ( ) {
-		String s =
-				prefs.getString(	getString( R.string.prefNotificationSoundKey ),
-									"content://settings/system/notification_sound" );
-		return Uri.parse( s );
-	}
-
-	public String getPrefHost ( ) {
-		int profile = getSelectedProfile();
-		if ( profile == 1 ) {
-			// Away profile
-			if ( isAwayProfileEnabled() ) {
-				// away profile is filled in and enabled
-				// return away profile
-				return getPrefAwayHost();
-			}
-		}
-		return getPrefHomeHost();
-	}
-
-	public String getPrefPort ( ) {
-		int profile = getSelectedProfile();
-		if ( profile == Globals.profileAway ) {
-			// Away profile
-			if ( isAwayProfileEnabled() ) {
-				// away profile is filled in and enabled
-				// return away profile
-				return getPrefAwayPort();
-			}
-		}
-		return getPrefHomePort();
-	}
-
-	public String getPrefHomeHost ( ) {
-		return prefs.getString( getString( R.string.prefHostKey ),
-								getString( R.string.prefHostHomeDefault ) );
-	}
-
-	public String getPrefHomePort ( ) {
-		return prefs.getString( getString( R.string.prefPortKey ),
-								getString( R.string.prefPortDefault ) );
-	}
-
-	public String getPrefAwayHost ( ) {
-		return prefs.getString( getString( R.string.prefHostAwayKey ),
-								getString( R.string.prefHostAwayDefault ) );
-	}
-
-	public String getPrefAwayPort ( ) {
-		return prefs.getString( getString( R.string.prefPortAwayKey ),
-								getString( R.string.prefPortDefault ) );
-	}
-
-	public boolean getPrefT2Visibility ( ) {
-		return prefs.getBoolean(	getString( R.string.prefT2VisibilityKey ),
-									true );
-	}
-
-	public boolean getPrefT3Visibility ( ) {
-		return prefs.getBoolean(	getString( R.string.prefT3VisibilityKey ),
-									true );
-	}
-
-	public boolean getPrefDPVisibility ( ) {
-		return prefs.getBoolean(	getString( R.string.prefDPVisibilityKey ),
-									true );
-	}
-
-	public boolean getPrefAPVisibility ( ) {
-		return prefs.getBoolean(	getString( R.string.prefAPVisibilityKey ),
-									true );
-	}
-
-	public boolean getPrefPHVisibility ( ) {
-		return prefs.getBoolean(	getString( R.string.prefPHVisibilityKey ),
-									true );
-	}
-
-	public boolean getPrefSalinityVisibility ( ) {
-		return prefs
-				.getBoolean(	getString( R.string.prefSalinityVisibilityKey ),
-								false );
-	}
-
-	public boolean getPrefORPVisibility ( ) {
-		return prefs.getBoolean(	getString( R.string.prefORPVisibilityKey ),
-									false );
-	}
-
-	public boolean getPrefPHExpVisibility ( ) {
-		return prefs
-				.getBoolean(	getString( R.string.prefPHExpVisibilityKey ),
-								false );
-	}
-
-	public boolean getPrefWaterLevelVisibility ( ) {
-		return prefs
-				.getBoolean(	getString( R.string.prefWaterLevelVisibilityKey ),
-								false );
-	}
-
-	public String getPrefT1Label ( ) {
-		return prefs.getString( getString( R.string.prefT1LabelKey ),
-								getString( R.string.labelTemp1 ) );
-	}
-
-	public String getPrefT2Label ( ) {
-		return prefs.getString( getString( R.string.prefT2LabelKey ),
-								getString( R.string.labelTemp2 ) );
-	}
-
-	public String getPrefT3Label ( ) {
-		return prefs.getString( getString( R.string.prefT3LabelKey ),
-								getString( R.string.labelTemp3 ) );
-	}
-
-	public String getPrefPHLabel ( ) {
-		return prefs.getString( getString( R.string.prefPHLabelKey ),
-								getString( R.string.labelPH ) );
-	}
-
-	public String getPrefDPLabel ( ) {
-		return prefs.getString( getString( R.string.prefDPLabelKey ),
-								getString( R.string.labelDP ) );
-	}
-
-	public String getPrefAPLabel ( ) {
-		return prefs.getString( getString( R.string.prefAPLabelKey ),
-								getString( R.string.labelAP ) );
-	}
-
-	public String getPrefSalinityLabel ( ) {
-		return prefs.getString( getString( R.string.prefSalinityLabelKey ),
-								getString( R.string.labelSalinity ) );
-	}
-
-	public String getPrefORPLabel ( ) {
-		return prefs.getString( getString( R.string.prefORPLabelKey ),
-								getString( R.string.labelORP ) );
-	}
-
-	public String getPrefPHExpLabel ( ) {
-		return prefs.getString( getString( R.string.prefPHExpLabelKey ),
-								getString( R.string.labelPHExp ) );
-	}
-
-	public String getPrefWaterLevelLabel ( ) {
-		return prefs.getString( getString( R.string.prefWaterLevelLabelKey ),
-								getString( R.string.labelWaterLevel ) );
-	}
-
-	public String getPrefMainRelayLabel ( int port ) {
-		return getPrefRelayLabel( 0, port );
-	}
-
-	public String getPrefRelayLabel ( int relay, int port ) {
-		return prefs.getString( getString( relayLabels[relay][port] ),
-								getString( relayDefaultLabels[port] ) );
-	}
-
-	public void setPrefRelayLabel ( int relay, int port, String label ) {
-		setPref( getString( relayLabels[relay][port] ), label );
-	}
-
-	public int getPrefRelayKey ( int relay, int port ) {
-		return relayLabels[relay][port];
-	}
-
-	public void setPref ( String key, String value ) {
-		SharedPreferences.Editor editor = prefs.edit();
-		editor.putString( key, value );
-		editor.commit();
-	}
-
-	public void setPref ( int keyid, String value ) {
-		setPref( getString( keyid ), value );
-	}
-
-	public void setPref ( int keyid, boolean value ) {
-		SharedPreferences.Editor editor = prefs.edit();
-		editor.putBoolean( getString( keyid ), value ).commit();
-	}
-
-	public void deletePref ( int keyid ) {
-		deletePref( getString( keyid ) );
-	}
-
-	public void deletePref ( String key ) {
-		SharedPreferences.Editor editor = prefs.edit();
-		editor.remove( key );
-		editor.commit();
-	}
-
-	public String getPrefDevice ( ) {
-		return prefs.getString( getString( R.string.prefDeviceKey ),
-								getString( R.string.prefDeviceDefault ) );
-	}
-
-	public String getPrefUserId ( ) {
-		return prefs.getString( getString( R.string.prefUserIdKey ),
-								getString( R.string.prefUserIdDefault ) );
-	}
-
-	public boolean isAutoUpdateModulesEnabled ( ) {
-		return prefs
-				.getBoolean(	getString( R.string.prefAutoUpdateModulesKey ),
-								true );
-	}
-
-	public int getPrefExpansionRelayQuantity ( ) {
-		return Integer.parseInt( prefs
-				.getString( getString( R.string.prefExpQtyKey ), "0" ) );
-	}
-
-	public int getTotalInstalledModuleQuantity ( ) {
-		// this function gets all the installed modules for the controller
-		// that are displayed on their own separate pages
-		// the modules include:
-		// expansion relays, dimming, vortech, radion, ai, custom, io
-		int total = 0;
-		total += getPrefExpansionRelayQuantity();
-		total += getInstalledModuleQuantity();
-		return total;
-	}
-
-	public int getInstalledModuleQuantity ( ) {
-		// returns the total installed modules
-		int total = 0;
-		if ( getDimmingModuleEnabled() )
-			total++;
-		if ( getRadionModuleEnabled() )
-			total++;
-		if ( getVortechModuleEnabled() )
-			total++;
-		if ( getAIModuleEnabled() )
-			total++;
-		if ( getIOModuleEnabled() )
-			total++;
-		if ( getCustomModuleEnabled() )
-			total++;
-		return total;
-	}
-
-	public boolean getDimmingModuleEnabled ( ) {
-		return prefs
-				.getBoolean(	getString( R.string.prefExpDimmingEnableKey ),
-								false );
-	}
-
-	public String getDimmingModuleChannelLabel ( int channel ) {
-		int k, v;
-		switch ( channel ) {
-			default:
-			case 0:
-				k = R.string.prefExpDimmingCh0LabelKey;
-				v = R.string.prefExpDimmingCh0LabelTitle;
-				break;
-			case 1:
-				k = R.string.prefExpDimmingCh1LabelKey;
-				v = R.string.prefExpDimmingCh1LabelTitle;
-				break;
-			case 2:
-				k = R.string.prefExpDimmingCh2LabelKey;
-				v = R.string.prefExpDimmingCh2LabelTitle;
-				break;
-			case 3:
-				k = R.string.prefExpDimmingCh3LabelKey;
-				v = R.string.prefExpDimmingCh3LabelTitle;
-				break;
-			case 4:
-				k = R.string.prefExpDimmingCh4LabelKey;
-				v = R.string.prefExpDimmingCh4LabelTitle;
-				break;
-			case 5:
-				k = R.string.prefExpDimmingCh5LabelKey;
-				v = R.string.prefExpDimmingCh5LabelTitle;
-				break;
-		}
-		return prefs.getString( getString( k ), getString( v ) );
-	}
-
-	public void setDimmingModuleChannelLabel ( int channel, String label ) {
-		int k;
-		switch ( channel ) {
-			default:
-			case 0:
-				k = R.string.prefExpDimmingCh0LabelKey;
-				break;
-			case 1:
-				k = R.string.prefExpDimmingCh1LabelKey;
-				break;
-			case 2:
-				k = R.string.prefExpDimmingCh2LabelKey;
-				break;
-			case 3:
-				k = R.string.prefExpDimmingCh3LabelKey;
-				break;
-			case 4:
-				k = R.string.prefExpDimmingCh4LabelKey;
-				break;
-			case 5:
-				k = R.string.prefExpDimmingCh5LabelKey;
-				break;
-		}
-		setPref( k, label );
-	}
-
-	public boolean getRadionModuleEnabled ( ) {
-		return prefs
-				.getBoolean(	getString( R.string.prefExpRadionEnableKey ),
-								false );
-	}
-
-	public boolean getVortechModuleEnabled ( ) {
-		return prefs
-				.getBoolean(	getString( R.string.prefExpVortechEnableKey ),
-								false );
-	}
-
-	public boolean getAIModuleEnabled ( ) {
-		return prefs.getBoolean(	getString( R.string.prefExpAIEnableKey ),
-									false );
-	}
-
-	public boolean getIOModuleEnabled ( ) {
-		return prefs.getBoolean(	getString( R.string.prefExpIOEnableKey ),
-									false );
-	}
-
-	public String getIOModuleChannelLabel ( int channel ) {
-		int k, v;
-		switch ( channel ) {
-			default:
-			case 0:
-				k = R.string.prefExpIO0LabelKey;
-				v = R.string.prefExpIO0LabelTitle;
-				break;
-			case 1:
-				k = R.string.prefExpIO1LabelKey;
-				v = R.string.prefExpIO1LabelTitle;
-				break;
-			case 2:
-				k = R.string.prefExpIO2LabelKey;
-				v = R.string.prefExpIO2LabelTitle;
-				break;
-			case 3:
-				k = R.string.prefExpIO3LabelKey;
-				v = R.string.prefExpIO3LabelTitle;
-				break;
-			case 4:
-				k = R.string.prefExpIO4LabelKey;
-				v = R.string.prefExpIO4LabelTitle;
-				break;
-			case 5:
-				k = R.string.prefExpIO5LabelKey;
-				v = R.string.prefExpIO5LabelTitle;
-				break;
-		}
-		return prefs.getString( getString( k ), getString( v ) );
-	}
-
-	public void setIOModuleChannelLabel ( int channel, String label ) {
-		int k;
-		switch ( channel ) {
-			default:
-			case 0:
-				k = R.string.prefExpIO0LabelKey;
-				break;
-			case 1:
-				k = R.string.prefExpIO1LabelKey;
-				break;
-			case 2:
-				k = R.string.prefExpIO2LabelKey;
-				break;
-			case 3:
-				k = R.string.prefExpIO3LabelKey;
-				break;
-			case 4:
-				k = R.string.prefExpIO4LabelKey;
-				break;
-			case 5:
-				k = R.string.prefExpIO5LabelKey;
-				break;
-		}
-		setPref( k, label );
-	}
-
-	public boolean getCustomModuleEnabled ( ) {
-		return prefs
-				.getBoolean(	getString( R.string.prefExpCustomEnableKey ),
-								false );
-	}
-
-	public String getCustomModuleChannelLabel ( int channel ) {
-		int k, d;
-		switch ( channel ) {
-			default:
-			case 0:
-				k = R.string.prefExpCustom0LabelKey;
-				d = R.string.prefExpCustom0LabelTitle;
-				break;
-			case 1:
-				k = R.string.prefExpCustom1LabelKey;
-				d = R.string.prefExpCustom1LabelTitle;
-				break;
-			case 2:
-				k = R.string.prefExpCustom2LabelKey;
-				d = R.string.prefExpCustom2LabelTitle;
-				break;
-			case 3:
-				k = R.string.prefExpCustom3LabelKey;
-				d = R.string.prefExpCustom3LabelTitle;
-				break;
-			case 4:
-				k = R.string.prefExpCustom4LabelKey;
-				d = R.string.prefExpCustom4LabelTitle;
-				break;
-			case 5:
-				k = R.string.prefExpCustom5LabelKey;
-				d = R.string.prefExpCustom5LabelTitle;
-				break;
-			case 6:
-				k = R.string.prefExpCustom6LabelKey;
-				d = R.string.prefExpCustom6LabelTitle;
-				break;
-			case 7:
-				k = R.string.prefExpCustom7LabelKey;
-				d = R.string.prefExpCustom7LabelTitle;
-				break;
-		}
-		return prefs.getString( getString( k ), getString( d ) );
-	}
-
-	public void setCustomModuleChannelLabel ( int channel, String label ) {
-		int k;
-		switch ( channel ) {
-			default:
-			case 0:
-				k = R.string.prefExpCustom0LabelKey;
-				break;
-			case 1:
-				k = R.string.prefExpCustom1LabelKey;
-				break;
-			case 2:
-				k = R.string.prefExpCustom2LabelKey;
-				break;
-			case 3:
-				k = R.string.prefExpCustom3LabelKey;
-				break;
-			case 4:
-				k = R.string.prefExpCustom4LabelKey;
-				break;
-			case 5:
-				k = R.string.prefExpCustom5LabelKey;
-				break;
-			case 6:
-				k = R.string.prefExpCustom6LabelKey;
-				break;
-			case 7:
-				k = R.string.prefExpCustom7LabelKey;
-				break;
-		}
-		setPref( k, label );
-	}
-
-	private String getRelayControlEnabledKey ( int relay, int port ) {
-		String s;
-		if ( relay == 0 ) {
-			s = "prefMainPort";
-		} else {
-			s = "prefExp" + relay + "Port";
-		}
-		return s + (port + 1) + "EnabledKey";
-	}
-
-	public boolean getPrefRelayControlEnabled ( int relay, int port ) {
-		return prefs
-				.getBoolean( getRelayControlEnabledKey( relay, port ), true );
-	}
-
-	public boolean getPrefMainRelayControlEnabled ( int port ) {
-		return getPrefRelayControlEnabled( 0, port );
-	}
-
-	public void deleteRelayControlEnabledPorts ( ) {
-		for ( int i = 0; i <= Controller.MAX_EXPANSION_RELAYS; i++ ) {
-			for ( int j = 0; j < Controller.MAX_RELAY_PORTS; j++ ) {
-				deletePref( getRelayControlEnabledKey( i, j ) );
-			}
-		}
-	}
-
 }

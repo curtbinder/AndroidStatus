@@ -11,6 +11,7 @@ package info.curtbinder.reefangel.service;
 import info.curtbinder.reefangel.phone.Globals;
 import info.curtbinder.reefangel.phone.R;
 import info.curtbinder.reefangel.phone.RAApplication;
+import info.curtbinder.reefangel.phone.RAPreferences;
 import android.app.IntentService;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -67,7 +68,8 @@ public class UpdateService extends IntentService {
 
 	private void processAutoUpdate ( int profile_update ) {
 		Host h = new Host();
-		if ( rapp.isCommunicateController() ) {
+		final RAPreferences raprefs = rapp.raprefs;
+		if ( raprefs.isCommunicateController() ) {
 			// controller
 			String host, port;
 			if ( rapp.isAwayProfileEnabled() ) {
@@ -75,28 +77,28 @@ public class UpdateService extends IntentService {
 				switch ( profile_update ) {
 					default:
 					case Globals.profileAlways:
-						host = rapp.getPrefHost();
-						port = rapp.getPrefPort();
+						host = raprefs.getHost();
+						port = raprefs.getPort();
 						break;
 					case Globals.profileOnlyAway:
-						host = rapp.getPrefAwayHost();
-						port = rapp.getPrefAwayPort();
+						host = raprefs.getAwayHost();
+						port = raprefs.getAwayPort();
 						break;
 					case Globals.profileOnlyHome:
-						host = rapp.getPrefHomeHost();
-						port = rapp.getPrefHomePort();
+						host = raprefs.getHomeHost();
+						port = raprefs.getHomePort();
 						break;
 				}
 			} else {
-				host = rapp.getPrefHost();
-				port = rapp.getPrefPort();
+				host = raprefs.getHost();
+				port = raprefs.getPort();
 			}
 			h.setHost( host );
 			h.setPort( port );
 			h.setCommand( RequestCommands.Status );
 		} else {
 			// reeefangel.com / portal
-			h.setUserId( rapp.getPrefUserId() );
+			h.setUserId( raprefs.getUserId() );
 			h.setCommand( RequestCommands.ReefAngel );
 		}
 		Log.d( TAG, "AutoUpdate: " + h.toString() );
@@ -106,17 +108,18 @@ public class UpdateService extends IntentService {
 	private void processRACommand ( Intent intent ) {
 		String action = intent.getAction();
 		String command = RequestCommands.None;
-		boolean isController = rapp.isCommunicateController();
+		final RAPreferences raprefs = rapp.raprefs;
+		boolean isController = raprefs.isCommunicateController();
 		Host h = new Host();
 
 		// setup the basics for the host first
 		if ( isController ) {
 			// controller
-			h.setHost( rapp.getPrefHost() );
-			h.setPort( rapp.getPrefPort() );
+			h.setHost( raprefs.getHost() );
+			h.setPort( raprefs.getPort() );
 		} else {
 			// reeefangel.com
-			h.setUserId( rapp.getPrefUserId() );
+			h.setUserId( raprefs.getUserId() );
 		}
 
 		if ( action.equals( MessageCommands.QUERY_STATUS_INTENT ) ) {
@@ -170,7 +173,7 @@ public class UpdateService extends IntentService {
 		} else if ( action.equals( MessageCommands.LABEL_QUERY_INTENT ) ) {
 			Log.d( TAG, "Query labels" );
 			// set the userid
-			h.setUserId( rapp.getPrefUserId() );
+			h.setUserId( raprefs.getUserId() );
 			h.setGetLabelsOnly( true );
 		} else if ( action.equals( MessageCommands.COMMAND_SEND_INTENT ) ) {
 			Log.d( TAG, "Command Send" );

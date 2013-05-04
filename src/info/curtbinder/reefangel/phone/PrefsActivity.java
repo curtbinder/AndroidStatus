@@ -51,6 +51,7 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 	RAApplication rapp;
 	PrefsReceiver receiver;
 	IntentFilter filter;
+	RAPreferences raprefs;
 
 	protected void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
@@ -64,6 +65,7 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 		addPreferencesFromResource( R.xml.pref_appinfo );
 
 		rapp = (RAApplication) getApplication();
+		raprefs = rapp.raprefs;
 		devicesArray = rapp.getResources().getStringArray( R.array.devices );
 		profilesArray =
 				rapp.getResources().getStringArray( R.array.profileLabels );
@@ -137,7 +139,7 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 		exprelays[7] =
 				findPreference( rapp
 						.getString( R.string.prefExp8RelayEnabledKey ) );
-		updateExpansionLabelsVisibility( rapp.getPrefExpansionRelayQuantity() );
+		updateExpansionLabelsVisibility( raprefs.getExpansionRelayQuantity() );
 
 		profilekey =
 				findPreference( rapp
@@ -158,11 +160,11 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 		} else {
 			updateAutoUpdateProfileVisibility( false );
 		}
-		updateprofilekey.setSummary( rapp.getUpdateProfileDisplay() );
+		updateprofilekey.setSummary( getUpdateProfileDisplay() );
 		findPreference( rapp.getString( R.string.prefAutoUpdateIntervalKey ) )
-				.setSummary( rapp.getUpdateIntervalDisplay() );
+				.setSummary( getUpdateIntervalDisplay() );
 		findPreference( rapp.getString( R.string.prefLoggingUpdateKey ) )
-				.setSummary( rapp.getLoggingUpdateDisplay() );
+				.setSummary( getLoggingUpdateDisplay() );
 
 		Preference changelog =
 				findPreference( rapp.getString( R.string.prefChangelogKey ) );
@@ -225,7 +227,7 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 
 	private void updateSelectedProfileVisibility ( ) {
 		boolean fEnable = false;
-		if ( rapp.isAwayProfileEnabled() && rapp.isCommunicateController() ) {
+		if ( rapp.isAwayProfileEnabled() && raprefs.isCommunicateController() ) {
 			fEnable = true;
 		}
 		profilekey.setEnabled( fEnable );
@@ -245,8 +247,8 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 	}
 
 	private void updateUserIds ( ) {
-		updateUserIdSummary( rapp.getPrefUserId() );
-		updateDownloadLabelUserId( rapp.getPrefUserId() );
+		updateUserIdSummary( raprefs.getUserId() );
+		updateDownloadLabelUserId( raprefs.getUserId() );
 	}
 
 	private void updateSelectedProfileSummary ( ) {
@@ -262,22 +264,22 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 
 	private void updateHomeHostSummary ( ) {
 		findPreference( rapp.getString( R.string.prefHostKey ) )
-				.setSummary( rapp.getPrefHomeHost() );
+				.setSummary( raprefs.getHomeHost() );
 	}
 
 	private void updateHomePortSummary ( ) {
 		findPreference( rapp.getString( R.string.prefPortKey ) )
-				.setSummary( rapp.getPrefHomePort() );
+				.setSummary( raprefs.getHomePort() );
 	}
 
 	private void updateAwayHostSummary ( ) {
 		findPreference( rapp.getString( R.string.prefHostAwayKey ) )
-				.setSummary( rapp.getPrefAwayHost() );
+				.setSummary( raprefs.getAwayHost() );
 	}
 
 	private void updateAwayPortSummary ( ) {
 		findPreference( rapp.getString( R.string.prefPortAwayKey ) )
-				.setSummary( rapp.getPrefAwayPort() );
+				.setSummary( raprefs.getAwayPort() );
 	}
 
 	private void updateExpansionLabelsVisibility ( int qty ) {
@@ -310,7 +312,7 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 
 	private void updateDeviceKeySummary ( ) {
 		String s;
-		if ( rapp.isCommunicateController() ) {
+		if ( raprefs.isCommunicateController() ) {
 			// 0 index is controller
 			s = devicesArray[0];
 		} else {
@@ -323,7 +325,7 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 
 	private void updateExpRelayQuantitySummary ( ) {
 		// change to use array list instead
-		int value = rapp.getPrefExpansionRelayQuantity();
+		int value = raprefs.getExpansionRelayQuantity();
 		findPreference( rapp.getString( R.string.prefExpQtyKey ) )
 				.setSummary( expRelayQtyArray[value] );
 	}
@@ -331,7 +333,7 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 	private void updateErrorRetryCountSummary ( ) {
 		String[] sa =
 				rapp.getResources().getStringArray( R.array.errorRetryCount );
-		int count = rapp.getErrorRetryMax();
+		int count = raprefs.getNotificationErrorRetryMax();
 		Preference pe =
 				findPreference( rapp
 						.getString( R.string.prefNotificationErrorRetryKey ) );
@@ -351,7 +353,7 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 
 	private void updateErrorRetryIntervalSummary ( ) {
 		int pos = 0;
-		long value = rapp.getErrorRetryInterval();
+		long value = raprefs.getNotificationErrorRetryInterval();
 		String[] interval =
 				getResources()
 						.getStringArray( R.array.errorRetryIntervalValues );
@@ -413,9 +415,9 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 			// - enabled (interval > 0)
 			// -- away profile enabled AND the profile is not only away
 			// -- away profile disabled
-			if ( rapp.getUpdateInterval() > 0 && rapp.isCommunicateController() ) {
+			if ( raprefs.getUpdateInterval() > 0 && raprefs.isCommunicateController() ) {
 				if ( rapp.isAwayProfileEnabled() ) {
-					if ( rapp.getUpdateProfile() != Globals.profileOnlyAway ) {
+					if ( raprefs.getUpdateProfile() != Globals.profileOnlyAway ) {
 						Log.d(	TAG,
 								"away enabled: restart based on home host & port" );
 						rapp.restartAutoUpdateService();
@@ -437,9 +439,9 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 			if ( rapp.isAwayProfileEnabled() ) {
 				// only restart service if it's enabled AND
 				// the profile is not only home
-				if ( rapp.isCommunicateController() ) {
-					if ( (rapp.getUpdateInterval() > 0)
-							&& (rapp.getUpdateProfile() != Globals.profileOnlyHome) ) {
+				if ( raprefs.isCommunicateController() ) {
+					if ( (raprefs.getUpdateInterval() > 0)
+							&& (raprefs.getUpdateProfile() != Globals.profileOnlyHome) ) {
 						Log.d( TAG, "restart based on away host & port" );
 						rapp.restartAutoUpdateService();
 					}
@@ -449,9 +451,8 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 				// user cleared the away host, disabling profiles
 				if ( key.equals( rapp.getString( R.string.prefHostAwayKey ) ) ) {
 					// clear out the profiles
-					rapp.setPref(	R.string.prefProfileSelectedKey,
-									"" + Globals.profileHome );
-					if ( rapp.isCommunicateController() )
+					raprefs.setSelectedProfile( Globals.profileHome );
+					if ( raprefs.isCommunicateController() )
 						// only restart if a controller
 						rapp.restartAutoUpdateService();
 				}
@@ -460,26 +461,26 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 			updateSelectedProfileVisibility();
 		} else if ( key.equals( rapp.getString( R.string.prefUserIdKey ) ) ) {
 			updateUserIds();
-			if ( (rapp.getUpdateInterval() > 0)
-					&& (!rapp.isCommunicateController()) ) {
+			if ( (raprefs.getUpdateInterval() > 0)
+					&& (!raprefs.isCommunicateController()) ) {
 				Log.d( TAG, "restart based on userid changing" );
 				rapp.restartAutoUpdateService();
 			}
 		} else if ( key.equals( rapp.getString( R.string.prefExpQtyKey ) ) ) {
 			// enable / disable the Expansion Labels based on how
 			// many expansion relays selected
-			updateExpansionLabelsVisibility( rapp
-					.getPrefExpansionRelayQuantity() );
+			updateExpansionLabelsVisibility( raprefs
+					.getExpansionRelayQuantity() );
 			updateExpRelayQuantitySummary();
 		} else if ( key.equals( rapp
 				.getString( R.string.prefAutoUpdateIntervalKey ) ) ) {
 			// when interval changes, update the repeat service
 			// updateprofilekey.setSummary( rapp.getUpdateIntervalDisplay() );
 			findPreference( rapp.getString( R.string.prefAutoUpdateIntervalKey ) )
-					.setSummary( rapp.getUpdateIntervalDisplay() );
+					.setSummary( getUpdateIntervalDisplay() );
 			rapp.restartAutoUpdateService();
 			boolean fVisible = false;
-			if ( rapp.isAwayProfileEnabled() && (rapp.getUpdateInterval() > 0) ) {
+			if ( rapp.isAwayProfileEnabled() && (raprefs.getUpdateInterval() > 0) ) {
 				Log.d( TAG, "enable update profile" );
 				fVisible = true;
 			}
@@ -487,22 +488,22 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 		} else if ( key.equals( rapp
 				.getString( R.string.prefAutoUpdateProfileKey ) ) ) {
 			// restart the update service if we change the update profile
-			updateprofilekey.setSummary( rapp.getUpdateProfileDisplay() );
+			updateprofilekey.setSummary( getUpdateProfileDisplay() );
 			rapp.restartAutoUpdateService();
 		} else if ( key.equals( rapp.getString( R.string.prefDeviceKey ) ) ) {
 			// device changes
 			boolean f = false;
-			if ( rapp.isCommunicateController() && rapp.isAwayProfileEnabled() )
+			if ( raprefs.isCommunicateController() && rapp.isAwayProfileEnabled() )
 				f = true;
 			// only restart if there is an interval
-			if ( rapp.getUpdateInterval() > 0 )
+			if ( raprefs.getUpdateInterval() > 0 )
 				rapp.restartAutoUpdateService();
 			updateAutoUpdateProfileVisibility( f );
 			updateSelectedProfileVisibility();
 			updateDeviceKeySummary();
 		} else if ( key.equals( rapp
 				.getString( R.string.prefProfileSelectedKey ) ) ) {
-			if ( rapp.getUpdateInterval() > 0 ) {
+			if ( raprefs.getUpdateInterval() > 0 ) {
 				Log.d( TAG, "profile changed, restart" );
 				rapp.restartAutoUpdateService();
 			}
@@ -510,7 +511,7 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 		} else if ( key
 				.equals( rapp.getString( R.string.prefLoggingUpdateKey ) ) ) {
 			findPreference( rapp.getString( R.string.prefLoggingUpdateKey ) )
-					.setSummary( rapp.getLoggingUpdateDisplay() );
+					.setSummary( getLoggingUpdateDisplay() );
 		} else if ( key.equals( rapp
 				.getString( R.string.prefNotificationErrorRetryKey ) ) ) {
 			// error retry count changed, update the summary and
@@ -523,6 +524,62 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 		}
 	}
 
+	private String getLoggingUpdateDisplay ( ) {
+		int pos = 0;
+		int value = raprefs.getLoggingUpdateValue();
+
+		String[] logging =
+				rapp.getResources()
+						.getStringArray( R.array.loggingUpdateValues );
+		String[] loggingdisplay =
+				rapp.getResources().getStringArray( R.array.loggingUpdate );
+		for ( int i = 0; i < logging.length; i++ ) {
+			if ( Integer.parseInt( logging[i] ) == value ) {
+				// found value
+				pos = i;
+				break;
+			}
+		}
+		return loggingdisplay[pos];
+	}
+	
+	public String getUpdateIntervalDisplay ( ) {
+		int pos = 0;
+		long value = raprefs.getUpdateInterval();
+		String[] interval =
+				rapp.getResources()
+						.getStringArray( R.array.updateIntervalValues );
+		String[] intervaldisplay =
+				rapp.getResources().getStringArray( R.array.updateInterval );
+		for ( int i = 0; i < interval.length; i++ ) {
+			if ( Long.parseLong( interval[i] ) == value ) {
+				// found value
+				pos = i;
+				break;
+			}
+		}
+		return intervaldisplay[pos];
+	}
+	
+	public String getUpdateProfileDisplay ( ) {
+		int pos = 0;
+		int value = raprefs.getUpdateProfile();
+		String[] profile =
+				rapp.getResources()
+						.getStringArray( R.array.updateProfileValues );
+		String[] profiledisplay =
+				rapp.getResources().getStringArray( R.array.updateProfile );
+		for ( int i = 0; i < profile.length; i++ ) {
+			if ( Integer.parseInt( profile[i] ) == value ) {
+				// found value
+				pos = i;
+				break;
+			}
+		}
+		return profiledisplay[pos];
+	}
+	
+	
 	class PrefsReceiver extends BroadcastReceiver {
 
 		public void onReceive ( Context context, Intent intent ) {
@@ -602,7 +659,7 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 			AlertDialog.Builder builder =
 					new AlertDialog.Builder( PrefsActivity.this );
 			builder.setMessage( rapp.getString( R.string.messageDownloadLabelsPrompt )
-										+ " " + rapp.getPrefUserId() + "?" )
+										+ " " + raprefs.getUserId() + "?" )
 					.setCancelable( false )
 					.setPositiveButton( rapp.getString( R.string.buttonYes ),
 										new DialogInterface.OnClickListener() {
@@ -677,7 +734,7 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 		}
 
 		private void resetEnabledPorts ( ) {
-			rapp.deleteRelayControlEnabledPorts();
+			raprefs.deleteRelayControlEnabledPorts();
 
 			Toast.makeText( PrefsActivity.this,
 							rapp.getString( R.string.messageResetEanbledPortsComplete ),
@@ -722,40 +779,40 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 		private void resetLabels ( ) {
 			Log.d( TAG, "Deleting all labels" );
 			// delete all controller labels
-			rapp.deletePref( R.string.prefT1LabelKey );
-			rapp.deletePref( R.string.prefT2LabelKey );
-			rapp.deletePref( R.string.prefT3LabelKey );
-			rapp.deletePref( R.string.prefAPLabelKey );
-			rapp.deletePref( R.string.prefDPLabelKey );
-			rapp.deletePref( R.string.prefPHLabelKey );
-			rapp.deletePref( R.string.prefSalinityLabelKey );
-			rapp.deletePref( R.string.prefORPLabelKey );
-			rapp.deletePref( R.string.prefPHExpLabelKey );
+			raprefs.deletePref( R.string.prefT1LabelKey );
+			raprefs.deletePref( R.string.prefT2LabelKey );
+			raprefs.deletePref( R.string.prefT3LabelKey );
+			raprefs.deletePref( R.string.prefAPLabelKey );
+			raprefs.deletePref( R.string.prefDPLabelKey );
+			raprefs.deletePref( R.string.prefPHLabelKey );
+			raprefs.deletePref( R.string.prefSalinityLabelKey );
+			raprefs.deletePref( R.string.prefORPLabelKey );
+			raprefs.deletePref( R.string.prefPHExpLabelKey );
 			for ( int i = 0; i <= Controller.MAX_EXPANSION_RELAYS; i++ ) {
 				for ( int j = 0; j < Controller.MAX_RELAY_PORTS; j++ ) {
-					rapp.deletePref( rapp.getPrefRelayKey( i, j ) );
+					raprefs.deletePref( raprefs.getRelayKey( i, j ) );
 				}
 			}
-			rapp.deletePref( R.string.prefExpDimmingCh0LabelKey );
-			rapp.deletePref( R.string.prefExpDimmingCh1LabelKey );
-			rapp.deletePref( R.string.prefExpDimmingCh2LabelKey );
-			rapp.deletePref( R.string.prefExpDimmingCh3LabelKey );
-			rapp.deletePref( R.string.prefExpDimmingCh4LabelKey );
-			rapp.deletePref( R.string.prefExpDimmingCh5LabelKey );
-			rapp.deletePref( R.string.prefExpIO0LabelKey );
-			rapp.deletePref( R.string.prefExpIO1LabelKey );
-			rapp.deletePref( R.string.prefExpIO2LabelKey );
-			rapp.deletePref( R.string.prefExpIO3LabelKey );
-			rapp.deletePref( R.string.prefExpIO4LabelKey );
-			rapp.deletePref( R.string.prefExpIO5LabelKey );
-			rapp.deletePref( R.string.prefExpCustom0LabelKey );
-			rapp.deletePref( R.string.prefExpCustom1LabelKey );
-			rapp.deletePref( R.string.prefExpCustom2LabelKey );
-			rapp.deletePref( R.string.prefExpCustom3LabelKey );
-			rapp.deletePref( R.string.prefExpCustom4LabelKey );
-			rapp.deletePref( R.string.prefExpCustom5LabelKey );
-			rapp.deletePref( R.string.prefExpCustom6LabelKey );
-			rapp.deletePref( R.string.prefExpCustom7LabelKey );
+			raprefs.deletePref( R.string.prefExpDimmingCh0LabelKey );
+			raprefs.deletePref( R.string.prefExpDimmingCh1LabelKey );
+			raprefs.deletePref( R.string.prefExpDimmingCh2LabelKey );
+			raprefs.deletePref( R.string.prefExpDimmingCh3LabelKey );
+			raprefs.deletePref( R.string.prefExpDimmingCh4LabelKey );
+			raprefs.deletePref( R.string.prefExpDimmingCh5LabelKey );
+			raprefs.deletePref( R.string.prefExpIO0LabelKey );
+			raprefs.deletePref( R.string.prefExpIO1LabelKey );
+			raprefs.deletePref( R.string.prefExpIO2LabelKey );
+			raprefs.deletePref( R.string.prefExpIO3LabelKey );
+			raprefs.deletePref( R.string.prefExpIO4LabelKey );
+			raprefs.deletePref( R.string.prefExpIO5LabelKey );
+			raprefs.deletePref( R.string.prefExpCustom0LabelKey );
+			raprefs.deletePref( R.string.prefExpCustom1LabelKey );
+			raprefs.deletePref( R.string.prefExpCustom2LabelKey );
+			raprefs.deletePref( R.string.prefExpCustom3LabelKey );
+			raprefs.deletePref( R.string.prefExpCustom4LabelKey );
+			raprefs.deletePref( R.string.prefExpCustom5LabelKey );
+			raprefs.deletePref( R.string.prefExpCustom6LabelKey );
+			raprefs.deletePref( R.string.prefExpCustom7LabelKey );
 
 			Toast.makeText( PrefsActivity.this,
 							rapp.getString( R.string.messageResetLabelsComplete ),

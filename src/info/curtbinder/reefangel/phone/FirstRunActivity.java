@@ -1,12 +1,12 @@
-package info.curtbinder.reefangel.phone;
-
 /*
- * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
- *
- * This work is made available under the terms of the 
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * Copyright (c) 2011-2013 by Curt Binder (http://curtbinder.info)
+ * 
+ * This work is made available under the terms of the Creative Commons
+ * Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
+
+package info.curtbinder.reefangel.phone;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -66,16 +66,15 @@ public class FirstRunActivity extends BaseActivity implements OnClickListener {
 		}
 
 		Log.w( TAG, "Saving settings" );
-		rapp.setPref( R.string.prefHostKey, hostText.getText().toString() );
+		rapp.raprefs.setHost( hostText.getText().toString() );
 		if ( fPort ) {
-			rapp.setPref( R.string.prefPortKey, portText.getText().toString() );
+			rapp.raprefs.setPort( portText.getText().toString() );
 		}
 		if ( fUser ) {
-			rapp.setPref( R.string.prefUserIdKey, useridText.getText()
-					.toString() );
+			rapp.raprefs.setUserId( useridText.getText().toString() );
 		}
 		Log.w( TAG, "Configured, starting app" );
-		rapp.disableFirstRun();
+		rapp.raprefs.disableFirstRun();
 		Intent i = new Intent( rapp.getBaseContext(), StatusActivity.class );
 		i.addFlags( Intent.FLAG_ACTIVITY_SINGLE_TOP );
 		startActivity( i );

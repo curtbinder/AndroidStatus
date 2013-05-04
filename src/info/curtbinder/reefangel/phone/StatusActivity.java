@@ -50,9 +50,10 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.viewpagerindicator.TitlePageIndicator;
 
-public class StatusActivity extends BaseActivity implements ActionBar.OnNavigationListener {
+public class StatusActivity extends BaseActivity implements
+		ActionBar.OnNavigationListener {
 	private static final String TAG = StatusActivity.class.getSimpleName();
-	
+
 	// do we reload the pages or not?
 	private boolean fReloadPages = false;
 
@@ -127,11 +128,11 @@ public class StatusActivity extends BaseActivity implements ActionBar.OnNavigati
 
 		createViews();
 		findViews();
-		
-		// update actionbar 
+
+		// update actionbar
 		final ActionBar ab = getSupportActionBar();
-		ab.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-		ab.setDisplayShowTitleEnabled(false);
+		ab.setNavigationMode( ActionBar.NAVIGATION_MODE_LIST );
+		ab.setDisplayShowTitleEnabled( false );
 
 		// set the max number of pages that we can have
 		appPages = new View[POS_END];
@@ -152,7 +153,7 @@ public class StatusActivity extends BaseActivity implements ActionBar.OnNavigati
 			startActivity( i );
 			finish();
 		}
-        
+
 		// Scroll to controller page
 		pager.setCurrentItem( POS_CONTROLLER );
 	}
@@ -168,35 +169,36 @@ public class StatusActivity extends BaseActivity implements ActionBar.OnNavigati
 		registerReceiver( receiver, filter, Permissions.SEND_COMMAND, null );
 
 		setNavigationList();
-		
+
 		// this forces all the pages to be redrawn when the app is restored
 		if ( fReloadPages ) {
 			redrawPages();
 		}
-		
+
 		updateViewsVisibility();
 		updateDisplay();
 
 		// the last thing we do is display the changelog if necessary
 		rapp.displayChangeLog( this );
 	}
-	
+
 	private void setNavigationList ( ) {
 		// set list navigation items
 		final ActionBar ab = getSupportActionBar();
-        Context context = ab.getThemedContext();
-        int arrayID;
-        if ( rapp.isAwayProfileEnabled() ) {
-        	arrayID = R.array.profileLabels;
-        } else {
-        	arrayID = R.array.profileLabelsHomeOnly;
-        }
-        ArrayAdapter<CharSequence> list = 
-        		ArrayAdapter.createFromResource(context, arrayID, 
-        		                                R.layout.sherlock_spinner_item); 
-        list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
-        ab.setListNavigationCallbacks(list, this);
-        ab.setSelectedNavigationItem( rapp.getSelectedProfile() );
+		Context context = ab.getThemedContext();
+		int arrayID;
+		if ( rapp.isAwayProfileEnabled() ) {
+			arrayID = R.array.profileLabels;
+		} else {
+			arrayID = R.array.profileLabelsHomeOnly;
+		}
+		ArrayAdapter<CharSequence> list =
+				ArrayAdapter
+						.createFromResource(	context, arrayID,
+												R.layout.sherlock_spinner_item );
+		list.setDropDownViewResource( R.layout.sherlock_spinner_dropdown_item );
+		ab.setListNavigationCallbacks( list, this );
+		ab.setSelectedNavigationItem( rapp.getSelectedProfile() );
 	}
 
 	private void createViews ( ) {
@@ -231,11 +233,11 @@ public class StatusActivity extends BaseActivity implements ActionBar.OnNavigati
 	}
 
 	private void setOnClickListeners ( ) {
-//		refreshButton.setOnClickListener( this );
-//		refreshButton.setOnLongClickListener( this );
+		// refreshButton.setOnClickListener( this );
+		// refreshButton.setOnLongClickListener( this );
 		// TODO consider clearing click listeners and updating clickable always
 		int i;
-		if ( rapp.isCommunicateController() ) {
+		if ( rapp.raprefs.isCommunicateController() ) {
 			pageMain.setOnClickListeners();
 
 			for ( i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ )
@@ -254,28 +256,28 @@ public class StatusActivity extends BaseActivity implements ActionBar.OnNavigati
 		// updates all the views visibility based on user settings
 		// get values from Preferences
 
-		// TODO split into multiple functions
 		// Labels
-		//updateRefreshButtonLabel();
+		// updateRefreshButtonLabel();
 		setControllerLabels();
 
-		setRelayLabels( );
+		setRelayLabels();
 
-		if ( rapp.getDimmingModuleEnabled() ) {
+		if ( rapp.raprefs.getDimmingModuleEnabled() ) {
 			for ( int i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ )
-				pageDimming
-						.setLabel( i, rapp.getDimmingModuleChannelLabel( i ) );
+				pageDimming.setLabel( i, rapp.raprefs
+						.getDimmingModuleChannelLabel( i ) );
 		}
 
-		if ( rapp.getIOModuleEnabled() ) {
+		if ( rapp.raprefs.getIOModuleEnabled() ) {
 			for ( int i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
-				pageIO.setLabel( i, rapp.getIOModuleChannelLabel( i ) );
+				pageIO.setLabel( i, rapp.raprefs.getIOModuleChannelLabel( i ) );
 			}
 		}
 
-		if ( rapp.getCustomModuleEnabled() ) {
+		if ( rapp.raprefs.getCustomModuleEnabled() ) {
 			for ( int i = 0; i < Controller.MAX_CUSTOM_VARIABLES; i++ )
-				pageCustom.setLabel( i, rapp.getCustomModuleChannelLabel( i ) );
+				pageCustom.setLabel( i, rapp.raprefs
+						.getCustomModuleChannelLabel( i ) );
 		}
 
 		setControllerVisibility();
@@ -284,91 +286,91 @@ public class StatusActivity extends BaseActivity implements ActionBar.OnNavigati
 		// TODO consider hiding custom variables not in use
 		// TODO consider hiding io channels not in use
 	}
-	
+
 	private void setControllerLabels ( ) {
 		pageController.setLabel(	ControllerPage.T1_INDEX,
-									rapp.getPrefT1Label(),
+									rapp.raprefs.getT1Label(),
 									getString( R.string.labelTemp1 ) );
 		pageController.setLabel(	ControllerPage.T2_INDEX,
-									rapp.getPrefT2Label(),
+									rapp.raprefs.getT2Label(),
 									getString( R.string.labelTemp2 ) );
 		pageController.setLabel(	ControllerPage.T3_INDEX,
-									rapp.getPrefT3Label(),
+									rapp.raprefs.getT3Label(),
 									getString( R.string.labelTemp3 ) );
 		pageController.setLabel(	ControllerPage.PH_INDEX,
-									rapp.getPrefPHLabel(),
+									rapp.raprefs.getPHLabel(),
 									getString( R.string.labelPH ) );
 		pageController.setLabel(	ControllerPage.DP_INDEX,
-									rapp.getPrefDPLabel(),
+									rapp.raprefs.getDPLabel(),
 									getString( R.string.labelDP ) );
 		pageController.setLabel(	ControllerPage.AP_INDEX,
-									rapp.getPrefAPLabel(),
+									rapp.raprefs.getAPLabel(),
 									getString( R.string.labelAP ) );
 		pageController.setLabel(	ControllerPage.SALINITY_INDEX,
-									rapp.getPrefSalinityLabel(),
+									rapp.raprefs.getSalinityLabel(),
 									getString( R.string.labelSalinity ) );
 		pageController.setLabel(	ControllerPage.ORP_INDEX,
-									rapp.getPrefORPLabel(),
+									rapp.raprefs.getORPLabel(),
 									getString( R.string.labelORP ) );
 		pageController.setLabel(	ControllerPage.PHE_INDEX,
-									rapp.getPrefPHExpLabel(),
+									rapp.raprefs.getPHExpLabel(),
 									getString( R.string.labelPHExp ) );
 		pageController.setLabel(	ControllerPage.WL_INDEX,
-									rapp.getPrefWaterLevelLabel(),
+									rapp.raprefs.getWaterLevelLabel(),
 									getString( R.string.labelWaterLevel ) );
 	}
-	
+
 	private void setRelayLabels ( ) {
-		int qty = rapp.getPrefExpansionRelayQuantity();
-		
+		int qty = rapp.raprefs.getExpansionRelayQuantity();
+
 		String defaultPort = getString( R.string.defaultPortName );
 		for ( int i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
-			pageMain.setPortLabel(	i, rapp.getPrefMainRelayLabel( i ),
+			pageMain.setPortLabel(	i, rapp.raprefs.getMainRelayLabel( i ),
 									defaultPort + (i + 1) );
-			boolean enabled = rapp.getPrefMainRelayControlEnabled( i );
+			boolean enabled = rapp.raprefs.getMainRelayControlEnabled( i );
 			pageMain.setControlEnabled( i, enabled );
 
 			for ( int j = 0; j < Controller.MAX_EXPANSION_RELAYS; j++ ) {
 				// skip over the relays that are not installed
 				if ( (j + 1) > qty )
 					break;
-				pageExpRelays[j].setPortLabel( i, rapp
-						.getPrefRelayLabel( j + 1, i ), defaultPort + (i + 1) );
-				pageExpRelays[j].setControlEnabled( i, rapp
-						.getPrefRelayControlEnabled( j + 1, i ) );
+				pageExpRelays[j].setPortLabel( i, rapp.raprefs
+						.getRelayLabel( j + 1, i ), defaultPort + (i + 1) );
+				pageExpRelays[j].setControlEnabled( i, rapp.raprefs
+						.getRelayControlEnabled( j + 1, i ) );
 			}
 
 		}
 	}
-	
+
 	private void setControllerVisibility ( ) {
 		// Visibility
 		pageController.setVisibility(	ControllerPage.T2_INDEX,
-										rapp.getPrefT2Visibility() );
+										rapp.raprefs.getT2Visibility() );
 		pageController.setVisibility(	ControllerPage.T3_INDEX,
-										rapp.getPrefT3Visibility() );
+										rapp.raprefs.getT3Visibility() );
 		pageController.setVisibility(	ControllerPage.DP_INDEX,
-										rapp.getPrefDPVisibility() );
+										rapp.raprefs.getDPVisibility() );
 		pageController.setVisibility(	ControllerPage.AP_INDEX,
-										rapp.getPrefAPVisibility() );
+										rapp.raprefs.getAPVisibility() );
 		pageController.setVisibility(	ControllerPage.PH_INDEX,
-										rapp.getPrefPHVisibility() );
+										rapp.raprefs.getPHVisibility() );
 		pageController.setVisibility(	ControllerPage.SALINITY_INDEX,
-										rapp.getPrefSalinityVisibility() );
+										rapp.raprefs.getSalinityVisibility() );
 		pageController.setVisibility(	ControllerPage.ORP_INDEX,
-										rapp.getPrefORPVisibility() );
+										rapp.raprefs.getORPVisibility() );
 		pageController.setVisibility(	ControllerPage.PHE_INDEX,
-										rapp.getPrefPHExpVisibility() );
+										rapp.raprefs.getPHExpVisibility() );
 		pageController.setVisibility(	ControllerPage.WL_INDEX,
-										rapp.getPrefWaterLevelVisibility() );
+										rapp.raprefs.getWaterLevelVisibility() );
 	}
-	
+
 	@Override
 	public boolean onNavigationItemSelected ( int itemPosition, long itemId ) {
-		switchProfiles(itemPosition);
+		switchProfiles( itemPosition );
 		return true;
 	}
-	
+
 	private void switchProfiles ( int id ) {
 		rapp.setSelectedProfile( id );
 	}
@@ -473,14 +475,14 @@ public class StatusActivity extends BaseActivity implements ActionBar.OnNavigati
 			pageAI.updateDisplay( ai );
 			pageIO.updateDisplay( io );
 			pageCustom.updateDisplay( custom );
-			boolean fUseMask = rapp.isCommunicateController();
+			boolean fUseMask = rapp.raprefs.isCommunicateController();
 			pageMain.updateRelayValues( new Relay( r, ron, roff ), fUseMask );
-			for ( int i = 0; i < rapp.getPrefExpansionRelayQuantity(); i++ ) {
+			for ( int i = 0; i < rapp.raprefs.getExpansionRelayQuantity(); i++ ) {
 				pageExpRelays[i].updateRelayValues( new Relay( expr[i],
 					expron[i], exproff[i] ), fUseMask );
 			}
 
-			if ( rapp.isAutoUpdateModulesEnabled() ) {
+			if ( rapp.raprefs.isAutoUpdateModulesEnabled() ) {
 				// update the screen / pages if necessary
 				checkDeviceModules( newEM, newREM );
 			}
@@ -511,7 +513,8 @@ public class StatusActivity extends BaseActivity implements ActionBar.OnNavigati
 				rapp.clearErrorRetryCount();
 			} else if ( action.equals( MessageCommands.ERROR_MESSAGE_INTENT ) ) {
 				boolean fDisplayUpdate = true;
-				if ( rapp.isNotificationEnabled() && rapp.isErrorRetryEnabled() ) {
+				if ( rapp.raprefs.isNotificationEnabled()
+						&& rapp.raprefs.isErrorRetryEnabled() ) {
 					// Only proceed if notifications are enabled
 					// we are to retry connection before displaying an error
 					// increment the error count
@@ -531,7 +534,8 @@ public class StatusActivity extends BaseActivity implements ActionBar.OnNavigati
 							}
 						};
 						Handler h = new Handler();
-						h.postDelayed( r, rapp.getErrorRetryInterval() );
+						h.postDelayed( r, rapp.raprefs
+								.getNotificationErrorRetryInterval() );
 					}
 					// otherwise if we have exceeded the max count, then we
 					// display the error
@@ -552,7 +556,7 @@ public class StatusActivity extends BaseActivity implements ActionBar.OnNavigati
 							VortechPopupActivity.class );
 				i.putExtra( VortechPopupActivity.TYPE, type );
 				i.putExtra( Globals.PRE10_LOCATIONS,
-							rapp.useOldPre10MemoryLocations() );
+							rapp.raprefs.useOldPre10MemoryLocations() );
 				startActivity( i );
 			} else if ( action.equals( MessageCommands.MEMORY_RESPONSE_INTENT ) ) {
 				String response =
@@ -703,8 +707,9 @@ public class StatusActivity extends BaseActivity implements ActionBar.OnNavigati
 	}
 
 	private void checkDeviceModules ( short newEM, short newREM ) {
+		// FIXME fix preference setting functions
 		boolean fReload = false;
-		short oldEM = (short) rapp.getPreviousEM();
+		short oldEM = (short) rapp.raprefs.getPreviousEM();
 		Log.d( TAG, "Old: " + oldEM + " New: " + newEM );
 		if ( oldEM != newEM ) {
 			// expansion modules different
@@ -718,57 +723,57 @@ public class StatusActivity extends BaseActivity implements ActionBar.OnNavigati
 			else
 				f = false;
 			Log.d( TAG, "AI: " + f );
-			rapp.setPref( R.string.prefExpAIEnableKey, f );
+			rapp.raprefs.set( R.string.prefExpAIEnableKey, f );
 			if ( Controller.isDimmingModuleInstalled( newEM ) )
 				f = true;
 			else
 				f = false;
 			Log.d( TAG, "Dimming: " + f );
-			rapp.setPref( R.string.prefExpDimmingEnableKey, f );
+			rapp.raprefs.set( R.string.prefExpDimmingEnableKey, f );
 			if ( Controller.isIOModuleInstalled( newEM ) )
 				f = true;
 			else
 				f = false;
 			Log.d( TAG, "IO: " + f );
-			rapp.setPref( R.string.prefExpIOEnableKey, f );
+			rapp.raprefs.set( R.string.prefExpIOEnableKey, f );
 			if ( Controller.isORPModuleInstalled( newEM ) )
 				f = true;
 			else
 				f = false;
 			Log.d( TAG, "ORP: " + f );
-			rapp.setPref( R.string.prefORPVisibilityKey, f );
+			rapp.raprefs.set( R.string.prefORPVisibilityKey, f );
 			if ( Controller.isPHExpansionModuleInstalled( newEM ) )
 				f = true;
 			else
 				f = false;
 			Log.d( TAG, "PHE: " + f );
-			rapp.setPref( R.string.prefPHExpVisibilityKey, f );
+			rapp.raprefs.set( R.string.prefPHExpVisibilityKey, f );
 			if ( Controller.isRFModuleInstalled( newEM ) )
 				f = true;
 			else
 				f = false;
 			Log.d( TAG, "RF: " + f );
-			rapp.setPref( R.string.prefExpRadionEnableKey, f );
-			rapp.setPref( R.string.prefExpVortechEnableKey, f );
+			rapp.raprefs.set( R.string.prefExpRadionEnableKey, f );
+			rapp.raprefs.set( R.string.prefExpVortechEnableKey, f );
 			if ( Controller.isSalinityModuleInstalled( newEM ) )
 				f = true;
 			else
 				f = false;
 			Log.d( TAG, "Salinity: " + f );
-			rapp.setPref( R.string.prefSalinityVisibilityKey, f );
+			rapp.raprefs.set( R.string.prefSalinityVisibilityKey, f );
 			if ( Controller.isWaterLevelModuleInstalled( newEM ) )
 				f = true;
 			else
 				f = false;
 			Log.d( TAG, "WATER: " + f );
-			rapp.setPref( R.string.prefWaterLevelVisibilityKey, f );
+			rapp.raprefs.set( R.string.prefWaterLevelVisibilityKey, f );
 
 			// update the previous settings to the new ones after we change
-			rapp.setPreviousEM( newEM );
+			rapp.raprefs.setPreviousEM( newEM );
 		}
 
 		int newRQty = Controller.getRelayExpansionModulesInstalled( newREM );
-		int oldRQty = rapp.getPrefExpansionRelayQuantity();
+		int oldRQty = rapp.raprefs.getExpansionRelayQuantity();
 		Log.d( TAG, "Old Qty: " + oldRQty + " New Qty: " + newRQty );
 		if ( oldRQty != newRQty ) {
 			// expansion relay modules different
@@ -776,7 +781,8 @@ public class StatusActivity extends BaseActivity implements ActionBar.OnNavigati
 			fReload = true;
 			// set the installed relays in the preferences
 			Log.d( TAG, "Relays: " + newRQty );
-			rapp.setPref( R.string.prefExpQtyKey, Integer.toString( newRQty ) );
+			rapp.raprefs.set(	R.string.prefExpQtyKey,
+								Integer.toString( newRQty ) );
 		}
 
 		if ( fReload ) {
@@ -831,7 +837,7 @@ public class StatusActivity extends BaseActivity implements ActionBar.OnNavigati
 				// launch memory
 				Intent i = new Intent( this, MemoryTabsActivity.class );
 				i.putExtra( Globals.PRE10_LOCATIONS,
-							rapp.useOldPre10MemoryLocations() );
+							rapp.raprefs.useOldPre10MemoryLocations() );
 				startActivity( i );
 				break;
 			case R.id.commands:
@@ -856,7 +862,7 @@ public class StatusActivity extends BaseActivity implements ActionBar.OnNavigati
 	private void updatePageOrder ( ) {
 		// updates the order of the pages for display
 		int i, j;
-		int qty = rapp.getPrefExpansionRelayQuantity();
+		int qty = rapp.raprefs.getExpansionRelayQuantity();
 		// loop through all the possible pages
 		// keep track of the pages installed compared to total pages
 		// if the module is enabled, add it to the available pages list
@@ -864,59 +870,59 @@ public class StatusActivity extends BaseActivity implements ActionBar.OnNavigati
 		for ( i = POS_START, j = POS_START; i <= POS_END; i++ ) {
 			switch ( i ) {
 				case POS_COMMANDS:
-					//Log.d( TAG, j + ": Commands" );
+					// Log.d( TAG, j + ": Commands" );
 					appPages[j] = pageCommands;
 					j++;
 					break;
 				case POS_CONTROLLER:
-					//Log.d( TAG, j + ": Controller" );
+					// Log.d( TAG, j + ": Controller" );
 					appPages[j] = pageController;
 					j++;
 					break;
 				case POS_DIMMING:
-					if ( rapp.getDimmingModuleEnabled() ) {
-						//Log.d( TAG, j + ": Dimming" );
+					if ( rapp.raprefs.getDimmingModuleEnabled() ) {
+						// Log.d( TAG, j + ": Dimming" );
 						appPages[j] = pageDimming;
 						j++;
 					}
 					break;
 				case POS_RADION:
-					if ( rapp.getRadionModuleEnabled() ) {
-						//Log.d( TAG, j + ": Radion" );
+					if ( rapp.raprefs.getRadionModuleEnabled() ) {
+						// Log.d( TAG, j + ": Radion" );
 						appPages[j] = pageRadion;
 						j++;
 					}
 					break;
 				case POS_VORTECH:
-					if ( rapp.getVortechModuleEnabled() ) {
-						//Log.d( TAG, j + ": Vortech" );
+					if ( rapp.raprefs.getVortechModuleEnabled() ) {
+						// Log.d( TAG, j + ": Vortech" );
 						appPages[j] = pageVortech;
 						j++;
 					}
 					break;
 				case POS_AI:
-					if ( rapp.getAIModuleEnabled() ) {
-						//Log.d( TAG, j + ": AI" );
+					if ( rapp.raprefs.getAIModuleEnabled() ) {
+						// Log.d( TAG, j + ": AI" );
 						appPages[j] = pageAI;
 						j++;
 					}
 					break;
 				case POS_IO:
-					if ( rapp.getIOModuleEnabled() ) {
-						//Log.d( TAG, j + ": IO" );
+					if ( rapp.raprefs.getIOModuleEnabled() ) {
+						// Log.d( TAG, j + ": IO" );
 						appPages[j] = pageIO;
 						j++;
 					}
 					break;
 				case POS_CUSTOM:
-					if ( rapp.getCustomModuleEnabled() ) {
-						//Log.d( TAG, j + ": Custom" );
+					if ( rapp.raprefs.getCustomModuleEnabled() ) {
+						// Log.d( TAG, j + ": Custom" );
 						appPages[j] = pageCustom;
 						j++;
 					}
 					break;
 				case POS_MAIN_RELAY:
-					//Log.d( TAG, j + ": Main Relay" );
+					// Log.d( TAG, j + ": Main Relay" );
 					appPages[j] = pageMain;
 					j++;
 					break;
@@ -931,7 +937,7 @@ public class StatusActivity extends BaseActivity implements ActionBar.OnNavigati
 					if ( qty > 0 ) {
 						int relay = i - POS_EXP1_RELAY;
 						if ( relay < qty ) {
-							//Log.d( TAG, j + ": Exp Relay " + relay );
+							// Log.d( TAG, j + ": Exp Relay " + relay );
 							appPages[j] = pageExpRelays[relay];
 							j++;
 						}
@@ -950,12 +956,13 @@ public class StatusActivity extends BaseActivity implements ActionBar.OnNavigati
 		private final String TAG = CustomPagerAdapter.class.getSimpleName();
 
 		public int getCount ( ) {
-			int qty = MIN_PAGES + rapp.getTotalInstalledModuleQuantity();
+			int qty =
+					MIN_PAGES + rapp.raprefs.getTotalInstalledModuleQuantity();
 			return qty;
 		}
-		
+
 		public CharSequence getPageTitle ( int position ) {
-			return ((RAPage)appPages[position]).getPageTitle();
+			return ((RAPage) appPages[position]).getPageTitle();
 		}
 
 		public void destroyItem (

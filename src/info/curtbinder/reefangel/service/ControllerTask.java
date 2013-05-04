@@ -14,6 +14,7 @@ import info.curtbinder.reefangel.db.RAData;
 import info.curtbinder.reefangel.phone.Permissions;
 import info.curtbinder.reefangel.phone.R;
 import info.curtbinder.reefangel.phone.RAApplication;
+import info.curtbinder.reefangel.phone.RAPreferences;
 import info.curtbinder.reefangel.phone.StatusActivity;
 
 import java.io.IOException;
@@ -49,10 +50,12 @@ public class ControllerTask implements Runnable {
 	private static final String TAG = ControllerTask.class.getSimpleName();
 	private final Host host;
 	private final RAApplication rapp;
+	private final RAPreferences raprefs;
 
 	ControllerTask ( RAApplication rapp, Host host ) {
 		this.rapp = rapp;
 		this.host = host;
+		this.raprefs = rapp.raprefs;
 	}
 
 	public void run ( ) {
@@ -97,13 +100,13 @@ public class ControllerTask implements Runnable {
 			res =
 					(String) rapp.getResources()
 							.getText( R.string.messageCancelled );
-		} 
-		
+		}
+
 		if ( con != null ) {
 			con.disconnect();
 			broadcastUpdateStatus( R.string.statusDisconnected );
 		}
-		
+
 		long end = System.currentTimeMillis();
 		Log.d(	TAG,
 				new String( String.format( "sendCommand (%d ms)", end - start ) ) );
@@ -120,7 +123,7 @@ public class ControllerTask implements Runnable {
 			broadcastUpdateStatus( R.string.messageCancelled );
 		} else {
 			XMLHandler xml = new XMLHandler();
-			if ( rapp.useOld085xExpansionRelays() )
+			if ( raprefs.useOld085xExpansionRelays() )
 				xml.setOld085xExpansion( true );
 			if ( !parseXML( xml, res ) ) {
 				// error parsing
@@ -229,8 +232,7 @@ public class ControllerTask implements Runnable {
 			broadcastUpdateDisplayData( xml.getRa() );
 		} else if ( host.getCommand().equals( RequestCommands.MemoryByte )
 					|| host.getCommand().equals( RequestCommands.MemoryInt ) ) {
-			broadcastMemoryResponse(	xml.getMemoryResponse(),
-										host.isWrite() );
+			broadcastMemoryResponse( xml.getMemoryResponse(), host.isWrite() );
 		} else if ( host.getCommand().equals( RequestCommands.FeedingMode ) ) {
 			broadcastCommandResponse(	R.string.labelFeedingMode,
 										xml.getModeResponse() );
@@ -243,8 +245,7 @@ public class ControllerTask implements Runnable {
 		} else if ( host.getCommand().equals( RequestCommands.AtoClear ) ) {
 			broadcastCommandResponse(	R.string.labelAtoClear,
 										xml.getModeResponse() );
-		} else if ( host.getCommand()
-				.equals( RequestCommands.OverheatClear ) ) {
+		} else if ( host.getCommand().equals( RequestCommands.OverheatClear ) ) {
 			broadcastCommandResponse(	R.string.labelOverheatClear,
 										xml.getModeResponse() );
 		} else if ( host.getCommand().equals( RequestCommands.LightsOn ) ) {
@@ -259,20 +260,18 @@ public class ControllerTask implements Runnable {
 						xml.getVersion() );
 			rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
 		} else if ( host.getCommand().equals( RequestCommands.DateTime ) ) {
-			Intent i =
-					new Intent( MessageCommands.DATE_QUERY_RESPONSE_INTENT );
+			Intent i = new Intent( MessageCommands.DATE_QUERY_RESPONSE_INTENT );
 			i.putExtra( MessageCommands.DATE_QUERY_RESPONSE_STRING,
 						xml.getDateTime() );
 			rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
 		} else if ( host.getCommand().startsWith( RequestCommands.DateTime ) ) {
-			Intent i =
-					new Intent( MessageCommands.DATE_SEND_RESPONSE_INTENT );
+			Intent i = new Intent( MessageCommands.DATE_SEND_RESPONSE_INTENT );
 			i.putExtra( MessageCommands.DATE_SEND_RESPONSE_STRING,
 						xml.getDateTimeUpdateStatus() );
 			rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
 		}
 	}
-	
+
 	private void broadcastCommandResponse ( int id, String response ) {
 		Log.d(	TAG,
 				rapp.getString( id ) + rapp.getString( R.string.labelSeparator )
@@ -285,16 +284,16 @@ public class ControllerTask implements Runnable {
 		rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
 	}
 
+	// FIXME improve preference saving
 	private void broadcastLabelsResponse ( Controller ra ) {
 		// Save the preferences to memory
-		rapp.setPref( R.string.prefT1LabelKey, ra.getTempLabel( 1 ) );
-		rapp.setPref( R.string.prefT2LabelKey, ra.getTempLabel( 2 ) );
-		rapp.setPref( R.string.prefT3LabelKey, ra.getTempLabel( 3 ) );
+		raprefs.set( R.string.prefT1LabelKey, ra.getTempLabel( 1 ) );
+		raprefs.set( R.string.prefT2LabelKey, ra.getTempLabel( 2 ) );
+		raprefs.set( R.string.prefT3LabelKey, ra.getTempLabel( 3 ) );
 		int i, j;
 		Log.d( TAG, "saving main labels" );
 		for ( i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
-			rapp.setPrefRelayLabel( 0, i, ra.getMainRelay()
-					.getPortLabel( i + 1 ) );
+			raprefs.setRelayLabel( 0, i, ra.getMainRelay().getPortLabel( i + 1 ) );
 		}
 		Relay r;
 		for ( i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
@@ -302,46 +301,46 @@ public class ControllerTask implements Runnable {
 			r = ra.getExpRelay( i + 1 );
 			for ( j = 0; j < Controller.MAX_RELAY_PORTS; j++ ) {
 				// use i+1 because the expansion relays start at 1
-				rapp.setPrefRelayLabel( i + 1, j, r.getPortLabel( j + 1 ) );
+				raprefs.setRelayLabel( i + 1, j, r.getPortLabel( j + 1 ) );
 			}
 		}
 		if ( !ra.getPHLabel().equals( "" ) ) {
-			rapp.setPref( R.string.prefPHLabelKey, ra.getPHLabel() );
+			raprefs.set( R.string.prefPHLabelKey, ra.getPHLabel() );
 		}
 		if ( !ra.getSalinityLabel().equals( "" ) ) {
-			rapp.setPref( R.string.prefSalinityLabelKey, ra.getSalinityLabel() );
+			raprefs.set( R.string.prefSalinityLabelKey, ra.getSalinityLabel() );
 		}
 		if ( !ra.getORPLabel().equals( "" ) ) {
-			rapp.setPref( R.string.prefORPLabelKey, ra.getORPLabel() );
+			raprefs.set( R.string.prefORPLabelKey, ra.getORPLabel() );
 		}
 		if ( !ra.getPHExpLabel().equals( "" ) ) {
-			rapp.setPref( R.string.prefPHExpLabelKey, ra.getPHExpLabel() );
+			raprefs.set( R.string.prefPHExpLabelKey, ra.getPHExpLabel() );
 		}
 		if ( !ra.getPwmALabel().equals( "" ) ) {
-			rapp.setPref( R.string.prefAPLabelKey, ra.getPwmALabel() );
+			raprefs.set( R.string.prefAPLabelKey, ra.getPwmALabel() );
 		}
 		if ( !ra.getPwmDLabel().equals( "" ) ) {
-			rapp.setPref( R.string.prefDPLabelKey, ra.getPwmDLabel() );
+			raprefs.set( R.string.prefDPLabelKey, ra.getPwmDLabel() );
 		}
 		if ( !ra.getWaterLevelLabel().equals( "" ) ) {
-			rapp.setPref(	R.string.prefWaterLevelLabelKey,
+			raprefs.set(	R.string.prefWaterLevelLabelKey,
 							ra.getWaterLevelLabel() );
 		}
 		// TODO add other label downloading and setting here (PHE, Custom, IO,
 		// PWME)
 		for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
 			if ( !ra.getPwmExpansionLabel( (short) i ).equals( "" ) )
-				rapp.setDimmingModuleChannelLabel( i, ra
+				raprefs.setDimmingModuleChannelLabel( i, ra
 						.getPwmExpansionLabel( (short) i ) );
 		}
 		for ( i = 0; i < Controller.MAX_CUSTOM_VARIABLES; i++ ) {
 			if ( !ra.getCustomVariableLabel( (short) i ).equals( "" ) )
-				rapp.setCustomModuleChannelLabel( i, ra
+				raprefs.setCustomModuleChannelLabel( i, ra
 						.getCustomVariableLabel( (short) i ) );
 		}
 		for ( i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
 			if ( !ra.getIOChannelLabel( (short) i ).equals( "" ) )
-				rapp.setIOModuleChannelLabel( i, ra
+				raprefs.setIOModuleChannelLabel( i, ra
 						.getIOChannelLabel( (short) i ) );
 		}
 
@@ -463,7 +462,7 @@ public class ControllerTask implements Runnable {
 		// Log.d(TAG, "broadcastErrorMessage");
 		String er = rapp.getErrorMessage();
 
-		if ( rapp.isNotificationEnabled() ) {
+		if ( raprefs.isNotificationEnabled() ) {
 			// create intent to launch status activity when notification
 			// selected
 			Intent si = new Intent( rapp, StatusActivity.class );
@@ -476,14 +475,14 @@ public class ControllerTask implements Runnable {
 
 			// if error notification is enabled, increase the error count
 			// as soon as we know it's an error
-			if ( rapp.isErrorRetryEnabled() ) {
+			if ( raprefs.isErrorRetryEnabled() ) {
 				rapp.errorCount++;
 			}
 
 			boolean fCanNotify = true;
 			// if error retry is enabled, don't notify unless we fail the error
 			// retries
-			if ( rapp.isErrorRetryEnabled() && rapp.canErrorRetry() ) {
+			if ( raprefs.isErrorRetryEnabled() && rapp.canErrorRetry() ) {
 				fCanNotify = false;
 			}
 
@@ -498,7 +497,7 @@ public class ControllerTask implements Runnable {
 							rapp.getString( R.string.app_name ) + " " + er,
 							System.currentTimeMillis() );
 				n.flags |= Notification.FLAG_AUTO_CANCEL;
-				n.sound = rapp.getNotificationSound();
+				n.sound = raprefs.getNotificationSound();
 				n.setLatestEventInfo(	rapp,
 										rapp.getString( R.string.app_name ),
 										er, pi );
