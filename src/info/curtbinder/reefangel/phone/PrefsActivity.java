@@ -179,53 +179,7 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 				findPreference( rapp
 						.getString( R.string.prefControllerLabelsDownloadKey ) );
 		downloadkey
-				.setOnPreferenceClickListener( new OnPreferenceClickListener() {
-
-					public boolean onPreferenceClick ( Preference preference ) {
-
-						AlertDialog.Builder builder =
-								new AlertDialog.Builder( PrefsActivity.this );
-						builder.setMessage( rapp.getString( R.string.messageDownloadLabelsPrompt )
-													+ " "
-													+ rapp.getPrefUserId()
-													+ "?" )
-								.setCancelable( false )
-								.setPositiveButton( rapp.getString( R.string.buttonYes ),
-													new DialogInterface.OnClickListener() {
-														public void onClick (
-																DialogInterface dialog,
-																int id ) {
-															// launch download
-															Log.d(	TAG,
-																	"Download labels" );
-															Intent i =
-																	new Intent(
-																		MessageCommands.LABEL_QUERY_INTENT );
-															rapp.sendBroadcast( i,
-																				Permissions.SEND_COMMAND );
-															dialog.dismiss();
-															Toast.makeText( PrefsActivity.this,
-																			rapp.getString( R.string.messageDownloadLabels ),
-																			Toast.LENGTH_SHORT )
-																	.show();
-														}
-													} )
-								.setNegativeButton( rapp.getString( R.string.buttonNo ),
-													new DialogInterface.OnClickListener() {
-														public void onClick (
-																DialogInterface dialog,
-																int id ) {
-															Log.d(	TAG,
-																	"Cancel download" );
-															dialog.cancel();
-														}
-													} );
-
-						AlertDialog alert = builder.create();
-						alert.show();
-						return true;
-					}
-				} );
+				.setOnPreferenceClickListener( new DownloadLabelsListener(this, rapp)  );
 		updateUserIds();
 
 		Preference resetkey =
