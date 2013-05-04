@@ -185,39 +185,8 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 
 		Preference resetkey =
 				findPreference( rapp.getString( R.string.prefResetLabelsKey ) );
-		resetkey.setOnPreferenceClickListener( new OnPreferenceClickListener() {
-
-			public boolean onPreferenceClick ( Preference preference ) {
-
-				AlertDialog.Builder builder =
-						new AlertDialog.Builder( PrefsActivity.this );
-				builder.setMessage( rapp.getString( R.string.messageResetLabelsPrompt ) )
-						.setCancelable( false )
-						.setPositiveButton( rapp.getString( R.string.buttonYes ),
-											new DialogInterface.OnClickListener() {
-												public void onClick (
-														DialogInterface dialog,
-														int id ) {
-													Log.d( TAG, "Reset labels" );
-													dialog.dismiss();
-													resetLabels();
-												}
-											} )
-						.setNegativeButton( rapp.getString( R.string.buttonNo ),
-											new DialogInterface.OnClickListener() {
-												public void onClick (
-														DialogInterface dialog,
-														int id ) {
-													Log.d( TAG, "Cancel reset" );
-													dialog.cancel();
-												}
-											} );
-
-				AlertDialog alert = builder.create();
-				alert.show();
-				return true;
-			}
-		} );
+		resetkey.setOnPreferenceClickListener( new ResetLabelsPreferenceListener(
+			this, rapp ) );
 
 		Preference resetenabledkey =
 				findPreference( rapp
@@ -526,49 +495,6 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 			findPreference( rapp.getString( R.string.prefLoggingSendKey ) )
 					.setEnabled( false );
 		}
-	}
-
-	private void resetLabels ( ) {
-		Log.d( TAG, "Deleting all labels" );
-		// delete all controller labels
-		rapp.deletePref( R.string.prefT1LabelKey );
-		rapp.deletePref( R.string.prefT2LabelKey );
-		rapp.deletePref( R.string.prefT3LabelKey );
-		rapp.deletePref( R.string.prefAPLabelKey );
-		rapp.deletePref( R.string.prefDPLabelKey );
-		rapp.deletePref( R.string.prefPHLabelKey );
-		rapp.deletePref( R.string.prefSalinityLabelKey );
-		rapp.deletePref( R.string.prefORPLabelKey );
-		rapp.deletePref( R.string.prefPHExpLabelKey );
-		for ( int i = 0; i <= Controller.MAX_EXPANSION_RELAYS; i++ ) {
-			for ( int j = 0; j < Controller.MAX_RELAY_PORTS; j++ ) {
-				rapp.deletePref( rapp.getPrefRelayKey( i, j ) );
-			}
-		}
-		rapp.deletePref( R.string.prefExpDimmingCh0LabelKey );
-		rapp.deletePref( R.string.prefExpDimmingCh1LabelKey );
-		rapp.deletePref( R.string.prefExpDimmingCh2LabelKey );
-		rapp.deletePref( R.string.prefExpDimmingCh3LabelKey );
-		rapp.deletePref( R.string.prefExpDimmingCh4LabelKey );
-		rapp.deletePref( R.string.prefExpDimmingCh5LabelKey );
-		rapp.deletePref( R.string.prefExpIO0LabelKey );
-		rapp.deletePref( R.string.prefExpIO1LabelKey );
-		rapp.deletePref( R.string.prefExpIO2LabelKey );
-		rapp.deletePref( R.string.prefExpIO3LabelKey );
-		rapp.deletePref( R.string.prefExpIO4LabelKey );
-		rapp.deletePref( R.string.prefExpIO5LabelKey );
-		rapp.deletePref( R.string.prefExpCustom0LabelKey );
-		rapp.deletePref( R.string.prefExpCustom1LabelKey );
-		rapp.deletePref( R.string.prefExpCustom2LabelKey );
-		rapp.deletePref( R.string.prefExpCustom3LabelKey );
-		rapp.deletePref( R.string.prefExpCustom4LabelKey );
-		rapp.deletePref( R.string.prefExpCustom5LabelKey );
-		rapp.deletePref( R.string.prefExpCustom6LabelKey );
-		rapp.deletePref( R.string.prefExpCustom7LabelKey );
-
-		Toast.makeText( PrefsActivity.this,
-						rapp.getString( R.string.messageResetLabelsComplete ),
-						Toast.LENGTH_SHORT ).show();
 	}
 
 	public void resetEnabledPorts ( ) {

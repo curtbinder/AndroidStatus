@@ -72,7 +72,7 @@ public class DownloadLabelsPreferenceListener implements OnPreferenceClickListen
 
 		AlertDialog alert = builder.create();
 		alert.show();
-		return false;
+		return true;
 	}
 
 }
