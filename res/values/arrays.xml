@@ -463,6 +463,9 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>Home</item>
         <item>Away</item>
     </string-array>
+    <string-array name="profileLabelsHomeOnly">
+        <item>Home</item>
+    </string-array>
     <string-array name="vortechModeLabels">
         <item>Constant</item>
         <item>Lagoonal</item>

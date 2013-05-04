@@ -39,31 +39,28 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.viewpagerindicator.TitlePageIndicator;
 
-public class StatusActivity extends BaseActivity implements OnClickListener,
-		OnLongClickListener {
+public class StatusActivity extends BaseActivity implements ActionBar.OnNavigationListener {
 	private static final String TAG = StatusActivity.class.getSimpleName();
-
+	
 	// do we reload the pages or not?
 	private boolean fReloadPages = false;
 
 	// Display views
-//	private Button refreshButton;
 	private TextView updateTime;
 	private ViewPager pager;
 	private CustomPagerAdapter pagerAdapter;
 	private TitlePageIndicator titleIndicator;
-	//private String[] profiles;
 	private String[] vortechModes;
 	private View[] appPages;
 	// minimum number of pages: status, main relay
@@ -125,12 +122,16 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		filter.addAction( MessageCommands.MEMORY_RESPONSE_INTENT );
 		filter.addAction( MessageCommands.COMMAND_RESPONSE_INTENT );
 
-		//profiles = getResources().getStringArray( R.array.profileLabels );
 		vortechModes =
 				getResources().getStringArray( R.array.vortechModeLabels );
 
 		createViews();
 		findViews();
+		
+		// update actionbar 
+		final ActionBar ab = getSupportActionBar();
+		ab.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+		ab.setDisplayShowTitleEnabled(false);
 
 		// set the max number of pages that we can have
 		appPages = new View[POS_END];
@@ -151,7 +152,7 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 			startActivity( i );
 			finish();
 		}
-
+        
 		// Scroll to controller page
 		pager.setCurrentItem( POS_CONTROLLER );
 	}
@@ -166,16 +167,36 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		registerReceiver( receiver, filter, Permissions.QUERY_STATUS, null );
 		registerReceiver( receiver, filter, Permissions.SEND_COMMAND, null );
 
+		setNavigationList();
+		
 		// this forces all the pages to be redrawn when the app is restored
 		if ( fReloadPages ) {
 			redrawPages();
 		}
-
+		
 		updateViewsVisibility();
 		updateDisplay();
 
 		// the last thing we do is display the changelog if necessary
 		rapp.displayChangeLog( this );
+	}
+	
+	private void setNavigationList ( ) {
+		// set list navigation items
+		final ActionBar ab = getSupportActionBar();
+        Context context = ab.getThemedContext();
+        int arrayID;
+        if ( rapp.isAwayProfileEnabled() ) {
+        	arrayID = R.array.profileLabels;
+        } else {
+        	arrayID = R.array.profileLabelsHomeOnly;
+        }
+        ArrayAdapter<CharSequence> list = 
+        		ArrayAdapter.createFromResource(context, arrayID, 
+        		                                R.layout.sherlock_spinner_item); 
+        list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+        ab.setListNavigationCallbacks(list, this);
+        ab.setSelectedNavigationItem( rapp.getSelectedProfile() );
 	}
 
 	private void createViews ( ) {
@@ -342,75 +363,15 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 										rapp.getPrefWaterLevelVisibility() );
 	}
 	
-	public void onClick ( View v ) {
-//		switch ( v.getId() ) {
-//			case R.id.refresh_button:
-//				// launch the update
-//				Log.d( TAG, "onClick Refresh button" );
-//				launchStatusTask();
-//				break;
-//		}
+	@Override
+	public boolean onNavigationItemSelected ( int itemPosition, long itemId ) {
+		switchProfiles(itemPosition);
+		return true;
 	}
-
-	public boolean onLongClick ( View v ) {
-		// if it's not a controller, don't even bother processing
-		// the long clicks
-//		if ( !rapp.isCommunicateController() )
-//			return true;
-		// TODO fix switching profiles
-//
-//		switch ( v.getId() ) {
-//			case R.id.refresh_button:
-//				// launch the profile selector
-//				Log.d( TAG, "onLongClick Refresh button" );
-//				if ( !rapp.isAwayProfileEnabled() ) {
-//					Log.d( TAG, "Away profile not enabled, cancelling" );
-//					return true;
-//				}
-//				DialogInterface.OnClickListener ocl =
-//						new DialogInterface.OnClickListener() {
-//
-//							public void onClick (
-//									DialogInterface dialog,
-//									int item ) {
-//								switchProfiles( item );
-//								dialog.dismiss();
-//							}
-//						};
-//				AlertDialog.Builder builder = new AlertDialog.Builder( this );
-//				builder.setTitle( R.string.titleSelectProfile );
-//				builder.setSingleChoiceItems(	profiles,
-//												rapp.getSelectedProfile(), ocl );
-//				AlertDialog dlg = builder.create();
-//				dlg.show();
-//				return true;
-//		}
-		return false;
+	
+	private void switchProfiles ( int id ) {
+		rapp.setSelectedProfile( id );
 	}
-
-//	private void switchProfiles ( int id ) {
-//		String s = "Switched to profile: " + profiles[id];
-//		Log.d( TAG, s );
-//		Toast.makeText( getApplicationContext(), s, Toast.LENGTH_SHORT ).show();
-//		rapp.setSelectedProfile( id );
-//		updateRefreshButtonLabel();
-//	}
-
-//	private void updateRefreshButtonLabel ( ) {
-		// TODO update function to reflect switching profile
-		// button label will be: Refresh - PROFILE
-		// only allow for the changing of the label IF it's a controller
-		// AND if the away profile is enabled
-//		String s;
-//		if ( rapp.isAwayProfileEnabled() && rapp.isCommunicateController() )
-//			s =
-//					String.format(	"%s - %s",
-//									getString( R.string.buttonRefresh ),
-//									profiles[rapp.getSelectedProfile()] );
-//		else
-//			s = getString( R.string.buttonRefresh );
-//		refreshButton.setText( s );
-//	}
 
 	private void launchStatusTask ( ) {
 		Intent i = new Intent( MessageCommands.QUERY_STATUS_INTENT );
@@ -1020,5 +981,4 @@ public class StatusActivity extends BaseActivity implements OnClickListener,
 		}
 
 	}
-
 }
