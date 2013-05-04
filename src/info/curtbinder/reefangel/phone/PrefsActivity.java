@@ -24,7 +24,6 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 
@@ -192,41 +191,8 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 				findPreference( rapp
 						.getString( R.string.prefResetEnabledPortsKey ) );
 		resetenabledkey
-				.setOnPreferenceClickListener( new OnPreferenceClickListener() {
-
-					public boolean onPreferenceClick ( Preference preference ) {
-
-						AlertDialog.Builder builder =
-								new AlertDialog.Builder( PrefsActivity.this );
-						builder.setMessage( rapp.getString( R.string.messageResetEnabledPortsPrompt ) )
-								.setCancelable( false )
-								.setPositiveButton( rapp.getString( R.string.buttonYes ),
-													new DialogInterface.OnClickListener() {
-														public void onClick (
-																DialogInterface dialog,
-																int id ) {
-															Log.d(	TAG,
-																	"Reset enabled ports" );
-															dialog.dismiss();
-															resetEnabledPorts();
-														}
-													} )
-								.setNegativeButton( rapp.getString( R.string.buttonNo ),
-													new DialogInterface.OnClickListener() {
-														public void onClick (
-																DialogInterface dialog,
-																int id ) {
-															Log.d(	TAG,
-																	"Cancel reset enabled ports" );
-															dialog.cancel();
-														}
-													} );
-
-						AlertDialog alert = builder.create();
-						alert.show();
-						return true;
-					}
-				} );
+				.setOnPreferenceClickListener( new ResetEnabledPortsPreferenceListener(
+					this, rapp ) );
 
 		Preference deletelog =
 				findPreference( rapp.getString( R.string.prefLoggingDeleteKey ) );
@@ -495,14 +461,6 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 			findPreference( rapp.getString( R.string.prefLoggingSendKey ) )
 					.setEnabled( false );
 		}
-	}
-
-	public void resetEnabledPorts ( ) {
-		rapp.deleteRelayControlEnabledPorts();
-
-		Toast.makeText( PrefsActivity.this,
-						rapp.getString( R.string.messageResetEanbledPortsComplete ),
-						Toast.LENGTH_SHORT ).show();
 	}
 
 	public boolean onPreferenceChange ( Preference preference, Object newValue ) {
