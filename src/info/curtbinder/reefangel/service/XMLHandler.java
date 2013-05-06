@@ -186,7 +186,6 @@ public class XMLHandler extends DefaultHandler {
 	}
 
 	private void processStatusXml ( String tag ) {
-		Log.d( TAG, "statusXML: " + tag );
 		if ( tag.equals( XMLTags.T1 ) ) {
 			ra.setTemp1( Integer.parseInt( currentElementText ) );
 		} else if ( tag.equals( XMLTags.T2 ) ) {
@@ -215,7 +214,8 @@ public class XMLHandler extends DefaultHandler {
 		} else if ( tag.equals( XMLTags.PWMDaylight ) ) {
 			short v = Short.parseShort( currentElementText );
 			ra.setPwmD( v );
-		} else if ( tag.startsWith( XMLTags.PWMExpansion ) ) {
+		} else if ( tag.startsWith( XMLTags.PWMExpansion ) && 
+				!tag.endsWith( XMLTags.Override )) {
 			short channel =
 					Short.parseShort( tag.substring( XMLTags.PWMExpansion
 							.length() ) );
@@ -280,6 +280,10 @@ public class XMLHandler extends DefaultHandler {
 									Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( XMLTags.IO ) ) {
 			ra.setIOChannels( Short.parseShort( currentElementText ) );
+		} else if ( tag.endsWith( XMLTags.Override ) ) {
+			// FIXME Handle Override Tags
+			Log.d( TAG, "Unhandled Override tag (" + tag + ") with data: "
+					+ currentElementText );
 		} else if ( tag.startsWith( XMLTags.Custom ) ) {
 			short v =
 					Short.parseShort( tag.substring( XMLTags.Custom.length() ) );
@@ -340,49 +344,39 @@ public class XMLHandler extends DefaultHandler {
 			short channel =
 					Short.parseShort( getTagNumber( tag, XMLTags.PWMExpansion,
 													XMLTags.LabelEnd ) );
-			Log.d( TAG, "PWM #" + channel + ": " + currentElementText );
 			ra.setPwmExpansionLabel( channel, currentElementText );
 		} else if ( tag.startsWith( XMLTags.PWMActinic + "1" ) ) {
 			// PWMA
-			Log.d( TAG, "AP: " + currentElementText );
 			ra.setPwmALabel( currentElementText );
 		} else if ( tag.startsWith( XMLTags.PWMDaylight + "1" ) ) {
 			// PWMD
-			Log.d( TAG, "DP: " + currentElementText );
 			ra.setPwmDLabel( currentElementText );
 		} else if ( tag.equals( XMLTags.PHExpansion + XMLTags.LabelEnd ) ) {
 			// PHE
-			Log.d( TAG, "PHExp Label: " + currentElementText );
 			ra.setPHExpLabel( currentElementText );
 		} else if ( tag.equals( XMLTags.PH + XMLTags.LabelEnd ) ) {
 			// PH
-			Log.d( TAG, "PH Label: " + currentElementText );
 			ra.setPHLabel( currentElementText );
 		} else if ( tag.startsWith( XMLTags.Salinity ) ) {
 			// SAL
-			Log.d( TAG, "Salinity Label: " + currentElementText );
 			ra.setSalinityLabel( currentElementText );
 		} else if ( tag.startsWith( XMLTags.ORP ) ) {
 			// ORP
-			Log.d( TAG, "ORP Label: " + currentElementText );
 			ra.setORPLabel( currentElementText );
 		} else if ( tag.startsWith( XMLTags.WaterLevel ) ) {
 			// Water Level
-			Log.d( TAG, "Water Level Label: " + currentElementText );
 			ra.setWaterLevelLabel( currentElementText );
 		} else if ( tag.startsWith( XMLTags.Custom ) ) {
 			// C
 			short v =
 					Short.parseShort( getTagNumber( tag, XMLTags.Custom,
 													XMLTags.LabelEnd ) );
-			Log.d( TAG, "Custom #" + v + ": " + currentElementText );
 			ra.setCustomVariableLabel( v, currentElementText );
 		} else if ( tag.startsWith( XMLTags.IO ) ) {
 			// IO
 			short v =
 					Short.parseShort( getTagNumber( tag, XMLTags.IO,
 													XMLTags.LabelEnd ) );
-			Log.d( TAG, "IO #" + v + ": " + currentElementText );
 			ra.setIOChannelLabel( v, currentElementText );
 		} else if ( tag.startsWith( XMLTags.RFBlue )
 					|| tag.startsWith( XMLTags.RFGreen )
