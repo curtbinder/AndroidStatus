@@ -304,11 +304,15 @@ public class XMLHandler extends DefaultHandler {
 				relay += 1;
 			ra.setExpRelayOffMask( relay, Short.parseShort( currentElementText ) );
 		} else if ( tag.startsWith( XMLTags.Relay ) ) {
-			int relay =
-					Integer.parseInt( tag.substring( XMLTags.Relay.length() ) );
-			if ( fUse085XRelays )
-				relay += 1;
-			ra.setExpRelayData( relay, Short.parseShort( currentElementText ) );
+			try {
+				int relay =
+						Integer.parseInt( tag.substring( XMLTags.Relay.length() ) );
+				if ( fUse085XRelays )
+					relay += 1;
+				ra.setExpRelayData( relay, Short.parseShort( currentElementText ) );
+			} catch ( NumberFormatException e ) {
+				Log.e( TAG, "Invalid XML tag: " + tag );
+			}
 		} else if ( tag.equals( XMLTags.MyReefAngelID ) ) {
 			Log.d( TAG, "Reefangel ID: " + currentElementText );
 		} else {
