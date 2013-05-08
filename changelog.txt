@@ -159,12 +159,15 @@ Changelog of all the versions of AndroidStatus
  * code updates
 
 0.9.0
- * added actionbar support
+ * added actionbar support - profile toggle and refresh in title bar
  * added indicators to pages
  * added commands page to swipe left from the status page
  * improved / updated all page layouts to be more consistent
  * fixed crash with downloading labels
- * code updates and cleanup
+ * download PWMA, PWMD, WL labels from portal
+ * linked Vortech page to Radion big with auto module update
  * added new icons
  * added lights on / off commands
+ * code updates and cleanup
+ 
  

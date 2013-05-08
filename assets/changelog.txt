@@ -3,12 +3,19 @@
 <b>0.9.0</b>
 <ul>
 <li>added actionbar support</li>
+	<ul>
+	<li>profile toggle</li>
+	<li>refresh</li>
+	</ul>
 <li>added indicators to pages</li>
-<li>added new icons</li>
 <li>added commands page to swipe left from the status page</li>
+<li>added new icons</li>
+<li>added lights on / off commands</li>
 <li>improved / updated all page layouts to be more consistent</li>
 <li>fixed crash with downloading labels</li>
-<li>code updates</li>
+<li>download PWMA, PWMD, WL labels from portal</li>
+<li>linked Vortech page to Radion big with auto module update</li>
+<li>code updates and cleanup</li>
 </ul>
 <br>
 <b>0.8.2</b>
