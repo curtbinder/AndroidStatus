@@ -68,33 +68,33 @@ public class RAApplication extends Application {
 
 		// initialize the error count
 		errorCount = 0;
-
-		checkServiceRunning();
-
 	}
 
 	public void checkServiceRunning ( ) {
 		// Check if the service is running, if not start it
+		Log.d( TAG, "Check service running" );
 		if ( !isServiceRunning && !isFirstRun() )
 			startService( new Intent( this, ControllerService.class ) );
+	}
+	
+	public void stopControllerService ( ) {
+		Log.d( TAG, "Stop controller service" );
+		if ( isServiceRunning )
+			stopService( new Intent( this, ControllerService.class ) );		
 	}
 
 	public void onTerminate ( ) {
 		super.onTerminate();
 		data.close();
-
-		if ( isServiceRunning )
-			stopService( new Intent( this, ControllerService.class ) );
+		stopControllerService();
 	}
 
 	public void restartAutoUpdateService ( ) {
-		Log.d( TAG, "restarting auto update service" );
 		cancelAutoUpdateService();
 		startAutoUpdateService();
 	}
 
 	public void cancelAutoUpdateService ( ) {
-		Log.d( TAG, "cancel auto update" );
 		PendingIntent pi = getUpdateIntent();
 		AlarmManager am =
 				(AlarmManager) getSystemService( Context.ALARM_SERVICE );
@@ -116,7 +116,6 @@ public class RAApplication extends Application {
 			int p = getSelectedProfile();
 			Log.d( TAG, "UP: " + up + " P: " + p );
 			if ( isAwayProfileEnabled() ) {
-				Log.d( TAG, "profiles enabled, checking proper profile" );
 				if ( (up == Globals.profileOnlyAway)
 						&& (p != Globals.profileAway) ) {
 					// only run on away profile and we are not on away profile
@@ -500,7 +499,6 @@ public class RAApplication extends Application {
 		// check version code stored in preferences vs the version stored in
 		// running code
 		// display the changelog if the values are different
-		Log.d( TAG, "display changelog" );
 		int previous = raprefs.getPreviousCodeVersion();
 
 		int current = 0;

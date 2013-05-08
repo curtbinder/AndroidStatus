@@ -27,10 +27,6 @@ public class BaseActivity extends SherlockActivity {
 
 	protected void onResume ( ) {
 		super.onResume();
-
-		// if the service isn't running, start it
-		// TODO move to have this run all the time
-		rapp.checkServiceRunning();
 	}
 
 }

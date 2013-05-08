@@ -20,7 +20,7 @@ public class CommandTabsActivity extends TabActivity {
 		super.onCreate( savedInstanceState );
 
 		final TabHost t = getTabHost();
-
+		
 		t.addTab( t
 				.newTabSpec( getString( R.string.tabCommand1 ) )
 				.setIndicator(	getString( R.string.titleCommands ),

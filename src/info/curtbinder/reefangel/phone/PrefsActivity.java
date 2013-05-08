@@ -223,6 +223,8 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 		registerReceiver( receiver, filter, Permissions.SEND_COMMAND, null );
 		getPreferenceScreen().getSharedPreferences()
 				.registerOnSharedPreferenceChangeListener( this );
+		// make sure the service is running when we resume
+		rapp.checkServiceRunning();
 	}
 
 	private void updateSelectedProfileVisibility ( ) {
@@ -825,6 +827,8 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 
 		@Override
 		public boolean onPreferenceClick ( Preference preference ) {
+			// stop the service if they are leaving the app
+			rapp.stopControllerService();
 			AlertDialog.Builder builder =
 					new AlertDialog.Builder( PrefsActivity.this );
 			builder.setMessage( rapp.getString( R.string.messageSendLogPrompt ) )

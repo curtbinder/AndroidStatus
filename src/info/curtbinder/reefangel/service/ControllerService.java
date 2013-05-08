@@ -1,12 +1,12 @@
-package info.curtbinder.reefangel.service;
-
 /*
- * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
- *
- * This work is made available under the terms of the 
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * Copyright (c) 2011-2013 by Curt Binder (http://curtbinder.info)
+ * 
+ * This work is made available under the terms of the Creative Commons
+ * Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
+
+package info.curtbinder.reefangel.service;
 
 import info.curtbinder.reefangel.phone.Permissions;
 import info.curtbinder.reefangel.phone.RAApplication;
@@ -32,8 +32,6 @@ public class ControllerService extends Service {
 	public synchronized void onCreate ( ) {
 		super.onCreate();
 
-		Log.d( TAG, "onCreate" );
-
 		rapp = (RAApplication) getApplication();
 		receiver = new ServiceReceiver();
 		filter = new IntentFilter( MessageCommands.QUERY_STATUS_INTENT );
@@ -49,8 +47,6 @@ public class ControllerService extends Service {
 	public synchronized void onDestroy ( ) {
 		super.onDestroy();
 
-		Log.d( TAG, "onDestroy" );
-
 		if ( rapp.isServiceRunning ) {
 			unregisterReceiver( receiver );
 			rapp.isServiceRunning = false;
@@ -63,7 +59,6 @@ public class ControllerService extends Service {
 			int startId ) {
 		super.onStartCommand( intent, flags, startId );
 
-		Log.d( TAG, "onStartCommand" );
 		if ( rapp.isFirstRun() ) {
 			Log.d( TAG, "first run, not starting service until configured" );
 			return START_STICKY;

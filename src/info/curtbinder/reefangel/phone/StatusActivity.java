@@ -56,6 +56,10 @@ public class StatusActivity extends BaseActivity implements
 
 	// do we reload the pages or not?
 	private boolean fReloadPages = false;
+	// do we stop the service or not, default to stop service
+	private boolean fStopService = true;
+	// do not switch selected profile when restoring the application state
+	private static boolean fRestoreState = false;
 
 	// Display views
 	private TextView updateTime;
@@ -161,13 +165,22 @@ public class StatusActivity extends BaseActivity implements
 	protected void onPause ( ) {
 		super.onPause();
 		unregisterReceiver( receiver );
+		if ( fStopService ) {
+			rapp.stopControllerService();
+		}
+		// reset the stop service flag after we pause
+		fStopService = true;
 	}
 
 	protected void onResume ( ) {
 		super.onResume();
+		// ensure service is running
+		rapp.checkServiceRunning();
+		
 		registerReceiver( receiver, filter, Permissions.QUERY_STATUS, null );
 		registerReceiver( receiver, filter, Permissions.SEND_COMMAND, null );
 
+		fRestoreState = true;
 		setNavigationList();
 
 		// this forces all the pages to be redrawn when the app is restored
@@ -367,7 +380,13 @@ public class StatusActivity extends BaseActivity implements
 
 	@Override
 	public boolean onNavigationItemSelected ( int itemPosition, long itemId ) {
-		switchProfiles( itemPosition );
+		// only switch profiles when the user changes the navigation item,
+		// not when the navigation list state is restored
+		if ( ! fRestoreState ) {
+			switchProfiles( itemPosition );
+		} else { 
+			fRestoreState = false;
+		}
 		return true;
 	}
 
@@ -824,6 +843,7 @@ public class StatusActivity extends BaseActivity implements
 			case R.id.settings:
 				// launch settings
 				reloadPages();
+				fStopService = false;
 				startActivity( new Intent( this, PrefsActivity.class ) );
 				break;
 			case R.id.about:
@@ -835,6 +855,7 @@ public class StatusActivity extends BaseActivity implements
 				break;
 			case R.id.memory:
 				// launch memory
+				fStopService = false;
 				Intent i = new Intent( this, MemoryTabsActivity.class );
 				i.putExtra( Globals.PRE10_LOCATIONS,
 							rapp.raprefs.useOldPre10MemoryLocations() );
@@ -842,6 +863,7 @@ public class StatusActivity extends BaseActivity implements
 				break;
 			case R.id.commands:
 				// launch commands
+				fStopService = false;
 				startActivity( new Intent( this, CommandTabsActivity.class ) );
 				break;
 			default:
