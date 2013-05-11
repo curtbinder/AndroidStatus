@@ -120,7 +120,6 @@ public class UpdateService extends IntentService {
 		}
 
 		if ( action.equals( MessageCommands.QUERY_STATUS_INTENT ) ) {
-			Log.d( TAG, "Query status" );
 			if ( isController )
 				command = RequestCommands.Status;
 			else
@@ -128,7 +127,6 @@ public class UpdateService extends IntentService {
 
 			h.setCommand( command );
 		} else if ( action.equals( MessageCommands.TOGGLE_RELAY_INTENT ) ) {
-			Log.d( TAG, "Toggle Relay" );
 			if ( isController )
 				command =
 						new String(
@@ -143,7 +141,6 @@ public class UpdateService extends IntentService {
 
 			h.setCommand( command );
 		} else if ( action.equals( MessageCommands.MEMORY_SEND_INTENT ) ) {
-			Log.d( TAG, "Memory" );
 			int value =
 					intent.getIntExtra( MessageCommands.MEMORY_SEND_VALUE_INT,
 										Globals.memoryReadOnly );
@@ -168,12 +165,10 @@ public class UpdateService extends IntentService {
 			else
 				h.setWriteLocation( location, value );
 		} else if ( action.equals( MessageCommands.LABEL_QUERY_INTENT ) ) {
-			Log.d( TAG, "Query labels" );
 			// set the userid
 			h.setUserId( raprefs.getUserId() );
 			h.setGetLabelsOnly( true );
 		} else if ( action.equals( MessageCommands.COMMAND_SEND_INTENT ) ) {
-			Log.d( TAG, "Command Send" );
 			if ( !isController ) {
 				notControllerMessage();
 				return;
@@ -181,14 +176,12 @@ public class UpdateService extends IntentService {
 			h.setCommand( intent
 					.getStringExtra( MessageCommands.COMMAND_SEND_STRING ) );
 		} else if ( action.equals( MessageCommands.VERSION_QUERY_INTENT ) ) {
-			Log.d( TAG, "Query version" );
 			if ( !isController ) {
 				notControllerMessage();
 				return;
 			}
 			h.setCommand( RequestCommands.Version );
 		} else if ( action.equals( MessageCommands.DATE_QUERY_INTENT ) ) {
-			Log.d( TAG, "Query Date" );
 			if ( !isController ) {
 				notControllerMessage();
 				return;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
+ * Copyright (c) 2011-2013 by Curt Binder (http://curtbinder.info)
  *
  * This work is made available under the terms of the 
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -10,6 +10,7 @@ package info.curtbinder.reefangel.phone;
 
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.RequestCommands;
+import info.curtbinder.reefangel.service.UpdateService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -123,7 +124,8 @@ public class VortechPopupActivity extends Activity implements OnClickListener {
 	private void updateSettings ( ) {
 		// grab the value
 		// send the memory command
-		Intent i = new Intent( MessageCommands.MEMORY_SEND_INTENT );
+		Intent i = new Intent( this, UpdateService.class );
+		i.setAction( MessageCommands.MEMORY_SEND_INTENT );
 		int location;
 		if ( preLocations ) {
 			location = MemoryActivity.LOCATION_START_OLD;
@@ -139,6 +141,6 @@ public class VortechPopupActivity extends Activity implements OnClickListener {
 		i.putExtra( MessageCommands.MEMORY_SEND_VALUE_INT, value );
 		Log.d( TAG, "Update Vortech:  " + RequestCommands.MemoryByte + location
 					+ "," + value );
-		sendBroadcast( i, Permissions.SEND_COMMAND );
+		startService( i );
 	}
 }

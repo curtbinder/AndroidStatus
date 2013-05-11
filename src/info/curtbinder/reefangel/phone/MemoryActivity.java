@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
+ * Copyright (c) 2011-2013 by Curt Binder (http://curtbinder.info)
  *
  * This work is made available under the terms of the 
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -10,6 +10,7 @@ package info.curtbinder.reefangel.phone;
 
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.RequestCommands;
+import info.curtbinder.reefangel.service.UpdateService;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -80,7 +81,7 @@ public class MemoryActivity extends Activity {
 		} else {
 			preLocations = false;
 		}
-		
+
 		// Message receiver
 		receiver = new MemoryReceiver();
 		filter = new IntentFilter( MessageCommands.MEMORY_RESPONSE_INTENT );
@@ -353,7 +354,8 @@ public class MemoryActivity extends Activity {
 
 	private void sendMessage ( boolean write ) {
 		Log.d( TAG, "sendMessage" );
-		Intent i = new Intent( MessageCommands.MEMORY_SEND_INTENT );
+		Intent i = new Intent( this, UpdateService.class );
+		i.setAction( MessageCommands.MEMORY_SEND_INTENT );
 		String type = RequestCommands.MemoryByte;
 		int value = Globals.memoryReadOnly;
 		int id = R.string.messageReadingMemory;
@@ -370,9 +372,9 @@ public class MemoryActivity extends Activity {
 		i.putExtra( MessageCommands.MEMORY_SEND_LOCATION_INT,
 					(int) Integer.parseInt( locationText.getText().toString() ) );
 		i.putExtra( MessageCommands.MEMORY_SEND_VALUE_INT, value );
-		sendBroadcast( i, Permissions.SEND_COMMAND );
+		startService( i );
 		Toast.makeText( MemoryActivity.this, getResources().getString( id ),
-						Toast.LENGTH_LONG ).show();
+						Toast.LENGTH_SHORT ).show();
 	}
 
 	class MemoryReceiver extends BroadcastReceiver {

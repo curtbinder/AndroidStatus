@@ -10,6 +10,7 @@ package info.curtbinder.reefangel.phone;
 
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.RequestCommands;
+import info.curtbinder.reefangel.service.UpdateService;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -71,7 +72,7 @@ public class CommandsActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick ( View v ) {
-		Intent i = new Intent();
+		Intent i = new Intent( this, UpdateService.class );
 		String s = RequestCommands.ExitMode;
 		String action = MessageCommands.COMMAND_SEND_INTENT;
 		switch ( v.getId() ) {
@@ -102,7 +103,7 @@ public class CommandsActivity extends Activity implements OnClickListener {
 		}
 		i.setAction( action );
 		i.putExtra( MessageCommands.COMMAND_SEND_STRING, s );
-		sendBroadcast( i, Permissions.SEND_COMMAND );
+		startService( i );
 	}
 
 	class CommandsReceiver extends BroadcastReceiver {

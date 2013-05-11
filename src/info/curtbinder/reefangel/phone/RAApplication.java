@@ -9,7 +9,6 @@
 package info.curtbinder.reefangel.phone;
 
 import info.curtbinder.reefangel.db.RAData;
-import info.curtbinder.reefangel.service.ControllerService;
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;
 
@@ -53,9 +52,6 @@ public class RAApplication extends Application {
 	// Controller Data
 	public RAData data;
 
-	// Service Stuff
-	public boolean isServiceRunning;
-
 	public void onCreate ( ) {
 		// prefs = PreferenceManager.getDefaultSharedPreferences( this );
 		errorCodes = getResources().getStringArray( R.array.errorCodes );
@@ -64,29 +60,14 @@ public class RAApplication extends Application {
 		errorCode = 0; // set to no error initially
 		data = new RAData( this );
 		raprefs = new RAPreferences( this );
-		isServiceRunning = false;
 
 		// initialize the error count
 		errorCount = 0;
 	}
 
-	public void checkServiceRunning ( ) {
-		// Check if the service is running, if not start it
-		Log.d( TAG, "Check service running" );
-		if ( !isServiceRunning && !isFirstRun() )
-			startService( new Intent( this, ControllerService.class ) );
-	}
-	
-	public void stopControllerService ( ) {
-		Log.d( TAG, "Stop controller service" );
-		if ( isServiceRunning )
-			stopService( new Intent( this, ControllerService.class ) );		
-	}
-
 	public void onTerminate ( ) {
 		super.onTerminate();
 		data.close();
-		stopControllerService();
 	}
 
 	public void restartAutoUpdateService ( ) {

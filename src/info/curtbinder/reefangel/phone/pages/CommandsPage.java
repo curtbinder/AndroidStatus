@@ -8,10 +8,10 @@
 
 package info.curtbinder.reefangel.phone.pages;
 
-import info.curtbinder.reefangel.phone.Permissions;
 import info.curtbinder.reefangel.phone.R;
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.RequestCommands;
+import info.curtbinder.reefangel.service.UpdateService;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
@@ -64,7 +64,7 @@ public class CommandsPage extends RAPage implements OnClickListener {
 
 	@Override
 	public void onClick ( View v ) {
-		Intent i = new Intent();
+		Intent i = new Intent( ctx, UpdateService.class );
 		String s = RequestCommands.ExitMode;
 		switch ( v.getId() ) {
 			case R.id.command_button_feed:
@@ -88,7 +88,7 @@ public class CommandsPage extends RAPage implements OnClickListener {
 		}
 		i.setAction( MessageCommands.COMMAND_SEND_INTENT );
 		i.putExtra( MessageCommands.COMMAND_SEND_STRING, s );
-		ctx.sendBroadcast( i, Permissions.SEND_COMMAND );
+		ctx.startService( i );
 	}
 
 	@Override

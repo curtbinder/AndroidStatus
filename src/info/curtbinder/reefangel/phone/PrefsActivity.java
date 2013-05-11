@@ -10,6 +10,7 @@ package info.curtbinder.reefangel.phone;
 
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.service.MessageCommands;
+import info.curtbinder.reefangel.service.UpdateService;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -223,8 +224,6 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 		registerReceiver( receiver, filter, Permissions.SEND_COMMAND, null );
 		getPreferenceScreen().getSharedPreferences()
 				.registerOnSharedPreferenceChangeListener( this );
-		// make sure the service is running when we resume
-		rapp.checkServiceRunning();
 	}
 
 	private void updateSelectedProfileVisibility ( ) {
@@ -417,7 +416,8 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 			// - enabled (interval > 0)
 			// -- away profile enabled AND the profile is not only away
 			// -- away profile disabled
-			if ( raprefs.getUpdateInterval() > 0 && raprefs.isCommunicateController() ) {
+			if ( raprefs.getUpdateInterval() > 0
+					&& raprefs.isCommunicateController() ) {
 				if ( rapp.isAwayProfileEnabled() ) {
 					if ( raprefs.getUpdateProfile() != Globals.profileOnlyAway ) {
 						Log.d(	TAG,
@@ -482,7 +482,8 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 					.setSummary( getUpdateIntervalDisplay() );
 			rapp.restartAutoUpdateService();
 			boolean fVisible = false;
-			if ( rapp.isAwayProfileEnabled() && (raprefs.getUpdateInterval() > 0) ) {
+			if ( rapp.isAwayProfileEnabled()
+					&& (raprefs.getUpdateInterval() > 0) ) {
 				Log.d( TAG, "enable update profile" );
 				fVisible = true;
 			}
@@ -495,7 +496,8 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 		} else if ( key.equals( rapp.getString( R.string.prefDeviceKey ) ) ) {
 			// device changes
 			boolean f = false;
-			if ( raprefs.isCommunicateController() && rapp.isAwayProfileEnabled() )
+			if ( raprefs.isCommunicateController()
+					&& rapp.isAwayProfileEnabled() )
 				f = true;
 			// only restart if there is an interval
 			if ( raprefs.getUpdateInterval() > 0 )
@@ -544,7 +546,7 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 		}
 		return loggingdisplay[pos];
 	}
-	
+
 	public String getUpdateIntervalDisplay ( ) {
 		int pos = 0;
 		long value = raprefs.getUpdateInterval();
@@ -562,7 +564,7 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 		}
 		return intervaldisplay[pos];
 	}
-	
+
 	public String getUpdateProfileDisplay ( ) {
 		int pos = 0;
 		int value = raprefs.getUpdateProfile();
@@ -580,8 +582,7 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 		}
 		return profiledisplay[pos];
 	}
-	
-	
+
 	class PrefsReceiver extends BroadcastReceiver {
 
 		public void onReceive ( Context context, Intent intent ) {
@@ -671,10 +672,10 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 												// launch download
 												Log.d( TAG, "Download labels" );
 												Intent i =
-														new Intent(
-															MessageCommands.LABEL_QUERY_INTENT );
-												rapp.sendBroadcast( i,
-																	Permissions.SEND_COMMAND );
+														new Intent( rapp,
+															UpdateService.class );
+												i.setAction( MessageCommands.LABEL_QUERY_INTENT );
+												rapp.startService( i );
 												dialog.dismiss();
 												Toast.makeText( PrefsActivity.this,
 																rapp.getString( R.string.messageDownloadLabels ),
@@ -827,8 +828,6 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 
 		@Override
 		public boolean onPreferenceClick ( Preference preference ) {
-			// stop the service if they are leaving the app
-			rapp.stopControllerService();
 			AlertDialog.Builder builder =
 					new AlertDialog.Builder( PrefsActivity.this );
 			builder.setMessage( rapp.getString( R.string.messageSendLogPrompt ) )

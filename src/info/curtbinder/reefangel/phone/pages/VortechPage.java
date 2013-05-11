@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
+ * Copyright (c) 2011-2013 by Curt Binder (http://curtbinder.info)
  * 
  * This work is made available under the terms of the Creative Commons
  * Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -115,6 +115,7 @@ public class VortechPage extends RAPage implements OnLongClickListener {
 	}
 
 	private void displayPopup ( int type ) {
+		// Send a message to StatusActivity to display the popup window
 		Intent i = new Intent( MessageCommands.VORTECH_UPDATE_INTENT );
 		i.putExtra( MessageCommands.VORTECH_UPDATE_TYPE, type );
 		ctx.sendBroadcast( i, Permissions.SEND_COMMAND );

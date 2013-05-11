@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
+ * Copyright (c) 2011-2013 by Curt Binder (http://curtbinder.info)
  * 
  * This work is made available under the terms of the Creative Commons
  * Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -10,9 +10,9 @@ package info.curtbinder.reefangel.phone.pages;
 
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.controller.Relay;
-import info.curtbinder.reefangel.phone.Permissions;
 import info.curtbinder.reefangel.phone.R;
 import info.curtbinder.reefangel.service.MessageCommands;
+import info.curtbinder.reefangel.service.UpdateService;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
@@ -268,10 +268,11 @@ public class RelayBoxPage extends RAPage implements OnClickListener {
 
 	private void launchRelayToggleTask ( int relay, int status ) {
 		// port is 1 based
-		Intent i = new Intent( MessageCommands.TOGGLE_RELAY_INTENT );
+		Intent i = new Intent( ctx, UpdateService.class );
+		i.setAction( MessageCommands.TOGGLE_RELAY_INTENT );
 		i.putExtra( MessageCommands.TOGGLE_RELAY_PORT_INT, relay );
 		i.putExtra( MessageCommands.TOGGLE_RELAY_MODE_INT, status );
-		ctx.sendBroadcast( i, Permissions.SEND_COMMAND );
+		ctx.startService( i );
 	}
 
 	public void refreshButtonEnablement ( ) {

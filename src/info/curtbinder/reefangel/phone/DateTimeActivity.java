@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
+ * Copyright (c) 2011-2013 by Curt Binder (http://curtbinder.info)
  *
  * This work is made available under the terms of the 
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -10,6 +10,7 @@ package info.curtbinder.reefangel.phone;
 
 import info.curtbinder.reefangel.controller.DateTime;
 import info.curtbinder.reefangel.service.MessageCommands;
+import info.curtbinder.reefangel.service.UpdateService;
 
 import java.util.Calendar;
 
@@ -154,7 +155,7 @@ public class DateTimeActivity extends Activity implements OnClickListener {
 	}
 
 	public void onClick ( View v ) {
-		Intent i = new Intent();
+		Intent i = new Intent( this, UpdateService.class );
 		boolean fSend = false;
 		switch ( v.getId() ) {
 			case R.id.timeButtonChangeDate:
@@ -194,7 +195,7 @@ public class DateTimeActivity extends Activity implements OnClickListener {
 				return;
 		}
 		if ( fSend ) {
-			sendBroadcast( i, Permissions.SEND_COMMAND );
+			startService( i );
 		}
 	}
 
