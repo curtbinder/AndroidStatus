@@ -77,16 +77,16 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                         android:title="@string/prefT3VisibilityTitle" />
                     <CheckBoxPreference
                         android:defaultValue="true"
+                        android:key="@string/prefPHVisibilityKey"
+                        android:title="@string/prefPHVisibilityTitle" />
+                    <CheckBoxPreference
+                        android:defaultValue="true"
                         android:key="@string/prefDPVisibilityKey"
                         android:title="@string/prefDPVisibilityTitle" />
                     <CheckBoxPreference
                         android:defaultValue="true"
                         android:key="@string/prefAPVisibilityKey"
                         android:title="@string/prefAPVisibilityTitle" />
-                    <CheckBoxPreference
-                        android:defaultValue="true"
-                        android:key="@string/prefPHVisibilityKey"
-                        android:title="@string/prefPHVisibilityTitle" />
                     <CheckBoxPreference
                         android:defaultValue="false"
                         android:key="@string/prefSalinityVisibilityKey"
