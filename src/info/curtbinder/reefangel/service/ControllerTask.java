@@ -307,6 +307,8 @@ public class ControllerTask implements Runnable {
 		if ( !ra.getPHLabel().equals( "" ) ) {
 			raprefs.set( R.string.prefPHLabelKey, ra.getPHLabel() );
 		}
+		// FIXME add getting ato low and high labels from portal
+		// FIXME labels require updating Controller class to store them
 		if ( !ra.getSalinityLabel().equals( "" ) ) {
 			raprefs.set( R.string.prefSalinityLabelKey, ra.getSalinityLabel() );
 		}

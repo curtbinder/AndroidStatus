@@ -370,6 +370,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefDPVisibilityKey">dp_visibility</string>
     <string name="prefAPVisibilityKey">ap_visibility</string>
     <string name="prefPHVisibilityKey">ph_visibility</string>
+    <string name="prefATOLoVisibilityKey">atolo_visibility</string>
+    <string name="prefATOHiVisibilityKey">atohi_visibility</string>
     <string name="prefSalinityVisibilityKey">salinity_visibility</string>
     <string name="prefORPVisibilityKey">orp_visibility</string>
     <string name="prefPHExpVisibilityKey">phe_visibility</string>
@@ -383,6 +385,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefPHLabelKey">ph_label</string>
     <string name="prefDPLabelKey">dp_label</string>
     <string name="prefAPLabelKey">ap_label</string>
+    <string name="prefATOLoLabelKey">atolo_label</string>
+    <string name="prefATOHiLabelKey">atohi_label</string>
     <string name="prefSalinityLabelKey">salinity_label</string>
     <string name="prefORPLabelKey">orp_label</string>
     <string name="prefPHExpLabelKey">phe_label</string>

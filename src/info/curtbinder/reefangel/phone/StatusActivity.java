@@ -311,6 +311,12 @@ public class StatusActivity extends BaseActivity implements
 		pageController.setLabel(	ControllerPage.AP_INDEX,
 									rapp.raprefs.getAPLabel(),
 									getString( R.string.labelAP ) );
+		pageController.setLabel(	ControllerPage.ATOLO_INDEX,
+									rapp.raprefs.getAtoLowLabel(),
+									getString( R.string.labelAtoLow ) );
+		pageController.setLabel(	ControllerPage.ATOHI_INDEX,
+									rapp.raprefs.getAtoHighLabel(),
+									getString( R.string.labelAtoHigh ) );
 		pageController.setLabel(	ControllerPage.SALINITY_INDEX,
 									rapp.raprefs.getSalinityLabel(),
 									getString( R.string.labelSalinity ) );
@@ -360,6 +366,10 @@ public class StatusActivity extends BaseActivity implements
 										rapp.raprefs.getAPVisibility() );
 		pageController.setVisibility(	ControllerPage.PH_INDEX,
 										rapp.raprefs.getPHVisibility() );
+		pageController.setVisibility(	ControllerPage.ATOLO_INDEX,
+										rapp.raprefs.getAtoLowVisibility() );
+		pageController.setVisibility(	ControllerPage.ATOHI_INDEX,
+										rapp.raprefs.getAtoHighVisibility() );
 		pageController.setVisibility(	ControllerPage.SALINITY_INDEX,
 										rapp.raprefs.getSalinityVisibility() );
 		pageController.setVisibility(	ControllerPage.ORP_INDEX,
@@ -601,6 +611,17 @@ public class StatusActivity extends BaseActivity implements
 	}
 
 	private String[] getControllerValues ( Cursor c ) {
+		// FIXME switch to only setting the string to 1 or 0
+		// FIXME so the controllerpage can easily update the images
+		String l, h;
+		if ( c.getShort( c.getColumnIndex( RAData.PCOL_ATOLO ) ) == 1 )
+			l = getString( R.string.labelON ); // ACTIVE, GREEN, ON
+		else
+			l = getString( R.string.labelOFF ); // INACTIVE, RED, OFF
+		if ( c.getShort( c.getColumnIndex( RAData.PCOL_ATOHI ) ) == 1 )
+			h = getString( R.string.labelON ); // ACTIVE, GREEN, ON
+		else
+			h = getString( R.string.labelOFF ); // INACTIVE, RED, OFF
 		return new String[] {	c.getString( c.getColumnIndex( RAData.PCOL_T1 ) ),
 								c.getString( c.getColumnIndex( RAData.PCOL_T2 ) ),
 								c.getString( c.getColumnIndex( RAData.PCOL_T3 ) ),
@@ -609,6 +630,8 @@ public class StatusActivity extends BaseActivity implements
 										+ "%",
 								c.getString( c.getColumnIndex( RAData.PCOL_AP ) )
 										+ "%",
+								l,
+								h,
 								c.getString( c.getColumnIndex( RAData.PCOL_SAL ) )
 										+ " ppt",
 								c.getString( c.getColumnIndex( RAData.PCOL_ORP ) )

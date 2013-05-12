@@ -40,6 +40,14 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <include
             android:id="@+id/ap_row"
             layout="@layout/genericlabelrow" />
+        
+        <include
+            android:id="@+id/atolow_row"
+            layout="@layout/genericlabelrow" />
+        
+        <include
+            android:id="@+id/atohi_row"
+            layout="@layout/genericlabelrow" />
 
         <include
             android:id="@+id/salinity_row"
@@ -55,7 +63,6 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
         <include
             android:id="@+id/water_row"
-            android:layout_width="fill_parent"
             layout="@layout/genericlabelrow" />
     </TableLayout>
 

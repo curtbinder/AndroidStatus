@@ -38,7 +38,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                     <EditTextPreference
                         android:defaultValue="@string/labelPH"
                         android:key="@string/prefPHLabelKey"
-                        android:title="@string/prefPHLabelTitle" />
+                        android:title="@string/labelPH" />
                     <EditTextPreference
                         android:defaultValue="@string/labelDP"
                         android:key="@string/prefDPLabelKey"
@@ -47,6 +47,14 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                         android:defaultValue="@string/labelAP"
                         android:key="@string/prefAPLabelKey"
                         android:title="@string/prefAPLabelTitle" />
+                    <EditTextPreference
+                        android:defaultValue="@string/labelAtoLow"
+                        android:key="@string/prefATOLoLabelKey"
+                        android:title="@string/labelAtoLow" />
+                    <EditTextPreference
+                        android:defaultValue="@string/labelAtoHigh"
+                        android:key="@string/prefATOHiLabelKey"
+                        android:title="@string/labelAtoHigh" />
                     <EditTextPreference
                         android:defaultValue="@string/labelSalinity"
                         android:key="@string/prefSalinityLabelKey"
@@ -87,6 +95,14 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                         android:defaultValue="true"
                         android:key="@string/prefAPVisibilityKey"
                         android:title="@string/prefAPVisibilityTitle" />
+                    <CheckBoxPreference
+                        android:defaultValue="true"
+                        android:key="@string/prefATOLoVisibilityKey"
+                        android:title="@string/labelAtoLow" />
+                    <CheckBoxPreference
+                        android:defaultValue="true"
+                        android:key="@string/prefATOHiVisibilityKey"
+                        android:title="@string/labelAtoHigh" />
                     <CheckBoxPreference
                         android:defaultValue="false"
                         android:key="@string/prefSalinityVisibilityKey"

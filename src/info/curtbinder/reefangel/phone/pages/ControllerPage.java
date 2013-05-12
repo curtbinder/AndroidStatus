@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
+ * Copyright (c) 2011-2013 by Curt Binder (http://curtbinder.info)
  * 
  * This work is made available under the terms of the Creative Commons
  * Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -27,10 +27,12 @@ public class ControllerPage extends RAPage {
 	public static final int PH_INDEX = 3;
 	public static final int DP_INDEX = 4;
 	public static final int AP_INDEX = 5;
-	public static final int SALINITY_INDEX = 6;
-	public static final int ORP_INDEX = 7;
-	public static final int PHE_INDEX = 8;
-	public static final int WL_INDEX = 9;
+	public static final int ATOLO_INDEX = 6;
+	public static final int ATOHI_INDEX = 7;
+	public static final int SALINITY_INDEX = 8;
+	public static final int ORP_INDEX = 9;
+	public static final int PHE_INDEX = 10;
+	public static final int WL_INDEX = 11;
 
 	Context ctx; // saved context from parent
 	private TextView[] deviceText =
@@ -66,6 +68,8 @@ public class ControllerPage extends RAPage {
 		colors[PH_INDEX] = ctx.getResources().getColor( R.color.ph );
 		colors[DP_INDEX] = ctx.getResources().getColor( R.color.dp );
 		colors[AP_INDEX] = ctx.getResources().getColor( R.color.ap );
+		colors[ATOLO_INDEX] = ctx.getResources().getColor( R.color.white );
+		colors[ATOHI_INDEX] = ctx.getResources().getColor( R.color.white );
 		colors[SALINITY_INDEX] = ctx.getResources().getColor( R.color.white );
 		colors[ORP_INDEX] = ctx.getResources().getColor( R.color.white );
 		colors[PHE_INDEX] = ctx.getResources().getColor( R.color.ph );
@@ -77,6 +81,8 @@ public class ControllerPage extends RAPage {
 		deviceRow[PH_INDEX] = (TableRow) findViewById( R.id.ph_row );
 		deviceRow[DP_INDEX] = (TableRow) findViewById( R.id.dp_row );
 		deviceRow[AP_INDEX] = (TableRow) findViewById( R.id.ap_row );
+		deviceRow[ATOLO_INDEX] = (TableRow) findViewById( R.id.atolow_row );
+		deviceRow[ATOHI_INDEX] = (TableRow) findViewById( R.id.atohi_row );
 		deviceRow[SALINITY_INDEX] = (TableRow) findViewById( R.id.salinity_row );
 		deviceRow[ORP_INDEX] = (TableRow) findViewById( R.id.orp_row );
 		deviceRow[PHE_INDEX] = (TableRow) findViewById( R.id.phe_row );
@@ -119,6 +125,9 @@ public class ControllerPage extends RAPage {
 		deviceText[PH_INDEX].setText( v[PH_INDEX] );
 		deviceText[DP_INDEX].setText( v[DP_INDEX] );
 		deviceText[AP_INDEX].setText( v[AP_INDEX] );
+		// FIXME instead of setting text, we need to change icon
+		deviceText[ATOLO_INDEX].setText( v[ATOLO_INDEX] );
+		deviceText[ATOHI_INDEX].setText( v[ATOHI_INDEX] );
 		deviceText[SALINITY_INDEX].setText( v[SALINITY_INDEX] );
 		deviceText[ORP_INDEX].setText( v[ORP_INDEX] );
 		deviceText[PHE_INDEX].setText( v[PHE_INDEX] );

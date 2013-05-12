@@ -301,6 +301,14 @@ public class RAPreferences {
 	public boolean getPHVisibility ( ) {
 		return getBoolean( R.string.prefPHVisibilityKey, true );
 	}
+	
+	public boolean getAtoLowVisibility ( ) {
+		return getBoolean( R.string.prefATOLoVisibilityKey, true );
+	}
+	
+	public boolean getAtoHighVisibility ( ) {
+		return getBoolean( R.string.prefATOHiVisibilityKey, true );
+	}
 
 	public boolean getSalinityVisibility ( ) {
 		return getBoolean( R.string.prefSalinityVisibilityKey, false );
@@ -342,6 +350,14 @@ public class RAPreferences {
 		return getString( R.string.prefAPLabelKey, R.string.labelAP );
 	}
 
+	public String getAtoLowLabel ( ) {
+		return getString( R.string.prefATOLoLabelKey, R.string.labelAtoLow );
+	}
+	
+	public String getAtoHighLabel ( ) {
+		return getString( R.string.prefATOHiLabelKey, R.string.labelAtoHigh );
+	}
+	
 	public String getSalinityLabel ( ) {
 		return getString( R.string.prefSalinityLabelKey, R.string.labelSalinity );
 	}
