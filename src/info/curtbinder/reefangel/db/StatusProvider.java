@@ -1,12 +1,12 @@
-package info.curtbinder.reefangel.db;
-
 /*
- * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
- *
- * This work is made available under the terms of the 
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * Copyright (c) 2011-2013 by Curt Binder (http://curtbinder.info)
+ * 
+ * This work is made available under the terms of the Creative Commons
+ * Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
+
+package info.curtbinder.reefangel.db;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -84,7 +84,11 @@ public class StatusProvider extends ContentProvider {
 			case CODE_LATEST:
 				return data.getLatestData();
 			case CODE_STATUS:
-				return data.getAllData();
+			{
+				Cursor c = data.getAllData();
+				c.setNotificationUri( getContext().getContentResolver(), uri );
+				return c;
+			}
 			case CODE_STATUS_ID:
 				String id = uri.getLastPathSegment();
 				return data.getDataById( Long.parseLong( id ) );
