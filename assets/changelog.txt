@@ -11,10 +11,13 @@
 <li>added commands page to swipe left from the status page</li>
 <li>added new icons</li>
 <li>added lights on / off commands</li>
+<li>added displaying of ATO high and low status on controller page</li>
 <li>improved / updated all page layouts to be more consistent</li>
 <li>fixed crash with downloading labels</li>
 <li>download PWMA, PWMD, WL labels from portal</li>
 <li>linked Vortech page to Radion big with auto module update</li>
+<li>added 1 minute refresh interval</li>
+<li>service no longer runs constantly</li>
 <li>code updates and cleanup</li>
 </ul>
 <br>
