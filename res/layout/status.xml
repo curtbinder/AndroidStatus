@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
+Copyright (c) 2011-2013 by Curt Binder (http://curtbinder.info)
  
 This work is made available under the terms of the 
 Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -11,10 +11,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_gravity="center"
-    android:padding="8dp"
     android:stretchColumns="1" >
 
-    <TableRow>
+    <TableRow 
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp" >
 
         <TextView
             style="@style/UpdateText"

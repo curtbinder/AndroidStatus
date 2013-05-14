@@ -166,6 +166,9 @@ Changelog of all the versions of AndroidStatus
  * fixed crash with downloading labels
  * download PWMA, PWMD, WL labels from portal
  * linked Vortech page to Radion big with auto module update
+ * added 1 minute refresh interval
+ * added displaying of ATO high and low status on controller page
+ * service no longer runs constantly
  * added new icons
  * added lights on / off commands
  * code updates and cleanup
