@@ -8,15 +8,12 @@
 
 package info.curtbinder.reefangel.phone;
 
-import info.curtbinder.reefangel.db.RADbHelper;
 import info.curtbinder.reefangel.db.StatusProvider;
 import info.curtbinder.reefangel.db.StatusTable;
 import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -25,7 +22,6 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,20 +37,18 @@ import com.actionbarsherlock.view.MenuItem;
 
 public class ParamsListActivity extends SherlockFragmentActivity {
 
-	private static final String TAG = ParamsListActivity.class.getSimpleName();
-	private static final int[] TO = { R.id.plog, R.id.pt1, R.id.pt2, R.id.pt3,
-	/*
-	 * R.id.pph, R.id.pdp, R.id.pap, R.id.psal, R.id.patoh, R.id.patol, R.id.pr,
-	 * R.id.pron, R.id.proff
-	 */
-	                                  0
-	};
+	//private static final String TAG = ParamsListActivity.class.getSimpleName();
+	private static final int[] TO = {	0,
+										R.id.plog,
+										R.id.pt1,
+										R.id.pt2,
+										R.id.pt3 };
 
-	private static final String[] FROM = {	StatusTable.COL_LOGDATE,
+	private static final String[] FROM = {	StatusTable.COL_ID,
+											StatusTable.COL_LOGDATE,
 											StatusTable.COL_T1,
 											StatusTable.COL_T2,
-											StatusTable.COL_T3,
-											StatusTable.COL_ID};
+											StatusTable.COL_T3 };
 	static RAApplication rapp;
 
 	public void onCreate ( Bundle savedInstanceState ) {
@@ -106,15 +100,8 @@ public class ParamsListActivity extends SherlockFragmentActivity {
 													public void onClick (
 															DialogInterface dialog,
 															int id ) {
-														Log.d(	TAG,
-																"Delete all" );
 														dialog.dismiss();
-														// FIXME delete all data
-														// rapp.data.deleteData();
-														Toast.makeText( getActivity(),
-																		rapp.getString( R.string.messageDeleted ),
-																		Toast.LENGTH_SHORT )
-																.show();
+														deleteAll();
 													}
 												} )
 							.setNegativeButton( rapp.getString( R.string.buttonNo ),
@@ -122,8 +109,6 @@ public class ParamsListActivity extends SherlockFragmentActivity {
 													public void onClick (
 															DialogInterface dialog,
 															int id ) {
-														Log.d(	TAG,
-																"Cancel Delete" );
 														dialog.cancel();
 													}
 												} );
@@ -135,45 +120,27 @@ public class ParamsListActivity extends SherlockFragmentActivity {
 			return true;
 		}
 
+		private void deleteAll ( ) {
+			Uri uri =
+					Uri.parse( StatusProvider.CONTENT_URI + "/"
+								+ StatusProvider.PATH_STATUS );
+			int rows =
+					getActivity().getContentResolver().delete( uri, "1", null );
+			String msg =
+					rapp.getString( R.string.messageDeleted ) + ": " + rows;
+			Toast.makeText( getActivity(), msg, Toast.LENGTH_SHORT ).show();
+		}
+
 		@Override
 		public void onListItemClick ( ListView l, View v, int position, long id ) {
 			// super.onListItemClick( l, v, position, id );
 			Intent i = new Intent( getActivity(), HistoryPopupActivity.class );
-			Uri historyUri = Uri.parse( StatusProvider.CONTENT_URI + "/" + StatusProvider.PATH_STATUS + "/" + id );
+			Uri historyUri =
+					Uri.parse( StatusProvider.CONTENT_URI + "/"
+								+ StatusProvider.PATH_STATUS + "/" + id );
 			i.putExtra( StatusProvider.STATUS_ID_MIME_TYPE, historyUri );
 			startActivity( i );
 		}
-
-		// private ContentValues loadData ( long id ) throws SQLException {
-		// ContentValues cv = new ContentValues();
-		// Cursor c = rapp.data.getDataById( id );
-		// // short r = 0, ron = 0, roff = 0;
-		//
-		// if ( c.moveToFirst() ) {
-		// cv.put( RADbHelper.PCOL_LOGDATE,
-		// c.getString( c.getColumnIndex( RADbHelper.PCOL_LOGDATE ) ) );
-		// cv.put( RADbHelper.PCOL_T1,
-		// c.getString( c.getColumnIndex( RADbHelper.PCOL_T1 ) ) );
-		// cv.put( RADbHelper.PCOL_T2,
-		// c.getString( c.getColumnIndex( RADbHelper.PCOL_T2 ) ) );
-		// cv.put( RADbHelper.PCOL_T3,
-		// c.getString( c.getColumnIndex( RADbHelper.PCOL_T3 ) ) );
-		// cv.put( RADbHelper.PCOL_PH,
-		// c.getString( c.getColumnIndex( RADbHelper.PCOL_PH ) ) );
-		// cv.put( RADbHelper.PCOL_SAL,
-		// c.getString( c.getColumnIndex( RADbHelper.PCOL_SAL ) ) );
-		// cv.put( RADbHelper.PCOL_DP,
-		// c.getString( c.getColumnIndex( RADbHelper.PCOL_DP ) ) );
-		// cv.put( RADbHelper.PCOL_AP,
-		// c.getString( c.getColumnIndex( RADbHelper.PCOL_AP ) ) );
-		// cv.put( RADbHelper.PCOL_ATOLO,
-		// c.getString( c.getColumnIndex( RADbHelper.PCOL_ATOLO ) ) );
-		// cv.put( RADbHelper.PCOL_ATOHI,
-		// c.getString( c.getColumnIndex( RADbHelper.PCOL_ATOHI ) ) );
-		// }
-		// c.close();
-		// return cv;
-		// }
 
 		@Override
 		public Loader<Cursor> onCreateLoader ( int id, Bundle args ) {

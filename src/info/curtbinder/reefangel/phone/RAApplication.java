@@ -9,7 +9,6 @@
 package info.curtbinder.reefangel.phone;
 
 import info.curtbinder.reefangel.db.RADbHelper;
-import info.curtbinder.reefangel.db.StatusTable;
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;
 
@@ -25,7 +24,6 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -54,7 +52,6 @@ public class RAApplication extends Application {
 	public RADbHelper data;
 
 	public void onCreate ( ) {
-		// prefs = PreferenceManager.getDefaultSharedPreferences( this );
 		errorCodes = getResources().getStringArray( R.array.errorCodes );
 		errorCodesStrings =
 				getResources().getStringArray( R.array.errorCodesStrings );
@@ -119,24 +116,6 @@ public class RAApplication extends Application {
 				(AlarmManager) getSystemService( Context.ALARM_SERVICE );
 		am.setInexactRepeating( AlarmManager.RTC, System.currentTimeMillis(),
 								interval, pi );
-		// Profile, interval, wakeup
-		// String profile;
-		// switch ( up ) {
-		// default:
-		// case Globals.profileAlways:
-		// profile = "always";
-		// break;
-		// case Globals.profileOnlyAway:
-		// profile = "only away";
-		// break;
-		// case Globals.profileOnlyHome:
-		// profile = "only home";
-		// break;
-		// }
-		// String s =
-		// String.format( "%s, %s m", profile,
-		// raprefs.getUpdateIntervalDisplay() );
-		// Log.d( TAG, "started auto update: " + s );
 	}
 
 	private PendingIntent getUpdateIntent ( ) {
@@ -148,115 +127,6 @@ public class RAApplication extends Application {
 				PendingIntent.getService(	this, -1, i,
 											PendingIntent.FLAG_CANCEL_CURRENT );
 		return pi;
-	}
-
-	// Data handling
-	public void insertData ( Intent i ) {
-		ContentValues v = new ContentValues();
-		v.put( StatusTable.COL_T1, i.getStringExtra( StatusTable.COL_T1 ) );
-		v.put( StatusTable.COL_T2, i.getStringExtra( StatusTable.COL_T2 ) );
-		v.put( StatusTable.COL_T3, i.getStringExtra( StatusTable.COL_T3 ) );
-		v.put( StatusTable.COL_PH, i.getStringExtra( StatusTable.COL_PH ) );
-		v.put( StatusTable.COL_DP, i.getShortExtra( StatusTable.COL_DP, (short) 0 ) );
-		v.put( StatusTable.COL_AP, i.getShortExtra( StatusTable.COL_AP, (short) 0 ) );
-		v.put( StatusTable.COL_SAL, i.getStringExtra( StatusTable.COL_SAL ) );
-		v.put( StatusTable.COL_ORP, i.getStringExtra( StatusTable.COL_ORP ) );
-		v.put( StatusTable.COL_ATOHI, i.getBooleanExtra( StatusTable.COL_ATOHI, false ) );
-		v.put( StatusTable.COL_ATOLO, i.getBooleanExtra( StatusTable.COL_ATOLO, false ) );
-		v.put( StatusTable.COL_LOGDATE, i.getStringExtra( StatusTable.COL_LOGDATE ) );
-		v.put(	StatusTable.COL_RDATA,
-				i.getShortExtra( StatusTable.COL_RDATA, (short) 0 ) );
-		v.put(	StatusTable.COL_RONMASK,
-				i.getShortExtra( StatusTable.COL_RONMASK, (short) 0 ) );
-		v.put(	StatusTable.COL_ROFFMASK,
-				i.getShortExtra( StatusTable.COL_ROFFMASK, (short) 0 ) );
-		v.put(	StatusTable.COL_R1DATA,
-				i.getShortExtra( StatusTable.COL_R1DATA, (short) 0 ) );
-		v.put(	StatusTable.COL_R1ONMASK,
-				i.getShortExtra( StatusTable.COL_R1ONMASK, (short) 0 ) );
-		v.put(	StatusTable.COL_R1OFFMASK,
-				i.getShortExtra( StatusTable.COL_R1OFFMASK, (short) 0 ) );
-		v.put(	StatusTable.COL_R2DATA,
-				i.getShortExtra( StatusTable.COL_R2DATA, (short) 0 ) );
-		v.put(	StatusTable.COL_R2ONMASK,
-				i.getShortExtra( StatusTable.COL_R2ONMASK, (short) 0 ) );
-		v.put(	StatusTable.COL_R2OFFMASK,
-				i.getShortExtra( StatusTable.COL_R2OFFMASK, (short) 0 ) );
-		v.put(	StatusTable.COL_R3DATA,
-				i.getShortExtra( StatusTable.COL_R3DATA, (short) 0 ) );
-		v.put(	StatusTable.COL_R3ONMASK,
-				i.getShortExtra( StatusTable.COL_R3ONMASK, (short) 0 ) );
-		v.put(	StatusTable.COL_R3OFFMASK,
-				i.getShortExtra( StatusTable.COL_R3OFFMASK, (short) 0 ) );
-		v.put(	StatusTable.COL_R4DATA,
-				i.getShortExtra( StatusTable.COL_R4DATA, (short) 0 ) );
-		v.put(	StatusTable.COL_R4ONMASK,
-				i.getShortExtra( StatusTable.COL_R4ONMASK, (short) 0 ) );
-		v.put(	StatusTable.COL_R4OFFMASK,
-				i.getShortExtra( StatusTable.COL_R4OFFMASK, (short) 0 ) );
-		v.put(	StatusTable.COL_R5DATA,
-				i.getShortExtra( StatusTable.COL_R5DATA, (short) 0 ) );
-		v.put(	StatusTable.COL_R5ONMASK,
-				i.getShortExtra( StatusTable.COL_R5ONMASK, (short) 0 ) );
-		v.put(	StatusTable.COL_R5OFFMASK,
-				i.getShortExtra( StatusTable.COL_R5OFFMASK, (short) 0 ) );
-		v.put(	StatusTable.COL_R6DATA,
-				i.getShortExtra( StatusTable.COL_R6DATA, (short) 0 ) );
-		v.put(	StatusTable.COL_R6ONMASK,
-				i.getShortExtra( StatusTable.COL_R6ONMASK, (short) 0 ) );
-		v.put(	StatusTable.COL_R6OFFMASK,
-				i.getShortExtra( StatusTable.COL_R6OFFMASK, (short) 0 ) );
-		v.put(	StatusTable.COL_R7DATA,
-				i.getShortExtra( StatusTable.COL_R7DATA, (short) 0 ) );
-		v.put(	StatusTable.COL_R7ONMASK,
-				i.getShortExtra( StatusTable.COL_R7ONMASK, (short) 0 ) );
-		v.put(	StatusTable.COL_R7OFFMASK,
-				i.getShortExtra( StatusTable.COL_R7OFFMASK, (short) 0 ) );
-		v.put(	StatusTable.COL_R8DATA,
-				i.getShortExtra( StatusTable.COL_R8DATA, (short) 0 ) );
-		v.put(	StatusTable.COL_R8ONMASK,
-				i.getShortExtra( StatusTable.COL_R8ONMASK, (short) 0 ) );
-		v.put(	StatusTable.COL_R8OFFMASK,
-				i.getShortExtra( StatusTable.COL_R8OFFMASK, (short) 0 ) );
-		v.put(	StatusTable.COL_PWME0,
-				i.getShortExtra( StatusTable.COL_PWME0, (short) 0 ) );
-		v.put(	StatusTable.COL_PWME1,
-				i.getShortExtra( StatusTable.COL_PWME1, (short) 0 ) );
-		v.put(	StatusTable.COL_PWME2,
-				i.getShortExtra( StatusTable.COL_PWME2, (short) 0 ) );
-		v.put(	StatusTable.COL_PWME3,
-				i.getShortExtra( StatusTable.COL_PWME3, (short) 0 ) );
-		v.put(	StatusTable.COL_PWME4,
-				i.getShortExtra( StatusTable.COL_PWME4, (short) 0 ) );
-		v.put(	StatusTable.COL_PWME5,
-				i.getShortExtra( StatusTable.COL_PWME5, (short) 0 ) );
-		v.put( StatusTable.COL_AIW, i.getShortExtra( StatusTable.COL_AIW, (short) 0 ) );
-		v.put( StatusTable.COL_AIB, i.getShortExtra( StatusTable.COL_AIB, (short) 0 ) );
-		v.put( StatusTable.COL_AIRB, i.getShortExtra( StatusTable.COL_AIRB, (short) 0 ) );
-		v.put( StatusTable.COL_RFM, i.getShortExtra( StatusTable.COL_RFM, (short) 0 ) );
-		v.put( StatusTable.COL_RFS, i.getShortExtra( StatusTable.COL_RFS, (short) 0 ) );
-		v.put( StatusTable.COL_RFD, i.getShortExtra( StatusTable.COL_RFD, (short) 0 ) );
-		v.put( StatusTable.COL_RFW, i.getShortExtra( StatusTable.COL_RFW, (short) 0 ) );
-		v.put( StatusTable.COL_RFRB, i.getShortExtra( StatusTable.COL_RFRB, (short) 0 ) );
-		v.put( StatusTable.COL_RFR, i.getShortExtra( StatusTable.COL_RFR, (short) 0 ) );
-		v.put( StatusTable.COL_RFG, i.getShortExtra( StatusTable.COL_RFG, (short) 0 ) );
-		v.put( StatusTable.COL_RFB, i.getShortExtra( StatusTable.COL_RFB, (short) 0 ) );
-		v.put( StatusTable.COL_RFI, i.getShortExtra( StatusTable.COL_RFI, (short) 0 ) );
-		v.put( StatusTable.COL_IO, i.getShortExtra( StatusTable.COL_IO, (short) 0 ) );
-		v.put( StatusTable.COL_C0, i.getShortExtra( StatusTable.COL_C0, (short) 0 ) );
-		v.put( StatusTable.COL_C1, i.getShortExtra( StatusTable.COL_C1, (short) 0 ) );
-		v.put( StatusTable.COL_C2, i.getShortExtra( StatusTable.COL_C2, (short) 0 ) );
-		v.put( StatusTable.COL_C3, i.getShortExtra( StatusTable.COL_C3, (short) 0 ) );
-		v.put( StatusTable.COL_C4, i.getShortExtra( StatusTable.COL_C4, (short) 0 ) );
-		v.put( StatusTable.COL_C5, i.getShortExtra( StatusTable.COL_C5, (short) 0 ) );
-		v.put( StatusTable.COL_C6, i.getShortExtra( StatusTable.COL_C6, (short) 0 ) );
-		v.put( StatusTable.COL_C7, i.getShortExtra( StatusTable.COL_C7, (short) 0 ) );
-		v.put( StatusTable.COL_EM, i.getShortExtra( StatusTable.COL_EM, (short) 0 ) );
-		v.put( StatusTable.COL_REM, i.getShortExtra( StatusTable.COL_REM, (short) 0 ) );
-		v.put( StatusTable.COL_PHE, i.getStringExtra( StatusTable.COL_PHE ) );
-		v.put( StatusTable.COL_WL, i.getShortExtra( StatusTable.COL_WL, (short) 0 ) );
-		//data.insert( v );
-		// FIXME insert data
 	}
 
 	// Error Logging

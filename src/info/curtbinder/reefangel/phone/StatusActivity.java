@@ -10,7 +10,6 @@ package info.curtbinder.reefangel.phone;
 
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.controller.Relay;
-import info.curtbinder.reefangel.db.RADbHelper;
 import info.curtbinder.reefangel.db.StatusProvider;
 import info.curtbinder.reefangel.db.StatusTable;
 import info.curtbinder.reefangel.phone.pages.AIPage;
@@ -410,7 +409,9 @@ public class StatusActivity extends BaseActivity implements
 			Uri uri =
 					Uri.parse( StatusProvider.CONTENT_URI + "/"
 								+ StatusProvider.PATH_LATEST );
-			Cursor c = getContentResolver().query( uri, null, null, null, StatusTable.COL_ID + " DESC" );
+			Cursor c =
+					getContentResolver().query( uri, null, null, null,
+												StatusTable.COL_ID + " DESC" );
 			String updateStatus;
 			String[] values;
 			String[] pwme;
