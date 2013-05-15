@@ -8,7 +8,8 @@
 
 package info.curtbinder.reefangel.phone;
 
-import info.curtbinder.reefangel.db.RAData;
+import info.curtbinder.reefangel.db.RADbHelper;
+import info.curtbinder.reefangel.db.StatusTable;
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;
 
@@ -50,7 +51,7 @@ public class RAApplication extends Application {
 	public int errorCount;
 
 	// Controller Data
-	public RAData data;
+	public RADbHelper data;
 
 	public void onCreate ( ) {
 		// prefs = PreferenceManager.getDefaultSharedPreferences( this );
@@ -58,7 +59,7 @@ public class RAApplication extends Application {
 		errorCodesStrings =
 				getResources().getStringArray( R.array.errorCodesStrings );
 		errorCode = 0; // set to no error initially
-		data = new RAData( this );
+		data = new RADbHelper( this );
 		raprefs = new RAPreferences( this );
 
 		// initialize the error count
@@ -152,109 +153,110 @@ public class RAApplication extends Application {
 	// Data handling
 	public void insertData ( Intent i ) {
 		ContentValues v = new ContentValues();
-		v.put( RAData.PCOL_T1, i.getStringExtra( RAData.PCOL_T1 ) );
-		v.put( RAData.PCOL_T2, i.getStringExtra( RAData.PCOL_T2 ) );
-		v.put( RAData.PCOL_T3, i.getStringExtra( RAData.PCOL_T3 ) );
-		v.put( RAData.PCOL_PH, i.getStringExtra( RAData.PCOL_PH ) );
-		v.put( RAData.PCOL_DP, i.getShortExtra( RAData.PCOL_DP, (short) 0 ) );
-		v.put( RAData.PCOL_AP, i.getShortExtra( RAData.PCOL_AP, (short) 0 ) );
-		v.put( RAData.PCOL_SAL, i.getStringExtra( RAData.PCOL_SAL ) );
-		v.put( RAData.PCOL_ORP, i.getStringExtra( RAData.PCOL_ORP ) );
-		v.put( RAData.PCOL_ATOHI, i.getBooleanExtra( RAData.PCOL_ATOHI, false ) );
-		v.put( RAData.PCOL_ATOLO, i.getBooleanExtra( RAData.PCOL_ATOLO, false ) );
-		v.put( RAData.PCOL_LOGDATE, i.getStringExtra( RAData.PCOL_LOGDATE ) );
-		v.put(	RAData.PCOL_RDATA,
-				i.getShortExtra( RAData.PCOL_RDATA, (short) 0 ) );
-		v.put(	RAData.PCOL_RONMASK,
-				i.getShortExtra( RAData.PCOL_RONMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_ROFFMASK,
-				i.getShortExtra( RAData.PCOL_ROFFMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R1DATA,
-				i.getShortExtra( RAData.PCOL_R1DATA, (short) 0 ) );
-		v.put(	RAData.PCOL_R1ONMASK,
-				i.getShortExtra( RAData.PCOL_R1ONMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R1OFFMASK,
-				i.getShortExtra( RAData.PCOL_R1OFFMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R2DATA,
-				i.getShortExtra( RAData.PCOL_R2DATA, (short) 0 ) );
-		v.put(	RAData.PCOL_R2ONMASK,
-				i.getShortExtra( RAData.PCOL_R2ONMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R2OFFMASK,
-				i.getShortExtra( RAData.PCOL_R2OFFMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R3DATA,
-				i.getShortExtra( RAData.PCOL_R3DATA, (short) 0 ) );
-		v.put(	RAData.PCOL_R3ONMASK,
-				i.getShortExtra( RAData.PCOL_R3ONMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R3OFFMASK,
-				i.getShortExtra( RAData.PCOL_R3OFFMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R4DATA,
-				i.getShortExtra( RAData.PCOL_R4DATA, (short) 0 ) );
-		v.put(	RAData.PCOL_R4ONMASK,
-				i.getShortExtra( RAData.PCOL_R4ONMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R4OFFMASK,
-				i.getShortExtra( RAData.PCOL_R4OFFMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R5DATA,
-				i.getShortExtra( RAData.PCOL_R5DATA, (short) 0 ) );
-		v.put(	RAData.PCOL_R5ONMASK,
-				i.getShortExtra( RAData.PCOL_R5ONMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R5OFFMASK,
-				i.getShortExtra( RAData.PCOL_R5OFFMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R6DATA,
-				i.getShortExtra( RAData.PCOL_R6DATA, (short) 0 ) );
-		v.put(	RAData.PCOL_R6ONMASK,
-				i.getShortExtra( RAData.PCOL_R6ONMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R6OFFMASK,
-				i.getShortExtra( RAData.PCOL_R6OFFMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R7DATA,
-				i.getShortExtra( RAData.PCOL_R7DATA, (short) 0 ) );
-		v.put(	RAData.PCOL_R7ONMASK,
-				i.getShortExtra( RAData.PCOL_R7ONMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R7OFFMASK,
-				i.getShortExtra( RAData.PCOL_R7OFFMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R8DATA,
-				i.getShortExtra( RAData.PCOL_R8DATA, (short) 0 ) );
-		v.put(	RAData.PCOL_R8ONMASK,
-				i.getShortExtra( RAData.PCOL_R8ONMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R8OFFMASK,
-				i.getShortExtra( RAData.PCOL_R8OFFMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_PWME0,
-				i.getShortExtra( RAData.PCOL_PWME0, (short) 0 ) );
-		v.put(	RAData.PCOL_PWME1,
-				i.getShortExtra( RAData.PCOL_PWME1, (short) 0 ) );
-		v.put(	RAData.PCOL_PWME2,
-				i.getShortExtra( RAData.PCOL_PWME2, (short) 0 ) );
-		v.put(	RAData.PCOL_PWME3,
-				i.getShortExtra( RAData.PCOL_PWME3, (short) 0 ) );
-		v.put(	RAData.PCOL_PWME4,
-				i.getShortExtra( RAData.PCOL_PWME4, (short) 0 ) );
-		v.put(	RAData.PCOL_PWME5,
-				i.getShortExtra( RAData.PCOL_PWME5, (short) 0 ) );
-		v.put( RAData.PCOL_AIW, i.getShortExtra( RAData.PCOL_AIW, (short) 0 ) );
-		v.put( RAData.PCOL_AIB, i.getShortExtra( RAData.PCOL_AIB, (short) 0 ) );
-		v.put( RAData.PCOL_AIRB, i.getShortExtra( RAData.PCOL_AIRB, (short) 0 ) );
-		v.put( RAData.PCOL_RFM, i.getShortExtra( RAData.PCOL_RFM, (short) 0 ) );
-		v.put( RAData.PCOL_RFS, i.getShortExtra( RAData.PCOL_RFS, (short) 0 ) );
-		v.put( RAData.PCOL_RFD, i.getShortExtra( RAData.PCOL_RFD, (short) 0 ) );
-		v.put( RAData.PCOL_RFW, i.getShortExtra( RAData.PCOL_RFW, (short) 0 ) );
-		v.put( RAData.PCOL_RFRB, i.getShortExtra( RAData.PCOL_RFRB, (short) 0 ) );
-		v.put( RAData.PCOL_RFR, i.getShortExtra( RAData.PCOL_RFR, (short) 0 ) );
-		v.put( RAData.PCOL_RFG, i.getShortExtra( RAData.PCOL_RFG, (short) 0 ) );
-		v.put( RAData.PCOL_RFB, i.getShortExtra( RAData.PCOL_RFB, (short) 0 ) );
-		v.put( RAData.PCOL_RFI, i.getShortExtra( RAData.PCOL_RFI, (short) 0 ) );
-		v.put( RAData.PCOL_IO, i.getShortExtra( RAData.PCOL_IO, (short) 0 ) );
-		v.put( RAData.PCOL_C0, i.getShortExtra( RAData.PCOL_C0, (short) 0 ) );
-		v.put( RAData.PCOL_C1, i.getShortExtra( RAData.PCOL_C1, (short) 0 ) );
-		v.put( RAData.PCOL_C2, i.getShortExtra( RAData.PCOL_C2, (short) 0 ) );
-		v.put( RAData.PCOL_C3, i.getShortExtra( RAData.PCOL_C3, (short) 0 ) );
-		v.put( RAData.PCOL_C4, i.getShortExtra( RAData.PCOL_C4, (short) 0 ) );
-		v.put( RAData.PCOL_C5, i.getShortExtra( RAData.PCOL_C5, (short) 0 ) );
-		v.put( RAData.PCOL_C6, i.getShortExtra( RAData.PCOL_C6, (short) 0 ) );
-		v.put( RAData.PCOL_C7, i.getShortExtra( RAData.PCOL_C7, (short) 0 ) );
-		v.put( RAData.PCOL_EM, i.getShortExtra( RAData.PCOL_EM, (short) 0 ) );
-		v.put( RAData.PCOL_REM, i.getShortExtra( RAData.PCOL_REM, (short) 0 ) );
-		v.put( RAData.PCOL_PHE, i.getStringExtra( RAData.PCOL_PHE ) );
-		v.put( RAData.PCOL_WL, i.getShortExtra( RAData.PCOL_WL, (short) 0 ) );
-		data.insert( v );
+		v.put( StatusTable.COL_T1, i.getStringExtra( StatusTable.COL_T1 ) );
+		v.put( StatusTable.COL_T2, i.getStringExtra( StatusTable.COL_T2 ) );
+		v.put( StatusTable.COL_T3, i.getStringExtra( StatusTable.COL_T3 ) );
+		v.put( StatusTable.COL_PH, i.getStringExtra( StatusTable.COL_PH ) );
+		v.put( StatusTable.COL_DP, i.getShortExtra( StatusTable.COL_DP, (short) 0 ) );
+		v.put( StatusTable.COL_AP, i.getShortExtra( StatusTable.COL_AP, (short) 0 ) );
+		v.put( StatusTable.COL_SAL, i.getStringExtra( StatusTable.COL_SAL ) );
+		v.put( StatusTable.COL_ORP, i.getStringExtra( StatusTable.COL_ORP ) );
+		v.put( StatusTable.COL_ATOHI, i.getBooleanExtra( StatusTable.COL_ATOHI, false ) );
+		v.put( StatusTable.COL_ATOLO, i.getBooleanExtra( StatusTable.COL_ATOLO, false ) );
+		v.put( StatusTable.COL_LOGDATE, i.getStringExtra( StatusTable.COL_LOGDATE ) );
+		v.put(	StatusTable.COL_RDATA,
+				i.getShortExtra( StatusTable.COL_RDATA, (short) 0 ) );
+		v.put(	StatusTable.COL_RONMASK,
+				i.getShortExtra( StatusTable.COL_RONMASK, (short) 0 ) );
+		v.put(	StatusTable.COL_ROFFMASK,
+				i.getShortExtra( StatusTable.COL_ROFFMASK, (short) 0 ) );
+		v.put(	StatusTable.COL_R1DATA,
+				i.getShortExtra( StatusTable.COL_R1DATA, (short) 0 ) );
+		v.put(	StatusTable.COL_R1ONMASK,
+				i.getShortExtra( StatusTable.COL_R1ONMASK, (short) 0 ) );
+		v.put(	StatusTable.COL_R1OFFMASK,
+				i.getShortExtra( StatusTable.COL_R1OFFMASK, (short) 0 ) );
+		v.put(	StatusTable.COL_R2DATA,
+				i.getShortExtra( StatusTable.COL_R2DATA, (short) 0 ) );
+		v.put(	StatusTable.COL_R2ONMASK,
+				i.getShortExtra( StatusTable.COL_R2ONMASK, (short) 0 ) );
+		v.put(	StatusTable.COL_R2OFFMASK,
+				i.getShortExtra( StatusTable.COL_R2OFFMASK, (short) 0 ) );
+		v.put(	StatusTable.COL_R3DATA,
+				i.getShortExtra( StatusTable.COL_R3DATA, (short) 0 ) );
+		v.put(	StatusTable.COL_R3ONMASK,
+				i.getShortExtra( StatusTable.COL_R3ONMASK, (short) 0 ) );
+		v.put(	StatusTable.COL_R3OFFMASK,
+				i.getShortExtra( StatusTable.COL_R3OFFMASK, (short) 0 ) );
+		v.put(	StatusTable.COL_R4DATA,
+				i.getShortExtra( StatusTable.COL_R4DATA, (short) 0 ) );
+		v.put(	StatusTable.COL_R4ONMASK,
+				i.getShortExtra( StatusTable.COL_R4ONMASK, (short) 0 ) );
+		v.put(	StatusTable.COL_R4OFFMASK,
+				i.getShortExtra( StatusTable.COL_R4OFFMASK, (short) 0 ) );
+		v.put(	StatusTable.COL_R5DATA,
+				i.getShortExtra( StatusTable.COL_R5DATA, (short) 0 ) );
+		v.put(	StatusTable.COL_R5ONMASK,
+				i.getShortExtra( StatusTable.COL_R5ONMASK, (short) 0 ) );
+		v.put(	StatusTable.COL_R5OFFMASK,
+				i.getShortExtra( StatusTable.COL_R5OFFMASK, (short) 0 ) );
+		v.put(	StatusTable.COL_R6DATA,
+				i.getShortExtra( StatusTable.COL_R6DATA, (short) 0 ) );
+		v.put(	StatusTable.COL_R6ONMASK,
+				i.getShortExtra( StatusTable.COL_R6ONMASK, (short) 0 ) );
+		v.put(	StatusTable.COL_R6OFFMASK,
+				i.getShortExtra( StatusTable.COL_R6OFFMASK, (short) 0 ) );
+		v.put(	StatusTable.COL_R7DATA,
+				i.getShortExtra( StatusTable.COL_R7DATA, (short) 0 ) );
+		v.put(	StatusTable.COL_R7ONMASK,
+				i.getShortExtra( StatusTable.COL_R7ONMASK, (short) 0 ) );
+		v.put(	StatusTable.COL_R7OFFMASK,
+				i.getShortExtra( StatusTable.COL_R7OFFMASK, (short) 0 ) );
+		v.put(	StatusTable.COL_R8DATA,
+				i.getShortExtra( StatusTable.COL_R8DATA, (short) 0 ) );
+		v.put(	StatusTable.COL_R8ONMASK,
+				i.getShortExtra( StatusTable.COL_R8ONMASK, (short) 0 ) );
+		v.put(	StatusTable.COL_R8OFFMASK,
+				i.getShortExtra( StatusTable.COL_R8OFFMASK, (short) 0 ) );
+		v.put(	StatusTable.COL_PWME0,
+				i.getShortExtra( StatusTable.COL_PWME0, (short) 0 ) );
+		v.put(	StatusTable.COL_PWME1,
+				i.getShortExtra( StatusTable.COL_PWME1, (short) 0 ) );
+		v.put(	StatusTable.COL_PWME2,
+				i.getShortExtra( StatusTable.COL_PWME2, (short) 0 ) );
+		v.put(	StatusTable.COL_PWME3,
+				i.getShortExtra( StatusTable.COL_PWME3, (short) 0 ) );
+		v.put(	StatusTable.COL_PWME4,
+				i.getShortExtra( StatusTable.COL_PWME4, (short) 0 ) );
+		v.put(	StatusTable.COL_PWME5,
+				i.getShortExtra( StatusTable.COL_PWME5, (short) 0 ) );
+		v.put( StatusTable.COL_AIW, i.getShortExtra( StatusTable.COL_AIW, (short) 0 ) );
+		v.put( StatusTable.COL_AIB, i.getShortExtra( StatusTable.COL_AIB, (short) 0 ) );
+		v.put( StatusTable.COL_AIRB, i.getShortExtra( StatusTable.COL_AIRB, (short) 0 ) );
+		v.put( StatusTable.COL_RFM, i.getShortExtra( StatusTable.COL_RFM, (short) 0 ) );
+		v.put( StatusTable.COL_RFS, i.getShortExtra( StatusTable.COL_RFS, (short) 0 ) );
+		v.put( StatusTable.COL_RFD, i.getShortExtra( StatusTable.COL_RFD, (short) 0 ) );
+		v.put( StatusTable.COL_RFW, i.getShortExtra( StatusTable.COL_RFW, (short) 0 ) );
+		v.put( StatusTable.COL_RFRB, i.getShortExtra( StatusTable.COL_RFRB, (short) 0 ) );
+		v.put( StatusTable.COL_RFR, i.getShortExtra( StatusTable.COL_RFR, (short) 0 ) );
+		v.put( StatusTable.COL_RFG, i.getShortExtra( StatusTable.COL_RFG, (short) 0 ) );
+		v.put( StatusTable.COL_RFB, i.getShortExtra( StatusTable.COL_RFB, (short) 0 ) );
+		v.put( StatusTable.COL_RFI, i.getShortExtra( StatusTable.COL_RFI, (short) 0 ) );
+		v.put( StatusTable.COL_IO, i.getShortExtra( StatusTable.COL_IO, (short) 0 ) );
+		v.put( StatusTable.COL_C0, i.getShortExtra( StatusTable.COL_C0, (short) 0 ) );
+		v.put( StatusTable.COL_C1, i.getShortExtra( StatusTable.COL_C1, (short) 0 ) );
+		v.put( StatusTable.COL_C2, i.getShortExtra( StatusTable.COL_C2, (short) 0 ) );
+		v.put( StatusTable.COL_C3, i.getShortExtra( StatusTable.COL_C3, (short) 0 ) );
+		v.put( StatusTable.COL_C4, i.getShortExtra( StatusTable.COL_C4, (short) 0 ) );
+		v.put( StatusTable.COL_C5, i.getShortExtra( StatusTable.COL_C5, (short) 0 ) );
+		v.put( StatusTable.COL_C6, i.getShortExtra( StatusTable.COL_C6, (short) 0 ) );
+		v.put( StatusTable.COL_C7, i.getShortExtra( StatusTable.COL_C7, (short) 0 ) );
+		v.put( StatusTable.COL_EM, i.getShortExtra( StatusTable.COL_EM, (short) 0 ) );
+		v.put( StatusTable.COL_REM, i.getShortExtra( StatusTable.COL_REM, (short) 0 ) );
+		v.put( StatusTable.COL_PHE, i.getStringExtra( StatusTable.COL_PHE ) );
+		v.put( StatusTable.COL_WL, i.getShortExtra( StatusTable.COL_WL, (short) 0 ) );
+		//data.insert( v );
+		// FIXME insert data
 	}
 
 	// Error Logging
