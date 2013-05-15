@@ -71,7 +71,7 @@ public class StatusActivity extends BaseActivity implements
 	private View[] appPages;
 	// minimum number of pages: status, main relay
 	private static final int MIN_PAGES = 3;
-	// TODO change all these to be updated based on configuration
+
 	private static final int POS_START = 0;
 
 	private static final int POS_COMMANDS = POS_START;
@@ -240,8 +240,6 @@ public class StatusActivity extends BaseActivity implements
 	}
 
 	private void setOnClickListeners ( ) {
-		// refreshButton.setOnClickListener( this );
-		// refreshButton.setOnLongClickListener( this );
 		// TODO consider clearing click listeners and updating clickable always
 		int i;
 		if ( rapp.raprefs.isCommunicateController() ) {
