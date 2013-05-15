@@ -173,4 +173,6 @@ Changelog of all the versions of AndroidStatus
  * added lights on / off commands
  * code updates and cleanup
  
+0.9.1
+ * allow spaces in forum usernames
  
