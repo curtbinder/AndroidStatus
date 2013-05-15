@@ -10,7 +10,8 @@ package info.curtbinder.reefangel.service;
 
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.controller.Relay;
-import info.curtbinder.reefangel.db.RAData;
+import info.curtbinder.reefangel.db.StatusProvider;
+import info.curtbinder.reefangel.db.StatusTable;
 import info.curtbinder.reefangel.phone.Permissions;
 import info.curtbinder.reefangel.phone.R;
 import info.curtbinder.reefangel.phone.RAApplication;
@@ -41,8 +42,10 @@ import org.xml.sax.XMLReader;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 
 public class ControllerTask implements Runnable {
@@ -328,8 +331,6 @@ public class ControllerTask implements Runnable {
 			raprefs.set(	R.string.prefWaterLevelLabelKey,
 							ra.getWaterLevelLabel() );
 		}
-		// TODO add other label downloading and setting here (PHE, Custom, IO,
-		// PWME)
 		for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
 			if ( !ra.getPwmExpansionLabel( (short) i ).equals( "" ) )
 				raprefs.setDimmingModuleChannelLabel( i, ra
@@ -360,100 +361,93 @@ public class ControllerTask implements Runnable {
 	}
 
 	private void broadcastUpdateDisplayData ( Controller ra ) {
-		Intent i = new Intent();
-		i.putExtra( RAData.PCOL_T1, ra.getTemp1() );
-		i.putExtra( RAData.PCOL_T2, ra.getTemp2() );
-		i.putExtra( RAData.PCOL_T3, ra.getTemp3() );
-		i.putExtra( RAData.PCOL_PH, ra.getPH() );
-		i.putExtra( RAData.PCOL_DP, ra.getPwmD() );
-		i.putExtra( RAData.PCOL_AP, ra.getPwmA() );
-		i.putExtra( RAData.PCOL_SAL, ra.getSalinity() );
-		i.putExtra( RAData.PCOL_ORP, ra.getORP() );
-		i.putExtra( RAData.PCOL_ATOHI, ra.getAtoHigh() );
-		i.putExtra( RAData.PCOL_ATOLO, ra.getAtoLow() );
-		i.putExtra( RAData.PCOL_LOGDATE, ra.getLogDate() );
-		i.putExtra( RAData.PCOL_RDATA, ra.getMainRelay().getRelayData() );
-		i.putExtra( RAData.PCOL_RONMASK, ra.getMainRelay().getRelayOnMask() );
-		i.putExtra( RAData.PCOL_ROFFMASK, ra.getMainRelay().getRelayOffMask() );
-		i.putExtra( RAData.PCOL_R1DATA, ra.getExpRelay( 1 ).getRelayData() );
-		i.putExtra( RAData.PCOL_R1ONMASK, ra.getExpRelay( 1 ).getRelayOnMask() );
-		i.putExtra( RAData.PCOL_R1OFFMASK, ra.getExpRelay( 1 )
-				.getRelayOffMask() );
-		i.putExtra( RAData.PCOL_R2DATA, ra.getExpRelay( 2 ).getRelayData() );
-		i.putExtra( RAData.PCOL_R2ONMASK, ra.getExpRelay( 2 ).getRelayOnMask() );
-		i.putExtra( RAData.PCOL_R2OFFMASK, ra.getExpRelay( 2 )
-				.getRelayOffMask() );
-		i.putExtra( RAData.PCOL_R3DATA, ra.getExpRelay( 3 ).getRelayData() );
-		i.putExtra( RAData.PCOL_R3ONMASK, ra.getExpRelay( 3 ).getRelayOnMask() );
-		i.putExtra( RAData.PCOL_R3OFFMASK, ra.getExpRelay( 3 )
-				.getRelayOffMask() );
-		i.putExtra( RAData.PCOL_R4DATA, ra.getExpRelay( 4 ).getRelayData() );
-		i.putExtra( RAData.PCOL_R4ONMASK, ra.getExpRelay( 4 ).getRelayOnMask() );
-		i.putExtra( RAData.PCOL_R4OFFMASK, ra.getExpRelay( 4 )
-				.getRelayOffMask() );
-		i.putExtra( RAData.PCOL_R5DATA, ra.getExpRelay( 5 ).getRelayData() );
-		i.putExtra( RAData.PCOL_R5ONMASK, ra.getExpRelay( 5 ).getRelayOnMask() );
-		i.putExtra( RAData.PCOL_R5OFFMASK, ra.getExpRelay( 5 )
-				.getRelayOffMask() );
-		i.putExtra( RAData.PCOL_R6DATA, ra.getExpRelay( 6 ).getRelayData() );
-		i.putExtra( RAData.PCOL_R6ONMASK, ra.getExpRelay( 6 ).getRelayOnMask() );
-		i.putExtra( RAData.PCOL_R6OFFMASK, ra.getExpRelay( 6 )
-				.getRelayOffMask() );
-		i.putExtra( RAData.PCOL_R7DATA, ra.getExpRelay( 7 ).getRelayData() );
-		i.putExtra( RAData.PCOL_R7ONMASK, ra.getExpRelay( 7 ).getRelayOnMask() );
-		i.putExtra( RAData.PCOL_R7OFFMASK, ra.getExpRelay( 7 )
-				.getRelayOffMask() );
-		i.putExtra( RAData.PCOL_R8DATA, ra.getExpRelay( 8 ).getRelayData() );
-		i.putExtra( RAData.PCOL_R8ONMASK, ra.getExpRelay( 8 ).getRelayOnMask() );
-		i.putExtra( RAData.PCOL_R8OFFMASK, ra.getExpRelay( 8 )
-				.getRelayOffMask() );
-		i.putExtra( RAData.PCOL_PWME0, ra.getPwmExpansion( (short) 0 ) );
-		i.putExtra( RAData.PCOL_PWME1, ra.getPwmExpansion( (short) 1 ) );
-		i.putExtra( RAData.PCOL_PWME2, ra.getPwmExpansion( (short) 2 ) );
-		i.putExtra( RAData.PCOL_PWME3, ra.getPwmExpansion( (short) 3 ) );
-		i.putExtra( RAData.PCOL_PWME4, ra.getPwmExpansion( (short) 4 ) );
-		i.putExtra( RAData.PCOL_PWME5, ra.getPwmExpansion( (short) 5 ) );
-		i.putExtra( RAData.PCOL_AIW, ra.getAIChannel( Controller.AI_WHITE ) );
-		i.putExtra( RAData.PCOL_AIB, ra.getAIChannel( Controller.AI_BLUE ) );
-		i.putExtra( RAData.PCOL_AIRB, ra.getAIChannel( Controller.AI_ROYALBLUE ) );
-		i.putExtra( RAData.PCOL_RFM,
-					ra.getVortechValue( Controller.VORTECH_MODE ) );
-		i.putExtra( RAData.PCOL_RFS,
-					ra.getVortechValue( Controller.VORTECH_SPEED ) );
-		i.putExtra( RAData.PCOL_RFD,
-					ra.getVortechValue( Controller.VORTECH_DURATION ) );
-		i.putExtra( RAData.PCOL_RFW,
-					ra.getRadionChannel( Controller.RADION_WHITE ) );
-		i.putExtra( RAData.PCOL_RFRB,
-					ra.getRadionChannel( Controller.RADION_ROYALBLUE ) );
-		i.putExtra( RAData.PCOL_RFR,
-					ra.getRadionChannel( Controller.RADION_RED ) );
-		i.putExtra( RAData.PCOL_RFG,
-					ra.getRadionChannel( Controller.RADION_GREEN ) );
-		i.putExtra( RAData.PCOL_RFB,
-					ra.getRadionChannel( Controller.RADION_BLUE ) );
-		i.putExtra( RAData.PCOL_RFI,
-					ra.getRadionChannel( Controller.RADION_INTENSITY ) );
-		i.putExtra( RAData.PCOL_IO, ra.getIOChannels() );
-		i.putExtra( RAData.PCOL_C0, ra.getCustomVariable( (byte) 0 ) );
-		i.putExtra( RAData.PCOL_C1, ra.getCustomVariable( (byte) 1 ) );
-		i.putExtra( RAData.PCOL_C2, ra.getCustomVariable( (byte) 2 ) );
-		i.putExtra( RAData.PCOL_C3, ra.getCustomVariable( (byte) 3 ) );
-		i.putExtra( RAData.PCOL_C4, ra.getCustomVariable( (byte) 4 ) );
-		i.putExtra( RAData.PCOL_C5, ra.getCustomVariable( (byte) 5 ) );
-		i.putExtra( RAData.PCOL_C6, ra.getCustomVariable( (byte) 6 ) );
-		i.putExtra( RAData.PCOL_C7, ra.getCustomVariable( (byte) 7 ) );
-		i.putExtra( RAData.PCOL_EM, ra.getExpansionModules() );
-		i.putExtra( RAData.PCOL_REM, ra.getRelayExpansionModules() );
-		i.putExtra( RAData.PCOL_PHE, ra.getPHExp() );
-		i.putExtra( RAData.PCOL_WL, ra.getWaterLevel() );
-		rapp.insertData( i );
+		ContentValues v = new ContentValues();
+		v.put( StatusTable.COL_T1, ra.getTemp1() );
+		v.put( StatusTable.COL_T2, ra.getTemp2() );
+		v.put( StatusTable.COL_T3, ra.getTemp3() );
+		v.put( StatusTable.COL_PH, ra.getPH() );
+		v.put( StatusTable.COL_DP, ra.getPwmD() );
+		v.put( StatusTable.COL_AP, ra.getPwmA() );
+		v.put( StatusTable.COL_SAL, ra.getSalinity() );
+		v.put( StatusTable.COL_ORP, ra.getORP() );
+		v.put( StatusTable.COL_ATOHI, ra.getAtoHigh() );
+		v.put( StatusTable.COL_ATOLO, ra.getAtoLow() );
+		v.put( StatusTable.COL_LOGDATE, ra.getLogDate() );
+		v.put( StatusTable.COL_RDATA, ra.getMainRelay().getRelayData() );
+		v.put( StatusTable.COL_RONMASK, ra.getMainRelay().getRelayOnMask() );
+		v.put( StatusTable.COL_ROFFMASK, ra.getMainRelay().getRelayOffMask() );
+		v.put( StatusTable.COL_R1DATA, ra.getExpRelay( 1 ).getRelayData() );
+		v.put( StatusTable.COL_R1ONMASK, ra.getExpRelay( 1 ).getRelayOnMask() );
+		v.put( StatusTable.COL_R1OFFMASK, ra.getExpRelay( 1 ).getRelayOffMask() );
+		v.put( StatusTable.COL_R2DATA, ra.getExpRelay( 2 ).getRelayData() );
+		v.put( StatusTable.COL_R2ONMASK, ra.getExpRelay( 2 ).getRelayOnMask() );
+		v.put( StatusTable.COL_R2OFFMASK, ra.getExpRelay( 2 ).getRelayOffMask() );
+		v.put( StatusTable.COL_R3DATA, ra.getExpRelay( 3 ).getRelayData() );
+		v.put( StatusTable.COL_R3ONMASK, ra.getExpRelay( 3 ).getRelayOnMask() );
+		v.put( StatusTable.COL_R3OFFMASK, ra.getExpRelay( 3 ).getRelayOffMask() );
+		v.put( StatusTable.COL_R4DATA, ra.getExpRelay( 4 ).getRelayData() );
+		v.put( StatusTable.COL_R4ONMASK, ra.getExpRelay( 4 ).getRelayOnMask() );
+		v.put( StatusTable.COL_R4OFFMASK, ra.getExpRelay( 4 ).getRelayOffMask() );
+		v.put( StatusTable.COL_R5DATA, ra.getExpRelay( 5 ).getRelayData() );
+		v.put( StatusTable.COL_R5ONMASK, ra.getExpRelay( 5 ).getRelayOnMask() );
+		v.put( StatusTable.COL_R5OFFMASK, ra.getExpRelay( 5 ).getRelayOffMask() );
+		v.put( StatusTable.COL_R6DATA, ra.getExpRelay( 6 ).getRelayData() );
+		v.put( StatusTable.COL_R6ONMASK, ra.getExpRelay( 6 ).getRelayOnMask() );
+		v.put( StatusTable.COL_R6OFFMASK, ra.getExpRelay( 6 ).getRelayOffMask() );
+		v.put( StatusTable.COL_R7DATA, ra.getExpRelay( 7 ).getRelayData() );
+		v.put( StatusTable.COL_R7ONMASK, ra.getExpRelay( 7 ).getRelayOnMask() );
+		v.put( StatusTable.COL_R7OFFMASK, ra.getExpRelay( 7 ).getRelayOffMask() );
+		v.put( StatusTable.COL_R8DATA, ra.getExpRelay( 8 ).getRelayData() );
+		v.put( StatusTable.COL_R8ONMASK, ra.getExpRelay( 8 ).getRelayOnMask() );
+		v.put( StatusTable.COL_R8OFFMASK, ra.getExpRelay( 8 ).getRelayOffMask() );
+		v.put( StatusTable.COL_PWME0, ra.getPwmExpansion( (short) 0 ) );
+		v.put( StatusTable.COL_PWME1, ra.getPwmExpansion( (short) 1 ) );
+		v.put( StatusTable.COL_PWME2, ra.getPwmExpansion( (short) 2 ) );
+		v.put( StatusTable.COL_PWME3, ra.getPwmExpansion( (short) 3 ) );
+		v.put( StatusTable.COL_PWME4, ra.getPwmExpansion( (short) 4 ) );
+		v.put( StatusTable.COL_PWME5, ra.getPwmExpansion( (short) 5 ) );
+		v.put( StatusTable.COL_AIW, ra.getAIChannel( Controller.AI_WHITE ) );
+		v.put( StatusTable.COL_AIB, ra.getAIChannel( Controller.AI_BLUE ) );
+		v.put( StatusTable.COL_AIRB, ra.getAIChannel( Controller.AI_ROYALBLUE ) );
+		v.put(	StatusTable.COL_RFM,
+				ra.getVortechValue( Controller.VORTECH_MODE ) );
+		v.put(	StatusTable.COL_RFS,
+				ra.getVortechValue( Controller.VORTECH_SPEED ) );
+		v.put(	StatusTable.COL_RFD,
+				ra.getVortechValue( Controller.VORTECH_DURATION ) );
+		v.put(	StatusTable.COL_RFW,
+				ra.getRadionChannel( Controller.RADION_WHITE ) );
+		v.put(	StatusTable.COL_RFRB,
+				ra.getRadionChannel( Controller.RADION_ROYALBLUE ) );
+		v.put( StatusTable.COL_RFR, ra.getRadionChannel( Controller.RADION_RED ) );
+		v.put(	StatusTable.COL_RFG,
+				ra.getRadionChannel( Controller.RADION_GREEN ) );
+		v.put(	StatusTable.COL_RFB,
+				ra.getRadionChannel( Controller.RADION_BLUE ) );
+		v.put(	StatusTable.COL_RFI,
+				ra.getRadionChannel( Controller.RADION_INTENSITY ) );
+		v.put( StatusTable.COL_IO, ra.getIOChannels() );
+		v.put( StatusTable.COL_C0, ra.getCustomVariable( (byte) 0 ) );
+		v.put( StatusTable.COL_C1, ra.getCustomVariable( (byte) 1 ) );
+		v.put( StatusTable.COL_C2, ra.getCustomVariable( (byte) 2 ) );
+		v.put( StatusTable.COL_C3, ra.getCustomVariable( (byte) 3 ) );
+		v.put( StatusTable.COL_C4, ra.getCustomVariable( (byte) 4 ) );
+		v.put( StatusTable.COL_C5, ra.getCustomVariable( (byte) 5 ) );
+		v.put( StatusTable.COL_C6, ra.getCustomVariable( (byte) 6 ) );
+		v.put( StatusTable.COL_C7, ra.getCustomVariable( (byte) 7 ) );
+		v.put( StatusTable.COL_EM, ra.getExpansionModules() );
+		v.put( StatusTable.COL_REM, ra.getRelayExpansionModules() );
+		v.put( StatusTable.COL_PHE, ra.getPHExp() );
+		v.put( StatusTable.COL_WL, ra.getWaterLevel() );
+		rapp.getContentResolver()
+				.insert(	Uri.parse( StatusProvider.CONTENT_URI + "/"
+										+ StatusProvider.PATH_STATUS ), v );
+
 		Intent u = new Intent( MessageCommands.UPDATE_DISPLAY_DATA_INTENT );
 		rapp.sendBroadcast( u, Permissions.QUERY_STATUS );
 	}
 
 	private void broadcastUpdateStatus ( int msgid ) {
-		// Log.d(TAG, "broadcastUpdateStatus");
 		Intent i = new Intent( MessageCommands.UPDATE_STATUS_INTENT );
 		i.putExtra( MessageCommands.UPDATE_STATUS_ID, msgid );
 		rapp.sendBroadcast( i, Permissions.QUERY_STATUS );

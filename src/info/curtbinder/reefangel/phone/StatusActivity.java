@@ -10,7 +10,8 @@ package info.curtbinder.reefangel.phone;
 
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.controller.Relay;
-import info.curtbinder.reefangel.db.RAData;
+import info.curtbinder.reefangel.db.StatusProvider;
+import info.curtbinder.reefangel.db.StatusTable;
 import info.curtbinder.reefangel.phone.pages.AIPage;
 import info.curtbinder.reefangel.phone.pages.CommandsPage;
 import info.curtbinder.reefangel.phone.pages.ControllerPage;
@@ -34,6 +35,7 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.database.SQLException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
@@ -69,7 +71,7 @@ public class StatusActivity extends BaseActivity implements
 	private View[] appPages;
 	// minimum number of pages: status, main relay
 	private static final int MIN_PAGES = 3;
-	// TODO change all these to be updated based on configuration
+
 	private static final int POS_START = 0;
 
 	private static final int POS_COMMANDS = POS_START;
@@ -238,8 +240,6 @@ public class StatusActivity extends BaseActivity implements
 	}
 
 	private void setOnClickListeners ( ) {
-		// refreshButton.setOnClickListener( this );
-		// refreshButton.setOnLongClickListener( this );
 		// TODO consider clearing click listeners and updating clickable always
 		int i;
 		if ( rapp.raprefs.isCommunicateController() ) {
@@ -404,7 +404,12 @@ public class StatusActivity extends BaseActivity implements
 
 	public void updateDisplay ( ) {
 		try {
-			Cursor c = rapp.data.getLatestData();
+			Uri uri =
+					Uri.parse( StatusProvider.CONTENT_URI + "/"
+								+ StatusProvider.PATH_LATEST );
+			Cursor c =
+					getContentResolver().query( uri, null, null, null,
+												StatusTable.COL_ID + " DESC" );
 			String updateStatus;
 			String[] values;
 			String[] pwme;
@@ -420,7 +425,7 @@ public class StatusActivity extends BaseActivity implements
 
 			if ( c.moveToFirst() ) {
 				updateStatus =
-						c.getString( c.getColumnIndex( RAData.PCOL_LOGDATE ) );
+						c.getString( c.getColumnIndex( StatusTable.COL_LOGDATE ) );
 				values = getControllerValues( c );
 				pwme = getPWMEValues( c );
 				rf = getRadionValues( c );
@@ -428,52 +433,69 @@ public class StatusActivity extends BaseActivity implements
 				ai = getAIValues( c );
 				io = getIOValues( c );
 				custom = getCustomValues( c );
-				r = c.getShort( c.getColumnIndex( RAData.PCOL_RDATA ) );
-				ron = c.getShort( c.getColumnIndex( RAData.PCOL_RONMASK ) );
-				roff = c.getShort( c.getColumnIndex( RAData.PCOL_ROFFMASK ) );
+				r = c.getShort( c.getColumnIndex( StatusTable.COL_RDATA ) );
+				ron = c.getShort( c.getColumnIndex( StatusTable.COL_RONMASK ) );
+				roff =
+						c.getShort( c.getColumnIndex( StatusTable.COL_ROFFMASK ) );
 
-				expr[0] = c.getShort( c.getColumnIndex( RAData.PCOL_R1DATA ) );
+				expr[0] =
+						c.getShort( c.getColumnIndex( StatusTable.COL_R1DATA ) );
 				expron[0] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R1ONMASK ) );
+						c.getShort( c.getColumnIndex( StatusTable.COL_R1ONMASK ) );
 				exproff[0] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R1OFFMASK ) );
-				expr[1] = c.getShort( c.getColumnIndex( RAData.PCOL_R2DATA ) );
+						c.getShort( c
+								.getColumnIndex( StatusTable.COL_R1OFFMASK ) );
+				expr[1] =
+						c.getShort( c.getColumnIndex( StatusTable.COL_R2DATA ) );
 				expron[1] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R2ONMASK ) );
+						c.getShort( c.getColumnIndex( StatusTable.COL_R2ONMASK ) );
 				exproff[1] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R2OFFMASK ) );
-				expr[2] = c.getShort( c.getColumnIndex( RAData.PCOL_R3DATA ) );
+						c.getShort( c
+								.getColumnIndex( StatusTable.COL_R2OFFMASK ) );
+				expr[2] =
+						c.getShort( c.getColumnIndex( StatusTable.COL_R3DATA ) );
 				expron[2] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R3ONMASK ) );
+						c.getShort( c.getColumnIndex( StatusTable.COL_R3ONMASK ) );
 				exproff[2] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R3OFFMASK ) );
-				expr[3] = c.getShort( c.getColumnIndex( RAData.PCOL_R4DATA ) );
+						c.getShort( c
+								.getColumnIndex( StatusTable.COL_R3OFFMASK ) );
+				expr[3] =
+						c.getShort( c.getColumnIndex( StatusTable.COL_R4DATA ) );
 				expron[3] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R4ONMASK ) );
+						c.getShort( c.getColumnIndex( StatusTable.COL_R4ONMASK ) );
 				exproff[3] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R4OFFMASK ) );
-				expr[4] = c.getShort( c.getColumnIndex( RAData.PCOL_R5DATA ) );
+						c.getShort( c
+								.getColumnIndex( StatusTable.COL_R4OFFMASK ) );
+				expr[4] =
+						c.getShort( c.getColumnIndex( StatusTable.COL_R5DATA ) );
 				expron[4] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R5ONMASK ) );
+						c.getShort( c.getColumnIndex( StatusTable.COL_R5ONMASK ) );
 				exproff[4] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R5OFFMASK ) );
-				expr[5] = c.getShort( c.getColumnIndex( RAData.PCOL_R6DATA ) );
+						c.getShort( c
+								.getColumnIndex( StatusTable.COL_R5OFFMASK ) );
+				expr[5] =
+						c.getShort( c.getColumnIndex( StatusTable.COL_R6DATA ) );
 				expron[5] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R6ONMASK ) );
+						c.getShort( c.getColumnIndex( StatusTable.COL_R6ONMASK ) );
 				exproff[5] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R6OFFMASK ) );
-				expr[6] = c.getShort( c.getColumnIndex( RAData.PCOL_R7DATA ) );
+						c.getShort( c
+								.getColumnIndex( StatusTable.COL_R6OFFMASK ) );
+				expr[6] =
+						c.getShort( c.getColumnIndex( StatusTable.COL_R7DATA ) );
 				expron[6] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R7ONMASK ) );
+						c.getShort( c.getColumnIndex( StatusTable.COL_R7ONMASK ) );
 				exproff[6] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R7OFFMASK ) );
-				expr[7] = c.getShort( c.getColumnIndex( RAData.PCOL_R8DATA ) );
+						c.getShort( c
+								.getColumnIndex( StatusTable.COL_R7OFFMASK ) );
+				expr[7] =
+						c.getShort( c.getColumnIndex( StatusTable.COL_R8DATA ) );
 				expron[7] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R8ONMASK ) );
+						c.getShort( c.getColumnIndex( StatusTable.COL_R8ONMASK ) );
 				exproff[7] =
-						c.getShort( c.getColumnIndex( RAData.PCOL_R8OFFMASK ) );
-				newEM = c.getShort( c.getColumnIndex( RAData.PCOL_EM ) );
-				newREM = c.getShort( c.getColumnIndex( RAData.PCOL_REM ) );
+						c.getShort( c
+								.getColumnIndex( StatusTable.COL_R8OFFMASK ) );
+				newEM = c.getShort( c.getColumnIndex( StatusTable.COL_EM ) );
+				newREM = c.getShort( c.getColumnIndex( StatusTable.COL_REM ) );
 			} else {
 				updateStatus = getString( R.string.messageNever );
 				values = getNeverValues( Controller.MAX_CONTROLLER_VALUES );
@@ -614,52 +636,62 @@ public class StatusActivity extends BaseActivity implements
 		// FIXME switch to only setting the string to 1 or 0
 		// FIXME so the controllerpage can easily update the images
 		String l, h;
-		if ( c.getShort( c.getColumnIndex( RAData.PCOL_ATOLO ) ) == 1 )
+		if ( c.getShort( c.getColumnIndex( StatusTable.COL_ATOLO ) ) == 1 )
 			l = getString( R.string.labelON ); // ACTIVE, GREEN, ON
 		else
 			l = getString( R.string.labelOFF ); // INACTIVE, RED, OFF
-		if ( c.getShort( c.getColumnIndex( RAData.PCOL_ATOHI ) ) == 1 )
+		if ( c.getShort( c.getColumnIndex( StatusTable.COL_ATOHI ) ) == 1 )
 			h = getString( R.string.labelON ); // ACTIVE, GREEN, ON
 		else
 			h = getString( R.string.labelOFF ); // INACTIVE, RED, OFF
-		return new String[] {	c.getString( c.getColumnIndex( RAData.PCOL_T1 ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_T2 ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_T3 ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_PH ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_DP ) )
+		return new String[] {	c.getString( c
+										.getColumnIndex( StatusTable.COL_T1 ) ),
+								c.getString( c
+										.getColumnIndex( StatusTable.COL_T2 ) ),
+								c.getString( c
+										.getColumnIndex( StatusTable.COL_T3 ) ),
+								c.getString( c
+										.getColumnIndex( StatusTable.COL_PH ) ),
+								c.getString( c
+										.getColumnIndex( StatusTable.COL_DP ) )
 										+ "%",
-								c.getString( c.getColumnIndex( RAData.PCOL_AP ) )
+								c.getString( c
+										.getColumnIndex( StatusTable.COL_AP ) )
 										+ "%",
 								l,
 								h,
-								c.getString( c.getColumnIndex( RAData.PCOL_SAL ) )
+								c.getString( c
+										.getColumnIndex( StatusTable.COL_SAL ) )
 										+ " ppt",
-								c.getString( c.getColumnIndex( RAData.PCOL_ORP ) )
+								c.getString( c
+										.getColumnIndex( StatusTable.COL_ORP ) )
 										+ " mV",
-								c.getString( c.getColumnIndex( RAData.PCOL_PHE ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_WL ) )
+								c.getString( c
+										.getColumnIndex( StatusTable.COL_PHE ) ),
+								c.getString( c
+										.getColumnIndex( StatusTable.COL_WL ) )
 										+ "%" };
 	}
 
 	private String[] getPWMEValues ( Cursor c ) {
 		String[] sa = new String[Controller.MAX_PWM_EXPANSION_PORTS];
-		sa[0] = c.getString( c.getColumnIndex( RAData.PCOL_PWME0 ) ) + "%";
-		sa[1] = c.getString( c.getColumnIndex( RAData.PCOL_PWME1 ) ) + "%";
-		sa[2] = c.getString( c.getColumnIndex( RAData.PCOL_PWME2 ) ) + "%";
-		sa[3] = c.getString( c.getColumnIndex( RAData.PCOL_PWME3 ) ) + "%";
-		sa[4] = c.getString( c.getColumnIndex( RAData.PCOL_PWME4 ) ) + "%";
-		sa[5] = c.getString( c.getColumnIndex( RAData.PCOL_PWME5 ) ) + "%";
+		sa[0] = c.getString( c.getColumnIndex( StatusTable.COL_PWME0 ) ) + "%";
+		sa[1] = c.getString( c.getColumnIndex( StatusTable.COL_PWME1 ) ) + "%";
+		sa[2] = c.getString( c.getColumnIndex( StatusTable.COL_PWME2 ) ) + "%";
+		sa[3] = c.getString( c.getColumnIndex( StatusTable.COL_PWME3 ) ) + "%";
+		sa[4] = c.getString( c.getColumnIndex( StatusTable.COL_PWME4 ) ) + "%";
+		sa[5] = c.getString( c.getColumnIndex( StatusTable.COL_PWME5 ) ) + "%";
 		return sa;
 	}
 
 	private String[] getRadionValues ( Cursor c ) {
 		String[] sa = new String[Controller.MAX_RADION_LIGHT_CHANNELS];
-		sa[0] = c.getString( c.getColumnIndex( RAData.PCOL_RFW ) ) + "%";
-		sa[1] = c.getString( c.getColumnIndex( RAData.PCOL_RFRB ) ) + "%";
-		sa[2] = c.getString( c.getColumnIndex( RAData.PCOL_RFR ) ) + "%";
-		sa[3] = c.getString( c.getColumnIndex( RAData.PCOL_RFG ) ) + "%";
-		sa[4] = c.getString( c.getColumnIndex( RAData.PCOL_RFB ) ) + "%";
-		sa[5] = c.getString( c.getColumnIndex( RAData.PCOL_RFI ) ) + "%";
+		sa[0] = c.getString( c.getColumnIndex( StatusTable.COL_RFW ) ) + "%";
+		sa[1] = c.getString( c.getColumnIndex( StatusTable.COL_RFRB ) ) + "%";
+		sa[2] = c.getString( c.getColumnIndex( StatusTable.COL_RFR ) ) + "%";
+		sa[3] = c.getString( c.getColumnIndex( StatusTable.COL_RFG ) ) + "%";
+		sa[4] = c.getString( c.getColumnIndex( StatusTable.COL_RFB ) ) + "%";
+		sa[5] = c.getString( c.getColumnIndex( StatusTable.COL_RFI ) ) + "%";
 		return sa;
 	}
 
@@ -668,7 +700,7 @@ public class StatusActivity extends BaseActivity implements
 		String s = "";
 		int v, mode;
 		// mode
-		v = c.getInt( c.getColumnIndex( RAData.PCOL_RFM ) );
+		v = c.getInt( c.getColumnIndex( StatusTable.COL_RFM ) );
 		mode = v;
 		if ( v >= 0 && v <= 11 ) {
 			// use the index value
@@ -682,11 +714,11 @@ public class StatusActivity extends BaseActivity implements
 		}
 		sa[Controller.VORTECH_MODE] = s;
 		// speed
-		v = c.getInt( c.getColumnIndex( RAData.PCOL_RFS ) );
+		v = c.getInt( c.getColumnIndex( StatusTable.COL_RFS ) );
 		s = String.format( Locale.US, "%d%c", v, '%' );
 		sa[Controller.VORTECH_SPEED] = s;
 		// duration
-		v = c.getInt( c.getColumnIndex( RAData.PCOL_RFD ) );
+		v = c.getInt( c.getColumnIndex( StatusTable.COL_RFD ) );
 		switch ( mode ) {
 			case 3:
 			case 5:
@@ -707,17 +739,17 @@ public class StatusActivity extends BaseActivity implements
 	private String[] getAIValues ( Cursor c ) {
 		String[] sa = new String[Controller.MAX_AI_CHANNELS];
 		sa[Controller.AI_WHITE] =
-				c.getString( c.getColumnIndex( RAData.PCOL_AIW ) ) + "%";
+				c.getString( c.getColumnIndex( StatusTable.COL_AIW ) ) + "%";
 		sa[Controller.AI_BLUE] =
-				c.getString( c.getColumnIndex( RAData.PCOL_AIB ) ) + "%";
+				c.getString( c.getColumnIndex( StatusTable.COL_AIB ) ) + "%";
 		sa[Controller.AI_ROYALBLUE] =
-				c.getString( c.getColumnIndex( RAData.PCOL_AIRB ) ) + "%";
+				c.getString( c.getColumnIndex( StatusTable.COL_AIRB ) ) + "%";
 		return sa;
 	}
 
 	private String[] getIOValues ( Cursor c ) {
 		String[] sa = new String[Controller.MAX_IO_CHANNELS];
-		short io = c.getShort( c.getColumnIndex( RAData.PCOL_IO ) );
+		short io = c.getShort( c.getColumnIndex( StatusTable.COL_IO ) );
 		String s;
 		for ( byte i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
 			if ( Controller.getIOChannel( io, i ) ) {
@@ -731,14 +763,22 @@ public class StatusActivity extends BaseActivity implements
 	}
 
 	private String[] getCustomValues ( Cursor c ) {
-		return new String[] {	c.getString( c.getColumnIndex( RAData.PCOL_C0 ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_C1 ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_C2 ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_C3 ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_C4 ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_C5 ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_C6 ) ),
-								c.getString( c.getColumnIndex( RAData.PCOL_C7 ) ) };
+		return new String[] {	c.getString( c
+										.getColumnIndex( StatusTable.COL_C0 ) ),
+								c.getString( c
+										.getColumnIndex( StatusTable.COL_C1 ) ),
+								c.getString( c
+										.getColumnIndex( StatusTable.COL_C2 ) ),
+								c.getString( c
+										.getColumnIndex( StatusTable.COL_C3 ) ),
+								c.getString( c
+										.getColumnIndex( StatusTable.COL_C4 ) ),
+								c.getString( c
+										.getColumnIndex( StatusTable.COL_C5 ) ),
+								c.getString( c
+										.getColumnIndex( StatusTable.COL_C6 ) ),
+								c.getString( c
+										.getColumnIndex( StatusTable.COL_C7 ) ) };
 	}
 
 	private void checkDeviceModules ( short newEM, short newREM ) {

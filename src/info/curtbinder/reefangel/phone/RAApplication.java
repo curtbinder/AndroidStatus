@@ -8,7 +8,7 @@
 
 package info.curtbinder.reefangel.phone;
 
-import info.curtbinder.reefangel.db.RAData;
+import info.curtbinder.reefangel.db.RADbHelper;
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;
 
@@ -24,7 +24,6 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -50,15 +49,14 @@ public class RAApplication extends Application {
 	public int errorCount;
 
 	// Controller Data
-	public RAData data;
+	public RADbHelper data;
 
 	public void onCreate ( ) {
-		// prefs = PreferenceManager.getDefaultSharedPreferences( this );
 		errorCodes = getResources().getStringArray( R.array.errorCodes );
 		errorCodesStrings =
 				getResources().getStringArray( R.array.errorCodesStrings );
 		errorCode = 0; // set to no error initially
-		data = new RAData( this );
+		data = new RADbHelper( this );
 		raprefs = new RAPreferences( this );
 
 		// initialize the error count
@@ -118,24 +116,6 @@ public class RAApplication extends Application {
 				(AlarmManager) getSystemService( Context.ALARM_SERVICE );
 		am.setInexactRepeating( AlarmManager.RTC, System.currentTimeMillis(),
 								interval, pi );
-		// Profile, interval, wakeup
-		// String profile;
-		// switch ( up ) {
-		// default:
-		// case Globals.profileAlways:
-		// profile = "always";
-		// break;
-		// case Globals.profileOnlyAway:
-		// profile = "only away";
-		// break;
-		// case Globals.profileOnlyHome:
-		// profile = "only home";
-		// break;
-		// }
-		// String s =
-		// String.format( "%s, %s m", profile,
-		// raprefs.getUpdateIntervalDisplay() );
-		// Log.d( TAG, "started auto update: " + s );
 	}
 
 	private PendingIntent getUpdateIntent ( ) {
@@ -147,114 +127,6 @@ public class RAApplication extends Application {
 				PendingIntent.getService(	this, -1, i,
 											PendingIntent.FLAG_CANCEL_CURRENT );
 		return pi;
-	}
-
-	// Data handling
-	public void insertData ( Intent i ) {
-		ContentValues v = new ContentValues();
-		v.put( RAData.PCOL_T1, i.getStringExtra( RAData.PCOL_T1 ) );
-		v.put( RAData.PCOL_T2, i.getStringExtra( RAData.PCOL_T2 ) );
-		v.put( RAData.PCOL_T3, i.getStringExtra( RAData.PCOL_T3 ) );
-		v.put( RAData.PCOL_PH, i.getStringExtra( RAData.PCOL_PH ) );
-		v.put( RAData.PCOL_DP, i.getShortExtra( RAData.PCOL_DP, (short) 0 ) );
-		v.put( RAData.PCOL_AP, i.getShortExtra( RAData.PCOL_AP, (short) 0 ) );
-		v.put( RAData.PCOL_SAL, i.getStringExtra( RAData.PCOL_SAL ) );
-		v.put( RAData.PCOL_ORP, i.getStringExtra( RAData.PCOL_ORP ) );
-		v.put( RAData.PCOL_ATOHI, i.getBooleanExtra( RAData.PCOL_ATOHI, false ) );
-		v.put( RAData.PCOL_ATOLO, i.getBooleanExtra( RAData.PCOL_ATOLO, false ) );
-		v.put( RAData.PCOL_LOGDATE, i.getStringExtra( RAData.PCOL_LOGDATE ) );
-		v.put(	RAData.PCOL_RDATA,
-				i.getShortExtra( RAData.PCOL_RDATA, (short) 0 ) );
-		v.put(	RAData.PCOL_RONMASK,
-				i.getShortExtra( RAData.PCOL_RONMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_ROFFMASK,
-				i.getShortExtra( RAData.PCOL_ROFFMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R1DATA,
-				i.getShortExtra( RAData.PCOL_R1DATA, (short) 0 ) );
-		v.put(	RAData.PCOL_R1ONMASK,
-				i.getShortExtra( RAData.PCOL_R1ONMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R1OFFMASK,
-				i.getShortExtra( RAData.PCOL_R1OFFMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R2DATA,
-				i.getShortExtra( RAData.PCOL_R2DATA, (short) 0 ) );
-		v.put(	RAData.PCOL_R2ONMASK,
-				i.getShortExtra( RAData.PCOL_R2ONMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R2OFFMASK,
-				i.getShortExtra( RAData.PCOL_R2OFFMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R3DATA,
-				i.getShortExtra( RAData.PCOL_R3DATA, (short) 0 ) );
-		v.put(	RAData.PCOL_R3ONMASK,
-				i.getShortExtra( RAData.PCOL_R3ONMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R3OFFMASK,
-				i.getShortExtra( RAData.PCOL_R3OFFMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R4DATA,
-				i.getShortExtra( RAData.PCOL_R4DATA, (short) 0 ) );
-		v.put(	RAData.PCOL_R4ONMASK,
-				i.getShortExtra( RAData.PCOL_R4ONMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R4OFFMASK,
-				i.getShortExtra( RAData.PCOL_R4OFFMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R5DATA,
-				i.getShortExtra( RAData.PCOL_R5DATA, (short) 0 ) );
-		v.put(	RAData.PCOL_R5ONMASK,
-				i.getShortExtra( RAData.PCOL_R5ONMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R5OFFMASK,
-				i.getShortExtra( RAData.PCOL_R5OFFMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R6DATA,
-				i.getShortExtra( RAData.PCOL_R6DATA, (short) 0 ) );
-		v.put(	RAData.PCOL_R6ONMASK,
-				i.getShortExtra( RAData.PCOL_R6ONMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R6OFFMASK,
-				i.getShortExtra( RAData.PCOL_R6OFFMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R7DATA,
-				i.getShortExtra( RAData.PCOL_R7DATA, (short) 0 ) );
-		v.put(	RAData.PCOL_R7ONMASK,
-				i.getShortExtra( RAData.PCOL_R7ONMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R7OFFMASK,
-				i.getShortExtra( RAData.PCOL_R7OFFMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R8DATA,
-				i.getShortExtra( RAData.PCOL_R8DATA, (short) 0 ) );
-		v.put(	RAData.PCOL_R8ONMASK,
-				i.getShortExtra( RAData.PCOL_R8ONMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_R8OFFMASK,
-				i.getShortExtra( RAData.PCOL_R8OFFMASK, (short) 0 ) );
-		v.put(	RAData.PCOL_PWME0,
-				i.getShortExtra( RAData.PCOL_PWME0, (short) 0 ) );
-		v.put(	RAData.PCOL_PWME1,
-				i.getShortExtra( RAData.PCOL_PWME1, (short) 0 ) );
-		v.put(	RAData.PCOL_PWME2,
-				i.getShortExtra( RAData.PCOL_PWME2, (short) 0 ) );
-		v.put(	RAData.PCOL_PWME3,
-				i.getShortExtra( RAData.PCOL_PWME3, (short) 0 ) );
-		v.put(	RAData.PCOL_PWME4,
-				i.getShortExtra( RAData.PCOL_PWME4, (short) 0 ) );
-		v.put(	RAData.PCOL_PWME5,
-				i.getShortExtra( RAData.PCOL_PWME5, (short) 0 ) );
-		v.put( RAData.PCOL_AIW, i.getShortExtra( RAData.PCOL_AIW, (short) 0 ) );
-		v.put( RAData.PCOL_AIB, i.getShortExtra( RAData.PCOL_AIB, (short) 0 ) );
-		v.put( RAData.PCOL_AIRB, i.getShortExtra( RAData.PCOL_AIRB, (short) 0 ) );
-		v.put( RAData.PCOL_RFM, i.getShortExtra( RAData.PCOL_RFM, (short) 0 ) );
-		v.put( RAData.PCOL_RFS, i.getShortExtra( RAData.PCOL_RFS, (short) 0 ) );
-		v.put( RAData.PCOL_RFD, i.getShortExtra( RAData.PCOL_RFD, (short) 0 ) );
-		v.put( RAData.PCOL_RFW, i.getShortExtra( RAData.PCOL_RFW, (short) 0 ) );
-		v.put( RAData.PCOL_RFRB, i.getShortExtra( RAData.PCOL_RFRB, (short) 0 ) );
-		v.put( RAData.PCOL_RFR, i.getShortExtra( RAData.PCOL_RFR, (short) 0 ) );
-		v.put( RAData.PCOL_RFG, i.getShortExtra( RAData.PCOL_RFG, (short) 0 ) );
-		v.put( RAData.PCOL_RFB, i.getShortExtra( RAData.PCOL_RFB, (short) 0 ) );
-		v.put( RAData.PCOL_RFI, i.getShortExtra( RAData.PCOL_RFI, (short) 0 ) );
-		v.put( RAData.PCOL_IO, i.getShortExtra( RAData.PCOL_IO, (short) 0 ) );
-		v.put( RAData.PCOL_C0, i.getShortExtra( RAData.PCOL_C0, (short) 0 ) );
-		v.put( RAData.PCOL_C1, i.getShortExtra( RAData.PCOL_C1, (short) 0 ) );
-		v.put( RAData.PCOL_C2, i.getShortExtra( RAData.PCOL_C2, (short) 0 ) );
-		v.put( RAData.PCOL_C3, i.getShortExtra( RAData.PCOL_C3, (short) 0 ) );
-		v.put( RAData.PCOL_C4, i.getShortExtra( RAData.PCOL_C4, (short) 0 ) );
-		v.put( RAData.PCOL_C5, i.getShortExtra( RAData.PCOL_C5, (short) 0 ) );
-		v.put( RAData.PCOL_C6, i.getShortExtra( RAData.PCOL_C6, (short) 0 ) );
-		v.put( RAData.PCOL_C7, i.getShortExtra( RAData.PCOL_C7, (short) 0 ) );
-		v.put( RAData.PCOL_EM, i.getShortExtra( RAData.PCOL_EM, (short) 0 ) );
-		v.put( RAData.PCOL_REM, i.getShortExtra( RAData.PCOL_REM, (short) 0 ) );
-		v.put( RAData.PCOL_PHE, i.getStringExtra( RAData.PCOL_PHE ) );
-		v.put( RAData.PCOL_WL, i.getShortExtra( RAData.PCOL_WL, (short) 0 ) );
-		data.insert( v );
 	}
 
 	// Error Logging
