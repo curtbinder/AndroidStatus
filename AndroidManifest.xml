@@ -9,7 +9,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="info.curtbinder.reefangel.phone"
-    android:versionCode="29"
+    android:versionCode="30"
     android:versionName="@string/app_version" >
 
     <uses-sdk

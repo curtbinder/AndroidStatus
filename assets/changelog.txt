@@ -1,5 +1,10 @@
 <html>
 <body>
+<b>0.9.2</b>
+<ul>
+<li>switched entirely to ContentProvider for better database functionality</li>
+</ul>
+<br>
 <b>0.9.1</b>
 <ul>
 <li>allow spaces to be in forum usernames</li>

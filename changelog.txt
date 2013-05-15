@@ -176,3 +176,6 @@ Changelog of all the versions of AndroidStatus
 0.9.1
  * allow spaces in forum usernames
  
+0.9.2
+ * switched entirely to ContentProvider for better database functionality
+ 
