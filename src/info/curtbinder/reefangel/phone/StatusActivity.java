@@ -144,10 +144,6 @@ public class StatusActivity extends BaseActivity implements
 		updatePageOrder();
 		setPagerPrefs();
 
-		// TODO possibly move to onresume
-		disableRelayButtons();
-		setOnClickListeners();
-
 		// Check if this is the first run, if so we need to prompt the user
 		// to configure before we start the service and proceed
 		// this should be the last thing done in OnCreate()
@@ -182,6 +178,9 @@ public class StatusActivity extends BaseActivity implements
 			redrawPages();
 		}
 
+		disableRelayButtons();
+		setOnClickListeners();
+		
 		updateViewsVisibility();
 		updateDisplay();
 
@@ -240,7 +239,6 @@ public class StatusActivity extends BaseActivity implements
 	}
 
 	private void setOnClickListeners ( ) {
-		// TODO consider clearing click listeners and updating clickable always
 		int i;
 		if ( rapp.raprefs.isCommunicateController() ) {
 			pageMain.setOnClickListeners();
