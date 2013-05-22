@@ -11,7 +11,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
     <PreferenceCategory android:title="@string/prefsCategoryAdvanced" >
         <CheckBoxPreference
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="@string/prefPre10MemoryKey"
             android:summary="@string/prefPre10MemorySummary"
             android:title="@string/prefPre10MemoryTitle" />
