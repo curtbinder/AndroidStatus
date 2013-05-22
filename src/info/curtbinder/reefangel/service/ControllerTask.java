@@ -16,7 +16,6 @@ import info.curtbinder.reefangel.phone.Permissions;
 import info.curtbinder.reefangel.phone.R;
 import info.curtbinder.reefangel.phone.RAApplication;
 import info.curtbinder.reefangel.phone.RAPreferences;
-import info.curtbinder.reefangel.phone.StatusActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,11 +38,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
@@ -453,22 +448,10 @@ public class ControllerTask implements Runnable {
 		rapp.sendBroadcast( i, Permissions.QUERY_STATUS );
 	}
 
-	@SuppressWarnings("deprecation")
 	private void broadcastErrorMessage ( ) {
-		// Log.d(TAG, "broadcastErrorMessage");
 		String er = rapp.getErrorMessage();
 
 		if ( raprefs.isNotificationEnabled() ) {
-			// create intent to launch status activity when notification
-			// selected
-			Intent si = new Intent( rapp, StatusActivity.class );
-			si.addFlags( Intent.FLAG_ACTIVITY_SINGLE_TOP );
-			si.addFlags( Intent.FLAG_ACTIVITY_REORDER_TO_FRONT );
-			PendingIntent pi =
-					PendingIntent
-							.getActivity(	rapp, -1, si,
-											PendingIntent.FLAG_UPDATE_CURRENT );
-
 			// if error notification is enabled, increase the error count
 			// as soon as we know it's an error
 			if ( raprefs.isErrorRetryEnabled() ) {
@@ -484,20 +467,7 @@ public class ControllerTask implements Runnable {
 
 			// send notification
 			if ( fCanNotify ) {
-				// notification
-				NotificationManager nm =
-						(NotificationManager) rapp
-								.getSystemService( Context.NOTIFICATION_SERVICE );
-				Notification n =
-						new Notification( R.drawable.st_notify,
-							rapp.getString( R.string.app_name ) + " " + er,
-							System.currentTimeMillis() );
-				n.flags |= Notification.FLAG_AUTO_CANCEL;
-				n.sound = raprefs.getNotificationSound();
-				n.setLatestEventInfo(	rapp,
-										rapp.getString( R.string.app_name ),
-										er, pi );
-				nm.notify( 0, n );
+				rapp.notifyUser( er );
 			}
 		}
 

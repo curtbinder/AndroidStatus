@@ -23,6 +23,8 @@ import java.util.Locale;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Application;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -196,6 +198,7 @@ public class RAApplication extends Application {
 		return s;
 	}
 
+	// Notifications
 	public boolean canErrorRetry ( ) {
 		boolean f = false;
 		if ( errorCount <= raprefs.getNotificationErrorRetryMax() ) {
@@ -206,6 +209,34 @@ public class RAApplication extends Application {
 
 	public void clearErrorRetryCount ( ) {
 		errorCount = Globals.errorRetryNone;
+	}
+	
+	private PendingIntent getNotificationIntent ( ) {
+		// create intent to launch status activity for notifications
+		Intent si = new Intent( this, StatusActivity.class );
+		si.addFlags( Intent.FLAG_ACTIVITY_SINGLE_TOP );
+		si.addFlags( Intent.FLAG_ACTIVITY_REORDER_TO_FRONT );
+		PendingIntent pi =
+				PendingIntent
+						.getActivity(	this, -1, si,
+										PendingIntent.FLAG_UPDATE_CURRENT );
+		return pi;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void notifyUser ( String msg ) {
+		NotificationManager nm =
+				(NotificationManager) getSystemService( Context.NOTIFICATION_SERVICE );
+		Notification n =
+				new Notification( R.drawable.st_notify,
+					getString( R.string.app_name ) + " " + msg,
+					System.currentTimeMillis() );
+		n.flags |= Notification.FLAG_AUTO_CANCEL;
+		n.sound = raprefs.getNotificationSound();
+		n.setLatestEventInfo(	this,
+								getString( R.string.app_name ),
+								msg, getNotificationIntent() );
+		nm.notify( 0, n );
 	}
 
 	public String getLoggingDirectory ( ) {
