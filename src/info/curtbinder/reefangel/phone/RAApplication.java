@@ -38,6 +38,9 @@ public class RAApplication extends Application {
 	private static final String HOST_PATTERN =
 			"^(?i:[[0-9][a-z]]+)(?i:[\\w\\.\\-]*)(?i:[[0-9][a-z]]+)$";
 	private static final String USERID_PATTERN = "[\\w\\-\\.\\x20]+";
+	@SuppressWarnings("unused")
+	private static final String WIFI_LOOKUP =
+			"http://forum.reefangel.com/getwifi.php?id=%1$s&pwd=%2$s";
 
 	// Preferences
 	public RAPreferences raprefs;
@@ -138,7 +141,6 @@ public class RAApplication extends Application {
 		if ( raprefs.isLoggingEnabled() ) {
 			if ( !hasExternalStorage() ) {
 				// doesn't have external storage
-				Log.d( TAG, "No external storage" );
 				Toast.makeText( this,
 								getString( R.string.messageNoExternalStorage ),
 								Toast.LENGTH_LONG ).show();
@@ -147,7 +149,6 @@ public class RAApplication extends Application {
 			boolean keepFile = raprefs.isLoggingAppendFile();
 			try {
 				String sFile = getLoggingFile();
-				Log.d( TAG, "File: " + sFile );
 				FileWriter fw = new FileWriter( sFile, keepFile );
 				PrintWriter pw = new PrintWriter( fw );
 				DateFormat dft =
@@ -258,7 +259,6 @@ public class RAApplication extends Application {
 
 	public boolean validateHost ( Object host ) {
 		// host validation here
-		Log.d( TAG, "Validate entered host" );
 		String h = host.toString();
 
 		// Hosts must:
@@ -268,7 +268,6 @@ public class RAApplication extends Application {
 
 		if ( !h.matches( HOST_PATTERN ) ) {
 			// invalid host
-			Log.d( TAG, "Invalid host" );
 			Toast.makeText( this,
 							this.getString( R.string.prefHostInvalidHost )
 									+ ": " + host.toString(),
@@ -279,10 +278,8 @@ public class RAApplication extends Application {
 	}
 
 	public boolean validatePort ( Object port ) {
-		Log.d( TAG, "Validate entered port" );
 		if ( !isNumber( port ) ) {
 			// not a number
-			Log.d( TAG, "Invalid port" );
 			Toast.makeText( this,
 							getString( R.string.messageNotNumber ) + ": "
 									+ port.toString(), Toast.LENGTH_SHORT )
@@ -290,6 +287,7 @@ public class RAApplication extends Application {
 			return false;
 		} else {
 			// it's a number, verify it's within range
+			// TODO: convert min & max ports to int value defines
 			int min = Integer.parseInt( getString( R.string.prefPortMin ) );
 			int max = Integer.parseInt( getString( R.string.prefPortMax ) );
 			int v = Integer.parseInt( (String) port.toString() );
@@ -297,7 +295,6 @@ public class RAApplication extends Application {
 			// check if it's less than the min value or if it's greater than
 			// the max value
 			if ( (v < min) || (v > max) ) {
-				Log.d( TAG, "Invalid port range" );
 				Toast.makeText( this,
 								getString( R.string.prefPortInvalidPort )
 										+ ": " + port.toString(),
@@ -312,7 +309,6 @@ public class RAApplication extends Application {
 		String u = user.toString();
 		if ( !u.matches( USERID_PATTERN ) ) {
 			// invalid userid
-			Log.d( TAG, "Invalid userid" );
 			Toast.makeText( this,
 							getString( R.string.prefUserIdInvalid ) + ": "
 									+ user.toString(), Toast.LENGTH_SHORT )
