@@ -23,13 +23,15 @@ import java.util.Locale;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Application;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -223,20 +225,26 @@ public class RAApplication extends Application {
 		return pi;
 	}
 	
-	@SuppressWarnings("deprecation")
 	public void notifyUser ( String msg ) {
 		NotificationManager nm =
 				(NotificationManager) getSystemService( Context.NOTIFICATION_SERVICE );
-		Notification n =
-				new Notification( R.drawable.st_notify,
-					getString( R.string.app_name ) + " " + msg,
-					System.currentTimeMillis() );
-		n.flags |= Notification.FLAG_AUTO_CANCEL;
-		n.sound = raprefs.getNotificationSound();
-		n.setLatestEventInfo(	this,
-								getString( R.string.app_name ),
-								msg, getNotificationIntent() );
-		nm.notify( 0, n );
+		int mNotificationId = 001;
+		Bitmap icon = BitmapFactory.decodeResource( getResources(), R.drawable.ic_icon );
+		
+		// build the notification
+		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder( this )
+		.setAutoCancel( true )
+		.setSmallIcon( R.drawable.st_notify )
+		.setLargeIcon( icon )
+		.setContentTitle( getString( R.string.app_name ) )
+		.setContentText( msg )
+		.setTicker( msg )
+		.setWhen( System.currentTimeMillis() )
+		.setSound( raprefs.getNotificationSound() )
+		.setContentIntent( getNotificationIntent() );
+		
+		// notify the user
+		nm.notify( mNotificationId, mBuilder.build() );
 	}
 
 	public String getLoggingDirectory ( ) {
