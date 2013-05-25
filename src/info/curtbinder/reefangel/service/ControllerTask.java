@@ -177,7 +177,6 @@ public class ControllerTask implements Runnable {
 				throw new InterruptedException();
 
 			broadcastUpdateStatus( R.string.statusInitParser );
-			Log.d( TAG, "Parsing" );
 			sp = spf.newSAXParser();
 			xr = sp.getXMLReader();
 			xr.setContentHandler( xml );
