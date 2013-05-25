@@ -537,20 +537,17 @@ public class StatusActivity extends BaseActivity implements
 	}
 
 	class StatusReceiver extends BroadcastReceiver {
-		private final String TAG = StatusReceiver.class.getSimpleName();
+		//private final String TAG = StatusReceiver.class.getSimpleName();
 
 		public void onReceive ( Context context, Intent intent ) {
-			// Log.d(TAG, "onReceive");
 			String action = intent.getAction();
 			if ( action.equals( MessageCommands.UPDATE_STATUS_INTENT ) ) {
 				int id =
 						intent.getIntExtra( MessageCommands.UPDATE_STATUS_ID,
 											R.string.defaultStatusText );
-				Log.d( TAG, getResources().getString( id ) );
 				updateTime.setText( id );
 			} else if ( action
 					.equals( MessageCommands.UPDATE_DISPLAY_DATA_INTENT ) ) {
-				Log.d( TAG, "update data intent" );
 				updateDisplay();
 				rapp.clearErrorRetryCount();
 			} else if ( action.equals( MessageCommands.ERROR_MESSAGE_INTENT ) ) {
@@ -563,11 +560,9 @@ public class StatusActivity extends BaseActivity implements
 					String s =
 							rapp.getString( R.string.messageErrorRetry,
 											rapp.errorCount );
-					Log.d( TAG, s );
 					if ( rapp.canErrorRetry() ) {
 						// if error count is less than the max,
 						// we need to retry the communication
-						Log.d( TAG, "Error Re-launch" );
 						updateTime.setText( s );
 						fDisplayUpdate = false;
 						Runnable r = new Runnable() {
@@ -583,8 +578,6 @@ public class StatusActivity extends BaseActivity implements
 					// display the error
 				}
 				if ( fDisplayUpdate ) {
-					Log.d(	TAG,
-							intent.getStringExtra( MessageCommands.ERROR_MESSAGE_STRING ) );
 					updateTime
 							.setText( intent
 									.getStringExtra( MessageCommands.ERROR_MESSAGE_STRING ) );

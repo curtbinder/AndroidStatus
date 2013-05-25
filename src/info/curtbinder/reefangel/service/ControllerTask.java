@@ -27,8 +27,6 @@ import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.text.DateFormat;
-import java.util.Date;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -64,10 +62,6 @@ public class ControllerTask implements Runnable {
 		HttpURLConnection con = null;
 		String res = "";
 		broadcastUpdateStatus( R.string.statusStart );
-		long start = System.currentTimeMillis();
-		Log.i(	TAG,
-				"Update: "
-						+ DateFormat.getDateTimeInstance().format( new Date() ) );
 		try {
 			URL url = new URL( host.toString() );
 			con = (HttpURLConnection) url.openConnection();
@@ -94,7 +88,6 @@ public class ControllerTask implements Runnable {
 		} catch ( IOException e ) {
 			rapp.error( 1, e, "IOException" );
 		} catch ( InterruptedException e ) {
-			Log.d( TAG, "InterruptedException", e );
 			res =
 					(String) rapp.getResources()
 							.getText( R.string.messageCancelled );
@@ -105,9 +98,6 @@ public class ControllerTask implements Runnable {
 			broadcastUpdateStatus( R.string.statusDisconnected );
 		}
 
-		long end = System.currentTimeMillis();
-		Log.d(	TAG,
-				new String( String.format( "sendCommand (%d ms)", end - start ) ) );
 		broadcastUpdateStatus( R.string.statusReadResponse );
 
 		// check if there was an error
@@ -117,7 +107,6 @@ public class ControllerTask implements Runnable {
 		} else if ( res.equals( (String) rapp.getResources()
 				.getText( R.string.messageCancelled ) ) ) {
 			// Interrupted
-			Log.d( TAG, "sendCommand Interrupted" );
 			broadcastUpdateStatus( R.string.messageCancelled );
 		} else {
 			XMLHandler xml = new XMLHandler();
@@ -157,7 +146,6 @@ public class ControllerTask implements Runnable {
 			}
 			broadcastUpdateStatus( R.string.statusReadResponse );
 		} catch ( InterruptedException e ) {
-			Log.d( TAG, "sendCommand: InterruptedException", e );
 			s =
 					new StringBuilder( (String) rapp.getResources()
 							.getText( R.string.messageCancelled ) );
@@ -182,7 +170,6 @@ public class ControllerTask implements Runnable {
 		SAXParserFactory spf = SAXParserFactory.newInstance();
 		SAXParser sp = null;
 		XMLReader xr = null;
-		long start = 0, end = 0;
 		boolean result = false;
 		try {
 			// Check for an interruption
@@ -200,12 +187,8 @@ public class ControllerTask implements Runnable {
 			if ( Thread.interrupted() )
 				throw new InterruptedException();
 
-			start = System.currentTimeMillis();
 			broadcastUpdateStatus( R.string.statusParsing );
 			xr.parse( new InputSource( new StringReader( res ) ) );
-			end = System.currentTimeMillis();
-			Log.d(	TAG,
-					new String( String.format( "Parsed (%d ms)", end - start ) ) );
 			broadcastUpdateStatus( R.string.statusFinished );
 			result = true;
 		} catch ( ParserConfigurationException e ) {
