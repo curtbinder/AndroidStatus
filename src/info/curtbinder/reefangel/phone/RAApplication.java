@@ -212,37 +212,38 @@ public class RAApplication extends Application {
 	public void clearErrorRetryCount ( ) {
 		errorCount = Globals.errorRetryNone;
 	}
-	
+
 	private PendingIntent getNotificationIntent ( ) {
 		// create intent to launch status activity for notifications
 		Intent si = new Intent( this, StatusActivity.class );
 		si.addFlags( Intent.FLAG_ACTIVITY_SINGLE_TOP );
 		si.addFlags( Intent.FLAG_ACTIVITY_REORDER_TO_FRONT );
 		PendingIntent pi =
-				PendingIntent
-						.getActivity(	this, -1, si,
-										PendingIntent.FLAG_UPDATE_CURRENT );
+				PendingIntent.getActivity(	this, -1, si,
+											PendingIntent.FLAG_UPDATE_CURRENT );
 		return pi;
 	}
-	
-	public void notifyUser ( String msg ) {
+
+	public void notifyUser ( ) {
+		String msg = getErrorMessage();
 		NotificationManager nm =
 				(NotificationManager) getSystemService( Context.NOTIFICATION_SERVICE );
 		int mNotificationId = 001;
-		Bitmap icon = BitmapFactory.decodeResource( getResources(), R.drawable.ic_icon );
-		
+		Bitmap icon =
+				BitmapFactory.decodeResource(	getResources(),
+												R.drawable.ic_icon );
+
 		// build the notification
-		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder( this )
-		.setAutoCancel( true )
-		.setSmallIcon( R.drawable.st_notify )
-		.setLargeIcon( icon )
-		.setContentTitle( getString( R.string.app_name ) )
-		.setContentText( msg )
-		.setTicker( msg )
-		.setWhen( System.currentTimeMillis() )
-		.setSound( raprefs.getNotificationSound() )
-		.setContentIntent( getNotificationIntent() );
-		
+		NotificationCompat.Builder mBuilder =
+				new NotificationCompat.Builder( this ).setAutoCancel( true )
+						.setSmallIcon( R.drawable.st_notify )
+						.setLargeIcon( icon )
+						.setContentTitle( getString( R.string.app_name ) )
+						.setContentText( msg ).setTicker( msg )
+						.setWhen( System.currentTimeMillis() )
+						.setSound( raprefs.getNotificationSound() )
+						.setContentIntent( getNotificationIntent() );
+
 		// notify the user
 		nm.notify( mNotificationId, mBuilder.build() );
 	}

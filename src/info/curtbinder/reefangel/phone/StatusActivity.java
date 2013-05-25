@@ -180,7 +180,7 @@ public class StatusActivity extends BaseActivity implements
 
 		disableRelayButtons();
 		setOnClickListeners();
-		
+
 		updateViewsVisibility();
 		updateDisplay();
 
@@ -537,7 +537,7 @@ public class StatusActivity extends BaseActivity implements
 	}
 
 	class StatusReceiver extends BroadcastReceiver {
-		//private final String TAG = StatusReceiver.class.getSimpleName();
+		// private final String TAG = StatusReceiver.class.getSimpleName();
 
 		public void onReceive ( Context context, Intent intent ) {
 			String action = intent.getAction();
@@ -578,9 +578,8 @@ public class StatusActivity extends BaseActivity implements
 					// display the error
 				}
 				if ( fDisplayUpdate ) {
-					updateTime
-							.setText( intent
-									.getStringExtra( MessageCommands.ERROR_MESSAGE_STRING ) );
+					updateTime.setText( getResources()
+							.getText( R.string.messageError ) );
 				}
 			} else if ( action.equals( MessageCommands.VORTECH_UPDATE_INTENT ) ) {
 				int type =

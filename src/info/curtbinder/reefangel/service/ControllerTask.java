@@ -110,8 +110,9 @@ public class ControllerTask implements Runnable {
 			broadcastUpdateStatus( R.string.messageCancelled );
 		} else {
 			XMLHandler xml = new XMLHandler();
-			if ( raprefs.useOld085xExpansionRelays() )
+			if ( raprefs.useOld085xExpansionRelays() ) {
 				xml.setOld085xExpansion( true );
+			}
 			if ( !parseXML( xml, res ) ) {
 				// error parsing
 				broadcastErrorMessage();
@@ -158,10 +159,11 @@ public class ControllerTask implements Runnable {
 		}
 
 		// if we encountered an error, set the error text
-		if ( rapp.errorCode > 0 )
+		if ( rapp.errorCode > 0 ) {
 			s =
 					new StringBuilder( (String) rapp.getResources()
 							.getText( R.string.messageError ) );
+		}
 
 		return s.toString();
 	}
@@ -431,8 +433,6 @@ public class ControllerTask implements Runnable {
 	}
 
 	private void broadcastErrorMessage ( ) {
-		String er = rapp.getErrorMessage();
-
 		if ( raprefs.isNotificationEnabled() ) {
 			// if error notification is enabled, increase the error count
 			// as soon as we know it's an error
@@ -449,15 +449,12 @@ public class ControllerTask implements Runnable {
 
 			// send notification
 			if ( fCanNotify ) {
-				rapp.notifyUser( er );
+				rapp.notifyUser();
 			}
 		}
 
-		// broadcast
-		Intent i = new Intent( MessageCommands.ERROR_MESSAGE_INTENT );
-		i.putExtra( MessageCommands.ERROR_MESSAGE_STRING, er );
-
 		// send broadcast
-		rapp.sendBroadcast( i, Permissions.QUERY_STATUS );
+		rapp.sendBroadcast( new Intent( MessageCommands.ERROR_MESSAGE_INTENT ),
+							Permissions.QUERY_STATUS );
 	}
 }
