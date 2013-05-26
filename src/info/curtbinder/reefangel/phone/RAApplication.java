@@ -247,7 +247,7 @@ public class RAApplication extends Application {
 							+ StatusProvider.PATH_ERROR );
 		Cursor c =
 				getContentResolver().query( uri, null,
-											ErrorTable.COL_READ + "=false",
+											ErrorTable.COL_READ + "=0",
 											null, ErrorTable.COL_ID + " DESC" );
 
 		String msg = null;

@@ -9,11 +9,10 @@
 package info.curtbinder.reefangel.db;
 
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 public class ErrorTable {
 
-	private static final String TAG = ErrorTable.class.getSimpleName();
+	//private static final String TAG = ErrorTable.class.getSimpleName();
 
 	// Database constants
 	public static final String TABLE_NAME = "errors";
@@ -37,8 +36,6 @@ public class ErrorTable {
 			SQLiteDatabase db,
 			int oldVersion,
 			int newVersion ) {
-		Log.w( TAG, "Upgrading db from v" + oldVersion + " to v" + newVersion
-					+ ", which will destroy all old data" );
 		// initially, just drop tables and create new ones
 		dropTable( db );
 		onCreate( db );
