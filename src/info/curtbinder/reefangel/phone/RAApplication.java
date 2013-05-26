@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -229,7 +230,7 @@ public class RAApplication extends Application {
 		errorCount = Globals.errorRetryNone;
 	}
 
-	private PendingIntent getNotificationIntent ( ) {
+	private PendingIntent getNotificationLaunchIntent ( ) {
 		// create intent to launch status activity for notifications
 		Intent si = new Intent( this, StatusActivity.class );
 		si.addFlags( Intent.FLAG_ACTIVITY_SINGLE_TOP );
@@ -238,6 +239,38 @@ public class RAApplication extends Application {
 				PendingIntent.getActivity(	this, -1, si,
 											PendingIntent.FLAG_UPDATE_CURRENT );
 		return pi;
+	}
+
+	private NotificationCompat.Builder buildNormalNotification (
+			String msg,
+			long when,
+			int count ) {
+		Bitmap icon =
+				BitmapFactory.decodeResource(	getResources(),
+												R.drawable.ic_icon );
+		// setNumber - only if more than 1
+		NotificationCompat.Builder b =
+				new NotificationCompat.Builder( this ).setAutoCancel( true )
+						.setSmallIcon( R.drawable.st_notify )
+						.setLargeIcon( icon )
+						.setContentTitle( getString( R.string.app_name ) )
+						.setContentText( msg ).setTicker( msg ).setWhen( when )
+						.setNumber( count )
+						.setSound( raprefs.getNotificationSound() )
+						.setContentIntent( getNotificationLaunchIntent() );
+		// TODO: set delete notification intent
+		return b;
+	}
+
+	private String getInboxStyleMessage ( String msg, long when ) {
+		DateFormat fmt =
+				DateFormat.getDateTimeInstance( DateFormat.SHORT,
+												DateFormat.SHORT,
+												Locale.getDefault() );
+		String extraMessage =
+				String.format(	Locale.getDefault(), "%s - %s\n", msg,
+								fmt.format( new Date( when ) ) );
+		return extraMessage;
 	}
 
 	public void notifyUser ( ) {
@@ -250,34 +283,55 @@ public class RAApplication extends Application {
 											new String[] { "0" },
 											ErrorTable.COL_ID + " DESC" );
 
-		String msg = null;
-		long when = 0;
-		// just grab the most recent error
+		String firstMessage = null;
+		long firstWhen = 0;
+		int numCount = 0;
+		String[] summaryLines = new String[5];
+		String summaryText = null;
 		if ( c.moveToFirst() ) {
-			msg = c.getString( c.getColumnIndex( ErrorTable.COL_MESSAGE ) );
-			when = c.getLong( c.getColumnIndex( ErrorTable.COL_TIME ) );
+			int msgIndex = c.getColumnIndex( ErrorTable.COL_MESSAGE );
+			int whenIndex = c.getColumnIndex( ErrorTable.COL_TIME );
+			// grab the most recent error first
+			firstMessage = c.getString( msgIndex );
+			firstWhen = c.getLong( whenIndex );
+			numCount = c.getCount();
+			// handle looping through the rest of the messages
+			// in order to create the big notification
+			// InboxStyle only allows for up to 5 lines
+			summaryLines[0] = getInboxStyleMessage( firstMessage, firstWhen );
+			int extraCount = 1;
+			while ( c.moveToNext() && extraCount < 5 ) {
+				summaryLines[extraCount] =
+						getInboxStyleMessage(	c.getString( msgIndex ),
+												c.getLong( whenIndex ) );
+				extraCount++;
+			}
+			// TODO: confirm summary text counting properly
+			if ( extraCount < numCount ) {
+				summaryText =
+						String.format( Locale.US, "+%d more", numCount
+																- extraCount );
+			}
 		}
 		c.close();
 
 		NotificationManager nm =
 				(NotificationManager) getSystemService( Context.NOTIFICATION_SERVICE );
 		int mNotificationId = 001;
-		Bitmap icon =
-				BitmapFactory.decodeResource(	getResources(),
-												R.drawable.ic_icon );
 
-		// build the notification
-		NotificationCompat.Builder mBuilder =
-				new NotificationCompat.Builder( this ).setAutoCancel( true )
-						.setSmallIcon( R.drawable.st_notify )
-						.setLargeIcon( icon )
-						.setContentTitle( getString( R.string.app_name ) )
-						.setContentText( msg ).setTicker( msg ).setWhen( when )
-						.setSound( raprefs.getNotificationSound() )
-						.setContentIntent( getNotificationIntent() );
-
-		// notify the user
-		nm.notify( mNotificationId, mBuilder.build() );
+		NotificationCompat.Builder normal =
+				buildNormalNotification( firstMessage, firstWhen, numCount );
+		if ( numCount > 1 ) {
+			NotificationCompat.InboxStyle big =
+					new NotificationCompat.InboxStyle( normal );
+			for ( String s : summaryLines ) {
+				big.addLine( s );
+			}
+			big.setSummaryText( summaryText );
+			nm.notify( mNotificationId, big.build() );
+		} else {
+			nm.notify( mNotificationId, normal.build() );
+		}
 	}
 
 	public String getLoggingDirectory ( ) {
