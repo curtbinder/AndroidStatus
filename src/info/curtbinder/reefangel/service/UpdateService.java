@@ -188,7 +188,6 @@ public class UpdateService extends IntentService {
 			}
 			h.setCommand( RequestCommands.DateTime );
 		} else if ( action.equals( MessageCommands.DATE_SEND_INTENT ) ) {
-			Log.d( TAG, "Set Date" );
 			if ( !isController ) {
 				notControllerMessage();
 				return;
