@@ -8,7 +8,9 @@
 
 package info.curtbinder.reefangel.phone;
 
+import info.curtbinder.reefangel.db.ErrorTable;
 import info.curtbinder.reefangel.db.RADbHelper;
+import info.curtbinder.reefangel.db.StatusProvider;
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;
 
@@ -25,11 +27,14 @@ import android.app.AlarmManager;
 import android.app.Application;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -200,6 +205,18 @@ public class RAApplication extends Application {
 		return s;
 	}
 
+	public void insertErrorMessage ( String msg ) {
+		// inserts the given error message into the database
+		// message is the parameter for expandability with notifications
+		ContentValues v = new ContentValues();
+		v.put( ErrorTable.COL_TIME, System.currentTimeMillis() );
+		v.put( ErrorTable.COL_MESSAGE, msg );
+		v.put( ErrorTable.COL_READ, false );
+		getContentResolver()
+				.insert(	Uri.parse( StatusProvider.CONTENT_URI + "/"
+										+ StatusProvider.PATH_ERROR ), v );
+	}
+
 	// Notifications
 	public boolean canErrorRetry ( ) {
 		boolean f = false;
@@ -225,7 +242,23 @@ public class RAApplication extends Application {
 	}
 
 	public void notifyUser ( ) {
-		String msg = getErrorMessage();
+		Uri uri =
+				Uri.parse( StatusProvider.CONTENT_URI + "/"
+							+ StatusProvider.PATH_ERROR );
+		Cursor c =
+				getContentResolver().query( uri, null,
+											ErrorTable.COL_READ + "=false",
+											null, ErrorTable.COL_ID + " DESC" );
+
+		String msg = null;
+		long when = 0;
+		// just grab the most recent error
+		if ( c.moveToFirst() ) {
+			msg = c.getString( c.getColumnIndex( ErrorTable.COL_MESSAGE ) );
+			when = c.getLong( c.getColumnIndex( ErrorTable.COL_TIME ) );
+		}
+		c.close();
+
 		NotificationManager nm =
 				(NotificationManager) getSystemService( Context.NOTIFICATION_SERVICE );
 		int mNotificationId = 001;
@@ -239,8 +272,7 @@ public class RAApplication extends Application {
 						.setSmallIcon( R.drawable.st_notify )
 						.setLargeIcon( icon )
 						.setContentTitle( getString( R.string.app_name ) )
-						.setContentText( msg ).setTicker( msg )
-						.setWhen( System.currentTimeMillis() )
+						.setContentText( msg ).setTicker( msg ).setWhen( when )
 						.setSound( raprefs.getNotificationSound() )
 						.setContentIntent( getNotificationIntent() );
 

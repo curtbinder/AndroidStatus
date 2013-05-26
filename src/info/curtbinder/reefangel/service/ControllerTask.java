@@ -449,6 +449,8 @@ public class ControllerTask implements Runnable {
 
 			// send notification
 			if ( fCanNotify ) {
+				// logs the error message only if we can notify the user
+				rapp.insertErrorMessage( rapp.getErrorMessage() );
 				rapp.notifyUser();
 			}
 		}

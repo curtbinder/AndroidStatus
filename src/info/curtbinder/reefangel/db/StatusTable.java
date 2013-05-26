@@ -9,11 +9,10 @@
 package info.curtbinder.reefangel.db;
 
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 public class StatusTable {
 
-	private static final String TAG = StatusTable.class.getSimpleName();
+	//private static final String TAG = StatusTable.class.getSimpleName();
 
 	// Database constants
 	public static final String TABLE_NAME = "params";
@@ -135,10 +134,11 @@ public class StatusTable {
 			SQLiteDatabase db,
 			int oldVersion,
 			int newVersion ) {
-		Log.w( TAG, "Upgrading db from v" + oldVersion + " to v" + newVersion
-					+ ", which will destroy all old data" );
-		// initially, just drop tables and create new ones
-		db.execSQL( "DROP TABLE IF EXISTS " + TABLE_NAME );
-		onCreate( db );
+		// no changes made in version 5
+		if ( oldVersion < 4 ) {
+			// initially, just drop tables and create new ones
+			db.execSQL( "DROP TABLE IF EXISTS " + TABLE_NAME );
+			onCreate( db );
+		}
 	}
 }

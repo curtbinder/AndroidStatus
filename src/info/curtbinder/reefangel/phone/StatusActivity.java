@@ -555,14 +555,14 @@ public class StatusActivity extends BaseActivity implements
 				if ( rapp.raprefs.isNotificationEnabled()
 						&& rapp.raprefs.isErrorRetryEnabled() ) {
 					// Only proceed if notifications are enabled
+					
 					// we are to retry connection before displaying an error
-					// increment the error count
-					String s =
-							rapp.getString( R.string.messageErrorRetry,
-											rapp.errorCount );
 					if ( rapp.canErrorRetry() ) {
 						// if error count is less than the max,
 						// we need to retry the communication
+						String s =
+								rapp.getString( R.string.messageErrorRetry,
+												rapp.errorCount );
 						updateTime.setText( s );
 						fDisplayUpdate = false;
 						Runnable r = new Runnable() {
@@ -578,8 +578,8 @@ public class StatusActivity extends BaseActivity implements
 					// display the error
 				}
 				if ( fDisplayUpdate ) {
-					updateTime.setText( getResources()
-							.getText( R.string.messageError ) );
+					// getResources().getText( R.string.messageError )
+					updateTime.setText( rapp.getErrorMessage() );
 				}
 			} else if ( action.equals( MessageCommands.VORTECH_UPDATE_INTENT ) ) {
 				int type =
