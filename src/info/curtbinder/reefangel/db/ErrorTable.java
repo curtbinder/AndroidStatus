@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class ErrorTable {
 
-	//private static final String TAG = ErrorTable.class.getSimpleName();
+	// private static final String TAG = ErrorTable.class.getSimpleName();
 
 	// Database constants
 	public static final String TABLE_NAME = "errors";
@@ -27,6 +27,8 @@ public class ErrorTable {
 					+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_TIME
 					+ " INTEGER, " + COL_MESSAGE + " TEXT, " + COL_READ
 					+ " INTEGER);";
+	private static final String DROP_TABLE = "DROP TABLE IF EXISTS "
+												+ TABLE_NAME;
 
 	public static void onCreate ( SQLiteDatabase db ) {
 		db.execSQL( CREATE_TABLE );
@@ -42,7 +44,7 @@ public class ErrorTable {
 	}
 
 	private static void dropTable ( SQLiteDatabase db ) {
-		db.execSQL( "DROP TABLE IF EXISTS " + TABLE_NAME );
+		db.execSQL( DROP_TABLE );
 	}
 
 	public static void onDowngrade (

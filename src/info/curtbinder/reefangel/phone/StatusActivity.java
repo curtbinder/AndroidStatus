@@ -33,8 +33,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
-import android.database.CursorIndexOutOfBoundsException;
-import android.database.SQLException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -401,138 +399,114 @@ public class StatusActivity extends BaseActivity implements
 	}
 
 	public void updateDisplay ( ) {
-		try {
-			Uri uri =
-					Uri.parse( StatusProvider.CONTENT_URI + "/"
-								+ StatusProvider.PATH_LATEST );
-			Cursor c =
-					getContentResolver().query( uri, null, null, null,
-												StatusTable.COL_ID + " DESC" );
-			String updateStatus;
-			String[] values;
-			String[] pwme;
-			String[] rf;
-			String[] vt;
-			String[] ai;
-			String[] io;
-			String[] custom;
-			short r, ron, roff, newEM, newREM;
-			short[] expr = new short[Controller.MAX_EXPANSION_RELAYS];
-			short[] expron = new short[Controller.MAX_EXPANSION_RELAYS];
-			short[] exproff = new short[Controller.MAX_EXPANSION_RELAYS];
+		Uri uri =
+				Uri.parse( StatusProvider.CONTENT_URI + "/"
+							+ StatusProvider.PATH_LATEST );
+		Cursor c =
+				getContentResolver().query( uri, null, null, null,
+											StatusTable.COL_ID + " DESC" );
+		String updateStatus;
+		String[] values;
+		String[] pwme;
+		String[] rf;
+		String[] vt;
+		String[] ai;
+		String[] io;
+		String[] custom;
+		short r, ron, roff, newEM, newREM;
+		short[] expr = new short[Controller.MAX_EXPANSION_RELAYS];
+		short[] expron = new short[Controller.MAX_EXPANSION_RELAYS];
+		short[] exproff = new short[Controller.MAX_EXPANSION_RELAYS];
 
-			if ( c.moveToFirst() ) {
-				updateStatus =
-						c.getString( c.getColumnIndex( StatusTable.COL_LOGDATE ) );
-				values = getControllerValues( c );
-				pwme = getPWMEValues( c );
-				rf = getRadionValues( c );
-				vt = getVortechValues( c );
-				ai = getAIValues( c );
-				io = getIOValues( c );
-				custom = getCustomValues( c );
-				r = c.getShort( c.getColumnIndex( StatusTable.COL_RDATA ) );
-				ron = c.getShort( c.getColumnIndex( StatusTable.COL_RONMASK ) );
-				roff =
-						c.getShort( c.getColumnIndex( StatusTable.COL_ROFFMASK ) );
+		if ( c.moveToFirst() ) {
+			updateStatus =
+					c.getString( c.getColumnIndex( StatusTable.COL_LOGDATE ) );
+			values = getControllerValues( c );
+			pwme = getPWMEValues( c );
+			rf = getRadionValues( c );
+			vt = getVortechValues( c );
+			ai = getAIValues( c );
+			io = getIOValues( c );
+			custom = getCustomValues( c );
+			r = c.getShort( c.getColumnIndex( StatusTable.COL_RDATA ) );
+			ron = c.getShort( c.getColumnIndex( StatusTable.COL_RONMASK ) );
+			roff = c.getShort( c.getColumnIndex( StatusTable.COL_ROFFMASK ) );
 
-				expr[0] =
-						c.getShort( c.getColumnIndex( StatusTable.COL_R1DATA ) );
-				expron[0] =
-						c.getShort( c.getColumnIndex( StatusTable.COL_R1ONMASK ) );
-				exproff[0] =
-						c.getShort( c
-								.getColumnIndex( StatusTable.COL_R1OFFMASK ) );
-				expr[1] =
-						c.getShort( c.getColumnIndex( StatusTable.COL_R2DATA ) );
-				expron[1] =
-						c.getShort( c.getColumnIndex( StatusTable.COL_R2ONMASK ) );
-				exproff[1] =
-						c.getShort( c
-								.getColumnIndex( StatusTable.COL_R2OFFMASK ) );
-				expr[2] =
-						c.getShort( c.getColumnIndex( StatusTable.COL_R3DATA ) );
-				expron[2] =
-						c.getShort( c.getColumnIndex( StatusTable.COL_R3ONMASK ) );
-				exproff[2] =
-						c.getShort( c
-								.getColumnIndex( StatusTable.COL_R3OFFMASK ) );
-				expr[3] =
-						c.getShort( c.getColumnIndex( StatusTable.COL_R4DATA ) );
-				expron[3] =
-						c.getShort( c.getColumnIndex( StatusTable.COL_R4ONMASK ) );
-				exproff[3] =
-						c.getShort( c
-								.getColumnIndex( StatusTable.COL_R4OFFMASK ) );
-				expr[4] =
-						c.getShort( c.getColumnIndex( StatusTable.COL_R5DATA ) );
-				expron[4] =
-						c.getShort( c.getColumnIndex( StatusTable.COL_R5ONMASK ) );
-				exproff[4] =
-						c.getShort( c
-								.getColumnIndex( StatusTable.COL_R5OFFMASK ) );
-				expr[5] =
-						c.getShort( c.getColumnIndex( StatusTable.COL_R6DATA ) );
-				expron[5] =
-						c.getShort( c.getColumnIndex( StatusTable.COL_R6ONMASK ) );
-				exproff[5] =
-						c.getShort( c
-								.getColumnIndex( StatusTable.COL_R6OFFMASK ) );
-				expr[6] =
-						c.getShort( c.getColumnIndex( StatusTable.COL_R7DATA ) );
-				expron[6] =
-						c.getShort( c.getColumnIndex( StatusTable.COL_R7ONMASK ) );
-				exproff[6] =
-						c.getShort( c
-								.getColumnIndex( StatusTable.COL_R7OFFMASK ) );
-				expr[7] =
-						c.getShort( c.getColumnIndex( StatusTable.COL_R8DATA ) );
-				expron[7] =
-						c.getShort( c.getColumnIndex( StatusTable.COL_R8ONMASK ) );
-				exproff[7] =
-						c.getShort( c
-								.getColumnIndex( StatusTable.COL_R8OFFMASK ) );
-				newEM = c.getShort( c.getColumnIndex( StatusTable.COL_EM ) );
-				newREM = c.getShort( c.getColumnIndex( StatusTable.COL_REM ) );
-			} else {
-				updateStatus = getString( R.string.messageNever );
-				values = getNeverValues( Controller.MAX_CONTROLLER_VALUES );
-				pwme = getNeverValues( Controller.MAX_PWM_EXPANSION_PORTS );
-				rf = getNeverValues( Controller.MAX_RADION_LIGHT_CHANNELS );
-				vt = getNeverValues( Controller.MAX_VORTECH_VALUES );
-				ai = getNeverValues( Controller.MAX_AI_CHANNELS );
-				io = getNeverValues( Controller.MAX_IO_CHANNELS );
-				custom = getNeverValues( Controller.MAX_CUSTOM_VARIABLES );
-				r = ron = roff = newEM = newREM = 0;
-				for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
-					expr[i] = expron[i] = exproff[i] = 0;
-				}
+			expr[0] = c.getShort( c.getColumnIndex( StatusTable.COL_R1DATA ) );
+			expron[0] =
+					c.getShort( c.getColumnIndex( StatusTable.COL_R1ONMASK ) );
+			exproff[0] =
+					c.getShort( c.getColumnIndex( StatusTable.COL_R1OFFMASK ) );
+			expr[1] = c.getShort( c.getColumnIndex( StatusTable.COL_R2DATA ) );
+			expron[1] =
+					c.getShort( c.getColumnIndex( StatusTable.COL_R2ONMASK ) );
+			exproff[1] =
+					c.getShort( c.getColumnIndex( StatusTable.COL_R2OFFMASK ) );
+			expr[2] = c.getShort( c.getColumnIndex( StatusTable.COL_R3DATA ) );
+			expron[2] =
+					c.getShort( c.getColumnIndex( StatusTable.COL_R3ONMASK ) );
+			exproff[2] =
+					c.getShort( c.getColumnIndex( StatusTable.COL_R3OFFMASK ) );
+			expr[3] = c.getShort( c.getColumnIndex( StatusTable.COL_R4DATA ) );
+			expron[3] =
+					c.getShort( c.getColumnIndex( StatusTable.COL_R4ONMASK ) );
+			exproff[3] =
+					c.getShort( c.getColumnIndex( StatusTable.COL_R4OFFMASK ) );
+			expr[4] = c.getShort( c.getColumnIndex( StatusTable.COL_R5DATA ) );
+			expron[4] =
+					c.getShort( c.getColumnIndex( StatusTable.COL_R5ONMASK ) );
+			exproff[4] =
+					c.getShort( c.getColumnIndex( StatusTable.COL_R5OFFMASK ) );
+			expr[5] = c.getShort( c.getColumnIndex( StatusTable.COL_R6DATA ) );
+			expron[5] =
+					c.getShort( c.getColumnIndex( StatusTable.COL_R6ONMASK ) );
+			exproff[5] =
+					c.getShort( c.getColumnIndex( StatusTable.COL_R6OFFMASK ) );
+			expr[6] = c.getShort( c.getColumnIndex( StatusTable.COL_R7DATA ) );
+			expron[6] =
+					c.getShort( c.getColumnIndex( StatusTable.COL_R7ONMASK ) );
+			exproff[6] =
+					c.getShort( c.getColumnIndex( StatusTable.COL_R7OFFMASK ) );
+			expr[7] = c.getShort( c.getColumnIndex( StatusTable.COL_R8DATA ) );
+			expron[7] =
+					c.getShort( c.getColumnIndex( StatusTable.COL_R8ONMASK ) );
+			exproff[7] =
+					c.getShort( c.getColumnIndex( StatusTable.COL_R8OFFMASK ) );
+			newEM = c.getShort( c.getColumnIndex( StatusTable.COL_EM ) );
+			newREM = c.getShort( c.getColumnIndex( StatusTable.COL_REM ) );
+		} else {
+			updateStatus = getString( R.string.messageNever );
+			values = getNeverValues( Controller.MAX_CONTROLLER_VALUES );
+			pwme = getNeverValues( Controller.MAX_PWM_EXPANSION_PORTS );
+			rf = getNeverValues( Controller.MAX_RADION_LIGHT_CHANNELS );
+			vt = getNeverValues( Controller.MAX_VORTECH_VALUES );
+			ai = getNeverValues( Controller.MAX_AI_CHANNELS );
+			io = getNeverValues( Controller.MAX_IO_CHANNELS );
+			custom = getNeverValues( Controller.MAX_CUSTOM_VARIABLES );
+			r = ron = roff = newEM = newREM = 0;
+			for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
+				expr[i] = expron[i] = exproff[i] = 0;
 			}
-			c.close();
-			updateTime.setText( updateStatus );
-			pageController.updateDisplay( values );
-			pageDimming.updateDisplay( pwme );
-			pageRadion.updateDisplay( rf );
-			pageVortech.updateDisplay( vt );
-			pageAI.updateDisplay( ai );
-			pageIO.updateDisplay( io );
-			pageCustom.updateDisplay( custom );
-			boolean fUseMask = rapp.raprefs.isCommunicateController();
-			pageMain.updateRelayValues( new Relay( r, ron, roff ), fUseMask );
-			for ( int i = 0; i < rapp.raprefs.getExpansionRelayQuantity(); i++ ) {
-				pageExpRelays[i].updateRelayValues( new Relay( expr[i],
-					expron[i], exproff[i] ), fUseMask );
-			}
+		}
+		c.close();
+		updateTime.setText( updateStatus );
+		pageController.updateDisplay( values );
+		pageDimming.updateDisplay( pwme );
+		pageRadion.updateDisplay( rf );
+		pageVortech.updateDisplay( vt );
+		pageAI.updateDisplay( ai );
+		pageIO.updateDisplay( io );
+		pageCustom.updateDisplay( custom );
+		boolean fUseMask = rapp.raprefs.isCommunicateController();
+		pageMain.updateRelayValues( new Relay( r, ron, roff ), fUseMask );
+		for ( int i = 0; i < rapp.raprefs.getExpansionRelayQuantity(); i++ ) {
+			pageExpRelays[i].updateRelayValues( new Relay( expr[i], expron[i],
+				exproff[i] ), fUseMask );
+		}
 
-			if ( rapp.raprefs.isAutoUpdateModulesEnabled() ) {
-				// update the screen / pages if necessary
-				checkDeviceModules( newEM, newREM );
-			}
-
-		} catch ( SQLException e ) {
-			Log.d( TAG, "SQLException: " + e.getMessage() );
-		} catch ( CursorIndexOutOfBoundsException e ) {
-			Log.d( TAG, "CursorIndex out of bounds: " + e.getMessage() );
+		if ( rapp.raprefs.isAutoUpdateModulesEnabled() ) {
+			// update the screen / pages if necessary
+			checkDeviceModules( newEM, newREM );
 		}
 	}
 
@@ -555,7 +529,7 @@ public class StatusActivity extends BaseActivity implements
 				if ( rapp.raprefs.isNotificationEnabled()
 						&& rapp.raprefs.isErrorRetryEnabled() ) {
 					// Only proceed if notifications are enabled
-					
+
 					// we are to retry connection before displaying an error
 					if ( rapp.canErrorRetry() ) {
 						// if error count is less than the max,

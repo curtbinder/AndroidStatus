@@ -144,7 +144,6 @@ public class RAApplication extends Application {
 	// Error Logging
 	public void error ( int errorCodeIndex, Throwable t, String msg ) {
 		errorCode = Integer.parseInt( errorCodes[errorCodeIndex] );
-		Log.e( TAG, msg, t );
 
 		// if logging enabled, save the log
 		if ( raprefs.isLoggingEnabled() ) {
@@ -247,8 +246,9 @@ public class RAApplication extends Application {
 							+ StatusProvider.PATH_ERROR );
 		Cursor c =
 				getContentResolver().query( uri, null,
-											ErrorTable.COL_READ + "=0",
-											null, ErrorTable.COL_ID + " DESC" );
+											ErrorTable.COL_READ + "=?",
+											new String[] { "0" },
+											ErrorTable.COL_ID + " DESC" );
 
 		String msg = null;
 		long when = 0;

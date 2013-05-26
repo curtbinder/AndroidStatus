@@ -73,7 +73,7 @@ public class StatusProvider extends ContentProvider {
 	@Override
 	public boolean onCreate ( ) {
 		data = new RADbHelper( getContext() );
-		return false;
+		return ((data == null) ? false : true);
 	}
 
 	@Override
