@@ -19,6 +19,8 @@ import android.support.v4.widget.CursorAdapter;
 
 public class ErrorListCursorAdapter extends CursorAdapter {
 
+	// Could improve this by putting an E or a N icon at the start
+	// of the line
 	private final int LAYOUT = R.layout.errorslistitem;
 
 	static class ViewHolder {
