@@ -872,6 +872,9 @@ public class StatusActivity extends BaseActivity implements
 			case R.id.params:
 				startActivity( new Intent( this, ParamsListActivity.class ) );
 				break;
+			case R.id.errors:
+				startActivity( new Intent( this, ErrorListActivity.class ) );
+				break;
 			case R.id.memory:
 				// launch memory
 				Intent i = new Intent( this, MemoryTabsActivity.class );
@@ -992,7 +995,7 @@ public class StatusActivity extends BaseActivity implements
 	}
 
 	private class CustomPagerAdapter extends PagerAdapter {
-		private final String TAG = CustomPagerAdapter.class.getSimpleName();
+		// private final String TAG = CustomPagerAdapter.class.getSimpleName();
 
 		public int getCount ( ) {
 			int qty =
@@ -1008,12 +1011,10 @@ public class StatusActivity extends BaseActivity implements
 				ViewGroup container,
 				int position,
 				Object object ) {
-			Log.d( TAG, "destroyItem " + position );
 			((ViewPager) container).removeView( (View) object );
 		}
 
 		public Object instantiateItem ( ViewGroup container, int position ) {
-			Log.d( TAG, "Position: " + position );
 			((ViewPager) container).addView( appPages[position] );
 			return appPages[position];
 		}

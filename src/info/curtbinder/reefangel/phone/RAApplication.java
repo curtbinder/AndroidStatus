@@ -270,14 +270,18 @@ public class RAApplication extends Application {
 		return b;
 	}
 
-	private String getInboxStyleMessage ( String msg, long when ) {
+	public static String getFancyDate ( long when ) {
 		DateFormat fmt =
 				DateFormat.getDateTimeInstance( DateFormat.SHORT,
 												DateFormat.SHORT,
 												Locale.getDefault() );
+		return fmt.format( new Date( when ) );
+	}
+
+	private String getInboxStyleMessage ( String msg, long when ) {
 		String extraMessage =
 				String.format(	Locale.getDefault(), "%s - %s\n", msg,
-								fmt.format( new Date( when ) ) );
+								getFancyDate( when ) );
 		return extraMessage;
 	}
 

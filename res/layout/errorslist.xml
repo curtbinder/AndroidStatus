@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) 2011-2013 by Curt Binder (http://curtbinder.info)
+ 
+This work is made available under the terms of the 
+Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+http://creativecommons.org/licenses/by-nc-sa/3.0/
+-->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <ListView
+        android:id="@android:id/android:list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@android:id/android:empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/messageEmptyErrors" />
+</LinearLayout>

@@ -19,7 +19,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <string name="menuMainCommands">Commands</string>
     <string name="menuMainMemory">Memory</string>
     <string name="menuMainParams">History</string>
-    <string name="menuParamsDelete">Delete</string>
+    <string name="menuMainErrors">Errors</string>
+    <string name="menuDelete">Delete</string>
 
     <!-- Titles for Screens -->
     <string name="titleParams">Parameters History</string>
@@ -35,6 +36,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <string name="titleSelectProfile">Select Profile</string>
     <string name="titleChangelog">Changelog</string>
     <string name="titleVortech">Vortech Config</string>
+    <string name="titleError">Errors History</string>
 
     <!-- Tabs for memory page -->
     <string name="tabMemory1">memory_tab_1</string>
@@ -188,6 +190,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="messageSendLogPrompt">Email log to developer?</string>
     <string name="messageNoExternalStorage">Need SD card for log file</string>
     <string name="messageErrorRetry">Error retry count: %1$d</string>
+    <string name="messageEmptyErrors">No errors logged</string>
+    <string name="messageClearErrorHistory">Clear error notification history?</string>
 
     <!-- Status strings -->
     <string name="statusStart">Starting update</string>

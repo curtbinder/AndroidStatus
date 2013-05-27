@@ -46,6 +46,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         android:name="RAApplication"
         android:icon="@drawable/ic_icon"
         android:label="@string/app_name"
+        android:allowBackup="true"
         android:theme="@style/DarkTheme" >
         <activity
             android:name=".StatusActivity"
@@ -83,6 +84,10 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <activity
             android:name=".ParamsListActivity"
             android:label="@string/titleParams" >
+        </activity>
+        <activity
+            android:name=".ErrorListActivity"
+            android:label="@string/titleError" >
         </activity>
         <activity
             android:name=".MemoryActivity"
