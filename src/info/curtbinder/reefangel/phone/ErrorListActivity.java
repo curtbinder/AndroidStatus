@@ -35,8 +35,6 @@ public class ErrorListActivity extends SherlockFragmentActivity {
 
 	// private static final String TAG =
 	// ErrorListActivity.class.getSimpleName();
-	// private static final int[] TO = { 0, R.id.error_date, R.id.error_message
-	// };
 
 	private static final String[] FROM = {	ErrorTable.COL_ID,
 											ErrorTable.COL_TIME,

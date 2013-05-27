@@ -21,32 +21,36 @@ public class ErrorListCursorAdapter extends CursorAdapter {
 
 	private final int LAYOUT = R.layout.errorslistitem;
 
+	static class ViewHolder {
+		TextView date;
+		TextView msg;
+	}
+
 	public ErrorListCursorAdapter ( Context context, Cursor c, int flags ) {
 		super( context, c, flags );
 	}
 
 	@Override
 	public void bindView ( View view, Context context, Cursor cursor ) {
-		findAndSetViews( view, cursor );
+		final ViewHolder vh = (ViewHolder) view.getTag();
+		setViews( vh, cursor );
 	}
 
 	@Override
 	public View newView ( Context context, Cursor cursor, ViewGroup parent ) {
 		final LayoutInflater inflater = LayoutInflater.from( context );
 		View v = inflater.inflate( LAYOUT, parent, false );
-		findAndSetViews( v, cursor );
+		ViewHolder vh = new ViewHolder();
+		vh.date = (TextView) v.findViewById( R.id.error_date );
+		vh.msg = (TextView) v.findViewById( R.id.error_message );
+		setViews( vh, cursor );
+		v.setTag( vh );
 		return v;
 	}
 
-	private void findAndSetViews ( View v, Cursor c ) {
-		TextView date = (TextView) v.findViewById( R.id.error_date );
-		TextView msg = (TextView) v.findViewById( R.id.error_message );
-		if ( msg != null ) {
-			msg.setText( c.getString( c.getColumnIndex( ErrorTable.COL_MESSAGE ) ) );
-		}
-		if ( date != null ) {
-			date.setText( RAApplication.getFancyDate( c.getLong( c
-					.getColumnIndex( ErrorTable.COL_TIME ) ) ) );
-		}
+	private void setViews ( ViewHolder v, Cursor c ) {
+		v.msg.setText( c.getString( c.getColumnIndex( ErrorTable.COL_MESSAGE ) ) );
+		v.date.setText( RAApplication.getFancyDate( c.getLong( c
+				.getColumnIndex( ErrorTable.COL_TIME ) ) ) );
 	}
 }
