@@ -203,8 +203,25 @@ public class StatusProvider extends ContentProvider {
 		return rowsDeleted;
 	}
 
-	public int update ( Uri uri, ContentValues arg1, String arg2, String[] arg3 ) {
-		throw new IllegalArgumentException( "Unknown Update URI: " + uri );
+	public int update (
+			Uri uri,
+			ContentValues values,
+			String selection,
+			String[] selectionArgs ) {
+		int rowsUpdated = 0;
+		SQLiteDatabase db = data.getWritableDatabase();
+		switch ( sUriMatcher.match( uri ) ) {
+			case CODE_ERROR:
+				rowsUpdated =
+						db.update(	ErrorTable.TABLE_NAME, values, selection,
+									selectionArgs );
+				break;
+			default:
+				throw new IllegalArgumentException( "Unknown Update URI: "
+													+ uri );
+		}
+		getContext().getContentResolver().notifyChange( uri, null );
+		return rowsUpdated;
 	}
 
 }

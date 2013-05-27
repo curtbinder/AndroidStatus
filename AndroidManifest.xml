@@ -113,6 +113,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
         <service android:name="info.curtbinder.reefangel.service.UpdateService" >
         </service>
+        <service android:name="info.curtbinder.reefangel.service.NotificationClearService" >
+        </service>
 
         <receiver android:name=".BootReceiver" >
             <intent-filter>

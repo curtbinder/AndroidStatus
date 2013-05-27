@@ -12,6 +12,7 @@ import info.curtbinder.reefangel.db.ErrorTable;
 import info.curtbinder.reefangel.db.RADbHelper;
 import info.curtbinder.reefangel.db.StatusProvider;
 import info.curtbinder.reefangel.service.MessageCommands;
+import info.curtbinder.reefangel.service.NotificationClearService;
 import info.curtbinder.reefangel.service.UpdateService;
 
 import java.io.File;
@@ -230,14 +231,17 @@ public class RAApplication extends Application {
 		errorCount = Globals.errorRetryNone;
 	}
 
-	private PendingIntent getNotificationLaunchIntent ( ) {
-		// create intent to launch status activity for notifications
-		Intent si = new Intent( this, StatusActivity.class );
-		si.addFlags( Intent.FLAG_ACTIVITY_SINGLE_TOP );
-		si.addFlags( Intent.FLAG_ACTIVITY_REORDER_TO_FRONT );
-		PendingIntent pi =
-				PendingIntent.getActivity(	this, -1, si,
-											PendingIntent.FLAG_UPDATE_CURRENT );
+	private PendingIntent getNotificationLaunchIntent ( boolean fClearOnly ) {
+		// Create notification intent
+		// Will launch the service to clear the notifications
+		// and launch the main activity unless clear only is set
+		Intent i = new Intent( this, NotificationClearService.class );
+		if ( fClearOnly ) {
+			i.setAction( MessageCommands.NOTIFICATION_CLEAR_INTENT );
+		} else {
+			i.setAction( MessageCommands.NOTIFICATION_LAUNCH_INTENT );
+		}
+		PendingIntent pi = PendingIntent.getService( this, -1, i, 0 );
 		return pi;
 	}
 
@@ -248,17 +252,21 @@ public class RAApplication extends Application {
 		Bitmap icon =
 				BitmapFactory.decodeResource(	getResources(),
 												R.drawable.ic_icon );
-		// setNumber - only if more than 1
 		NotificationCompat.Builder b =
-				new NotificationCompat.Builder( this ).setAutoCancel( true )
+				new NotificationCompat.Builder( this )
+						.setAutoCancel( true )
 						.setSmallIcon( R.drawable.st_notify )
 						.setLargeIcon( icon )
 						.setContentTitle( getString( R.string.app_name ) )
-						.setContentText( msg ).setTicker( msg ).setWhen( when )
-						.setNumber( count )
+						.setContentText( msg )
+						.setTicker( msg )
+						.setWhen( when )
 						.setSound( raprefs.getNotificationSound() )
-						.setContentIntent( getNotificationLaunchIntent() );
-		// TODO: set delete notification intent
+						.setDeleteIntent( getNotificationLaunchIntent( true ) )
+						.setContentIntent( getNotificationLaunchIntent( false ) );
+		if ( count > 1 ) {
+			b.setNumber( count );
+		}
 		return b;
 	}
 
@@ -298,19 +306,20 @@ public class RAApplication extends Application {
 			// handle looping through the rest of the messages
 			// in order to create the big notification
 			// InboxStyle only allows for up to 5 lines
-			summaryLines[0] = getInboxStyleMessage( firstMessage, firstWhen );
-			int extraCount = 1;
+			int extraCount = 0;
 			while ( c.moveToNext() && extraCount < 5 ) {
 				summaryLines[extraCount] =
 						getInboxStyleMessage(	c.getString( msgIndex ),
 												c.getLong( whenIndex ) );
 				extraCount++;
 			}
-			// TODO: confirm summary text counting properly
-			if ( extraCount < numCount ) {
+			// when multiple items shown, the first item is the content title
+			// so a max of 6 items can be shown (content title plus 5 extra
+			// lines)
+			if ( (extraCount + 1) < numCount ) {
 				summaryText =
-						String.format( Locale.US, "+%d more", numCount
-																- extraCount );
+						String.format(	Locale.US, "+%d more",
+										numCount - (extraCount + 1) );
 			}
 		}
 		c.close();
@@ -322,13 +331,14 @@ public class RAApplication extends Application {
 		NotificationCompat.Builder normal =
 				buildNormalNotification( firstMessage, firstWhen, numCount );
 		if ( numCount > 1 ) {
-			NotificationCompat.InboxStyle big =
+			NotificationCompat.InboxStyle inbox =
 					new NotificationCompat.InboxStyle( normal );
+			inbox.setBigContentTitle( firstMessage );
 			for ( String s : summaryLines ) {
-				big.addLine( s );
+				inbox.addLine( s );
 			}
-			big.setSummaryText( summaryText );
-			nm.notify( mNotificationId, big.build() );
+			inbox.setSummaryText( summaryText );
+			nm.notify( mNotificationId, inbox.build() );
 		} else {
 			nm.notify( mNotificationId, normal.build() );
 		}

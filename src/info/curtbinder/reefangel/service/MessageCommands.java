@@ -1,12 +1,12 @@
-package info.curtbinder.reefangel.service;
-
 /*
- * Copyright (c) 2011-12 by Curt Binder (http://curtbinder.info)
- *
- * This work is made available under the terms of the 
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * Copyright (c) 2011-2013 by Curt Binder (http://curtbinder.info)
+ * 
+ * This work is made available under the terms of the Creative Commons
+ * Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
+
+package info.curtbinder.reefangel.service;
 
 public final class MessageCommands {
 	public static final String PACKAGE_BASE =
@@ -59,6 +59,11 @@ public final class MessageCommands {
 	public static final String MEMORY_RESPONSE_WRITE_BOOLEAN =
 			"MEMORY_RESPONSE_WRITE_BOOLEAN";
 
+	public static final String NOTIFICATION_CLEAR_INTENT =
+			PACKAGE_BASE + ".NOTIFICATION_CLEAR";
+	public static final String NOTIFICATION_LAUNCH_INTENT =
+			PACKAGE_BASE + ".NOTIFICATION_LAUNCH";
+
 	public static final String QUERY_STATUS_INTENT = PACKAGE_BASE
 														+ ".QUERY_STATUS";
 
@@ -80,8 +85,8 @@ public final class MessageCommands {
 			PACKAGE_BASE + ".VERSION_RESPONSE";
 	public static final String VERSION_RESPONSE_STRING =
 			"VERSION_RESPONSE_STRING";
-	public static final String VORTECH_UPDATE_INTENT = PACKAGE_BASE +
-			".VORTECH_UPDATE";
+	public static final String VORTECH_UPDATE_INTENT = PACKAGE_BASE
+														+ ".VORTECH_UPDATE";
 	public static final String VORTECH_UPDATE_TYPE = "VORTECH_UPDATE_TYPE";
 
 }
