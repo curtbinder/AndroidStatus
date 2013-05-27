@@ -875,6 +875,9 @@ public class StatusActivity extends BaseActivity implements
 			case R.id.errors:
 				startActivity( new Intent( this, ErrorListActivity.class ) );
 				break;
+			case R.id.notifications:
+				startActivity( new Intent( this, NotificationListActivity.class ) );
+				break; 
 			case R.id.memory:
 				// launch memory
 				Intent i = new Intent( this, MemoryTabsActivity.class );

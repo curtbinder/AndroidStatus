@@ -15,8 +15,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class RADbHelper extends SQLiteOpenHelper {
 
 	private static final String DB_NAME = "radata.db";
-	private static final int DB_VERSION = 5;
+	private static final int DB_VERSION = 6;
 	// ErrorTable added in version 5
+	// NotificationTable added in version 6
 
 	public RADbHelper ( Context context ) {
 		super( context, DB_NAME, null, DB_VERSION );
@@ -27,16 +28,19 @@ public class RADbHelper extends SQLiteOpenHelper {
 		// create the tables here
 		StatusTable.onCreate( db );
 		ErrorTable.onCreate( db );
+		NotificationTable.onCreate( db );
 	}
 
 	@Override
 	public void onDowngrade ( SQLiteDatabase db, int oldVersion, int newVersion ) {
 		ErrorTable.onDowngrade( db, oldVersion, newVersion );
+		NotificationTable.onDowngrade( db, oldVersion, newVersion );
 	}
 
 	@Override
 	public void onUpgrade ( SQLiteDatabase db, int oldVersion, int newVersion ) {
 		StatusTable.onUpgrade( db, oldVersion, newVersion );
 		ErrorTable.onUpgrade( db, oldVersion, newVersion );
+		NotificationTable.onUpgrade( db, oldVersion, newVersion );
 	}
 }

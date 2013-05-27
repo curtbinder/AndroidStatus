@@ -558,5 +558,59 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>30000</item>
         <item>60000</item>
     </string-array>
+    <string-array name="notifyConditions">
+        <item>&gt;</item>
+        <item>&gt;=</item>
+        <item>=</item>
+        <item>&lt;</item>
+        <item>&lt;=</item>
+        <item>!=</item>
+    </string-array>
+    <string-array name="deviceParameters">
+        <item>Temp 1</item>
+        <item>Temp 2</item>
+        <item>Temp 3</item>
+        <item>PH</item>
+        <item>PH Expansion</item>
+        <item>Daylight PWM</item>
+        <item>Actinic PWM</item>
+        <item>Salinity</item>
+        <item>ORP</item>
+        <item>Water Level</item>
+        <item>ATO High</item>
+        <item>ATO Low</item>
+        <item>PWM Exp 0</item>
+        <item>PWM Exp 1</item>
+        <item>PWM Exp 2</item>
+        <item>PWM Exp 3</item>
+        <item>PWM Exp 4</item>
+        <item>PWM Exp 5</item>
+        <item>AI White</item>
+        <item>AI Blue</item>
+        <item>AI Royal Blue</item>
+        <item>Vortech Mode</item>
+        <item>Vortech Speed</item>
+        <item>Vortech Duration</item>
+        <item>Radion White</item>
+        <item>Radion Royal Blue</item>
+        <item>Radion Red</item>
+        <item>Radion Green</item>
+        <item>Radion Blue</item>
+        <item>Radion Intensity</item>
+        <item>IO Ch 0</item>
+        <item>IO Ch 1</item>
+        <item>IO Ch 2</item>
+        <item>IO Ch 3</item>
+        <item>IO Ch 4</item>
+        <item>IO Ch 5</item>
+        <item>Custom 0</item>
+        <item>Custom 1</item>
+        <item>Custom 2</item>
+        <item>Custom 3</item>
+        <item>Custom 4</item>
+        <item>Custom 5</item>
+        <item>Custom 6</item>
+        <item>Custom 7</item>
+    </string-array>
 
 </resources>

@@ -31,6 +31,7 @@ public class StatusProvider extends ContentProvider {
 	public static final String PATH_LATEST = "latest";
 	public static final String PATH_STATUS = "status";
 	public static final String PATH_ERROR = "error";
+	public static final String PATH_NOTIFICATION = "notification";
 
 	// MIME Types
 	// latest item
@@ -53,6 +54,14 @@ public class StatusProvider extends ContentProvider {
 	public static final String ERROR_MIME_TYPE =
 			ContentResolver.CURSOR_DIR_BASE_TYPE + CONTENT_MIME_TYPE
 					+ PATH_ERROR;
+	// notification - item
+	public static final String NOTIFICATION_ID_MIME_TYPE =
+			ContentResolver.CURSOR_ITEM_BASE_TYPE + CONTENT_MIME_TYPE
+					+ PATH_NOTIFICATION;
+	// notification - all items
+	public static final String NOTIFICATION_MIME_TYPE =
+			ContentResolver.CURSOR_DIR_BASE_TYPE + CONTENT_MIME_TYPE
+					+ PATH_NOTIFICATION;
 
 	// Used for the UriMatcher
 	private static final int CODE_LATEST = 10;
@@ -60,6 +69,8 @@ public class StatusProvider extends ContentProvider {
 	private static final int CODE_STATUS_ID = 12;
 	private static final int CODE_ERROR = 13;
 	private static final int CODE_ERROR_ID = 14;
+	private static final int CODE_NOTIFICATION = 15;
+	private static final int CODE_NOTIFICATION_ID = 16;
 	private static final UriMatcher sUriMatcher = new UriMatcher(
 		UriMatcher.NO_MATCH );
 	static {
@@ -68,6 +79,9 @@ public class StatusProvider extends ContentProvider {
 		sUriMatcher.addURI( CONTENT, PATH_STATUS + "/#", CODE_STATUS_ID );
 		sUriMatcher.addURI( CONTENT, PATH_ERROR, CODE_ERROR );
 		sUriMatcher.addURI( CONTENT, PATH_ERROR + "/#", CODE_ERROR_ID );
+		sUriMatcher.addURI( CONTENT, PATH_NOTIFICATION, CODE_NOTIFICATION );
+		sUriMatcher.addURI( CONTENT, PATH_NOTIFICATION + "/#",
+							CODE_NOTIFICATION_ID );
 	}
 
 	@Override
@@ -112,13 +126,19 @@ public class StatusProvider extends ContentProvider {
 				qb.appendWhere( ErrorTable.COL_ID + "="
 								+ uri.getLastPathSegment() );
 				break;
+			case CODE_NOTIFICATION: // no limits
+				table = NotificationTable.TABLE_NAME;
+				break;
+			case CODE_NOTIFICATION_ID:
+				table = NotificationTable.TABLE_NAME;
+				qb.appendWhere( NotificationTable.COL_ID + "="
+								+ uri.getLastPathSegment() );
+				break;
 			default:
 				throw new IllegalArgumentException( "Uknown URI: " + uri );
 		}
 		qb.setTables( table );
 		SQLiteDatabase db = data.getWritableDatabase();
-		// ignore sort order and always do reverse sort order
-		// StatusTable.COL_ID + " DESC"
 		Cursor c =
 				qb.query(	db, projection, selection, selectionArgs, null,
 							null,
@@ -141,6 +161,10 @@ public class StatusProvider extends ContentProvider {
 				return ERROR_MIME_TYPE;
 			case CODE_ERROR_ID:
 				return ERROR_ID_MIME_TYPE;
+			case CODE_NOTIFICATION:
+				return NOTIFICATION_MIME_TYPE;
+			case CODE_NOTIFICATION_ID:
+				return NOTIFICATION_ID_MIME_TYPE;
 			default:
 		}
 		return null;
@@ -153,14 +177,16 @@ public class StatusProvider extends ContentProvider {
 		String path = null;
 		switch ( sUriMatcher.match( uri ) ) {
 			case CODE_STATUS:
-				// insert values into the status table
 				id = db.insert( StatusTable.TABLE_NAME, null, cv );
 				path = PATH_STATUS;
 				break;
 			case CODE_ERROR:
-				// insert values into the error table
 				id = db.insert( ErrorTable.TABLE_NAME, null, cv );
 				path = PATH_ERROR;
+				break;
+			case CODE_NOTIFICATION:
+				id = db.insert( NotificationTable.TABLE_NAME, null, cv );
+				path = PATH_NOTIFICATION;
 				break;
 			default:
 				throw new IllegalArgumentException( "Unknown URI: " + uri );
@@ -196,6 +222,17 @@ public class StatusProvider extends ContentProvider {
 									ErrorTable.COL_ID + "="
 											+ uri.getLastPathSegment(), null );
 				break;
+			case CODE_NOTIFICATION:
+				rowsDeleted =
+						db.delete(	NotificationTable.TABLE_NAME, selection,
+									selectionArgs );
+				break;
+			case CODE_NOTIFICATION_ID:
+				rowsDeleted =
+						db.delete(	NotificationTable.TABLE_NAME,
+									NotificationTable.COL_ID + "="
+											+ uri.getLastPathSegment(), null );
+				break;
 			default:
 				throw new IllegalArgumentException( "Unknown URI: " + uri );
 		}
@@ -215,6 +252,11 @@ public class StatusProvider extends ContentProvider {
 				rowsUpdated =
 						db.update(	ErrorTable.TABLE_NAME, values, selection,
 									selectionArgs );
+				break;
+			case CODE_NOTIFICATION:
+				rowsUpdated =
+						db.update(	NotificationTable.TABLE_NAME, values,
+									selection, selectionArgs );
 				break;
 			default:
 				throw new IllegalArgumentException( "Unknown Update URI: "

@@ -24,6 +24,10 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         android:icon="@drawable/ic_action_flash"
         android:showAsAction="ifRoom|withText"
         android:title="@string/menuMainMemory"/>
+    <item 
+        android:id="@+id/notifications"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/menuMainNotifications" />
     <item
         android:id="@+id/params"
         android:icon="@drawable/ic_action_list"

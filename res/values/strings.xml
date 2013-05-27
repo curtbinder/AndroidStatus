@@ -20,6 +20,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <string name="menuMainMemory">Memory</string>
     <string name="menuMainParams">History</string>
     <string name="menuMainErrors">Errors</string>
+    <string name="menuMainNotifications">Notifications</string>
     <string name="menuDelete">Delete</string>
 
     <!-- Titles for Screens -->
@@ -37,6 +38,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <string name="titleChangelog">Changelog</string>
     <string name="titleVortech">Vortech Config</string>
     <string name="titleError">Errors History</string>
+    <string name="titleNotifications">Notifications</string>
 
     <!-- Tabs for memory page -->
     <string name="tabMemory1">memory_tab_1</string>
@@ -192,6 +194,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="messageErrorRetry">Error retry count: %1$d</string>
     <string name="messageEmptyErrors">No errors logged</string>
     <string name="messageClearErrorHistory">Clear error notification history?</string>
+    <string name="messageEmptyNotifications">No notifications created</string>
+    <string name="messageClearNotifications">Clear all notifications?</string>
+    <string name="messageAddNotification">Add notification</string>
 
     <!-- Status strings -->
     <string name="statusStart">Starting update</string>

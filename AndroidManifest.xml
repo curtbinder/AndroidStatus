@@ -90,6 +90,10 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:label="@string/titleError" >
         </activity>
         <activity
+            android:name=".NotificationListActivity"
+            android:label="@string/titleNotifications" >
+        </activity>
+        <activity
             android:name=".MemoryActivity"
             android:label="@string/titleMemory" >
         </activity>
