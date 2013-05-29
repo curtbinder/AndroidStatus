@@ -7,36 +7,22 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 http://creativecommons.org/licenses/by-nc-sa/3.0/
 -->
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <ListView
+        android:id="@android:id/android:list"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content" >
+    </ListView>
 
-        <ListView
-            android:id="@android:id/android:list"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
-        </ListView>
-
-        <TextView
-            android:id="@android:id/android:empty"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/messageEmptyNotifications" />
-    </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/add_notification_button"
+    <TextView
+        android:id="@android:id/android:empty"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/messageAddNotification"
-        android:src="@android:drawable/ic_menu_add" />
+        android:text="@string/messageEmptyNotifications"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </LinearLayout>

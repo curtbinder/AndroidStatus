@@ -207,9 +207,9 @@ public class StatusProvider extends ContentProvider {
 				break;
 			case CODE_STATUS_ID:
 				rowsDeleted =
-						db.delete(	StatusTable.TABLE_NAME,
-									StatusTable.COL_ID + "="
-											+ uri.getLastPathSegment(), null );
+						db.delete(	StatusTable.TABLE_NAME, StatusTable.COL_ID
+															+ "=?",
+									new String[] { uri.getLastPathSegment() } );
 				break;
 			case CODE_ERROR:
 				rowsDeleted =
@@ -218,9 +218,9 @@ public class StatusProvider extends ContentProvider {
 				break;
 			case CODE_ERROR_ID:
 				rowsDeleted =
-						db.delete(	ErrorTable.TABLE_NAME,
-									ErrorTable.COL_ID + "="
-											+ uri.getLastPathSegment(), null );
+						db.delete(	ErrorTable.TABLE_NAME, ErrorTable.COL_ID
+															+ "=?",
+									new String[] { uri.getLastPathSegment() } );
 				break;
 			case CODE_NOTIFICATION:
 				rowsDeleted =
@@ -230,8 +230,8 @@ public class StatusProvider extends ContentProvider {
 			case CODE_NOTIFICATION_ID:
 				rowsDeleted =
 						db.delete(	NotificationTable.TABLE_NAME,
-									NotificationTable.COL_ID + "="
-											+ uri.getLastPathSegment(), null );
+									NotificationTable.COL_ID + "=?",
+									new String[] { uri.getLastPathSegment() } );
 				break;
 			default:
 				throw new IllegalArgumentException( "Unknown URI: " + uri );

@@ -4,6 +4,7 @@ import info.curtbinder.reefangel.db.NotificationTable;
 import info.curtbinder.reefangel.db.StatusProvider;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,7 +15,6 @@ import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -24,7 +24,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 public class NotificationListFragment extends SherlockListFragment implements
-		LoaderManager.LoaderCallbacks<Cursor>, OnClickListener {
+		LoaderManager.LoaderCallbacks<Cursor> {
 
 	private static final String[] FROM = {	NotificationTable.COL_ID,
 											NotificationTable.COL_PARAM,
@@ -50,17 +50,8 @@ public class NotificationListFragment extends SherlockListFragment implements
 	}
 
 	@Override
-	public void onClick ( View v ) {
-		switch ( v.getId() ) {
-			case R.id.add_notification_button:
-				// launch notification item activity
-				break;
-		}
-	}
-
-	@Override
 	public void onCreateOptionsMenu ( Menu menu, MenuInflater inflater ) {
-		inflater.inflate( R.menu.delete_only_menu, menu );
+		inflater.inflate( R.menu.notification_menu, menu );
 	}
 
 	@Override
@@ -92,20 +83,24 @@ public class NotificationListFragment extends SherlockListFragment implements
 				AlertDialog alert = builder.create();
 				alert.show();
 				break;
+			case R.id.menu_add:
+				Intent i =
+						new Intent( getActivity(),
+							NotificationPopupActivity.class );
+				startActivity( i );
+				break;
 		}
 		return true;
 	}
 
 	@Override
 	public void onListItemClick ( ListView l, View v, int position, long id ) {
-		// Intent i = new Intent( getActivity(), HistoryPopupActivity.class
-		// );
-		// Uri historyUri =
-		// Uri.parse( StatusProvider.CONTENT_URI + "/"
-		// + StatusProvider.PATH_STATUS + "/" + id );
-		// i.putExtra( StatusProvider.STATUS_ID_MIME_TYPE, historyUri );
-		// startActivity( i );
-		// launch notification item activity
+		Intent i = new Intent( getActivity(), NotificationPopupActivity.class );
+		Uri uri =
+				Uri.parse( StatusProvider.CONTENT_URI + "/"
+							+ StatusProvider.PATH_NOTIFICATION + "/" + id );
+		i.putExtra( StatusProvider.NOTIFICATION_ID_MIME_TYPE, uri );
+		startActivity( i );
 	}
 
 	private void deleteAll ( ) {

@@ -421,7 +421,13 @@ public class ControllerTask implements Runnable {
 		rapp.getContentResolver()
 				.insert(	Uri.parse( StatusProvider.CONTENT_URI + "/"
 										+ StatusProvider.PATH_STATUS ), v );
-
+		
+		if ( raprefs.isNotificationEnabled() ) {
+			// launch the notification check service
+			Intent n = new Intent( rapp, ParameterNotificationService.class );
+			rapp.startService( n );
+		}
+		
 		Intent u = new Intent( MessageCommands.UPDATE_DISPLAY_DATA_INTENT );
 		rapp.sendBroadcast( u, Permissions.QUERY_STATUS );
 	}

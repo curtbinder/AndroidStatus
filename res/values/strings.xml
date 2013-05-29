@@ -38,6 +38,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <string name="titleVortech">Vortech Config</string>
     <string name="titleError">Errors History</string>
     <string name="titleNotifications">Notifications</string>
+    <string name="titleCreateNotification">Create Notification</string>
+    <string name="titleUpdateNotification">Update Notification</string>
 
     <!-- Tabs for memory page -->
     <string name="tabMemory1">memory_tab_1</string>
@@ -91,6 +93,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="buttonCancel">Cancel</string>
     <string name="buttonUpdate">Update</string>
     <string name="buttonFinish">Finish</string>
+    <string name="buttonAdd">Add</string>
+    <string name="buttonDelete">Delete</string>
+    <string name="buttonSave">Save</string>
     <string name="radioByte">Byte</string>
     <string name="radioInt">Int</string>
 
@@ -154,6 +159,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="labelChannel">Channel</string>
     <string name="labelLightsOn">Lights On</string>
     <string name="labelLightsOff">Lights Off</string>
+    <string name="labelParameter">Parameter:</string>
+    <string name="labelCondition">Condition:</string>
     <string name="websiteReefangel">http://www.reefangel.com/</string>
     <string name="forumReefangel">http://forum.reefangel.com/</string>
     <string name="defaultStatusText">-</string>

@@ -44,9 +44,9 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
     <application
         android:name="RAApplication"
+        android:allowBackup="true"
         android:icon="@drawable/ic_icon"
         android:label="@string/app_name"
-        android:allowBackup="true"
         android:theme="@style/DarkTheme" >
         <activity
             android:name=".StatusActivity"
@@ -72,6 +72,10 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:theme="@style/Dialog" >
         </activity>
         <activity
+            android:name=".NotificationPopupActivity"
+            android:theme="@style/Dialog" >
+        </activity>
+        <activity
             android:name=".VortechPopupActivity"
             android:label="@string/titleVortech"
             android:theme="@style/Dialog" >
@@ -80,8 +84,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:name=".PrefsActivity"
             android:label="@string/titlePrefs" >
         </activity>
-        <activity
-            android:name=".FragmentListActivity" >
+        <activity android:name=".FragmentListActivity" >
         </activity>
         <activity
             android:name=".MemoryActivity"
@@ -113,6 +116,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <service android:name="info.curtbinder.reefangel.service.UpdateService" >
         </service>
         <service android:name="info.curtbinder.reefangel.service.NotificationClearService" >
+        </service>
+        <service android:name="info.curtbinder.reefangel.service.ParameterNotificationService" >
         </service>
 
         <receiver android:name=".BootReceiver" >

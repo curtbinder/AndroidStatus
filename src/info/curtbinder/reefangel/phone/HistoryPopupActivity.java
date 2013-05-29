@@ -22,7 +22,6 @@ import android.widget.TextView;
 public class HistoryPopupActivity extends Activity {
 
 	public static final String TAG = HistoryPopupActivity.class.getSimpleName();
-	// public static final String DATA = "data";
 
 	private Uri historyUri;
 
@@ -30,10 +29,6 @@ public class HistoryPopupActivity extends Activity {
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.historypopup );
 
-		// Intent i = getIntent();
-		// long id = i.getLongExtra( DATA, -1 );
-		// ContentValues v = (ContentValues) i.getParcelableExtra( DATA );
-		// loadData( id );
 		Bundle extras = getIntent().getExtras();
 		if ( extras != null ) {
 			historyUri =
