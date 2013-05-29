@@ -29,10 +29,10 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         android:showAsAction="ifRoom|withText"
         android:title="@string/menuMainNotifications" />
     <item
-        android:id="@+id/params"
+        android:id="@+id/history"
         android:icon="@drawable/ic_action_list"
         android:showAsAction="ifRoom|withText"
-        android:title="@string/menuMainParams"/>
+        android:title="@string/menuMainHistory"/>
     <item
         android:id="@+id/commands"
         android:icon="@drawable/ic_action_upload"

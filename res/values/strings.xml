@@ -18,16 +18,15 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <string name="menuMainAbout">About</string>
     <string name="menuMainCommands">Commands</string>
     <string name="menuMainMemory">Memory</string>
-    <string name="menuMainParams">History</string>
+    <string name="menuMainHistory">History</string>
     <string name="menuMainErrors">Errors</string>
     <string name="menuMainNotifications">Notifications</string>
     <string name="menuDelete">Delete</string>
 
     <!-- Titles for Screens -->
-    <string name="titleParams">Parameters History</string>
+    <string name="titleHistory">Parameters History</string>
     <string name="titleMemory">Internal Memory</string>
     <string name="titleCommands">Commands</string>
-    <string name="titleHistory">History</string>
     <string name="titleAbout">About Reef Angel Status</string>
     <string name="titleLicense">License Information</string>
     <string name="titleMemoryTabs">Memory Pages</string>

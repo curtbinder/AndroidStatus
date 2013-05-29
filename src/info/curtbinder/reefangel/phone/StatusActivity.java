@@ -855,42 +855,48 @@ public class StatusActivity extends BaseActivity implements
 	@Override
 	public boolean onOptionsItemSelected ( MenuItem item ) {
 		// Handle item selection
+		Intent i = null;
 		switch ( item.getItemId() ) {
 			case R.id.refresh:
 				// launch the update
 				launchStatusTask();
-				break;
+				return true;
 			case R.id.settings:
 				// launch settings
 				reloadPages();
-				startActivity( new Intent( this, PrefsActivity.class ) );
+				i = new Intent( this, PrefsActivity.class );
 				break;
 			case R.id.about:
 				// launch about box
-				startActivity( new Intent( this, AboutActivity.class ) );
+				i = new Intent( this, AboutActivity.class );
 				break;
-			case R.id.params:
-				startActivity( new Intent( this, ParamsListActivity.class ) );
+			case R.id.history:
+				i = new Intent( this, FragmentListActivity.class );
+				i.putExtra( FragmentListActivity.FRAG_TYPE, FragmentListActivity.HISTORY );
 				break;
 			case R.id.errors:
-				startActivity( new Intent( this, ErrorListActivity.class ) );
+				i = new Intent( this, FragmentListActivity.class );
+				i.putExtra( FragmentListActivity.FRAG_TYPE, FragmentListActivity.ERRORS );
 				break;
 			case R.id.notifications:
-				startActivity( new Intent( this, NotificationListActivity.class ) );
+				i = new Intent( this, FragmentListActivity.class );
+				i.putExtra( FragmentListActivity.FRAG_TYPE, FragmentListActivity.NOTIFICATIONS );
 				break; 
 			case R.id.memory:
 				// launch memory
-				Intent i = new Intent( this, MemoryTabsActivity.class );
+				i = new Intent( this, MemoryTabsActivity.class );
 				i.putExtra( Globals.PRE10_LOCATIONS,
 							rapp.raprefs.useOldPre10MemoryLocations() );
-				startActivity( i );
 				break;
 			case R.id.commands:
 				// launch commands
-				startActivity( new Intent( this, CommandTabsActivity.class ) );
+				i = new Intent( this, CommandTabsActivity.class );
 				break;
 			default:
 				return super.onOptionsItemSelected( item );
+		}
+		if ( i != null ) {
+			startActivity( i );
 		}
 		return true;
 	}
