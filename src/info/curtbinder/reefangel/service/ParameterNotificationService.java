@@ -22,7 +22,6 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.util.Log;
 
 public class ParameterNotificationService extends IntentService {
 
@@ -32,6 +31,7 @@ public class ParameterNotificationService extends IntentService {
 
 	private static RAApplication rapp;
 	private String errorMessage;
+	private String paramPrecision;
 	private String[] parameters;
 
 	public ParameterNotificationService () {
@@ -63,11 +63,11 @@ public class ParameterNotificationService extends IntentService {
 											NotificationTable.COL_ID + " ASC" );
 		int notifyCount = 0;
 		if ( c.moveToFirst() ) {
-			int count = c.getCount();
 			int param = 0, cond = 0;
 			float value = (float) 0.0;
-			parameters = rapp.getResources().getStringArray( R.array.deviceParameters );
-			Log.d( TAG, "Have " + count + " notifications to check" );
+			parameters =
+					rapp.getResources()
+							.getStringArray( R.array.deviceParameters );
 			// grab the latest parameters to compare against
 			Uri uriLatest =
 					Uri.parse( StatusProvider.CONTENT_URI + "/"
@@ -111,94 +111,90 @@ public class ParameterNotificationService extends IntentService {
 			float rvalue,
 			Cursor latest ) {
 		boolean fRet = false;
-		// Log.d(TAG, param + ", " + cond + ", " + value );
 		float lvalue = getLeftValue( param, latest );
+		String condLabel = "";
 		switch ( cond ) {
 			case Globals.condEqual: {
-				Log.d( TAG, lvalue + " == " + rvalue );
 				if ( lvalue == rvalue ) {
-					errorMessage =
-							String.format(	Locale.US, "%s: %.2f == %.2f", parameters[param], lvalue,
-											rvalue );
+					condLabel = "=";
 					fRet = true;
 				}
 				break;
 			}
 			case Globals.condGreaterThan: {
-				Log.d( TAG, lvalue + " > " + rvalue );
 				if ( lvalue > rvalue ) {
-					errorMessage =
-							String.format(	Locale.US, "%s: %.2f > %.2f", parameters[param], lvalue,
-											rvalue );
+					condLabel = ">";
 					fRet = true;
 				}
 				break;
 			}
 			case Globals.condGreaterThanOrEqualTo: {
-				Log.d( TAG, lvalue + " >= " + rvalue );
 				if ( lvalue >= rvalue ) {
-					errorMessage =
-							String.format(	Locale.US, "%s: %.2f >= %.2f", parameters[param], lvalue,
-											rvalue );
+					condLabel = ">=";
 					fRet = true;
 				}
 				break;
 			}
 			case Globals.condLessThan: {
-				Log.d( TAG, lvalue + " < " + rvalue );
 				if ( lvalue < rvalue ) {
-					errorMessage =
-							String.format(	Locale.US, "%s: %.2f < %.2f", parameters[param], lvalue,
-											rvalue );
+					condLabel = "<";
 					fRet = true;
 				}
 				break;
 			}
 			case Globals.condLessThanOrEqualTo: {
-				Log.d( TAG, lvalue + " <= " + rvalue );
 				if ( lvalue <= rvalue ) {
-					errorMessage =
-							String.format(	Locale.US, "%s: %.2f <= %.2f", parameters[param], lvalue,
-											rvalue );
+					condLabel = "<=";
 					fRet = true;
 				}
 				break;
 			}
 			case Globals.condNotEqual: {
-				Log.d( TAG, lvalue + " != " + rvalue );
 				if ( lvalue != rvalue ) {
-					errorMessage =
-							String.format(	Locale.US, "%s: %.2f != %.2f", parameters[param], lvalue,
-											rvalue );
+					condLabel = "!=";
 					fRet = true;
 				}
 				break;
 			}
+		}
+		if ( fRet ) {
+			String formatString =
+					String.format(	Locale.US, "%%s: %s %s %s", paramPrecision,
+									condLabel, paramPrecision );
+			errorMessage =
+					String.format(	Locale.US, formatString, parameters[param],
+									lvalue, rvalue );
 		}
 		return fRet;
 	}
 
 	private float getLeftValue ( int id, Cursor l ) {
 		float f;
+		paramPrecision = "%.0f";
 		switch ( id ) {
 			case Globals.paramT1: {
 				f = l.getFloat( l.getColumnIndex( StatusTable.COL_T1 ) );
+				paramPrecision = "%.1f";
 				break;
 			}
 			case Globals.paramT2: {
 				f = l.getFloat( l.getColumnIndex( StatusTable.COL_T2 ) );
+				paramPrecision = "%.1f";
 				break;
 			}
 			case Globals.paramT3: {
 				f = l.getFloat( l.getColumnIndex( StatusTable.COL_T3 ) );
+				paramPrecision = "%.1f";
 				break;
 			}
 			case Globals.paramPH: {
 				f = l.getFloat( l.getColumnIndex( StatusTable.COL_PH ) );
+				paramPrecision = "%.2f";
 				break;
 			}
 			case Globals.paramPHExpansion: {
 				f = l.getFloat( l.getColumnIndex( StatusTable.COL_PHE ) );
+				paramPrecision = "%.2f";
 				break;
 			}
 			case Globals.paramDaylightPWM: {
@@ -211,6 +207,7 @@ public class ParameterNotificationService extends IntentService {
 			}
 			case Globals.paramSalinity: {
 				f = l.getFloat( l.getColumnIndex( StatusTable.COL_SAL ) );
+				paramPrecision = "%.1f";
 				break;
 			}
 			case Globals.paramORP: {
