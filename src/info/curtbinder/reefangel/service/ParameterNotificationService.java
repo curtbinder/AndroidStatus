@@ -45,14 +45,6 @@ public class ParameterNotificationService extends IntentService {
 		processNotifications();
 	}
 
-	// check the notifications
-	// create notifications for each "error" by calling
-	// rapp.insertErrorMessage( msg )
-
-	// get a list of the notifications
-	// loop through them and compare the most recent values to the
-	// notifications
-
 	private void processNotifications ( ) {
 		Uri uri =
 				Uri.parse( StatusProvider.CONTENT_URI + "/"
