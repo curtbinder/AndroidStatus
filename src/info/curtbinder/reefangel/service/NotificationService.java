@@ -9,25 +9,34 @@
 package info.curtbinder.reefangel.service;
 
 import info.curtbinder.reefangel.controller.Controller;
+import info.curtbinder.reefangel.db.ErrorTable;
 import info.curtbinder.reefangel.db.NotificationTable;
 import info.curtbinder.reefangel.db.StatusProvider;
 import info.curtbinder.reefangel.db.StatusTable;
 import info.curtbinder.reefangel.phone.Globals;
+import info.curtbinder.reefangel.phone.Permissions;
 import info.curtbinder.reefangel.phone.R;
 import info.curtbinder.reefangel.phone.RAApplication;
+import info.curtbinder.reefangel.phone.StatusActivity;
 
 import java.util.Locale;
 
 import android.app.IntentService;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 
 public class NotificationService extends IntentService {
 
-	public static final String LATEST = "latest-data";
-	private static final String TAG = NotificationService.class
-			.getSimpleName();
+	private static final String TAG = NotificationService.class.getSimpleName();
 
 	private static RAApplication rapp;
 	private String errorMessage;
@@ -36,13 +45,77 @@ public class NotificationService extends IntentService {
 
 	public NotificationService () {
 		super( TAG );
-
 	}
 
 	@Override
 	protected void onHandleIntent ( Intent intent ) {
 		rapp = (RAApplication) getApplication();
-		processNotifications();
+		String action = intent.getAction();
+		if ( action.equals( MessageCommands.NOTIFICATION_CLEAR_INTENT ) ) {
+			clearNotifications();
+
+		} else if ( action.equals( MessageCommands.NOTIFICATION_LAUNCH_INTENT ) ) {
+			clearNotifications();
+			Intent i = getStatusActivity();
+			getApplication().startActivity( i );
+		} else if ( action.equals( MessageCommands.NOTIFICATION_INTENT ) ) {
+			processNotifications();
+		} else if ( action.equals( MessageCommands.NOTIFICATION_ERROR_INTENT ) ) {
+			processError();
+		}
+	}
+
+	private void processError ( ) {
+		boolean fDisplayUpdate = true;
+		if ( rapp.raprefs.isNotificationEnabled() ) {
+			// Only proceed if notifications are enabled
+
+			// check if can retry on errors
+			if ( rapp.raprefs.isErrorRetryEnabled() ) {
+				// increase error count as soon as we know it's an error
+				rapp.increaseErrorCount();
+
+				// we are to retry connection before displaying an error
+				if ( rapp.canErrorRetry() ) {
+					// if error count is less than the max,
+					// we need to retry the communication
+					String s =
+							rapp.getString( R.string.messageErrorRetry,
+											rapp.errorCount );
+					broadcastUpdateStatus( s );
+					fDisplayUpdate = false;
+					try {
+						Thread.sleep( rapp.raprefs
+								.getNotificationErrorRetryInterval() );
+					} catch ( InterruptedException e ) {
+					}
+					Intent i = new Intent( rapp, UpdateService.class );
+					i.setAction( MessageCommands.QUERY_STATUS_INTENT );
+					startService( i );
+				}
+				// otherwise if we have exceeded the max count, then we
+				// display the error
+			}
+
+		}
+		if ( fDisplayUpdate ) {
+			// log the error in the error table
+			String errorMessage = rapp.getErrorMessage();
+			insertErrorMessage( errorMessage );
+
+			// notify the user
+			notifyUser();
+
+			// update the app text
+			broadcastUpdateStatus( errorMessage );
+		}
+	}
+
+	private void broadcastUpdateStatus ( String status ) {
+		Intent i = new Intent( MessageCommands.UPDATE_STATUS_INTENT );
+		i.putExtra( MessageCommands.UPDATE_STATUS_ID, -1 );
+		i.putExtra( MessageCommands.UPDATE_STATUS_STRING, status );
+		rapp.sendBroadcast( i, Permissions.QUERY_STATUS );
 	}
 
 	private void processNotifications ( ) {
@@ -83,7 +156,7 @@ public class NotificationService extends IntentService {
 				if ( isNotifyTriggered( param, cond, value, l ) ) {
 					// notification triggered
 					// add to list of notifications
-					rapp.insertErrorMessage( errorMessage );
+					insertErrorMessage( errorMessage );
 					notifyCount++;
 				}
 			} while ( c.moveToNext() );
@@ -93,7 +166,7 @@ public class NotificationService extends IntentService {
 
 		// launch the notification after we process the messages
 		if ( notifyCount > 0 ) {
-			rapp.notifyUser();
+			notifyUser();
 		}
 	}
 
@@ -347,4 +420,152 @@ public class NotificationService extends IntentService {
 		return f;
 	}
 
+	private PendingIntent getNotificationLaunchIntent ( boolean fClearOnly ) {
+		// Create notification intent
+		// Will launch the service to clear the notifications
+		// and launch the main activity unless clear only is set
+		Intent i = new Intent( this, NotificationService.class );
+		if ( fClearOnly ) {
+			i.setAction( MessageCommands.NOTIFICATION_CLEAR_INTENT );
+		} else {
+			i.setAction( MessageCommands.NOTIFICATION_LAUNCH_INTENT );
+		}
+		PendingIntent pi = PendingIntent.getService( this, -1, i, 0 );
+		return pi;
+	}
+
+	private NotificationCompat.Builder buildNormalNotification (
+			String msg,
+			long when,
+			int count ) {
+		Bitmap icon =
+				BitmapFactory.decodeResource(	getResources(),
+												R.drawable.ic_icon );
+		NotificationCompat.Builder b =
+				new NotificationCompat.Builder( this )
+						.setAutoCancel( true )
+						.setSmallIcon( R.drawable.st_notify )
+						.setLargeIcon( icon )
+						.setContentTitle( getString( R.string.app_name ) )
+						.setContentText( msg )
+						.setTicker( msg )
+						.setWhen( when )
+						.setSound( rapp.raprefs.getNotificationSound() )
+						.setDeleteIntent( getNotificationLaunchIntent( true ) )
+						.setContentIntent( getNotificationLaunchIntent( false ) );
+		if ( count > 1 ) {
+			b.setNumber( count );
+			if ( Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1 ) {
+				String msgGB =
+						String.format(	Locale.US,
+										getString( R.string.messageGBMoreErrorss ),
+										msg, count );
+				b.setContentText( msgGB );
+			}
+		}
+		return b;
+	}
+
+	private String getInboxStyleMessage ( String msg, long when ) {
+		String extraMessage =
+				String.format(	Locale.getDefault(), "%s - %s", msg,
+								RAApplication.getFancyDate( when ) );
+		return extraMessage;
+	}
+
+	public void notifyUser ( ) {
+		Uri uri =
+				Uri.parse( StatusProvider.CONTENT_URI + "/"
+							+ StatusProvider.PATH_ERROR );
+		Cursor c =
+				getContentResolver().query( uri, null,
+											ErrorTable.COL_READ + "=?",
+											new String[] { "0" },
+											ErrorTable.COL_ID + " DESC" );
+
+		String firstMessage = null;
+		long firstWhen = 0;
+		int numCount = 0;
+		String[] summaryLines = new String[5];
+		String summaryText = "";
+		if ( c.moveToFirst() ) {
+			int msgIndex = c.getColumnIndex( ErrorTable.COL_MESSAGE );
+			int whenIndex = c.getColumnIndex( ErrorTable.COL_TIME );
+			// grab the most recent error first
+			firstMessage = c.getString( msgIndex );
+			firstWhen = c.getLong( whenIndex );
+			numCount = c.getCount();
+			// handle looping through the rest of the messages
+			// in order to create the big notification
+			// InboxStyle only allows for up to 5 lines
+			int extraCount = 1;
+			summaryLines[0] = getInboxStyleMessage( firstMessage, firstWhen );
+			while ( c.moveToNext() && extraCount < 5 ) {
+				summaryLines[extraCount] =
+						getInboxStyleMessage(	c.getString( msgIndex ),
+												c.getLong( whenIndex ) );
+				extraCount++;
+			}
+			// when multiple items shown, the first item is the content title
+			// so a max of items can be shown (content title plus 5 extra
+			// lines)
+			if ( extraCount < numCount ) {
+				summaryText =
+						String.format(	Locale.US,
+										getString( R.string.messageMoreErrors ),
+										numCount - extraCount );
+			}
+		}
+		c.close();
+
+		NotificationManager nm =
+				(NotificationManager) getSystemService( Context.NOTIFICATION_SERVICE );
+		int mNotificationId = 001;
+
+		NotificationCompat.Builder normal =
+				buildNormalNotification( firstMessage, firstWhen, numCount );
+		if ( numCount > 1 ) {
+			NotificationCompat.InboxStyle inbox =
+					new NotificationCompat.InboxStyle( normal );
+			// inbox.setBigContentTitle( firstMessage );
+			for ( String s : summaryLines ) {
+				inbox.addLine( s );
+			}
+			inbox.setSummaryText( summaryText );
+			nm.notify( mNotificationId, inbox.build() );
+		} else {
+			nm.notify( mNotificationId, normal.build() );
+		}
+	}
+
+	public void insertErrorMessage ( String msg ) {
+		// inserts the given error message into the database
+		// message is the parameter for expandability with notifications
+		ContentValues v = new ContentValues();
+		v.put( ErrorTable.COL_TIME, System.currentTimeMillis() );
+		v.put( ErrorTable.COL_MESSAGE, msg );
+		v.put( ErrorTable.COL_READ, false );
+		getContentResolver()
+				.insert(	Uri.parse( StatusProvider.CONTENT_URI + "/"
+										+ StatusProvider.PATH_ERROR ), v );
+	}
+
+	private Intent getStatusActivity ( ) {
+		Intent si = new Intent( this, StatusActivity.class );
+		si.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+		si.addFlags( Intent.FLAG_ACTIVITY_SINGLE_TOP );
+		si.addFlags( Intent.FLAG_ACTIVITY_REORDER_TO_FRONT );
+		return si;
+	}
+
+	private void clearNotifications ( ) {
+		Uri uri =
+				Uri.parse( StatusProvider.CONTENT_URI + "/"
+							+ StatusProvider.PATH_ERROR );
+		ContentValues v = new ContentValues();
+		v.put( ErrorTable.COL_READ, true );
+		// ignore the number of rows updated
+		getContentResolver().update( uri, v, ErrorTable.COL_READ + "=?",
+										new String[] { "0" } );
+	}
 }

@@ -421,13 +421,16 @@ public class ControllerTask implements Runnable {
 		rapp.getContentResolver()
 				.insert(	Uri.parse( StatusProvider.CONTENT_URI + "/"
 										+ StatusProvider.PATH_STATUS ), v );
-		
+		// Clear the error retry count on successful insertion of data
+		rapp.clearErrorRetryCount();
+
 		if ( raprefs.isNotificationEnabled() ) {
 			// launch the notification check service
 			Intent n = new Intent( rapp, NotificationService.class );
+			n.setAction( MessageCommands.NOTIFICATION_INTENT );
 			rapp.startService( n );
 		}
-		
+
 		Intent u = new Intent( MessageCommands.UPDATE_DISPLAY_DATA_INTENT );
 		rapp.sendBroadcast( u, Permissions.QUERY_STATUS );
 	}
@@ -439,30 +442,8 @@ public class ControllerTask implements Runnable {
 	}
 
 	private void broadcastErrorMessage ( ) {
-		if ( raprefs.isNotificationEnabled() ) {
-			// if error notification is enabled, increase the error count
-			// as soon as we know it's an error
-			if ( raprefs.isErrorRetryEnabled() ) {
-				rapp.errorCount++;
-			}
-
-			boolean fCanNotify = true;
-			// if error retry is enabled, don't notify unless we fail the error
-			// retries
-			if ( raprefs.isErrorRetryEnabled() && rapp.canErrorRetry() ) {
-				fCanNotify = false;
-			}
-
-			// send notification
-			if ( fCanNotify ) {
-				// logs the error message only if we can notify the user
-				rapp.insertErrorMessage( rapp.getErrorMessage() );
-				rapp.notifyUser();
-			}
-		}
-
-		// send broadcast
-		rapp.sendBroadcast( new Intent( MessageCommands.ERROR_MESSAGE_INTENT ),
-							Permissions.QUERY_STATUS );
+		Intent i = new Intent( rapp, NotificationService.class );
+		i.setAction( MessageCommands.NOTIFICATION_ERROR_INTENT );
+		rapp.startService( i );
 	}
 }

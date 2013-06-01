@@ -8,11 +8,8 @@
 
 package info.curtbinder.reefangel.phone;
 
-import info.curtbinder.reefangel.db.ErrorTable;
 import info.curtbinder.reefangel.db.RADbHelper;
-import info.curtbinder.reefangel.db.StatusProvider;
 import info.curtbinder.reefangel.service.MessageCommands;
-import info.curtbinder.reefangel.service.NotificationClearService;
 import info.curtbinder.reefangel.service.UpdateService;
 
 import java.io.File;
@@ -27,19 +24,11 @@ import java.util.Locale;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Application;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -208,19 +197,14 @@ public class RAApplication extends Application {
 		return s;
 	}
 
-	public void insertErrorMessage ( String msg ) {
-		// inserts the given error message into the database
-		// message is the parameter for expandability with notifications
-		ContentValues v = new ContentValues();
-		v.put( ErrorTable.COL_TIME, System.currentTimeMillis() );
-		v.put( ErrorTable.COL_MESSAGE, msg );
-		v.put( ErrorTable.COL_READ, false );
-		getContentResolver()
-				.insert(	Uri.parse( StatusProvider.CONTENT_URI + "/"
-										+ StatusProvider.PATH_ERROR ), v );
+	public static String getFancyDate ( long when ) {
+		DateFormat fmt =
+				DateFormat.getDateTimeInstance( DateFormat.SHORT,
+												DateFormat.SHORT,
+												Locale.getDefault() );
+		return fmt.format( new Date( when ) );
 	}
 
-	// Notifications
 	public boolean canErrorRetry ( ) {
 		boolean f = false;
 		if ( errorCount <= raprefs.getNotificationErrorRetryMax() ) {
@@ -233,130 +217,8 @@ public class RAApplication extends Application {
 		errorCount = Globals.errorRetryNone;
 	}
 
-	private PendingIntent getNotificationLaunchIntent ( boolean fClearOnly ) {
-		// Create notification intent
-		// Will launch the service to clear the notifications
-		// and launch the main activity unless clear only is set
-		Intent i = new Intent( this, NotificationClearService.class );
-		if ( fClearOnly ) {
-			i.setAction( MessageCommands.NOTIFICATION_CLEAR_INTENT );
-		} else {
-			i.setAction( MessageCommands.NOTIFICATION_LAUNCH_INTENT );
-		}
-		PendingIntent pi = PendingIntent.getService( this, -1, i, 0 );
-		return pi;
-	}
-
-	private NotificationCompat.Builder buildNormalNotification (
-			String msg,
-			long when,
-			int count ) {
-		Bitmap icon =
-				BitmapFactory.decodeResource(	getResources(),
-												R.drawable.ic_icon );
-		NotificationCompat.Builder b =
-				new NotificationCompat.Builder( this )
-						.setAutoCancel( true )
-						.setSmallIcon( R.drawable.st_notify )
-						.setLargeIcon( icon )
-						.setContentTitle( getString( R.string.app_name ) )
-						.setContentText( msg )
-						.setTicker( msg )
-						.setWhen( when )
-						.setSound( raprefs.getNotificationSound() )
-						.setDeleteIntent( getNotificationLaunchIntent( true ) )
-						.setContentIntent( getNotificationLaunchIntent( false ) );
-		if ( count > 1 ) {
-			b.setNumber( count );
-			if ( Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1 ) {
-				String msgGB =
-						String.format(	Locale.US,
-										getString( R.string.messageGBMoreErrorss ),
-										msg, count );
-				b.setContentText( msgGB );
-			}
-		}
-		return b;
-	}
-
-	public static String getFancyDate ( long when ) {
-		DateFormat fmt =
-				DateFormat.getDateTimeInstance( DateFormat.SHORT,
-												DateFormat.SHORT,
-												Locale.getDefault() );
-		return fmt.format( new Date( when ) );
-	}
-
-	private String getInboxStyleMessage ( String msg, long when ) {
-		String extraMessage =
-				String.format(	Locale.getDefault(), "%s - %s", msg,
-								getFancyDate( when ) );
-		return extraMessage;
-	}
-
-	public void notifyUser ( ) {
-		Uri uri =
-				Uri.parse( StatusProvider.CONTENT_URI + "/"
-							+ StatusProvider.PATH_ERROR );
-		Cursor c =
-				getContentResolver().query( uri, null,
-											ErrorTable.COL_READ + "=?",
-											new String[] { "0" },
-											ErrorTable.COL_ID + " DESC" );
-
-		String firstMessage = null;
-		long firstWhen = 0;
-		int numCount = 0;
-		String[] summaryLines = new String[5];
-		String summaryText = "";
-		if ( c.moveToFirst() ) {
-			int msgIndex = c.getColumnIndex( ErrorTable.COL_MESSAGE );
-			int whenIndex = c.getColumnIndex( ErrorTable.COL_TIME );
-			// grab the most recent error first
-			firstMessage = c.getString( msgIndex );
-			firstWhen = c.getLong( whenIndex );
-			numCount = c.getCount();
-			// handle looping through the rest of the messages
-			// in order to create the big notification
-			// InboxStyle only allows for up to 5 lines
-			int extraCount = 1;
-			summaryLines[0] = getInboxStyleMessage( firstMessage, firstWhen );
-			while ( c.moveToNext() && extraCount < 5 ) {
-				summaryLines[extraCount] =
-						getInboxStyleMessage(	c.getString( msgIndex ),
-												c.getLong( whenIndex ) );
-				extraCount++;
-			}
-			// when multiple items shown, the first item is the content title
-			// so a max of items can be shown (content title plus 5 extra
-			// lines)
-			if ( extraCount < numCount ) {
-				summaryText =
-						String.format(	Locale.US,
-										getString( R.string.messageMoreErrors ),
-										numCount - extraCount );
-			}
-		}
-		c.close();
-
-		NotificationManager nm =
-				(NotificationManager) getSystemService( Context.NOTIFICATION_SERVICE );
-		int mNotificationId = 001;
-
-		NotificationCompat.Builder normal =
-				buildNormalNotification( firstMessage, firstWhen, numCount );
-		if ( numCount > 1 ) {
-			NotificationCompat.InboxStyle inbox =
-					new NotificationCompat.InboxStyle( normal );
-			// inbox.setBigContentTitle( firstMessage );
-			for ( String s : summaryLines ) {
-				inbox.addLine( s );
-			}
-			inbox.setSummaryText( summaryText );
-			nm.notify( mNotificationId, inbox.build() );
-		} else {
-			nm.notify( mNotificationId, normal.build() );
-		}
+	public void increaseErrorCount ( ) {
+		errorCount++;
 	}
 
 	public String getLoggingDirectory ( ) {

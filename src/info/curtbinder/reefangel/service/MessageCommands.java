@@ -59,8 +59,12 @@ public final class MessageCommands {
 	public static final String MEMORY_RESPONSE_WRITE_BOOLEAN =
 			"MEMORY_RESPONSE_WRITE_BOOLEAN";
 
+	public static final String NOTIFICATION_INTENT = 
+			PACKAGE_BASE + ".NOTIFICATION";
 	public static final String NOTIFICATION_CLEAR_INTENT =
 			PACKAGE_BASE + ".NOTIFICATION_CLEAR";
+	public static final String NOTIFICATION_ERROR_INTENT =
+			PACKAGE_BASE + ".NOTIFICATION_ERROR";
 	public static final String NOTIFICATION_LAUNCH_INTENT =
 			PACKAGE_BASE + ".NOTIFICATION_LAUNCH";
 
@@ -78,6 +82,7 @@ public final class MessageCommands {
 	public static final String UPDATE_STATUS_INTENT = PACKAGE_BASE
 														+ ".UPDATE_STATUS";
 	public static final String UPDATE_STATUS_ID = "UPDATE_STATUS_ID";
+	public static final String UPDATE_STATUS_STRING = "UPDATE_STATUS_STRING";
 
 	public static final String VERSION_QUERY_INTENT = PACKAGE_BASE
 														+ ".VERSION_QUERY";

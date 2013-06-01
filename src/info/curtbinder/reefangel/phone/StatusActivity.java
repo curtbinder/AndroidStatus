@@ -35,7 +35,6 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -519,42 +518,17 @@ public class StatusActivity extends BaseActivity implements
 				int id =
 						intent.getIntExtra( MessageCommands.UPDATE_STATUS_ID,
 											R.string.defaultStatusText );
-				updateTime.setText( id );
+				if ( id > -1 ) {
+					updateTime.setText( id );
+				} else {
+					// we are updating with a string being sent to us
+					updateTime
+							.setText( intent
+									.getStringExtra( MessageCommands.UPDATE_STATUS_STRING ) );
+				}
 			} else if ( action
 					.equals( MessageCommands.UPDATE_DISPLAY_DATA_INTENT ) ) {
 				updateDisplay();
-				rapp.clearErrorRetryCount();
-			} else if ( action.equals( MessageCommands.ERROR_MESSAGE_INTENT ) ) {
-				boolean fDisplayUpdate = true;
-				if ( rapp.raprefs.isNotificationEnabled()
-						&& rapp.raprefs.isErrorRetryEnabled() ) {
-					// Only proceed if notifications are enabled
-
-					// we are to retry connection before displaying an error
-					if ( rapp.canErrorRetry() ) {
-						// if error count is less than the max,
-						// we need to retry the communication
-						String s =
-								rapp.getString( R.string.messageErrorRetry,
-												rapp.errorCount );
-						updateTime.setText( s );
-						fDisplayUpdate = false;
-						Runnable r = new Runnable() {
-							public void run ( ) {
-								launchStatusTask();
-							}
-						};
-						Handler h = new Handler();
-						h.postDelayed( r, rapp.raprefs
-								.getNotificationErrorRetryInterval() );
-					}
-					// otherwise if we have exceeded the max count, then we
-					// display the error
-				}
-				if ( fDisplayUpdate ) {
-					// getResources().getText( R.string.messageError )
-					updateTime.setText( rapp.getErrorMessage() );
-				}
 			} else if ( action.equals( MessageCommands.VORTECH_UPDATE_INTENT ) ) {
 				int type =
 						intent.getIntExtra( MessageCommands.VORTECH_UPDATE_TYPE,
@@ -872,16 +846,19 @@ public class StatusActivity extends BaseActivity implements
 				break;
 			case R.id.history:
 				i = new Intent( this, FragmentListActivity.class );
-				i.putExtra( FragmentListActivity.FRAG_TYPE, FragmentListActivity.HISTORY );
+				i.putExtra( FragmentListActivity.FRAG_TYPE,
+							FragmentListActivity.HISTORY );
 				break;
 			case R.id.errors:
 				i = new Intent( this, FragmentListActivity.class );
-				i.putExtra( FragmentListActivity.FRAG_TYPE, FragmentListActivity.ERRORS );
+				i.putExtra( FragmentListActivity.FRAG_TYPE,
+							FragmentListActivity.ERRORS );
 				break;
 			case R.id.notifications:
 				i = new Intent( this, FragmentListActivity.class );
-				i.putExtra( FragmentListActivity.FRAG_TYPE, FragmentListActivity.NOTIFICATIONS );
-				break; 
+				i.putExtra( FragmentListActivity.FRAG_TYPE,
+							FragmentListActivity.NOTIFICATIONS );
+				break;
 			case R.id.memory:
 				// launch memory
 				i = new Intent( this, MemoryTabsActivity.class );
