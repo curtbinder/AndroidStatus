@@ -12,7 +12,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <item
         android:id="@+id/menu_delete"
         android:icon="@drawable/ic_action_trash"
-        android:showAsAction="ifRoom|withText"
+        android:showAsAction="ifRoom"
         android:title="@string/menuDelete"/>
 
 </menu>

@@ -26,6 +26,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         android:title="@string/menuMainMemory"/>
     <item 
         android:id="@+id/notifications"
+        android:icon="@drawable/ic_action_flag"
         android:showAsAction="ifRoom|withText"
         android:title="@string/menuMainNotifications" />
     <item

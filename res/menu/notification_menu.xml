@@ -11,13 +11,13 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
     <item
         android:id="@+id/menu_add"
-        android:icon="@android:drawable/ic_menu_add"
-        android:showAsAction="always|withText"
+        android:icon="@drawable/ic_action_add"
+        android:showAsAction="always"
         android:title="@string/messageAddNotification"/>
     <item
         android:id="@+id/menu_delete"
         android:icon="@drawable/ic_action_trash"
-        android:showAsAction="ifRoom|withText"
+        android:showAsAction="ifRoom"
         android:title="@string/menuDelete"/>
 
 </menu>
