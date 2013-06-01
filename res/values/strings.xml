@@ -176,9 +176,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="messageCancelled">Cancelled</string>
     <string name="messageNotNumber">Value is not a number</string>
     <string name="messageEmptyValue">Value cannot be empty</string>
-    <string name="messageInvalidRangeFormat" formatted="false">Value must be between %d and %d</string>
+    <string name="messageInvalidRangeFormat">Value must be between %1$d and %2$d</string>
     <string name="messageEmptyLocation">Location cannot be empty</string>
-    <string name="messageInvalidLocation" formatted="false">Location must be between %d and %d</string>
+    <string name="messageInvalidLocation">Location must be between %1$d and %2$d</string>
     <string name="messageUnknownError">Unknown error</string>
     <string name="messageDownloadLabelsPrompt">Download all labels for</string>
     <string name="messageDownloadLabels">Downloading labels…</string>
@@ -203,6 +203,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="messageEmptyNotifications">No notifications created</string>
     <string name="messageClearNotifications">Clear all notifications?</string>
     <string name="messageAddNotification">Add notification</string>
+    <string name="messageMoreErrors">+%1$d more</string>
+    <string name="messageGBMoreErrorss">%1$s - %2$d errors</string>
 
     <!-- Status strings -->
     <string name="statusStart">Starting update</string>

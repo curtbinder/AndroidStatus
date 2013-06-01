@@ -37,6 +37,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -195,11 +196,12 @@ public class RAApplication extends Application {
 			if ( Integer.parseInt( errorCodes[i] ) == errorCode ) {
 				// found code
 				s =
-						String.format(	Locale.getDefault(),
+						String.format(	Locale.US,
 										"%s %d: %s",
 										getResources()
 												.getText( R.string.messageError ),
-										errorCode, errorCodesStrings[i] );
+										errorCode,
+										errorCodesStrings[i] );
 				break;
 			}
 		}
@@ -266,6 +268,13 @@ public class RAApplication extends Application {
 						.setContentIntent( getNotificationLaunchIntent( false ) );
 		if ( count > 1 ) {
 			b.setNumber( count );
+			if ( Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1 ) {
+				String msgGB =
+						String.format(	Locale.US,
+										getString( R.string.messageGBMoreErrorss ),
+										msg, count );
+				b.setContentText( msgGB );
+			}
 		}
 		return b;
 	}
@@ -280,7 +289,7 @@ public class RAApplication extends Application {
 
 	private String getInboxStyleMessage ( String msg, long when ) {
 		String extraMessage =
-				String.format(	Locale.getDefault(), "%s - %s\n", msg,
+				String.format(	Locale.getDefault(), "%s - %s", msg,
 								getFancyDate( when ) );
 		return extraMessage;
 	}
@@ -299,7 +308,7 @@ public class RAApplication extends Application {
 		long firstWhen = 0;
 		int numCount = 0;
 		String[] summaryLines = new String[5];
-		String summaryText = null;
+		String summaryText = "";
 		if ( c.moveToFirst() ) {
 			int msgIndex = c.getColumnIndex( ErrorTable.COL_MESSAGE );
 			int whenIndex = c.getColumnIndex( ErrorTable.COL_TIME );
@@ -310,7 +319,8 @@ public class RAApplication extends Application {
 			// handle looping through the rest of the messages
 			// in order to create the big notification
 			// InboxStyle only allows for up to 5 lines
-			int extraCount = 0;
+			int extraCount = 1;
+			summaryLines[0] = getInboxStyleMessage( firstMessage, firstWhen );
 			while ( c.moveToNext() && extraCount < 5 ) {
 				summaryLines[extraCount] =
 						getInboxStyleMessage(	c.getString( msgIndex ),
@@ -318,12 +328,13 @@ public class RAApplication extends Application {
 				extraCount++;
 			}
 			// when multiple items shown, the first item is the content title
-			// so a max of 6 items can be shown (content title plus 5 extra
+			// so a max of items can be shown (content title plus 5 extra
 			// lines)
-			if ( (extraCount + 1) < numCount ) {
+			if ( extraCount < numCount ) {
 				summaryText =
-						String.format(	Locale.US, "+%d more",
-										numCount - (extraCount + 1) );
+						String.format(	Locale.US,
+										getString( R.string.messageMoreErrors ),
+										numCount - extraCount );
 			}
 		}
 		c.close();
@@ -337,7 +348,7 @@ public class RAApplication extends Application {
 		if ( numCount > 1 ) {
 			NotificationCompat.InboxStyle inbox =
 					new NotificationCompat.InboxStyle( normal );
-			inbox.setBigContentTitle( firstMessage );
+			// inbox.setBigContentTitle( firstMessage );
 			for ( String s : summaryLines ) {
 				inbox.addLine( s );
 			}
