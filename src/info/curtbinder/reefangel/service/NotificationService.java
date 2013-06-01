@@ -23,10 +23,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 
-public class ParameterNotificationService extends IntentService {
+public class NotificationService extends IntentService {
 
 	public static final String LATEST = "latest-data";
-	private static final String TAG = ParameterNotificationService.class
+	private static final String TAG = NotificationService.class
 			.getSimpleName();
 
 	private static RAApplication rapp;
@@ -34,7 +34,7 @@ public class ParameterNotificationService extends IntentService {
 	private String paramPrecision;
 	private String[] parameters;
 
-	public ParameterNotificationService () {
+	public NotificationService () {
 		super( TAG );
 
 	}

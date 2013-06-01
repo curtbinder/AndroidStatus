@@ -424,7 +424,7 @@ public class ControllerTask implements Runnable {
 		
 		if ( raprefs.isNotificationEnabled() ) {
 			// launch the notification check service
-			Intent n = new Intent( rapp, ParameterNotificationService.class );
+			Intent n = new Intent( rapp, NotificationService.class );
 			rapp.startService( n );
 		}
 		

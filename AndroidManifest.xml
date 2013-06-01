@@ -117,7 +117,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         </service>
         <service android:name="info.curtbinder.reefangel.service.NotificationClearService" >
         </service>
-        <service android:name="info.curtbinder.reefangel.service.ParameterNotificationService" >
+        <service android:name="info.curtbinder.reefangel.service.NotificationService" >
         </service>
 
         <receiver android:name=".BootReceiver" >
