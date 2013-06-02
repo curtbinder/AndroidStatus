@@ -12,17 +12,42 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <ListView
-        android:id="@android:id/android:list"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
-
-    <TextView
-        android:id="@android:id/android:empty"
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/messageEmptyNotifications"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:orientation="horizontal"
+        android:padding="8dp" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/labelEnable"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <CheckBox
+            android:id="@+id/checkEnableNotification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@android:id/android:list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
+
+        <TextView
+            android:id="@android:id/android:empty"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/messageEmptyNotifications"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
 
 </LinearLayout>

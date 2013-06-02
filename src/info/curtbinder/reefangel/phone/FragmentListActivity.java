@@ -21,12 +21,14 @@ public class FragmentListActivity extends SherlockFragmentActivity {
 	public static final int HISTORY = 0;
 	public static final int NOTIFICATIONS = 1;
 	public static final int ERRORS = 2;
+	
+	private static int frag;
 
 	public void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 
 		FragmentManager fm = getSupportFragmentManager();
-		int frag = getIntent().getIntExtra( FRAG_TYPE, HISTORY );
+		frag = getIntent().getIntExtra( FRAG_TYPE, HISTORY );
 
 		// Create the list fragment and add it as our sole content.
 		if ( fm.findFragmentById( android.R.id.content ) == null ) {
@@ -35,18 +37,32 @@ public class FragmentListActivity extends SherlockFragmentActivity {
 				default:
 				case HISTORY:
 					list = new HistoryListFragment();
-					setTitle( R.string.titleHistory );
 					break;
 				case NOTIFICATIONS:
 					list = new NotificationListFragment();
-					setTitle( R.string.titleNotifications );
 					break;
 				case ERRORS:
 					list = new ErrorListFragment();
-					setTitle( R.string.titleError );
 					break;
 			}
 			fm.beginTransaction().add( android.R.id.content, list ).commit();
+		}
+	}
+	
+	@Override
+	protected void onResume ( ) {
+		super.onResume();
+		switch ( frag ) {
+			default:
+			case HISTORY:
+				setTitle( R.string.titleHistory );
+				break;
+			case NOTIFICATIONS:
+				setTitle( R.string.titleNotifications );
+				break;
+			case ERRORS:
+				setTitle( R.string.titleError );
+				break;
 		}
 	}
 }
