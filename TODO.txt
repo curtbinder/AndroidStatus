@@ -25,7 +25,7 @@ TODO
 ** can query status, read memory values, get version, get date/time, download labels
 * labels
 ** after download, refresh the labels so they appear in the menus without
-   having to exit the preferences activity
+<li>having to exit the preferences activity
 * ability to change the labels of the relay boxes
 * ability to change the background color
 * add in an error status line with error displaying
@@ -38,7 +38,7 @@ TODO
 * ability to change label separator (give list to choose from)
 * improve relay mask image
 * when sending memory or other commands, popup progress bar that "sending in progress" then
-  update based on task progress instead of using Toast
+<li>update based on task progress instead of using Toast
 * getting version should display message for progress
 * center popup history window (uncentered on droid razr)
 

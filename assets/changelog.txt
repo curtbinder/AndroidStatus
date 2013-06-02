@@ -3,6 +3,17 @@
 <b>0.9.2</b>
 <ul>
 <li>switched entirely to ContentProvider for better database functionality</li>
+<li>ability to add custom notifications based on parameters from the controller</li>
+<li>improved error logging to be stored in a database table</li>
+<li>moved notifcation and error handling to a Service</li>
+<li>make use of Large Notifications in JellyBean</li>
+<li>changed default value for Pre 1.0 Locations to FALSE</li>
+<li>removed French translations because of all the string changes being made</li>
+<li>added icons to Commands Page and updated layout</li>
+<li>switched to Fragment Activities for the database list pages</li>
+<li>fixed error retry not working when the app was closed</li>
+<li>fixed problem where buttons were not clickable after being on portal and switching to controller</li>
+<li>code cleanup</li>
 </ul>
 <br>
 <b>0.9.1</b>
@@ -61,8 +72,8 @@
 <li>created ContentProvider for external apps to access the stored parameters</li>
 <li>added automatic updating of status</li>
 	<ul>
- 	<li>enabled by default, 15 minute intervals</li>
- 	</ul>
+<li>	<li>enabled by default, 15 minute intervals</li>
+<li>	</ul>
 <li>added logging capabilities</li>
 	<ul>
 	<li>disabled by default, can email log to developer</li>
