@@ -13,6 +13,7 @@
 <li>switched to Fragment Activities for the database list pages</li>
 <li>fixed error retry not working when the app was closed</li>
 <li>fixed problem where buttons were not clickable after being on portal and switching to controller</li>
+<li>fixed expansion relay bug with autoupdate modules</li>
 <li>code cleanup</li>
 </ul>
 <br>

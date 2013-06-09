@@ -188,5 +188,6 @@ Changelog of all the versions of AndroidStatus
  * switched to Fragment Activities for the database list pages
  * fixed error retry not working when the app was closed
  * fixed problem where buttons were not clickable after being on portal and switching to controller
+ * fixed expansion relay bug with autoupdate modules
  * code cleanup
  
