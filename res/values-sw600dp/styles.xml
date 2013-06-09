@@ -7,7 +7,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 http://creativecommons.org/licenses/by-nc-sa/3.0/
 -->
 
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="UpdateText" parent="@android:style/TextAppearance">
         <item name="android:textSize">24sp</item>
@@ -20,6 +20,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <style name="CommandButtons">
         <item name="android:padding">50dp</item>
         <item name="android:layout_margin">8dp</item>
+        <item name="android:textSize">32sp</item>
     </style>
 
 </resources>
