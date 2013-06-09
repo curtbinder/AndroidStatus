@@ -488,12 +488,7 @@ public class StatusActivity extends BaseActivity implements
 			}
 		}
 		c.close();
-		// update the screen first before we update the values
-		// so the values get displayed on the screen
-		if ( rapp.raprefs.isAutoUpdateModulesEnabled() ) {
-			// update the screen / pages if necessary
-			checkDeviceModules( newEM, newREM );
-		}
+		
 		updateTime.setText( updateStatus );
 		pageController.updateDisplay( values );
 		pageDimming.updateDisplay( pwme );
@@ -507,6 +502,11 @@ public class StatusActivity extends BaseActivity implements
 		for ( int i = 0; i < rapp.raprefs.getExpansionRelayQuantity(); i++ ) {
 			pageExpRelays[i].updateRelayValues( new Relay( expr[i], expron[i],
 				exproff[i] ), fUseMask );
+		}
+		
+		if ( rapp.raprefs.isAutoUpdateModulesEnabled() ) {
+			// update the screen / pages if necessary
+			checkDeviceModules( newEM, newREM );
 		}
 	}
 
