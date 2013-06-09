@@ -1,5 +1,6 @@
 package info.curtbinder.reefangel.controller;
 
+
 /*
  * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
  *
@@ -474,7 +475,7 @@ public class Controller {
 	public static int getRelayExpansionModulesInstalled ( short rem ) {
 		int qty = 0;
 		for ( int i = 7; i >= 0; i-- ) {
-			if ( (rem & (1 << i)) == 1 ) {
+			if ( (rem & (1 << i)) == (1 << i) ) {
 				qty = i + 1;
 				break;
 			}
