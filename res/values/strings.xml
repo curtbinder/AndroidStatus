@@ -179,7 +179,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="messageInvalidRangeFormat">Value must be between %1$d and %2$d</string>
     <string name="messageEmptyLocation">Location cannot be empty</string>
     <string name="messageInvalidLocation">Location must be between %1$d and %2$d</string>
-    <string name="messageUnknownError">Unknown error</string>
+    <string name="messageUnknownError">Error Unknown</string>
     <string name="messageDownloadLabelsPrompt">Download all labels for</string>
     <string name="messageDownloadLabels">Downloading labels…</string>
     <string name="messageDownloadLabelsComplete">Labels downloaded and updated</string>
