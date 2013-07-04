@@ -117,6 +117,17 @@ public class RAPreferences {
 		return getBoolean( R.string.prefPre10MemoryKey, true );
 	}
 
+	public int getConnectionTimeout ( ) {
+		return Integer
+				.parseInt( getString(	R.string.prefConnectionTimeoutKey,
+										R.string.prefConnectionTimeoutDefault ) );
+	}
+
+	public int getReadTimeout ( ) {
+		return Integer.parseInt( getString( R.string.prefReadTimeoutKey,
+											R.string.prefReadTimeoutDefault ) );
+	}
+
 	// Automatic Updating
 	public long getUpdateInterval ( ) {
 		return Long
@@ -301,11 +312,11 @@ public class RAPreferences {
 	public boolean getPHVisibility ( ) {
 		return getBoolean( R.string.prefPHVisibilityKey, true );
 	}
-	
+
 	public boolean getAtoLowVisibility ( ) {
 		return getBoolean( R.string.prefATOLoVisibilityKey, true );
 	}
-	
+
 	public boolean getAtoHighVisibility ( ) {
 		return getBoolean( R.string.prefATOHiVisibilityKey, true );
 	}
@@ -353,11 +364,11 @@ public class RAPreferences {
 	public String getAtoLowLabel ( ) {
 		return getString( R.string.prefATOLoLabelKey, R.string.labelAtoLow );
 	}
-	
+
 	public String getAtoHighLabel ( ) {
 		return getString( R.string.prefATOHiLabelKey, R.string.labelAtoHigh );
 	}
-	
+
 	public String getSalinityLabel ( ) {
 		return getString( R.string.prefSalinityLabelKey, R.string.labelSalinity );
 	}

@@ -35,10 +35,12 @@ public class Host {
 	// for labels only
 	private boolean labels;
 
-	Host () {
+	Host ( int timeoutConnect, int timeoutRead ) {
 		setDefaults( "", 80, RequestCommands.None );
+		this.timeoutConnect = timeoutConnect;
+		this.timeoutRead = timeoutRead;
 	}
-
+/*
 	Host ( String userid ) {
 		setDefaults( "", 80, RequestCommands.ReefAngel );
 		raUserid = userid;
@@ -51,13 +53,13 @@ public class Host {
 	Host ( String host, String port, String command ) {
 		setDefaults( host, Integer.parseInt( port ), command );
 	}
-
+*/
 	private void setDefaults ( String host, int port, String command ) {
 		this.host = host;
 		this.port = port;
 		this.command = command;
-		timeoutConnect = 15000; // milliseconds
-		timeoutRead = 10000; // milliseconds
+		//timeoutConnect = 15000; // milliseconds
+		//timeoutRead = 10000; // milliseconds
 		location = 0;
 		value = 0;
 		write = false;
@@ -99,9 +101,17 @@ public class Host {
 	public int getConnectTimeout ( ) {
 		return timeoutConnect;
 	}
+	
+	public void setConnectTimeout ( int timeout ) {
+		timeoutConnect = timeout;
+	}
 
 	public int getReadTimeout ( ) {
 		return timeoutRead;
+	}
+	
+	public void setReadTimout ( int timeout ) {
+		timeoutRead = timeout;
 	}
 
 	public void setReadLocation ( int location ) {

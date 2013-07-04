@@ -151,6 +151,8 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 		updateExpRelayQuantitySummary();
 		updateErrorRetryCountSummary();
 		updateErrorRetryIntervalSummary();
+		updateConnectionTimeoutSummary();
+		updateReadTimeoutSummary();
 
 		updateprofilekey =
 				findPreference( rapp
@@ -165,7 +167,9 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 		findPreference( rapp.getString( R.string.prefAutoUpdateIntervalKey ) )
 				.setSummary( getUpdateIntervalDisplay() );
 		findPreference( rapp.getString( R.string.prefLoggingUpdateKey ) )
-				.setSummary( getLoggingUpdateDisplay() );
+				.setSummary(	getDisplayValue(	raprefs.getLoggingUpdateValue(),
+													R.array.loggingUpdateValues,
+													R.array.loggingUpdate ) );
 
 		Preference changelog =
 				findPreference( rapp.getString( R.string.prefChangelogKey ) );
@@ -372,6 +376,20 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 				.setSummary( intervaldisplay[pos] );
 	}
 
+	private void updateConnectionTimeoutSummary ( ) {
+		findPreference( rapp.getString( R.string.prefConnectionTimeoutKey ) )
+				.setSummary(	getDisplayValue(	raprefs.getConnectionTimeout(),
+													R.array.networkTimeoutValues,
+													R.array.networkTimeout ) );
+	}
+
+	private void updateReadTimeoutSummary ( ) {
+		findPreference( rapp.getString( R.string.prefReadTimeoutKey ) )
+				.setSummary(	getDisplayValue(	raprefs.getReadTimeout(),
+													R.array.networkTimeoutValues,
+													R.array.networkTimeout ) );
+	}
+
 	public boolean onPreferenceChange ( Preference preference, Object newValue ) {
 		// return true to change, false to not
 		if ( preference.getKey()
@@ -515,7 +533,9 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 		} else if ( key
 				.equals( rapp.getString( R.string.prefLoggingUpdateKey ) ) ) {
 			findPreference( rapp.getString( R.string.prefLoggingUpdateKey ) )
-					.setSummary( getLoggingUpdateDisplay() );
+					.setSummary(	getDisplayValue(	raprefs.getLoggingUpdateValue(),
+														R.array.loggingUpdateValues,
+														R.array.loggingUpdate ) );
 		} else if ( key.equals( rapp
 				.getString( R.string.prefNotificationErrorRetryKey ) ) ) {
 			// error retry count changed, update the summary and
@@ -525,26 +545,29 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 				.getString( R.string.prefNotificationErrorRetryIntervalKey ) ) ) {
 			// interval changed
 			updateErrorRetryIntervalSummary();
+		} else if ( key.equals( rapp
+				.getString( R.string.prefConnectionTimeoutKey ) ) ) {
+			updateConnectionTimeoutSummary();
+		} else if ( key.equals( rapp.getString( R.string.prefReadTimeoutKey ) ) ) {
+			updateReadTimeoutSummary();
 		}
 	}
 
-	private String getLoggingUpdateDisplay ( ) {
+	private String getDisplayValue (
+			int v,
+			int arrayValuesId,
+			int arrayDisplayId ) {
 		int pos = 0;
-		int value = raprefs.getLoggingUpdateValue();
-
-		String[] logging =
-				rapp.getResources()
-						.getStringArray( R.array.loggingUpdateValues );
-		String[] loggingdisplay =
-				rapp.getResources().getStringArray( R.array.loggingUpdate );
-		for ( int i = 0; i < logging.length; i++ ) {
-			if ( Integer.parseInt( logging[i] ) == value ) {
+		String[] values = rapp.getResources().getStringArray( arrayValuesId );
+		String[] display = rapp.getResources().getStringArray( arrayDisplayId );
+		for ( int i = 0; i < values.length; i++ ) {
+			if ( Integer.parseInt( values[i] ) == v ) {
 				// found value
 				pos = i;
 				break;
 			}
 		}
-		return loggingdisplay[pos];
+		return display[pos];
 	}
 
 	public String getUpdateIntervalDisplay ( ) {
@@ -566,21 +589,9 @@ public class PrefsActivity extends SherlockPreferenceActivity implements
 	}
 
 	public String getUpdateProfileDisplay ( ) {
-		int pos = 0;
-		int value = raprefs.getUpdateProfile();
-		String[] profile =
-				rapp.getResources()
-						.getStringArray( R.array.updateProfileValues );
-		String[] profiledisplay =
-				rapp.getResources().getStringArray( R.array.updateProfile );
-		for ( int i = 0; i < profile.length; i++ ) {
-			if ( Integer.parseInt( profile[i] ) == value ) {
-				// found value
-				pos = i;
-				break;
-			}
-		}
-		return profiledisplay[pos];
+		return getDisplayValue( raprefs.getUpdateProfile(),
+								R.array.updateProfileValues,
+								R.array.updateProfile );
 	}
 
 	class PrefsReceiver extends BroadcastReceiver {

@@ -64,8 +64,10 @@ public class UpdateService extends IntentService {
 	}
 
 	private void processAutoUpdate ( int profile_update ) {
-		Host h = new Host();
 		final RAPreferences raprefs = rapp.raprefs;
+		Host h =
+				new Host( raprefs.getConnectionTimeout(),
+					raprefs.getReadTimeout() );
 		if ( raprefs.isCommunicateController() ) {
 			// controller
 			String host, port;
@@ -107,7 +109,9 @@ public class UpdateService extends IntentService {
 		String command = RequestCommands.None;
 		final RAPreferences raprefs = rapp.raprefs;
 		boolean isController = raprefs.isCommunicateController();
-		Host h = new Host();
+		Host h =
+				new Host( raprefs.getConnectionTimeout(),
+					raprefs.getReadTimeout() );
 
 		// setup the basics for the host first
 		if ( isController ) {

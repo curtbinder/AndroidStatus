@@ -370,6 +370,10 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefLoggingDeleteTitle">Delete log file</string>
     <string name="prefLoggingSendTitle">Send log file</string>
     <string name="prefLoggingSendSummary">Emails log file to developer</string>
+    <string name="prefConnectionTimeoutTitle">Connection Timeout</string>
+    <string name="prefConnectionTimeoutDefault">15000</string>
+    <string name="prefReadTimeoutTitle">Read Timeout</string>
+    <string name="prefReadTimeoutDefault">10000</string>
 
     <!-- Preference Keys -->
     <string name="prefFirstRunKey">firstrun</string>
@@ -540,6 +544,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefLoggingUpdateKey">logging_update</string>
     <string name="prefLoggingDeleteKey">logging_delete_file</string>
     <string name="prefLoggingSendKey">logging_send</string>
+    <string name="prefConnectionTimeoutKey">connection_timeout</string>
+    <string name="prefReadTimeoutKey">read_timeout</string>
 
     <!-- Permissions -->
     <string name="permissionQueryStatusLabel">Query status of controller</string>

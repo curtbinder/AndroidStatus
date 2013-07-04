@@ -20,6 +20,18 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:key="@string/prefAutoUpdateModulesKey"
             android:summary="@string/prefAutoUpdateModulesSummary"
             android:title="@string/prefAutoUpdateModulesTitle" />
+        <ListPreference
+            android:defaultValue="@string/prefConnectionTimeoutDefault"
+            android:entries="@array/networkTimeout"
+            android:entryValues="@array/networkTimeoutValues"
+            android:key="@string/prefConnectionTimeoutKey"
+            android:title="@string/prefConnectionTimeoutTitle" />
+        <ListPreference
+            android:defaultValue="@string/prefReadTimeoutDefault"
+            android:entries="@array/networkTimeout"
+            android:entryValues="@array/networkTimeoutValues"
+            android:key="@string/prefReadTimeoutKey"
+            android:title="@string/prefReadTimeoutTitle" />
     </PreferenceCategory>
 
 </PreferenceScreen>
