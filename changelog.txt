@@ -191,3 +191,7 @@ Changelog of all the versions of AndroidStatus
  * fixed expansion relay bug with autoupdate modules
  * code cleanup
  
+0.9.3
+ * settings for Connection Timeout and Read Timeout
+
+ 
