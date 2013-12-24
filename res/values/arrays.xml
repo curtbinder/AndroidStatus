@@ -64,6 +64,16 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>XML SAX Parser</item>
     </string-array>
 
+    <!--
+    When adding in new memory locations, you need to add several items.
+    * Add in the actual memory location to the memoryLocations array
+    * Add in the name of the location to the memoryLocationsNames array
+    * Add in the type to the memoryLocationsTypes array
+    Lastly, if there is a special range that the value stored in the location should 
+    conform to, you must add in the index of the location in the memoryLocations array
+    to the list of ranges arrays below. Those array names end in Index. The index
+    is listed as a 0 based index and it is associated with this memoryLocations array. 
+     -->
     <integer-array name="memoryLocations">
         <item>0</item>
         <item>0</item>
@@ -196,6 +206,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>163</item>
     </integer-array>
 
+    <!-- Names of the locations, associated with the actual locations array -->
     <string-array name="memoryLocationsNames">
         <item>Custom Location</item>
         <item>MH On Hour</item>
@@ -328,6 +339,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>PWM Slope Actinic 2 Duration</item>
     </string-array>
 
+    <!-- Type of the locations, 0 - Byte, 1 - Int, associated with the locations array -->
     <integer-array name="memoryLocationsTypes">
         <item>0</item>
         <item>0</item>
@@ -433,6 +445,31 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>1</item>
         <item>1</item>
         <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item> 
     </integer-array>
     <integer-array name="wavemakersIndex">
         <item>9</item>
@@ -503,6 +540,12 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>94</item>
         <item>96</item>
         <item>97</item>
+        <item>121</item>
+        <item>122</item>
+        <item>123</item>
+        <item>124</item>
+        <item>126</item>
+        <item>127</item>
     </integer-array>
 
     <string-array name="profileIndex">
