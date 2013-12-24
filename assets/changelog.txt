@@ -3,6 +3,7 @@
 <b>0.9.3</b>
 <ul>
 <li>settings for Connection Timeout and Read Timeout</li>
+<li>added in new memory locations for v1.1.0 libraries</li>
 </ul>
 <br>
 <b>0.9.2</b>

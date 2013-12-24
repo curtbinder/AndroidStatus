@@ -193,5 +193,5 @@ Changelog of all the versions of AndroidStatus
  
 0.9.3
  * settings for Connection Timeout and Read Timeout
-
+ * added in new memory locations for v1.1.0 libraries
  

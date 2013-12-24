@@ -169,6 +169,31 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>123</item>
         <item>125</item>
         <item>127</item>
+        <item>129</item>
+        <item>131</item>
+        <item>132</item>
+        <item>133</item>
+        <item>134</item>
+        <item>136</item>
+        <item>137</item>
+        <item>138</item>
+        <item>139</item>
+        <item>140</item>
+        <item>142</item>
+        <item>144</item>
+        <item>146</item>
+        <item>148</item>
+        <item>150</item>
+        <item>152</item>
+        <item>154</item>
+        <item>156</item>
+        <item>157</item>
+        <item>158</item>
+        <item>159</item>
+        <item>160</item>
+        <item>161</item>
+        <item>162</item>
+        <item>163</item>
     </integer-array>
 
     <string-array name="memoryLocationsNames">
@@ -276,6 +301,31 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>PH Exp Max Value (PH10)</item>
         <item>Water Level Min Value</item>
         <item>Water Level Max Value</item>
+        <item>Salinity Temp Compensation</item>
+        <item>Water Level Low</item>
+        <item>Water Level High</item>
+        <item>Dosing Pump 3 Timer</item>
+        <item>Dosing Pump 3 Repeat Interval</item>
+        <item>LCD ID</item>
+        <item>DC Pump Mode</item>
+        <item>DC Pump Speed</item>
+        <item>DC Pump Duration</item>
+        <item>Water Level 1 Min Value</item>
+        <item>Water Level 1 Max Value</item>
+        <item>Water Level 2 Min Value</item>
+        <item>Water Level 2 Max Value</item>
+        <item>Water Level 3 Min Value</item>
+        <item>Water Level 3 Max Value</item>
+        <item>Water Level 4 Min Value</item>
+        <item>Water Level 4 Max Value</item>
+        <item>Daylight PWM Value 2</item>
+        <item>Actinic PWM Value 2</item>
+        <item>PWM Slope Daylight 2 Start %</item>
+        <item>PWM Slope Daylight 2 End %</item>
+        <item>PWM Slope Daylight 2 Duration</item>
+        <item>PWM Slope Actinic 2 Start %</item>
+        <item>PWM Slope Actinic 2 End %</item>
+        <item>PWM Slope Actinic 2 Duration</item>
     </string-array>
 
     <integer-array name="memoryLocationsTypes">
