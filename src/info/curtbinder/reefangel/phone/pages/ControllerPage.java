@@ -73,7 +73,7 @@ public class ControllerPage extends RAPage {
 		colors[SALINITY_INDEX] = ctx.getResources().getColor( R.color.white );
 		colors[ORP_INDEX] = ctx.getResources().getColor( R.color.white );
 		colors[PHE_INDEX] = ctx.getResources().getColor( R.color.ph );
-		colors[WL_INDEX] = ctx.getResources().getColor( R.color.blue );
+		colors[WL_INDEX] = ctx.getResources().getColor( R.color.white );
 
 		deviceRow[T1_INDEX] = (TableRow) findViewById( R.id.t1_row );
 		deviceRow[T2_INDEX] = (TableRow) findViewById( R.id.t2_row );
