@@ -52,6 +52,8 @@ public class CommandsPage extends RAPage implements OnClickListener {
 		b.setOnClickListener( this );
 		b = (Button) findViewById( R.id.command_button_exit );
 		b.setOnClickListener( this );
+		b = (Button) findViewById( R.id.command_button_reboot );
+		b.setOnClickListener( this );
 		b = (Button) findViewById( R.id.command_button_lights_on );
 		b.setOnClickListener( this );
 		b = (Button) findViewById( R.id.command_button_lights_off );
@@ -84,6 +86,9 @@ public class CommandsPage extends RAPage implements OnClickListener {
 				break;
 			case R.id.command_button_overheat_clear:
 				s = RequestCommands.OverheatClear;
+				break;
+			case R.id.command_button_reboot:
+				s = RequestCommands.Reboot;
 				break;
 		}
 		i.setAction( MessageCommands.COMMAND_SEND_INTENT );

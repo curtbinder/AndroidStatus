@@ -159,6 +159,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="labelChannel">Channel</string>
     <string name="labelLightsOn">Lights On</string>
     <string name="labelLightsOff">Lights Off</string>
+    <string name="labelReboot">Reboot</string>
     <string name="labelParameter">Parameter:</string>
     <string name="labelCondition">Condition:</string>
     <string name="websiteReefangel">http://www.reefangel.com/</string>
@@ -205,6 +206,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="messageAddNotification">Add notification</string>
     <string name="messageMoreErrors">+%1$d more</string>
     <string name="messageGBMoreErrorss">%1$s - %2$d errors</string>
+    <string name="messageUnsupported">Unsupported command</string>
 
     <!-- Status strings -->
     <string name="statusStart">Starting update</string>

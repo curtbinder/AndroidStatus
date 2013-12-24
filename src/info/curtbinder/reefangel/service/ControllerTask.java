@@ -103,7 +103,14 @@ public class ControllerTask implements Runnable {
 		// check if there was an error
 		if ( rapp.errorCode > 0 ) {
 			// encountered an error, display an error on screen
-			broadcastErrorMessage();
+			if ( (host.getCommand().equals( RequestCommands.Reboot ))
+					&& (rapp.errorCode == 15) ) {
+				// if we get a timeout after sending this command, the
+				// controller does not support the command
+				broadcastUpdateStatus( R.string.messageUnsupported );
+			} else {
+				broadcastErrorMessage();
+			}
 		} else if ( res.equals( (String) rapp.getResources()
 				.getText( R.string.messageCancelled ) ) ) {
 			// Interrupted
@@ -235,6 +242,9 @@ public class ControllerTask implements Runnable {
 										xml.getModeResponse() );
 		} else if ( host.getCommand().equals( RequestCommands.LightsOff ) ) {
 			broadcastCommandResponse(	R.string.labelLightsOff,
+										xml.getModeResponse() );
+		} else if ( host.getCommand().equals( RequestCommands.Reboot ) ) {
+			broadcastCommandResponse(	R.string.labelReboot,
 										xml.getModeResponse() );
 		} else if ( host.getCommand().equals( RequestCommands.Version ) ) {
 			Intent i = new Intent( MessageCommands.VERSION_RESPONSE_INTENT );

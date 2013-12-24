@@ -36,13 +36,26 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:text="@string/buttonWater" />
         </TableRow>
 
-        <Button
-            android:id="@+id/command_button_exit"
-            style="@style/CommandButtons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_action_exit"
-            android:text="@string/buttonExit" />
+        <TableRow>
+
+            <Button
+                android:id="@+id/command_button_exit"
+                style="@style/CommandButtons"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_action_exit"
+                android:text="@string/buttonExit" />
+
+            <Button
+                android:id="@+id/command_button_reboot"
+                style="@style/CommandButtons"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_action_io"
+                android:text="@string/labelReboot" />
+        </TableRow>
 
         <TableRow>
 
