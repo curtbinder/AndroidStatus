@@ -98,6 +98,55 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:drawableLeft="@drawable/ic_action_temperature"
                 android:text="@string/buttonOverheatClear" />
         </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/command_button_calibrate_ph"
+                style="@style/CommandButtons"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/labelCalibratePH" />
+
+            <Button
+                android:id="@+id/command_button_calibrate_salinity"
+                style="@style/CommandButtons"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/labelCalibrateSalinity" />
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/command_button_calibrate_orp"
+                style="@style/CommandButtons"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/labelCalibrateORP" />
+
+            <Button
+                android:id="@+id/command_button_calibrate_water"
+                style="@style/CommandButtons"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/labelCalibrateWaterLevel" />
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/command_button_calibrate_phe"
+                style="@style/CommandButtons"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/labelCalibratePHExp" />
+        </TableRow>
     </TableLayout>
 
 </ScrollView>
