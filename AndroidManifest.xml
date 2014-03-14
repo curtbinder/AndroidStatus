@@ -13,7 +13,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     android:versionName="@string/app_version" >
 
     <uses-sdk
-        android:minSdkVersion="5"
+        android:minSdkVersion="7"
         android:targetSdkVersion="16" />
 
     <uses-permission android:name="android.permission.INTERNET" />

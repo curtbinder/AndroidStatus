@@ -37,17 +37,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.viewpagerindicator.TitlePageIndicator;
 
 public class StatusActivity extends BaseActivity implements
@@ -188,18 +187,14 @@ public class StatusActivity extends BaseActivity implements
 	private void setNavigationList ( ) {
 		// set list navigation items
 		final ActionBar ab = getSupportActionBar();
-		Context context = ab.getThemedContext();
-		int arrayID;
-		if ( rapp.isAwayProfileEnabled() ) {
-			arrayID = R.array.profileLabels;
-		} else {
-			arrayID = R.array.profileLabelsHomeOnly;
-		}
+		final Context context = ab.getThemedContext();
+		final int arrayID = rapp.isAwayProfileEnabled() ? R.array.profileLabels : R.array.profileLabelsHomeOnly;
+		
 		ArrayAdapter<CharSequence> list =
 				ArrayAdapter
 						.createFromResource(	context, arrayID,
-												R.layout.sherlock_spinner_item );
-		list.setDropDownViewResource( R.layout.sherlock_spinner_dropdown_item );
+								R.layout.support_simple_spinner_dropdown_item );
+		list.setDropDownViewResource( R.layout.support_simple_spinner_dropdown_item );
 		ab.setListNavigationCallbacks( list, this );
 		ab.setSelectedNavigationItem( rapp.getSelectedProfile() );
 	}
@@ -822,9 +817,8 @@ public class StatusActivity extends BaseActivity implements
 
 	@Override
 	public boolean onCreateOptionsMenu ( Menu menu ) {
-		MenuInflater inflater = getSupportMenuInflater();
-		inflater.inflate( R.menu.status_menu, menu );
-		return true;
+		getMenuInflater().inflate( R.menu.status_menu, menu );
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
