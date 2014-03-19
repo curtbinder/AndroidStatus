@@ -1,0 +1,4 @@
+<resources>
+    <attr name="cbDrawerItemSelectedBackground" format="reference" />
+    <attr name="cbDrawerItemSelectedText" format="reference" />
+</resources>

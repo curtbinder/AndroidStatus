@@ -1,0 +1,25 @@
+<preference-headers
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- These headers use the same fragment and extras to differentiate what xml file to load
+    <header
+        android:fragment="info.curtbinder.testfrag2.SettingsActivity$SettingsFragment"
+        android:title="Device"
+        android:summary="Device summary" >
+    	<extra android:name="settings" android:value="device" />
+    </header>
+    <header
+        android:fragment="info.curtbinder.testfrag2.SettingsActivity$SettingsFragment"
+        android:title="Relay"
+        android:summary="Relay summary" >
+    	<extra android:name="settings" android:value="relay" />
+    </header>
+    -->
+     <header
+        android:fragment="info.curtbinder.reefangel.phone.SettingsActivity$DeviceFragment"
+        android:title="Device"
+        android:summary="Device summary" />
+    <header
+        android:fragment="info.curtbinder.reefangel.phone.SettingsActivity$RelayFragment"
+        android:title="Relay"
+        android:summary="Relay summary" />
+</preference-headers>

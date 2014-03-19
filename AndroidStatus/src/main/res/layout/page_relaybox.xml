@@ -1,0 +1,45 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:stretchColumns="1" >
+
+        <include
+            android:id="@+id/rowPort1"
+            layout="@layout/relayboxrow" />
+
+        <include
+            android:id="@+id/rowPort2"
+            layout="@layout/relayboxrow" />
+
+        <include
+            android:id="@+id/rowPort3"
+            layout="@layout/relayboxrow" />
+
+        <include
+            android:id="@+id/rowPort4"
+            layout="@layout/relayboxrow" />
+
+        <include
+            android:id="@+id/rowPort5"
+            layout="@layout/relayboxrow" />
+
+        <include
+            android:id="@+id/rowPort6"
+            layout="@layout/relayboxrow" />
+
+        <include
+            android:id="@+id/rowPort7"
+            layout="@layout/relayboxrow" />
+
+        <include
+            android:id="@+id/rowPort8"
+            layout="@layout/relayboxrow" />
+    </TableLayout>
+
+</ScrollView>

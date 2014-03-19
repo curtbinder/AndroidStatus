@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="nav_items">
+        <item>Status</item>
+        <item>Memory</item>
+        <item>Notifications</item>
+        <item>History</item>
+        <item>Errors</item>
+        <item>Date and Time</item>
+    </string-array>
+
+    <string-array name="devices">
+        <item>Controller</item>
+        <item>Portal</item>
+    </string-array>
+    <string-array name="devicesValues">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="expansionRelays">
+        <item>None</item>
+        <item>1 Expansion Relay</item>
+        <item>2 Expansion Relays</item>
+        <item>3 Expansion Relays</item>
+        <item>4 Expansion Relays</item>
+        <item>5 Expansion Relays</item>
+        <item>6 Expansion Relays</item>
+        <item>7 Expansion Relays</item>
+        <item>8 Expansion Relays</item>
+    </string-array>
+    <string-array name="expansionRelaysValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+    <string-array name="errorCodes">
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+    </string-array>
+    <string-array name="errorCodesStrings">
+        <item>Send Command</item>
+        <item>Bad URL</item>
+        <item>Generic Send Exception</item>
+        <item>Connection failed</item>
+        <item>Unknown Host</item>
+        <item>Timeout</item>
+        <item>XML</item>
+        <item>Parser Configuration</item>
+        <item>XML I/O</item>
+        <item>XML SAX Parser</item>
+    </string-array>
+
+    <integer-array name="memoryLocations">
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>10</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>16</item>
+        <item>18</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>24</item>
+        <item>26</item>
+        <item>28</item>
+        <item>30</item>
+        <item>31</item>
+        <item>33</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>45</item>
+        <item>47</item>
+        <item>49</item>
+        <item>50</item>
+        <item>51</item>
+        <item>52</item>
+        <item>53</item>
+        <item>54</item>
+        <item>55</item>
+        <item>56</item>
+        <item>57</item>
+        <item>58</item>
+        <item>59</item>
+        <item>60</item>
+        <item>61</item>
+        <item>62</item>
+        <item>63</item>
+        <item>64</item>
+        <item>65</item>
+        <item>66</item>
+        <item>67</item>
+        <item>68</item>
+        <item>69</item>
+        <item>70</item>
+        <item>71</item>
+        <item>72</item>
+        <item>73</item>
+        <item>74</item>
+        <item>75</item>
+        <item>76</item>
+        <item>78</item>
+        <item>80</item>
+        <item>82</item>
+        <item>84</item>
+        <item>85</item>
+        <item>87</item>
+        <item>89</item>
+        <item>91</item>
+        <item>93</item>
+        <item>94</item>
+        <item>95</item>
+        <item>96</item>
+        <item>97</item>
+        <item>98</item>
+        <item>99</item>
+        <item>100</item>
+        <item>101</item>
+        <item>102</item>
+        <item>103</item>
+        <item>104</item>
+        <item>105</item>
+        <item>106</item>
+        <item>107</item>
+        <item>108</item>
+        <item>109</item>
+        <item>110</item>
+        <item>111</item>
+        <item>112</item>
+        <item>113</item>
+        <item>114</item>
+        <item>115</item>
+        <item>116</item>
+        <item>117</item>
+        <item>118</item>
+        <item>119</item>
+        <item>120</item>
+        <item>121</item>
+        <item>123</item>
+        <item>125</item>
+        <item>127</item>
+    </integer-array>
+
+    <string-array name="memoryLocationsNames">
+        <item>Custom Location</item>
+        <item>MH On Hour</item>
+        <item>MH On Minute</item>
+        <item>MH Off Hour</item>
+        <item>MH Off Minute</item>
+        <item>StdLights On Hour</item>
+        <item>StdLights On Minute</item>
+        <item>StdLights Off Hour</item>
+        <item>StdLights Off Minute</item>
+        <item>Wavemaker 1 Timer</item>
+        <item>Wavemaker 2 Timer</item>
+        <item>Dosing Pump 1 Timer</item>
+        <item>Dosing Pump 2 Timer</item>
+        <item>Feeding Mode Timer</item>
+        <item>LCD Timeout</item>
+        <item>Overheat Temp</item>
+        <item>Daylight PWM Value</item>
+        <item>Actinic PWM Value</item>
+        <item>Heater On Temp</item>
+        <item>Heater Off Temp</item>
+        <item>Chiller On Temp</item>
+        <item>Chiller Off Temp</item>
+        <item>ATO Timeout</item>
+        <item>PH Max value (PH10)</item>
+        <item>PH Min value (PH7)</item>
+        <item>MH Delay</item>
+        <item>Dosing Pump 1 On Hour</item>
+        <item>Dosing Pump 1 On Minute</item>
+        <item>Dosing Pump 2 On Hour</item>
+        <item>Dosing Pump 2 On Minute</item>
+        <item>ATO Hour Interval</item>
+        <item>ATO High Hour Interval</item>
+        <item>ATO High Timeout</item>
+        <item>Dosing Pump 1 Repeat Interval</item>
+        <item>Dosing Pump 2 Repeat Interval</item>
+        <item>Salinity Max</item>
+        <item>PWM Slope Daylight Start %</item>
+        <item>PWM Slope Daylight End %</item>
+        <item>PWM Slope Daylight Duration</item>
+        <item>PWM Slope Actinic Start %</item>
+        <item>PWM Slope Actinic End %</item>
+        <item>PWM Slope Actinic Duration</item>
+        <item>RF Mode</item>
+        <item>RF Speed</item>
+        <item>RF Duration</item>
+        <item>PWM Slope Exp Ch 0 Start %</item>
+        <item>PWM Slope Exp Ch 0 End %</item>
+        <item>PWM Slope Exp Ch 0 Duration</item>
+        <item>PWM Slope Exp Ch 1 Start %</item>
+        <item>PWM Slope Exp Ch 1 End %</item>
+        <item>PWM Slope Exp Ch 1 Duration</item>
+        <item>PWM Slope Exp Ch 2 Start %</item>
+        <item>PWM Slope Exp Ch 2 End %</item>
+        <item>PWM Slope Exp Ch 2 Duration</item>
+        <item>PWM Slope Exp Ch 3 Start %</item>
+        <item>PWM Slope Exp Ch 3 End %</item>
+        <item>PWM Slope Exp Ch 3 Duration</item>
+        <item>PWM Slope Exp Ch 4 Start %</item>
+        <item>PWM Slope Exp Ch 4 End %</item>
+        <item>PWM Slope Exp Ch 4 Duration</item>
+        <item>PWM Slope Exp Ch 5 Start %</item>
+        <item>PWM Slope Exp Ch 5 End %</item>
+        <item>PWM Slope Exp Ch 5 Duration</item>
+        <item>ATO Extended Timeout</item>
+        <item>ATO High Extended Timeout</item>
+        <item>ORP Min Value</item>
+        <item>ORP Max Value</item>
+        <item>Actinic Offset Time</item>
+        <item>CO2 Control On Value</item>
+        <item>CO2 Control Off Value</item>
+        <item>PH Control On Value</item>
+        <item>PH Control Off Value</item>
+        <item>AI Slope Ch W Start %</item>
+        <item>AI Slope Ch W End %</item>
+        <item>AI Slope Ch W Duration</item>
+        <item>AI Slope Ch B Start %</item>
+        <item>AI Slope Ch B End %</item>
+        <item>AI Slope Ch B Duration</item>
+        <item>AI Slope Ch RB Start %</item>
+        <item>AI Slope Ch RB End %</item>
+        <item>AI Slope Ch RB Duration</item>
+        <item>Radion Slope Ch W Start %</item>
+        <item>Radion Slope Ch W End %</item>
+        <item>Radion Slope Ch W Duration</item>
+        <item>Radion Slope Ch RB Start %</item>
+        <item>Radion Slope Ch RB End %</item>
+        <item>Radion Slope Ch RB Duration</item>
+        <item>Radion Slope Ch R Start %</item>
+        <item>Radion Slope Ch R End %</item>
+        <item>Radion Slope Ch R Duration</item>
+        <item>Radion Slope Ch G Start %</item>
+        <item>Radion Slope Ch G End %</item>
+        <item>Radion Slope Ch G Duration</item>
+        <item>Radion Slope Ch B Start %</item>
+        <item>Radion Slope Ch B End %</item>
+        <item>Radion Slope Ch B Duration</item>
+        <item>Radion Slope Ch I Start %</item>
+        <item>Radion Slope Ch I End %</item>
+        <item>Radion Slope Ch I Duration</item>
+        <item>Delayed Start Time</item>
+        <item>PH Exp Min Value (PH7)</item>
+        <item>PH Exp Max Value (PH10)</item>
+        <item>Water Level Min Value</item>
+        <item>Water Level Max Value</item>
+    </string-array>
+
+    <integer-array name="memoryLocationsTypes">
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+    </integer-array>
+    <integer-array name="wavemakersIndex">
+        <item>9</item>
+        <item>10</item>
+    </integer-array>
+    <integer-array name="hourIndex">
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+        <item>7</item>
+        <item>26</item>
+        <item>28</item>
+    </integer-array>
+    <integer-array name="minuteIndex">
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+        <item>8</item>
+        <item>27</item>
+        <item>29</item>
+    </integer-array>
+    <integer-array name="phIndex">
+        <item>23</item>
+        <item>24</item>
+        <item>70</item>
+        <item>71</item>
+        <item>100</item>
+        <item>101</item>
+    </integer-array>
+    <integer-array name="timeoutIndex">
+        <item>13</item>
+        <item>14</item>
+    </integer-array>
+    <integer-array name="pwmIndex">
+        <item>16</item>
+        <item>17</item>
+        <item>36</item>
+        <item>37</item>
+        <item>39</item>
+        <item>40</item>
+        <item>45</item>
+        <item>46</item>
+        <item>48</item>
+        <item>49</item>
+        <item>51</item>
+        <item>52</item>
+        <item>54</item>
+        <item>55</item>
+        <item>57</item>
+        <item>58</item>
+        <item>60</item>
+        <item>61</item>
+        <item>72</item>
+        <item>73</item>
+        <item>75</item>
+        <item>76</item>
+        <item>78</item>
+        <item>79</item>
+        <item>81</item>
+        <item>82</item>
+        <item>84</item>
+        <item>85</item>
+        <item>87</item>
+        <item>88</item>
+        <item>90</item>
+        <item>91</item>
+        <item>93</item>
+        <item>94</item>
+        <item>96</item>
+        <item>97</item>
+    </integer-array>
+
+    <string-array name="profileIndex">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="profileLabels">
+        <item>Home</item>
+        <item>Away</item>
+    </string-array>
+    <string-array name="profileLabelsHomeOnly">
+        <item>Home</item>
+    </string-array>
+    <string-array name="vortechModeLabels">
+        <item>Constant</item>
+        <item>Lagoonal</item>
+        <item>Reef Crest</item>
+        <item>Short Wave</item>
+        <item>Long Wave</item>
+        <item>Nutrient</item>
+        <item>Tidal Swell</item>
+        <item>Feeding Start</item>
+        <item>Feeding Stop</item>
+        <item>Night</item>
+        <item>Storm</item>
+        <item>Custom</item>
+        <item>Slave Start</item>
+        <item>Slave Stop</item>
+        <item>None</item>
+        <item>Radion</item>
+    </string-array>
+    <string-array name="updateInterval">
+        <item>Manual (Never)</item>
+        <item>1 minute</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>4 hours</item>
+        <item>6 hours</item>
+        <item>12 hours</item>
+    </string-array>
+    <string-array name="updateIntervalValues">
+        <item>0</item>
+        <item>60000</item>
+        <item>300000</item>
+        <item>600000</item>
+        <item>900000</item>
+        <item>1800000</item>
+        <item>3600000</item>
+        <item>14400000</item>
+        <item>21600000</item>
+        <item>43200000</item>
+    </string-array>
+    <string-array name="updateProfile">
+        <item>Always</item>
+        <item>Only on Away</item>
+        <item>Only on Home</item>
+    </string-array>
+    <string-array name="updateProfileValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="loggingUpdate">
+        <item>Replace file</item>
+        <item>Append file</item>
+    </string-array>
+    <string-array name="loggingUpdateValues">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="errorRetryCount">
+        <item>Never</item>
+        <item>1 retry</item>
+        <item>2 retries</item>
+        <item>3 retries</item>
+        <item>4 retries</item>
+        <item>5 retries</item>
+    </string-array>
+    <string-array name="errorRetryCountValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string-array name="errorRetryInterval">
+        <item>Immediately</item>
+        <item>1 second</item>
+        <item>5 seconds</item>
+        <item>15 seconds</item>
+        <item>30 seconds</item>
+        <item>1 minute</item>
+    </string-array>
+    <string-array name="errorRetryIntervalValues">
+        <item>0</item>
+        <item>1000</item>
+        <item>5000</item>
+        <item>15000</item>
+        <item>30000</item>
+        <item>60000</item>
+    </string-array>
+    <string-array name="notifyConditions">
+        <item>&gt;</item>
+        <item>&gt;=</item>
+        <item>=</item>
+        <item>&lt;</item>
+        <item>&lt;=</item>
+        <item>!=</item>
+    </string-array>
+    <string-array name="deviceParameters">
+        <item>Temp 1</item>
+        <item>Temp 2</item>
+        <item>Temp 3</item>
+        <item>PH</item>
+        <item>PH Expansion</item>
+        <item>Daylight PWM</item>
+        <item>Actinic PWM</item>
+        <item>Salinity</item>
+        <item>ORP</item>
+        <item>Water Level</item>
+        <item>ATO High</item>
+        <item>ATO Low</item>
+        <item>PWM Exp 0</item>
+        <item>PWM Exp 1</item>
+        <item>PWM Exp 2</item>
+        <item>PWM Exp 3</item>
+        <item>PWM Exp 4</item>
+        <item>PWM Exp 5</item>
+        <item>AI White</item>
+        <item>AI Blue</item>
+        <item>AI Royal Blue</item>
+        <item>Vortech Mode</item>
+        <item>Vortech Speed</item>
+        <item>Vortech Duration</item>
+        <item>Radion White</item>
+        <item>Radion Royal Blue</item>
+        <item>Radion Red</item>
+        <item>Radion Green</item>
+        <item>Radion Blue</item>
+        <item>Radion Intensity</item>
+        <item>IO Ch 0</item>
+        <item>IO Ch 1</item>
+        <item>IO Ch 2</item>
+        <item>IO Ch 3</item>
+        <item>IO Ch 4</item>
+        <item>IO Ch 5</item>
+        <item>Custom 0</item>
+        <item>Custom 1</item>
+        <item>Custom 2</item>
+        <item>Custom 3</item>
+        <item>Custom 4</item>
+        <item>Custom 5</item>
+        <item>Custom 6</item>
+        <item>Custom 7</item>
+    </string-array>
+
+    <string-array name="networkTimeout">
+        <item>10 seconds</item>
+        <item>15 seconds</item>
+        <item>20 seconds</item>
+        <item>30 seconds</item>
+        <item>45 seconds</item>
+        <item>60 seconds</item>
+    </string-array>
+    <string-array name="networkTimeoutValues">
+        <item>10000</item>
+        <item>15000</item>
+        <item>20000</item>
+        <item>30000</item>
+        <item>45000</item>
+        <item>60000</item>
+    </string-array>
+
+</resources>

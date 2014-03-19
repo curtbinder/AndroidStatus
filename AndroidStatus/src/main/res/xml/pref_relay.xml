@@ -1,0 +1,17 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<EditTextPreference 
+    android:defaultValue="Port 1"
+    android:title="Port 1 Label"
+    android:summary="Name of port" 
+    android:key="port1_name" />
+<EditTextPreference 
+    android:defaultValue="Port 2"
+    android:title="Port 2 Label"
+    android:summary="Name of port" 
+    android:key="port2_name" />
+<EditTextPreference 
+    android:defaultValue="Port 3"
+    android:title="Port 3 Label"
+    android:summary="Name of port" 
+    android:key="port3_name" />
+</PreferenceScreen>

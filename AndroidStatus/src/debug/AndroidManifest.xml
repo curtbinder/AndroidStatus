@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="info.curtbinder.reefangel.phone" >
+
+    <application>
+        <provider
+            android:name="info.curtbinder.reefangel.db.StatusProvider"
+            android:authorities="info.curtbinder.reefangel.db.debug"
+            android:readPermission="info.curtbinder.reefangel.permission.READ_PROVIDER" >
+        </provider>
+    </application>
+
+</manifest>

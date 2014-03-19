@@ -1,0 +1,38 @@
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+	android:paddingTop="@dimen/row_vertical_padding"
+	android:paddingBottom="@dimen/row_vertical_padding"
+    android:orientation="horizontal" >
+<!--     android:layout_margin="8dp" -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/rowTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textAppearance="@android:style/TextAppearance.Large" />
+
+        <TextView
+            android:id="@+id/rowSubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subtitle"
+            android:textStyle="italic"
+            android:textAppearance="@android:style/TextAppearance.Small" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/rowValue"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="right|center_vertical"
+        android:text="Value"
+        android:textAppearance="@android:style/TextAppearance.Large" />
+
+</TableRow>

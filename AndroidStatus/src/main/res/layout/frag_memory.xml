@@ -1,0 +1,91 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:stretchColumns="1" >
+
+        <TextView
+            android:text="Enter memory location and values to view or update" />
+        
+        <!-- Location edit box, disabled unless CUSTOM location -->
+
+        <TableRow android:id="@+id/locationRow" >
+
+            <TextView android:text="Location" />
+
+            <EditText
+                android:id="@+id/locationText"
+                android:inputType="number" >
+            </EditText>
+        </TableRow>
+
+        <TableRow android:id="@+id/typeRow" >
+
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:text="Type" />
+
+            <TableLayout android:layout_width="fill_parent" >
+
+                <RadioGroup android:orientation="horizontal" >
+
+                    <RadioButton
+                        android:id="@+id/radioButtonByte"
+                        android:layout_weight="1"
+                        android:text="Byte" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonInt"
+                        android:layout_weight="1"
+                        android:text="Int" />
+                </RadioGroup>
+            </TableLayout>
+        </TableRow>
+        <!-- Value edit box -->
+
+        <TableRow>
+
+            <TextView android:text="Value" />
+
+            <EditText
+                android:id="@+id/valueText"
+                android:inputType="number" >
+
+                <requestFocus />
+            </EditText>
+        </TableRow>
+        <!-- Read & Write buttons -->
+
+        <TableRow>
+
+            <TextView android:text="" />
+
+            <TableLayout android:layout_width="fill_parent" >
+
+                <TableRow>
+
+                    <Button
+                        android:id="@+id/buttonRead"
+                        android:layout_width="fill_parent"
+                        android:layout_weight="1"
+                        android:text="Read" />
+
+                    <Button
+                        android:id="@+id/buttonWrite"
+                        android:layout_width="fill_parent"
+                        android:layout_weight="1"
+                        android:text="Write" />
+                </TableRow>
+            </TableLayout>
+        </TableRow>
+        <!--
+        <TextView
+            android:id="@+id/statusText" />
+        -->
+    </TableLayout>
+
+</ScrollView>

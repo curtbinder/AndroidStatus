@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Base Styles -->
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="reefangel" parent="Theme.AppCompat.Light">
+        <item name="android:editTextStyle">@style/EditTextreefangel</item>
+        <item name="android:checkboxStyle">@style/CheckBoxreefangel</item>
+        <item name="android:radioButtonStyle">@style/RadioButtonreefangel</item>
+        <item name="android:buttonStyle">@style/Buttonreefangel</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonreefangel</item>
+        <item name="android:spinnerStyle">@style/Spinnerreefangel</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemreefangel</item>
+        <item name="android:tabWidgetStyle">@style/TabWidgetreefangel</item>
+        <item name="android:seekBarStyle">@style/SeekBarreefangel</item>
+        <item name="android:buttonStyleToggle">@style/Togglereefangel</item>
+        <item name="android:listViewStyle">@style/ListViewreefangel</item>
+        <item name="android:listViewWhiteStyle">@style/ListViewreefangel.White</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItemreefangel</item>
+        <item name="actionBarStyle">@style/ActionBarreefangel</item>
+        <item name="popupMenuStyle">@style/PopupMenureefangel</item>
+    </style>
+
+</resources>

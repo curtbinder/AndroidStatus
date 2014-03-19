@@ -3,3 +3,8 @@ bin/
 release/
 dist/
 .settings/
+.gradle
+/local.properties
+/.idea/workspace.xml
+.DS_Store
+

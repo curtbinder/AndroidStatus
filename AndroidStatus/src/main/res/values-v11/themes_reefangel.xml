@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- v11 Styles -->
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="reefangel" parent="Theme.AppCompat.Light">
+        <item name="android:editTextBackground">@drawable/reefangel_edit_text_holo_light</item>
+        <item name="android:listChoiceIndicatorMultiple">@drawable/reefangel_btn_check_holo_light</item>
+        <item name="android:listChoiceIndicatorSingle">@drawable/reefangel_btn_radio_holo_light</item>
+        <item name="android:buttonStyle">@style/Buttonreefangel</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonreefangel</item>
+        <item name="android:dropDownSpinnerStyle">@style/Spinnerreefangel</item>
+        <item name="android:tabWidgetStyle">@style/TabWidgetreefangel</item>
+        <item name="android:seekBarStyle">@style/SeekBarreefangel</item>
+        <item name="android:buttonStyleToggle">@style/Togglereefangel</item>
+        <item name="android:listChoiceBackgroundIndicator">@drawable/reefangel_list_selector_holo_light</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/reefangel_activated_background_holo_light</item>
+        <item name="android:fastScrollThumbDrawable">@drawable/reefangel_fastscroll_thumb_holo</item>
+        <item name="android:actionBarStyle">@style/ActionBarreefangel</item>
+        <item name="android:popupMenuStyle">@style/PopupMenureefangel</item>
+    </style>
+
+</resources>
