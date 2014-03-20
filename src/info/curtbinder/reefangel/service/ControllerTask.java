@@ -76,7 +76,7 @@ public class ControllerTask implements Runnable {
 			if ( Thread.interrupted() )
 				throw new InterruptedException();
 
-			res = sendCommand( con.getInputStream() );
+			//res = sendCommand( con.getInputStream() );
 		} catch ( MalformedURLException e ) {
 			rapp.error( 1, e, "MalformedURLException" );
 		} catch ( ProtocolException e ) {
@@ -93,10 +93,10 @@ public class ControllerTask implements Runnable {
 							.getText( R.string.messageCancelled );
 		}
 
-		if ( con != null ) {
-			con.disconnect();
-			broadcastUpdateStatus( R.string.statusDisconnected );
-		}
+//		if ( con != null ) {
+//			con.disconnect();
+//			broadcastUpdateStatus( R.string.statusDisconnected );
+//		}
 
 		broadcastUpdateStatus( R.string.statusReadResponse );
 
@@ -120,7 +120,7 @@ public class ControllerTask implements Runnable {
 			if ( raprefs.useOld085xExpansionRelays() ) {
 				xml.setOld085xExpansion( true );
 			}
-			if ( !parseXML( xml, res ) ) {
+			if ( !parseXML( xml, con ) ) {
 				// error parsing
 				broadcastErrorMessage();
 				return;
@@ -175,9 +175,9 @@ public class ControllerTask implements Runnable {
 		return s.toString();
 	}
 
-	private boolean parseXML ( XMLHandler xml, String res ) {
+	private boolean parseXML ( XMLHandler xml, /*String res*/ HttpURLConnection con ) {
 		SAXParserFactory spf = SAXParserFactory.newInstance();
-		SAXParser sp = null;
+		//SAXParser sp = null;
 		XMLReader xr = null;
 		boolean result = false;
 		try {
@@ -186,8 +186,8 @@ public class ControllerTask implements Runnable {
 				throw new InterruptedException();
 
 			broadcastUpdateStatus( R.string.statusInitParser );
-			sp = spf.newSAXParser();
-			xr = sp.getXMLReader();
+			//sp = spf.newSAXParser();
+			xr = spf.newSAXParser().getXMLReader();
 			xr.setContentHandler( xml );
 			xr.setErrorHandler( xml );
 
@@ -196,7 +196,8 @@ public class ControllerTask implements Runnable {
 				throw new InterruptedException();
 
 			broadcastUpdateStatus( R.string.statusParsing );
-			xr.parse( new InputSource( new StringReader( res ) ) );
+//			xr.parse( new InputSource( new StringReader( res ) ) );
+			xr.parse( new InputSource(con.getInputStream()) );
 			broadcastUpdateStatus( R.string.statusFinished );
 			result = true;
 		} catch ( ParserConfigurationException e ) {
