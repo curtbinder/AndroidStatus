@@ -9,6 +9,13 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    <ListPreference
+        android:defaultValue="@string/prefDeviceDefault"
+        android:entries="@array/devices"
+        android:entryValues="@array/devicesValues"
+        android:key="@string/prefDeviceKey"
+        android:title="@string/prefDeviceTitle"/>
+
     <PreferenceCategory android:title="@string/prefsCategoryProfiles" >
         <ListPreference
             android:defaultValue="@string/prefProfileSelectedDefault"

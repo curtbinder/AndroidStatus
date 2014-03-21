@@ -9,7 +9,6 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <PreferenceCategory android:title="@string/prefsCategoryAdvanced" >
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/prefPre10MemoryKey"
@@ -32,6 +31,5 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:entryValues="@array/networkTimeoutValues"
             android:key="@string/prefReadTimeoutKey"
             android:title="@string/prefReadTimeoutTitle" />
-    </PreferenceCategory>
 
 </PreferenceScreen>

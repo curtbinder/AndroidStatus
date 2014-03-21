@@ -60,7 +60,7 @@ public class RAApplication extends Application {
 		errorCodesStrings =
 				getResources().getStringArray( R.array.errorCodesStrings );
 		errorCode = 0; // set to no error initially
-		data = new RADbHelper( this );
+//		data = new RADbHelper( this );
 		raprefs = new RAPreferences( this );
 
 		// initialize the error count
@@ -69,7 +69,7 @@ public class RAApplication extends Application {
 
 	public void onTerminate ( ) {
 		super.onTerminate();
-		data.close();
+//		data.close();
 	}
 
 	public void restartAutoUpdateService ( ) {

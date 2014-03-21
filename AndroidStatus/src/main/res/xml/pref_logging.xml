@@ -9,7 +9,6 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <PreferenceCategory android:title="@string/prefLoggingCategory" >
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/prefLoggingEnableKey"
@@ -30,6 +29,5 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <Preference
             android:key="@string/prefLoggingDeleteKey"
             android:title="@string/prefLoggingDeleteTitle" />
-    </PreferenceCategory>
 
 </PreferenceScreen>

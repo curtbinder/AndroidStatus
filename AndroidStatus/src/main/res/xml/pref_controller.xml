@@ -7,13 +7,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 http://creativecommons.org/licenses/by-nc-sa/3.0/
 -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="controller" >
 
-    <PreferenceCategory android:title="@string/prefsCategoryController" >
-        <PreferenceScreen
-            android:key="controller"
-            android:summary="@string/prefControllerSummary"
-            android:title="@string/prefControllerTitle" >
             <PreferenceScreen
                 android:key="@string/prefControllerLabelsDownloadKey"
                 android:summary="@string/prefControllerLabelsDownloadSummary"
@@ -951,7 +947,5 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                     android:summary="@string/prefResetSummary"
                     android:title="@string/prefResetEnabledPortsTitle" />
             </PreferenceCategory>
-        </PreferenceScreen>
-    </PreferenceCategory>
 
 </PreferenceScreen>

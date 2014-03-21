@@ -9,7 +9,6 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <PreferenceCategory android:title="@string/prefNotificationCategory" >
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/prefNotificationEnableKey"
@@ -38,6 +37,5 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:entryValues="@array/errorRetryIntervalValues"
             android:key="@string/prefNotificationErrorRetryIntervalKey"
             android:title="@string/prefNotificationErrorRetryIntervalTitle" />
-    </PreferenceCategory>
 
 </PreferenceScreen>

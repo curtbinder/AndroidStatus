@@ -46,8 +46,12 @@ public class SettingsActivity extends PreferenceActivity {
         }
         super.onCreate( savedInstanceState );
         if ( !isNewV11Prefs() ) {
-            addPreferencesFromResource(R.xml.pref_device);
-            addPreferencesFromResource(R.xml.pref_relay);
+            addPreferencesFromResource(R.xml.pref_profiles);
+            addPreferencesFromResource(R.xml.pref_controller);
+            addPreferencesFromResource(R.xml.pref_advanced);
+            addPreferencesFromResource(R.xml.pref_notifications);
+            addPreferencesFromResource(R.xml.pref_logging);
+            addPreferencesFromResource(R.xml.pref_appinfo);
         }
 	}
 	
@@ -65,29 +69,74 @@ public class SettingsActivity extends PreferenceActivity {
 	}
 
     @TargetApi(11)
-	public static class DeviceFragment extends PreferenceFragment {
+    public static class ProfileFragment extends PreferenceFragment {
 
-		@Override
-		public void onCreate ( Bundle savedInstanceState ) {
-			super.onCreate( savedInstanceState );
-			
-			// load the preferences from an XML file
-			addPreferencesFromResource(R.xml.pref_device);
+        @Override
+        public void onCreate ( Bundle savedInstanceState ) {
+            super.onCreate( savedInstanceState );
 
-		}
-
-	}
+            // load the preferences from an XML file
+            addPreferencesFromResource(R.xml.pref_profiles);
+        }
+    }
 
     @TargetApi(11)
-	public static class RelayFragment extends PreferenceFragment {
-		
-		@Override
-		public void onCreate ( Bundle savedInstanceState ) {
-			super.onCreate( savedInstanceState );
-			
-			// load the preferences from an XML file
-			addPreferencesFromResource(R.xml.pref_relay);
-		}
-	}
-	
+    public static class ControllerFragment extends PreferenceFragment {
+
+        @Override
+        public void onCreate ( Bundle savedInstanceState ) {
+            super.onCreate( savedInstanceState );
+
+            // load the preferences from an XML file
+            addPreferencesFromResource(R.xml.pref_controller);
+        }
+    }
+
+    @TargetApi(11)
+    public static class AdvancedFragment extends PreferenceFragment {
+
+        @Override
+        public void onCreate ( Bundle savedInstanceState ) {
+            super.onCreate( savedInstanceState );
+
+            // load the preferences from an XML file
+            addPreferencesFromResource(R.xml.pref_advanced);
+        }
+    }
+
+    @TargetApi(11)
+    public static class NotificationFragment extends PreferenceFragment {
+
+        @Override
+        public void onCreate ( Bundle savedInstanceState ) {
+            super.onCreate( savedInstanceState );
+
+            // load the preferences from an XML file
+            addPreferencesFromResource(R.xml.pref_notifications);
+        }
+    }
+
+    @TargetApi(11)
+    public static class LoggingFragment extends PreferenceFragment {
+
+        @Override
+        public void onCreate ( Bundle savedInstanceState ) {
+            super.onCreate( savedInstanceState );
+
+            // load the preferences from an XML file
+            addPreferencesFromResource(R.xml.pref_logging);
+        }
+    }
+    
+    @TargetApi(11)
+    public static class AppFragment extends PreferenceFragment {
+
+        @Override
+        public void onCreate ( Bundle savedInstanceState ) {
+            super.onCreate( savedInstanceState );
+
+            // load the preferences from an XML file
+            addPreferencesFromResource(R.xml.pref_appinfo);
+        }
+    }
 }

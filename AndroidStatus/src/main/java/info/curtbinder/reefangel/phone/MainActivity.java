@@ -48,10 +48,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
 
-        // set app defaults
-        PreferenceManager.setDefaultValues( this, R.xml.pref_device, false );
-        PreferenceManager.setDefaultValues( this, R.xml.pref_relay, false );
-
         // get the string array for the navigation items
         mNavTitles = getResources().getStringArray( R.array.nav_items );
 
