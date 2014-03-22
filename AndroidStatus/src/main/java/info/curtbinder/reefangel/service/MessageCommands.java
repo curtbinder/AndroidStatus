@@ -9,8 +9,7 @@
 package info.curtbinder.reefangel.service;
 
 public final class MessageCommands {
-	public static final String PACKAGE_BASE =
-			"info.curtbinder.reefangel.service";
+	public static final String PACKAGE_BASE = MessageCommands.class.getCanonicalName();
 
 	public static final String AUTO_UPDATE_PROFILE_INT =
 			PACKAGE_BASE + ".AUTO_UPDATE_PROFILE_INT";
