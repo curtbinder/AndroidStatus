@@ -13,7 +13,7 @@ public class HistoryFragment extends ListFragment {
 			LayoutInflater inflater,
 			ViewGroup container,
 			Bundle savedInstanceState ) {
-		View root = inflater.inflate( R.layout.frag_errors, container, false );
+		View root = inflater.inflate( R.layout.frag_history, container, false );
 		return root;
 	}
 
