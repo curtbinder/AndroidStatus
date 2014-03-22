@@ -68,7 +68,19 @@ public class SettingsActivity extends PreferenceActivity {
         }
 	}
 
-    @TargetApi(11)
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    @Override
+    protected boolean isValidFragment(String fragmentName) {
+        return ProfileFragment.class.getName().equals(fragmentName) ||
+                ControllerFragment.class.getName().equals(fragmentName) ||
+                AdvancedFragment.class.getName().equals(fragmentName) ||
+                NotificationFragment.class.getName().equals(fragmentName) ||
+                LoggingFragment.class.getName().equals(fragmentName) ||
+                AppFragment.class.getName().equals(fragmentName) ||
+                super.isValidFragment(fragmentName);
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class ProfileFragment extends PreferenceFragment {
 
         @Override
@@ -80,7 +92,7 @@ public class SettingsActivity extends PreferenceActivity {
         }
     }
 
-    @TargetApi(11)
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class ControllerFragment extends PreferenceFragment {
 
         @Override
@@ -92,7 +104,7 @@ public class SettingsActivity extends PreferenceActivity {
         }
     }
 
-    @TargetApi(11)
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class AdvancedFragment extends PreferenceFragment {
 
         @Override
@@ -104,7 +116,7 @@ public class SettingsActivity extends PreferenceActivity {
         }
     }
 
-    @TargetApi(11)
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class NotificationFragment extends PreferenceFragment {
 
         @Override
@@ -116,7 +128,7 @@ public class SettingsActivity extends PreferenceActivity {
         }
     }
 
-    @TargetApi(11)
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class LoggingFragment extends PreferenceFragment {
 
         @Override
@@ -128,7 +140,7 @@ public class SettingsActivity extends PreferenceActivity {
         }
     }
 
-    @TargetApi(11)
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class AppFragment extends PreferenceFragment {
 
         @Override
