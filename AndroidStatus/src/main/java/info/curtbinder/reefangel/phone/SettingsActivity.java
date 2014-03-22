@@ -147,7 +147,7 @@ public class SettingsActivity extends PreferenceActivity {
                 PrefAutoUpdateFragment.class.getName().equals(fragmentName) ||
                 PrefAdvancedFragment.class.getName().equals(fragmentName) ||
                 PrefNotificationsFragment.class.getName().equals(fragmentName) ||
-                LoggingFragment.class.getName().equals(fragmentName) ||
+                PrefLoggingFragment.class.getName().equals(fragmentName) ||
                 AppFragment.class.getName().equals(fragmentName) ||
                 super.isValidFragment(fragmentName);
     }
@@ -166,18 +166,6 @@ public class SettingsActivity extends PreferenceActivity {
 
             // load the preferences from an XML file
             addPreferencesFromResource(R.xml.pref_controller);
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class LoggingFragment extends PreferenceFragment {
-
-        @Override
-        public void onCreate ( Bundle savedInstanceState ) {
-            super.onCreate( savedInstanceState );
-
-            // load the preferences from an XML file
-            addPreferencesFromResource(R.xml.pref_logging);
         }
     }
 

@@ -18,7 +18,7 @@
         android:fragment="info.curtbinder.reefangel.phone.PrefNotificationsFragment"
         android:title="@string/prefNotificationCategory" />
     <header
-        android:fragment="info.curtbinder.reefangel.phone.SettingsActivity$LoggingFragment"
+        android:fragment="info.curtbinder.reefangel.phone.PrefLoggingFragment"
         android:title="@string/prefLoggingCategory" />
     <header
         android:fragment="info.curtbinder.reefangel.phone.SettingsActivity$AppFragment"
