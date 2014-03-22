@@ -11,7 +11,6 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 
 public class SettingsActivity extends PreferenceActivity {
-//        implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final String TAG = SettingsActivity.class.getSimpleName();
 
@@ -115,15 +114,11 @@ public class SettingsActivity extends PreferenceActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        getPreferenceScreen().getSharedPreferences()
-//                .registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-//        getPreferenceScreen().getSharedPreferences()
-//                .unregisterOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -148,14 +143,9 @@ public class SettingsActivity extends PreferenceActivity {
                 PrefAdvancedFragment.class.getName().equals(fragmentName) ||
                 PrefNotificationsFragment.class.getName().equals(fragmentName) ||
                 PrefLoggingFragment.class.getName().equals(fragmentName) ||
-                AppFragment.class.getName().equals(fragmentName) ||
+                PrefAppFragment.class.getName().equals(fragmentName) ||
                 super.isValidFragment(fragmentName);
     }
-
-//    @Override
-//    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-//        Log.d(TAG, "onSharedPreferenceChanged");
-//    }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class ControllerFragment extends PreferenceFragment {
@@ -166,18 +156,6 @@ public class SettingsActivity extends PreferenceActivity {
 
             // load the preferences from an XML file
             addPreferencesFromResource(R.xml.pref_controller);
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class AppFragment extends PreferenceFragment {
-
-        @Override
-        public void onCreate ( Bundle savedInstanceState ) {
-            super.onCreate( savedInstanceState );
-
-            // load the preferences from an XML file
-            addPreferencesFromResource(R.xml.pref_appinfo);
         }
     }
 }

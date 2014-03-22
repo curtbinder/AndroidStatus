@@ -48,8 +48,6 @@
         <!-- Text descriptions -->
     <string name="textAbout">Monitors the status of your Reef Angel Controller and displays the values.  You must have a wifi attachment installed on
 your controller or have a ReefAngel UserID to use this app.</string>
-    <string name="textLicense">Reef Angel Status by Curt Binder is licensed under a
-Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</string>
         <!-- Memory Location screen -->
         <string name="descriptionMemory">Select the memory location to update or enter a custom location.</string>
         <!-- Commands screen -->

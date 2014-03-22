@@ -31,14 +31,10 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         android:summary="@string/prefCopyrightSummary"
         android:title="@string/prefCopyrightTitle" />
 
-    <Preference
+    <PreferenceScreen
+        android:selectable="false"
         android:summary="@string/prefLicenseSummary"
-        android:title="@string/prefLicenseTitle">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:targetClass="info.curtbinder.reefangel.phone.LicenseActivity"
-            android:targetPackage="info.curtbinder.reefangel.phone" />
-    </Preference>
+        android:title="@string/prefLicenseTitle" />
 
     <PreferenceScreen
         android:key="@string/prefChangelogKey"
