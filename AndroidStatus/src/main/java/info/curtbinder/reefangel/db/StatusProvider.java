@@ -27,7 +27,7 @@ public class StatusProvider extends ContentProvider {
     private static final String CONTENT = buildAuthority();
 
     private static String buildAuthority() {
-        String a = StatusProvider.class.getCanonicalName();
+        String a = StatusProvider.class.getPackage().getName();
         if (BuildConfig.DEBUG) {
             a += ".debug";
         }

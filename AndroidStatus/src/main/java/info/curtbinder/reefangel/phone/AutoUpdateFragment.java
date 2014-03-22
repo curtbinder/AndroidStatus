@@ -45,6 +45,20 @@ public class AutoUpdateFragment extends PreferenceFragment
         updateAutoUpdateIntervalSummary();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPreferenceScreen().getSharedPreferences()
+                .registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getPreferenceScreen().getSharedPreferences()
+                .unregisterOnSharedPreferenceChangeListener(this);
+    }
+    
     private void updateAutoUpdateIntervalSummary() {
         findPreference( raApp.getString( R.string.prefAutoUpdateIntervalKey ) )
                 .setSummary( getUpdateIntervalDisplay() );
@@ -80,6 +94,7 @@ public class AutoUpdateFragment extends PreferenceFragment
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Log.d(TAG, "onSharedPreferenceChanged");
         if ( key.equals( raApp
                 .getString( R.string.prefAutoUpdateIntervalKey ) ) ) {
             // when interval changes, update the repeat service
@@ -101,7 +116,11 @@ public class AutoUpdateFragment extends PreferenceFragment
     }
 
     @Override
-    public boolean onPreferenceChange(Preference preference, Object o) {
+    public boolean onPreferenceChange(Preference preference, Object key) {
+        Log.d(TAG, "onPreferenceChange");
+//        if (key.equals(raApp.getString(R.string.prefAutoUpdateIntervalKey))) {
+//            updateAutoUpdateIntervalSummary();
+//        }
         return true;
     }
 }
