@@ -5,16 +5,24 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 
 public class SettingsActivity extends PreferenceActivity {
+//        implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+    private static final String TAG = SettingsActivity.class.getSimpleName();
 
     protected Method mLoadHeaders = null;
     protected Method mHasHeaders = null;
+
+    private RAApplication raApp;
+    private RAPreferences raPrefs;
+
+    private String[] devicesArray;
+    private String[] profilesArray;
 
     /**
      * Checks to see if using the new v11+ way of handling PrefsFragments.
@@ -45,6 +53,13 @@ public class SettingsActivity extends PreferenceActivity {
 
         }
         super.onCreate( savedInstanceState );
+
+        raApp = (RAApplication) getApplication();
+        raPrefs = raApp.raprefs;
+
+        devicesArray = raApp.getResources().getStringArray( R.array.devices );
+        profilesArray = raApp.getResources().getStringArray( R.array.profileLabels );
+
         if ( !isNewV11Prefs() ) {
             addPreferencesFromResource(R.xml.pref_profiles);
             addPreferencesFromResource(R.xml.pref_controller);
@@ -54,8 +69,30 @@ public class SettingsActivity extends PreferenceActivity {
             addPreferencesFromResource(R.xml.pref_appinfo);
         }
 	}
-	
-	@Override
+
+    public String getDevicesArrayValue(int index) {
+        return devicesArray[index];
+    }
+
+    public String getProfilesArrayValue(int index) {
+        return profilesArray[index];
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        getPreferenceScreen().getSharedPreferences()
+//                .registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+//        getPreferenceScreen().getSharedPreferences()
+//                .unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
 	public void onBuildHeaders ( List<Header> target ) {
         try {
             mLoadHeaders.invoke(this, new Object[]{R.xml.pref_headers, target});
@@ -73,6 +110,7 @@ public class SettingsActivity extends PreferenceActivity {
     protected boolean isValidFragment(String fragmentName) {
         return ProfileFragment.class.getName().equals(fragmentName) ||
                 ControllerFragment.class.getName().equals(fragmentName) ||
+                AutoUpdateFragment.class.getName().equals(fragmentName) ||
                 AdvancedFragment.class.getName().equals(fragmentName) ||
                 NotificationFragment.class.getName().equals(fragmentName) ||
                 LoggingFragment.class.getName().equals(fragmentName) ||
@@ -80,17 +118,10 @@ public class SettingsActivity extends PreferenceActivity {
                 super.isValidFragment(fragmentName);
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class ProfileFragment extends PreferenceFragment {
-
-        @Override
-        public void onCreate ( Bundle savedInstanceState ) {
-            super.onCreate( savedInstanceState );
-
-            // load the preferences from an XML file
-            addPreferencesFromResource(R.xml.pref_profiles);
-        }
-    }
+//    @Override
+//    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+//        Log.d(TAG, "onSharedPreferenceChanged");
+//    }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class ControllerFragment extends PreferenceFragment {
@@ -101,6 +132,18 @@ public class SettingsActivity extends PreferenceActivity {
 
             // load the preferences from an XML file
             addPreferencesFromResource(R.xml.pref_controller);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class AutoUpdateFragment extends PreferenceFragment {
+
+        @Override
+        public void onCreate ( Bundle savedInstanceState ) {
+            super.onCreate( savedInstanceState );
+
+            // load the preferences from an XML file
+            addPreferencesFromResource(R.xml.pref_autoupdate);
         }
     }
 

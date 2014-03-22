@@ -1,13 +1,16 @@
 <preference-headers
     xmlns:android="http://schemas.android.com/apk/res/android" >
     <header
-        android:fragment="info.curtbinder.reefangel.phone.SettingsActivity$ProfileFragment"
+        android:fragment="info.curtbinder.reefangel.phone.ProfileFragment"
         android:title="@string/prefsCategoryProfiles"
         android:summary="@string/prefCategoryProfilesSummary" />
     <header
         android:fragment="info.curtbinder.reefangel.phone.SettingsActivity$ControllerFragment"
         android:title="@string/prefsCategoryController"
         android:summary="@string/prefControllerSummary"/>
+    <header
+        android:fragment="info.curtbinder.reefangel.phone.SettingsActivity$AutoUpdateFragment"
+        android:title="@string/prefAutoUpdateCategory" />
     <header
         android:fragment="info.curtbinder.reefangel.phone.SettingsActivity$AdvancedFragment"
         android:title="@string/prefsCategoryAdvanced" />
