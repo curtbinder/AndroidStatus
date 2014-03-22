@@ -116,12 +116,6 @@ public class ProfileFragment extends PreferenceFragment
                 .setSummary(raPrefs.getAwayPort());
     }
 
-//    private void updateAutoUpdateProfileVisibility(boolean fVisible) {
-//        Preference p = findPreference(raApp.getString(R.string.prefAutoUpdateProfileKey));
-//        p.setEnabled(fVisible);
-//        p.setSelectable(fVisible);
-//    }
-
 //    private void updateDownloadLabelUserId(String userId) {
 //        // not on this preference screen
 //        CharSequence cs =

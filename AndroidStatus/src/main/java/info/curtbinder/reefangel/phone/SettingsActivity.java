@@ -78,6 +78,23 @@ public class SettingsActivity extends PreferenceActivity {
         return profilesArray[index];
     }
 
+    public String getDisplayValue (
+            int v,
+            int arrayValuesId,
+            int arrayDisplayId ) {
+        int pos = 0;
+        String[] values = raApp.getResources().getStringArray( arrayValuesId );
+        String[] display = raApp.getResources().getStringArray( arrayDisplayId );
+        for ( int i = 0; i < values.length; i++ ) {
+            if ( Integer.parseInt( values[i] ) == v ) {
+                // found value
+                pos = i;
+                break;
+            }
+        }
+        return display[pos];
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -132,18 +149,6 @@ public class SettingsActivity extends PreferenceActivity {
 
             // load the preferences from an XML file
             addPreferencesFromResource(R.xml.pref_controller);
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class AutoUpdateFragment extends PreferenceFragment {
-
-        @Override
-        public void onCreate ( Bundle savedInstanceState ) {
-            super.onCreate( savedInstanceState );
-
-            // load the preferences from an XML file
-            addPreferencesFromResource(R.xml.pref_autoupdate);
         }
     }
 

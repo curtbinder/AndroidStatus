@@ -9,7 +9,7 @@
         android:title="@string/prefsCategoryController"
         android:summary="@string/prefControllerSummary"/>
     <header
-        android:fragment="info.curtbinder.reefangel.phone.SettingsActivity$AutoUpdateFragment"
+        android:fragment="info.curtbinder.reefangel.phone.AutoUpdateFragment"
         android:title="@string/prefAutoUpdateCategory" />
     <header
         android:fragment="info.curtbinder.reefangel.phone.SettingsActivity$AdvancedFragment"
