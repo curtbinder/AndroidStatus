@@ -9,7 +9,6 @@ import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -44,102 +43,102 @@ public class MainActivity extends ActionBarActivity {
     private Boolean opened = null;
 
     @Override
-    protected void onCreate ( Bundle savedInstanceState ) {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_main );
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         // get the string array for the navigation items
-        mNavTitles = getResources().getStringArray( R.array.nav_items );
+        mNavTitles = getResources().getStringArray(R.array.nav_items);
 
         // locate the navigation drawer items in the layout
-        mDrawerLayout = (DrawerLayout) findViewById( R.id.drawer_layout );
-        mDrawer = (LinearLayout) findViewById( R.id.drawer );
-        mDrawerList = (ListView) findViewById( R.id.left_drawer );
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawer = (LinearLayout) findViewById(R.id.drawer);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         // set a custom shadow that overlays the main content when the drawer
         // opens
-        mDrawerLayout.setDrawerShadow(	R.drawable.drawer_shadow,
-                GravityCompat.START );
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
+                GravityCompat.START);
 
         // set the adapter for the navigation list view
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>( this, R.layout.drawer_list_item,
-                        mNavTitles );
-        mDrawerList.setAdapter( adapter );
-        mDrawerList.setOnItemClickListener( new DrawerItemClickListener() );
-        mDrawerList.setChoiceMode( ListView.CHOICE_MODE_SINGLE );
-        if ( savedInstanceState == null ) {
-            mDrawerList.setItemChecked( 0, true );
+                new ArrayAdapter<String>(this, R.layout.drawer_list_item,
+                        mNavTitles);
+        mDrawerList.setAdapter(adapter);
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        mDrawerList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        if (savedInstanceState == null) {
+            mDrawerList.setItemChecked(0, true);
         }
 
         mDrawerToggle =
-                new MyDrawerToggle( this, mDrawerLayout, R.drawable.ic_drawer,
-                        R.string.drawer_open, R.string.drawer_close );
-        mDrawerLayout.setDrawerListener( mDrawerToggle );
+                new MyDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer,
+                        R.string.drawer_open, R.string.drawer_close);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         updateContent();
 
         //getActionBar().setDisplayHomeAsUpEnabled( true );
-        getSupportActionBar().setDisplayHomeAsUpEnabled( true );
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         enableActionBarHomeButton();
 
         // selectItem( 0 );
         fAddToBackStack = true;
 
         // launch a new thread to show the drawer on very first app launch
-        new Thread( new Runnable() {
+        new Thread(new Runnable() {
             @Override
-            public void run ( ) {
-                prefs = getPreferences( MODE_PRIVATE );
-                opened = prefs.getBoolean( OPENED_KEY, false );
-                if ( !opened ) {
+            public void run() {
+                prefs = getPreferences(MODE_PRIVATE);
+                opened = prefs.getBoolean(OPENED_KEY, false);
+                if (!opened) {
                     //mDrawerLayout.openDrawer( mDrawerList );
-                    mDrawerLayout.openDrawer( mDrawer );
+                    mDrawerLayout.openDrawer(mDrawer);
                 }
             }
-        } ).start();
+        }).start();
     }
 
     @Override
-    protected void onSaveInstanceState ( Bundle outState ) {
-        super.onSaveInstanceState( outState );
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
-        outState.putInt( STATE_CHECKED, mDrawerList.getCheckedItemPosition() );
+        outState.putInt(STATE_CHECKED, mDrawerList.getCheckedItemPosition());
     }
 
     @Override
-    protected void onRestoreInstanceState ( Bundle savedInstanceState ) {
-        int pos = savedInstanceState.getInt( STATE_CHECKED, -1 );
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        int pos = savedInstanceState.getInt(STATE_CHECKED, -1);
 
-        if ( pos > -1 ) {
-            mDrawerList.setItemChecked( pos, true );
+        if (pos > -1) {
+            mDrawerList.setItemChecked(pos, true);
         }
     }
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    private void enableActionBarHomeButton ( ) {
+    private void enableActionBarHomeButton() {
         // function available in api 14 and later
-        if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH ) {
-            getActionBar().setHomeButtonEnabled( true );
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            getActionBar().setHomeButtonEnabled(true);
         }
     }
 
     @Override
-    public void onConfigurationChanged ( Configuration newConfig ) {
-        super.onConfigurationChanged( newConfig );
-        mDrawerToggle.onConfigurationChanged( newConfig );
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
-    protected void onPostCreate ( Bundle savedInstanceState ) {
-        super.onPostCreate( savedInstanceState );
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
         // sync the toggle state after onRestoreInstanceState has occurred
         mDrawerToggle.syncState();
     }
 
     @SuppressLint("NewApi")
     protected void myInvalidateOptionsMenu() {
-        if ( Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB ) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             supportInvalidateOptionsMenu();
         } else {
             invalidateOptionsMenu();
@@ -149,36 +148,36 @@ public class MainActivity extends ActionBarActivity {
     private class MyDrawerToggle extends ActionBarDrawerToggle {
 
         @Override
-        public void onDrawerClosed ( View drawerView ) {
-            super.onDrawerClosed( drawerView );
-            Log.d( TAG, "DrawerClosed" );
+        public void onDrawerClosed(View drawerView) {
+            super.onDrawerClosed(drawerView);
+            Log.d(TAG, "DrawerClosed");
             updateContent();
             myInvalidateOptionsMenu();
-            if ( opened != null && opened == false ) {
+            if (opened != null && opened == false) {
                 // drawer closed for the first time ever,
                 // set that it has been closed
                 opened = true;
-                if ( prefs != null ) {
+                if (prefs != null) {
                     Editor editor = prefs.edit();
-                    editor.putBoolean( OPENED_KEY, true );
+                    editor.putBoolean(OPENED_KEY, true);
                     editor.commit();
                 }
             }
         }
 
         @Override
-        public void onDrawerOpened ( View drawerView ) {
-            super.onDrawerOpened( drawerView );
-            getSupportActionBar().setTitle( R.string.app_name );
+        public void onDrawerOpened(View drawerView) {
+            super.onDrawerOpened(drawerView);
+            getSupportActionBar().setTitle(R.string.app_name);
             myInvalidateOptionsMenu();
         }
 
-        public MyDrawerToggle ( Activity activity, DrawerLayout drawerLayout,
-                                int drawerImageRes,
-                                int openDrawerContentDescRes,
-                                int closeDrawerContentDescRes ) {
-            super( activity, drawerLayout, drawerImageRes,
-                    openDrawerContentDescRes, closeDrawerContentDescRes );
+        public MyDrawerToggle(Activity activity, DrawerLayout drawerLayout,
+                              int drawerImageRes,
+                              int openDrawerContentDescRes,
+                              int closeDrawerContentDescRes) {
+            super(activity, drawerLayout, drawerImageRes,
+                    openDrawerContentDescRes, closeDrawerContentDescRes);
         }
 
     }
@@ -187,27 +186,27 @@ public class MainActivity extends ActionBarActivity {
             ListView.OnItemClickListener {
 
         @Override
-        public void onItemClick (
+        public void onItemClick(
                 AdapterView<?> parent,
                 View view,
                 int position,
-                long id ) {
+                long id) {
             // Perform action when a drawer item is selected
             // call parent classes function
             // selectItem( position );
             mCurrentPosition = position;
             //mDrawerLayout.closeDrawer( mDrawerList );
-            mDrawerLayout.closeDrawer( mDrawer );
+            mDrawerLayout.closeDrawer(mDrawer);
         }
 
     }
 
-    private void updateContent ( ) {
-        getSupportActionBar().setTitle( mNavTitles[mCurrentPosition] );
-        if ( mCurrentPosition != mOldPosition ) {
+    private void updateContent() {
+        getSupportActionBar().setTitle(mNavTitles[mCurrentPosition]);
+        if (mCurrentPosition != mOldPosition) {
             // update the main content by replacing fragments
             Fragment fragment = null;
-            switch ( mCurrentPosition ) {
+            switch (mCurrentPosition) {
                 default:
                 case 0:
                     fragment = new StatusFragment();
@@ -231,12 +230,12 @@ public class MainActivity extends ActionBarActivity {
 
             FragmentTransaction ft =
                     getSupportFragmentManager().beginTransaction();
-            ft.replace( R.id.content_frame, fragment );
+            ft.replace(R.id.content_frame, fragment);
 
-            if ( fAddToBackStack ) {
+            if (fAddToBackStack) {
                 // TODO implement backstack listener in order to change/update
                 // title
-                ft.addToBackStack( null );
+                ft.addToBackStack(null);
             }
 
             ft.commit();
@@ -245,37 +244,37 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu ( Menu menu ) {
+    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate( R.menu.global, menu );
+        getMenuInflater().inflate(R.menu.global, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected ( MenuItem item ) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         // pass the event to ActionBarDrawerToggle, if it returns true,
         // then it has handled the app icon touch event
-        if ( mDrawerToggle.onOptionsItemSelected( item ) ) {
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
 
         // handle the rest of the action bar items here
-        switch ( item.getItemId() ) {
+        switch (item.getItemId()) {
             case R.id.action_settings:
-                Log.d( TAG, "Settings clicked" );
-                startActivity( new Intent( this, SettingsActivity.class ) );
+                Log.d(TAG, "Settings clicked");
+                startActivity(new Intent(this, SettingsActivity.class));
                 return true;
 
             default:
-                return super.onOptionsItemSelected( item );
+                return super.onOptionsItemSelected(item);
         }
     }
 
     // called whenever we call invalidateOptionsMenu()
     @Override
-    public boolean onPrepareOptionsMenu ( Menu menu ) {
+    public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is open, hide actions other than settings and help
-        return super.onPrepareOptionsMenu( menu );
+        return super.onPrepareOptionsMenu(menu);
     }
 
 }

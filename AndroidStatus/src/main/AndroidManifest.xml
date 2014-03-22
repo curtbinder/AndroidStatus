@@ -62,11 +62,11 @@
             </intent-filter>
         </receiver>
 
-        <!--<provider-->
-            <!--android:name="info.curtbinder.reefangel.db.StatusProvider"-->
-            <!--android:authorities="info.curtbinder.reefangel.db"-->
-            <!--android:readPermission="info.curtbinder.reefangel.permission.READ_PROVIDER" >-->
-        <!--</provider>-->
+        <provider
+            android:name="info.curtbinder.reefangel.db.StatusProvider"
+            android:authorities="@string/db_authority"
+            android:readPermission="info.curtbinder.reefangel.permission.READ_PROVIDER" >
+        </provider>
     </application>
 
 </manifest>

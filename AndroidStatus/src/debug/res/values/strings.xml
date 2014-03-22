@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">RA Debug</string>
+    <string name="db_authority">info.curtbinder.reefangel.db.debug</string>
 </resources>

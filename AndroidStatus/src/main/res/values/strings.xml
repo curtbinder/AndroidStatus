@@ -3,6 +3,7 @@
 
     <string name="app_name">Reef Angel Status</string>
     <string name="app_version">0.9.6 - Beta 1</string>
+    <string name="db_authority">info.curtbinder.reefangel.db</string>
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>

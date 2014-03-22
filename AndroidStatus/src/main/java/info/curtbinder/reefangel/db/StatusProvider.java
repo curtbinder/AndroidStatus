@@ -17,13 +17,23 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
+import info.curtbinder.reefangel.phone.BuildConfig;
+
 public class StatusProvider extends ContentProvider {
 
 	// private static String TAG = StatusProvider.class.getSimpleName();
 	private RADbHelper data;
 
-	private static final String CONTENT = StatusProvider.class.getPackage()
-			.getName();
+    private static final String CONTENT = buildAuthority();
+
+    private static String buildAuthority() {
+        String a = StatusProvider.class.getCanonicalName();
+        if (BuildConfig.DEBUG) {
+            a += ".debug";
+        }
+        return a;
+    }
+
 	private static final String CONTENT_MIME_TYPE = "/vnd." + CONTENT + ".";
 	public static final Uri CONTENT_URI = Uri.parse( "content://" + CONTENT );
 

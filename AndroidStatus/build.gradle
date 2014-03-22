@@ -11,20 +11,15 @@ android {
         versionName "0.9.6"
     }
 
-    final PROVIDER_DEBUG = "\"info.curtbinder.reefangel.db.debug.StatusProvider\""
-    final PROVIDER_RELEASE = "\"info.curtbinder.reefangel.db.StatusProvider\""
-
     buildTypes {
         debug {
             packageNameSuffix '.debug'
             versionNameSuffix '-DEBUG'
-            buildConfigField "String", "PROVIDER_AUTHORITY", PROVIDER_DEBUG
         }
 
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-            buildConfigField "String", "PROVIDER_AUTHORITY", PROVIDER_RELEASE
         }
     }
 }
