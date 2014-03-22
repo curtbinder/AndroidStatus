@@ -127,7 +127,7 @@ public class SettingsActivity extends PreferenceActivity {
             addPreferencesFromResource(R.xml.pref_logging);
         }
     }
-    
+
     @TargetApi(11)
     public static class AppFragment extends PreferenceFragment {
 
