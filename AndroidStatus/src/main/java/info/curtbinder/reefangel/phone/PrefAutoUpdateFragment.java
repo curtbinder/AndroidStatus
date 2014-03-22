@@ -64,21 +64,10 @@ public class PrefAutoUpdateFragment extends PreferenceFragment
     }
 
     private String getUpdateIntervalDisplay() {
-        int pos = 0;
-        long value = raPrefs.getUpdateInterval();
-        String[] interval =
-                raApp.getResources()
-                        .getStringArray(R.array.updateIntervalValues);
-        String[] intervalDisplay =
-                raApp.getResources().getStringArray(R.array.updateInterval);
-        for (int i = 0; i < interval.length; i++) {
-            if (Long.parseLong(interval[i]) == value) {
-                // found value
-                pos = i;
-                break;
-            }
-        }
-        return intervalDisplay[pos];
+        return ((SettingsActivity)getActivity()).getDisplayValueLong(
+                raPrefs.getUpdateInterval(),
+                R.array.updateIntervalValues,
+                R.array.updateInterval);
     }
 
     public String getUpdateProfileDisplay() {

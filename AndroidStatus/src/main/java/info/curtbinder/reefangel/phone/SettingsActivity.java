@@ -95,6 +95,23 @@ public class SettingsActivity extends PreferenceActivity {
         return display[pos];
     }
 
+    public String getDisplayValueLong (
+            long v,
+            int arrayValuesId,
+            int arrayDisplayId ) {
+        int pos = 0;
+        String[] values = raApp.getResources().getStringArray( arrayValuesId );
+        String[] display = raApp.getResources().getStringArray( arrayDisplayId );
+        for ( int i = 0; i < values.length; i++ ) {
+            if ( Long.parseLong( values[i] ) == v ) {
+                // found value
+                pos = i;
+                break;
+            }
+        }
+        return display[pos];
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -129,7 +146,7 @@ public class SettingsActivity extends PreferenceActivity {
                 ControllerFragment.class.getName().equals(fragmentName) ||
                 PrefAutoUpdateFragment.class.getName().equals(fragmentName) ||
                 PrefAdvancedFragment.class.getName().equals(fragmentName) ||
-                NotificationFragment.class.getName().equals(fragmentName) ||
+                PrefNotificationsFragment.class.getName().equals(fragmentName) ||
                 LoggingFragment.class.getName().equals(fragmentName) ||
                 AppFragment.class.getName().equals(fragmentName) ||
                 super.isValidFragment(fragmentName);
@@ -149,18 +166,6 @@ public class SettingsActivity extends PreferenceActivity {
 
             // load the preferences from an XML file
             addPreferencesFromResource(R.xml.pref_controller);
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class NotificationFragment extends PreferenceFragment {
-
-        @Override
-        public void onCreate ( Bundle savedInstanceState ) {
-            super.onCreate( savedInstanceState );
-
-            // load the preferences from an XML file
-            addPreferencesFromResource(R.xml.pref_notifications);
         }
     }
 
