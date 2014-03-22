@@ -12,11 +12,11 @@ import android.util.Log;
  * Created by binder on 3/22/14.
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class ProfileFragment extends PreferenceFragment
+public class PrefProfileFragment extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener,
         SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private static final String TAG = ProfileFragment.class.getSimpleName();
+    private static final String TAG = PrefProfileFragment.class.getSimpleName();
 
     private RAApplication raApp;
     private RAPreferences raPrefs;

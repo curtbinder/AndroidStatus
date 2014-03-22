@@ -125,10 +125,10 @@ public class SettingsActivity extends PreferenceActivity {
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     protected boolean isValidFragment(String fragmentName) {
-        return ProfileFragment.class.getName().equals(fragmentName) ||
+        return PrefProfileFragment.class.getName().equals(fragmentName) ||
                 ControllerFragment.class.getName().equals(fragmentName) ||
-                AutoUpdateFragment.class.getName().equals(fragmentName) ||
-                AdvancedFragment.class.getName().equals(fragmentName) ||
+                PrefAutoUpdateFragment.class.getName().equals(fragmentName) ||
+                PrefAdvancedFragment.class.getName().equals(fragmentName) ||
                 NotificationFragment.class.getName().equals(fragmentName) ||
                 LoggingFragment.class.getName().equals(fragmentName) ||
                 AppFragment.class.getName().equals(fragmentName) ||
@@ -149,18 +149,6 @@ public class SettingsActivity extends PreferenceActivity {
 
             // load the preferences from an XML file
             addPreferencesFromResource(R.xml.pref_controller);
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class AdvancedFragment extends PreferenceFragment {
-
-        @Override
-        public void onCreate ( Bundle savedInstanceState ) {
-            super.onCreate( savedInstanceState );
-
-            // load the preferences from an XML file
-            addPreferencesFromResource(R.xml.pref_advanced);
         }
     }
 
