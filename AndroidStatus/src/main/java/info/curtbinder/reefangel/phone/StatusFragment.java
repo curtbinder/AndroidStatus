@@ -1,5 +1,6 @@
 package info.curtbinder.reefangel.phone;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,9 +8,15 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import info.curtbinder.reefangel.service.MessageCommands;
+import info.curtbinder.reefangel.service.UpdateService;
 
 public class StatusFragment extends Fragment {
 
@@ -99,6 +106,8 @@ public class StatusFragment extends Fragment {
         });
 
         mPager.setCurrentItem(0, true);
+        // enable the options menu
+        setHasOptionsMenu(true);
 		return root;
 	}
 
@@ -120,7 +129,30 @@ public class StatusFragment extends Fragment {
         Log.d(TAG, "onPause");
     }
 
-	private class SectionsPagerAdapter extends FragmentStatePagerAdapter {
+    private void launchStatusTask ( ) {
+        Intent i = new Intent( getActivity(), UpdateService.class );
+        i.setAction( MessageCommands.QUERY_STATUS_INTENT );
+        getActivity().startService( i );
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.frag_status, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.action_refresh:
+                Log.d(TAG, "Refresh Data");
+                launchStatusTask();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
 		public SectionsPagerAdapter ( FragmentManager fm ) {
 			super( fm );

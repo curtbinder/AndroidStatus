@@ -55,6 +55,57 @@ public class MainActivity extends ActionBarActivity
 
         raApp = (RAApplication) getApplication();
 
+        setupNavDrawer(savedInstanceState);
+        updateContent();
+        updateActionBar();
+
+        // selectItem( 0 );
+        fAddToBackStack = true;
+
+        // launch a new thread to show the drawer on very first app launch
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                prefs = getPreferences(MODE_PRIVATE);
+                opened = prefs.getBoolean(OPENED_KEY, false);
+                if (!opened) {
+                    mDrawerLayout.openDrawer(mDrawer);
+                }
+            }
+        }).start();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(STATE_CHECKED, mDrawerList.getCheckedItemPosition());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        int pos = savedInstanceState.getInt(STATE_CHECKED, -1);
+
+        if (pos > -1) {
+            mDrawerList.setItemChecked(pos, true);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // todo add in message handlers, broadcast receivers
+        fRestoreState = true;
+        setNavigationList();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    private void setupNavDrawer(Bundle savedInstanceState) {
         // get the string array for the navigation items
         mNavTitles = getResources().getStringArray(R.array.nav_items);
 
@@ -83,54 +134,6 @@ public class MainActivity extends ActionBarActivity
                 new MyDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer,
                         R.string.drawer_open, R.string.drawer_close);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        updateContent();
-        updateActionBar();
-
-        // selectItem( 0 );
-        fAddToBackStack = true;
-
-        // launch a new thread to show the drawer on very first app launch
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                prefs = getPreferences(MODE_PRIVATE);
-                opened = prefs.getBoolean(OPENED_KEY, false);
-                if (!opened) {
-                    //mDrawerLayout.openDrawer( mDrawerList );
-                    mDrawerLayout.openDrawer(mDrawer);
-                }
-            }
-        }).start();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putInt(STATE_CHECKED, mDrawerList.getCheckedItemPosition());
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        int pos = savedInstanceState.getInt(STATE_CHECKED, -1);
-
-        if (pos > -1) {
-            mDrawerList.setItemChecked(pos, true);
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        fRestoreState = true;
-        setNavigationList();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 
     private void setNavigationList ( ) {
@@ -144,10 +147,8 @@ public class MainActivity extends ActionBarActivity
             arrayID = R.array.profileLabelsHomeOnly;
         }
         ArrayAdapter<CharSequence> list =
-                ArrayAdapter
-                        .createFromResource(context, arrayID,
+                ArrayAdapter.createFromResource(context, arrayID,
                                 R.layout.support_simple_spinner_dropdown_item);
-        //list.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         ab.setListNavigationCallbacks(list, this);
         ab.setSelectedNavigationItem(raApp.getSelectedProfile());
     }
@@ -181,7 +182,6 @@ public class MainActivity extends ActionBarActivity
         return true;
     }
 
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -203,6 +203,7 @@ public class MainActivity extends ActionBarActivity
             invalidateOptionsMenu();
         }
     }
+
     private class MyDrawerToggle extends ActionBarDrawerToggle {
 
         @Override

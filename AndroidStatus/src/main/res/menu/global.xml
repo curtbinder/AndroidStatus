@@ -2,6 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/action_settings"
         android:title="@string/menuMainSettings"
-        android:orderInCategory="100"
+        android:orderInCategory="200"
         app:showAsAction="never" />
 </menu>
