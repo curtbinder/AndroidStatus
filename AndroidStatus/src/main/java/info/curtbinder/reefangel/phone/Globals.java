@@ -76,6 +76,20 @@ public final class Globals {
     public static final int paramCustom6 = 42;
     public static final int paramCustom7 = 43;
 
+    // Controller Indices
+    public static final int T1_INDEX = 0;
+    public static final int T2_INDEX = 1;
+    public static final int T3_INDEX = 2;
+    public static final int PH_INDEX = 3;
+    public static final int DP_INDEX = 4;
+    public static final int AP_INDEX = 5;
+    public static final int ATOLO_INDEX = 6;
+    public static final int ATOHI_INDEX = 7;
+    public static final int SALINITY_INDEX = 8;
+    public static final int ORP_INDEX = 9;
+    public static final int PHE_INDEX = 10;
+    public static final int WL_INDEX = 11;
+
     private static String buildPackage() {
         String p = Globals.class.getPackage().getName();
         if (BuildConfig.DEBUG) {

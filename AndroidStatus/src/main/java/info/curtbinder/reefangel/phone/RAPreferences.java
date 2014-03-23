@@ -294,104 +294,119 @@ public class RAPreferences {
     }
 
     // Controller Information
-    public boolean getT2Visibility() {
-        return getBoolean(R.string.prefT2VisibilityKey, true);
+    public String getControllerLabel(int index) {
+        int key, def;
+        switch(index){
+            default:
+            case Globals.T1_INDEX:
+                def = R.string.labelTemp1;
+                key = R.string.prefT1LabelKey;
+                break;
+            case Globals.T2_INDEX:
+                def = R.string.labelTemp2;
+                key = R.string.prefT2LabelKey;
+                break;
+            case Globals.T3_INDEX:
+                def = R.string.labelTemp3;
+                key = R.string.prefT3LabelKey;
+                break;
+            case Globals.PH_INDEX:
+                def = R.string.labelPH;
+                key = R.string.prefPHLabelKey;
+                break;
+            case Globals.DP_INDEX:
+                def = R.string.labelDP;
+                key = R.string.prefDPLabelKey;
+                break;
+            case Globals.AP_INDEX:
+                def = R.string.labelAP;
+                key = R.string.prefAPLabelKey;
+                break;
+            case Globals.ATOLO_INDEX:
+                def = R.string.labelAtoLow;
+                key = R.string.prefATOLoLabelKey;
+                break;
+            case Globals.ATOHI_INDEX:
+                def = R.string.labelAtoHigh;
+                key = R.string.prefATOHiLabelKey;
+                break;
+            case Globals.SALINITY_INDEX:
+                def = R.string.labelSalinity;
+                key = R.string.prefSalinityLabelKey;
+                break;
+            case Globals.ORP_INDEX:
+                def = R.string.labelORP;
+                key = R.string.prefORPLabelKey;
+                break;
+            case Globals.PHE_INDEX:
+                def = R.string.labelPHExp;
+                key = R.string.prefPHExpLabelKey;
+                break;
+            case Globals.WL_INDEX:
+                def = R.string.labelWaterLevel;
+                key = R.string.prefWaterLevelLabelKey;
+                break;
+        }
+        return getString(key, def);
     }
 
-    public boolean getT3Visibility() {
-        return getBoolean(R.string.prefT3VisibilityKey, true);
-    }
-
-    public boolean getDPVisibility() {
-        return getBoolean(R.string.prefDPVisibilityKey, true);
-    }
-
-    public boolean getAPVisibility() {
-        return getBoolean(R.string.prefAPVisibilityKey, true);
-    }
-
-    public boolean getPHVisibility() {
-        return getBoolean(R.string.prefPHVisibilityKey, true);
-    }
-
-    public boolean getAtoLowVisibility() {
-        return getBoolean(R.string.prefATOLoVisibilityKey, true);
-    }
-
-    public boolean getAtoHighVisibility() {
-        return getBoolean(R.string.prefATOHiVisibilityKey, true);
-    }
-
-    public boolean getSalinityVisibility() {
-        return getBoolean(R.string.prefSalinityVisibilityKey, false);
-    }
-
-    public boolean getORPVisibility() {
-        return getBoolean(R.string.prefORPVisibilityKey, false);
-    }
-
-    public boolean getPHExpVisibility() {
-        return getBoolean(R.string.prefPHExpVisibilityKey, false);
-    }
-
-    public boolean getWaterLevelVisibility() {
-        return getBoolean(R.string.prefWaterLevelVisibilityKey, false);
-    }
-
-    public String getT1Label() {
-        return getString(R.string.prefT1LabelKey, R.string.labelTemp1);
-    }
-
-    public String getT2Label() {
-        return getString(R.string.prefT2LabelKey, R.string.labelTemp2);
-    }
-
-    public String getT3Label() {
-        return getString(R.string.prefT3LabelKey, R.string.labelTemp3);
-    }
-
-    public String getPHLabel() {
-        return getString(R.string.prefPHLabelKey, R.string.labelPH);
-    }
-
-    public String getDPLabel() {
-        return getString(R.string.prefDPLabelKey, R.string.labelDP);
-    }
-
-    public String getAPLabel() {
-        return getString(R.string.prefAPLabelKey, R.string.labelAP);
-    }
-
-    public String getAtoLowLabel() {
-        return getString(R.string.prefATOLoLabelKey, R.string.labelAtoLow);
-    }
-
-    public String getAtoHighLabel() {
-        return getString(R.string.prefATOHiLabelKey, R.string.labelAtoHigh);
-    }
-
-    public String getSalinityLabel() {
-        return getString(R.string.prefSalinityLabelKey, R.string.labelSalinity);
-    }
-
-    public String getORPLabel() {
-        return getString(R.string.prefORPLabelKey, R.string.labelORP);
-    }
-
-    public String getPHExpLabel() {
-        return getString(R.string.prefPHExpLabelKey, R.string.labelPHExp);
-    }
-
-    public String getWaterLevelLabel() {
-        return getString(R.string.prefWaterLevelLabelKey,
-                R.string.labelWaterLevel);
+    public boolean getControllerVisibility(int index) {
+        int key;
+        boolean def;
+        switch(index){
+            default:
+            case Globals.T1_INDEX:
+                // T1 cannot be hidden
+                return true;
+            case Globals.T2_INDEX:
+                def = true;
+                key = R.string.prefT2VisibilityKey;
+                break;
+            case Globals.T3_INDEX:
+                def = true;
+                key = R.string.prefT3VisibilityKey;
+                break;
+            case Globals.PH_INDEX:
+                def = true;
+                key = R.string.prefPHVisibilityKey;
+                break;
+            case Globals.DP_INDEX:
+                def = true;
+                key = R.string.prefDPVisibilityKey;
+                break;
+            case Globals.AP_INDEX:
+                def = true;
+                key = R.string.prefAPVisibilityKey;
+                break;
+            case Globals.ATOLO_INDEX:
+                def = true;
+                key = R.string.prefATOLoVisibilityKey;
+                break;
+            case Globals.ATOHI_INDEX:
+                def = true;
+                key = R.string.prefATOHiVisibilityKey;
+                break;
+            case Globals.SALINITY_INDEX:
+                def = false;
+                key = R.string.prefSalinityVisibilityKey;
+                break;
+            case Globals.ORP_INDEX:
+                def = false;
+                key = R.string.prefORPVisibilityKey;
+                break;
+            case Globals.PHE_INDEX:
+                def = false;
+                key = R.string.prefPHExpVisibilityKey;
+                break;
+            case Globals.WL_INDEX:
+                def = false;
+                key = R.string.prefWaterLevelVisibilityKey;
+                break;
+        }
+        return getBoolean(key, def);
     }
 
     // Relay Labels
-    public String getMainRelayLabel(int port) {
-        return getRelayLabel(0, port);
-    }
-
     public String getRelayLabel(int relay, int port) {
         return getString(relayLabels[relay][port], relayDefaultLabels[port]);
     }

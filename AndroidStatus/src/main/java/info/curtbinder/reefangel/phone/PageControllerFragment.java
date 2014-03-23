@@ -18,18 +18,6 @@ import info.curtbinder.reefangel.db.StatusTable;
 public class PageControllerFragment extends Fragment
         implements PageRefreshInterface {
 
-    public static final int T1_INDEX = 0;
-    public static final int T2_INDEX = 1;
-    public static final int T3_INDEX = 2;
-    public static final int PH_INDEX = 3;
-    public static final int DP_INDEX = 4;
-    public static final int AP_INDEX = 5;
-    public static final int ATOLO_INDEX = 6;
-    public static final int ATOHI_INDEX = 7;
-    public static final int SALINITY_INDEX = 8;
-    public static final int ORP_INDEX = 9;
-    public static final int PHE_INDEX = 10;
-    public static final int WL_INDEX = 11;
     private static final String TAG = PageControllerFragment.class.getSimpleName();
     //Context ctx; // saved context from parent
     private TextView[] deviceText =
@@ -54,18 +42,18 @@ public class PageControllerFragment extends Fragment
     }
 
     private void findViews(View root) {
-        deviceRow[T1_INDEX] = (TableRow) root.findViewById(R.id.t1_row);
-        deviceRow[T2_INDEX] = (TableRow) root.findViewById(R.id.t2_row);
-        deviceRow[T3_INDEX] = (TableRow) root.findViewById(R.id.t3_row);
-        deviceRow[PH_INDEX] = (TableRow) root.findViewById(R.id.ph_row);
-        deviceRow[DP_INDEX] = (TableRow) root.findViewById(R.id.dp_row);
-        deviceRow[AP_INDEX] = (TableRow) root.findViewById(R.id.ap_row);
-        deviceRow[ATOLO_INDEX] = (TableRow) root.findViewById(R.id.atolow_row);
-        deviceRow[ATOHI_INDEX] = (TableRow) root.findViewById(R.id.atohi_row);
-        deviceRow[SALINITY_INDEX] = (TableRow) root.findViewById(R.id.salinity_row);
-        deviceRow[ORP_INDEX] = (TableRow) root.findViewById(R.id.orp_row);
-        deviceRow[PHE_INDEX] = (TableRow) root.findViewById(R.id.phe_row);
-        deviceRow[WL_INDEX] = (TableRow) root.findViewById(R.id.water_row);
+        deviceRow[Globals.T1_INDEX] = (TableRow) root.findViewById(R.id.t1_row);
+        deviceRow[Globals.T2_INDEX] = (TableRow) root.findViewById(R.id.t2_row);
+        deviceRow[Globals.T3_INDEX] = (TableRow) root.findViewById(R.id.t3_row);
+        deviceRow[Globals.PH_INDEX] = (TableRow) root.findViewById(R.id.ph_row);
+        deviceRow[Globals.DP_INDEX] = (TableRow) root.findViewById(R.id.dp_row);
+        deviceRow[Globals.AP_INDEX] = (TableRow) root.findViewById(R.id.ap_row);
+        deviceRow[Globals.ATOLO_INDEX] = (TableRow) root.findViewById(R.id.atolow_row);
+        deviceRow[Globals.ATOHI_INDEX] = (TableRow) root.findViewById(R.id.atohi_row);
+        deviceRow[Globals.SALINITY_INDEX] = (TableRow) root.findViewById(R.id.salinity_row);
+        deviceRow[Globals.ORP_INDEX] = (TableRow) root.findViewById(R.id.orp_row);
+        deviceRow[Globals.PHE_INDEX] = (TableRow) root.findViewById(R.id.phe_row);
+        deviceRow[Globals.WL_INDEX] = (TableRow) root.findViewById(R.id.water_row);
 
         for (int i = 0; i < Controller.MAX_CONTROLLER_VALUES; i++) {
             deviceText[i] =
@@ -87,19 +75,56 @@ public class PageControllerFragment extends Fragment
 
     private void updateLabelsAndVisibility() {
         Log.d(TAG, "updateLabelsAndVisibility");
-        // todo load labels from memory or maybe a database
-        setLabel(T1_INDEX, "Tank", "T1");
-        setLabel(T2_INDEX, "Room", "T2");
-        setLabel(T3_INDEX, "Lights", "T3");
-        setLabel(PH_INDEX, "pH", "PH");
-        setLabel(DP_INDEX, "Daylight", "DP");
-        setLabel(AP_INDEX, "Actinic", "AP");
-        setLabel(ATOLO_INDEX, "ATO Low", "ATOLOW");
-        setLabel(ATOHI_INDEX, "ATO Hight", "ATOHIGH");
-        setLabel(SALINITY_INDEX, "Salinity", "Salinity");
-        setLabel(ORP_INDEX, "ORP", "ORP");
-        setLabel(PHE_INDEX, "PH Expansion", "PHE");
-        setLabel(WL_INDEX, "Water", "Water");
+        RAApplication raApp = (RAApplication)getActivity().getApplication();
+        RAPreferences raPrefs = raApp.raprefs;
+        for(int i = 0; i < Controller.MAX_CONTROLLER_VALUES; i++) {
+            setLabel(i, raPrefs.getControllerLabel(i), getDeviceSubtitle(i));
+            setVisibility(i, raPrefs.getControllerVisibility(i));
+        }
+    }
+
+    private String getDeviceSubtitle(int index) {
+        int resId;
+        switch(index){
+            default:
+            case Globals.T1_INDEX:
+                resId = R.string.labelTemp1;
+                break;
+            case Globals.T2_INDEX:
+                resId = R.string.labelTemp2;
+                break;
+            case Globals.T3_INDEX:
+                resId = R.string.labelTemp3;
+                break;
+            case Globals.PH_INDEX:
+                resId = R.string.labelPH;
+                break;
+            case Globals.DP_INDEX:
+                resId = R.string.labelDP;
+                break;
+            case Globals.AP_INDEX:
+                resId = R.string.labelAP;
+                break;
+            case Globals.ATOLO_INDEX:
+                resId = R.string.labelAtoLow;
+                break;
+            case Globals.ATOHI_INDEX:
+                resId = R.string.labelAtoHigh;
+                break;
+            case Globals.SALINITY_INDEX:
+                resId = R.string.labelSalinity;
+                break;
+            case Globals.ORP_INDEX:
+                resId = R.string.labelORP;
+                break;
+            case Globals.PHE_INDEX:
+                resId = R.string.labelPHExp;
+                break;
+            case Globals.WL_INDEX:
+                resId = R.string.labelWaterLevel;
+                break;
+        }
+        return getString(resId);
     }
 
     private void setLabel(int device, String title, String subtitle) {
