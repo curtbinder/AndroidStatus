@@ -13,9 +13,9 @@ import android.widget.ToggleButton;
 
 import info.curtbinder.reefangel.controller.Controller;
 
-public class RelayPage extends Fragment {
+public class PageRelayFragment extends Fragment {
 
-    private static final String TAG = RelayPage.class.getSimpleName();
+    private static final String TAG = PageRelayFragment.class.getSimpleName();
     private int relayNumber;
     private ToggleButton[] portBtns =
             new ToggleButton[Controller.MAX_RELAY_PORTS];
@@ -23,17 +23,17 @@ public class RelayPage extends Fragment {
 
     private boolean[] controlsEnabled = new boolean[Controller.MAX_RELAY_PORTS];
 
-	public static RelayPage newInstance(int position) {
+	public static PageRelayFragment newInstance(int position) {
 		// pass in values to construct a new instance
-		RelayPage p = new RelayPage(position);
+		PageRelayFragment p = new PageRelayFragment(position);
 		return p;
 	}
 
-    public RelayPage() {
+    public PageRelayFragment() {
         relayNumber = 0;
     }
 
-    public RelayPage(int position) {
+    public PageRelayFragment(int position) {
         relayNumber = position;
     }
 	

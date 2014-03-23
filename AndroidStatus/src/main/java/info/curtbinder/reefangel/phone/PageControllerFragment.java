@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import info.curtbinder.reefangel.controller.Controller;
 
-public class ControllerPage extends Fragment {
+public class PageControllerFragment extends Fragment {
 
-    private static final String TAG = ControllerPage.class.getSimpleName();
+    private static final String TAG = PageControllerFragment.class.getSimpleName();
 
     public static final int T1_INDEX = 0;
     public static final int T2_INDEX = 1;
@@ -34,8 +34,8 @@ public class ControllerPage extends Fragment {
     private TableRow[] deviceRow =
             new TableRow[Controller.MAX_CONTROLLER_VALUES];
 
-    public static ControllerPage newInstance() {
-		ControllerPage p = new ControllerPage();
+    public static PageControllerFragment newInstance() {
+		PageControllerFragment p = new PageControllerFragment();
 		return p;
 	}
 	

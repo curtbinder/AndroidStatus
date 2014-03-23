@@ -113,12 +113,12 @@ public class StatusFragment extends Fragment {
 			switch ( position ) {
 				case 0:
 					if ( mAppPages[0] == null ) {
-						mAppPages[0] = ControllerPage.newInstance();
+						mAppPages[0] = PageControllerFragment.newInstance();
 					}
 					break;
 				case 1:
 					if ( mAppPages[1] == null ) {
-						mAppPages[1] = RelayPage.newInstance(0);
+						mAppPages[1] = PageRelayFragment.newInstance(0);
 					}
 					break;
 			}
