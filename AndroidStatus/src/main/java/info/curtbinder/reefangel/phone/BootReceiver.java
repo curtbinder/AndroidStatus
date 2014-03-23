@@ -13,14 +13,14 @@ import android.content.Context;
 import android.content.Intent;
 
 public class BootReceiver extends BroadcastReceiver {
-	//private static final String TAG = BootReceiver.class.getSimpleName();
+    //private static final String TAG = BootReceiver.class.getSimpleName();
 
-	public void onReceive ( Context context, Intent intent ) {
-		//Log.d( TAG, "onReceive Boot" );
-		// Start the update service
-		// the function will handle starting it if necessary
-		((RAApplication) context.getApplicationContext())
-				.startAutoUpdateService();
-	}
+    public void onReceive(Context context, Intent intent) {
+        //Log.d( TAG, "onReceive Boot" );
+        // Start the update service
+        // the function will handle starting it if necessary
+        ((RAApplication) context.getApplicationContext())
+                .startAutoUpdateService();
+    }
 
 }

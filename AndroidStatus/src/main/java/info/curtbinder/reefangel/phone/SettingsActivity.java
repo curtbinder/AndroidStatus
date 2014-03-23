@@ -1,14 +1,14 @@
 package info.curtbinder.reefangel.phone;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.List;
-
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
 
 public class SettingsActivity extends PreferenceActivity {
 
@@ -25,12 +25,13 @@ public class SettingsActivity extends PreferenceActivity {
 
     /**
      * Checks to see if using the new v11+ way of handling PrefsFragments.
+     *
      * @return Returns false pre-v11, else checks to see if using headers
      */
     public boolean isNewV11Prefs() {
-        if ( mHasHeaders != null && mLoadHeaders != null ) {
+        if (mHasHeaders != null && mLoadHeaders != null) {
             try {
-                return (Boolean)mHasHeaders.invoke(this);
+                return (Boolean) mHasHeaders.invoke(this);
             } catch (IllegalArgumentException e) {
 
             } catch (IllegalAccessException e) {
@@ -41,9 +42,9 @@ public class SettingsActivity extends PreferenceActivity {
         }
         return false;
     }
-	
-	@Override
-	protected void onCreate ( Bundle savedInstanceState ) {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         // onBuildHeaders() will be called during super.onCreate()
         try {
             mLoadHeaders = getClass().getMethod("loadHeadersFromResource", int.class, List.class);
@@ -51,15 +52,15 @@ public class SettingsActivity extends PreferenceActivity {
         } catch (NoSuchMethodException e) {
 
         }
-        super.onCreate( savedInstanceState );
+        super.onCreate(savedInstanceState);
 
         raApp = (RAApplication) getApplication();
         raPrefs = raApp.raprefs;
 
-        devicesArray = raApp.getResources().getStringArray( R.array.devices );
-        profilesArray = raApp.getResources().getStringArray( R.array.profileLabels );
+        devicesArray = raApp.getResources().getStringArray(R.array.devices);
+        profilesArray = raApp.getResources().getStringArray(R.array.profileLabels);
 
-        if ( !isNewV11Prefs() ) {
+        if (!isNewV11Prefs()) {
             addPreferencesFromResource(R.xml.pref_profiles);
             addPreferencesFromResource(R.xml.pref_controller);
             addPreferencesFromResource(R.xml.pref_advanced);
@@ -67,7 +68,7 @@ public class SettingsActivity extends PreferenceActivity {
             addPreferencesFromResource(R.xml.pref_logging);
             addPreferencesFromResource(R.xml.pref_appinfo);
         }
-	}
+    }
 
     public String getDevicesArrayValue(int index) {
         return devicesArray[index];
@@ -77,15 +78,15 @@ public class SettingsActivity extends PreferenceActivity {
         return profilesArray[index];
     }
 
-    public String getDisplayValue (
+    public String getDisplayValue(
             int v,
             int arrayValuesId,
-            int arrayDisplayId ) {
+            int arrayDisplayId) {
         int pos = 0;
-        String[] values = raApp.getResources().getStringArray( arrayValuesId );
-        String[] display = raApp.getResources().getStringArray( arrayDisplayId );
-        for ( int i = 0; i < values.length; i++ ) {
-            if ( Integer.parseInt( values[i] ) == v ) {
+        String[] values = raApp.getResources().getStringArray(arrayValuesId);
+        String[] display = raApp.getResources().getStringArray(arrayDisplayId);
+        for (int i = 0; i < values.length; i++) {
+            if (Integer.parseInt(values[i]) == v) {
                 // found value
                 pos = i;
                 break;
@@ -94,15 +95,15 @@ public class SettingsActivity extends PreferenceActivity {
         return display[pos];
     }
 
-    public String getDisplayValueLong (
+    public String getDisplayValueLong(
             long v,
             int arrayValuesId,
-            int arrayDisplayId ) {
+            int arrayDisplayId) {
         int pos = 0;
-        String[] values = raApp.getResources().getStringArray( arrayValuesId );
-        String[] display = raApp.getResources().getStringArray( arrayDisplayId );
-        for ( int i = 0; i < values.length; i++ ) {
-            if ( Long.parseLong( values[i] ) == v ) {
+        String[] values = raApp.getResources().getStringArray(arrayValuesId);
+        String[] display = raApp.getResources().getStringArray(arrayDisplayId);
+        for (int i = 0; i < values.length; i++) {
+            if (Long.parseLong(values[i]) == v) {
                 // found value
                 pos = i;
                 break;
@@ -122,7 +123,7 @@ public class SettingsActivity extends PreferenceActivity {
     }
 
     @Override
-	public void onBuildHeaders ( List<Header> target ) {
+    public void onBuildHeaders(List<Header> target) {
         try {
             mLoadHeaders.invoke(this, new Object[]{R.xml.pref_headers, target});
         } catch (IllegalArgumentException e) {
@@ -132,7 +133,7 @@ public class SettingsActivity extends PreferenceActivity {
         } catch (InvocationTargetException e) {
 
         }
-	}
+    }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
@@ -151,8 +152,8 @@ public class SettingsActivity extends PreferenceActivity {
     public static class ControllerFragment extends PreferenceFragment {
 
         @Override
-        public void onCreate ( Bundle savedInstanceState ) {
-            super.onCreate( savedInstanceState );
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
 
             // load the preferences from an XML file
             addPreferencesFromResource(R.xml.pref_controller);

@@ -64,7 +64,7 @@ public class PrefAutoUpdateFragment extends PreferenceFragment
     }
 
     private String getUpdateIntervalDisplay() {
-        return ((SettingsActivity)getActivity()).getDisplayValueLong(
+        return ((SettingsActivity) getActivity()).getDisplayValueLong(
                 raPrefs.getUpdateInterval(),
                 R.array.updateIntervalValues,
                 R.array.updateInterval);

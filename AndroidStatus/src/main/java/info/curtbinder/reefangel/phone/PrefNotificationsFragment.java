@@ -12,16 +12,16 @@ import android.preference.PreferenceFragment;
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class PrefNotificationsFragment extends PreferenceFragment
-    implements SharedPreferences.OnSharedPreferenceChangeListener {
+        implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private RAApplication raApp;
     private RAPreferences raPrefs;
 
     @Override
-    public void onCreate ( Bundle savedInstanceState ) {
-        super.onCreate( savedInstanceState );
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        raApp = (RAApplication)getActivity().getApplication();
+        raApp = (RAApplication) getActivity().getApplication();
         raPrefs = raApp.raprefs;
 
         // load the preferences from an XML file
@@ -45,45 +45,45 @@ public class PrefNotificationsFragment extends PreferenceFragment
                 .unregisterOnSharedPreferenceChangeListener(this);
     }
 
-    private void updateErrorRetryCountSummary ( ) {
+    private void updateErrorRetryCountSummary() {
         String[] sa =
-                raApp.getResources().getStringArray( R.array.errorRetryCount );
+                raApp.getResources().getStringArray(R.array.errorRetryCount);
         int count = raPrefs.getNotificationErrorRetryMax();
         Preference pe =
-                findPreference( raApp
-                        .getString( R.string.prefNotificationErrorRetryKey ) );
-        pe.setSummary( sa[count] );
+                findPreference(raApp
+                        .getString(R.string.prefNotificationErrorRetryKey));
+        pe.setSummary(sa[count]);
 
         // only enable the retry interval if we are supposed to retry
         // AND if we are enabled
         boolean fEnable = false;
-        if ( (pe.isEnabled()) && (count > Globals.errorRetryNone) )
+        if ((pe.isEnabled()) && (count > Globals.errorRetryNone))
             fEnable = true;
         Preference p =
-                findPreference( raApp.getString( R.string.prefNotificationErrorRetryIntervalKey ) );
-        p.setEnabled( fEnable );
-        p.setSelectable( fEnable );
+                findPreference(raApp.getString(R.string.prefNotificationErrorRetryIntervalKey));
+        p.setEnabled(fEnable);
+        p.setSelectable(fEnable);
     }
 
-    private void updateErrorRetryIntervalSummary ( ) {
-        String s = ((SettingsActivity)getActivity()).getDisplayValueLong(
+    private void updateErrorRetryIntervalSummary() {
+        String s = ((SettingsActivity) getActivity()).getDisplayValueLong(
                 raPrefs.getNotificationErrorRetryInterval(),
                 R.array.errorRetryIntervalValues,
                 R.array.errorRetryInterval);
         findPreference(
-                raApp.getString( R.string.prefNotificationErrorRetryIntervalKey ) )
-                .setSummary( s );
+                raApp.getString(R.string.prefNotificationErrorRetryIntervalKey))
+                .setSummary(s);
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if ( key.equals( raApp
-                .getString( R.string.prefNotificationErrorRetryKey ) ) ) {
+        if (key.equals(raApp
+                .getString(R.string.prefNotificationErrorRetryKey))) {
             // error retry count changed, update the summary and
             // visibility of the retry interval
             updateErrorRetryCountSummary();
-        } else if ( key.equals( raApp
-                .getString( R.string.prefNotificationErrorRetryIntervalKey ) ) ) {
+        } else if (key.equals(raApp
+                .getString(R.string.prefNotificationErrorRetryIntervalKey))) {
             // interval changed
             updateErrorRetryIntervalSummary();
         }

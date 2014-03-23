@@ -27,10 +27,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 public class MainActivity extends ActionBarActivity
-    implements android.support.v7.app.ActionBar.OnNavigationListener {
+        implements android.support.v7.app.ActionBar.OnNavigationListener {
 
+    private static final String OPENED_KEY = "OPENED_KEY";
+    private static final String STATE_CHECKED = "DRAWER_CHECKED";
+    // do not switch selected profile when restoring the application state
+    private static boolean fRestoreState = false;
     public final String TAG = MainActivity.class.getSimpleName();
-
     private RAApplication raApp;
     private String[] mNavTitles;
     private DrawerLayout mDrawerLayout;
@@ -40,13 +43,8 @@ public class MainActivity extends ActionBarActivity
     private boolean fAddToBackStack = false;
     private int mCurrentPosition = 0;
     private int mOldPosition = -1;
-    private static final String OPENED_KEY = "OPENED_KEY";
-
-    private static final String STATE_CHECKED = "DRAWER_CHECKED";
     private SharedPreferences prefs = null;
     private Boolean opened = null;
-    // do not switch selected profile when restoring the application state
-    private static boolean fRestoreState = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +134,7 @@ public class MainActivity extends ActionBarActivity
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    private void setNavigationList ( ) {
+    private void setNavigationList() {
         // set list navigation items
         final ActionBar ab = getSupportActionBar();
         Context context = ab.getThemedContext();
@@ -148,7 +146,7 @@ public class MainActivity extends ActionBarActivity
         }
         ArrayAdapter<CharSequence> list =
                 ArrayAdapter.createFromResource(context, arrayID,
-                                R.layout.support_simple_spinner_dropdown_item);
+                        R.layout.support_simple_spinner_dropdown_item);
         ab.setListNavigationCallbacks(list, this);
         ab.setSelectedNavigationItem(raApp.getSelectedProfile());
     }
@@ -156,8 +154,8 @@ public class MainActivity extends ActionBarActivity
     private void updateActionBar() {
         // update actionbar
         final ActionBar ab = getSupportActionBar();
-        ab.setNavigationMode( ActionBar.NAVIGATION_MODE_LIST );
-        ab.setDisplayShowTitleEnabled( false );
+        ab.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        ab.setDisplayShowTitleEnabled(false);
         ab.setDisplayHomeAsUpEnabled(true);
         enableActionBarHomeButton();
     }
@@ -174,7 +172,7 @@ public class MainActivity extends ActionBarActivity
     public boolean onNavigationItemSelected(int itemPosition, long itemId) {
         // only switch profiles when the user changes the navigation item,
         // not when the navigation list state is restored
-        if ( !fRestoreState ) {
+        if (!fRestoreState) {
             raApp.setSelectedProfile(itemPosition);
         } else {
             fRestoreState = false;
@@ -202,62 +200,6 @@ public class MainActivity extends ActionBarActivity
         } else {
             invalidateOptionsMenu();
         }
-    }
-
-    private class MyDrawerToggle extends ActionBarDrawerToggle {
-
-        @Override
-        public void onDrawerClosed(View drawerView) {
-            super.onDrawerClosed(drawerView);
-            Log.d(TAG, "DrawerClosed");
-            updateContent();
-            myInvalidateOptionsMenu();
-            if (opened != null && opened == false) {
-                // drawer closed for the first time ever,
-                // set that it has been closed
-                opened = true;
-                if (prefs != null) {
-                    Editor editor = prefs.edit();
-                    editor.putBoolean(OPENED_KEY, true);
-                    editor.commit();
-                }
-            }
-        }
-
-        @Override
-        public void onDrawerOpened(View drawerView) {
-            super.onDrawerOpened(drawerView);
-            getSupportActionBar().setTitle(R.string.app_name);
-            myInvalidateOptionsMenu();
-        }
-
-        public MyDrawerToggle(Activity activity, DrawerLayout drawerLayout,
-                              int drawerImageRes,
-                              int openDrawerContentDescRes,
-                              int closeDrawerContentDescRes) {
-            super(activity, drawerLayout, drawerImageRes,
-                    openDrawerContentDescRes, closeDrawerContentDescRes);
-        }
-
-    }
-
-    private class DrawerItemClickListener implements
-            ListView.OnItemClickListener {
-
-        @Override
-        public void onItemClick(
-                AdapterView<?> parent,
-                View view,
-                int position,
-                long id) {
-            // Perform action when a drawer item is selected
-            // call parent classes function
-            // selectItem( position );
-            mCurrentPosition = position;
-            //mDrawerLayout.closeDrawer( mDrawerList );
-            mDrawerLayout.closeDrawer(mDrawer);
-        }
-
     }
 
     private void updateContent() {
@@ -334,6 +276,62 @@ public class MainActivity extends ActionBarActivity
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is open, hide actions other than settings and help
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    private class MyDrawerToggle extends ActionBarDrawerToggle {
+
+        public MyDrawerToggle(Activity activity, DrawerLayout drawerLayout,
+                              int drawerImageRes,
+                              int openDrawerContentDescRes,
+                              int closeDrawerContentDescRes) {
+            super(activity, drawerLayout, drawerImageRes,
+                    openDrawerContentDescRes, closeDrawerContentDescRes);
+        }
+
+        @Override
+        public void onDrawerClosed(View drawerView) {
+            super.onDrawerClosed(drawerView);
+            Log.d(TAG, "DrawerClosed");
+            updateContent();
+            myInvalidateOptionsMenu();
+            if (opened != null && opened == false) {
+                // drawer closed for the first time ever,
+                // set that it has been closed
+                opened = true;
+                if (prefs != null) {
+                    Editor editor = prefs.edit();
+                    editor.putBoolean(OPENED_KEY, true);
+                    editor.commit();
+                }
+            }
+        }
+
+        @Override
+        public void onDrawerOpened(View drawerView) {
+            super.onDrawerOpened(drawerView);
+            getSupportActionBar().setTitle(R.string.app_name);
+            myInvalidateOptionsMenu();
+        }
+
+    }
+
+    private class DrawerItemClickListener implements
+            ListView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(
+                AdapterView<?> parent,
+                View view,
+                int position,
+                long id) {
+            // Perform action when a drawer item is selected
+            // call parent classes function
+            // selectItem( position );
+            mCurrentPosition = position;
+            //mDrawerLayout.closeDrawer( mDrawerList );
+            mDrawerLayout.closeDrawer(mDrawer);
+        }
+
     }
 
 }
