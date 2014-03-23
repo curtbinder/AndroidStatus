@@ -139,32 +139,10 @@ public class PageControllerFragment extends Fragment
         c.close();
 
         ((StatusFragment) getParentFragment()).updateDisplayText(updateStatus);
-
-//        deviceText[T1_INDEX].setText( "77.0" );
-//        deviceText[T2_INDEX].setText( "65.0" );
-//        deviceText[T3_INDEX].setText( "100.0" );
-//        deviceText[PH_INDEX].setText( "8.20" );
-//        deviceText[DP_INDEX].setText( "100%" );
-//        deviceText[AP_INDEX].setText( "91%" );
-//        deviceText[ATOLO_INDEX].setText( "OFF" );
-//        deviceText[ATOHI_INDEX].setText( "ON" );
-//        deviceText[SALINITY_INDEX].setText( "35.0 ppt" );
-//        deviceText[ORP_INDEX].setText( "357 mV" );
-//        deviceText[PHE_INDEX].setText( "8.31" );
-//        deviceText[WL_INDEX].setText( "76%" );
-        deviceText[T1_INDEX].setText(v[T1_INDEX]);
-        deviceText[T2_INDEX].setText(v[T2_INDEX]);
-        deviceText[T3_INDEX].setText(v[T3_INDEX]);
-        deviceText[PH_INDEX].setText(v[PH_INDEX]);
-        deviceText[DP_INDEX].setText(v[DP_INDEX]);
-        deviceText[AP_INDEX].setText(v[AP_INDEX]);
-        // FIXME instead of setting text, we need to change icon
-        deviceText[ATOLO_INDEX].setText(v[ATOLO_INDEX]);
-        deviceText[ATOHI_INDEX].setText(v[ATOHI_INDEX]);
-        deviceText[SALINITY_INDEX].setText(v[SALINITY_INDEX]);
-        deviceText[ORP_INDEX].setText(v[ORP_INDEX]);
-        deviceText[PHE_INDEX].setText(v[PHE_INDEX]);
-        deviceText[WL_INDEX].setText(v[WL_INDEX]);
+        // set ATO LO and HI to icons instead of text
+        for (int i = 0; i < Controller.MAX_CONTROLLER_VALUES; i++ ) {
+            deviceText[i].setText(v[i]);
+        }
     }
 
     private String[] getControllerValues(Cursor c) {
@@ -179,8 +157,7 @@ public class PageControllerFragment extends Fragment
             h = getString(R.string.labelON); // ACTIVE, GREEN, ON
         else
             h = getString(R.string.labelOFF); // INACTIVE, RED, OFF
-        return new String[]{c.getString(c
-                .getColumnIndex(StatusTable.COL_T1)),
+        return new String[]{c.getString(c.getColumnIndex(StatusTable.COL_T1)),
                 c.getString(c.getColumnIndex(StatusTable.COL_T2)),
                 c.getString(c.getColumnIndex(StatusTable.COL_T3)),
                 c.getString(c.getColumnIndex(StatusTable.COL_PH)),

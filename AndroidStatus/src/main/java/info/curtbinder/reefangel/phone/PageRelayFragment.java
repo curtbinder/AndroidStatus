@@ -1,5 +1,6 @@
 package info.curtbinder.reefangel.phone;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
@@ -17,11 +18,16 @@ import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.controller.Relay;
 import info.curtbinder.reefangel.db.StatusProvider;
 import info.curtbinder.reefangel.db.StatusTable;
+import info.curtbinder.reefangel.service.MessageCommands;
+import info.curtbinder.reefangel.service.UpdateService;
 
 public class PageRelayFragment extends Fragment
-        implements PageRefreshInterface {
+        implements PageRefreshInterface, View.OnClickListener {
 
     private static final String TAG = PageRelayFragment.class.getSimpleName();
+    private static final int COL_R = 0;
+    private static final int COL_RON = 1;
+    private static final int COL_ROFF = 2;
     private int relayNumber;
     private ToggleButton[] portBtns =
             new ToggleButton[Controller.MAX_RELAY_PORTS];
@@ -44,9 +50,7 @@ public class PageRelayFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater,
-            ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.page_relaybox, container, false);
         findViews(rootView);
@@ -121,27 +125,21 @@ public class PageRelayFragment extends Fragment
     }
 
     private void setOnClickListeners() {
-//        for ( int i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
-//            portBtns[i].setOnClickListener( this );
-//            portMaskBtns[i].setOnClickListener( this );
-//        }
+        for ( int i = 0; i < Controller.MAX_RELAY_PORTS; i++ ) {
+            portBtns[i].setOnClickListener(this);
+            portMaskBtns[i].setOnClickListener(this);
+        }
     }
 
     private void setPortLabels() {
         Resources r = getActivity().getResources();
-        setPortLabel(0, "Skimmer", r.getString(R.string.prefPort1LabelTitle));
-        setPortLabel(1, "WM Left", r.getString(R.string.prefPort2LabelTitle));
-        setPortLabel(2, "Heater", r.getString(R.string.prefPort3LabelTitle));
-        setPortLabel(3, "Return", r.getString(R.string.prefPort4LabelTitle));
-        setPortLabel(4, "N/A", r.getString(R.string.prefPort5LabelTitle));
-        setPortLabel(5, "WM Right", r.getString(R.string.prefPort6LabelTitle));
-        setPortLabel(6, "Dim", r.getString(R.string.prefPort7LabelTitle));
-        setPortLabel(7, "Non Dim", r.getString(R.string.prefPort8LabelTitle));
         RAApplication raApp = (RAApplication) getActivity().getApplication();
         RAPreferences raPrefs = raApp.raprefs;
         boolean enabled;
+        String defaultPort = r.getString(R.string.defaultPortName);
         for (int i = 0; i < Controller.MAX_RELAY_PORTS; i++) {
-            enabled = raPrefs.getMainRelayControlEnabled(i);
+            setPortLabel(i, raPrefs.getRelayLabel(relayNumber, i), defaultPort + (i+1));
+            enabled = raPrefs.getRelayControlEnabled(relayNumber, i);
             setControlEnabled(i, enabled);
         }
     }
@@ -193,9 +191,9 @@ public class PageRelayFragment extends Fragment
         short r, ron, roff;
         if (c.moveToFirst()) {
             updateStatus = c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE));
-            r = c.getShort(c.getColumnIndex(StatusTable.COL_RDATA));
-            ron = c.getShort(c.getColumnIndex(StatusTable.COL_RONMASK));
-            roff = c.getShort(c.getColumnIndex(StatusTable.COL_ROFFMASK));
+            r = c.getShort(c.getColumnIndex(getColumnName(COL_R)));
+            ron = c.getShort(c.getColumnIndex(getColumnName(COL_RON)));
+            roff = c.getShort(c.getColumnIndex(getColumnName(COL_ROFF)));
         } else {
             updateStatus = getString(R.string.messageNever);
             r = ron = roff = 0;
@@ -205,6 +203,25 @@ public class PageRelayFragment extends Fragment
         ((StatusFragment) getParentFragment()).updateDisplayText(updateStatus);
         updateRelayValues(new Relay(r, ron, roff),
                 ((RAApplication) getActivity().getApplication()).raprefs.isCommunicateController());
+    }
+
+    private String getColumnName(int type) {
+        String column = "r";
+        if (relayNumber > 0) {
+            column += Integer.toString(relayNumber);
+        }
+        switch(type) {
+            case COL_R:
+                column += "data";
+                break;
+            case COL_RON:
+                column += "onmask";
+                break;
+            case COL_ROFF:
+                column += "offmask";
+                break;
+        }
+        return column;
     }
 
     private void updateRelayValues(Relay r, boolean fUseMask) {
@@ -225,5 +242,84 @@ public class PageRelayFragment extends Fragment
     @Override
     public void refreshData() {
         updateData();
+    }
+
+    @Override
+    public void onClick(View v) {
+        int box = getBoxNumber();
+        // inside Log.d, the + is string concatenation
+        // so relayNumber + NUM is actually like doing 1 + 1 == 11
+        // however, when you get into arithmetic 1 + 1 = 2 and not 11
+
+        // The buttons are nested inside a LinearLayout and then inside a
+        // TableRow
+        // The TableRow is the View that contains the row id
+        int port = 1;
+        View parent = (View) v.getParent().getParent();
+        switch ( parent.getId() ) {
+            default:
+            case R.id.rowPort1:
+                port = 1;
+                break;
+            case R.id.rowPort2:
+                port = 2;
+                break;
+            case R.id.rowPort3:
+                port = 3;
+                break;
+            case R.id.rowPort4:
+                port = 4;
+                break;
+            case R.id.rowPort5:
+                port = 5;
+                break;
+            case R.id.rowPort6:
+                port = 6;
+                break;
+            case R.id.rowPort7:
+                port = 7;
+                break;
+            case R.id.rowPort8:
+                port = 8;
+                break;
+        }
+        if ( v.getId() == R.id.rowOverrideToggle ) {
+            sendRelayClearMaskTask( box + port );
+        } else if ( v.getId() == R.id.rowToggle ) {
+            sendRelayToggleTask( box + port );
+        }
+    }
+
+    private int getBoxNumber ( ) {
+        return relayNumber * 10;
+    }
+
+    private void sendRelayToggleTask ( int port ) {
+        // port is 1 based
+        Log.d( TAG, "sendRelayToggleTask" );
+        int p = port - getBoxNumber();
+        int status = Relay.PORT_STATE_OFF;
+        if ( portBtns[p - 1].isChecked() ) {
+            status = Relay.PORT_STATE_ON;
+        }
+        launchRelayToggleTask( port, status );
+    }
+
+    private void sendRelayClearMaskTask ( int port ) {
+        // port is 1 based
+        Log.d( TAG, "sendRelayClearMaskTask" );
+        // hide ourself and clear the mask
+        int p = port - getBoxNumber();
+        portMaskBtns[p - 1].setVisibility( View.INVISIBLE );
+        launchRelayToggleTask( port, Relay.PORT_STATE_AUTO );
+    }
+
+    private void launchRelayToggleTask ( int relay, int status ) {
+        // port is 1 based
+        Intent i = new Intent( getActivity(), UpdateService.class );
+        i.setAction( MessageCommands.TOGGLE_RELAY_INTENT );
+        i.putExtra( MessageCommands.TOGGLE_RELAY_PORT_INT, relay );
+        i.putExtra( MessageCommands.TOGGLE_RELAY_MODE_INT, status );
+        getActivity().startService( i );
     }
 }

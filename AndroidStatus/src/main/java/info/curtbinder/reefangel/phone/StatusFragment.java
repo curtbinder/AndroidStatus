@@ -23,7 +23,7 @@ import info.curtbinder.reefangel.service.UpdateService;
 
 public class StatusFragment extends Fragment {
 
-    public static final int PAGES = 2;
+    public static final int PAGES = 3;
     private static final String TAG = StatusFragment.class.getSimpleName();
     // minimum number of pages: status, main relay
     private static final int MIN_PAGES = 3;
@@ -192,6 +192,11 @@ public class StatusFragment extends Fragment {
                         mAppPages[1] = PageRelayFragment.newInstance(0);
                     }
                     break;
+                case 2:
+                    if (mAppPages[2] == null) {
+                        mAppPages[2] = PageRelayFragment.newInstance(1);
+                    }
+                    break;
             }
             return mAppPages[position];
         }
@@ -210,6 +215,8 @@ public class StatusFragment extends Fragment {
                     return "Controller";
                 case 1:
                     return "Main Relay";
+                case 2:
+                    return "Expansion Relay 1";
             }
             return null;
         }
