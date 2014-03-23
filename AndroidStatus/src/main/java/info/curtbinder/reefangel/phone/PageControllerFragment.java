@@ -84,6 +84,7 @@ public class PageControllerFragment extends Fragment {
 
     private void updateLabelsAndVisibility() {
         Log.d(TAG, "updateLabelsAndVisibility");
+        // todo load labels from memory or maybe a database
         setLabel(T1_INDEX, "Tank", "T1");
         setLabel(T2_INDEX, "Room", "T2");
         setLabel(T3_INDEX, "Lights", "T3");
@@ -120,6 +121,7 @@ public class PageControllerFragment extends Fragment {
 
     private void updateData() {
         Log.d(TAG, "updateData");
+        // todo load from database
         ((StatusFragment)getParentFragment()).updateDisplayText("2 days ago");
 
         deviceText[T1_INDEX].setText( "77.0" );
