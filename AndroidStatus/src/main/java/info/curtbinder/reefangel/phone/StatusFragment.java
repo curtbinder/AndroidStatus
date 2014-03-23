@@ -79,7 +79,26 @@ public class StatusFragment extends Fragment {
 		 */
 		mPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
 		mPager.setAdapter(mPagerAdapter);
-		
+        mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                // example used mPagerAdapter.instantiateItem(mPager, position)
+                PageRefreshInterface page = (PageRefreshInterface) mPagerAdapter.getItem(position);
+                if ( page != null ) {
+                    page.refreshData();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+
+        mPager.setCurrentItem(0, true);
 		return root;
 	}
 
@@ -133,6 +152,7 @@ public class StatusFragment extends Fragment {
 		@Override
 		public CharSequence getPageTitle ( int position ) {
             // this gets called before the getItem function gets called
+            // todo add in other page names
 			switch ( position ) {
 				case 0:
 					return "Controller";

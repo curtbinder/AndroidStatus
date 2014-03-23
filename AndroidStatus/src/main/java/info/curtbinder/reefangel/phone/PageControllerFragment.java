@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 import info.curtbinder.reefangel.controller.Controller;
 
-public class PageControllerFragment extends Fragment {
+public class PageControllerFragment extends Fragment
+    implements PageRefreshInterface {
 
     private static final String TAG = PageControllerFragment.class.getSimpleName();
 
@@ -74,7 +75,7 @@ public class PageControllerFragment extends Fragment {
     public void onResume() {
         super.onResume();
         updateLabelsAndVisibility();
-        updateData();
+        refreshData();
     }
 
     @Override
@@ -150,5 +151,10 @@ public class PageControllerFragment extends Fragment {
 //        deviceText[ORP_INDEX].setText( v[ORP_INDEX] );
 //        deviceText[PHE_INDEX].setText( v[PHE_INDEX] );
 //        deviceText[WL_INDEX].setText( v[WL_INDEX] );
+    }
+
+    @Override
+    public void refreshData() {
+        updateData();
     }
 }

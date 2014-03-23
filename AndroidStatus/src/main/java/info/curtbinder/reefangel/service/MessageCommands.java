@@ -8,8 +8,18 @@
 
 package info.curtbinder.reefangel.service;
 
+import info.curtbinder.reefangel.phone.BuildConfig;
+
 public final class MessageCommands {
-	public static final String PACKAGE_BASE = MessageCommands.class.getCanonicalName();
+	public static final String PACKAGE_BASE = buildBase();
+
+    private static String buildBase() {
+        String s = MessageCommands.class.getPackage().getName();
+        if (BuildConfig.DEBUG) {
+            s += ".debug";
+        }
+        return s;
+    }
 
 	public static final String AUTO_UPDATE_PROFILE_INT =
 			PACKAGE_BASE + ".AUTO_UPDATE_PROFILE_INT";

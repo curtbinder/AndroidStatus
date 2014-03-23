@@ -13,7 +13,8 @@ import android.widget.ToggleButton;
 
 import info.curtbinder.reefangel.controller.Controller;
 
-public class PageRelayFragment extends Fragment {
+public class PageRelayFragment extends Fragment
+    implements PageRefreshInterface {
 
     private static final String TAG = PageRelayFragment.class.getSimpleName();
     private int relayNumber;
@@ -78,11 +79,10 @@ public class PageRelayFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
         refreshButtonEnablement();
         setOnClickListeners();
         setPortLabels();
-        loadData();
+        refreshData();
     }
 
     @Override
@@ -167,7 +167,13 @@ public class PageRelayFragment extends Fragment {
         ((TextView) tr.findViewById( R.id.rowSubTitle )).setText( subtitle );
     }
 
-    private void loadData() {
+    private void updateData() {
         // todo load the data from the database
+        Log.d(TAG, "updateData");
+    }
+
+    @Override
+    public void refreshData() {
+        updateData();
     }
 }

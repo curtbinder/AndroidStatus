@@ -9,7 +9,16 @@
 package info.curtbinder.reefangel.phone;
 
 public final class Globals {
-	public static final String PACKAGE = "info.curtbinder.reefangel.phone";
+	public static final String PACKAGE = buildPackage();
+
+    private static String buildPackage() {
+        String p = Globals.class.getPackage().getName();
+        if (BuildConfig.DEBUG) {
+            p += ".debug";
+        }
+        return p;
+    }
+
 	public static final String PRE10_LOCATIONS = "PreLocations";
 
 	public static final String loggingFile = "ra_log.txt";

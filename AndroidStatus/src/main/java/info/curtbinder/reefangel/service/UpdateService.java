@@ -199,7 +199,7 @@ public class UpdateService extends IntentService {
 			h.setCommand( intent
 					.getStringExtra( MessageCommands.DATE_SEND_STRING ) );
 		} else {
-			Log.d( TAG, "Unknown command" );
+			Log.d( TAG, "Unknown command: " + action);
 			return;
 		}
 		Log.d( TAG, "Task Host: " + h.toString() );
