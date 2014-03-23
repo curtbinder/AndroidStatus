@@ -1,5 +1,7 @@
 package info.curtbinder.reefangel.phone;
 
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -10,6 +12,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import info.curtbinder.reefangel.controller.Controller;
+import info.curtbinder.reefangel.db.StatusProvider;
+import info.curtbinder.reefangel.db.StatusTable;
 
 public class PageControllerFragment extends Fragment
     implements PageRefreshInterface {
@@ -122,36 +126,75 @@ public class PageControllerFragment extends Fragment
 
     private void updateData() {
         Log.d(TAG, "updateData");
-        // todo load from database
-        ((StatusFragment)getParentFragment()).updateDisplayText("2 days ago");
+        Uri uri = Uri.parse( StatusProvider.CONTENT_URI + "/" + StatusProvider.PATH_LATEST );
+        Cursor c = getActivity().getContentResolver().query( uri, null, null, null,
+                StatusTable.COL_ID + " DESC" );
+        String updateStatus;
+        String[] v = new String[Controller.MAX_CONTROLLER_VALUES];
+        if ( c.moveToFirst() ) {
+            updateStatus = c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE));
+            v = getControllerValues(c);
+        } else {
+            updateStatus = getString(R.string.messageNever);
+            v = ((StatusFragment)getParentFragment()).getNeverValues(Controller.MAX_CONTROLLER_VALUES);
+        }
+        c.close();
 
-        deviceText[T1_INDEX].setText( "77.0" );
-        deviceText[T2_INDEX].setText( "65.0" );
-        deviceText[T3_INDEX].setText( "100.0" );
-        deviceText[PH_INDEX].setText( "8.20" );
-        deviceText[DP_INDEX].setText( "100%" );
-        deviceText[AP_INDEX].setText( "91%" );
+        ((StatusFragment)getParentFragment()).updateDisplayText(updateStatus);
+
+//        deviceText[T1_INDEX].setText( "77.0" );
+//        deviceText[T2_INDEX].setText( "65.0" );
+//        deviceText[T3_INDEX].setText( "100.0" );
+//        deviceText[PH_INDEX].setText( "8.20" );
+//        deviceText[DP_INDEX].setText( "100%" );
+//        deviceText[AP_INDEX].setText( "91%" );
+//        deviceText[ATOLO_INDEX].setText( "OFF" );
+//        deviceText[ATOHI_INDEX].setText( "ON" );
+//        deviceText[SALINITY_INDEX].setText( "35.0 ppt" );
+//        deviceText[ORP_INDEX].setText( "357 mV" );
+//        deviceText[PHE_INDEX].setText( "8.31" );
+//        deviceText[WL_INDEX].setText( "76%" );
+        deviceText[T1_INDEX].setText( v[T1_INDEX] );
+        deviceText[T2_INDEX].setText( v[T2_INDEX] );
+        deviceText[T3_INDEX].setText( v[T3_INDEX] );
+        deviceText[PH_INDEX].setText( v[PH_INDEX] );
+        deviceText[DP_INDEX].setText( v[DP_INDEX] );
+        deviceText[AP_INDEX].setText( v[AP_INDEX] );
         // FIXME instead of setting text, we need to change icon
-        deviceText[ATOLO_INDEX].setText( "OFF" );
-        deviceText[ATOHI_INDEX].setText( "ON" );
-        deviceText[SALINITY_INDEX].setText( "35.0 ppt" );
-        deviceText[ORP_INDEX].setText( "357 mV" );
-        deviceText[PHE_INDEX].setText( "8.31" );
-        deviceText[WL_INDEX].setText( "76%" );
-//        deviceText[T1_INDEX].setText( v[T1_INDEX] );
-//        deviceText[T2_INDEX].setText( v[T2_INDEX] );
-//        deviceText[T3_INDEX].setText( v[T3_INDEX] );
-//        deviceText[PH_INDEX].setText( v[PH_INDEX] );
-//        deviceText[DP_INDEX].setText( v[DP_INDEX] );
-//        deviceText[AP_INDEX].setText( v[AP_INDEX] );
-//        // FIXME instead of setting text, we need to change icon
-//        deviceText[ATOLO_INDEX].setText( v[ATOLO_INDEX] );
-//        deviceText[ATOHI_INDEX].setText( v[ATOHI_INDEX] );
-//        deviceText[SALINITY_INDEX].setText( v[SALINITY_INDEX] );
-//        deviceText[ORP_INDEX].setText( v[ORP_INDEX] );
-//        deviceText[PHE_INDEX].setText( v[PHE_INDEX] );
-//        deviceText[WL_INDEX].setText( v[WL_INDEX] );
+        deviceText[ATOLO_INDEX].setText( v[ATOLO_INDEX] );
+        deviceText[ATOHI_INDEX].setText( v[ATOHI_INDEX] );
+        deviceText[SALINITY_INDEX].setText( v[SALINITY_INDEX] );
+        deviceText[ORP_INDEX].setText( v[ORP_INDEX] );
+        deviceText[PHE_INDEX].setText( v[PHE_INDEX] );
+        deviceText[WL_INDEX].setText( v[WL_INDEX] );
     }
+
+    private String[] getControllerValues ( Cursor c ) {
+        // FIXME switch to only setting the string to 1 or 0
+        // FIXME so the controllerpage can easily update the images
+        String l, h;
+        if ( c.getShort( c.getColumnIndex( StatusTable.COL_ATOLO ) ) == 1 )
+            l = getString( R.string.labelON ); // ACTIVE, GREEN, ON
+        else
+            l = getString( R.string.labelOFF ); // INACTIVE, RED, OFF
+        if ( c.getShort( c.getColumnIndex( StatusTable.COL_ATOHI ) ) == 1 )
+            h = getString( R.string.labelON ); // ACTIVE, GREEN, ON
+        else
+            h = getString( R.string.labelOFF ); // INACTIVE, RED, OFF
+        return new String[] {	c.getString( c
+                .getColumnIndex( StatusTable.COL_T1 ) ),
+                c.getString( c.getColumnIndex( StatusTable.COL_T2 ) ),
+                c.getString( c.getColumnIndex( StatusTable.COL_T3 ) ),
+                c.getString( c.getColumnIndex( StatusTable.COL_PH ) ),
+                c.getString( c.getColumnIndex( StatusTable.COL_DP ) ) + "%",
+                c.getString( c.getColumnIndex( StatusTable.COL_AP ) ) + "%",
+                l, h,
+                c.getString( c.getColumnIndex( StatusTable.COL_SAL ) ) + " ppt",
+                c.getString( c.getColumnIndex( StatusTable.COL_ORP ) ) + " mV",
+                c.getString( c.getColumnIndex( StatusTable.COL_PHE ) ),
+                c.getString( c.getColumnIndex( StatusTable.COL_WL ) ) + "%" };
+    }
+
 
     @Override
     public void refreshData() {

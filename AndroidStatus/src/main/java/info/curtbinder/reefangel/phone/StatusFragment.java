@@ -1,6 +1,8 @@
 package info.curtbinder.reefangel.phone;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import info.curtbinder.reefangel.db.StatusProvider;
+import info.curtbinder.reefangel.db.StatusTable;
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;
 
@@ -123,6 +127,21 @@ public class StatusFragment extends Fragment {
         mUpdateTime.setText(text);
     }
 
+//    public Cursor getLatestDataCursor() {
+//        Uri uri = Uri.parse( StatusProvider.CONTENT_URI + "/" + StatusProvider.PATH_LATEST );
+//        Cursor c = getActivity().getContentResolver().query( uri, null, null, null,
+//                StatusTable.COL_ID + " DESC" );
+//        return c;
+//    }
+
+    public String[] getNeverValues ( int qty ) {
+        String[] s = new String[qty];
+        for ( int i = 0; i < qty; i++ ) {
+            s[i] = getString( R.string.defaultStatusText );
+        }
+        return s;
+    }
+
     @Override
     public void onPause ( ) {
         super.onPause();
@@ -132,7 +151,7 @@ public class StatusFragment extends Fragment {
     private void launchStatusTask ( ) {
         Intent i = new Intent( getActivity(), UpdateService.class );
         i.setAction( MessageCommands.QUERY_STATUS_INTENT );
-        getActivity().startService( i );
+        getActivity().startService(i);
     }
 
     @Override
