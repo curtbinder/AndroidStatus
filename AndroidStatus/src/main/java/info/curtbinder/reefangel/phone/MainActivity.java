@@ -3,6 +3,7 @@ package info.curtbinder.reefangel.phone;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -14,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -24,10 +26,12 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity
+    implements android.support.v7.app.ActionBar.OnNavigationListener {
 
     public final String TAG = MainActivity.class.getSimpleName();
 
+    private RAApplication raApp;
     private String[] mNavTitles;
     private DrawerLayout mDrawerLayout;
     private LinearLayout mDrawer;
@@ -41,11 +45,15 @@ public class MainActivity extends ActionBarActivity {
     private static final String STATE_CHECKED = "DRAWER_CHECKED";
     private SharedPreferences prefs = null;
     private Boolean opened = null;
+    // do not switch selected profile when restoring the application state
+    private static boolean fRestoreState = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        raApp = (RAApplication) getApplication();
 
         // get the string array for the navigation items
         mNavTitles = getResources().getStringArray(R.array.nav_items);
@@ -77,10 +85,7 @@ public class MainActivity extends ActionBarActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         updateContent();
-
-        //getActionBar().setDisplayHomeAsUpEnabled( true );
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        enableActionBarHomeButton();
+        updateActionBar();
 
         // selectItem( 0 );
         fAddToBackStack = true;
@@ -115,6 +120,47 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        fRestoreState = true;
+        setNavigationList();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    private void setNavigationList ( ) {
+        // set list navigation items
+        final ActionBar ab = getSupportActionBar();
+        Context context = ab.getThemedContext();
+        int arrayID;
+        if (raApp.isAwayProfileEnabled()) {
+            arrayID = R.array.profileLabels;
+        } else {
+            arrayID = R.array.profileLabelsHomeOnly;
+        }
+        ArrayAdapter<CharSequence> list =
+                ArrayAdapter
+                        .createFromResource(context, arrayID,
+                                R.layout.support_simple_spinner_dropdown_item);
+        //list.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        ab.setListNavigationCallbacks(list, this);
+        ab.setSelectedNavigationItem(raApp.getSelectedProfile());
+    }
+
+    private void updateActionBar() {
+        // update actionbar
+        final ActionBar ab = getSupportActionBar();
+        ab.setNavigationMode( ActionBar.NAVIGATION_MODE_LIST );
+        ab.setDisplayShowTitleEnabled( false );
+        ab.setDisplayHomeAsUpEnabled(true);
+        enableActionBarHomeButton();
+    }
+
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     private void enableActionBarHomeButton() {
         // function available in api 14 and later
@@ -122,6 +168,19 @@ public class MainActivity extends ActionBarActivity {
             getActionBar().setHomeButtonEnabled(true);
         }
     }
+
+    @Override
+    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+        // only switch profiles when the user changes the navigation item,
+        // not when the navigation list state is restored
+        if ( !fRestoreState ) {
+            raApp.setSelectedProfile(itemPosition);
+        } else {
+            fRestoreState = false;
+        }
+        return true;
+    }
+
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -144,7 +203,6 @@ public class MainActivity extends ActionBarActivity {
             invalidateOptionsMenu();
         }
     }
-
     private class MyDrawerToggle extends ActionBarDrawerToggle {
 
         @Override
