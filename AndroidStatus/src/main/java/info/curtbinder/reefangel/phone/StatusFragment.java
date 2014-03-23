@@ -1,6 +1,9 @@
 package info.curtbinder.reefangel.phone;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,11 +19,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import info.curtbinder.reefangel.db.StatusProvider;
 import info.curtbinder.reefangel.db.StatusTable;
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;
+import info.curtbinder.reefangel.service.XMLTags;
 
 public class StatusFragment extends Fragment {
 
@@ -63,6 +68,9 @@ public class StatusFragment extends Fragment {
 
     private static final int POS_END = POS_CUSTOM + 1;
 
+    // Message Receivers
+    StatusReceiver receiver;
+    IntentFilter filter;
 
 	public static StatusFragment newInstance() {
 		StatusFragment f = new StatusFragment();
@@ -76,6 +84,12 @@ public class StatusFragment extends Fragment {
 			Bundle savedInstanceState ) {
 		Log.d(TAG, "onCreateView");
 		View root = inflater.inflate( R.layout.frag_status, container, false );
+
+        // Message Receiver stuff
+        receiver = new StatusReceiver();
+        filter = new IntentFilter( MessageCommands.UPDATE_DISPLAY_DATA_INTENT );
+        filter.addAction( MessageCommands.UPDATE_STATUS_INTENT );
+
         mUpdateTime = (TextView) root.findViewById(R.id.textUpdate);
 
         // set the maximum number of pages we can have
@@ -98,10 +112,7 @@ public class StatusFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 // example used mPagerAdapter.instantiateItem(mPager, position)
-                PageRefreshInterface page = (PageRefreshInterface) mPagerAdapter.getItem(position);
-                if ( page != null ) {
-                    page.refreshData();
-                }
+                refreshPageData(position);
             }
 
             @Override
@@ -115,10 +126,20 @@ public class StatusFragment extends Fragment {
 		return root;
 	}
 
+    private void refreshPageData(int position) {
+        PageRefreshInterface page = (PageRefreshInterface) mPagerAdapter.getItem(position);
+        if ( page != null ) {
+            page.refreshData();
+        }
+    }
+
     @Override
     public void onResume ( ) {
         super.onResume();
         Log.d(TAG, "onResume");
+
+        getActivity().registerReceiver(receiver, filter, Permissions.QUERY_STATUS, null);
+
         // update the Display Text
         updateDisplayText("");
     }
@@ -126,13 +147,6 @@ public class StatusFragment extends Fragment {
     public void updateDisplayText(String text) {
         mUpdateTime.setText(text);
     }
-
-//    public Cursor getLatestDataCursor() {
-//        Uri uri = Uri.parse( StatusProvider.CONTENT_URI + "/" + StatusProvider.PATH_LATEST );
-//        Cursor c = getActivity().getContentResolver().query( uri, null, null, null,
-//                StatusTable.COL_ID + " DESC" );
-//        return c;
-//    }
 
     public String[] getNeverValues ( int qty ) {
         String[] s = new String[qty];
@@ -146,6 +160,8 @@ public class StatusFragment extends Fragment {
     public void onPause ( ) {
         super.onPause();
         Log.d(TAG, "onPause");
+
+        getActivity().unregisterReceiver(receiver);
     }
 
     private void launchStatusTask ( ) {
@@ -219,4 +235,59 @@ public class StatusFragment extends Fragment {
 		}
 		
 	}
+
+    class StatusReceiver extends BroadcastReceiver
+    {
+        // private final String TAG = StatusReceiver.class.getSimpleName();
+
+        public void onReceive (Context context, Intent intent ) {
+            String action = intent.getAction();
+            if (action.equals(MessageCommands.UPDATE_STATUS_INTENT)) {
+                int id = intent.getIntExtra(MessageCommands.UPDATE_STATUS_ID,
+                                R.string.defaultStatusText);
+                if (id > -1) {
+                    mUpdateTime.setText(id);
+                } else {
+                    // we are updating with a string being sent to us
+                    mUpdateTime
+                            .setText(intent
+                                    .getStringExtra(MessageCommands.UPDATE_STATUS_STRING));
+                }
+            } else if (action.equals(MessageCommands.UPDATE_DISPLAY_DATA_INTENT)) {
+                // get the current fragment
+                // call it's update data function
+                refreshPageData(mPager.getCurrentItem());
+            }
+//        else if ( action.equals( MessageCommands.VORTECH_UPDATE_INTENT ) ) {
+//            int type =
+//                    intent.getIntExtra( MessageCommands.VORTECH_UPDATE_TYPE,
+//                            0 );
+//            Intent i =
+//                    new Intent( StatusActivity.this,
+//                            VortechPopupActivity.class );
+//            i.putExtra( VortechPopupActivity.TYPE, type );
+//            i.putExtra( Globals.PRE10_LOCATIONS,
+//                    rapp.raprefs.useOldPre10MemoryLocations() );
+//            startActivity( i );
+//        } else if ( action.equals( MessageCommands.MEMORY_RESPONSE_INTENT ) ) {
+//            String response =
+//                    intent.getStringExtra( MessageCommands.MEMORY_RESPONSE_STRING );
+//            if ( response.equals( XMLTags.Ok ) ) {
+//                updateTime.setText( R.string.statusRefreshNeeded );
+//            } else {
+//                Toast.makeText(StatusActivity.this, response,
+//                        Toast.LENGTH_LONG).show();
+//            }
+//        } else if ( action.equals( MessageCommands.COMMAND_RESPONSE_INTENT ) ) {
+//            String response =
+//                    intent.getStringExtra( MessageCommands.COMMAND_RESPONSE_STRING );
+//            if ( response.contains( XMLTags.Ok ) ) {
+//                updateTime.setText( R.string.statusRefreshNeeded );
+//            } else {
+//                Toast.makeText( StatusActivity.this, response,
+//                        Toast.LENGTH_LONG ).show();
+//            }
+//        }
+        }
+    }
 }
