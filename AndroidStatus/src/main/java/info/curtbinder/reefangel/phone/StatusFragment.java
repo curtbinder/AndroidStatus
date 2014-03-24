@@ -17,9 +17,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;
+import info.curtbinder.reefangel.service.XMLTags;
 
 public class StatusFragment extends Fragment {
 
@@ -47,6 +49,8 @@ public class StatusFragment extends Fragment {
     private static final int POS_EXP6_RELAY = POS_MAIN_RELAY + 6;
     private static final int POS_EXP7_RELAY = POS_MAIN_RELAY + 7;
     private static final int POS_EXP8_RELAY = POS_MAIN_RELAY + 8;
+    private static final String CURRENT_POSITION = "currentPosition";
+    private static int currentPosition = 1;
     // Message Receivers
     StatusReceiver receiver;
     IntentFilter filter;
@@ -56,9 +60,6 @@ public class StatusFragment extends Fragment {
     private SectionsPagerAdapter mPagerAdapter;
     private Fragment[] mAppPages;
     private String[] mVortechModes;
-
-    private static final String CURRENT_POSITION = "currentPosition";
-    private static int currentPosition = 1;
 
     public static StatusFragment newInstance() {
         StatusFragment f = new StatusFragment();
@@ -84,6 +85,8 @@ public class StatusFragment extends Fragment {
         receiver = new StatusReceiver();
         filter = new IntentFilter(MessageCommands.UPDATE_DISPLAY_DATA_INTENT);
         filter.addAction(MessageCommands.UPDATE_STATUS_INTENT);
+        filter.addAction(MessageCommands.COMMAND_RESPONSE_INTENT);
+        filter.addAction(MessageCommands.ERROR_MESSAGE_INTENT);
 
         mUpdateTime = (TextView) root.findViewById(R.id.textUpdate);
 
@@ -93,7 +96,7 @@ public class StatusFragment extends Fragment {
         // Set up the ViewPager with the sections adapter.
         mPager = (ViewPager) root.findViewById(R.id.pager);
         /* we are using Nested Fragments inside the pager adapter to allow the
-		 * fragment manager to manage them properly, instead of using the
+         * fragment manager to manage them properly, instead of using the
 		 * getSupportFragmentManager or getFragmentManager, you must use 
 		 * getChildFragmentManager to allow for proper management
 		 */
@@ -136,6 +139,7 @@ public class StatusFragment extends Fragment {
         Log.d(TAG, "onResume");
 
         getActivity().registerReceiver(receiver, filter, Permissions.QUERY_STATUS, null);
+        getActivity().registerReceiver(receiver, filter, Permissions.SEND_COMMAND, null);
 
         mPager.setCurrentItem(currentPosition, false);
     }
@@ -266,8 +270,7 @@ public class StatusFragment extends Fragment {
                 // get the current fragment
                 // call it's update data function
                 refreshPageData(mPager.getCurrentItem());
-            }
-//        else if ( action.equals( MessageCommands.VORTECH_UPDATE_INTENT ) ) {
+//            } else if ( action.equals( MessageCommands.VORTECH_UPDATE_INTENT ) ) {
 //            int type =
 //                    intent.getIntExtra( MessageCommands.VORTECH_UPDATE_TYPE,
 //                            0 );
@@ -287,16 +290,15 @@ public class StatusFragment extends Fragment {
 //                Toast.makeText(StatusActivity.this, response,
 //                        Toast.LENGTH_LONG).show();
 //            }
-//        } else if ( action.equals( MessageCommands.COMMAND_RESPONSE_INTENT ) ) {
-//            String response =
-//                    intent.getStringExtra( MessageCommands.COMMAND_RESPONSE_STRING );
-//            if ( response.contains( XMLTags.Ok ) ) {
-//                updateTime.setText( R.string.statusRefreshNeeded );
-//            } else {
-//                Toast.makeText( StatusActivity.this, response,
-//                        Toast.LENGTH_LONG ).show();
-//            }
-//        }
+            } else if (action.equals(MessageCommands.COMMAND_RESPONSE_INTENT)) {
+                String response =
+                        intent.getStringExtra(MessageCommands.COMMAND_RESPONSE_STRING);
+                if (response.contains(XMLTags.Ok)) {
+                    mUpdateTime.setText(R.string.statusRefreshNeeded);
+                } else {
+                    Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();
+                }
+            }
         }
     }
 }
