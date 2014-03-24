@@ -23,7 +23,7 @@ import info.curtbinder.reefangel.service.UpdateService;
 
 public class StatusFragment extends Fragment {
 
-    public static final int PAGES = 3;
+    public static final int PAGES = 4;
     private static final String TAG = StatusFragment.class.getSimpleName();
     // minimum number of pages: status, main relay
     private static final int MIN_PAGES = 3;
@@ -57,9 +57,19 @@ public class StatusFragment extends Fragment {
     private Fragment[] mAppPages;
     private String[] mVortechModes;
 
+    private static final String CURRENT_POSITION = "currentPosition";
+    private static int currentPosition = 1;
+
     public static StatusFragment newInstance() {
         StatusFragment f = new StatusFragment();
         return f;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        currentPosition = mPager.getCurrentItem();
+        outState.putInt(CURRENT_POSITION, currentPosition);
     }
 
     @Override
@@ -105,7 +115,9 @@ public class StatusFragment extends Fragment {
             }
         });
 
-        mPager.setCurrentItem(0, true);
+        if (savedInstanceState != null) {
+            currentPosition = savedInstanceState.getInt(CURRENT_POSITION);
+        }
         // enable the options menu
         setHasOptionsMenu(true);
         return root;
@@ -125,8 +137,7 @@ public class StatusFragment extends Fragment {
 
         getActivity().registerReceiver(receiver, filter, Permissions.QUERY_STATUS, null);
 
-        // update the Display Text
-        updateDisplayText("");
+        mPager.setCurrentItem(currentPosition, false);
     }
 
     public void updateDisplayText(String text) {
@@ -184,17 +195,22 @@ public class StatusFragment extends Fragment {
             switch (position) {
                 case 0:
                     if (mAppPages[0] == null) {
-                        mAppPages[0] = PageControllerFragment.newInstance();
+                        mAppPages[0] = PageCommandsFragment.newInstance();
                     }
                     break;
                 case 1:
                     if (mAppPages[1] == null) {
-                        mAppPages[1] = PageRelayFragment.newInstance(0);
+                        mAppPages[1] = PageControllerFragment.newInstance();
                     }
                     break;
                 case 2:
                     if (mAppPages[2] == null) {
-                        mAppPages[2] = PageRelayFragment.newInstance(1);
+                        mAppPages[2] = PageRelayFragment.newInstance(0);
+                    }
+                    break;
+                case 3:
+                    if (mAppPages[3] == null) {
+                        mAppPages[3] = PageRelayFragment.newInstance(1);
                     }
                     break;
             }
@@ -212,11 +228,13 @@ public class StatusFragment extends Fragment {
             // todo add in other page names
             switch (position) {
                 case 0:
-                    return "Controller";
+                    return getString(R.string.titleCommands);
                 case 1:
-                    return "Main Relay";
+                    return getString(R.string.labelController);
                 case 2:
-                    return "Expansion Relay 1";
+                    return getString(R.string.prefMainRelayTitle);
+                case 3:
+                    return getString(R.string.prefExp1RelayTitle);
             }
             return null;
         }

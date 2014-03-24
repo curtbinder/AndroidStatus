@@ -7,4 +7,8 @@
         <item name="cbDrawerItemSelectedText">@drawable/activated_text</item>
     </style>
 
+    <style name="CommandButtons">
+        <item name="android:padding">20dp</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
 </resources>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/command_button_feed"
+                style="@style/CommandButtons"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_action_restaurant"
+                android:text="@string/buttonFeeding" />
+
+            <Button
+                android:id="@+id/command_button_water"
+                style="@style/CommandButtons"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_action_mist"
+                android:text="@string/buttonWater" />
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/command_button_exit"
+                style="@style/CommandButtons"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_action_exit"
+                android:text="@string/buttonExit" />
+
+            <Button
+                android:id="@+id/command_button_reboot"
+                style="@style/CommandButtons"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_action_io"
+                android:text="@string/labelReboot" />
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/command_button_lights_on"
+                style="@style/CommandButtons"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_action_bulb_yellow"
+                android:text="@string/labelLightsOn" />
+
+            <Button
+                android:id="@+id/command_button_lights_off"
+                style="@style/CommandButtons"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_action_bulb_white"
+                android:text="@string/labelLightsOff" />
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/command_button_ato_clear"
+                style="@style/CommandButtons"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_action_basket"
+                android:text="@string/buttonAtoClear" />
+
+            <Button
+                android:id="@+id/command_button_overheat_clear"
+                style="@style/CommandButtons"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_action_temperature"
+                android:text="@string/buttonOverheatClear" />
+        </TableRow>
+    </TableLayout>
+
+</ScrollView>

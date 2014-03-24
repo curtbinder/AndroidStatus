@@ -1,5 +1,6 @@
 package info.curtbinder.reefangel.phone;
 
+import android.app.Activity;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -198,6 +199,11 @@ public class PageControllerFragment extends Fragment
 
     @Override
     public void refreshData() {
+        Activity a = getActivity();
+        if ( a == null ) {
+            return;
+        }
+        // only update if the activity exists
         updateData();
     }
 }

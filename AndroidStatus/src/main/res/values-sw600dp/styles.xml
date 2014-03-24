@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CommandButtons">
+        <item name="android:padding">50dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+</resources>

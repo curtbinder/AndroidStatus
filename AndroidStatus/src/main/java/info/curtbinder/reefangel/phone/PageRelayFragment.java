@@ -1,5 +1,6 @@
 package info.curtbinder.reefangel.phone;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -241,6 +242,10 @@ public class PageRelayFragment extends Fragment
 
     @Override
     public void refreshData() {
+        Activity a = getActivity();
+        if (a == null) {
+            return;
+        }
         updateData();
     }
 
@@ -320,6 +325,6 @@ public class PageRelayFragment extends Fragment
         i.setAction( MessageCommands.TOGGLE_RELAY_INTENT );
         i.putExtra( MessageCommands.TOGGLE_RELAY_PORT_INT, relay );
         i.putExtra( MessageCommands.TOGGLE_RELAY_MODE_INT, status );
-        getActivity().startService( i );
+        getActivity().startService(i);
     }
 }
