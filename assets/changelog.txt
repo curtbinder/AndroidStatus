@@ -1,5 +1,10 @@
 <html>
 <body>
+<b>0.9.4</b>
+<ul>
+<li>improved XML downloading</li>
+</ul>
+<br>
 <b>0.9.3</b>
 <ul>
 <li>settings for Connection Timeout and Read Timeout</li>
