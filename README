@@ -9,7 +9,7 @@ Status application for Android powered devices
 Targeted towards Android 2.2 or later
 Will run on Android 2.0 and later
 Project created using Eclipse IDE with ADT plugin
-Uses ActionBarSherlock and ViewPagerIndicator libraries
+Uses ViewPagerIndicator libraries
 
 --
 Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)

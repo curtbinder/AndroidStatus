@@ -9,14 +9,13 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="LightTheme" parent="Theme.Sherlock.Light"></style>
+    <style name="LightTheme" parent="@style/Theme.AppCompat.Light"></style>
 
-    <style name="DarkTheme" parent="Theme.Sherlock">
-        <item name="actionOverflowButtonStyle">@style/Overflow</item>
+    <style name="DarkTheme" parent="@style/Theme.AppCompat">
         <item name="android:actionOverflowButtonStyle">@style/Overflow</item>
     </style>
 
-    <style name="Overflow" parent="Widget.Sherlock.ActionButton.Overflow">
+    <style name="Overflow" parent="@style/Widget.AppCompat.Base.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_action_overflow</item>
     </style>
 
