@@ -26,6 +26,28 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:stretchColumns="1" >
 
             <TableRow>
+                <TextView
+                    android:layout_gravity="center_vertical" 
+                    android:text="@string/prefsCategoryDevice"/>
+                
+                <RadioGroup android:orientation="horizontal" >
+
+                    <RadioButton
+                        android:id="@+id/radioButtonController"
+                        android:layout_weight="1"
+                        android:text="@string/prefsCategoryController"
+                        android:onClick="onRadioButtonClicked" />
+                                        
+                    <RadioButton
+                        android:id="@+id/radioButtonPortal"
+                        android:layout_weight="1"
+                        android:text="@string/prefsCategoryPortal"
+                        android:onClick="onRadioButtonClicked" />
+
+                </RadioGroup>
+            </TableRow>
+            
+            <TableRow>
 
                 <TextView android:text="@string/prefHostTitle" />
 

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 public class FirstRunActivity extends BaseActivity implements OnClickListener {
 
@@ -24,10 +25,14 @@ public class FirstRunActivity extends BaseActivity implements OnClickListener {
 	private EditText hostText;
 	private EditText portText;
 	private EditText useridText;
+	private boolean fPortalEnabled;
 
 	protected void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.firstrun );
+		fPortalEnabled = false;
+		
+		((RadioButton)findViewById(R.id.radioButtonController)).setChecked( true );
 
 		findViews();
 
@@ -41,36 +46,87 @@ public class FirstRunActivity extends BaseActivity implements OnClickListener {
 		useridText = (EditText) findViewById( R.id.firstUsernameText );
 	}
 
-	public void onClick ( View v ) {
-
-		boolean fPort = false;
-		boolean fUser = false;
-		if ( !rapp.validateHost( hostText.getText() ) )
-			// not valid, stay on the page
-			return;
-
-		if ( !portText.getText().toString().equals( "" ) ) {
-			// not empty, so we need to validate it
-			if ( !rapp.validatePort( portText.getText() ) )
-				// not valid, stay on page
-				return;
-			fPort = true;
+	public void onRadioButtonClicked ( View v ) {
+		boolean checked = ((RadioButton) v).isChecked();
+		// check which button was clicked
+		switch ( v.getId() ) {
+			case R.id.radioButtonController:
+				if ( checked ) {
+					fPortalEnabled = false;
+					hostText.requestFocus();
+				}
+				break;
+			case R.id.radioButtonPortal:
+				if ( checked ) {
+					fPortalEnabled = true;
+					useridText.requestFocus();
+				}
+				break;
 		}
-
-		if ( !useridText.getText().toString().equals( "" ) ) {
-			// not empty, so we need to validate it
-			if ( !rapp.validateUser( useridText.getText() ) )
-				// not valid, stay on page
+	}
+	
+	public void onClick ( View v ) {
+		boolean hasPort = false;
+		boolean hasUser = false;
+		
+		String host = hostText.getText().toString();
+		if ( fPortalEnabled ) {
+			if ( !rapp.validateUser( useridText.getText() ) ) {
+				// not valid, exit
 				return;
-			fUser = true;
+			}
+			hasUser = true;
+			if ( !portText.getText().toString().equals( "" ) ) {
+				// not empty, so we need to validate it
+				if ( !rapp.validatePort( portText.getText() ) ) {
+					// not valid, stay on page
+					return;
+				}
+				hasPort = true;
+			}
+			if ( !hostText.getText().toString().equals("") ) {
+				if ( !rapp.validateHost( hostText.getText() ) ){
+					// not valid, stay on page
+					return;
+				}
+			} else {
+				// empty host, so use the default host
+				host = rapp.getString( R.string.prefHostHomeDefault );
+			}
+			// if we made it here, we can save and are good
+			// set device to be portal
+			rapp.raprefs.set( R.string.prefDeviceKey, "1" );
+		} else { 
+			if ( !rapp.validateHost( hostText.getText() ) ) {
+				// not valid, stay on the page
+				return;
+			}
+			
+			if ( !portText.getText().toString().equals( "" ) ) {
+				// not empty, so we need to validate it
+				if ( !rapp.validatePort( portText.getText() ) ) {
+					// not valid, stay on page
+					return;
+				}
+				hasPort = true;
+			}
+			
+			if ( !useridText.getText().toString().equals( "" ) ) {
+				// not empty, so we need to validate it
+				if ( !rapp.validateUser( useridText.getText() ) ) {
+					// not valid, stay on page
+					return;
+				}
+				hasUser = true;
+			}	
 		}
 
 		Log.w( TAG, "Saving settings" );
-		rapp.raprefs.setHost( hostText.getText().toString() );
-		if ( fPort ) {
+		rapp.raprefs.setHost( host );
+		if ( hasPort ) {
 			rapp.raprefs.setPort( portText.getText().toString() );
 		}
-		if ( fUser ) {
+		if ( hasUser ) {
 			rapp.raprefs.setUserId( useridText.getText().toString() );
 		}
 		Log.w( TAG, "Configured, starting app" );

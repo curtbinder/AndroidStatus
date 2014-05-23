@@ -60,9 +60,10 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="descriptionModes">Feeding and Water Change buttons enter the appropriate modes. Press the Exit button to simulate a button press on the controller, which exits the modes.</string>
     <!-- First Run screen -->
     <string name="descriptionFirstRun">Before you begin, you must configure a few settings in order for the application to run properly.\n
-* Hostname (required): Enter the hostname or IP address of your controller.\n
-* Port (optional): Enter the port for the controller (leave blank if unknown or the default).\n
-* User ID (optional): Enter your username for the forum. This is to download your labels stored on the portal.</string>
+* Device: Select Portal or Controller\n
+* Hostname: Enter the hostname or IP address of your controller.\n
+* Port: Enter the port for the controller (leave blank if unknown or the default).\n
+* User ID: Enter your username for the forum. This is to download your labels and/or data from the portal.</string>
     <!-- Date and Time screen -->
     <string name="descriptionCurrentControllerTime">Press \'Get Time\' to retrieve the current date and time from the controller.  Press \'Set Current Time\' to set the date and time to match your device.</string>
     <string name="descriptionCustomControllerTime">You can enter a custom date and time. Use \'Change Time\' or \'Change Date\' to enter the custom date and time. Use \'Set Custom Time\' to set it.</string>
