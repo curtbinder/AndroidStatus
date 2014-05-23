@@ -87,6 +87,10 @@ public class StatusTable {
 	public static final String COL_REM = "rem";
 	public static final String COL_PHE = "phe";
 	public static final String COL_WL = "wl";
+	public static final String COL_WL1 = "wl1";
+	public static final String COL_WL2 = "wl2";
+	public static final String COL_WL3 = "wl3";
+	public static final String COL_WL4 = "wl4";
 
 	public static void onCreate ( SQLiteDatabase db ) {
 		// create parameters table
@@ -126,7 +130,10 @@ public class StatusTable {
 					+ " INTEGER, " + COL_C5 + " INTEGER, " + COL_C6
 					+ " INTEGER, " + COL_C7 + " INTEGER, " + COL_EM
 					+ " INTEGER, " + COL_REM + " INTEGER, " + COL_PHE
-					+ " TEXT, " + COL_WL + " INTEGER " + ");" );
+					+ " TEXT, " + COL_WL + " INTEGER, " + COL_WL1
+					+ " INTEGER, " + COL_WL2 + " INTEGER, " + COL_WL3
+					+ " INTEGER, " + COL_WL4 
+					+ " INTEGER " + ");" );
 
 	}
 
@@ -134,11 +141,52 @@ public class StatusTable {
 			SQLiteDatabase db,
 			int oldVersion,
 			int newVersion ) {
-		// no changes made in version 5
-		if ( oldVersion < 4 ) {
-			// initially, just drop tables and create new ones
-			db.execSQL( "DROP TABLE IF EXISTS " + TABLE_NAME );
-			onCreate( db );
+		int curVer = oldVersion;
+		while ( curVer < newVersion ) {
+			curVer++;
+			// only list the versions that there were changes made
+			switch ( curVer ) {
+				default:
+					break;
+				case 4:
+					upgradeToVersion4(db);
+					break;
+				case 7:
+					upgradeToVersion7(db);
+					break;
+			}
 		}
 	}
+	
+	// no need to worry about having extra columns in the status table on downgrading
+//	public static void onDowngrade ( SQLiteDatabase db,
+//			int oldVersion,
+//			int newVersion ) {
+//		int curVer = oldVersion;
+//		while ( curVer > newVersion ) {
+//			curVer--;
+//			switch ( curVer ) {
+//				default:
+//					break;
+//				case 6:
+//					downgradeToVersion6(db);
+//					break;
+//			}
+//		}
+//	}
+	
+	private static void upgradeToVersion4(SQLiteDatabase db) {
+		// clear everything and drop the table
+		db.execSQL( "DROP TABLE IF EXISTS " + TABLE_NAME );
+		onCreate( db );
+	}
+	
+	private static void upgradeToVersion7(SQLiteDatabase db) {
+		// added in additional water level columns
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_WL1 + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_WL2 + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_WL3 + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_WL4 + " INTEGER;" );
+	}
+	
 }

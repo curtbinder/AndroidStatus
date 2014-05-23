@@ -322,8 +322,20 @@ public class StatusActivity extends BaseActivity implements
 									rapp.raprefs.getPHExpLabel(),
 									getString( R.string.labelPHExp ) );
 		pageController.setLabel(	ControllerPage.WL_INDEX,
-									rapp.raprefs.getWaterLevelLabel(),
-									getString( R.string.labelWaterLevel ) );
+									rapp.raprefs.getWaterLevelLabel(0),
+									rapp.raprefs.getWaterLevelDefaultLabel(0) );
+		pageController.setLabel(	ControllerPage.WL1_INDEX,
+									rapp.raprefs.getWaterLevelLabel(1),
+									rapp.raprefs.getWaterLevelDefaultLabel(1) );
+		pageController.setLabel(	ControllerPage.WL2_INDEX,
+									rapp.raprefs.getWaterLevelLabel(2),
+									rapp.raprefs.getWaterLevelDefaultLabel(2) );
+		pageController.setLabel(	ControllerPage.WL3_INDEX,
+									rapp.raprefs.getWaterLevelLabel(3),
+									rapp.raprefs.getWaterLevelDefaultLabel(3) );
+		pageController.setLabel(	ControllerPage.WL4_INDEX,
+									rapp.raprefs.getWaterLevelLabel(4),
+									rapp.raprefs.getWaterLevelDefaultLabel(4) );
 	}
 
 	private void setRelayLabels ( ) {
@@ -372,7 +384,15 @@ public class StatusActivity extends BaseActivity implements
 		pageController.setVisibility(	ControllerPage.PHE_INDEX,
 										rapp.raprefs.getPHExpVisibility() );
 		pageController.setVisibility(	ControllerPage.WL_INDEX,
-										rapp.raprefs.getWaterLevelVisibility() );
+										rapp.raprefs.getWaterLevelVisibility(0) );
+		pageController.setVisibility(	ControllerPage.WL1_INDEX,
+										rapp.raprefs.getWaterLevelVisibility(1) );
+		pageController.setVisibility(	ControllerPage.WL2_INDEX,
+										rapp.raprefs.getWaterLevelVisibility(2) );
+		pageController.setVisibility(	ControllerPage.WL3_INDEX,
+										rapp.raprefs.getWaterLevelVisibility(3) );
+		pageController.setVisibility(	ControllerPage.WL4_INDEX,
+										rapp.raprefs.getWaterLevelVisibility(4) );
 	}
 
 	@Override
@@ -609,7 +629,19 @@ public class StatusActivity extends BaseActivity implements
 										.getColumnIndex( StatusTable.COL_PHE ) ),
 								c.getString( c
 										.getColumnIndex( StatusTable.COL_WL ) )
-										+ "%" };
+										+ "%",
+								c.getString( c
+										.getColumnIndex( StatusTable.COL_WL1 ) )
+										+ "%",
+								c.getString( c
+								        .getColumnIndex( StatusTable.COL_WL2 ) )
+										+ "%",
+								c.getString( c
+										.getColumnIndex( StatusTable.COL_WL3 ) )
+										+ "%",
+								c.getString( c
+								        .getColumnIndex( StatusTable.COL_WL4 ) )
+										+ "%"};
 	}
 
 	private String[] getPWMEValues ( Cursor c ) {
@@ -780,7 +812,14 @@ public class StatusActivity extends BaseActivity implements
 			else
 				f = false;
 			Log.d( TAG, "WATER: " + f );
-			rapp.raprefs.set( R.string.prefWaterLevelVisibilityKey, f );
+			// TODO check on setting WL visibility
+			String key;
+			for ( int i = 0; i < Controller.MAX_WATERLEVEL_PORTS; i++ ) {
+				key = "wl";
+				if ( i > 0 ) key += i;
+				key += "_visibility";
+				rapp.raprefs.set( key, f );
+			}
 
 			// update the previous settings to the new ones after we change
 			rapp.raprefs.setPreviousEM( newEM );

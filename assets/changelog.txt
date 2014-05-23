@@ -1,5 +1,12 @@
 <html>
 <body>
+<b>0.9.4</b>
+<ul>
+<li>improved XML downloading</li>
+<li>added 4 channel water level module displaying</li>
+<li>code cleanup</li>
+</ul>
+<br>
 <b>0.9.3</b>
 <ul>
 <li>settings for Connection Timeout and Read Timeout</li>

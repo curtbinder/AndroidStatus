@@ -33,6 +33,10 @@ public class ControllerPage extends RAPage {
 	public static final int ORP_INDEX = 9;
 	public static final int PHE_INDEX = 10;
 	public static final int WL_INDEX = 11;
+	public static final int WL1_INDEX = 12;
+	public static final int WL2_INDEX = 13;
+	public static final int WL3_INDEX = 14;
+	public static final int WL4_INDEX = 15;
 
 	Context ctx; // saved context from parent
 	private TextView[] deviceText =
@@ -74,6 +78,10 @@ public class ControllerPage extends RAPage {
 		colors[ORP_INDEX] = ctx.getResources().getColor( R.color.white );
 		colors[PHE_INDEX] = ctx.getResources().getColor( R.color.ph );
 		colors[WL_INDEX] = ctx.getResources().getColor( R.color.white );
+		colors[WL1_INDEX] = ctx.getResources().getColor( R.color.white );
+		colors[WL2_INDEX] = ctx.getResources().getColor( R.color.white );
+		colors[WL3_INDEX] = ctx.getResources().getColor( R.color.white );
+		colors[WL4_INDEX] = ctx.getResources().getColor( R.color.white );
 
 		deviceRow[T1_INDEX] = (TableRow) findViewById( R.id.t1_row );
 		deviceRow[T2_INDEX] = (TableRow) findViewById( R.id.t2_row );
@@ -87,6 +95,10 @@ public class ControllerPage extends RAPage {
 		deviceRow[ORP_INDEX] = (TableRow) findViewById( R.id.orp_row );
 		deviceRow[PHE_INDEX] = (TableRow) findViewById( R.id.phe_row );
 		deviceRow[WL_INDEX] = (TableRow) findViewById( R.id.water_row );
+		deviceRow[WL1_INDEX] = (TableRow) findViewById( R.id.water1_row );
+		deviceRow[WL2_INDEX] = (TableRow) findViewById( R.id.water2_row );
+		deviceRow[WL3_INDEX] = (TableRow) findViewById( R.id.water3_row );
+		deviceRow[WL4_INDEX] = (TableRow) findViewById( R.id.water4_row );
 
 		for ( int i = 0; i < Controller.MAX_CONTROLLER_VALUES; i++ ) {
 			deviceText[i] =
@@ -132,6 +144,10 @@ public class ControllerPage extends RAPage {
 		deviceText[ORP_INDEX].setText( v[ORP_INDEX] );
 		deviceText[PHE_INDEX].setText( v[PHE_INDEX] );
 		deviceText[WL_INDEX].setText( v[WL_INDEX] );
+		deviceText[WL1_INDEX].setText( v[WL1_INDEX] );
+		deviceText[WL2_INDEX].setText( v[WL2_INDEX] );
+		deviceText[WL3_INDEX].setText( v[WL3_INDEX] );
+		deviceText[WL4_INDEX].setText( v[WL4_INDEX] );
 	}
 
 	@Override

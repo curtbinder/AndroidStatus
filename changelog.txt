@@ -196,3 +196,8 @@ Changelog of all the versions of AndroidStatus
  * added in new memory locations for v1.1.0 libraries
  * added reboot command
  
+0.9.4
+ * improved XML downloading
+ * added 4 channel water level displaying
+ * code cleanup
+ 

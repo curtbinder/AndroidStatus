@@ -64,6 +64,22 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <include
             android:id="@+id/water_row"
             layout="@layout/genericlabelrow" />
+
+        <include
+            android:id="@+id/water1_row"
+            layout="@layout/genericlabelrow" />
+
+        <include
+            android:id="@+id/water2_row"
+            layout="@layout/genericlabelrow" />
+
+        <include
+            android:id="@+id/water3_row"
+            layout="@layout/genericlabelrow" />
+
+        <include
+            android:id="@+id/water4_row"
+            layout="@layout/genericlabelrow" />
     </TableLayout>
 
 </ScrollView>

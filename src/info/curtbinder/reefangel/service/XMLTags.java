@@ -35,6 +35,7 @@ public final class XMLTags {
 	public static final String LabelEnd = "N";
 	public static final String RelayExpansionModules = "REM";
 	public static final String ExpansionModules = "EM";
+	public static final String ExpansionModules1 = "EM1";
 	public static final String AIWhite = "AIW";
 	public static final String AIBlue = "AIB";
 	public static final String AIRoyalBlue = "AIRB";
@@ -51,6 +52,8 @@ public final class XMLTags {
 	public static final String Custom = "C";
 	public static final String PHExpansion = "PHE";
 	public static final String WaterLevel = "WL";
+	public static final String Humidity = "HUM";
+	public static final String LeakDetector = "LEAK";
 	public static final String Override = "O";
 	public static final String MyReefAngelID = "MYREEFANGELID";
 	public static final String Hour = "HR";

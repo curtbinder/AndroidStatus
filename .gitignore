@@ -1,5 +1,33 @@
+# Gradle 
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/tasks.xml
+/.idea/dataSources.ids
+/.idea/datasources.xml
+/.idea/libraries/*.xml
+
+# Module folder, mostly in ignore file inside the Module
+build/
+
+# File for building release versions, contains passwords
+signing.properties
+
+# Apple files
+.DS_Store
+
+# Eclipse
 gen/
 bin/
 release/
 dist/
 .settings/
+
+# Misc Android files
+*.apk
+*.ap_
+*.dex
+
+# Misc files
+*.class
+*~

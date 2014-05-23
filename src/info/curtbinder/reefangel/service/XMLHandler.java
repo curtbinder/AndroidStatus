@@ -226,8 +226,9 @@ public class XMLHandler extends DefaultHandler {
 		} else if ( tag.equals( XMLTags.ORP ) ) {
 			ra.setORP( Integer.parseInt( currentElementText ) );
 		} else if ( tag.equals( XMLTags.WaterLevel ) ) {
+			// 1 channel water level, tag is WL
 			short v = Short.parseShort( currentElementText );
-			ra.setWaterLevel( v );
+			ra.setWaterLevel( (short) 0, v );
 		} else if ( tag.equals( XMLTags.Relay ) ) {
 			ra.setMainRelayData( Short.parseShort( currentElementText ) );
 		} else if ( tag.equals( XMLTags.RelayMaskOn ) ) {
@@ -289,6 +290,11 @@ public class XMLHandler extends DefaultHandler {
 					Short.parseShort( tag.substring( XMLTags.Custom.length() ) );
 			short c = Short.parseShort( currentElementText );
 			ra.setCustomVariable( v, c );
+		} else if ( tag.startsWith( XMLTags.WaterLevel ) ) {
+			// 4 channel water level, tags start with WL
+			short p = Short.parseShort( tag.substring( XMLTags.WaterLevel.length() ) );
+			short v = Short.parseShort( currentElementText );
+			ra.setWaterLevel( p, v );
 		} else if ( tag.startsWith( XMLTags.RelayMaskOn ) ) {
 			int relay =
 					Integer.parseInt( tag.substring( XMLTags.RelayMaskOn
@@ -367,9 +373,13 @@ public class XMLHandler extends DefaultHandler {
 		} else if ( tag.startsWith( XMLTags.ORP ) ) {
 			// ORP
 			ra.setORPLabel( currentElementText );
+		} else if ( tag.equals( XMLTags.WaterLevel + XMLTags.LabelEnd ) ) {
+			// 1 channel Water Level
+			ra.setWaterLevelLabel( (short) 0, currentElementText );
 		} else if ( tag.startsWith( XMLTags.WaterLevel ) ) {
-			// Water Level
-			ra.setWaterLevelLabel( currentElementText );
+			// 4 channel Water Level
+			short p = Short.parseShort( getTagNumber(tag, XMLTags.WaterLevel, XMLTags.LabelEnd) );
+			ra.setWaterLevelLabel( p, currentElementText );;
 		} else if ( tag.startsWith( XMLTags.Custom ) ) {
 			// C
 			short v =
