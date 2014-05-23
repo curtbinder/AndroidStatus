@@ -5,6 +5,8 @@
 <li>improved XML downloading</li>
 <li>added 4 channel water level module displaying</li>
 <li>allow portal to be chosen from first run screen</li>
+<li>removed Commands option from overflow menu, changed to Date/Time</li>
+<li>get software version is added to the Commands Page</li>
 <li>code cleanup</li>
 </ul>
 <br>

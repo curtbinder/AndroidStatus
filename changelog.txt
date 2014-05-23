@@ -200,5 +200,7 @@ Changelog of all the versions of AndroidStatus
  * improved XML downloading
  * added 4 channel water level displaying
  * allow portal to be chosen from first run screen
+ * removed Commands option from overflow menu, changed to Date/Time
+ * get software version is added to the Commands Page
  * code cleanup
  
