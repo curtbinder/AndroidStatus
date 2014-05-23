@@ -20,6 +20,7 @@ public class Controller {
 	public static final byte MAX_IO_CHANNELS = 6;
 	public static final byte MAX_RADION_LIGHT_CHANNELS = 6;
 	public static final byte MAX_VORTECH_VALUES = 3;
+	public static final byte MAX_WATERLEVEL_PORTS = 5;
 
 	public static final short MODULE_DIMMING = 1 << 0;
 	public static final short MODULE_RF = 1 << 1;
@@ -56,7 +57,7 @@ public class Controller {
 	private boolean atoHigh;
 	private ShortWithLabel pwmA;
 	private ShortWithLabel pwmD;
-	private ShortWithLabel waterlevel;
+	private ShortWithLabel[] waterlevel;
 	private NumberWithLabel salinity;
 	private NumberWithLabel orp;
 	private Relay main;
@@ -98,7 +99,10 @@ public class Controller {
 		for ( i = 0; i < MAX_PWM_EXPANSION_PORTS; i++ ) {
 			pwmExpansion[i] = new ShortWithLabel();
 		}
-		waterlevel = new ShortWithLabel();
+		waterlevel = new ShortWithLabel[MAX_WATERLEVEL_PORTS];
+		for ( i = 0; i < MAX_WATERLEVEL_PORTS; i++ ) {
+			waterlevel[i] = new ShortWithLabel();
+		}
 		salinity = new NumberWithLabel( (byte) 1 );
 		orp = new NumberWithLabel();
 		main = new Relay();
@@ -292,20 +296,20 @@ public class Controller {
 		return pwmExpansion[channel].getLabel();
 	}
 
-	public void setWaterLevel ( short value ) {
-		waterlevel.setData( value );
+	public void setWaterLevel ( short port, short value ) {
+		waterlevel[port].setData( value );;
 	}
-
-	public short getWaterLevel ( ) {
-		return waterlevel.getData();
+	
+	public short getWaterLevel ( short port ) {
+		return waterlevel[port].getData();
 	}
-
-	public void setWaterLevelLabel ( String label ) {
-		waterlevel.setLabel( label );
+	
+	public void setWaterLevelLabel ( short port, String label ) {
+		waterlevel[port].setLabel( label );
 	}
-
-	public String getWaterLevelLabel ( ) {
-		return waterlevel.getLabel();
+	
+	public String getWaterLevelLabel ( short port ) {
+		return waterlevel[port].getLabel();
 	}
 
 	public void setSalinity ( int value ) {

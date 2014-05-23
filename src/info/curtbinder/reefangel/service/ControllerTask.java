@@ -265,9 +265,9 @@ public class ControllerTask implements Runnable {
 		if ( !ra.getPwmDLabel().equals( "" ) ) {
 			raprefs.set( R.string.prefDPLabelKey, ra.getPwmDLabel() );
 		}
-		if ( !ra.getWaterLevelLabel().equals( "" ) ) {
+		if ( !ra.getWaterLevelLabel((short) 0).equals( "" ) ) {
 			raprefs.set(	R.string.prefWaterLevelLabelKey,
-							ra.getWaterLevelLabel() );
+							ra.getWaterLevelLabel((short) 0) );
 		}
 		for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
 			if ( !ra.getPwmExpansionLabel( (short) i ).equals( "" ) )
@@ -376,7 +376,7 @@ public class ControllerTask implements Runnable {
 		v.put( StatusTable.COL_EM, ra.getExpansionModules() );
 		v.put( StatusTable.COL_REM, ra.getRelayExpansionModules() );
 		v.put( StatusTable.COL_PHE, ra.getPHExp() );
-		v.put( StatusTable.COL_WL, ra.getWaterLevel() );
+		v.put( StatusTable.COL_WL, ra.getWaterLevel( (short) 0) );
 		rapp.getContentResolver()
 				.insert(	Uri.parse( StatusProvider.CONTENT_URI + "/"
 										+ StatusProvider.PATH_STATUS ), v );
