@@ -72,12 +72,15 @@ public class CommandsPage extends RAPage implements OnClickListener {
 		b.setOnClickListener( this );
 		b = (Button) findViewById( R.id.command_button_calibrate_phe );
 		b.setOnClickListener( this );
+		b = (Button) findViewById( R.id.command_button_version );
+		b.setOnClickListener( this );
 	}
 
 	@Override
 	public void onClick ( View v ) {
 		Intent i = new Intent( ctx, UpdateService.class );
 		String s = RequestCommands.ExitMode;
+		String action = MessageCommands.COMMAND_SEND_INTENT;
 		switch ( v.getId() ) {
 			case R.id.command_button_feed:
 				s = RequestCommands.FeedingMode;
@@ -115,8 +118,11 @@ public class CommandsPage extends RAPage implements OnClickListener {
 			case R.id.command_button_calibrate_water:
 				s = RequestCommands.CalibrateWaterLevel;
 				break;
+			case R.id.command_button_version:
+				action = MessageCommands.VERSION_QUERY_INTENT;
+				s = RequestCommands.Version;
 		}
-		i.setAction( MessageCommands.COMMAND_SEND_INTENT );
+		i.setAction( action );
 		i.putExtra( MessageCommands.COMMAND_SEND_STRING, s );
 		ctx.startService( i );
 	}

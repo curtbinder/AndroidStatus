@@ -41,6 +41,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -124,6 +125,7 @@ public class StatusActivity extends BaseActivity implements
 		filter.addAction( MessageCommands.VORTECH_UPDATE_INTENT );
 		filter.addAction( MessageCommands.MEMORY_RESPONSE_INTENT );
 		filter.addAction( MessageCommands.COMMAND_RESPONSE_INTENT );
+		filter.addAction( MessageCommands.VERSION_RESPONSE_INTENT );
 
 		vortechModes =
 				getResources().getStringArray( R.array.vortechModeLabels );
@@ -579,6 +581,11 @@ public class StatusActivity extends BaseActivity implements
 					Toast.makeText( StatusActivity.this, response,
 									Toast.LENGTH_LONG ).show();
 				}
+			} else if ( action.equals( MessageCommands.VERSION_RESPONSE_INTENT ) ) {
+				// set the version button's text to the version of the software
+				((Button) findViewById( R.id.command_button_version ))
+				.setText( intent.getStringExtra( MessageCommands.VERSION_RESPONSE_STRING ) );
+				updateTime.setText( R.string.statusFinished );
 			}
 		}
 	}

@@ -146,6 +146,14 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/labelCalibrateWaterLevel" />
+            
+            <Button
+                android:id="@+id/command_button_version"
+                style="@style/CommandButtons"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/buttonVersion" />
         </TableRow>
     </TableLayout>
 
