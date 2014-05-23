@@ -15,7 +15,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class RADbHelper extends SQLiteOpenHelper {
 
 	private static final String DB_NAME = "radata.db";
-	private static final int DB_VERSION = 6;
+	private static final int DB_VERSION = 7;
 	// Version 5 - ErrorTable added
 	// Version 6 - NotificationTable added
 	// Version 7 - StatusTable updated with new columns
