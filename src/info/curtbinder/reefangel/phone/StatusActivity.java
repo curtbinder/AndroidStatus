@@ -905,9 +905,9 @@ public class StatusActivity extends BaseActivity implements
 				i.putExtra( Globals.PRE10_LOCATIONS,
 							rapp.raprefs.useOldPre10MemoryLocations() );
 				break;
-			case R.id.commands:
-				// launch commands
-				i = new Intent( this, CommandTabsActivity.class );
+			case R.id.datetime:
+				// launch date & time
+				i = new Intent( this, DateTimeActivity.class );
 				break;
 			default:
 				return super.onOptionsItemSelected( item );
