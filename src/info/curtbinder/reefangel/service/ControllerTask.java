@@ -64,19 +64,13 @@ public class ControllerTask implements Runnable {
 		broadcastUpdateStatus( R.string.statusStart );
 		try {
 			URL url = new URL( host.toString() );
-			con = (HttpURLConnection) url.openConnection();
-			con.setReadTimeout( host.getReadTimeout() );
-			con.setConnectTimeout( host.getConnectTimeout() );
-			con.setRequestMethod( "GET" );
-			con.setDoInput( true );
-
+			con = setupConnection(url);
 			broadcastUpdateStatus( R.string.statusConnect );
 			con.connect();
 
 			if ( Thread.interrupted() )
 				throw new InterruptedException();
 
-			//res = sendCommand( con.getInputStream() );
 		} catch ( MalformedURLException e ) {
 			rapp.error( 1, e, "MalformedURLException" );
 		} catch ( ProtocolException e ) {
@@ -92,13 +86,6 @@ public class ControllerTask implements Runnable {
 					(String) rapp.getResources()
 							.getText( R.string.messageCancelled );
 		}
-
-//		if ( con != null ) {
-//			con.disconnect();
-//			broadcastUpdateStatus( R.string.statusDisconnected );
-//		}
-
-		broadcastUpdateStatus( R.string.statusReadResponse );
 
 		// check if there was an error
 		if ( rapp.errorCode > 0 ) {
@@ -129,55 +116,18 @@ public class ControllerTask implements Runnable {
 			broadcastResponses( xml );
 		}
 	}
-
-	private String sendCommand ( InputStream i ) {
-		StringBuilder s = new StringBuilder( 8192 );
-		try {
-			// Check for an interruption
-			if ( Thread.interrupted() )
-				throw new InterruptedException();
-
-			broadcastUpdateStatus( R.string.statusSendingCommand );
-			int available;
-			byte[] b;
-			int nRead = 0;
-			// int count = 1;
-			while ( (available = i.available()) > 0 ) {
-				// Check for an interruption
-				// Log.d(TAG, "Count: " + count++ + ", size: " + available);
-				if ( Thread.interrupted() )
-					throw new InterruptedException();
-
-				b = new byte[available];
-				nRead = i.read( b, 0, available );
-				s.append( new String( b, 0, nRead ) );
-			}
-			broadcastUpdateStatus( R.string.statusReadResponse );
-		} catch ( InterruptedException e ) {
-			s =
-					new StringBuilder( (String) rapp.getResources()
-							.getText( R.string.messageCancelled ) );
-		} catch ( ConnectException e ) {
-			rapp.error( 3, e, "sendCommand: ConnectException" );
-		} catch ( UnknownHostException e ) {
-			rapp.error( 4, e, "sendCommand: UnknownHostException" );
-		} catch ( Exception e ) {
-			rapp.error( 2, e, "sendCommand: Exception" );
-		}
-
-		// if we encountered an error, set the error text
-		if ( rapp.errorCode > 0 ) {
-			s =
-					new StringBuilder( (String) rapp.getResources()
-							.getText( R.string.messageError ) );
-		}
-
-		return s.toString();
+	
+	private HttpURLConnection setupConnection ( URL url ) throws ProtocolException, IOException {
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		con.setReadTimeout( host.getReadTimeout() );
+		con.setConnectTimeout( host.getConnectTimeout() );
+		con.setRequestMethod( "GET" );
+		con.setDoInput( true );
+		return con;
 	}
-
-	private boolean parseXML ( XMLHandler xml, /*String res*/ HttpURLConnection con ) {
+	
+	private boolean parseXML ( XMLHandler xml, HttpURLConnection con ) {
 		SAXParserFactory spf = SAXParserFactory.newInstance();
-		//SAXParser sp = null;
 		XMLReader xr = null;
 		boolean result = false;
 		try {
@@ -186,7 +136,6 @@ public class ControllerTask implements Runnable {
 				throw new InterruptedException();
 
 			broadcastUpdateStatus( R.string.statusInitParser );
-			//sp = spf.newSAXParser();
 			xr = spf.newSAXParser().getXMLReader();
 			xr.setContentHandler( xml );
 			xr.setErrorHandler( xml );
@@ -196,7 +145,6 @@ public class ControllerTask implements Runnable {
 				throw new InterruptedException();
 
 			broadcastUpdateStatus( R.string.statusParsing );
-//			xr.parse( new InputSource( new StringReader( res ) ) );
 			xr.parse( new InputSource(con.getInputStream()) );
 			broadcastUpdateStatus( R.string.statusFinished );
 			result = true;
