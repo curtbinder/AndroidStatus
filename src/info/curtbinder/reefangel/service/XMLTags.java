@@ -51,6 +51,12 @@ public final class XMLTags {
 	public static final String Custom = "C";
 	public static final String PHExpansion = "PHE";
 	public static final String WaterLevel = "WL";
+	public static final String WaterLevel1 = "WL1";
+	public static final String WaterLevel2 = "WL2";
+	public static final String WaterLevel3 = "WL3";
+	public static final String WaterLevel4 = "WL4";
+	public static final String Humidity = "HUM";
+	public static final String LeakDetector = "LEAK";
 	public static final String Override = "O";
 	public static final String MyReefAngelID = "MYREEFANGELID";
 	public static final String Hour = "HR";
