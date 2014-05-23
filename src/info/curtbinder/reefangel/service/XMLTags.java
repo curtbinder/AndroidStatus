@@ -35,6 +35,7 @@ public final class XMLTags {
 	public static final String LabelEnd = "N";
 	public static final String RelayExpansionModules = "REM";
 	public static final String ExpansionModules = "EM";
+	public static final String ExpansionModules1 = "EM1";
 	public static final String AIWhite = "AIW";
 	public static final String AIBlue = "AIB";
 	public static final String AIRoyalBlue = "AIRB";
