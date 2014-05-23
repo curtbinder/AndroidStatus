@@ -3,6 +3,7 @@
 <b>0.9.4</b>
 <ul>
 <li>improved XML downloading</li>
+<li>code cleanup</li>
 </ul>
 <br>
 <b>0.9.3</b>

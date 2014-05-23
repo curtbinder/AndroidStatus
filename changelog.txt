@@ -198,4 +198,5 @@ Changelog of all the versions of AndroidStatus
  
 0.9.4
  * improved XML downloading
+ * code cleanup
  
