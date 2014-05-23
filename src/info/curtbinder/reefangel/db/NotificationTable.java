@@ -11,7 +11,6 @@ package info.curtbinder.reefangel.db;
 import android.database.sqlite.SQLiteDatabase;
 
 public class NotificationTable {
-	// Added in DB_VERSION 6
 	
 	// Database constants
 	public static final String TABLE_NAME = "notifications";
