@@ -18,18 +18,14 @@ import info.curtbinder.reefangel.phone.RAApplication;
 import info.curtbinder.reefangel.phone.RAPreferences;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.net.UnknownHostException;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.InputSource;
@@ -265,9 +261,11 @@ public class ControllerTask implements Runnable {
 		if ( !ra.getPwmDLabel().equals( "" ) ) {
 			raprefs.set( R.string.prefDPLabelKey, ra.getPwmDLabel() );
 		}
-		if ( !ra.getWaterLevelLabel((short) 0).equals( "" ) ) {
-			raprefs.set(	R.string.prefWaterLevelLabelKey,
-							ra.getWaterLevelLabel((short) 0) );
+		for ( i = 0; i < Controller.MAX_WATERLEVEL_PORTS; i++ ) {
+			if ( !ra.getWaterLevelLabel( (short)i ).equals("") ) {
+				raprefs.set( raprefs.getWaterLevelLabelKey( i ), 
+				             ra.getWaterLevelLabel((short)i) );
+			}
 		}
 		for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
 			if ( !ra.getPwmExpansionLabel( (short) i ).equals( "" ) )

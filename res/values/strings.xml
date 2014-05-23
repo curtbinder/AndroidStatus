@@ -285,7 +285,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefSalinityVisibilityTitle">Salinity</string>
     <string name="prefORPVisibilityTitle">ORP</string>
     <string name="prefPHExpVisibilityTitle">PH Expansion</string>
-    <string name="prefWaterLevelVisibilityTitle">Water Level</string>
+<!--     <string name="prefWaterLevelVisibilityTitle">Water Level</string> -->
     <string name="prefResetCategory">Reset Settings</string>
     <string name="prefResetLabelsTitle">Reset Labels</string>
     <string name="prefResetSummary">Defaults</string>
@@ -301,6 +301,10 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefAPLabelTitle">Actinic Channel</string>
     <string name="prefPHExpLabelTitle">PH Expansion</string>
     <string name="prefWaterLevelLabelTitle">Water Level</string>
+    <string name="prefWaterLevel1LabelTitle">Water Level 1</string>
+    <string name="prefWaterLevel2LabelTitle">Water Level 2</string>
+    <string name="prefWaterLevel3LabelTitle">Water Level 3</string>
+    <string name="prefWaterLevel4LabelTitle">Water Level 4</string>
     <string name="prefPort1LabelTitle">Port 1</string>
     <string name="prefPort2LabelTitle">Port 2</string>
     <string name="prefPort3LabelTitle">Port 3</string>
@@ -398,7 +402,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefSalinityVisibilityKey">salinity_visibility</string>
     <string name="prefORPVisibilityKey">orp_visibility</string>
     <string name="prefPHExpVisibilityKey">phe_visibility</string>
-    <string name="prefWaterLevelVisibilityKey">wl_visibility</string>
+<!--     <string name="prefWaterLevelVisibilityKey">wl_visibility</string> -->
     <string name="prefResetLabelsKey">reset_labels</string>
     <string name="prefResetEnabledPortsKey">reset_enabled_ports</string>
     <string name="prefControllerLabelsDownloadKey">download_labels</string>
@@ -413,7 +417,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefSalinityLabelKey">salinity_label</string>
     <string name="prefORPLabelKey">orp_label</string>
     <string name="prefPHExpLabelKey">phe_label</string>
-    <string name="prefWaterLevelLabelKey">wl_label</string>
+<!--     <string name="prefWaterLevelLabelKey">wl_label</string> -->
     <string name="prefMainPort1LabelKey">main_port1_label</string>
     <string name="prefMainPort2LabelKey">main_port2_label</string>
     <string name="prefMainPort3LabelKey">main_port3_label</string>
