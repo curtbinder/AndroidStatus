@@ -377,6 +377,10 @@ public class ControllerTask implements Runnable {
 		v.put( StatusTable.COL_REM, ra.getRelayExpansionModules() );
 		v.put( StatusTable.COL_PHE, ra.getPHExp() );
 		v.put( StatusTable.COL_WL, ra.getWaterLevel( (short) 0) );
+		v.put( StatusTable.COL_WL1, ra.getWaterLevel( (short) 1) );
+		v.put( StatusTable.COL_WL2, ra.getWaterLevel( (short) 2) );
+		v.put( StatusTable.COL_WL3, ra.getWaterLevel( (short) 3) );
+		v.put( StatusTable.COL_WL4, ra.getWaterLevel( (short) 4) );
 		rapp.getContentResolver()
 				.insert(	Uri.parse( StatusProvider.CONTENT_URI + "/"
 										+ StatusProvider.PATH_STATUS ), v );
