@@ -4,6 +4,7 @@
 <ul>
 <li>improved XML downloading</li>
 <li>added 4 channel water level module displaying</li>
+<li>allow portal to be chosen from first run screen</li>
 <li>code cleanup</li>
 </ul>
 <br>
