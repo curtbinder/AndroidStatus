@@ -198,5 +198,6 @@ Changelog of all the versions of AndroidStatus
  
 0.9.4
  * improved XML downloading
+ * added 4 channel water level displaying
  * code cleanup
  
