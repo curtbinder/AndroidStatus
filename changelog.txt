@@ -201,6 +201,7 @@ Changelog of all the versions of AndroidStatus
  * added 4 channel water level displaying
  * allow portal to be chosen from first run screen
  * removed Commands option from overflow menu, changed to Date/Time
+ * added calibration buttons to command page (ph, phe, salinity, orp, water level)
  * get software version is added to the Commands Page
  * added humidity expansion
  * code cleanup

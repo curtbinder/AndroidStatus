@@ -6,6 +6,7 @@
 <li>added 4 channel water level module displaying</li>
 <li>allow portal to be chosen from first run screen</li>
 <li>removed Commands option from overflow menu, changed to Date/Time</li>
+<li>added calibration buttons to command page (ph, phe, salinity, orp, water level)</li>
 <li>get software version is added to the Commands Page</li>
 <li>added humidity expansion</li>
 <li>code cleanup</li>
