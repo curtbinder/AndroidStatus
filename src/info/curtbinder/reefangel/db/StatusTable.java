@@ -92,6 +92,7 @@ public class StatusTable {
 	public static final String COL_WL3 = "wl3";
 	public static final String COL_WL4 = "wl4";
 	public static final String COL_EM1 = "em1";
+	public static final String COL_HUM = "hum";
 
 	public static void onCreate ( SQLiteDatabase db ) {
 		// create parameters table
@@ -134,7 +135,7 @@ public class StatusTable {
 					+ " TEXT, " + COL_WL + " INTEGER, " + COL_WL1
 					+ " INTEGER, " + COL_WL2 + " INTEGER, " + COL_WL3
 					+ " INTEGER, " + COL_WL4 + " INTEGER, " + COL_EM1
-					+ " INTEGER " + ");" );
+					+ " INTEGER, " + COL_HUM + " INTEGER" + ");" );
 
 	}
 
@@ -196,6 +197,7 @@ public class StatusTable {
 	private static void upgradeToVersion8(SQLiteDatabase db) {
 		// added in EM1 column
 		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_EM1 + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_HUM + " INTEGER;" );
 	}
 	
 }

@@ -338,6 +338,9 @@ public class StatusActivity extends BaseActivity implements
 		pageController.setLabel(	ControllerPage.WL4_INDEX,
 									rapp.raprefs.getWaterLevelLabel(4),
 									rapp.raprefs.getWaterLevelDefaultLabel(4) );
+		pageController.setLabel( ControllerPage.HUMIDITY_INDEX, 
+		                         rapp.raprefs.getHumidityLabel(), 
+		                         getString(R.string.labelHumidity) );
 	}
 
 	private void setRelayLabels ( ) {
@@ -395,6 +398,8 @@ public class StatusActivity extends BaseActivity implements
 										rapp.raprefs.getWaterLevelVisibility(3) );
 		pageController.setVisibility(	ControllerPage.WL4_INDEX,
 										rapp.raprefs.getWaterLevelVisibility(4) );
+		pageController.setVisibility( ControllerPage.HUMIDITY_INDEX, 
+		                              rapp.raprefs.getHumidityVisibility() );
 	}
 
 	@Override
@@ -649,7 +654,9 @@ public class StatusActivity extends BaseActivity implements
 										+ "%",
 								c.getString( c
 								        .getColumnIndex( StatusTable.COL_WL4 ) )
-										+ "%"};
+										+ "%",
+								c.getString( c.getColumnIndex( StatusTable.COL_HUM ) )
+								        + "%" };
 	}
 
 	private String[] getPWMEValues ( Cursor c ) {
@@ -820,7 +827,6 @@ public class StatusActivity extends BaseActivity implements
 			else
 				f = false;
 			Log.d( TAG, "WATER: " + f );
-			// TODO check on setting WL visibility
 			String key;
 			for ( int i = 0; i < Controller.MAX_WATERLEVEL_PORTS; i++ ) {
 				key = "wl";
@@ -843,7 +849,7 @@ public class StatusActivity extends BaseActivity implements
 				f = false;
 			Log.d(TAG, "Humidity: " + f);
 			// TODO finish setting EM1 modules
-			//rapp.raprefs.set( R.string.prefExpHumidityEnableKey, f );
+			rapp.raprefs.set( R.string.prefHumidityVisibilityKey, f );
 			
 			if ( Controller.isDCPumpControlModuleInstalled( newEM1 ) )
 				f = true;

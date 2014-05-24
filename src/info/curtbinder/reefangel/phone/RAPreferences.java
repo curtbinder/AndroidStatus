@@ -346,6 +346,10 @@ public class RAPreferences {
 		key += "_visibility";
 		return getBoolean( key, false);
 	}
+	
+	public boolean getHumidityVisibility ( ) {
+		return getBoolean( R.string.prefHumidityVisibilityKey, false );
+	}
 
 	public String getT1Label ( ) {
 		return getString( R.string.prefT1LabelKey, R.string.labelTemp1 );
@@ -389,6 +393,10 @@ public class RAPreferences {
 
 	public String getPHExpLabel ( ) {
 		return getString( R.string.prefPHExpLabelKey, R.string.labelPHExp );
+	}
+	
+	public String getHumidityLabel ( ) {
+		return getString( R.string.prefHumidityLabelKey, R.string.labelHumidity );
 	}
 
 	// key: wl_label

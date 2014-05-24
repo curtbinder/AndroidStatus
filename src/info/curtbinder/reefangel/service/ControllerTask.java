@@ -282,6 +282,9 @@ public class ControllerTask implements Runnable {
 				raprefs.setIOModuleChannelLabel( i, ra
 						.getIOChannelLabel( (short) i ) );
 		}
+		if ( !ra.getHumidityLabel().equals( "" ) ) {
+			raprefs.set( R.string.prefHumidityLabelKey, ra.getHumidityLabel() );
+		}
 
 		// Tell the activity we updated the labels
 		Intent intent = new Intent( MessageCommands.LABEL_RESPONSE_INTENT );
@@ -380,6 +383,7 @@ public class ControllerTask implements Runnable {
 		v.put( StatusTable.COL_WL2, ra.getWaterLevel( (short) 2) );
 		v.put( StatusTable.COL_WL3, ra.getWaterLevel( (short) 3) );
 		v.put( StatusTable.COL_WL4, ra.getWaterLevel( (short) 4) );
+		v.put( StatusTable.COL_HUM, ra.getHumidity() );
 		rapp.getContentResolver()
 				.insert(	Uri.parse( StatusProvider.CONTENT_URI + "/"
 										+ StatusProvider.PATH_STATUS ), v );

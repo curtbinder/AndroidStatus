@@ -37,6 +37,7 @@ public class ControllerPage extends RAPage {
 	public static final int WL2_INDEX = 13;
 	public static final int WL3_INDEX = 14;
 	public static final int WL4_INDEX = 15;
+	public static final int HUMIDITY_INDEX = 16;
 
 	Context ctx; // saved context from parent
 	private TextView[] deviceText =
@@ -82,6 +83,7 @@ public class ControllerPage extends RAPage {
 		colors[WL2_INDEX] = ctx.getResources().getColor( R.color.white );
 		colors[WL3_INDEX] = ctx.getResources().getColor( R.color.white );
 		colors[WL4_INDEX] = ctx.getResources().getColor( R.color.white );
+		colors[HUMIDITY_INDEX] = ctx.getResources().getColor( R.color.white );
 
 		deviceRow[T1_INDEX] = (TableRow) findViewById( R.id.t1_row );
 		deviceRow[T2_INDEX] = (TableRow) findViewById( R.id.t2_row );
@@ -99,6 +101,7 @@ public class ControllerPage extends RAPage {
 		deviceRow[WL2_INDEX] = (TableRow) findViewById( R.id.water2_row );
 		deviceRow[WL3_INDEX] = (TableRow) findViewById( R.id.water3_row );
 		deviceRow[WL4_INDEX] = (TableRow) findViewById( R.id.water4_row );
+		deviceRow[HUMIDITY_INDEX] = (TableRow) findViewById( R.id.humidity_row );
 
 		for ( int i = 0; i < Controller.MAX_CONTROLLER_VALUES; i++ ) {
 			deviceText[i] =
@@ -148,6 +151,7 @@ public class ControllerPage extends RAPage {
 		deviceText[WL2_INDEX].setText( v[WL2_INDEX] );
 		deviceText[WL3_INDEX].setText( v[WL3_INDEX] );
 		deviceText[WL4_INDEX].setText( v[WL4_INDEX] );
+		deviceText[HUMIDITY_INDEX].setText( v[HUMIDITY_INDEX] );
 	}
 
 	@Override

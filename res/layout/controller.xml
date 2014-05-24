@@ -80,6 +80,10 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <include
             android:id="@+id/water4_row"
             layout="@layout/genericlabelrow" />
+        
+        <include
+            android:id="@+id/humidity_row"
+            layout="@layout/genericlabelrow" />
     </TableLayout>
 
 </ScrollView>

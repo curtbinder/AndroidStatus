@@ -114,6 +114,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="labelORP">ORP</string>
     <string name="labelPHExp">PH Exp</string>
     <string name="labelWaterLevel">Water</string>
+    <string name="labelHumidity">Humidity</string>
     <string name="labelAtoLow">ATO Low</string>
     <string name="labelAtoHigh">ATO High</string>
     <string name="labelPort1">Port 1</string>
@@ -408,6 +409,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefSalinityVisibilityKey">salinity_visibility</string>
     <string name="prefORPVisibilityKey">orp_visibility</string>
     <string name="prefPHExpVisibilityKey">phe_visibility</string>
+    <string name="prefHumidityVisibilityKey">humidity_visibility</string>
 <!--     <string name="prefWaterLevelVisibilityKey">wl_visibility</string> -->
     <string name="prefResetLabelsKey">reset_labels</string>
     <string name="prefResetEnabledPortsKey">reset_enabled_ports</string>
@@ -423,6 +425,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefSalinityLabelKey">salinity_label</string>
     <string name="prefORPLabelKey">orp_label</string>
     <string name="prefPHExpLabelKey">phe_label</string>
+    <string name="prefHumidityLabelKey">humidity_label</string>
 <!--     <string name="prefWaterLevelLabelKey">wl_label</string> -->
     <string name="prefMainPort1LabelKey">main_port1_label</string>
     <string name="prefMainPort2LabelKey">main_port2_label</string>

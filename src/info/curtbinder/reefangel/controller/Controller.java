@@ -10,7 +10,7 @@ package info.curtbinder.reefangel.controller;
  */
 
 public class Controller {
-	public static final byte MAX_CONTROLLER_VALUES = 16;
+	public static final byte MAX_CONTROLLER_VALUES = 17;
 	public static final byte MAX_EXPANSION_RELAYS = 8;
 	public static final byte MAX_RELAY_PORTS = 8;
 	public static final byte MAX_TEMP_SENSORS = 3;
