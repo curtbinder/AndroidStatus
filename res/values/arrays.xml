@@ -708,6 +708,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>Water Level 2</item>
         <item>Water Level 3</item>
         <item>Water Level 4</item>
+        <item>Humidity</item>
     </string-array>
     
     <string-array name="networkTimeout">
