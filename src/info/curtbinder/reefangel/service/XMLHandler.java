@@ -246,6 +246,9 @@ public class XMLHandler extends DefaultHandler {
 		} else if ( tag.equals( XMLTags.ExpansionModules1 ) ) {
 			short v = Short.parseShort( currentElementText );
 			ra.setExpansionModules1( v );
+		} else if ( tag.equals( XMLTags.Humidity ) ) {
+			short v = Short.parseShort( currentElementText );
+			ra.setHumidity( v );
 		} else if ( tag.equals( XMLTags.AIBlue ) ) {
 			ra.setAIChannel(	Controller.AI_BLUE,
 								Short.parseShort( currentElementText ) );
@@ -376,6 +379,9 @@ public class XMLHandler extends DefaultHandler {
 		} else if ( tag.startsWith( XMLTags.ORP ) ) {
 			// ORP
 			ra.setORPLabel( currentElementText );
+		} else if ( tag.startsWith( XMLTags.Humidity ) ) {
+			// HUM
+			ra.setHumidityLabel( currentElementText );
 		} else if ( tag.equals( XMLTags.WaterLevel + XMLTags.LabelEnd ) ) {
 			// 1 channel Water Level
 			ra.setWaterLevelLabel( (short) 0, currentElementText );

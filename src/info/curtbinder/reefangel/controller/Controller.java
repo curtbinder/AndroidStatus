@@ -64,6 +64,7 @@ public class Controller {
 	private ShortWithLabel pwmA;
 	private ShortWithLabel pwmD;
 	private ShortWithLabel[] waterlevel;
+	private ShortWithLabel humidity;
 	private NumberWithLabel salinity;
 	private NumberWithLabel orp;
 	private Relay main;
@@ -110,6 +111,7 @@ public class Controller {
 		for ( i = 0; i < MAX_WATERLEVEL_PORTS; i++ ) {
 			waterlevel[i] = new ShortWithLabel();
 		}
+		humidity = new ShortWithLabel();
 		salinity = new NumberWithLabel( (byte) 1 );
 		orp = new NumberWithLabel();
 		main = new Relay();
@@ -320,6 +322,22 @@ public class Controller {
 		return waterlevel[port].getLabel();
 	}
 
+	public void setHumidity ( short value ) {
+		humidity.setData( value );
+	}
+	
+	public short getHumidity ( ) {
+		return humidity.getData();
+	}
+	
+	public void setHumidityLabel ( String label ) {
+		humidity.setLabel( label );
+	}
+	
+	public String getHumidityLabel ( ) {
+		return humidity.getLabel();
+	}
+	
 	public void setSalinity ( int value ) {
 		salinity.setData( value );
 	}
