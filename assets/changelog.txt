@@ -7,6 +7,7 @@
 <li>allow portal to be chosen from first run screen</li>
 <li>removed Commands option from overflow menu, changed to Date/Time</li>
 <li>get software version is added to the Commands Page</li>
+<li>added humidity expansion</li>
 <li>code cleanup</li>
 </ul>
 <br>
