@@ -443,6 +443,14 @@ public class RAPreferences {
 	public void setPreviousEM ( short em ) {
 		set( rapp.getString( R.string.prefPreviousEMKey ), em );
 	}
+	
+	public int getPreviousEM1 ( ) {
+		return getInt( R.string.prefPreviousEM1Key, -1 );
+	}
+	
+	public void setPreviousEM1 ( short em1 ) {
+		set( rapp.getString( R.string.prefPreviousEM1Key ), em1 );
+	}
 
 	public boolean isAutoUpdateModulesEnabled ( ) {
 		return getBoolean( R.string.prefAutoUpdateModulesKey, true );

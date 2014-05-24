@@ -243,6 +243,9 @@ public class XMLHandler extends DefaultHandler {
 		} else if ( tag.equals( XMLTags.ExpansionModules ) ) {
 			short v = Short.parseShort( currentElementText );
 			ra.setExpansionModules( v );
+		} else if ( tag.equals( XMLTags.ExpansionModules1 ) ) {
+			short v = Short.parseShort( currentElementText );
+			ra.setExpansionModules1( v );
 		} else if ( tag.equals( XMLTags.AIBlue ) ) {
 			ra.setAIChannel(	Controller.AI_BLUE,
 								Short.parseShort( currentElementText ) );

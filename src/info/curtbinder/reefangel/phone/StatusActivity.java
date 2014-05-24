@@ -434,7 +434,7 @@ public class StatusActivity extends BaseActivity implements
 		String[] ai;
 		String[] io;
 		String[] custom;
-		short r, ron, roff, newEM, newREM;
+		short r, ron, roff, newEM, newEM1, newREM;
 		short[] expr = new short[Controller.MAX_EXPANSION_RELAYS];
 		short[] expron = new short[Controller.MAX_EXPANSION_RELAYS];
 		short[] exproff = new short[Controller.MAX_EXPANSION_RELAYS];
@@ -494,6 +494,7 @@ public class StatusActivity extends BaseActivity implements
 			exproff[7] =
 					c.getShort( c.getColumnIndex( StatusTable.COL_R8OFFMASK ) );
 			newEM = c.getShort( c.getColumnIndex( StatusTable.COL_EM ) );
+			newEM1 = c.getShort( c.getColumnIndex( StatusTable.COL_EM1 ) );
 			newREM = c.getShort( c.getColumnIndex( StatusTable.COL_REM ) );
 		} else {
 			updateStatus = getString( R.string.messageNever );
@@ -504,7 +505,7 @@ public class StatusActivity extends BaseActivity implements
 			ai = getNeverValues( Controller.MAX_AI_CHANNELS );
 			io = getNeverValues( Controller.MAX_IO_CHANNELS );
 			custom = getNeverValues( Controller.MAX_CUSTOM_VARIABLES );
-			r = ron = roff = newEM = newREM = 0;
+			r = ron = roff = newEM = newEM1 = newREM = 0;
 			for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 				expr[i] = expron[i] = exproff[i] = 0;
 			}
@@ -528,7 +529,7 @@ public class StatusActivity extends BaseActivity implements
 		
 		if ( rapp.raprefs.isAutoUpdateModulesEnabled() ) {
 			// update the screen / pages if necessary
-			checkDeviceModules( newEM, newREM );
+			checkDeviceModules( newEM, newEM1, newREM );
 		}
 	}
 
@@ -759,11 +760,11 @@ public class StatusActivity extends BaseActivity implements
 										.getColumnIndex( StatusTable.COL_C7 ) ) };
 	}
 
-	private void checkDeviceModules ( short newEM, short newREM ) {
+	private void checkDeviceModules ( short newEM, short newEM1, short newREM ) {
 		// FIXME fix preference setting functions
 		boolean fReload = false;
 		short oldEM = (short) rapp.raprefs.getPreviousEM();
-		Log.d( TAG, "Old: " + oldEM + " New: " + newEM );
+		Log.d( TAG, "EM: Old: " + oldEM + " New: " + newEM );
 		if ( oldEM != newEM ) {
 			// expansion modules different
 			// set flag to reload the pages
@@ -832,6 +833,35 @@ public class StatusActivity extends BaseActivity implements
 			rapp.raprefs.setPreviousEM( newEM );
 		}
 
+		short oldEM1 = (short) rapp.raprefs.getPreviousEM1();
+		Log.d( TAG, "EM1: Old: " + oldEM1 + " New: " + newEM1 );
+		if ( oldEM1 != newEM1 ) {
+			boolean f = false;
+			if ( Controller.isHumidityModuleInstalled( newEM1 ) )
+				f = true;
+			else
+				f = false;
+			Log.d(TAG, "Humidity: " + f);
+			// TODO finish setting EM1 modules
+			//rapp.raprefs.set( R.string.prefExpHumidityEnableKey, f );
+			
+			if ( Controller.isDCPumpControlModuleInstalled( newEM1 ) )
+				f = true;
+			else
+				f = false;
+			Log.d(TAG, "DCPump: " + f);
+			//rapp.raprefs.set( R.string.prefExpDCPumpEnableKey, f );
+			
+			if ( Controller.isLeakDetectorModuleInstalled( newEM1 ) ) 
+				f = true;
+			else
+				f = false;
+			Log.d(TAG, "Leak Detector: " + f);
+			//rapp.raprefs.set( R.string.prefExpLeakDetectorEnableKey, f );
+			
+			rapp.raprefs.setPreviousEM1( newEM1 );
+		}
+		
 		int newRQty = Controller.getRelayExpansionModulesInstalled( newREM );
 		int oldRQty = rapp.raprefs.getExpansionRelayQuantity();
 		Log.d( TAG, "Old Qty: " + oldRQty + " New Qty: " + newRQty );

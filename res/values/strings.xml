@@ -545,6 +545,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefPre10MemoryKey">pre_10_memory_locations</string>
     <string name="prefPreviousCodeVersionKey">previous_version</string>
     <string name="prefPreviousEMKey">previous_em</string>
+    <string name="prefPreviousEM1Key">previous_em1</string>
     <string name="prefAutoUpdateIntervalKey">update_interval</string>
     <string name="prefAutoUpdateModulesKey">update_modules</string>
     <string name="prefAutoUpdateProfileKey">update_profile</string>

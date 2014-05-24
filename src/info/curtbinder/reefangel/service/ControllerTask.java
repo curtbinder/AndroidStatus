@@ -372,6 +372,7 @@ public class ControllerTask implements Runnable {
 		v.put( StatusTable.COL_C6, ra.getCustomVariable( (byte) 6 ) );
 		v.put( StatusTable.COL_C7, ra.getCustomVariable( (byte) 7 ) );
 		v.put( StatusTable.COL_EM, ra.getExpansionModules() );
+		v.put( StatusTable.COL_EM1, ra.getExpansionModules1() );
 		v.put( StatusTable.COL_REM, ra.getRelayExpansionModules() );
 		v.put( StatusTable.COL_PHE, ra.getPHExp() );
 		v.put( StatusTable.COL_WL, ra.getWaterLevel( (short) 0) );

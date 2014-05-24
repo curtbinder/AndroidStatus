@@ -22,6 +22,7 @@ public class Controller {
 	public static final byte MAX_VORTECH_VALUES = 3;
 	public static final byte MAX_WATERLEVEL_PORTS = 5;
 
+	// First set of expansion modules - EM
 	public static final short MODULE_DIMMING = 1 << 0;
 	public static final short MODULE_RF = 1 << 1;
 	public static final short MODULE_AI = 1 << 2;
@@ -30,6 +31,11 @@ public class Controller {
 	public static final short MODULE_IO = 1 << 5;
 	public static final short MODULE_PHEXPANSION = 1 << 6;
 	public static final short MODULE_WATERLEVEL = 1 << 7;
+	
+	// Second set of expansion modules - EM1
+	public static final short MODULE_HUMIDITY = 1 << 0;
+	public static final short MODULE_DCPUMP = 1 << 1;
+	public static final short MODULE_LEAKDETECTOR = 1 << 2;
 
 	// AI channels
 	public static final byte AI_WHITE = 0;
@@ -64,6 +70,7 @@ public class Controller {
 	private byte qtyExpansionRelays;
 	private Relay[] expansionRelays;
 	private short expansionModules;
+	private short expansionModules1;
 	private short relayExpansionModules;
 	private short ioChannels;
 	private String[] ioChannelsLabels;
@@ -112,6 +119,7 @@ public class Controller {
 		}
 		qtyExpansionRelays = 0;
 		expansionModules = 0;
+		expansionModules1 = 0;
 		relayExpansionModules = 0;
 		ioChannels = 0;
 		ioChannelsLabels = new String[MAX_IO_CHANNELS];
@@ -436,6 +444,14 @@ public class Controller {
 		expansionModules = em;
 	}
 
+	public short getExpansionModules1 ( ) {
+		return expansionModules1;
+	}
+	
+	public void setExpansionModules1 ( short em1 ) {
+		expansionModules1 = em1;
+	}
+	
 	public static boolean isDimmingModuleInstalled ( short expansionModules ) {
 		return (expansionModules & MODULE_DIMMING) == MODULE_DIMMING;
 	}
@@ -466,6 +482,18 @@ public class Controller {
 
 	public static boolean isWaterLevelModuleInstalled ( short expansionModules ) {
 		return (expansionModules & MODULE_WATERLEVEL) == MODULE_WATERLEVEL;
+	}
+	
+	public static boolean isHumidityModuleInstalled ( short expansionModules1 ) {
+		return (expansionModules1 & MODULE_HUMIDITY) == MODULE_HUMIDITY;
+	}
+	
+	public static boolean isDCPumpControlModuleInstalled ( short expansionModules1 ) {
+		return (expansionModules1 & MODULE_DCPUMP) == MODULE_DCPUMP;
+	}
+	
+	public static boolean isLeakDetectorModuleInstalled ( short expansionModules1 ) {
+		return (expansionModules1 & MODULE_LEAKDETECTOR) == MODULE_LEAKDETECTOR;
 	}
 
 	public short getRelayExpansionModules ( ) {

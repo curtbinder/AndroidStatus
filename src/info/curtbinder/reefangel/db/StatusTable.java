@@ -91,6 +91,7 @@ public class StatusTable {
 	public static final String COL_WL2 = "wl2";
 	public static final String COL_WL3 = "wl3";
 	public static final String COL_WL4 = "wl4";
+	public static final String COL_EM1 = "em1";
 
 	public static void onCreate ( SQLiteDatabase db ) {
 		// create parameters table
@@ -132,7 +133,7 @@ public class StatusTable {
 					+ " INTEGER, " + COL_REM + " INTEGER, " + COL_PHE
 					+ " TEXT, " + COL_WL + " INTEGER, " + COL_WL1
 					+ " INTEGER, " + COL_WL2 + " INTEGER, " + COL_WL3
-					+ " INTEGER, " + COL_WL4 
+					+ " INTEGER, " + COL_WL4 + " INTEGER, " + COL_EM1
 					+ " INTEGER " + ");" );
 
 	}
@@ -153,6 +154,9 @@ public class StatusTable {
 					break;
 				case 7:
 					upgradeToVersion7(db);
+					break;
+				case 8:
+					upgradeToVersion8(db);
 					break;
 			}
 		}
@@ -187,6 +191,11 @@ public class StatusTable {
 		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_WL2 + " INTEGER;" );
 		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_WL3 + " INTEGER;" );
 		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_WL4 + " INTEGER;" );
+	}
+	
+	private static void upgradeToVersion8(SQLiteDatabase db) {
+		// added in EM1 column
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_EM1 + " INTEGER;" );
 	}
 	
 }
