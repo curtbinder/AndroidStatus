@@ -90,7 +90,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
                     <EditTextPreference 
                         android:defaultValue="@string/labelHumidity"
                         android:key="@string/prefHumidityLabelKey"
-                        android:title="string/labelHumidity" />
+                        android:title="@string/labelHumidity" />
 
                 </PreferenceScreen>
                 <PreferenceScreen
