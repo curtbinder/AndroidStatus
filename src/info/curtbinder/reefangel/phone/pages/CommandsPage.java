@@ -62,16 +62,16 @@ public class CommandsPage extends RAPage implements OnClickListener {
 		b.setOnClickListener( this );
 		b = (Button) findViewById( R.id.command_button_overheat_clear );
 		b.setOnClickListener( this );
-		b = (Button) findViewById( R.id.command_button_calibrate_ph );
-		b.setOnClickListener( this );
-		b = (Button) findViewById( R.id.command_button_calibrate_salinity );
-		b.setOnClickListener( this );
-		b = (Button) findViewById( R.id.command_button_calibrate_water );
-		b.setOnClickListener( this );
-		b = (Button) findViewById( R.id.command_button_calibrate_orp );
-		b.setOnClickListener( this );
-		b = (Button) findViewById( R.id.command_button_calibrate_phe );
-		b.setOnClickListener( this );
+//		b = (Button) findViewById( R.id.command_button_calibrate_ph );
+//		b.setOnClickListener( this );
+//		b = (Button) findViewById( R.id.command_button_calibrate_salinity );
+//		b.setOnClickListener( this );
+//		b = (Button) findViewById( R.id.command_button_calibrate_water );
+//		b.setOnClickListener( this );
+//		b = (Button) findViewById( R.id.command_button_calibrate_orp );
+//		b.setOnClickListener( this );
+//		b = (Button) findViewById( R.id.command_button_calibrate_phe );
+//		b.setOnClickListener( this );
 		b = (Button) findViewById( R.id.command_button_version );
 		b.setOnClickListener( this );
 	}
@@ -103,21 +103,21 @@ public class CommandsPage extends RAPage implements OnClickListener {
 			case R.id.command_button_reboot:
 				s = RequestCommands.Reboot;
 				break;
-			case R.id.command_button_calibrate_ph:
-				s = RequestCommands.CalibratePH;
-				break;
-			case R.id.command_button_calibrate_phe:
-				s = RequestCommands.CalibratePHE;
-				break;
-			case R.id.command_button_calibrate_orp:
-				s = RequestCommands.CalibrateORP;
-				break;
-			case R.id.command_button_calibrate_salinity:
-				s = RequestCommands.CalibrateSalinity;
-				break;
-			case R.id.command_button_calibrate_water:
-				s = RequestCommands.CalibrateWaterLevel;
-				break;
+//			case R.id.command_button_calibrate_ph:
+//				s = RequestCommands.CalibratePH;
+//				break;
+//			case R.id.command_button_calibrate_phe:
+//				s = RequestCommands.CalibratePHE;
+//				break;
+//			case R.id.command_button_calibrate_orp:
+//				s = RequestCommands.CalibrateORP;
+//				break;
+//			case R.id.command_button_calibrate_salinity:
+//				s = RequestCommands.CalibrateSalinity;
+//				break;
+//			case R.id.command_button_calibrate_water:
+//				s = RequestCommands.CalibrateWaterLevel;
+//				break;
 			case R.id.command_button_version:
 				action = MessageCommands.VERSION_QUERY_INTENT;
 				s = RequestCommands.Version;
