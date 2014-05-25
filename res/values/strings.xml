@@ -76,7 +76,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="buttonOk">OK</string>
     <string name="buttonYes">Yes</string>
     <string name="buttonNo">No</string>
-    <string name="buttonVersion">Get Version</string>
+    <string name="buttonVersion">Get RA Version</string>
     <string name="buttonDateGet">Get Time</string>
     <string name="buttonDateSet">Set Current Time</string>
     <string name="buttonRead">Read Value</string>
