@@ -288,9 +288,7 @@ public class XMLHandler extends DefaultHandler {
 		} else if ( tag.equals( XMLTags.IO ) ) {
 			ra.setIOChannels( Short.parseShort( currentElementText ) );
 		} else if ( tag.endsWith( XMLTags.Override ) ) {
-			// FIXME Handle Override Tags
-			Log.d( TAG, "Unhandled Override tag (" + tag + ") with data: "
-					+ currentElementText );
+			processPwmOverride(tag, currentElementText);
 		} else if ( tag.startsWith( XMLTags.Custom ) ) {
 			short v =
 					Short.parseShort( tag.substring( XMLTags.Custom.length() ) );
@@ -339,6 +337,39 @@ public class XMLHandler extends DefaultHandler {
 		return tag.substring( bp, ep );
 	}
 
+	private void processPwmOverride ( String tag, String element ) {
+		// FIXME Handle Override Tags
+		Log.d( TAG, "Override tag (" + tag + ") with data: " + element );
+		Short value = Short.parseShort( element );
+		if ( tag.startsWith( XMLTags.PWMActinic ) ) {
+			
+		} else if ( tag.startsWith( XMLTags.PWMDaylight ) ) {
+			
+		} else if ( tag.startsWith( XMLTags.PWMExpansion ) ) {
+			// Get the channel from the tag. The last char is an O.
+			Short channel = Short.parseShort( tag.substring(
+			                                  XMLTags.PWMExpansion.length(), tag.length()-1) );
+		} else if ( tag.startsWith( XMLTags.AIWhite ) ) {
+			
+		} else if ( tag.startsWith( XMLTags.AIBlue ) ) {
+			
+		} else if ( tag.startsWith( XMLTags.AIRoyalBlue ) ) {
+			
+		} else if ( tag.startsWith( XMLTags.RFWhite ) ) {
+			
+		} else if ( tag.startsWith( XMLTags.RFRoyalBlue ) ) {
+			
+		} else if ( tag.startsWith( XMLTags.RFRed ) ) {
+			
+		} else if ( tag.startsWith( XMLTags.RFGreen ) ) {
+			
+		} else if ( tag.startsWith( XMLTags.RFBlue ) ) {
+			
+		} else if ( tag.startsWith( XMLTags.RFIntensity ) ) {
+			
+		}
+	}
+	
 	private void processLabelXml ( String tag ) {
 		// Handle all labels here
 		if ( currentElementText.equals( "null" ) ) {
