@@ -1,5 +1,6 @@
 package info.curtbinder.reefangel.controller;
 
+import android.util.Log;
 import info.curtbinder.reefangel.phone.Globals;
 
 /*
@@ -46,6 +47,7 @@ public class ShortWithLabelOverride extends ShortWithLabel {
 			// override is below max value, so return the override value
 			d = override;
 		}
+		Log.d("SWLO", "getData: " + d + " override: " + override);
 		return d;
 	}
 }

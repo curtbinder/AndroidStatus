@@ -61,8 +61,8 @@ public class Controller {
 	private NumberWithLabel pHExp;
 	private boolean atoLow;
 	private boolean atoHigh;
-	private ShortWithLabel pwmA;
-	private ShortWithLabel pwmD;
+	private ShortWithLabelOverride pwmA;
+	private ShortWithLabelOverride pwmD;
 	private ShortWithLabel[] waterlevel;
 	private ShortWithLabel humidity;
 	private NumberWithLabel salinity;
@@ -75,9 +75,9 @@ public class Controller {
 	private short relayExpansionModules;
 	private short ioChannels;
 	private String[] ioChannelsLabels;
-	private ShortWithLabel[] pwmExpansion;
-	private short[] aiChannels;
-	private short[] radionChannels;
+	private ShortWithLabelOverride[] pwmExpansion;
+	private ShortWithLabelOverride[] aiChannels;
+	private ShortWithLabelOverride[] radionChannels;
 	private ShortWithLabel[] customVariables;
 	private short[] vortechValues;
 
@@ -101,11 +101,11 @@ public class Controller {
 		pHExp = new NumberWithLabel( (byte) 2 );
 		atoLow = false;
 		atoHigh = false;
-		pwmA = new ShortWithLabel();
-		pwmD = new ShortWithLabel();
-		pwmExpansion = new ShortWithLabel[MAX_PWM_EXPANSION_PORTS];
+		pwmA = new ShortWithLabelOverride();
+		pwmD = new ShortWithLabelOverride();
+		pwmExpansion = new ShortWithLabelOverride[MAX_PWM_EXPANSION_PORTS];
 		for ( i = 0; i < MAX_PWM_EXPANSION_PORTS; i++ ) {
-			pwmExpansion[i] = new ShortWithLabel();
+			pwmExpansion[i] = new ShortWithLabelOverride();
 		}
 		waterlevel = new ShortWithLabel[MAX_WATERLEVEL_PORTS];
 		for ( i = 0; i < MAX_WATERLEVEL_PORTS; i++ ) {
@@ -128,13 +128,13 @@ public class Controller {
 		for ( i = 0; i < MAX_IO_CHANNELS; i++ ) {
 			ioChannelsLabels[i] = "";
 		}
-		aiChannels = new short[MAX_AI_CHANNELS];
+		aiChannels = new ShortWithLabelOverride[MAX_AI_CHANNELS];
 		for ( i = 0; i < MAX_AI_CHANNELS; i++ ) {
-			aiChannels[i] = 0;
+			aiChannels[i] = new ShortWithLabelOverride();
 		}
-		radionChannels = new short[MAX_RADION_LIGHT_CHANNELS];
+		radionChannels = new ShortWithLabelOverride[MAX_RADION_LIGHT_CHANNELS];
 		for ( i = 0; i < MAX_RADION_LIGHT_CHANNELS; i++ ) {
-			radionChannels[i] = 0;
+			radionChannels[i] = new ShortWithLabelOverride();
 		}
 		customVariables = new ShortWithLabel[MAX_CUSTOM_VARIABLES];
 		for ( i = 0; i < MAX_CUSTOM_VARIABLES; i++ ) {
@@ -265,6 +265,10 @@ public class Controller {
 	public short getPwmA ( ) {
 		return pwmA.getData();
 	}
+	
+	public void setPwmAOverride ( short v ) {
+		pwmA.setOverride( v );
+	}
 
 	public void setPwmALabel ( String label ) {
 		pwmA.setLabel( label );
@@ -281,6 +285,10 @@ public class Controller {
 	public short getPwmD ( ) {
 		return pwmD.getData();
 	}
+	
+	public void setPwmDOverride ( short v ) {
+		pwmD.setOverride( v );
+	}
 
 	public void setPwmDLabel ( String label ) {
 		pwmD.setLabel( label );
@@ -296,6 +304,10 @@ public class Controller {
 
 	public short getPwmExpansion ( short channel ) {
 		return pwmExpansion[channel].getData();
+	}
+	
+	public void setPwmExpansionOverride ( short channel, short v ) {
+		pwmExpansion[channel].setOverride( v );
 	}
 
 	public void setPwmExpansionLabel ( short channel, String label ) {
@@ -431,19 +443,27 @@ public class Controller {
 	}
 
 	public short getAIChannel ( byte channel ) {
-		return aiChannels[channel];
+		return aiChannels[channel].getData();
 	}
 
 	public void setAIChannel ( byte channel, short value ) {
-		aiChannels[channel] = value;
+		aiChannels[channel].setData( value );
+	}
+	
+	public void setAIChannelOverride ( byte channel, short value ) {
+		radionChannels[channel].setOverride( value );
 	}
 
 	public short getRadionChannel ( byte channel ) {
-		return radionChannels[channel];
+		return radionChannels[channel].getData();
 	}
 
 	public void setRadionChannel ( byte channel, short value ) {
-		radionChannels[channel] = value;
+		radionChannels[channel].setData( value );
+	}
+	
+	public void setRadionChannelOverride ( byte channel, short value ) {
+		radionChannels[channel].setOverride( value );;
 	}
 
 	public short getVortechValue ( byte type ) {
