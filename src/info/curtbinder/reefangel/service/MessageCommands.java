@@ -67,6 +67,12 @@ public final class MessageCommands {
 			PACKAGE_BASE + ".NOTIFICATION_ERROR";
 	public static final String NOTIFICATION_LAUNCH_INTENT =
 			PACKAGE_BASE + ".NOTIFICATION_LAUNCH";
+	
+	public static final String OVERRIDE_SEND_INTENT = PACKAGE_BASE + ".OVERRIDE_SEND";
+	public static final String OVERRIDE_SEND_LOCATION_INT = "OVERRIDE_SEND_LOCATION_INT";
+	public static final String OVERRIDE_SEND_VALUE_INT = "OVERRIDE_SEND_VALUE_INT";
+	public static final String OVERRIDE_RESPONSE_INTENT = PACKAGE_BASE + ".OVERRIDE_RESPONSE";
+	public static final String OVERRIDE_RESPONSE_STRING = "OVERRIDE_RESPONSE_STRING";
 
 	public static final String QUERY_STATUS_INTENT = PACKAGE_BASE
 														+ ".QUERY_STATUS";

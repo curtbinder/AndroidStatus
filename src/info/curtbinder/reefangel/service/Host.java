@@ -129,6 +129,11 @@ public class Host {
 	public boolean isWrite ( ) {
 		return this.write;
 	}
+	
+	public void setOverrideLocation ( int port, int value ) {
+		this.location = port;
+		this.value = value;
+	}
 
 	public String toString ( ) {
 		// TODO improve error message with a null host string
@@ -161,6 +166,10 @@ public class Host {
 						new String( String.format(	"http://%s:%d%s%d", host,
 													port, command, location ) );
 			}
+		} else if ( command.equals( RequestCommands.PwmOverride ) ) {
+			s = new String ( String.format( "http://%s:%d%s%d,%d",
+			                                host, port,
+			                                command, location, value) );
 		} else if ( command.equals( RequestCommands.ReefAngel ) ) {
 			String encodedId;
 			try {

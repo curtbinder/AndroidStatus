@@ -191,6 +191,9 @@ public class ControllerTask implements Runnable {
 		} else if ( host.getCommand().equals( RequestCommands.Reboot ) ) {
 			broadcastCommandResponse(	R.string.labelReboot,
 										xml.getModeResponse() );
+		} else if ( host.getCommand().equals( RequestCommands.PwmOverride ) ) {
+			broadcastCommandResponse( R.string.labelPwmOverride, 
+			                          xml.getModeResponse() );
 		} else if ( host.getCommand().equals( RequestCommands.Version ) ) {
 			Intent i = new Intent( MessageCommands.VERSION_RESPONSE_INTENT );
 			i.putExtra( MessageCommands.VERSION_RESPONSE_STRING,

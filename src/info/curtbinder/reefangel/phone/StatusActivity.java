@@ -126,6 +126,7 @@ public class StatusActivity extends BaseActivity implements
 		filter.addAction( MessageCommands.MEMORY_RESPONSE_INTENT );
 		filter.addAction( MessageCommands.COMMAND_RESPONSE_INTENT );
 		filter.addAction( MessageCommands.VERSION_RESPONSE_INTENT );
+		filter.addAction( MessageCommands.OVERRIDE_RESPONSE_INTENT );
 
 		vortechModes =
 				getResources().getStringArray( R.array.vortechModeLabels );
@@ -578,15 +579,13 @@ public class StatusActivity extends BaseActivity implements
 					Toast.makeText( StatusActivity.this, response,
 									Toast.LENGTH_LONG ).show();
 				}
+			} else if ( action.equals( MessageCommands.OVERRIDE_RESPONSE_INTENT ) ) {
+				String response = intent.getStringExtra(MessageCommands.OVERRIDE_RESPONSE_STRING);
+				displayResponse(response);
 			} else if ( action.equals( MessageCommands.COMMAND_RESPONSE_INTENT ) ) {
 				String response =
 						intent.getStringExtra( MessageCommands.COMMAND_RESPONSE_STRING );
-				if ( response.contains( XMLTags.Ok ) ) {
-					updateTime.setText( R.string.statusRefreshNeeded );
-				} else {
-					Toast.makeText( StatusActivity.this, response,
-									Toast.LENGTH_LONG ).show();
-				}
+				displayResponse(response);
 			} else if ( action.equals( MessageCommands.VERSION_RESPONSE_INTENT ) ) {
 				// set the version button's text to the version of the software
 				((Button) findViewById( R.id.command_button_version ))
@@ -594,6 +593,15 @@ public class StatusActivity extends BaseActivity implements
 				updateTime.setText( R.string.statusFinished );
 			}
 		}
+	}
+	
+	private void displayResponse(String response) {
+		if ( response.contains( XMLTags.Ok ) ) {
+			updateTime.setText( R.string.statusRefreshNeeded );
+		} else {
+			Toast.makeText( StatusActivity.this, response,
+							Toast.LENGTH_LONG ).show();
+		}	
 	}
 
 	private String[] getNeverValues ( int qty ) {

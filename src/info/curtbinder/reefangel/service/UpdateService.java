@@ -168,6 +168,15 @@ public class UpdateService extends IntentService {
 				h.setReadLocation( location );
 			else
 				h.setWriteLocation( location, value );
+		} else if ( action.equals( MessageCommands.OVERRIDE_SEND_INTENT ) ) {
+			if ( !isController ) {
+				notControllerMessage();
+				return;
+			}
+			int value = intent.getIntExtra(MessageCommands.OVERRIDE_SEND_VALUE_INT, 0);
+			int location = intent.getIntExtra( MessageCommands.OVERRIDE_SEND_LOCATION_INT, Globals.OVERRIDE_DISABLE );
+			h.setCommand( RequestCommands.PwmOverride );
+			h.setOverrideLocation( location, value );
 		} else if ( action.equals( MessageCommands.LABEL_QUERY_INTENT ) ) {
 			// set the userid
 			h.setUserId( raprefs.getUserId() );
