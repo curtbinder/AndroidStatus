@@ -93,6 +93,24 @@ public class StatusTable {
 	public static final String COL_WL4 = "wl4";
 	public static final String COL_EM1 = "em1";
 	public static final String COL_HUM = "hum";
+	public static final String COL_PWMAO = "pwmao";
+	public static final String COL_PWMDO = "pwmdo";
+	public static final String COL_PWME0O = "pwme0o";
+	public static final String COL_PWME1O = "pwme1o";
+	public static final String COL_PWME2O = "pwme2o";
+	public static final String COL_PWME3O = "pwme3o";
+	public static final String COL_PWME4O = "pwme4o";
+	public static final String COL_PWME5O = "pwme5o";
+	public static final String COL_AIWO = "aiwo";
+	public static final String COL_AIBO = "aibo";
+	public static final String COL_AIRBO = "airbo";
+	public static final String COL_RFWO = "rfwo";
+	public static final String COL_RFRBO = "rfrbo";
+	public static final String COL_RFRO = "rfro";
+	public static final String COL_RFGO = "rfgo";
+	public static final String COL_RFBO = "rfbo";
+	public static final String COL_RFIO = "rfio";
+	
 
 	public static void onCreate ( SQLiteDatabase db ) {
 		// create parameters table
@@ -135,7 +153,26 @@ public class StatusTable {
 					+ " TEXT, " + COL_WL + " INTEGER, " + COL_WL1
 					+ " INTEGER, " + COL_WL2 + " INTEGER, " + COL_WL3
 					+ " INTEGER, " + COL_WL4 + " INTEGER, " + COL_EM1
-					+ " INTEGER, " + COL_HUM + " INTEGER" + ");" );
+					+ " INTEGER, " + COL_HUM + " INTEGER, " 
+					+ COL_PWMAO + " INTEGER, " 
+					+ COL_PWMDO + " INTEGER, " 
+					+ COL_PWME0O + " INTEGER, " 
+					+ COL_PWME1O + " INTEGER, " 
+					+ COL_PWME2O + " INTEGER, " 
+					+ COL_PWME3O + " INTEGER, " 
+					+ COL_PWME4O + " INTEGER, " 
+					+ COL_PWME5O + " INTEGER, " 
+					+ COL_AIWO + " INTEGER, " 
+					+ COL_AIBO + " INTEGER, " 
+					+ COL_AIRBO + " INTEGER, " 
+					+ COL_RFWO + " INTEGER, "
+					+ COL_RFRBO + " INTEGER, " 
+					+ COL_RFRO + " INTEGER, " 
+					+ COL_RFGO + " INTEGER, " 
+					+ COL_RFBO + " INTEGER, " 
+					+ COL_RFIO + " INTEGER "
+					
+					+ ");" );
 
 	}
 
@@ -158,6 +195,9 @@ public class StatusTable {
 					break;
 				case 8:
 					upgradeToVersion8(db);
+					break;
+				case 9:
+					upgradeToVersion9(db);
 					break;
 			}
 		}
@@ -200,4 +240,24 @@ public class StatusTable {
 		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_HUM + " INTEGER;" );
 	}
 	
+	private static void upgradeToVersion9(SQLiteDatabase db) {
+		// add in pwm override channels
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWMAO + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWMDO + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWME0O + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWME1O + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWME2O + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWME3O + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWME4O + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWME5O + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_AIWO + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_AIBO + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_AIRBO + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_RFWO + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_RFRBO + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_RFRO + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_RFGO + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_RFBO + " INTEGER;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_RFIO + " INTEGER;" );
+	}
 }
