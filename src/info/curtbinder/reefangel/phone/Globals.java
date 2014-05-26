@@ -81,4 +81,24 @@ public final class Globals {
 	public static final int paramCustom5 = 41;
 	public static final int paramCustom6 = 42;
 	public static final int paramCustom7 = 43;
+	
+	// override locations
+	public static final int OVERRIDE_DAYLIGHT = 0;
+	public static final int OVERRIDE_ACTINIC = 1;
+	public static final int OVERRIDE_CHANNEL0 = 2;
+	public static final int OVERRIDE_CHANNEL1 = 3;
+	public static final int OVERRIDE_CHANNEL2 = 4;
+	public static final int OVERRIDE_CHANNEL3 = 5;
+	public static final int OVERRIDE_CHANNEL4 = 6;
+	public static final int OVERRIDE_CHANNEL5 = 7;
+	public static final int OVERRIDE_AI_WHITE = 8;
+	public static final int OVERRIDE_AI_ROYALBLUE = 9;
+	public static final int OVERRIDE_AI_BLUE = 10;
+	public static final int OVERRIDE_RF_WHITE = 11;
+	public static final int OVERRIDE_RF_ROYALBLUE = 12;
+	public static final int OVERRIDE_RF_RED = 13;
+	public static final int OVERRIDE_RF_GREEN = 14;
+	public static final int OVERRIDE_RF_BLUE = 15;
+	public static final int OVERRIDE_RF_INTENSITY = 16;
+	public static final int OVERRIDE_CHANNELS = 17;
 }
