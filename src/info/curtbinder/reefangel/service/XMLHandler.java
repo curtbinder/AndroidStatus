@@ -342,31 +342,32 @@ public class XMLHandler extends DefaultHandler {
 		Log.d( TAG, "Override tag (" + tag + ") with data: " + element );
 		Short value = Short.parseShort( element );
 		if ( tag.startsWith( XMLTags.PWMActinic ) ) {
-			
+			ra.setPwmAOverride( value );
 		} else if ( tag.startsWith( XMLTags.PWMDaylight ) ) {
-			
+			ra.setPwmDOverride( value );
 		} else if ( tag.startsWith( XMLTags.PWMExpansion ) ) {
 			// Get the channel from the tag. The last char is an O.
 			Short channel = Short.parseShort( tag.substring(
 			                                  XMLTags.PWMExpansion.length(), tag.length()-1) );
+			ra.setPwmExpansionOverride( channel, value );
 		} else if ( tag.startsWith( XMLTags.AIWhite ) ) {
-			
+			ra.setAIChannel( Controller.AI_WHITE, value );
 		} else if ( tag.startsWith( XMLTags.AIBlue ) ) {
-			
+			ra.setAIChannel( Controller.AI_BLUE, value );
 		} else if ( tag.startsWith( XMLTags.AIRoyalBlue ) ) {
-			
+			ra.setAIChannel( Controller.AI_ROYALBLUE, value );
 		} else if ( tag.startsWith( XMLTags.RFWhite ) ) {
-			
+			ra.setRadionChannelOverride( Controller.RADION_WHITE, value );
 		} else if ( tag.startsWith( XMLTags.RFRoyalBlue ) ) {
-			
+			ra.setRadionChannelOverride( Controller.RADION_ROYALBLUE, value );
 		} else if ( tag.startsWith( XMLTags.RFRed ) ) {
-			
+			ra.setRadionChannelOverride( Controller.RADION_RED, value );
 		} else if ( tag.startsWith( XMLTags.RFGreen ) ) {
-			
+			ra.setRadionChannelOverride( Controller.RADION_GREEN, value );
 		} else if ( tag.startsWith( XMLTags.RFBlue ) ) {
-			
+			ra.setRadionChannelOverride( Controller.RADION_BLUE, value );
 		} else if ( tag.startsWith( XMLTags.RFIntensity ) ) {
-			
+			ra.setRadionChannelOverride( Controller.RADION_INTENSITY, value );
 		}
 	}
 	
