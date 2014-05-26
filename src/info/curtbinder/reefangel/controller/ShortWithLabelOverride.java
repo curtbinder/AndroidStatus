@@ -37,6 +37,10 @@ public class ShortWithLabelOverride extends ShortWithLabel {
 		}
 	}
 	
+	public short getOverrideValue ( ) {
+		return override;
+	}
+	
 	@Override
 	public short getData ( ) {
 		short d;

@@ -387,6 +387,23 @@ public class ControllerTask implements Runnable {
 		v.put( StatusTable.COL_WL3, ra.getWaterLevel( (short) 3) );
 		v.put( StatusTable.COL_WL4, ra.getWaterLevel( (short) 4) );
 		v.put( StatusTable.COL_HUM, ra.getHumidity() );
+		v.put( StatusTable.COL_PWMAO, ra.getPwmAOverride() );
+		v.put( StatusTable.COL_PWMDO, ra.getPwmDOverride() );
+		v.put( StatusTable.COL_PWME0O, ra.getPwmExpansionOverride( (short) 0 ) );
+		v.put( StatusTable.COL_PWME1O, ra.getPwmExpansionOverride( (short) 1 ) );
+		v.put( StatusTable.COL_PWME2O, ra.getPwmExpansionOverride( (short) 2 ) );
+		v.put( StatusTable.COL_PWME3O, ra.getPwmExpansionOverride( (short) 3 ) );
+		v.put( StatusTable.COL_PWME4O, ra.getPwmExpansionOverride( (short) 4 ) );
+		v.put( StatusTable.COL_PWME5O, ra.getPwmExpansionOverride( (short) 5 ) );
+		v.put( StatusTable.COL_AIWO, ra.getAIChannelOverride( Controller.AI_WHITE ) );
+		v.put( StatusTable.COL_AIBO, ra.getAIChannelOverride( Controller.AI_BLUE ) );
+		v.put( StatusTable.COL_AIRBO, ra.getAIChannelOverride( Controller.AI_ROYALBLUE ) );
+		v.put( StatusTable.COL_RFWO, ra.getRadionChannelOverride( Controller.RADION_WHITE ) );
+		v.put( StatusTable.COL_RFRBO, ra.getRadionChannelOverride( Controller.RADION_ROYALBLUE ) );
+		v.put( StatusTable.COL_RFRO, ra.getRadionChannelOverride( Controller.RADION_RED ) );
+		v.put( StatusTable.COL_RFGO, ra.getRadionChannelOverride( Controller.RADION_GREEN ) );
+		v.put( StatusTable.COL_RFBO, ra.getRadionChannelOverride( Controller.RADION_BLUE ) );
+		v.put( StatusTable.COL_RFIO, ra.getRadionChannelOverride( Controller.RADION_INTENSITY ) );
 		rapp.getContentResolver()
 				.insert(	Uri.parse( StatusProvider.CONTENT_URI + "/"
 										+ StatusProvider.PATH_STATUS ), v );

@@ -266,6 +266,10 @@ public class Controller {
 		return pwmA.getData();
 	}
 	
+	public short getPwmAOverride ( ) {
+		return pwmA.getOverrideValue();
+	}
+	
 	public void setPwmAOverride ( short v ) {
 		pwmA.setOverride( v );
 	}
@@ -286,6 +290,10 @@ public class Controller {
 		return pwmD.getData();
 	}
 	
+	public short getPwmDOverride ( ) {
+		return pwmD.getOverrideValue();
+	}
+	
 	public void setPwmDOverride ( short v ) {
 		pwmD.setOverride( v );
 	}
@@ -304,6 +312,11 @@ public class Controller {
 
 	public short getPwmExpansion ( short channel ) {
 		return pwmExpansion[channel].getData();
+	}
+	
+	
+	public short getPwmExpansionOverride ( short channel ) {
+		return pwmExpansion[channel].getOverrideValue();
 	}
 	
 	public void setPwmExpansionOverride ( short channel, short v ) {
@@ -450,8 +463,12 @@ public class Controller {
 		aiChannels[channel].setData( value );
 	}
 	
+	public short getAIChannelOverride ( byte channel ) {
+		return aiChannels[channel].getOverrideValue();
+	}
+	
 	public void setAIChannelOverride ( byte channel, short value ) {
-		radionChannels[channel].setOverride( value );
+		aiChannels[channel].setOverride( value );
 	}
 
 	public short getRadionChannel ( byte channel ) {
@@ -460,6 +477,10 @@ public class Controller {
 
 	public void setRadionChannel ( byte channel, short value ) {
 		radionChannels[channel].setData( value );
+	}
+	
+	public short getRadionChannelOverride ( byte channel ) {
+		return radionChannels[channel].getOverrideValue();
 	}
 	
 	public void setRadionChannelOverride ( byte channel, short value ) {
