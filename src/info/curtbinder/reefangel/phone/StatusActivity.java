@@ -627,7 +627,7 @@ public class StatusActivity extends BaseActivity implements
 		String apText = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_AP) ),
 		                                               c.getShort( c.getColumnIndex(StatusTable.COL_PWMAO)));
 		String dpText = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_DP) ),
-		                                               c.getShort( c.getColumnIndex(StatusTable.COL_PWMDO)));;
+		                                               c.getShort( c.getColumnIndex(StatusTable.COL_PWMDO)));
 		return new String[] {	c.getString( c
 										.getColumnIndex( StatusTable.COL_T1 ) ),
 								c.getString( c
@@ -669,12 +669,18 @@ public class StatusActivity extends BaseActivity implements
 
 	private String[] getPWMEValues ( Cursor c ) {
 		String[] sa = new String[Controller.MAX_PWM_EXPANSION_PORTS];
-		sa[0] = c.getString( c.getColumnIndex( StatusTable.COL_PWME0 ) ) + "%";
-		sa[1] = c.getString( c.getColumnIndex( StatusTable.COL_PWME1 ) ) + "%";
-		sa[2] = c.getString( c.getColumnIndex( StatusTable.COL_PWME2 ) ) + "%";
-		sa[3] = c.getString( c.getColumnIndex( StatusTable.COL_PWME3 ) ) + "%";
-		sa[4] = c.getString( c.getColumnIndex( StatusTable.COL_PWME4 ) ) + "%";
-		sa[5] = c.getString( c.getColumnIndex( StatusTable.COL_PWME5 ) ) + "%";
+		sa[0] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_PWME0) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_PWME0O)));
+		sa[1] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_PWME1) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_PWME1O)));
+		sa[2] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_PWME2) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_PWME2O)));
+		sa[3] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_PWME3) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_PWME3O)));
+		sa[4] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_PWME4) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_PWME4O)));
+		sa[5] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_PWME5) ),
+	                                           c.getShort( c.getColumnIndex(StatusTable.COL_PWME5O)));
 		return sa;
 	}
 
