@@ -1,5 +1,10 @@
 package info.curtbinder.reefangel.controller;
 
+import java.util.Locale;
+
+import info.curtbinder.reefangel.phone.Globals;
+import android.util.Log;
+
 
 /*
  * Copyright (c) 2011-13 by Curt Binder (http://curtbinder.info)
@@ -596,5 +601,32 @@ public class Controller {
 		int w = (ioChannels & v);
 		boolean f = w == v;
 		return f;
+	}
+	
+	public static boolean isPWMOverrideEnabled( short value, short override ) {
+		// above 100% (max value), so the override is disabled
+		if ( override > Globals.OVERRIDE_MAX_VALUE ) {
+			return false;
+		}
+		return true;
+	}
+	
+	public static short getPWMValueFromOverride ( short data, short override ) {
+		short v;
+		if ( isPWMOverrideEnabled(data, override) ) {
+			v = data;
+		} else {
+			v = override;
+		}
+		Log.d("getPWMValueFromOverride", "data: " + data + " override: " + override + " return: " + v);
+		return v;
+	}
+	
+	public static String getPWMDisplayValue( short data, short override ) {
+		String s = String.format(Locale.getDefault(), "%d%%", getPWMValueFromOverride(data, override));
+		if ( isPWMOverrideEnabled(data, override) ) {
+			s = "**" + s;
+		}
+		return s;
 	}
 }

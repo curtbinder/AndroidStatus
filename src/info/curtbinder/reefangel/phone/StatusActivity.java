@@ -624,6 +624,10 @@ public class StatusActivity extends BaseActivity implements
 			h = getString( R.string.labelON ); // ACTIVE, GREEN, ON
 		else
 			h = getString( R.string.labelOFF ); // INACTIVE, RED, OFF
+		String apText = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_AP) ),
+		                                               c.getShort( c.getColumnIndex(StatusTable.COL_PWMAO)));
+		String dpText = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_DP) ),
+		                                               c.getShort( c.getColumnIndex(StatusTable.COL_PWMDO)));;
 		return new String[] {	c.getString( c
 										.getColumnIndex( StatusTable.COL_T1 ) ),
 								c.getString( c
@@ -632,12 +636,8 @@ public class StatusActivity extends BaseActivity implements
 										.getColumnIndex( StatusTable.COL_T3 ) ),
 								c.getString( c
 										.getColumnIndex( StatusTable.COL_PH ) ),
-								c.getString( c
-										.getColumnIndex( StatusTable.COL_DP ) )
-										+ "%",
-								c.getString( c
-										.getColumnIndex( StatusTable.COL_AP ) )
-										+ "%",
+								dpText,
+								apText,
 								l,
 								h,
 								c.getString( c

@@ -1,6 +1,5 @@
 package info.curtbinder.reefangel.controller;
 
-import android.util.Log;
 import info.curtbinder.reefangel.phone.Globals;
 
 /*
@@ -39,19 +38,5 @@ public class ShortWithLabelOverride extends ShortWithLabel {
 	
 	public short getOverrideValue ( ) {
 		return override;
-	}
-	
-	@Override
-	public short getData ( ) {
-		short d;
-		if ( override > Globals.OVERRIDE_MAX_VALUE ) {
-			// above 100% (max value), so the override is disabled
-			d = super.getData();
-		} else {
-			// override is below max value, so return the override value
-			d = override;
-		}
-		Log.d("SWLO", "getData: " + d + " override: " + override);
-		return d;
 	}
 }
