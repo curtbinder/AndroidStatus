@@ -19,7 +19,8 @@ public class RADbHelper extends SQLiteOpenHelper {
 	// Version 5 - ErrorTable added
 	// Version 6 - NotificationTable added
 	// Version 7 - StatusTable updated
-	// Version 8 - StatusTbale updated
+	// Version 8 - StatusTable updated
+	// Version 9 - StatusTable updated
 
 	public RADbHelper ( Context context ) {
 		super( context, DB_NAME, null, DB_VERSION );
