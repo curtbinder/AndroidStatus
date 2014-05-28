@@ -686,12 +686,18 @@ public class StatusActivity extends BaseActivity implements
 
 	private String[] getRadionValues ( Cursor c ) {
 		String[] sa = new String[Controller.MAX_RADION_LIGHT_CHANNELS];
-		sa[0] = c.getString( c.getColumnIndex( StatusTable.COL_RFW ) ) + "%";
-		sa[1] = c.getString( c.getColumnIndex( StatusTable.COL_RFRB ) ) + "%";
-		sa[2] = c.getString( c.getColumnIndex( StatusTable.COL_RFR ) ) + "%";
-		sa[3] = c.getString( c.getColumnIndex( StatusTable.COL_RFG ) ) + "%";
-		sa[4] = c.getString( c.getColumnIndex( StatusTable.COL_RFB ) ) + "%";
-		sa[5] = c.getString( c.getColumnIndex( StatusTable.COL_RFI ) ) + "%";
+		sa[0] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_RFW) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_RFWO)));
+		sa[1] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_RFRB) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_RFRBO)));
+		sa[2] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_RFR) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_RFRO)));
+		sa[3] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_RFG) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_RFGO)));
+		sa[4] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_RFB) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_RFBO)));
+		sa[5] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_RFI) ),
+	                                           c.getShort( c.getColumnIndex(StatusTable.COL_RFIO)));
 		return sa;
 	}
 
