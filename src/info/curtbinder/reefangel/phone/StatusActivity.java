@@ -744,12 +744,12 @@ public class StatusActivity extends BaseActivity implements
 
 	private String[] getAIValues ( Cursor c ) {
 		String[] sa = new String[Controller.MAX_AI_CHANNELS];
-		sa[Controller.AI_WHITE] =
-				c.getString( c.getColumnIndex( StatusTable.COL_AIW ) ) + "%";
-		sa[Controller.AI_BLUE] =
-				c.getString( c.getColumnIndex( StatusTable.COL_AIB ) ) + "%";
-		sa[Controller.AI_ROYALBLUE] =
-				c.getString( c.getColumnIndex( StatusTable.COL_AIRB ) ) + "%";
+		sa[Controller.AI_WHITE] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_AIW) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_AIWO)));
+		sa[Controller.AI_BLUE] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_AIB) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_AIBO)));
+		sa[Controller.AI_ROYALBLUE] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_AIRB) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_AIRBO)));
 		return sa;
 	}
 
