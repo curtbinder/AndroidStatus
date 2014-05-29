@@ -614,9 +614,9 @@ public class Controller {
 	public static short getPWMValueFromOverride ( short data, short override ) {
 		short v;
 		if ( isPWMOverrideEnabled(data, override) ) {
-			v = data;
-		} else {
 			v = override;
+		} else {
+			v = data;
 		}
 		Log.d("getPWMValueFromOverride", "data: " + data + " override: " + override + " return: " + v);
 		return v;
