@@ -618,7 +618,7 @@ public class Controller {
 		} else {
 			v = data;
 		}
-		Log.d("getPWMValueFromOverride", "data: " + data + " override: " + override + " return: " + v);
+		//Log.d("getPWMValueFromOverride", "data: " + data + " override: " + override + " return: " + v);
 		return v;
 	}
 	

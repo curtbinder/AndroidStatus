@@ -182,11 +182,9 @@ public class ControllerPage extends RAPage
 	public boolean onLongClick ( View v ) {
 		View parent = (View) v.getParent();
 		if ( parent.getId() == R.id.dp_row ) {
-			// TODO change hardcoded text
-			displayPopup((short)Globals.OVERRIDE_DAYLIGHT, dpValue, "Daylight Channel");
+			displayPopup((short)Globals.OVERRIDE_DAYLIGHT, dpValue, ctx.getString(R.string.prefDPVisibilityTitle));
 		} else if ( parent.getId() == R.id.ap_row ) {
-			// TODO change hardcoded text
-			displayPopup((short)Globals.OVERRIDE_ACTINIC, apValue, "Actinic Channel");
+			displayPopup((short)Globals.OVERRIDE_ACTINIC, apValue, ctx.getString(R.string.prefAPVisibilityTitle));
 		} else {
 			return false;
 		}
