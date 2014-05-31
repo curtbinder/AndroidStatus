@@ -177,10 +177,10 @@ public class ControllerPage extends RAPage
 	public boolean onLongClick ( View v ) {
 		View parent = (View) v.getParent();
 		if ( parent.getId() == R.id.dp_row ) {
-			displayOverridePopup((short)Globals.OVERRIDE_DAYLIGHT, dpValue, 
+			displayOverridePopup(Globals.OVERRIDE_DAYLIGHT, dpValue, 
 			                     ctx.getString(R.string.prefDPVisibilityTitle));
 		} else if ( parent.getId() == R.id.ap_row ) {
-			displayOverridePopup((short)Globals.OVERRIDE_ACTINIC, apValue, 
+			displayOverridePopup(Globals.OVERRIDE_ACTINIC, apValue, 
 			                     ctx.getString(R.string.prefAPVisibilityTitle));
 		} else {
 			return false;
