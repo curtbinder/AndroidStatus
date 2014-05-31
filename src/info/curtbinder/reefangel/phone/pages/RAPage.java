@@ -8,7 +8,11 @@
 
 package info.curtbinder.reefangel.phone.pages;
 
+import info.curtbinder.reefangel.phone.OverridePopupActivity;
+import info.curtbinder.reefangel.phone.Permissions;
+import info.curtbinder.reefangel.service.MessageCommands;
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.widget.ScrollView;
 
@@ -23,4 +27,12 @@ public abstract class RAPage extends ScrollView {
 	}
 
 	public abstract String getPageTitle ( );
+	
+	protected void displayOverridePopup( int channel, short value, String msg ) {
+		Intent i = new Intent( MessageCommands.OVERRIDE_POPUP_INTENT );
+		i.putExtra( OverridePopupActivity.MESSAGE_KEY, msg );
+		i.putExtra( OverridePopupActivity.CHANNEL_KEY, channel );
+		i.putExtra( OverridePopupActivity.VALUE_KEY, value );
+		this.getContext().sendBroadcast( i, Permissions.SEND_COMMAND );
+	}
 }

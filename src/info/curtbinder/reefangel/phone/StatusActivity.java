@@ -442,6 +442,7 @@ public class StatusActivity extends BaseActivity implements
 		String[] io;
 		String[] custom;
 		short r, ron, roff, newEM, newEM1, newREM, apValue, dpValue;
+		short[] pwmeValues = new short[Controller.MAX_PWM_EXPANSION_PORTS];
 		short[] expr = new short[Controller.MAX_EXPANSION_RELAYS];
 		short[] expron = new short[Controller.MAX_EXPANSION_RELAYS];
 		short[] exproff = new short[Controller.MAX_EXPANSION_RELAYS];
@@ -452,8 +453,9 @@ public class StatusActivity extends BaseActivity implements
 			values = getControllerValues( c );
 			apValue = c.getShort( c.getColumnIndex( StatusTable.COL_AP ) );
 			dpValue = c.getShort( c.getColumnIndex(  StatusTable.COL_DP ) );
-			pwme = getPWMEValues( c );
-			rf = getRadionValues( c );
+			pwme = getPWMETextValues( c );
+			pwmeValues = getPWMEValues( c );
+			rf = getRadionTextValues( c );
 			vt = getVortechValues( c );
 			ai = getAIValues( c );
 			io = getIOValues( c );
@@ -518,6 +520,9 @@ public class StatusActivity extends BaseActivity implements
 			for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 				expr[i] = expron[i] = exproff[i] = 0;
 			}
+			for ( int i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
+				pwmeValues[i] = 0;
+			}
 		}
 		c.close();
 		
@@ -525,6 +530,7 @@ public class StatusActivity extends BaseActivity implements
 		pageController.updateDisplay( values );
 		pageController.updatePWMValues( apValue, dpValue );
 		pageDimming.updateDisplay( pwme );
+		pageDimming.updatePWMValues( pwmeValues );
 		pageRadion.updateDisplay( rf );
 		pageVortech.updateDisplay( vt );
 		pageAI.updateDisplay( ai );
@@ -682,7 +688,7 @@ public class StatusActivity extends BaseActivity implements
 								        + "%" };
 	}
 
-	private String[] getPWMEValues ( Cursor c ) {
+	private String[] getPWMETextValues ( Cursor c ) {
 		String[] sa = new String[Controller.MAX_PWM_EXPANSION_PORTS];
 		sa[0] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_PWME0) ),
 		                                       c.getShort( c.getColumnIndex(StatusTable.COL_PWME0O)));
@@ -698,8 +704,19 @@ public class StatusActivity extends BaseActivity implements
 	                                           c.getShort( c.getColumnIndex(StatusTable.COL_PWME5O)));
 		return sa;
 	}
+	
+	private short[] getPWMEValues ( Cursor c ) {
+		short[] v = new short[Controller.MAX_PWM_EXPANSION_PORTS];
+		v[0] = c.getShort( c.getColumnIndex(StatusTable.COL_PWME0) );
+		v[1] = c.getShort( c.getColumnIndex(StatusTable.COL_PWME1) );
+		v[2] = c.getShort( c.getColumnIndex(StatusTable.COL_PWME2) );
+		v[3] = c.getShort( c.getColumnIndex(StatusTable.COL_PWME3) );
+		v[4] = c.getShort( c.getColumnIndex(StatusTable.COL_PWME4) );
+		v[5] = c.getShort( c.getColumnIndex(StatusTable.COL_PWME5) );
+		return v;
+	}
 
-	private String[] getRadionValues ( Cursor c ) {
+	private String[] getRadionTextValues ( Cursor c ) {
 		String[] sa = new String[Controller.MAX_RADION_LIGHT_CHANNELS];
 		sa[0] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_RFW) ),
 		                                       c.getShort( c.getColumnIndex(StatusTable.COL_RFWO)));

@@ -10,13 +10,8 @@ package info.curtbinder.reefangel.phone.pages;
 
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.phone.Globals;
-import info.curtbinder.reefangel.phone.OverridePopupActivity;
-import info.curtbinder.reefangel.phone.Permissions;
 import info.curtbinder.reefangel.phone.R;
-import info.curtbinder.reefangel.phone.StatusActivity;
-import info.curtbinder.reefangel.service.MessageCommands;
 import android.content.Context;
-import android.content.Intent;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -175,27 +170,21 @@ public class ControllerPage extends RAPage
 
 	@Override
 	public String getPageTitle ( ) {
-		return ctx.getResources().getString( R.string.labelController );
+		return ctx.getString( R.string.labelController );
 	}
 
 	@Override
 	public boolean onLongClick ( View v ) {
 		View parent = (View) v.getParent();
 		if ( parent.getId() == R.id.dp_row ) {
-			displayPopup((short)Globals.OVERRIDE_DAYLIGHT, dpValue, ctx.getString(R.string.prefDPVisibilityTitle));
+			displayOverridePopup((short)Globals.OVERRIDE_DAYLIGHT, dpValue, 
+			                     ctx.getString(R.string.prefDPVisibilityTitle));
 		} else if ( parent.getId() == R.id.ap_row ) {
-			displayPopup((short)Globals.OVERRIDE_ACTINIC, apValue, ctx.getString(R.string.prefAPVisibilityTitle));
+			displayOverridePopup((short)Globals.OVERRIDE_ACTINIC, apValue, 
+			                     ctx.getString(R.string.prefAPVisibilityTitle));
 		} else {
 			return false;
 		}
 		return true;
-	}
-
-	private void displayPopup( int channel, short value, String msg ) {
-		Intent i = new Intent( MessageCommands.OVERRIDE_POPUP_INTENT );
-		i.putExtra( OverridePopupActivity.MESSAGE_KEY, msg );
-		i.putExtra( OverridePopupActivity.CHANNEL_KEY, channel );
-		i.putExtra( OverridePopupActivity.VALUE_KEY, value );
-		ctx.sendBroadcast( i, Permissions.SEND_COMMAND );
 	}
 }

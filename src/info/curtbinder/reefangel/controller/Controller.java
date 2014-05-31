@@ -1,9 +1,8 @@
 package info.curtbinder.reefangel.controller;
 
-import java.util.Locale;
-
 import info.curtbinder.reefangel.phone.Globals;
-import android.util.Log;
+
+import java.util.Locale;
 
 
 /*

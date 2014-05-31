@@ -9,16 +9,19 @@
 package info.curtbinder.reefangel.phone.pages;
 
 import info.curtbinder.reefangel.controller.Controller;
+import info.curtbinder.reefangel.phone.Globals;
 import info.curtbinder.reefangel.phone.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-public class DimmingPage extends RAPage {
+public class DimmingPage extends RAPage
+	implements OnLongClickListener {
 	private static final String TAG = DimmingPage.class.getSimpleName();
 
 	Context ctx; // saved context from parent
@@ -26,6 +29,7 @@ public class DimmingPage extends RAPage {
 			new TextView[Controller.MAX_PWM_EXPANSION_PORTS];
 	private TableRow[] pwmeRow =
 			new TableRow[Controller.MAX_PWM_EXPANSION_PORTS];
+	private short[] pwmeValues = new short[Controller.MAX_PWM_EXPANSION_PORTS];
 
 	public DimmingPage ( Context context ) {
 		super( context );
@@ -45,6 +49,7 @@ public class DimmingPage extends RAPage {
 						.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
 		layoutInflater.inflate( R.layout.dimming, this );
 		findViews();
+		
 	}
 
 	private void findViews ( ) {
@@ -60,6 +65,10 @@ public class DimmingPage extends RAPage {
 		pwmeText[4] = (TextView) pwmeRow[4].findViewById( R.id.rowValue );
 		pwmeRow[5] = (TableRow) findViewById( R.id.rowPWME5 );
 		pwmeText[5] = (TextView) pwmeRow[5].findViewById( R.id.rowValue );
+		for ( int i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
+			pwmeText[i].setLongClickable( true );;
+			pwmeText[i].setOnLongClickListener( this );
+		}
 
 	}
 
@@ -91,10 +100,50 @@ public class DimmingPage extends RAPage {
 			pwmeText[i].setText( v[i] );
 		}
 	}
+	
+	public void updatePWMValues ( short[] v ) {
+		for ( int i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
+			pwmeValues[i] = v[i];
+		}
+	}
 
 	@Override
 	public String getPageTitle ( ) {
 		return ctx.getResources().getString( R.string.labelDimming );
+	}
+
+	@Override
+	public boolean onLongClick ( View v ) {
+		View parent = (View) v.getParent();
+		switch ( parent.getId() ) {
+			default:
+				return false;
+			case R.id.rowPWME0:
+				displayOverridePopup((short)Globals.OVERRIDE_CHANNEL0, (short)0, 
+				                     ctx.getString( R.string.prefExpDimmingCh0LabelTitle ));
+				break;
+			case R.id.rowPWME1:
+				displayOverridePopup((short)Globals.OVERRIDE_CHANNEL1, (short)0, 
+				                     ctx.getString( R.string.prefExpDimmingCh1LabelTitle ));
+				break;
+			case R.id.rowPWME2:
+				displayOverridePopup((short)Globals.OVERRIDE_CHANNEL2, (short)0, 
+				                     ctx.getString( R.string.prefExpDimmingCh2LabelTitle ));
+				break;
+			case R.id.rowPWME3:
+				displayOverridePopup((short)Globals.OVERRIDE_CHANNEL3, (short)0, 
+				                     ctx.getString( R.string.prefExpDimmingCh3LabelTitle ));
+				break;
+			case R.id.rowPWME4:
+				displayOverridePopup((short)Globals.OVERRIDE_CHANNEL4, (short)0, 
+				                     ctx.getString( R.string.prefExpDimmingCh4LabelTitle ));
+				break;
+			case R.id.rowPWME5:
+				displayOverridePopup((short)Globals.OVERRIDE_CHANNEL5, (short)0,
+				                     ctx.getString( R.string.prefExpDimmingCh5LabelTitle ));
+				break;
+		}
+		return true;
 	}
 
 }
