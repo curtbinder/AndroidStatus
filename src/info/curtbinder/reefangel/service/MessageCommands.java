@@ -68,6 +68,7 @@ public final class MessageCommands {
 	public static final String NOTIFICATION_LAUNCH_INTENT =
 			PACKAGE_BASE + ".NOTIFICATION_LAUNCH";
 	
+	public static final String OVERRIDE_POPUP_INTENT = PACKAGE_BASE + ".OVERRIDE_POPUP";
 	public static final String OVERRIDE_SEND_INTENT = PACKAGE_BASE + ".OVERRIDE_SEND";
 	public static final String OVERRIDE_SEND_LOCATION_INT = "OVERRIDE_SEND_LOCATION_INT";
 	public static final String OVERRIDE_SEND_VALUE_INT = "OVERRIDE_SEND_VALUE_INT";

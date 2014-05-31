@@ -127,6 +127,7 @@ public class StatusActivity extends BaseActivity implements
 		filter.addAction( MessageCommands.COMMAND_RESPONSE_INTENT );
 		filter.addAction( MessageCommands.VERSION_RESPONSE_INTENT );
 		filter.addAction( MessageCommands.OVERRIDE_RESPONSE_INTENT );
+		filter.addAction( MessageCommands.OVERRIDE_POPUP_INTENT );
 
 		vortechModes =
 				getResources().getStringArray( R.array.vortechModeLabels );
@@ -440,7 +441,7 @@ public class StatusActivity extends BaseActivity implements
 		String[] ai;
 		String[] io;
 		String[] custom;
-		short r, ron, roff, newEM, newEM1, newREM;
+		short r, ron, roff, newEM, newEM1, newREM, apValue, dpValue;
 		short[] expr = new short[Controller.MAX_EXPANSION_RELAYS];
 		short[] expron = new short[Controller.MAX_EXPANSION_RELAYS];
 		short[] exproff = new short[Controller.MAX_EXPANSION_RELAYS];
@@ -449,6 +450,8 @@ public class StatusActivity extends BaseActivity implements
 			updateStatus =
 					c.getString( c.getColumnIndex( StatusTable.COL_LOGDATE ) );
 			values = getControllerValues( c );
+			apValue = c.getShort( c.getColumnIndex( StatusTable.COL_AP ) );
+			dpValue = c.getShort( c.getColumnIndex(  StatusTable.COL_DP ) );
 			pwme = getPWMEValues( c );
 			rf = getRadionValues( c );
 			vt = getVortechValues( c );
@@ -511,7 +514,7 @@ public class StatusActivity extends BaseActivity implements
 			ai = getNeverValues( Controller.MAX_AI_CHANNELS );
 			io = getNeverValues( Controller.MAX_IO_CHANNELS );
 			custom = getNeverValues( Controller.MAX_CUSTOM_VARIABLES );
-			r = ron = roff = newEM = newEM1 = newREM = 0;
+			r = ron = roff = newEM = newEM1 = newREM = apValue = dpValue = 0;
 			for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 				expr[i] = expron[i] = exproff[i] = 0;
 			}
@@ -520,6 +523,7 @@ public class StatusActivity extends BaseActivity implements
 		
 		updateTime.setText( updateStatus );
 		pageController.updateDisplay( values );
+		pageController.updatePWMValues( apValue, dpValue );
 		pageDimming.updateDisplay( pwme );
 		pageRadion.updateDisplay( rf );
 		pageVortech.updateDisplay( vt );
@@ -582,6 +586,17 @@ public class StatusActivity extends BaseActivity implements
 			} else if ( action.equals( MessageCommands.OVERRIDE_RESPONSE_INTENT ) ) {
 				String response = intent.getStringExtra(MessageCommands.OVERRIDE_RESPONSE_STRING);
 				displayResponse(response);
+			} else if ( action.equals( MessageCommands.OVERRIDE_POPUP_INTENT ) ) {
+				// message to display the popup
+				Log.d(TAG, "override popup");
+				Intent i = new Intent(StatusActivity.this, OverridePopupActivity.class);
+				i.putExtra( OverridePopupActivity.MESSAGE_KEY, 
+				            intent.getStringExtra( OverridePopupActivity.MESSAGE_KEY ) );
+				i.putExtra( OverridePopupActivity.CHANNEL_KEY, 
+				            intent.getIntExtra( OverridePopupActivity.CHANNEL_KEY, 0) );
+				i.putExtra( OverridePopupActivity.VALUE_KEY, 
+				            intent.getShortExtra( OverridePopupActivity.VALUE_KEY, (short) 0) );
+				startActivity(i);
 			} else if ( action.equals( MessageCommands.COMMAND_RESPONSE_INTENT ) ) {
 				String response =
 						intent.getStringExtra( MessageCommands.COMMAND_RESPONSE_STRING );

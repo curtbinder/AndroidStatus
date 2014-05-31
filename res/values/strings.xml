@@ -40,6 +40,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <string name="titleNotifications">Notifications</string>
     <string name="titleCreateNotification">Create Notification</string>
     <string name="titleUpdateNotification">Update Notification</string>
+    <string name="titleOverride">PWM Override</string>
 
     <!-- Tabs for memory page -->
     <string name="tabMemory1">memory_tab_1</string>
@@ -97,6 +98,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="buttonAdd">Add</string>
     <string name="buttonDelete">Delete</string>
     <string name="buttonSave">Save</string>
+    <string name="buttonClear">Clear</string>
+    <string name="buttonSet">Set</string>
     <string name="radioByte">Byte</string>
     <string name="radioInt">Int</string>
 

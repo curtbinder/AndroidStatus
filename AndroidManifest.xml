@@ -81,6 +81,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:theme="@style/Dialog" >
         </activity>
         <activity
+            android:name=".OverridePopupActivity"
+            android:label="@string/titleOverride"
+            android:theme="@style/Dialog" >
+        </activity>
+        <activity
             android:name=".PrefsActivity"
             android:label="@string/titlePrefs" >
         </activity>
