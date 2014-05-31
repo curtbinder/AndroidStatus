@@ -119,27 +119,27 @@ public class DimmingPage extends RAPage
 			default:
 				return false;
 			case R.id.rowPWME0:
-				displayOverridePopup(Globals.OVERRIDE_CHANNEL0, (short)0, 
+				displayOverridePopup(Globals.OVERRIDE_CHANNEL0, pwmeValues[0], 
 				                     ctx.getString( R.string.prefExpDimmingCh0LabelTitle ));
 				break;
 			case R.id.rowPWME1:
-				displayOverridePopup(Globals.OVERRIDE_CHANNEL1, (short)0, 
+				displayOverridePopup(Globals.OVERRIDE_CHANNEL1, pwmeValues[1], 
 				                     ctx.getString( R.string.prefExpDimmingCh1LabelTitle ));
 				break;
 			case R.id.rowPWME2:
-				displayOverridePopup(Globals.OVERRIDE_CHANNEL2, (short)0, 
+				displayOverridePopup(Globals.OVERRIDE_CHANNEL2, pwmeValues[2], 
 				                     ctx.getString( R.string.prefExpDimmingCh2LabelTitle ));
 				break;
 			case R.id.rowPWME3:
-				displayOverridePopup(Globals.OVERRIDE_CHANNEL3, (short)0, 
+				displayOverridePopup(Globals.OVERRIDE_CHANNEL3, pwmeValues[3], 
 				                     ctx.getString( R.string.prefExpDimmingCh3LabelTitle ));
 				break;
 			case R.id.rowPWME4:
-				displayOverridePopup(Globals.OVERRIDE_CHANNEL4, (short)0, 
+				displayOverridePopup(Globals.OVERRIDE_CHANNEL4, pwmeValues[4], 
 				                     ctx.getString( R.string.prefExpDimmingCh4LabelTitle ));
 				break;
 			case R.id.rowPWME5:
-				displayOverridePopup(Globals.OVERRIDE_CHANNEL5, (short)0,
+				displayOverridePopup(Globals.OVERRIDE_CHANNEL5, pwmeValues[5],
 				                     ctx.getString( R.string.prefExpDimmingCh5LabelTitle ));
 				break;
 		}
