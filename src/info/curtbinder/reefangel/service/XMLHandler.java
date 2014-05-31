@@ -140,6 +140,8 @@ public class XMLHandler extends DefaultHandler {
 
 		} else if ( requestType.equals( RequestCommands.Version ) ) {
 			processVersionXml( tag );
+		} else if ( requestType.equals( RequestCommands.PwmOverride ) ) {
+			processPWMOverrideResponseXml( tag );
 		} else if ( requestType.equals( RequestCommands.ExitMode ) ) {
 			processModeXml( tag );
 		} else {
@@ -179,7 +181,10 @@ public class XMLHandler extends DefaultHandler {
 			} else if ( tag.startsWith( XMLTags.MemorySingle ) ) {
 				// can be either type, just chose to use Bytes
 				requestType = RequestCommands.MemoryByte;
+			} else if ( tag.startsWith( XMLTags.PWMOverrideResponse ) ) {
+				requestType = RequestCommands.PwmOverride;
 			} else {
+				Log.d(TAG, "startElement: (Unknown): " + tag );
 				requestType = RequestCommands.None;
 			}
 		}
@@ -338,8 +343,7 @@ public class XMLHandler extends DefaultHandler {
 	}
 
 	private void processPwmOverride ( String tag, String element ) {
-		// FIXME Handle Override Tags
-		Log.d( TAG, "Override tag (" + tag + ") with data: " + element );
+//		Log.d( TAG, "Override tag (" + tag + ") with data: " + element );
 		Short value = Short.parseShort( element );
 		if ( tag.startsWith( XMLTags.PWMActinic ) ) {
 			ra.setPwmAOverride( value );
@@ -490,6 +494,13 @@ public class XMLHandler extends DefaultHandler {
 		// Responses will be either: OK, value, ERR
 		if ( tag.startsWith( XMLTags.MemorySingle ) ) {
 			memoryResponse = currentElementText;
+		}
+	}
+	
+	private void processPWMOverrideResponseXml ( String tag ) {
+		// Responses will be either: OK or ERR
+		if ( tag.startsWith( XMLTags.PWMOverrideResponse ) ) {
+			modeResponse = currentElementText;
 		}
 	}
 
