@@ -99,22 +99,31 @@ public class AIPage extends RAPage
 	@Override
 	public boolean onLongClick ( View v ) {
 		View parent = (View) v.getParent();
+		String msg;
 		switch ( parent.getId() ) {
 			default:
 				return false;
 			case R.id.rowAIWhite:
-				displayOverridePopup(Globals.OVERRIDE_AI_WHITE, aiValues[0], 
-				                     ctx.getString( R.string.labelWhite ));
+				msg = getPopupMessage( R.string.labelWhite );
+				displayOverridePopup(Globals.OVERRIDE_AI_WHITE, aiValues[0], msg);
 				break;
 			case R.id.rowAIBlue:
-				displayOverridePopup(Globals.OVERRIDE_AI_BLUE, aiValues[1], 
-				                     ctx.getString( R.string.labelBlue ));
+				msg = getPopupMessage( R.string.labelBlue );
+				displayOverridePopup(Globals.OVERRIDE_AI_BLUE, aiValues[1], msg);
 				break;
 			case R.id.rowAIRoyalBlue:
-				displayOverridePopup(Globals.OVERRIDE_AI_ROYALBLUE, aiValues[2],
-				                     ctx.getString( R.string.labelRoyalBlue ));
+				msg = getPopupMessage( R.string.labelRoyalBlue );
+				displayOverridePopup(Globals.OVERRIDE_AI_ROYALBLUE, aiValues[2], msg);
 				break;
 		}
 		return true;
+	}
+	
+	private String getPopupMessage ( int stringId ) {
+		// TODO consider getting the text from textview widget like the dimming page
+		String label = ctx.getString( R.string.labelAI );
+		String channel = ctx.getString( R.string.labelChannel );
+		String msg = label + " " + ctx.getString( stringId ) + " " + channel;
+		return msg;
 	}
 }

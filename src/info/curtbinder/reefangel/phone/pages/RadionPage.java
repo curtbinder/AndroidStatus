@@ -118,35 +118,44 @@ public class RadionPage extends RAPage
 	@Override
 	public boolean onLongClick ( View v ) {
 		View parent = (View) v.getParent();
+		String msg;
 		switch ( parent.getId() ) {
 			default:
 				return false;
 			case R.id.rowWhite:
-				displayOverridePopup(Globals.OVERRIDE_RF_WHITE, radionValues[0], 
-				                     ctx.getString( R.string.labelWhite ));
+				msg = getPopupMessage( R.string.labelWhite );
+				displayOverridePopup(Globals.OVERRIDE_RF_WHITE, radionValues[0], msg);
 				break;
 			case R.id.rowRoyalBlue:
-				displayOverridePopup(Globals.OVERRIDE_RF_ROYALBLUE, radionValues[1],
-				                     ctx.getString( R.string.labelRoyalBlue ));
+				msg = getPopupMessage( R.string.labelRoyalBlue );
+				displayOverridePopup(Globals.OVERRIDE_RF_ROYALBLUE, radionValues[1], msg);
 				break;
 			case R.id.rowRed:
-				displayOverridePopup(Globals.OVERRIDE_RF_RED, radionValues[2], 
-				                     ctx.getString( R.string.labelRed ));
+				msg = getPopupMessage( R.string.labelRed );
+				displayOverridePopup(Globals.OVERRIDE_RF_RED, radionValues[2], msg);
 				break;
 			case R.id.rowGreen:
-				displayOverridePopup(Globals.OVERRIDE_RF_GREEN, radionValues[3],
-				                     ctx.getString( R.string.labelGreen ));
+				msg = getPopupMessage( R.string.labelGreen );
+				displayOverridePopup(Globals.OVERRIDE_RF_GREEN, radionValues[3], msg);
 				break;
 			case R.id.rowBlue:
-				displayOverridePopup(Globals.OVERRIDE_RF_BLUE, radionValues[4],
-				                     ctx.getString( R.string.labelBlue ));
+				msg = getPopupMessage( R.string.labelBlue );
+				displayOverridePopup(Globals.OVERRIDE_RF_BLUE, radionValues[4], msg);
 				break;
 			case R.id.rowIntensity:
-				displayOverridePopup(Globals.OVERRIDE_RF_INTENSITY, radionValues[5], 
-				                     ctx.getString( R.string.labelIntensity ));
+				msg = getPopupMessage( R.string.labelIntensity );
+				displayOverridePopup(Globals.OVERRIDE_RF_INTENSITY, radionValues[5], msg);
 				break;
 		}
 		return true;
+	}
+	
+	private String getPopupMessage ( int stringId ) {
+		// TODO consider getting the text from textview widget like the dimming page
+		String label = ctx.getString( R.string.labelRadion );
+		String channel = ctx.getString( R.string.labelChannel );
+		String msg = label + " " + ctx.getString( stringId ) + " " + channel;
+		return msg;
 	}
 
 }

@@ -218,6 +218,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="messageMoreErrors">+%1$d more</string>
     <string name="messageGBMoreErrorss">%1$s - %2$d errors</string>
     <string name="messageUnsupported">Unsupported command</string>
+    <string name="messagePWMPopupCustom">%1$s (%2$s)</string>
 
     <!-- Status strings -->
     <string name="statusStart">Starting update</string>

@@ -8,6 +8,8 @@
 
 package info.curtbinder.reefangel.phone.pages;
 
+import java.util.Locale;
+
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.phone.Globals;
 import info.curtbinder.reefangel.phone.R;
@@ -75,9 +77,8 @@ public class DimmingPage extends RAPage
 	public void setLabel ( int channel, String label ) {
 		((TextView) pwmeRow[channel].findViewById( R.id.rowTitle ))
 				.setText( label );
-		String s =
-				new String( String.format( "%s %d", ctx.getResources()
-						.getString( R.string.labelChannel ), channel ) );
+		String s = String.format( Locale.getDefault(), 
+		                          "%s %d", ctx.getString( R.string.labelChannel ), channel );
 		((TextView) pwmeRow[channel].findViewById( R.id.rowSubTitle ))
 				.setText( s );
 	}
@@ -109,41 +110,52 @@ public class DimmingPage extends RAPage
 
 	@Override
 	public String getPageTitle ( ) {
-		return ctx.getResources().getString( R.string.labelDimming );
+		return ctx.getString( R.string.labelDimming );
 	}
 
 	@Override
 	public boolean onLongClick ( View v ) {
 		View parent = (View) v.getParent();
+		String msg;
 		switch ( parent.getId() ) {
 			default:
 				return false;
 			case R.id.rowPWME0:
-				displayOverridePopup(Globals.OVERRIDE_CHANNEL0, pwmeValues[0], 
-				                     ctx.getString( R.string.prefExpDimmingCh0LabelTitle ));
+				msg = getPopupMessage(0, R.string.prefExpDimmingCh0LabelTitle);
+				displayOverridePopup(Globals.OVERRIDE_CHANNEL0, pwmeValues[0], msg);
 				break;
 			case R.id.rowPWME1:
-				displayOverridePopup(Globals.OVERRIDE_CHANNEL1, pwmeValues[1], 
-				                     ctx.getString( R.string.prefExpDimmingCh1LabelTitle ));
+				msg = getPopupMessage(1, R.string.prefExpDimmingCh1LabelTitle);
+				displayOverridePopup(Globals.OVERRIDE_CHANNEL1, pwmeValues[1], msg);
 				break;
 			case R.id.rowPWME2:
-				displayOverridePopup(Globals.OVERRIDE_CHANNEL2, pwmeValues[2], 
-				                     ctx.getString( R.string.prefExpDimmingCh2LabelTitle ));
+				msg = getPopupMessage(2, R.string.prefExpDimmingCh2LabelTitle);
+				displayOverridePopup(Globals.OVERRIDE_CHANNEL2, pwmeValues[2], msg);
 				break;
 			case R.id.rowPWME3:
-				displayOverridePopup(Globals.OVERRIDE_CHANNEL3, pwmeValues[3], 
-				                     ctx.getString( R.string.prefExpDimmingCh3LabelTitle ));
+				msg = getPopupMessage(3, R.string.prefExpDimmingCh3LabelTitle);
+				displayOverridePopup(Globals.OVERRIDE_CHANNEL3, pwmeValues[3], msg);
 				break;
 			case R.id.rowPWME4:
-				displayOverridePopup(Globals.OVERRIDE_CHANNEL4, pwmeValues[4], 
-				                     ctx.getString( R.string.prefExpDimmingCh4LabelTitle ));
+				msg = getPopupMessage(4, R.string.prefExpDimmingCh4LabelTitle);
+				displayOverridePopup(Globals.OVERRIDE_CHANNEL4, pwmeValues[4], msg);
 				break;
 			case R.id.rowPWME5:
-				displayOverridePopup(Globals.OVERRIDE_CHANNEL5, pwmeValues[5],
-				                     ctx.getString( R.string.prefExpDimmingCh5LabelTitle ));
+				msg = getPopupMessage(5, R.string.prefExpDimmingCh5LabelTitle);
+				displayOverridePopup(Globals.OVERRIDE_CHANNEL5, pwmeValues[5], msg);
 				break;
 		}
 		return true;
+	}
+	
+	private String getRowTitle ( int channel ) {
+		return ((TextView) pwmeRow[channel].findViewById( R.id.rowTitle )).getText().toString();
+	}
+	
+	private String getPopupMessage ( int channel, int stringId ) {
+		return String.format(Locale.getDefault(), ctx.getString( R.string.messagePWMPopupCustom), 
+			                    getRowTitle(channel),
+			                    ctx.getString( stringId ));
 	}
 
 }
