@@ -9,19 +9,24 @@
 package info.curtbinder.reefangel.phone.pages;
 
 import info.curtbinder.reefangel.controller.Controller;
+import info.curtbinder.reefangel.phone.Globals;
 import info.curtbinder.reefangel.phone.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-public class RadionPage extends RAPage {
+public class RadionPage extends RAPage
+	implements OnLongClickListener {
 	// private static final String TAG = RadionWidget.class.getSimpleName();
 
 	Context ctx; // saved context from parent
 	private TextView[] radionText =
 			new TextView[Controller.MAX_RADION_LIGHT_CHANNELS];
+	private short[] radionValues = new short[Controller.MAX_RADION_LIGHT_CHANNELS];
 
 	public RadionPage ( Context context ) {
 		super( context );
@@ -82,6 +87,10 @@ public class RadionPage extends RAPage {
 		tv = (TextView) tr.findViewById( R.id.rowTitle );
 		tv.setText( R.string.labelIntensity );
 
+		for ( int i = 0; i < Controller.MAX_RADION_LIGHT_CHANNELS; i++ ) {
+			radionText[i].setLongClickable( true );
+			radionText[i].setOnLongClickListener( this );
+		}
 	}
 
 	public void setLabel ( int channel, String label ) {
@@ -94,10 +103,50 @@ public class RadionPage extends RAPage {
 			radionText[i].setText( v[i] );
 		}
 	}
+	
+	public void updatePWMValues ( short[] v ) {
+		for ( int i = 0; i < Controller.MAX_RADION_LIGHT_CHANNELS; i++ ) {
+			radionValues[i] = v[i];
+		}
+	}
 
 	@Override
 	public String getPageTitle ( ) {
-		return ctx.getResources().getString( R.string.labelRadion );
+		return ctx.getString( R.string.labelRadion );
+	}
+
+	@Override
+	public boolean onLongClick ( View v ) {
+		View parent = (View) v.getParent();
+		switch ( parent.getId() ) {
+			default:
+				return false;
+			case R.id.rowWhite:
+				displayOverridePopup(Globals.OVERRIDE_RF_WHITE, radionValues[0], 
+				                     ctx.getString( R.string.labelWhite ));
+				break;
+			case R.id.rowRoyalBlue:
+				displayOverridePopup(Globals.OVERRIDE_RF_ROYALBLUE, radionValues[1],
+				                     ctx.getString( R.string.labelRoyalBlue ));
+				break;
+			case R.id.rowRed:
+				displayOverridePopup(Globals.OVERRIDE_RF_RED, radionValues[2], 
+				                     ctx.getString( R.string.labelRed ));
+				break;
+			case R.id.rowGreen:
+				displayOverridePopup(Globals.OVERRIDE_RF_GREEN, radionValues[3],
+				                     ctx.getString( R.string.labelGreen ));
+				break;
+			case R.id.rowBlue:
+				displayOverridePopup(Globals.OVERRIDE_RF_BLUE, radionValues[4],
+				                     ctx.getString( R.string.labelBlue ));
+				break;
+			case R.id.rowIntensity:
+				displayOverridePopup(Globals.OVERRIDE_RF_INTENSITY, radionValues[5], 
+				                     ctx.getString( R.string.labelIntensity ));
+				break;
+		}
+		return true;
 	}
 
 }

@@ -443,6 +443,7 @@ public class StatusActivity extends BaseActivity implements
 		String[] custom;
 		short r, ron, roff, newEM, newEM1, newREM, apValue, dpValue;
 		short[] pwmeValues = new short[Controller.MAX_PWM_EXPANSION_PORTS];
+		short[] radionValues = new short[Controller.MAX_RADION_LIGHT_CHANNELS];
 		short[] expr = new short[Controller.MAX_EXPANSION_RELAYS];
 		short[] expron = new short[Controller.MAX_EXPANSION_RELAYS];
 		short[] exproff = new short[Controller.MAX_EXPANSION_RELAYS];
@@ -456,6 +457,7 @@ public class StatusActivity extends BaseActivity implements
 			pwme = getPWMETextValues( c );
 			pwmeValues = getPWMEValues( c );
 			rf = getRadionTextValues( c );
+			radionValues = getRadionValues( c );
 			vt = getVortechValues( c );
 			ai = getAIValues( c );
 			io = getIOValues( c );
@@ -523,6 +525,9 @@ public class StatusActivity extends BaseActivity implements
 			for ( int i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
 				pwmeValues[i] = 0;
 			}
+			for ( int i = 0; i < Controller.MAX_RADION_LIGHT_CHANNELS; i++ ) {
+				radionValues[i] = 0;
+			}
 		}
 		c.close();
 		
@@ -532,6 +537,7 @@ public class StatusActivity extends BaseActivity implements
 		pageDimming.updateDisplay( pwme );
 		pageDimming.updatePWMValues( pwmeValues );
 		pageRadion.updateDisplay( rf );
+		pageRadion.updatePWMValues( radionValues );
 		pageVortech.updateDisplay( vt );
 		pageAI.updateDisplay( ai );
 		pageIO.updateDisplay( io );
@@ -594,7 +600,6 @@ public class StatusActivity extends BaseActivity implements
 				displayResponse(response);
 			} else if ( action.equals( MessageCommands.OVERRIDE_POPUP_INTENT ) ) {
 				// message to display the popup
-				Log.d(TAG, "override popup");
 				Intent i = new Intent(StatusActivity.this, OverridePopupActivity.class);
 				i.putExtra( OverridePopupActivity.MESSAGE_KEY, 
 				            intent.getStringExtra( OverridePopupActivity.MESSAGE_KEY ) );
@@ -731,6 +736,17 @@ public class StatusActivity extends BaseActivity implements
 		sa[5] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_RFI) ),
 	                                           c.getShort( c.getColumnIndex(StatusTable.COL_RFIO)));
 		return sa;
+	}
+	
+	private short[] getRadionValues ( Cursor c ) {
+		short[] v = new short[Controller.MAX_RADION_LIGHT_CHANNELS];
+		v[0] = c.getShort( c.getColumnIndex(StatusTable.COL_RFW) );
+		v[1] = c.getShort( c.getColumnIndex(StatusTable.COL_RFRB) );
+		v[2] = c.getShort( c.getColumnIndex(StatusTable.COL_RFR) );
+		v[3] = c.getShort( c.getColumnIndex(StatusTable.COL_RFG) );
+		v[4] = c.getShort( c.getColumnIndex(StatusTable.COL_RFB) );
+		v[5] = c.getShort( c.getColumnIndex(StatusTable.COL_RFI) );
+		return v;
 	}
 
 	private String[] getVortechValues ( Cursor c ) {
