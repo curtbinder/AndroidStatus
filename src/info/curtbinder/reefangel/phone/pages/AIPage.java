@@ -9,18 +9,23 @@
 package info.curtbinder.reefangel.phone.pages;
 
 import info.curtbinder.reefangel.controller.Controller;
+import info.curtbinder.reefangel.phone.Globals;
 import info.curtbinder.reefangel.phone.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-public class AIPage extends RAPage {
+public class AIPage extends RAPage
+	implements OnLongClickListener {
 	// private static final String TAG = AIWidget.class.getSimpleName();
 
 	Context ctx; // saved context from parent
 	private TextView[] aiText = new TextView[Controller.MAX_AI_CHANNELS];
+	private short[] aiValues = new short[Controller.MAX_AI_CHANNELS];
 
 	public AIPage ( Context context ) {
 		super( context );
@@ -62,6 +67,11 @@ public class AIPage extends RAPage {
 		tv = (TextView) tr.findViewById( R.id.rowTitle );
 		tv.setTextColor( ctx.getResources().getColor( R.color.royalblue ) );
 		tv.setText( R.string.labelRoyalBlue );
+		
+		for ( int i = 0; i < Controller.MAX_AI_CHANNELS; i++ ) {
+			aiText[i].setLongClickable( true );
+			aiText[i].setOnLongClickListener( this );
+		}
 	}
 
 	public void setLabel ( int channel, String label ) {
@@ -74,10 +84,37 @@ public class AIPage extends RAPage {
 			aiText[i].setText( v[i] );
 		}
 	}
+	
+	public void updatePWMValues ( short[] v ) {
+		for ( int i = 0; i < Controller.MAX_AI_CHANNELS; i++ ) {
+			aiValues[i] = v[i];
+		}
+	}
 
 	@Override
 	public String getPageTitle ( ) {
-		return ctx.getResources().getString( R.string.labelAI );
+		return ctx.getString( R.string.labelAI );
 	}
 
+	@Override
+	public boolean onLongClick ( View v ) {
+		View parent = (View) v.getParent();
+		switch ( parent.getId() ) {
+			default:
+				return false;
+			case R.id.rowAIWhite:
+				displayOverridePopup(Globals.OVERRIDE_AI_WHITE, aiValues[0], 
+				                     ctx.getString( R.string.labelWhite ));
+				break;
+			case R.id.rowAIBlue:
+				displayOverridePopup(Globals.OVERRIDE_AI_BLUE, aiValues[1], 
+				                     ctx.getString( R.string.labelBlue ));
+				break;
+			case R.id.rowAIRoyalBlue:
+				displayOverridePopup(Globals.OVERRIDE_AI_ROYALBLUE, aiValues[2],
+				                     ctx.getString( R.string.labelRoyalBlue ));
+				break;
+		}
+		return true;
+	}
 }

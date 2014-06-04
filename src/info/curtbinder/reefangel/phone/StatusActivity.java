@@ -444,6 +444,7 @@ public class StatusActivity extends BaseActivity implements
 		short r, ron, roff, newEM, newEM1, newREM, apValue, dpValue;
 		short[] pwmeValues = new short[Controller.MAX_PWM_EXPANSION_PORTS];
 		short[] radionValues = new short[Controller.MAX_RADION_LIGHT_CHANNELS];
+		short[] aiValues = new short[Controller.MAX_AI_CHANNELS];
 		short[] expr = new short[Controller.MAX_EXPANSION_RELAYS];
 		short[] expron = new short[Controller.MAX_EXPANSION_RELAYS];
 		short[] exproff = new short[Controller.MAX_EXPANSION_RELAYS];
@@ -459,7 +460,8 @@ public class StatusActivity extends BaseActivity implements
 			rf = getRadionTextValues( c );
 			radionValues = getRadionValues( c );
 			vt = getVortechValues( c );
-			ai = getAIValues( c );
+			ai = getAITextValues( c );
+			aiValues = getAIValues( c );
 			io = getIOValues( c );
 			custom = getCustomValues( c );
 			r = c.getShort( c.getColumnIndex( StatusTable.COL_RDATA ) );
@@ -519,14 +521,18 @@ public class StatusActivity extends BaseActivity implements
 			io = getNeverValues( Controller.MAX_IO_CHANNELS );
 			custom = getNeverValues( Controller.MAX_CUSTOM_VARIABLES );
 			r = ron = roff = newEM = newEM1 = newREM = apValue = dpValue = 0;
-			for ( int i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
+			int i;
+			for ( i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 				expr[i] = expron[i] = exproff[i] = 0;
 			}
-			for ( int i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
+			for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
 				pwmeValues[i] = 0;
 			}
-			for ( int i = 0; i < Controller.MAX_RADION_LIGHT_CHANNELS; i++ ) {
+			for ( i = 0; i < Controller.MAX_RADION_LIGHT_CHANNELS; i++ ) {
 				radionValues[i] = 0;
+			}
+			for ( i = 0; i < Controller.MAX_AI_CHANNELS; i++ ) {
+				aiValues[i] = 0;
 			}
 		}
 		c.close();
@@ -540,6 +546,7 @@ public class StatusActivity extends BaseActivity implements
 		pageRadion.updatePWMValues( radionValues );
 		pageVortech.updateDisplay( vt );
 		pageAI.updateDisplay( ai );
+		pageAI.updatePWMValues( aiValues );
 		pageIO.updateDisplay( io );
 		pageCustom.updateDisplay( custom );
 		boolean fUseMask = rapp.raprefs.isCommunicateController();
@@ -790,7 +797,7 @@ public class StatusActivity extends BaseActivity implements
 		return sa;
 	}
 
-	private String[] getAIValues ( Cursor c ) {
+	private String[] getAITextValues ( Cursor c ) {
 		String[] sa = new String[Controller.MAX_AI_CHANNELS];
 		sa[Controller.AI_WHITE] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_AIW) ),
 		                                       c.getShort( c.getColumnIndex(StatusTable.COL_AIWO)));
@@ -799,6 +806,14 @@ public class StatusActivity extends BaseActivity implements
 		sa[Controller.AI_ROYALBLUE] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_AIRB) ),
 		                                       c.getShort( c.getColumnIndex(StatusTable.COL_AIRBO)));
 		return sa;
+	}
+	
+	private short[] getAIValues ( Cursor c ) {
+		short[] v = new short[Controller.MAX_AI_CHANNELS];
+		v[0] = c.getShort( c.getColumnIndex(StatusTable.COL_AIW) );
+		v[1] = c.getShort( c.getColumnIndex(StatusTable.COL_AIB) );
+		v[2] = c.getShort( c.getColumnIndex(StatusTable.COL_AIRB) );
+		return v;
 	}
 
 	private String[] getIOValues ( Cursor c ) {
