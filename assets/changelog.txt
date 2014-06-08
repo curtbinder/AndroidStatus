@@ -1,5 +1,10 @@
 <html>
 <body>
+<b>0.9.5</b>
+<ul>
+<li>added in pwm override control</li>
+</ul>
+<br>
 <b>0.9.4</b>
 <ul>
 <li>improved XML downloading</li>
@@ -33,32 +38,6 @@
 <li>fixed problem where buttons were not clickable after being on portal and switching to controller</li>
 <li>fixed expansion relay bug with autoupdate modules</li>
 <li>code cleanup</li>
-</ul>
-<br>
-<b>0.9.1</b>
-<ul>
-<li>allow spaces to be in forum usernames</li>
-</ul>
-<br>
-<b>0.9.0</b>
-<ul>
-<li>added actionbar support</li>
-	<ul>
-	<li>profile toggle</li>
-	<li>refresh</li>
-	</ul>
-<li>added indicators to pages</li>
-<li>added commands page to swipe left from the status page</li>
-<li>added new icons</li>
-<li>added lights on / off commands</li>
-<li>added displaying of ATO high and low status on controller page</li>
-<li>improved / updated all page layouts to be more consistent</li>
-<li>fixed crash with downloading labels</li>
-<li>download PWMA, PWMD, WL labels from portal</li>
-<li>linked Vortech page to Radion big with auto module update</li>
-<li>added 1 minute refresh interval</li>
-<li>service no longer runs constantly</li>
-<li>code updates and cleanup</li>
 </ul>
 </body>
 </html>

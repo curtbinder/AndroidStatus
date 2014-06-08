@@ -205,3 +205,6 @@ Changelog of all the versions of AndroidStatus
  * added humidity expansion
  * code cleanup
  
+0.9.5
+ * added in pwm override control
+ 
