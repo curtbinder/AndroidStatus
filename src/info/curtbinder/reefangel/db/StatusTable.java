@@ -110,6 +110,8 @@ public class StatusTable {
 	public static final String COL_RFGO = "rfgo";
 	public static final String COL_RFBO = "rfbo";
 	public static final String COL_RFIO = "rfio";
+	public static final String COL_AF = "af";
+	public static final String COL_SF = "sf";
 	
 
 	public static void onCreate ( SQLiteDatabase db ) {
@@ -170,7 +172,9 @@ public class StatusTable {
 					+ COL_RFRO + " INTEGER DEFAULT 255, " 
 					+ COL_RFGO + " INTEGER DEFAULT 255, " 
 					+ COL_RFBO + " INTEGER DEFAULT 255, " 
-					+ COL_RFIO + " INTEGER DEFAULT 255 "
+					+ COL_RFIO + " INTEGER DEFAULT 255, "
+					+ COL_AF + " INTEGER DEFAULT 0, "
+					+ COL_SF + " INTEGER DEFAULT 0 "
 					
 					+ ");" );
 
@@ -198,6 +202,9 @@ public class StatusTable {
 					break;
 				case 9:
 					upgradeToVersion9(db);
+					break;
+				case 10:
+					upgradeToVersion10(db);
 					break;
 			}
 		}
@@ -259,5 +266,11 @@ public class StatusTable {
 		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_RFGO + " INTEGER DEFAULT 255;" );
 		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_RFBO + " INTEGER DEFAULT 255;" );
 		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_RFIO + " INTEGER DEFAULT 255;" );
+	}
+	
+	private static void upgradeToVersion10(SQLiteDatabase db) {
+		// add in alert and status flags fields
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_AF + " INTEGER DEFAULT 0;" );
+		db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SF + " INTEGER DEFAULT 0;" );
 	}
 }
