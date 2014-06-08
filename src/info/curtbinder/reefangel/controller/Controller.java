@@ -25,7 +25,9 @@ public class Controller {
 	public static final byte MAX_RADION_LIGHT_CHANNELS = 6;
 	public static final byte MAX_VORTECH_VALUES = 3;
 	public static final byte MAX_WATERLEVEL_PORTS = 5;
-
+	public static final byte MAX_STATUS_FLAGS = 3;
+	public static final byte MAX_ALERT_FLAGS = 4;
+	
 	// First set of expansion modules - EM
 	public static final short MODULE_DIMMING = 1 << 0;
 	public static final short MODULE_RF = 1 << 1;
@@ -597,6 +599,10 @@ public class Controller {
 		flagsStatus = flags;
 	}
 	
+	public short getStatusFlags ( ) {
+		return flagsStatus;
+	}
+	
 	public static boolean isLightsOnFlagSet ( short flags ) {
 		return (flags & SF_LIGHTSON) == SF_LIGHTSON;
 	}
@@ -611,6 +617,10 @@ public class Controller {
 	
 	public void setAlertFlags ( short flags ) {
 		flagsAlert = flags;
+	}
+	
+	public short getAlertFlags ( ) {
+		return flagsAlert;
 	}
 	
 	public static boolean isATOTimeoutFlagSet ( short flags ) {

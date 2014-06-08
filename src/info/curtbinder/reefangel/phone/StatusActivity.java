@@ -17,6 +17,7 @@ import info.curtbinder.reefangel.phone.pages.CommandsPage;
 import info.curtbinder.reefangel.phone.pages.ControllerPage;
 import info.curtbinder.reefangel.phone.pages.CustomPage;
 import info.curtbinder.reefangel.phone.pages.DimmingPage;
+import info.curtbinder.reefangel.phone.pages.FlagsPage;
 import info.curtbinder.reefangel.phone.pages.IOPage;
 import info.curtbinder.reefangel.phone.pages.RAPage;
 import info.curtbinder.reefangel.phone.pages.RadionPage;
@@ -73,7 +74,8 @@ public class StatusActivity extends BaseActivity implements
 	private static final int POS_START = 0;
 
 	private static final int POS_COMMANDS = POS_START;
-	private static final int POS_CONTROLLER = POS_START + 1;
+	private static final int POS_FLAGS = POS_START + 1;
+	private static final int POS_CONTROLLER = POS_START + 2;
 
 	private static final int POS_MODULES = POS_CONTROLLER + 10;
 	private static final int POS_DIMMING = POS_MODULES;
@@ -96,6 +98,7 @@ public class StatusActivity extends BaseActivity implements
 	private static final int POS_END = POS_CUSTOM + 1;
 
 	private CommandsPage pageCommands;
+	private FlagsPage pageFlags;
 	private ControllerPage pageController;
 	private DimmingPage pageDimming;
 	private RadionPage pageRadion;
@@ -212,6 +215,7 @@ public class StatusActivity extends BaseActivity implements
 	private void createViews ( ) {
 		Context ctx = rapp.getBaseContext();
 		pageCommands = new CommandsPage( ctx );
+		pageFlags = new FlagsPage( ctx );
 		pageController = new ControllerPage( ctx );
 		pageDimming = new DimmingPage( ctx );
 		pageRadion = new RadionPage( ctx );
@@ -442,7 +446,7 @@ public class StatusActivity extends BaseActivity implements
 		String[] ai;
 		String[] io;
 		String[] custom;
-		short r, ron, roff, newEM, newEM1, newREM, apValue, dpValue;
+		short r, ron, roff, newEM, newEM1, newREM, apValue, dpValue, af, sf;
 		short[] pwmeValues = new short[Controller.MAX_PWM_EXPANSION_PORTS];
 		short[] radionValues = new short[Controller.MAX_RADION_LIGHT_CHANNELS];
 		short[] aiValues = new short[Controller.MAX_AI_CHANNELS];
@@ -512,6 +516,8 @@ public class StatusActivity extends BaseActivity implements
 			newEM = c.getShort( c.getColumnIndex( StatusTable.COL_EM ) );
 			newEM1 = c.getShort( c.getColumnIndex( StatusTable.COL_EM1 ) );
 			newREM = c.getShort( c.getColumnIndex( StatusTable.COL_REM ) );
+			sf = c.getShort( c.getColumnIndex( StatusTable.COL_SF ) );
+			af = c.getShort( c.getColumnIndex( StatusTable.COL_AF ) );
 		} else {
 			updateStatus = getString( R.string.messageNever );
 			values = getNeverValues( Controller.MAX_CONTROLLER_VALUES );
@@ -521,7 +527,7 @@ public class StatusActivity extends BaseActivity implements
 			ai = getNeverValues( Controller.MAX_AI_CHANNELS );
 			io = getNeverValues( Controller.MAX_IO_CHANNELS );
 			custom = getNeverValues( Controller.MAX_CUSTOM_VARIABLES );
-			r = ron = roff = newEM = newEM1 = newREM = apValue = dpValue = 0;
+			r = ron = roff = newEM = newEM1 = newREM = apValue = dpValue = sf = af = 0;
 			int i;
 			for ( i = 0; i < Controller.MAX_EXPANSION_RELAYS; i++ ) {
 				expr[i] = expron[i] = exproff[i] = 0;
@@ -541,6 +547,8 @@ public class StatusActivity extends BaseActivity implements
 		updateTime.setText( updateStatus );
 		pageController.updateDisplay( values );
 		pageController.updatePWMValues( apValue, dpValue );
+		pageFlags.updateStatus( sf );
+		pageFlags.updateAlert( af );
 		pageDimming.updateDisplay( pwme );
 		pageDimming.updatePWMValues( pwmeValues );
 		pageRadion.updateDisplay( rf );
@@ -1077,6 +1085,10 @@ public class StatusActivity extends BaseActivity implements
 				case POS_COMMANDS:
 					// Log.d( TAG, j + ": Commands" );
 					appPages[j] = pageCommands;
+					j++;
+					break;
+				case POS_FLAGS:
+					appPages[j] = pageFlags;
 					j++;
 					break;
 				case POS_CONTROLLER:

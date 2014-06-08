@@ -41,6 +41,9 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <string name="titleCreateNotification">Create Notification</string>
     <string name="titleUpdateNotification">Update Notification</string>
     <string name="titleOverride">PWM Override</string>
+    <string name="titleFlags">Flags</string>
+    <string name="titleAlert">Alert Flags</string>
+    <string name="titleStatus">Status Flags</string>
 
     <!-- Tabs for memory page -->
     <string name="tabMemory1">memory_tab_1</string>
@@ -173,6 +176,10 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="labelPwmOverride">PWM Override</string>
     <string name="labelParameter">Parameter:</string>
     <string name="labelCondition">Condition:</string>
+    <string name="labelAtoTimeout">ATO Timeout</string>
+    <string name="labelOverheatTimeout">Overheat Timeout</string>
+    <string name="labelBusLock">Bus Lock</string>
+    <string name="labelLeak">Leak</string>
     <string name="websiteReefangel">http://www.reefangel.com/</string>
     <string name="forumReefangel">http://forum.reefangel.com/</string>
     <string name="defaultStatusText">-</string>

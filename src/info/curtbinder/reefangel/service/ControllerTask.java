@@ -449,6 +449,8 @@ public class ControllerTask implements Runnable {
 		v.put( StatusTable.COL_RFGO, ra.getRadionChannelOverride( Controller.RADION_GREEN ) );
 		v.put( StatusTable.COL_RFBO, ra.getRadionChannelOverride( Controller.RADION_BLUE ) );
 		v.put( StatusTable.COL_RFIO, ra.getRadionChannelOverride( Controller.RADION_INTENSITY ) );
+		v.put( StatusTable.COL_SF, ra.getStatusFlags() );
+		v.put( StatusTable.COL_AF, ra.getAlertFlags() );
 		rapp.getContentResolver()
 				.insert(	Uri.parse( StatusProvider.CONTENT_URI + "/"
 										+ StatusProvider.PATH_STATUS ), v );
