@@ -130,9 +130,13 @@ public class Host {
 		return this.write;
 	}
 	
-	public void setOverrideLocation ( int port, int value ) {
+	public void setOverrideChannel ( int port, int value ) {
 		this.location = port;
 		this.value = value;
+	}
+	
+	public int getOverrideChannel ( ) {
+		return this.location;
 	}
 	
 	public void setCalibrateType ( int type ) {

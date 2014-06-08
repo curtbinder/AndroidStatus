@@ -8,7 +8,6 @@
 
 package info.curtbinder.reefangel.phone;
 
-import info.curtbinder.reefangel.db.RADbHelper;
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;
 
@@ -326,8 +325,65 @@ public class RAApplication extends Application {
 		return true;
 	}
 
+	public String getPWMOverrideChannelName ( int channel ) {
+		String name = "";
+		switch ( channel ) {
+			case Globals.OVERRIDE_DAYLIGHT:
+				name = raprefs.getDPLabel();
+				break;
+			case Globals.OVERRIDE_ACTINIC:
+				name = raprefs.getAPLabel();
+				break;
+			case Globals.OVERRIDE_CHANNEL0:
+				name = raprefs.getDimmingModuleChannelLabel( 0 );
+				break;
+			case Globals.OVERRIDE_CHANNEL1:
+				name = raprefs.getDimmingModuleChannelLabel( 1 );
+				break;
+			case Globals.OVERRIDE_CHANNEL2:
+				name = raprefs.getDimmingModuleChannelLabel( 2 );
+				break;
+			case Globals.OVERRIDE_CHANNEL3:
+				name = raprefs.getDimmingModuleChannelLabel( 3 );
+				break;
+			case Globals.OVERRIDE_CHANNEL4:
+				name = raprefs.getDimmingModuleChannelLabel( 4 );
+				break;
+			case Globals.OVERRIDE_CHANNEL5:
+				name = raprefs.getDimmingModuleChannelLabel( 5 );
+				break;
+			case Globals.OVERRIDE_AI_WHITE:
+				name = getString( R.string.labelAI ) + " " + getString( R.string.labelWhite );
+				break;
+			case Globals.OVERRIDE_AI_ROYALBLUE:
+				name = getString( R.string.labelAI ) + " " + getString( R.string.labelRoyalBlue );
+				break;
+			case Globals.OVERRIDE_AI_BLUE:
+				name = getString( R.string.labelAI ) + " " + getString( R.string.labelBlue );
+				break;
+			case Globals.OVERRIDE_RF_WHITE:
+				name = getString( R.string.labelRadion ) + " " + getString( R.string.labelWhite );
+				break;
+			case Globals.OVERRIDE_RF_ROYALBLUE:
+				name = getString( R.string.labelRadion ) + " " + getString( R.string.labelRoyalBlue );
+				break;
+			case Globals.OVERRIDE_RF_RED:
+				name = getString( R.string.labelRadion ) + " " + getString( R.string.labelRed );
+				break;
+			case Globals.OVERRIDE_RF_GREEN:
+				name = getString( R.string.labelRadion ) + " " + getString( R.string.labelGreen );
+				break;
+			case Globals.OVERRIDE_RF_BLUE:
+				name = getString( R.string.labelRadion ) + " " + getString( R.string.labelBlue );
+				break;
+			case Globals.OVERRIDE_RF_INTENSITY:
+				name = getString( R.string.labelRadion ) + " " + getString( R.string.labelIntensity );
+				break;
+		}
+		return name;
+	}
+	
 	// Preferences
-
 	public boolean isFirstRun ( ) {
 		// First run will be determined by:
 		// if the first run key is NOT set AND

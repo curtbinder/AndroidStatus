@@ -604,9 +604,8 @@ public class StatusActivity extends BaseActivity implements
 									Toast.LENGTH_LONG ).show();
 				}
 			} else if ( action.equals( MessageCommands.OVERRIDE_RESPONSE_INTENT ) ) {
-				Log.d(TAG, "override response intent");
 				String response = intent.getStringExtra(MessageCommands.OVERRIDE_RESPONSE_STRING);
-				displayFinishedResponse(response);
+				displayToastResponse(response, R.string.statusRefreshNeeded);
 			} else if ( action.equals( MessageCommands.OVERRIDE_POPUP_INTENT ) ) {
 				// message to display the popup
 				Intent i = new Intent(StatusActivity.this, OverridePopupActivity.class);
@@ -624,7 +623,7 @@ public class StatusActivity extends BaseActivity implements
 			} else if ( action.equals( MessageCommands.CALIBRATE_RESPONSE_INTENT ) ) {
 				String response =
 						intent.getStringExtra( MessageCommands.CALIBRATE_RESPONSE_STRING );
-				displayFinishedResponse(response);				
+				displayToastResponse(response, R.string.statusFinished );				
 			} else if ( action.equals( MessageCommands.VERSION_RESPONSE_INTENT ) ) {
 				// set the version button's text to the version of the software
 				((Button) findViewById( R.id.command_button_version ))
@@ -643,8 +642,8 @@ public class StatusActivity extends BaseActivity implements
 		}	
 	}
 
-	private void displayFinishedResponse(String response) {
-		updateTime.setText( R.string.statusFinished );
+	private void displayToastResponse(String response, int stringId) {
+		updateTime.setText( stringId );
 		Toast.makeText( StatusActivity.this, response,
 						Toast.LENGTH_LONG ).show();
 	}

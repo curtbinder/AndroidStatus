@@ -196,7 +196,7 @@ public class ControllerTask implements Runnable {
 			broadcastCalibrateResponse(getCalibrateResponseMessage(host.getCalibrateType()),
 			                         xml.getModeResponse());
 		} else if ( host.getCommand().equals( RequestCommands.PwmOverride ) ) {
-			broadcastCommandResponse( R.string.labelPwmOverride, 
+			broadcastOverrideResponse( host.getOverrideChannel(), 
 			                          xml.getModeResponse() );
 		} else if ( host.getCommand().equals( RequestCommands.Version ) ) {
 			Intent i = new Intent( MessageCommands.VERSION_RESPONSE_INTENT );
@@ -246,6 +246,18 @@ public class ControllerTask implements Runnable {
 		i.putExtra( MessageCommands.CALIBRATE_RESPONSE_STRING,
 					msg + " " + response );
 		rapp.sendBroadcast( i, Permissions.SEND_COMMAND );	
+	}
+	
+	private void broadcastOverrideResponse ( int channel, String response ) {
+		// get channel name
+		// create response -  channel: MESSAGE
+		String msg = rapp.getPWMOverrideChannelName( channel ) 
+				+ rapp.getString( R.string.labelSeparator );
+		Log.d( TAG, msg + " " + response );
+		Intent i = new Intent( MessageCommands.OVERRIDE_RESPONSE_INTENT );
+		i.putExtra( MessageCommands.OVERRIDE_RESPONSE_STRING, 
+		            msg + " " + response );
+		rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
 	}
 	
 	private void broadcastCommandResponse ( int id, String response ) {
