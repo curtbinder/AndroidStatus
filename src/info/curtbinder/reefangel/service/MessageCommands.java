@@ -14,6 +14,12 @@ public final class MessageCommands {
 
 	public static final String AUTO_UPDATE_PROFILE_INT =
 			PACKAGE_BASE + ".AUTO_UPDATE_PROFILE_INT";
+	
+	public static final String CALIBRATE_RESPONSE_INTENT = PACKAGE_BASE + ".CALIBRATE_RESPONSE";
+	public static final String CALIBRATE_RESPONSE_STRING = PACKAGE_BASE + ".CALIBRATE_RESPONSE_STRING";
+	public static final String CALIBRATE_SEND_INTENT = PACKAGE_BASE + ".CALIBRATE_SEND";
+	public static final String CALIBRATE_SEND_LOCATION_INT = "CALIBRATE_SEND_LOCATION_INT";
+	
 	public static final String COMMAND_RESPONSE_INTENT =
 			PACKAGE_BASE + ".COMMAND_RESPOSNE";
 	public static final String COMMAND_RESPONSE_STRING =

@@ -103,4 +103,11 @@ public final class Globals {
 	public static final int OVERRIDE_RF_BLUE = 15;
 	public static final int OVERRIDE_RF_INTENSITY = 16;
 	//public static final int OVERRIDE_CHANNELS = 17;
+	
+	// calibrate locations
+	public static final int CALIBRATE_PH = 0;
+	public static final int CALIBRATE_SALINITY = 1;
+	public static final int CALIBRATE_ORP = 2;
+	public static final int CALIBRATE_PHE = 3;
+	public static final int CALIBRATE_WATERLEVEL = 4;
 }

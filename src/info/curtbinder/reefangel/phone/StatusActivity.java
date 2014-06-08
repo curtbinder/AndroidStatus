@@ -128,6 +128,7 @@ public class StatusActivity extends BaseActivity implements
 		filter.addAction( MessageCommands.VERSION_RESPONSE_INTENT );
 		filter.addAction( MessageCommands.OVERRIDE_RESPONSE_INTENT );
 		filter.addAction( MessageCommands.OVERRIDE_POPUP_INTENT );
+		filter.addAction( MessageCommands.CALIBRATE_RESPONSE_INTENT );
 
 		vortechModes =
 				getResources().getStringArray( R.array.vortechModeLabels );
@@ -603,8 +604,9 @@ public class StatusActivity extends BaseActivity implements
 									Toast.LENGTH_LONG ).show();
 				}
 			} else if ( action.equals( MessageCommands.OVERRIDE_RESPONSE_INTENT ) ) {
+				Log.d(TAG, "override response intent");
 				String response = intent.getStringExtra(MessageCommands.OVERRIDE_RESPONSE_STRING);
-				displayResponse(response);
+				displayFinishedResponse(response);
 			} else if ( action.equals( MessageCommands.OVERRIDE_POPUP_INTENT ) ) {
 				// message to display the popup
 				Intent i = new Intent(StatusActivity.this, OverridePopupActivity.class);
@@ -619,6 +621,10 @@ public class StatusActivity extends BaseActivity implements
 				String response =
 						intent.getStringExtra( MessageCommands.COMMAND_RESPONSE_STRING );
 				displayResponse(response);
+			} else if ( action.equals( MessageCommands.CALIBRATE_RESPONSE_INTENT ) ) {
+				String response =
+						intent.getStringExtra( MessageCommands.CALIBRATE_RESPONSE_STRING );
+				displayFinishedResponse(response);				
 			} else if ( action.equals( MessageCommands.VERSION_RESPONSE_INTENT ) ) {
 				// set the version button's text to the version of the software
 				((Button) findViewById( R.id.command_button_version ))
@@ -637,6 +643,12 @@ public class StatusActivity extends BaseActivity implements
 		}	
 	}
 
+	private void displayFinishedResponse(String response) {
+		updateTime.setText( R.string.statusFinished );
+		Toast.makeText( StatusActivity.this, response,
+						Toast.LENGTH_LONG ).show();
+	}
+	
 	private String[] getNeverValues ( int qty ) {
 		String[] s = new String[qty];
 		for ( int i = 0; i < qty; i++ ) {

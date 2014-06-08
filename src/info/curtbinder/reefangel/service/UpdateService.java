@@ -188,6 +188,14 @@ public class UpdateService extends IntentService {
 			}
 			h.setCommand( intent
 					.getStringExtra( MessageCommands.COMMAND_SEND_STRING ) );
+		} else if ( action.equals( MessageCommands.CALIBRATE_SEND_INTENT ) ) {
+			if ( !isController ) {
+				notControllerMessage();
+				return;
+			}
+			h.setCommand( RequestCommands.Calibrate );
+			h.setCalibrateType( intent.getIntExtra(MessageCommands.CALIBRATE_SEND_LOCATION_INT, 
+			                                       Globals.CALIBRATE_PH) );
 		} else if ( action.equals( MessageCommands.VERSION_QUERY_INTENT ) ) {
 			if ( !isController ) {
 				notControllerMessage();

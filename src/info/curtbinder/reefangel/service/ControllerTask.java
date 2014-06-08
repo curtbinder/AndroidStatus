@@ -12,6 +12,7 @@ import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.controller.Relay;
 import info.curtbinder.reefangel.db.StatusProvider;
 import info.curtbinder.reefangel.db.StatusTable;
+import info.curtbinder.reefangel.phone.Globals;
 import info.curtbinder.reefangel.phone.Permissions;
 import info.curtbinder.reefangel.phone.R;
 import info.curtbinder.reefangel.phone.RAApplication;
@@ -191,6 +192,9 @@ public class ControllerTask implements Runnable {
 		} else if ( host.getCommand().equals( RequestCommands.Reboot ) ) {
 			broadcastCommandResponse(	R.string.labelReboot,
 										xml.getModeResponse() );
+		} else if ( host.getCommand().equals( RequestCommands.Calibrate ) ) {
+			broadcastCalibrateResponse(getCalibrateResponseMessage(host.getCalibrateType()),
+			                         xml.getModeResponse());
 		} else if ( host.getCommand().equals( RequestCommands.PwmOverride ) ) {
 			broadcastCommandResponse( R.string.labelPwmOverride, 
 			                          xml.getModeResponse() );
@@ -212,16 +216,45 @@ public class ControllerTask implements Runnable {
 		}
 	}
 
+	private String getCalibrateResponseMessage ( int location ) {
+		int id;
+		switch ( location ) {
+			default:
+			case Globals.CALIBRATE_PH:
+				id = R.string.labelCalibratePH;
+				break;
+			case Globals.CALIBRATE_PHE:
+				id = R.string.labelCalibratePHExp;
+				break;
+			case Globals.CALIBRATE_ORP:
+				id = R.string.labelCalibrateORP;
+				break;
+			case Globals.CALIBRATE_SALINITY:
+				id = R.string.labelCalibrateSalinity;
+				break;
+			case Globals.CALIBRATE_WATERLEVEL:
+				id = R.string.labelCalibrateWaterLevel;
+				break;
+		}
+		return rapp.getString(id);
+	}
+	
+	private void broadcastCalibrateResponse ( String msg, String response ) {
+		msg += rapp.getString( R.string.labelSeparator );
+		Log.d(	TAG, msg + " " + response );
+		Intent i = new Intent( MessageCommands.CALIBRATE_RESPONSE_INTENT );
+		i.putExtra( MessageCommands.CALIBRATE_RESPONSE_STRING,
+					msg + " " + response );
+		rapp.sendBroadcast( i, Permissions.SEND_COMMAND );	
+	}
+	
 	private void broadcastCommandResponse ( int id, String response ) {
-		Log.d(	TAG,
-				rapp.getString( id ) + rapp.getString( R.string.labelSeparator )
-						+ " " + response );
+		String msg = rapp.getString( id ) + rapp.getString( R.string.labelSeparator );
+		Log.d(	TAG, msg + " " + response );
 		Intent i = new Intent( MessageCommands.COMMAND_RESPONSE_INTENT );
 		i.putExtra( MessageCommands.COMMAND_RESPONSE_STRING,
-					rapp.getString( id )
-							+ rapp.getString( R.string.labelSeparator ) + " "
-							+ response );
-		rapp.sendBroadcast( i, Permissions.SEND_COMMAND );
+					msg + " " + response );
+		rapp.sendBroadcast( i, Permissions.SEND_COMMAND );	
 	}
 
 	// FIXME improve preference saving

@@ -25,11 +25,6 @@ public final class RequestCommands {
 	public static final String LightsOn = "/l1";
 	public static final String LightsOff = "/l0";
 	public static final String Reboot = "/boot";
-	public static final String CalibratePH = "/cal0";
-	public static final String CalibrateSalinity = "/cal1";
-	public static final String CalibrateORP = "/cal2";
-	public static final String CalibratePHE = "/cal3";
-	public static final String CalibrateWaterLevel = "/cal4";
 	public static final String Calibrate = "/cal";
 	public static final String PwmOverride = "/po";
 	public static final String None = "";

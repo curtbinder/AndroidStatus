@@ -138,6 +138,10 @@ public class Host {
 	public void setCalibrateType ( int type ) {
 		this.location = type;
 	}
+	
+	public int getCalibrateType ( ) {
+		return this.location;
+	}
 
 	public String toString ( ) {
 		// TODO improve error message with a null host string
