@@ -134,6 +134,10 @@ public class Host {
 		this.location = port;
 		this.value = value;
 	}
+	
+	public void setCalibrateType ( int type ) {
+		this.location = type;
+	}
 
 	public String toString ( ) {
 		// TODO improve error message with a null host string
@@ -150,22 +154,23 @@ public class Host {
 				|| (command.equals( RequestCommands.LightsOn ))
 				|| (command.equals( RequestCommands.LightsOff ))
 				|| (command.equals( RequestCommands.Reboot )) ) {
-			s =
-					new String( String.format(	"http://%s:%d%s", host, port,
+			s = new String( String.format(	"http://%s:%d%s", host, port,
 												command ) );
 		} else if ( (command.equals( RequestCommands.MemoryInt ))
 					|| (command.equals( RequestCommands.MemoryByte )) ) {
 			if ( write ) {
-				s =
-						new String( String.format(	"http://%s:%d%s%d,%d",
+				s = new String( String.format(	"http://%s:%d%s%d,%d",
 													host,
 													port, command, location,
 													value ) );
 			} else {
-				s =
-						new String( String.format(	"http://%s:%d%s%d", host,
+				s = new String( String.format(	"http://%s:%d%s%d", host,
 													port, command, location ) );
 			}
+		} else if ( command.equals( RequestCommands.Calibrate ) ) {
+			s = new String ( String.format( "http://%s:%d%s%d",
+			                                host, port,
+			                                command, location) );
 		} else if ( command.equals( RequestCommands.PwmOverride ) ) {
 			s = new String ( String.format( "http://%s:%d%s%d,%d",
 			                                host, port,
