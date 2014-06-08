@@ -40,7 +40,18 @@ public class Controller {
 	public static final short MODULE_HUMIDITY = 1 << 0;
 	public static final short MODULE_DCPUMP = 1 << 1;
 	public static final short MODULE_LEAKDETECTOR = 1 << 2;
-
+	
+	// Status flags - SF
+	public static final short SF_LIGHTSON = 1 << 0;
+	public static final short SF_FEEDING = 1 << 1;
+	public static final short SF_WATERCHANGE = 1 << 2;
+	
+	// Alert flags - AF
+	public static final short AF_ATOTIMEOUT = 1 << 0;
+	public static final short AF_OVERHEAT = 1 << 1;
+	public static final short AF_BUSLOCK = 1 << 2;
+	public static final short AF_LEAK = 1 << 3;
+	
 	// AI channels
 	public static final byte AI_WHITE = 0;
 	public static final byte AI_BLUE = 1;
@@ -77,6 +88,8 @@ public class Controller {
 	private short expansionModules;
 	private short expansionModules1;
 	private short relayExpansionModules;
+	private short flagsAlert;
+	private short flagsStatus;
 	private short ioChannels;
 	private String[] ioChannelsLabels;
 	private ShortWithLabelOverride[] pwmExpansion;
@@ -127,6 +140,8 @@ public class Controller {
 		expansionModules = 0;
 		expansionModules1 = 0;
 		relayExpansionModules = 0;
+		flagsStatus = 0;
+		flagsAlert = 0;
 		ioChannels = 0;
 		ioChannelsLabels = new String[MAX_IO_CHANNELS];
 		for ( i = 0; i < MAX_IO_CHANNELS; i++ ) {
@@ -578,6 +593,42 @@ public class Controller {
 		return qty;
 	}
 
+	public void setStatusFlags ( short flags ) {
+		flagsStatus = flags;
+	}
+	
+	public static boolean isLightsOnFlagSet ( short flags ) {
+		return (flags & SF_LIGHTSON) == SF_LIGHTSON;
+	}
+	
+	public static boolean isFeedingFlagSet ( short flags ) {
+		return (flags & SF_FEEDING) == SF_FEEDING;
+	}
+	
+	public static boolean isWaterChangeFlagSet ( short flags ) {
+		return (flags & SF_WATERCHANGE) == SF_WATERCHANGE;
+	}
+	
+	public void setAlertFlags ( short flags ) {
+		flagsAlert = flags;
+	}
+	
+	public static boolean isATOTimeoutFlagSet ( short flags ) {
+		return (flags & AF_ATOTIMEOUT) == AF_ATOTIMEOUT;
+	}
+	
+	public static boolean isOverheatFlagSet ( short flags ) {
+		return (flags & AF_OVERHEAT) == AF_OVERHEAT;
+	}
+	
+	public static boolean isBusLockFlagSet ( short flags ) {
+		return (flags & AF_BUSLOCK) == AF_BUSLOCK;
+	}
+	
+	public static boolean isLeakFlagSet ( short flags ) {
+		return (flags & AF_LEAK) == AF_LEAK;
+	}
+	
 	public short getIOChannels ( ) {
 		return ioChannels;
 	}

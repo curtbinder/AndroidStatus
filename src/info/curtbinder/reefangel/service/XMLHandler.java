@@ -304,6 +304,10 @@ public class XMLHandler extends DefaultHandler {
 			short p = Short.parseShort( tag.substring( XMLTags.WaterLevel.length() ) );
 			short v = Short.parseShort( currentElementText );
 			ra.setWaterLevel( p, v );
+		} else if ( tag.equals( XMLTags.StatusFlags ) ) {
+			ra.setStatusFlags( Short.parseShort(currentElementText) );
+		} else if ( tag.equals( XMLTags.AlertFlags ) ) {
+			ra.setAlertFlags( Short.parseShort(currentElementText) );
 		} else if ( tag.startsWith( XMLTags.RelayMaskOn ) ) {
 			int relay =
 					Integer.parseInt( tag.substring( XMLTags.RelayMaskOn

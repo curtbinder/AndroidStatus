@@ -56,6 +56,8 @@ public final class XMLTags {
 	public static final String LeakDetector = "LEAK";
 	public static final String Override = "O";
 	public static final String PWMOverrideResponse = "P";
+	public static final String StatusFlags = "SF";
+	public static final String AlertFlags = "AF";
 	public static final String MyReefAngelID = "MYREEFANGELID";
 	public static final String Hour = "HR";
 	public static final String Minute = "MIN";
