@@ -12,7 +12,6 @@ import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.phone.R;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -88,54 +87,75 @@ public class FlagsPage extends RAPage {
 	}
 
 	public void updateStatus ( short flags ) {
-		Log.d("FlagsPage", "UpdateStatus: " + flags);
 		int id;
+		int color;
 		if ( Controller.isLightsOnFlagSet( flags ) ) {
 			id = R.string.labelON;
+			color = ctx.getResources().getColor( R.color.red );
 		} else {
 			id = R.string.labelOFF;
+			color = ctx.getResources().getColor( R.color.green );
 		}
 		flagsStatusText[0].setText( id );
+		flagsStatusText[0].setTextColor( color );
 		if ( Controller.isFeedingFlagSet( flags ) ) {
 			id = R.string.labelON;
+			color = ctx.getResources().getColor( R.color.red );
 		} else {
 			id = R.string.labelOFF;
+			color = ctx.getResources().getColor( R.color.green );
 		}
 		flagsStatusText[1].setText( id );
+		flagsStatusText[1].setTextColor( color );
 		if ( Controller.isWaterChangeFlagSet( flags ) ) {
 			id = R.string.labelON;
+			color = ctx.getResources().getColor( R.color.red );
 		} else {
 			id = R.string.labelOFF;
+			color = ctx.getResources().getColor( R.color.green );
 		}
 		flagsStatusText[2].setText( id );
+		flagsStatusText[2].setTextColor( color );
 	}
 	
 	public void updateAlert ( short flags ) {
-		Log.d("FlagsPage", "UpdateAlert: " + flags);
 		int id;
+		int color;
 		if ( Controller.isATOTimeoutFlagSet( flags ) ) {
 			id = R.string.labelON;
+			color = ctx.getResources().getColor( R.color.red );
 		} else {
 			id = R.string.labelOFF;
+			color = ctx.getResources().getColor( R.color.green );
 		}
 		flagsAlertText[0].setText( id );
+		flagsAlertText[0].setTextColor( color );
 		if ( Controller.isOverheatFlagSet( flags ) ) {
 			id = R.string.labelON;
+			color = ctx.getResources().getColor( R.color.red );
 		} else {
 			id = R.string.labelOFF;
+			color = ctx.getResources().getColor( R.color.green );
 		}
 		flagsAlertText[1].setText( id );
+		flagsAlertText[1].setTextColor( color );
 		if ( Controller.isBusLockFlagSet( flags ) ) {
 			id = R.string.labelON;
+			color = ctx.getResources().getColor( R.color.red );
 		} else {
 			id = R.string.labelOFF;
+			color = ctx.getResources().getColor( R.color.green );
 		}
 		flagsAlertText[2].setText( id );
+		flagsAlertText[2].setTextColor( color );
 		if ( Controller.isLeakFlagSet( flags ) ) {
 			id = R.string.labelON;
+			color = ctx.getResources().getColor( R.color.red );
 		} else {
 			id = R.string.labelOFF;
+			color = ctx.getResources().getColor( R.color.green );
 		}
 		flagsAlertText[3].setText( id );
+		flagsAlertText[3].setTextColor( color );
 	}
 }
