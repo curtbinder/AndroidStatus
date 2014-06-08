@@ -207,4 +207,6 @@ Changelog of all the versions of AndroidStatus
  
 0.9.5
  * added in pwm override control
+ * added in flags page to display Status and Alert flags
+ 
  
