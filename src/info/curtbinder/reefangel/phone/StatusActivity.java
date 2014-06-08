@@ -68,8 +68,8 @@ public class StatusActivity extends BaseActivity implements
 	private TitlePageIndicator titleIndicator;
 	private String[] vortechModes;
 	private View[] appPages;
-	// minimum number of pages: status, main relay
-	private static final int MIN_PAGES = 3;
+	// minimum number of pages: commands, flags, status, main relay
+	private static final int MIN_PAGES = 4;
 
 	private static final int POS_START = 0;
 
