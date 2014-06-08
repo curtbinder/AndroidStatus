@@ -52,15 +52,11 @@ public class RAApplication extends Application {
 	public int errorCode;
 	public int errorCount;
 
-	// Controller Data
-	public RADbHelper data;
-
 	public void onCreate ( ) {
 		errorCodes = getResources().getStringArray( R.array.errorCodes );
 		errorCodesStrings =
 				getResources().getStringArray( R.array.errorCodesStrings );
 		errorCode = 0; // set to no error initially
-		data = new RADbHelper( this );
 		raprefs = new RAPreferences( this );
 
 		// initialize the error count
@@ -69,7 +65,6 @@ public class RAApplication extends Application {
 
 	public void onTerminate ( ) {
 		super.onTerminate();
-		data.close();
 	}
 
 	public void restartAutoUpdateService ( ) {
