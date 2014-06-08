@@ -30,6 +30,7 @@ public final class RequestCommands {
 	public static final String CalibrateORP = "/cal2";
 	public static final String CalibratePHE = "/cal3";
 	public static final String CalibrateWaterLevel = "/cal4";
+	public static final String Calibrate "/cal";
 	public static final String PwmOverride = "/po";
 	public static final String None = "";
 	public static final String ReefAngel = "ra";
