@@ -608,11 +608,11 @@ public class StatusActivity extends BaseActivity implements
 				displayToastResponse(response, R.string.statusRefreshNeeded);
 			} else if ( action.equals( MessageCommands.OVERRIDE_POPUP_INTENT ) ) {
 				// message to display the popup
+				int channel = intent.getIntExtra( OverridePopupActivity.CHANNEL_KEY, 0);
+				String msg = rapp.getPWMOverrideMessageDisplay( channel );
 				Intent i = new Intent(StatusActivity.this, OverridePopupActivity.class);
-				i.putExtra( OverridePopupActivity.MESSAGE_KEY, 
-				            intent.getStringExtra( OverridePopupActivity.MESSAGE_KEY ) );
-				i.putExtra( OverridePopupActivity.CHANNEL_KEY, 
-				            intent.getIntExtra( OverridePopupActivity.CHANNEL_KEY, 0) );
+				i.putExtra( OverridePopupActivity.MESSAGE_KEY, msg ); 
+				i.putExtra( OverridePopupActivity.CHANNEL_KEY, channel);
 				i.putExtra( OverridePopupActivity.VALUE_KEY, 
 				            intent.getShortExtra( OverridePopupActivity.VALUE_KEY, (short) 0) );
 				startActivity(i);

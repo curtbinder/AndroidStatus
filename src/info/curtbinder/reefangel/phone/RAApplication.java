@@ -383,6 +383,65 @@ public class RAApplication extends Application {
 		return name;
 	}
 	
+	public String getPWMOverrideMessageDisplay ( int channel ) {
+		String msg = "";
+		String name = getPWMOverrideChannelName(channel);
+		switch ( channel ) {
+			case Globals.OVERRIDE_DAYLIGHT:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefDPVisibilityTitle) );
+				break;
+			case Globals.OVERRIDE_ACTINIC:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefAPVisibilityTitle) );
+				break;
+			case Globals.OVERRIDE_CHANNEL0:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpDimmingCh0LabelTitle));
+				break;
+			case Globals.OVERRIDE_CHANNEL1:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpDimmingCh1LabelTitle) );
+				break;
+			case Globals.OVERRIDE_CHANNEL2:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpDimmingCh2LabelTitle) );
+				break;
+			case Globals.OVERRIDE_CHANNEL3:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpDimmingCh3LabelTitle) );
+				break;
+			case Globals.OVERRIDE_CHANNEL4:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpDimmingCh4LabelTitle) );
+				break;
+			case Globals.OVERRIDE_CHANNEL5:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpDimmingCh5LabelTitle) );
+				break;
+			case Globals.OVERRIDE_AI_WHITE:
+			case Globals.OVERRIDE_AI_ROYALBLUE:
+			case Globals.OVERRIDE_AI_BLUE:
+			case Globals.OVERRIDE_RF_WHITE:
+			case Globals.OVERRIDE_RF_ROYALBLUE:
+			case Globals.OVERRIDE_RF_RED:
+			case Globals.OVERRIDE_RF_GREEN:
+			case Globals.OVERRIDE_RF_BLUE:
+			case Globals.OVERRIDE_RF_INTENSITY:
+				msg = name + " " + getString( R.string.labelChannel );
+				break;
+		}
+		return msg;
+	}
+	
 	// Preferences
 	public boolean isFirstRun ( ) {
 		// First run will be determined by:

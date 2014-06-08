@@ -28,9 +28,8 @@ public abstract class RAPage extends ScrollView {
 
 	public abstract String getPageTitle ( );
 	
-	protected void displayOverridePopup( int channel, short value, String msg ) {
+	protected void displayOverridePopup( int channel, short value ) {
 		Intent i = new Intent( MessageCommands.OVERRIDE_POPUP_INTENT );
-		i.putExtra( OverridePopupActivity.MESSAGE_KEY, msg );
 		i.putExtra( OverridePopupActivity.CHANNEL_KEY, channel );
 		i.putExtra( OverridePopupActivity.VALUE_KEY, value );
 		this.getContext().sendBroadcast( i, Permissions.SEND_COMMAND );

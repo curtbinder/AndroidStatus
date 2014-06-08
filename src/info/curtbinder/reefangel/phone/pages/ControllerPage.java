@@ -8,8 +8,6 @@
 
 package info.curtbinder.reefangel.phone.pages;
 
-import java.util.Locale;
-
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.phone.Globals;
 import info.curtbinder.reefangel.phone.R;
@@ -179,32 +177,12 @@ public class ControllerPage extends RAPage
 	public boolean onLongClick ( View v ) {
 		View parent = (View) v.getParent();
 		if ( parent.getId() == R.id.dp_row ) {
-			displayOverridePopup(Globals.OVERRIDE_DAYLIGHT, dpValue, 
-			                     getPopupMessage(false));
+			displayOverridePopup(Globals.OVERRIDE_DAYLIGHT, dpValue); 
 		} else if ( parent.getId() == R.id.ap_row ) {
-			displayOverridePopup(Globals.OVERRIDE_ACTINIC, apValue, 
-			                     getPopupMessage(true));
+			displayOverridePopup(Globals.OVERRIDE_ACTINIC, apValue);
 		} else {
 			return false;
 		}
 		return true;
-	}
-	
-	private String getPopupMessage ( boolean fAP ) {
-		String msg;
-		int index;
-		int stringId;
-		if ( fAP ) {
-			index = AP_INDEX;
-			stringId = R.string.prefAPVisibilityTitle;
-		} else {
-			index = DP_INDEX;
-			stringId = R.string.prefDPVisibilityTitle;
-		}
-		msg = String.format( Locale.getDefault(),
-		                     ctx.getString( R.string.messagePWMPopupCustom),  
-		                     ((TextView) deviceRow[index].findViewById( R.id.rowTitle )).getText().toString(),
-		                     ctx.getString( stringId ));
-		return msg;
 	}
 }

@@ -8,11 +8,12 @@
 
 package info.curtbinder.reefangel.phone.pages;
 
-import java.util.Locale;
-
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.phone.Globals;
 import info.curtbinder.reefangel.phone.R;
+
+import java.util.Locale;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -116,46 +117,28 @@ public class DimmingPage extends RAPage
 	@Override
 	public boolean onLongClick ( View v ) {
 		View parent = (View) v.getParent();
-		String msg;
 		switch ( parent.getId() ) {
 			default:
 				return false;
 			case R.id.rowPWME0:
-				msg = getPopupMessage(0, R.string.prefExpDimmingCh0LabelTitle);
-				displayOverridePopup(Globals.OVERRIDE_CHANNEL0, pwmeValues[0], msg);
+				displayOverridePopup(Globals.OVERRIDE_CHANNEL0, pwmeValues[0]);
 				break;
 			case R.id.rowPWME1:
-				msg = getPopupMessage(1, R.string.prefExpDimmingCh1LabelTitle);
-				displayOverridePopup(Globals.OVERRIDE_CHANNEL1, pwmeValues[1], msg);
+				displayOverridePopup(Globals.OVERRIDE_CHANNEL1, pwmeValues[1]);
 				break;
 			case R.id.rowPWME2:
-				msg = getPopupMessage(2, R.string.prefExpDimmingCh2LabelTitle);
-				displayOverridePopup(Globals.OVERRIDE_CHANNEL2, pwmeValues[2], msg);
+				displayOverridePopup(Globals.OVERRIDE_CHANNEL2, pwmeValues[2]);
 				break;
 			case R.id.rowPWME3:
-				msg = getPopupMessage(3, R.string.prefExpDimmingCh3LabelTitle);
-				displayOverridePopup(Globals.OVERRIDE_CHANNEL3, pwmeValues[3], msg);
+				displayOverridePopup(Globals.OVERRIDE_CHANNEL3, pwmeValues[3]);
 				break;
 			case R.id.rowPWME4:
-				msg = getPopupMessage(4, R.string.prefExpDimmingCh4LabelTitle);
-				displayOverridePopup(Globals.OVERRIDE_CHANNEL4, pwmeValues[4], msg);
+				displayOverridePopup(Globals.OVERRIDE_CHANNEL4, pwmeValues[4]);
 				break;
 			case R.id.rowPWME5:
-				msg = getPopupMessage(5, R.string.prefExpDimmingCh5LabelTitle);
-				displayOverridePopup(Globals.OVERRIDE_CHANNEL5, pwmeValues[5], msg);
+				displayOverridePopup(Globals.OVERRIDE_CHANNEL5, pwmeValues[5]);
 				break;
 		}
 		return true;
 	}
-	
-	private String getRowTitle ( int channel ) {
-		return ((TextView) pwmeRow[channel].findViewById( R.id.rowTitle )).getText().toString();
-	}
-	
-	private String getPopupMessage ( int channel, int stringId ) {
-		return String.format(Locale.getDefault(), ctx.getString( R.string.messagePWMPopupCustom), 
-			                    getRowTitle(channel),
-			                    ctx.getString( stringId ));
-	}
-
 }

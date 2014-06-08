@@ -118,44 +118,29 @@ public class RadionPage extends RAPage
 	@Override
 	public boolean onLongClick ( View v ) {
 		View parent = (View) v.getParent();
-		String msg;
 		switch ( parent.getId() ) {
 			default:
 				return false;
 			case R.id.rowWhite:
-				msg = getPopupMessage( R.string.labelWhite );
-				displayOverridePopup(Globals.OVERRIDE_RF_WHITE, radionValues[0], msg);
+				displayOverridePopup(Globals.OVERRIDE_RF_WHITE, radionValues[0]);
 				break;
 			case R.id.rowRoyalBlue:
-				msg = getPopupMessage( R.string.labelRoyalBlue );
-				displayOverridePopup(Globals.OVERRIDE_RF_ROYALBLUE, radionValues[1], msg);
+				displayOverridePopup(Globals.OVERRIDE_RF_ROYALBLUE, radionValues[1]);
 				break;
 			case R.id.rowRed:
-				msg = getPopupMessage( R.string.labelRed );
-				displayOverridePopup(Globals.OVERRIDE_RF_RED, radionValues[2], msg);
+				displayOverridePopup(Globals.OVERRIDE_RF_RED, radionValues[2]);
 				break;
 			case R.id.rowGreen:
-				msg = getPopupMessage( R.string.labelGreen );
-				displayOverridePopup(Globals.OVERRIDE_RF_GREEN, radionValues[3], msg);
+				displayOverridePopup(Globals.OVERRIDE_RF_GREEN, radionValues[3]);
 				break;
 			case R.id.rowBlue:
-				msg = getPopupMessage( R.string.labelBlue );
-				displayOverridePopup(Globals.OVERRIDE_RF_BLUE, radionValues[4], msg);
+				displayOverridePopup(Globals.OVERRIDE_RF_BLUE, radionValues[4]);
 				break;
 			case R.id.rowIntensity:
-				msg = getPopupMessage( R.string.labelIntensity );
-				displayOverridePopup(Globals.OVERRIDE_RF_INTENSITY, radionValues[5], msg);
+				displayOverridePopup(Globals.OVERRIDE_RF_INTENSITY, radionValues[5]);
 				break;
 		}
 		return true;
-	}
-	
-	private String getPopupMessage ( int stringId ) {
-		// TODO consider getting the text from textview widget like the dimming page
-		String label = ctx.getString( R.string.labelRadion );
-		String channel = ctx.getString( R.string.labelChannel );
-		String msg = label + " " + ctx.getString( stringId ) + " " + channel;
-		return msg;
 	}
 
 }
