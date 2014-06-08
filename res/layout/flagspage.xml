@@ -23,6 +23,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:text="@string/titleAlert"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/white" />
+
         <include
             android:id="@+id/rowAto"
             layout="@layout/genericlabelsinglerow" />
@@ -45,6 +50,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:layout_marginTop="32dp"
             android:text="@string/titleStatus"
             android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/white" />
 
         <include
             android:id="@+id/rowLightsOn"
