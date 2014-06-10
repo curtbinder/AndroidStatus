@@ -132,6 +132,10 @@ public class RAPreferences {
 		return Integer.parseInt( getString( R.string.prefReadTimeoutKey,
 											R.string.prefReadTimeoutDefault ) );
 	}
+	
+	public boolean isAutoRefreshAfterUpdate ( ) {
+		return getBoolean( R.string.prefAutoRefreshAfterUpdateKey, true );
+	}
 
 	// Automatic Updating
 	public long getUpdateInterval ( ) {

@@ -20,6 +20,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:key="@string/prefAutoUpdateModulesKey"
             android:summary="@string/prefAutoUpdateModulesSummary"
             android:title="@string/prefAutoUpdateModulesTitle" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/prefAutoRefreshAfterUpdateKey"
+            android:summary="@string/prefAutoRefreshAfterUpdateSummary"
+            android:title="@string/prefAutoRefreshAfterUpdateTitle" />
         <ListPreference
             android:defaultValue="@string/prefConnectionTimeoutDefault"
             android:entries="@array/networkTimeout"

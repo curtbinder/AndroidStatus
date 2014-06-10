@@ -238,6 +238,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="statusParsing">Parsing</string>
     <string name="statusFinished">Finished</string>
     <string name="statusRefreshNeeded">Refresh to update screen</string>
+    <string name="statusWaiting">Waiting to update...</string>
 
     <!-- Settings / Preference Labels -->
     <string name="prefsCategoryDevice">Device</string>
@@ -399,6 +400,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefConnectionTimeoutDefault">15000</string>
     <string name="prefReadTimeoutTitle">Read Timeout</string>
     <string name="prefReadTimeoutDefault">10000</string>
+    <string name="prefAutoRefreshAfterUpdateTitle">Auto refresh after commands</string>
+    <string name="prefAutoRefreshAfterUpdateSummary">Automatically refresh the status after issuing a command or pwm override</string>
 
     <!-- Preference Keys -->
     <string name="prefFirstRunKey">firstrun</string>
@@ -574,6 +577,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefLoggingSendKey">logging_send</string>
     <string name="prefConnectionTimeoutKey">connection_timeout</string>
     <string name="prefReadTimeoutKey">read_timeout</string>
+    <string name="prefAutoRefreshAfterUpdateKey">auto_refresh_update</string>
 
     <!-- Permissions -->
     <string name="permissionQueryStatusLabel">Query status of controller</string>

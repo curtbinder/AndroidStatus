@@ -36,6 +36,7 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -603,17 +604,13 @@ public class StatusActivity extends BaseActivity implements
 							rapp.raprefs.useOldPre10MemoryLocations() );
 				startActivity( i );
 			} else if ( action.equals( MessageCommands.MEMORY_RESPONSE_INTENT ) ) {
+				// for vortech responses
 				String response =
 						intent.getStringExtra( MessageCommands.MEMORY_RESPONSE_STRING );
-				if ( response.equals( XMLTags.Ok ) ) {
-					updateTime.setText( R.string.statusRefreshNeeded );
-				} else {
-					Toast.makeText( StatusActivity.this, response,
-									Toast.LENGTH_LONG ).show();
-				}
+				displayResponse(response, -1, false);
 			} else if ( action.equals( MessageCommands.OVERRIDE_RESPONSE_INTENT ) ) {
 				String response = intent.getStringExtra(MessageCommands.OVERRIDE_RESPONSE_STRING);
-				displayToastResponse(response, R.string.statusRefreshNeeded);
+				displayResponse(response, -1, false);
 			} else if ( action.equals( MessageCommands.OVERRIDE_POPUP_INTENT ) ) {
 				// message to display the popup
 				int channel = intent.getIntExtra( OverridePopupActivity.CHANNEL_KEY, 0);
@@ -627,33 +624,51 @@ public class StatusActivity extends BaseActivity implements
 			} else if ( action.equals( MessageCommands.COMMAND_RESPONSE_INTENT ) ) {
 				String response =
 						intent.getStringExtra( MessageCommands.COMMAND_RESPONSE_STRING );
-				displayResponse(response);
+				displayResponse(response, -1, false);
 			} else if ( action.equals( MessageCommands.CALIBRATE_RESPONSE_INTENT ) ) {
 				String response =
 						intent.getStringExtra( MessageCommands.CALIBRATE_RESPONSE_STRING );
-				displayToastResponse(response, R.string.statusFinished );				
+				displayResponse(response, R.string.statusFinished, true );				
 			} else if ( action.equals( MessageCommands.VERSION_RESPONSE_INTENT ) ) {
 				// set the version button's text to the version of the software
 				((Button) findViewById( R.id.command_button_version ))
 				.setText( intent.getStringExtra( MessageCommands.VERSION_RESPONSE_STRING ) );
+				// TODO set the time to be the last updated time from the database
 				updateTime.setText( R.string.statusFinished );
 			}
 		}
 	}
 	
-	private void displayResponse(String response) {
-		if ( response.contains( XMLTags.Ok ) ) {
-			updateTime.setText( R.string.statusRefreshNeeded );
+	private void displayResponse ( String response, int stringId, boolean fAlwaysToast ) {
+		int msgId;
+		boolean fShowToast = false;
+		if ( stringId == -1 ) {
+			msgId = R.string.statusRefreshNeeded;
 		} else {
+			msgId = stringId;
+		}
+		if ( response.contains( XMLTags.Ok ) ) {
+			updateTime.setText( msgId );
+			if ( rapp.raprefs.isAutoRefreshAfterUpdate() ) {
+				updateTime.setText( R.string.statusWaiting );
+				Log.d(TAG, "AutoRefreshAfterUpdate");
+				Handler h = new Handler();
+				Runnable r = new Runnable() {
+					public void run() {
+						launchStatusTask();
+					}
+				};
+				// pause for a second before we proceed
+				h.postDelayed( r, 1000 );
+			}	
+		} else {
+			fShowToast = true;
+		}
+		
+		if ( fAlwaysToast || fShowToast ) {
 			Toast.makeText( StatusActivity.this, response,
 							Toast.LENGTH_LONG ).show();
-		}	
-	}
-
-	private void displayToastResponse(String response, int stringId) {
-		updateTime.setText( stringId );
-		Toast.makeText( StatusActivity.this, response,
-						Toast.LENGTH_LONG ).show();
+		}
 	}
 	
 	private String[] getNeverValues ( int qty ) {
