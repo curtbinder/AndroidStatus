@@ -209,5 +209,5 @@ Changelog of all the versions of AndroidStatus
  * added in pwm override control
  * added in calibration commands
  * added in flags page to display Status and Alert flags
- 
+ * added in auto refresh after a command or pwm override update
  
