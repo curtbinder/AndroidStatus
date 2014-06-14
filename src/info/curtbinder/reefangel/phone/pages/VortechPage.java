@@ -9,12 +9,9 @@
 package info.curtbinder.reefangel.phone.pages;
 
 import info.curtbinder.reefangel.controller.Controller;
-import info.curtbinder.reefangel.phone.Permissions;
 import info.curtbinder.reefangel.phone.R;
 import info.curtbinder.reefangel.phone.VortechPopupActivity;
-import info.curtbinder.reefangel.service.MessageCommands;
 import android.content.Context;
-import android.content.Intent;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +26,7 @@ public class VortechPage extends RAPage implements OnLongClickListener {
 	Context ctx; // saved context from parent
 	private TextView[] vortechText =
 			new TextView[Controller.MAX_VORTECH_VALUES];
+	private int[] vortechValues = new int[Controller.MAX_VORTECH_VALUES];
 
 	public VortechPage ( Context context ) {
 		super( context );
@@ -83,6 +81,12 @@ public class VortechPage extends RAPage implements OnLongClickListener {
 			vortechText[i].setText( v[i] );
 		}
 	}
+	
+	public void updateValues ( short[] v) {
+		for (int i = 0; i < Controller.MAX_VORTECH_VALUES; i++ ) {
+			vortechValues[i] = v[i];
+		}
+	}
 
 	@Override
 	public boolean onLongClick ( View v ) {
@@ -94,19 +98,19 @@ public class VortechPage extends RAPage implements OnLongClickListener {
 			case R.id.rowMode:
 				// display mode choices
 				Log.d( TAG, "Vortech Mode change" );
-				displayPopup( VortechPopupActivity.MODE );
+				displayVortechPopup( VortechPopupActivity.MODE, 0 );
 				break;
 			case R.id.rowSpeed:
 				// display speed choices
 				// Speed 0-100
 				Log.d( TAG, "Vortech Speed change" );
-				displayPopup( VortechPopupActivity.SPEED );
+				displayVortechPopup( VortechPopupActivity.SPEED, 0 );
 				break;
 			case R.id.rowDuration:
 				// display duration choices
 				// Duration 0-255
 				Log.d( TAG, "Vortech Duration change" );
-				displayPopup( VortechPopupActivity.DURATION );
+				displayVortechPopup( VortechPopupActivity.DURATION, 0 );
 				break;
 			default:
 				return false;
@@ -114,15 +118,8 @@ public class VortechPage extends RAPage implements OnLongClickListener {
 		return true;
 	}
 
-	private void displayPopup ( int type ) {
-		// Send a message to StatusActivity to display the popup window
-		Intent i = new Intent( MessageCommands.VORTECH_UPDATE_INTENT );
-		i.putExtra( MessageCommands.VORTECH_UPDATE_TYPE, type );
-		ctx.sendBroadcast( i, Permissions.SEND_COMMAND );
-	}
-
 	@Override
 	public String getPageTitle ( ) {
-		return ctx.getResources().getString( R.string.labelVortech );
+		return ctx.getString( R.string.labelVortech );
 	}
 }

@@ -103,8 +103,6 @@ public final class MessageCommands {
 			PACKAGE_BASE + ".VERSION_RESPONSE";
 	public static final String VERSION_RESPONSE_STRING =
 			"VERSION_RESPONSE_STRING";
-	public static final String VORTECH_UPDATE_INTENT = PACKAGE_BASE
+	public static final String VORTECH_POPUP_INTENT = PACKAGE_BASE
 														+ ".VORTECH_UPDATE";
-	public static final String VORTECH_UPDATE_TYPE = "VORTECH_UPDATE_TYPE";
-
 }

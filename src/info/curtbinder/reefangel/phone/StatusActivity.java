@@ -126,7 +126,7 @@ public class StatusActivity extends BaseActivity implements
 		filter = new IntentFilter( MessageCommands.UPDATE_DISPLAY_DATA_INTENT );
 		filter.addAction( MessageCommands.UPDATE_STATUS_INTENT );
 		filter.addAction( MessageCommands.ERROR_MESSAGE_INTENT );
-		filter.addAction( MessageCommands.VORTECH_UPDATE_INTENT );
+		filter.addAction( MessageCommands.VORTECH_POPUP_INTENT );
 		filter.addAction( MessageCommands.MEMORY_RESPONSE_INTENT );
 		filter.addAction( MessageCommands.COMMAND_RESPONSE_INTENT );
 		filter.addAction( MessageCommands.VERSION_RESPONSE_INTENT );
@@ -454,6 +454,7 @@ public class StatusActivity extends BaseActivity implements
 		short[] expr = new short[Controller.MAX_EXPANSION_RELAYS];
 		short[] expron = new short[Controller.MAX_EXPANSION_RELAYS];
 		short[] exproff = new short[Controller.MAX_EXPANSION_RELAYS];
+		short[] vtValues = new short[Controller.MAX_VORTECH_VALUES];
 
 		if ( c.moveToFirst() ) {
 			updateStatus =
@@ -465,7 +466,8 @@ public class StatusActivity extends BaseActivity implements
 			pwmeValues = getPWMEValues( c );
 			rf = getRadionTextValues( c );
 			radionValues = getRadionValues( c );
-			vt = getVortechValues( c );
+			vt = getVortechTextValues( c );
+			vtValues = getVortechValues( c );
 			ai = getAITextValues( c );
 			aiValues = getAIValues( c );
 			io = getIOValues( c );
@@ -542,6 +544,9 @@ public class StatusActivity extends BaseActivity implements
 			for ( i = 0; i < Controller.MAX_AI_CHANNELS; i++ ) {
 				aiValues[i] = 0;
 			}
+			for ( i = 0; i < Controller.MAX_VORTECH_VALUES; i++ ) {
+				vtValues[i] = 0;
+			}
 		}
 		c.close();
 		
@@ -555,6 +560,7 @@ public class StatusActivity extends BaseActivity implements
 		pageRadion.updateDisplay( rf );
 		pageRadion.updatePWMValues( radionValues );
 		pageVortech.updateDisplay( vt );
+		pageVortech.updateValues( vtValues );
 		pageAI.updateDisplay( ai );
 		pageAI.updatePWMValues( aiValues );
 		pageIO.updateDisplay( io );
@@ -592,14 +598,13 @@ public class StatusActivity extends BaseActivity implements
 			} else if ( action
 					.equals( MessageCommands.UPDATE_DISPLAY_DATA_INTENT ) ) {
 				updateDisplay();
-			} else if ( action.equals( MessageCommands.VORTECH_UPDATE_INTENT ) ) {
-				int type =
-						intent.getIntExtra( MessageCommands.VORTECH_UPDATE_TYPE,
-											0 );
-				Intent i =
-						new Intent( StatusActivity.this,
+			} else if ( action.equals( MessageCommands.VORTECH_POPUP_INTENT ) ) {
+				int type = intent.getIntExtra( VortechPopupActivity.TYPE, 0 );
+				int value = intent.getIntExtra( VortechPopupActivity.VALUE, 0 );
+				Intent i = new Intent( StatusActivity.this,
 							VortechPopupActivity.class );
 				i.putExtra( VortechPopupActivity.TYPE, type );
+				i.putExtra( VortechPopupActivity.VALUE, value );
 				i.putExtra( Globals.PRE10_LOCATIONS,
 							rapp.raprefs.useOldPre10MemoryLocations() );
 				startActivity( i );
@@ -790,7 +795,7 @@ public class StatusActivity extends BaseActivity implements
 		return v;
 	}
 
-	private String[] getVortechValues ( Cursor c ) {
+	private String[] getVortechTextValues ( Cursor c ) {
 		String[] sa = new String[Controller.MAX_VORTECH_VALUES];
 		String s = "";
 		int v, mode;
@@ -829,6 +834,14 @@ public class StatusActivity extends BaseActivity implements
 		}
 		sa[Controller.VORTECH_DURATION] = s;
 		return sa;
+	}
+	
+	private short[] getVortechValues ( Cursor c ) {
+		short[] v = new short[Controller.MAX_VORTECH_VALUES];
+		v[Controller.VORTECH_MODE] = c.getShort( c.getColumnIndex( StatusTable.COL_RFM ) );
+		v[Controller.VORTECH_SPEED] = c.getShort( c.getColumnIndex( StatusTable.COL_RFS ) );
+		v[Controller.VORTECH_DURATION] = c.getShort( c.getColumnIndex( StatusTable.COL_RFD ) );
+		return v;
 	}
 
 	private String[] getAITextValues ( Cursor c ) {

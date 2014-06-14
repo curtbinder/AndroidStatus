@@ -15,8 +15,10 @@ import info.curtbinder.reefangel.service.UpdateService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,16 +26,19 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class VortechPopupActivity extends Activity implements OnClickListener {
+public class VortechPopupActivity extends Activity 
+	implements OnClickListener, SeekBar.OnSeekBarChangeListener {
 
 	private static final String TAG = VortechPopupActivity.class
 			.getSimpleName();
 
 	public static final String TYPE = "vtType";
+	public static final String VALUE = "vtValue";
 	public static final int MODE = 0;
 	public static final int SPEED = 1;
 	public static final int DURATION = 2;
@@ -41,60 +46,46 @@ public class VortechPopupActivity extends Activity implements OnClickListener {
 
 	private int popupType;
 	private boolean preLocations;
+	private int currentValue;
 
-	private TextView desc;
 	private Spinner sp;
+	private SeekBar seek;
+	private TextView tvValue;
 
 	@Override
 	protected void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
-		setContentView( R.layout.vortechpopup );
 		Bundle b = getIntent().getExtras();
 		if ( b != null ) {
 			popupType = b.getInt( TYPE );
 			preLocations = b.getBoolean( Globals.PRE10_LOCATIONS );
+			currentValue = b.getInt( VALUE );
 		} else {
 			preLocations = false;
+			currentValue = 0;
 		}
-		desc = (TextView) findViewById( R.id.vtDescription );
-		sp = (Spinner) findViewById( R.id.vtSpinner );
-		List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-		String[] from = new String[] { "data" };
-		int[] to = new int[] { android.R.id.text1 };
 
 		switch ( popupType ) {
 			default:
 				// invalid type, so set to MODE
 				popupType = MODE;
 			case MODE:
-				desc.setText( R.string.descriptionMode );
-				String[] labels =
-						getResources()
-								.getStringArray( R.array.vortechModeLabels );
-				// only modes 0 - 11
-				for ( int i = 0; i < 12; i++ ) {
-					data.add( addData( labels[i] ) );
-				}
+				setContentView( R.layout.vortechpopup );
+				sp = (Spinner) findViewById( R.id.vtSpinner );
+				setupModeSpinner();
+				((TextView)findViewById( R.id.vtDescription )).setText( R.string.descriptionMode );
 				break;
 			case SPEED:
-				desc.setText( R.string.descriptionSpeed );
-				for ( int i = 0; i < 100; i++ ) {
-					data.add( addData( String.format( "%d%%", i ) ) );
-				}
+				setContentView( R.layout.vortechpopup2 );
+				setupSeekBar(true);
+				((TextView)findViewById( R.id.vtDescription )).setText( R.string.descriptionSpeed );
 				break;
 			case DURATION:
-				desc.setText( R.string.descriptionDuration );
-				for ( int i = 0; i < 255; i++ ) {
-					data.add( addData( String.format( "%d", i ) ) );
-				}
+				setContentView( R.layout.vortechpopup2 );
+				setupSeekBar(false);
+				((TextView)findViewById( R.id.vtDescription )).setText( R.string.descriptionDuration );
 				break;
 		}
-		SimpleAdapter simpleAdapter =
-				new SimpleAdapter( this, data,
-					android.R.layout.simple_spinner_item, from, to );
-		simpleAdapter
-				.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
-		sp.setAdapter( simpleAdapter );
 
 		Button btn = (Button) findViewById( R.id.vtBtnCancel );
 		btn.setOnClickListener( this );
@@ -102,6 +93,41 @@ public class VortechPopupActivity extends Activity implements OnClickListener {
 		btn.setOnClickListener( this );
 	}
 
+	private void setupModeSpinner ( ) {
+		List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+		String[] from = new String[] { "data" };
+		int[] to = new int[] { android.R.id.text1 };
+		String[] labels =
+				getResources()
+						.getStringArray( R.array.vortechModeLabels );
+		// only modes 0 - 11
+		for ( int i = 0; i < 12; i++ ) {
+			data.add( addData( labels[i] ) );
+		}
+		SimpleAdapter simpleAdapter =
+				new SimpleAdapter( this, data,
+					android.R.layout.simple_spinner_item, from, to );
+		simpleAdapter
+				.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+		sp.setAdapter( simpleAdapter );
+		sp.setSelection( currentValue );
+	}
+	
+	private void setupSeekBar ( Boolean fSpeed ) {
+		int max;
+		if ( fSpeed ) {
+			max = 100;
+		} else {
+			max = 255;
+		}
+		seek = (SeekBar) findViewById(R.id.vtSeek);
+		seek.setMax( max );
+		seek.setProgress( currentValue );
+		seek.setOnSeekBarChangeListener( this );
+		tvValue = (TextView) findViewById(R.id.vtSeekValue);
+		updateProgressText( currentValue );
+	}
+	
 	private Map<String, String> addData ( String value ) {
 		Map<String, String> mapList = new HashMap<String, String>();
 		mapList.put( "data", value );
@@ -134,7 +160,12 @@ public class VortechPopupActivity extends Activity implements OnClickListener {
 		}
 		location += LOCATION_OFFSET + popupType;
 
-		int value = sp.getSelectedItemPosition();
+		int value;
+		if ( popupType == MODE ) {
+			value = sp.getSelectedItemPosition();
+		} else {
+			value = seek.getProgress();
+		}
 		i.putExtra( MessageCommands.MEMORY_SEND_TYPE_STRING,
 					RequestCommands.MemoryByte );
 		i.putExtra( MessageCommands.MEMORY_SEND_LOCATION_INT, location );
@@ -142,5 +173,32 @@ public class VortechPopupActivity extends Activity implements OnClickListener {
 		Log.d( TAG, "Update Vortech:  " + RequestCommands.MemoryByte + location
 					+ "," + value );
 		startService( i );
+	}
+
+	@SuppressLint("DefaultLocale")
+	private void updateProgressText ( int value ) {
+		String s;
+		if ( popupType == SPEED ) {
+			s = String.format(Locale.getDefault(), "%d%%", value);
+		} else {
+			s = String.format(Locale.getDefault(), "%d", value);
+		}
+		tvValue.setText( s );
+	}
+	
+	@Override
+	public void onProgressChanged (
+			SeekBar seekBar,
+			int progress,
+			boolean fromUser ) {
+		updateProgressText(progress);
+	}
+
+	@Override
+	public void onStartTrackingTouch ( SeekBar seekBar ) {	
+	}
+
+	@Override
+	public void onStopTrackingTouch ( SeekBar seekBar ) {
 	}
 }
