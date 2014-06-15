@@ -225,6 +225,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
         <string name="messageAddNotification">Add notification</string>
         <string name="messageMoreErrors">+%1$d more</string>
         <string name="messageGBMoreErrorss">%1$s - %2$d errors</string>
+        <string name="messageUnsupported">Unsupported command</string>
 
         <!-- Status strings -->
         <string name="statusStart">Starting update</string>

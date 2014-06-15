@@ -159,7 +159,8 @@ public class Host {
 				|| (command.equals( RequestCommands.OverheatClear ))
 				|| (command.startsWith( RequestCommands.DateTime ))
 				|| (command.equals( RequestCommands.LightsOn ))
-				|| (command.equals( RequestCommands.LightsOff )) ) {
+				|| (command.equals( RequestCommands.LightsOff ))
+                || (command.equals( RequestCommands.Reboot)) ) {
 			s =
 					new String( String.format(	"http://%s:%d%s", host, port,
 												command ) );

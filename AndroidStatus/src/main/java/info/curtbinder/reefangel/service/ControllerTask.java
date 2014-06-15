@@ -119,7 +119,14 @@ public class ControllerTask implements Runnable {
 		// check if there was an error
 		if ( rapp.errorCode > 0 ) {
 			// encountered an error, display an error on screen
-			broadcastErrorMessage();
+            if ( (host.getCommand().equals( RequestCommands.Reboot ))
+                    && (rapp.errorCode == 15) ) {
+                // if we get a timeout after sending this command, the
+                // controller does not support the command
+                broadcastUpdateStatus( R.string.messageUnsupported );
+            } else {
+                broadcastErrorMessage();
+            }
 		} else if ( res.equals( (String) rapp.getResources()
 				.getText( R.string.messageCancelled ) ) ) {
 			// Interrupted
