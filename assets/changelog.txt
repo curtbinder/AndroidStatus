@@ -6,6 +6,13 @@
 <li>added in calibration commands</li>
 <li>added in flags page to display Status and Alert flags</li>
 <li>added in auto refresh after a command or pwm override update</li>
+<li>improved Vortech popup
+	<ul>
+	<li>shows a slider for speed and duration</li>
+	<li>popup starts with current values instead of defaulting to 0</li>
+	</ul>
+</li>
+<li>code cleanup</li>
 </ul>
 <br>
 <b>0.9.4</b>

@@ -210,4 +210,8 @@ Changelog of all the versions of AndroidStatus
  * added in calibration commands
  * added in flags page to display Status and Alert flags
  * added in auto refresh after a command or pwm override update
+ * improved Vortech popup
+ ** shows a slider for speed and duration
+ ** popup starts with current values instead of defaulting to 0
+ * code cleanup
  
