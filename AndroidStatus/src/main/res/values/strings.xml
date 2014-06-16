@@ -334,6 +334,10 @@ your controller or have a ReefAngel UserID to use this app.</string>
         <string name="prefAPLabelTitle">Actinic Channel</string>
         <string name="prefPHExpLabelTitle">PH Expansion</string>
         <string name="prefWaterLevelLabelTitle">Water Level</string>
+        <string name="prefWaterLevel1LabelTitle">Water Level 1</string>
+        <string name="prefWaterLevel2LabelTitle">Water Level 2</string>
+        <string name="prefWaterLevel3LabelTitle">Water Level 3</string>
+        <string name="prefWaterLevel4LabelTitle">Water Level 4</string>
         <string name="prefPort1LabelTitle">Port 1</string>
         <string name="prefPort2LabelTitle">Port 2</string>
         <string name="prefPort3LabelTitle">Port 3</string>
@@ -434,11 +438,11 @@ your controller or have a ReefAngel UserID to use this app.</string>
         <string name="prefORPVisibilityKey">orp_visibility</string>
         <string name="prefPHExpVisibilityKey">phe_visibility</string>
         <string name="prefHumidityVisibilityKey">humidity_visibility</string>
-        <string name="prefWaterLevelVisibilityKey">wl_visibility</string>
-        <string name="prefWaterLevel1VisibilityKey">wl1_visibility</string>
-        <string name="prefWaterLevel2VisibilityKey">wl2_visibility</string>
-        <string name="prefWaterLevel3VisibilityKey">wl3_visibility</string>
-        <string name="prefWaterLevel4VisibilityKey">wl4_visibility</string>
+        <!--<string name="prefWaterLevelVisibilityKey">wl_visibility</string>-->
+        <!--<string name="prefWaterLevel1VisibilityKey">wl1_visibility</string>-->
+        <!--<string name="prefWaterLevel2VisibilityKey">wl2_visibility</string>-->
+        <!--<string name="prefWaterLevel3VisibilityKey">wl3_visibility</string>-->
+        <!--<string name="prefWaterLevel4VisibilityKey">wl4_visibility</string>-->
         <string name="prefResetLabelsKey">reset_labels</string>
         <string name="prefResetEnabledPortsKey">reset_enabled_ports</string>
         <string name="prefControllerLabelsDownloadKey">download_labels</string>

@@ -81,8 +81,28 @@
                         android:title="@string/prefPHExpLabelTitle" />
                     <EditTextPreference
                         android:defaultValue="@string/labelWaterLevel"
-                        android:key="@string/prefWaterLevelLabelKey"
+                        android:key="wl_label"
                         android:title="@string/prefWaterLevelLabelTitle" />
+                    <EditTextPreference
+                        android:defaultValue="@string/labelWaterLevel"
+                        android:key="wl1_label"
+                        android:title="@string/prefWaterLevel1LabelTitle" />
+                    <EditTextPreference
+                        android:defaultValue="@string/labelWaterLevel"
+                        android:key="wl2_label"
+                        android:title="@string/prefWaterLevel2LabelTitle" />
+                    <EditTextPreference
+                        android:defaultValue="@string/labelWaterLevel"
+                        android:key="wl3_label"
+                        android:title="@string/prefWaterLevel3LabelTitle" />
+                    <EditTextPreference
+                        android:defaultValue="@string/labelWaterLevel"
+                        android:key="wl4_label"
+                        android:title="@string/prefWaterLevel4LabelTitle" />
+                    <EditTextPreference
+                        android:defaultValue="@string/labelHumidity"
+                        android:key="@string/prefHumidityLabelKey"
+                        android:title="@string/labelHumidity" />
                 </PreferenceScreen>
                 <PreferenceScreen
                     android:key="visibility"
@@ -129,8 +149,28 @@
                         android:title="@string/prefPHExpVisibilityTitle" />
                     <CheckBoxPreference
                         android:defaultValue="false"
-                        android:key="@string/prefWaterLevelVisibilityKey"
-                        android:title="@string/prefWaterLevelVisibilityTitle" />
+                        android:key="wl_visibility"
+                        android:title="@string/prefWaterLevelLabelTitle" />
+                    <CheckBoxPreference
+                        android:defaultValue="false"
+                        android:key="wl1_visibility"
+                        android:title="@string/prefWaterLevel1LabelTitle" />
+                    <CheckBoxPreference
+                        android:defaultValue="false"
+                        android:key="wl2_visibility"
+                        android:title="@string/prefWaterLevel2LabelTitle" />
+                    <CheckBoxPreference
+                        android:defaultValue="false"
+                        android:key="wl3_visibility"
+                        android:title="@string/prefWaterLevel3LabelTitle" />
+                    <CheckBoxPreference
+                        android:defaultValue="false"
+                        android:key="wl4_visibility"
+                        android:title="@string/prefWaterLevel4LabelTitle" />
+                    <CheckBoxPreference
+                        android:defaultValue="false"
+                        android:key="@string/prefHumidityVisibilityKey"
+                        android:title="@string/labelHumidity" />
                 </PreferenceScreen>
             </PreferenceCategory>
             <PreferenceCategory android:title="Main Relay" >

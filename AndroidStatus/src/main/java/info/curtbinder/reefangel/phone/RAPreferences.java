@@ -451,31 +451,30 @@ public class RAPreferences {
                 key = R.string.prefPHExpVisibilityKey;
                 break;
             case Globals.WL_INDEX:
-                def = false;
-                key = R.string.prefWaterLevel1VisibilityKey;
-                break;
+                return getWaterLevelVisibility(0);
             case Globals.WL1_INDEX:
-                def = false;
-                key = R.string.prefWaterLevel2VisibilityKey;
-                break;
+                return getWaterLevelVisibility(1);
             case Globals.WL2_INDEX:
-                def = false;
-                key = R.string.prefWaterLevel3VisibilityKey;
-                break;
+                return getWaterLevelVisibility(2);
             case Globals.WL3_INDEX:
-                def = false;
-                key = R.string.prefWaterLevel4VisibilityKey;
-                break;
+                return getWaterLevelVisibility(3);
             case Globals.WL4_INDEX:
-                def = false;
-                key = R.string.prefWaterLevelVisibilityKey;
-                break;
+                return getWaterLevelVisibility(4);
             case Globals.HUMIDITY_INDEX:
                 def = false;
                 key = R.string.prefHumidityVisibilityKey;
                 break;
         }
         return getBoolean(key, def);
+    }
+
+    // key:  wl_visibility
+    public boolean getWaterLevelVisibility ( int port ) {
+        //return getBoolean( R.string.prefWaterLevelVisibilityKey, false );
+        String key = "wl";
+        if ( port > 0 ) key += port;
+        key += "_visibility";
+        return getBoolean( key, false);
     }
 
     // Relay Labels
