@@ -74,8 +74,6 @@ public class Host {
 		this.host = host;
 		this.port = port;
 		this.command = command;
-		//timeoutConnect = 15000; // milliseconds
-		//timeoutRead = 10000; // milliseconds
 		location = 0;
 		value = 0;
 		write = false;
@@ -146,52 +144,74 @@ public class Host {
 		return this.write;
 	}
 
+    public void setOverrideChannel ( int port, int value ) {
+        this.location = port;
+        this.value = value;
+    }
+
+    public int getOverrideChannel ( ) {
+        return this.location;
+    }
+
+    public void setCalibrateType ( int type ) {
+        this.location = type;
+    }
+
+    public int getCalibrateType ( ) {
+        return this.location;
+    }
+
 	public String toString ( ) {
 		// TODO improve error message with a null host string
-		String s = "";
-		if ( (command.startsWith( RequestCommands.Relay ))
-				|| (command.equals( RequestCommands.Status ))
-				|| (command.equals( RequestCommands.Version ))
-				|| (command.equals( RequestCommands.FeedingMode ))
-				|| (command.equals( RequestCommands.ExitMode ))
-				|| (command.equals( RequestCommands.WaterMode ))
-				|| (command.equals( RequestCommands.AtoClear ))
-				|| (command.equals( RequestCommands.OverheatClear ))
-				|| (command.startsWith( RequestCommands.DateTime ))
-				|| (command.equals( RequestCommands.LightsOn ))
-				|| (command.equals( RequestCommands.LightsOff ))
-                || (command.equals( RequestCommands.Reboot)) ) {
-			s =
-					new String( String.format(	"http://%s:%d%s", host, port,
-												command ) );
-		} else if ( (command.equals( RequestCommands.MemoryInt ))
-					|| (command.equals( RequestCommands.MemoryByte )) ) {
-			if ( write ) {
-				s =
-						new String( String.format(	"http://%s:%d%s%d,%d",
-													host,
-													port, command, location,
-													value ) );
-			} else {
-				s =
-						new String( String.format(	"http://%s:%d%s%d", host,
-													port, command, location ) );
-			}
-		} else if ( command.equals( RequestCommands.ReefAngel ) ) {
-			String encodedId;
-			try {
-				encodedId = URLEncoder.encode( raUserid, "UTF-8" );
-			} catch ( UnsupportedEncodingException e ) {
-				Log.e( TAG, "Failed URL encoder" );
-				encodedId = "";
-			}
+        String s = "";
+        if ( (command.startsWith( RequestCommands.Relay ))
+                || (command.equals( RequestCommands.Status ))
+                || (command.equals( RequestCommands.Version ))
+                || (command.equals( RequestCommands.FeedingMode ))
+                || (command.equals( RequestCommands.ExitMode ))
+                || (command.equals( RequestCommands.WaterMode ))
+                || (command.equals( RequestCommands.AtoClear ))
+                || (command.equals( RequestCommands.OverheatClear ))
+                || (command.startsWith( RequestCommands.DateTime ))
+                || (command.equals( RequestCommands.LightsOn ))
+                || (command.equals( RequestCommands.LightsOff ))
+                || (command.equals( RequestCommands.Reboot )) ) {
+            s = new String( String.format(	"http://%s:%d%s", host, port,
+                    command ) );
+        } else if ( (command.equals( RequestCommands.MemoryInt ))
+                || (command.equals( RequestCommands.MemoryByte )) ) {
+            if ( write ) {
+                s = new String( String.format(	"http://%s:%d%s%d,%d",
+                        host,
+                        port, command, location,
+                        value ) );
+            } else {
+                s = new String( String.format(	"http://%s:%d%s%d", host,
+                        port, command, location ) );
+            }
+        } else if ( command.equals( RequestCommands.Calibrate ) ) {
+            s = new String ( String.format( "http://%s:%d%s%d",
+                    host, port,
+                    command, location) );
+        } else if ( command.equals( RequestCommands.PwmOverride ) ) {
+            s = new String ( String.format( "http://%s:%d%s%d,%d",
+                    host, port,
+                    command, location, value) );
+        } else if ( command.equals( RequestCommands.ReefAngel ) ) {
+            String encodedId;
+            try {
+                encodedId = URLEncoder.encode( raUserid, "UTF-8" );
+            } catch ( UnsupportedEncodingException e ) {
+                Log.e( TAG, "Failed URL encoder" );
+                encodedId = "";
+            }
 
-			if ( labels ) {
-				s = RALABELS + encodedId;
-			} else {
-				s = RAPARAMS + encodedId;
-			}
-		}
-		return s;
+            if ( labels ) {
+                s = RALABELS + encodedId;
+            } else {
+                s = RAPARAMS + encodedId;
+            }
+        }
+        return s;
 	}
 }

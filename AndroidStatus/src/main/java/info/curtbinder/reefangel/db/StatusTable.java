@@ -103,46 +103,95 @@ public class StatusTable {
 	public static final String COL_REM = "rem";
 	public static final String COL_PHE = "phe";
 	public static final String COL_WL = "wl";
+    public static final String COL_WL1 = "wl1";
+    public static final String COL_WL2 = "wl2";
+    public static final String COL_WL3 = "wl3";
+    public static final String COL_WL4 = "wl4";
+    public static final String COL_EM1 = "em1";
+    public static final String COL_HUM = "hum";
+    public static final String COL_PWMAO = "pwmao";
+    public static final String COL_PWMDO = "pwmdo";
+    public static final String COL_PWME0O = "pwme0o";
+    public static final String COL_PWME1O = "pwme1o";
+    public static final String COL_PWME2O = "pwme2o";
+    public static final String COL_PWME3O = "pwme3o";
+    public static final String COL_PWME4O = "pwme4o";
+    public static final String COL_PWME5O = "pwme5o";
+    public static final String COL_AIWO = "aiwo";
+    public static final String COL_AIBO = "aibo";
+    public static final String COL_AIRBO = "airbo";
+    public static final String COL_RFWO = "rfwo";
+    public static final String COL_RFRBO = "rfrbo";
+    public static final String COL_RFRO = "rfro";
+    public static final String COL_RFGO = "rfgo";
+    public static final String COL_RFBO = "rfbo";
+    public static final String COL_RFIO = "rfio";
+    public static final String COL_AF = "af";
+    public static final String COL_SF = "sf";
 
 	public static void onCreate ( SQLiteDatabase db ) {
 		// create parameters table
-		db.execSQL( "CREATE TABLE " + TABLE_NAME + " (" + COL_ID
-					+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_T1
-					+ " TEXT, " + COL_T2 + " TEXT, " + COL_T3 + " TEXT, "
-					+ COL_PH + " TEXT, " + COL_DP + " INTEGER, " + COL_AP
-					+ " INTEGER, " + COL_SAL + " TEXT, " + COL_ORP + " TEXT, "
-					+ COL_ATOHI + " INTEGER, " + COL_ATOLO + " INTEGER, "
-					+ COL_LOGDATE + " TEXT, " + COL_RDATA + " INTEGER, "
-					+ COL_RONMASK + " INTEGER, " + COL_ROFFMASK + " INTEGER, "
-					+ COL_R1DATA + " INTEGER, " + COL_R1ONMASK + " INTEGER, "
-					+ COL_R1OFFMASK + " INTEGER, " + COL_R2DATA + " INTEGER, "
-					+ COL_R2ONMASK + " INTEGER, " + COL_R2OFFMASK
-					+ " INTEGER, " + COL_R3DATA + " INTEGER, " + COL_R3ONMASK
-					+ " INTEGER, " + COL_R3OFFMASK + " INTEGER, " + COL_R4DATA
-					+ " INTEGER, " + COL_R4ONMASK + " INTEGER, "
-					+ COL_R4OFFMASK + " INTEGER, " + COL_R5DATA + " INTEGER, "
-					+ COL_R5ONMASK + " INTEGER, " + COL_R5OFFMASK
-					+ " INTEGER, " + COL_R6DATA + " INTEGER, " + COL_R6ONMASK
-					+ " INTEGER, " + COL_R6OFFMASK + " INTEGER, " + COL_R7DATA
-					+ " INTEGER, " + COL_R7ONMASK + " INTEGER, "
-					+ COL_R7OFFMASK + " INTEGER, " + COL_R8DATA + " INTEGER, "
-					+ COL_R8ONMASK + " INTEGER, " + COL_R8OFFMASK
-					+ " INTEGER, " + COL_PWME0 + " INTEGER, " + COL_PWME1
-					+ " INTEGER, " + COL_PWME2 + " INTEGER, " + COL_PWME3
-					+ " INTEGER, " + COL_PWME4 + " INTEGER, " + COL_PWME5
-					+ " INTEGER, " + COL_AIW + " INTEGER, " + COL_AIB
-					+ " INTEGER, " + COL_AIRB + " INTEGER, " + COL_RFM
-					+ " INTEGER, " + COL_RFS + " INTEGER, " + COL_RFD
-					+ " INTEGER, " + COL_RFW + " INTEGER, " + COL_RFRB
-					+ " INTEGER, " + COL_RFR + " INTEGER, " + COL_RFG
-					+ " INTEGER, " + COL_RFB + " INTEGER, " + COL_RFI
-					+ " INTEGER, " + COL_IO + " INTEGER, " + COL_C0
-					+ " INTEGER, " + COL_C1 + " INTEGER, " + COL_C2
-					+ " INTEGER, " + COL_C3 + " INTEGER, " + COL_C4
-					+ " INTEGER, " + COL_C5 + " INTEGER, " + COL_C6
-					+ " INTEGER, " + COL_C7 + " INTEGER, " + COL_EM
-					+ " INTEGER, " + COL_REM + " INTEGER, " + COL_PHE
-					+ " TEXT, " + COL_WL + " INTEGER " + ");" );
+        db.execSQL( "CREATE TABLE " + TABLE_NAME + " (" + COL_ID
+                + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_T1
+                + " TEXT, " + COL_T2 + " TEXT, " + COL_T3 + " TEXT, "
+                + COL_PH + " TEXT, " + COL_DP + " INTEGER, " + COL_AP
+                + " INTEGER, " + COL_SAL + " TEXT, " + COL_ORP + " TEXT, "
+                + COL_ATOHI + " INTEGER, " + COL_ATOLO + " INTEGER, "
+                + COL_LOGDATE + " TEXT, " + COL_RDATA + " INTEGER, "
+                + COL_RONMASK + " INTEGER, " + COL_ROFFMASK + " INTEGER, "
+                + COL_R1DATA + " INTEGER, " + COL_R1ONMASK + " INTEGER, "
+                + COL_R1OFFMASK + " INTEGER, " + COL_R2DATA + " INTEGER, "
+                + COL_R2ONMASK + " INTEGER, " + COL_R2OFFMASK
+                + " INTEGER, " + COL_R3DATA + " INTEGER, " + COL_R3ONMASK
+                + " INTEGER, " + COL_R3OFFMASK + " INTEGER, " + COL_R4DATA
+                + " INTEGER, " + COL_R4ONMASK + " INTEGER, "
+                + COL_R4OFFMASK + " INTEGER, " + COL_R5DATA + " INTEGER, "
+                + COL_R5ONMASK + " INTEGER, " + COL_R5OFFMASK
+                + " INTEGER, " + COL_R6DATA + " INTEGER, " + COL_R6ONMASK
+                + " INTEGER, " + COL_R6OFFMASK + " INTEGER, " + COL_R7DATA
+                + " INTEGER, " + COL_R7ONMASK + " INTEGER, "
+                + COL_R7OFFMASK + " INTEGER, " + COL_R8DATA + " INTEGER, "
+                + COL_R8ONMASK + " INTEGER, " + COL_R8OFFMASK
+                + " INTEGER, " + COL_PWME0 + " INTEGER, " + COL_PWME1
+                + " INTEGER, " + COL_PWME2 + " INTEGER, " + COL_PWME3
+                + " INTEGER, " + COL_PWME4 + " INTEGER, " + COL_PWME5
+                + " INTEGER, " + COL_AIW + " INTEGER, " + COL_AIB
+                + " INTEGER, " + COL_AIRB + " INTEGER, " + COL_RFM
+                + " INTEGER, " + COL_RFS + " INTEGER, " + COL_RFD
+                + " INTEGER, " + COL_RFW + " INTEGER, " + COL_RFRB
+                + " INTEGER, " + COL_RFR + " INTEGER, " + COL_RFG
+                + " INTEGER, " + COL_RFB + " INTEGER, " + COL_RFI
+                + " INTEGER, " + COL_IO + " INTEGER, " + COL_C0
+                + " INTEGER, " + COL_C1 + " INTEGER, " + COL_C2
+                + " INTEGER, " + COL_C3 + " INTEGER, " + COL_C4
+                + " INTEGER, " + COL_C5 + " INTEGER, " + COL_C6
+                + " INTEGER, " + COL_C7 + " INTEGER, " + COL_EM
+                + " INTEGER, " + COL_REM + " INTEGER, " + COL_PHE
+                + " TEXT, " + COL_WL + " INTEGER, " + COL_WL1
+                + " INTEGER, " + COL_WL2 + " INTEGER, " + COL_WL3
+                + " INTEGER, " + COL_WL4 + " INTEGER, " + COL_EM1
+                + " INTEGER, " + COL_HUM + " INTEGER, "
+                + COL_PWMAO + " INTEGER DEFAULT 255, "
+                + COL_PWMDO + " INTEGER DEFAULT 255, "
+                + COL_PWME0O + " INTEGER DEFAULT 255, "
+                + COL_PWME1O + " INTEGER DEFAULT 255, "
+                + COL_PWME2O + " INTEGER DEFAULT 255, "
+                + COL_PWME3O + " INTEGER DEFAULT 255, "
+                + COL_PWME4O + " INTEGER DEFAULT 255, "
+                + COL_PWME5O + " INTEGER DEFAULT 255, "
+                + COL_AIWO + " INTEGER DEFAULT 255, "
+                + COL_AIBO + " INTEGER DEFAULT 255, "
+                + COL_AIRBO + " INTEGER DEFAULT 255, "
+                + COL_RFWO + " INTEGER DEFAULT 255, "
+                + COL_RFRBO + " INTEGER DEFAULT 255, "
+                + COL_RFRO + " INTEGER DEFAULT 255, "
+                + COL_RFGO + " INTEGER DEFAULT 255, "
+                + COL_RFBO + " INTEGER DEFAULT 255, "
+                + COL_RFIO + " INTEGER DEFAULT 255, "
+                + COL_AF + " INTEGER DEFAULT 0, "
+                + COL_SF + " INTEGER DEFAULT 0 "
+
+                + ");" );
 
 	}
 
@@ -150,11 +199,93 @@ public class StatusTable {
 			SQLiteDatabase db,
 			int oldVersion,
 			int newVersion ) {
-		// no changes made in version 5
-		if ( oldVersion < 4 ) {
-			// initially, just drop tables and create new ones
-			db.execSQL( "DROP TABLE IF EXISTS " + TABLE_NAME );
-			onCreate( db );
-		}
+        int curVer = oldVersion;
+        while ( curVer < newVersion ) {
+            curVer++;
+            // only list the versions that there were changes made
+            switch ( curVer ) {
+                default:
+                    break;
+                case 4:
+                    upgradeToVersion4(db);
+                    break;
+                case 7:
+                    upgradeToVersion7(db);
+                    break;
+                case 8:
+                    upgradeToVersion8(db);
+                    break;
+                case 9:
+                    upgradeToVersion9(db);
+                    break;
+                case 10:
+                    upgradeToVersion10(db);
+                    break;
+            }
+        }
 	}
+
+    // no need to worry about having extra columns in the status table on downgrading
+//	public static void onDowngrade ( SQLiteDatabase db,
+//			int oldVersion,
+//			int newVersion ) {
+//		int curVer = oldVersion;
+//		while ( curVer > newVersion ) {
+//			curVer--;
+//			switch ( curVer ) {
+//				default:
+//					break;
+//				case 6:
+//					downgradeToVersion6(db);
+//					break;
+//			}
+//		}
+//	}
+
+    private static void upgradeToVersion4(SQLiteDatabase db) {
+        // clear everything and drop the table
+        db.execSQL( "DROP TABLE IF EXISTS " + TABLE_NAME );
+        onCreate( db );
+    }
+
+    private static void upgradeToVersion7(SQLiteDatabase db) {
+        // added in additional water level columns
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_WL1 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_WL2 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_WL3 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_WL4 + " INTEGER;" );
+    }
+
+    private static void upgradeToVersion8(SQLiteDatabase db) {
+        // added in EM1 column
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_EM1 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_HUM + " INTEGER;" );
+    }
+
+    private static void upgradeToVersion9(SQLiteDatabase db) {
+        // add in pwm override channels
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWMAO + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWMDO + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWME0O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWME1O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWME2O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWME3O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWME4O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWME5O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_AIWO + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_AIBO + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_AIRBO + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_RFWO + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_RFRBO + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_RFRO + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_RFGO + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_RFBO + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_RFIO + " INTEGER DEFAULT 255;" );
+    }
+
+    private static void upgradeToVersion10(SQLiteDatabase db) {
+        // add in alert and status flags fields
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_AF + " INTEGER DEFAULT 0;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SF + " INTEGER DEFAULT 0;" );
+    }
 }

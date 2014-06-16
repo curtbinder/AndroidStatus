@@ -33,12 +33,14 @@ public final class Globals {
     public static final int errorRetryNone = 0;
     public static final int memoryReadOnly = -1;
     public static final int defaultPort = 9;
+
     // profile updating
     public static final int profileAlways = 0;
     public static final int profileOnlyAway = 1;
     public static final int profileOnlyHome = 2;
     public static final int profileHome = 0;
     public static final int profileAway = 1;
+
     // notification conditions
     public static final int condGreaterThan = 0;
     public static final int condGreaterThanOrEqualTo = 1;
@@ -46,6 +48,7 @@ public final class Globals {
     public static final int condLessThan = 3;
     public static final int condLessThanOrEqualTo = 4;
     public static final int condNotEqual = 5;
+
     // notification parameters
     public static final int paramT1 = 0;
     public static final int paramT2 = 1;
@@ -92,6 +95,35 @@ public final class Globals {
     public static final int paramCustom6 = 42;
     public static final int paramCustom7 = 43;
 
+    // override locations
+    public static final int OVERRIDE_DISABLE = 255;
+    public static final int OVERRIDE_MAX_VALUE = 100;
+    public static final int OVERRIDE_DAYLIGHT = 0;
+    public static final int OVERRIDE_ACTINIC = 1;
+    public static final int OVERRIDE_CHANNEL0 = 2;
+    public static final int OVERRIDE_CHANNEL1 = 3;
+    public static final int OVERRIDE_CHANNEL2 = 4;
+    public static final int OVERRIDE_CHANNEL3 = 5;
+    public static final int OVERRIDE_CHANNEL4 = 6;
+    public static final int OVERRIDE_CHANNEL5 = 7;
+    public static final int OVERRIDE_AI_WHITE = 8;
+    public static final int OVERRIDE_AI_ROYALBLUE = 9;
+    public static final int OVERRIDE_AI_BLUE = 10;
+    public static final int OVERRIDE_RF_WHITE = 11;
+    public static final int OVERRIDE_RF_ROYALBLUE = 12;
+    public static final int OVERRIDE_RF_RED = 13;
+    public static final int OVERRIDE_RF_GREEN = 14;
+    public static final int OVERRIDE_RF_BLUE = 15;
+    public static final int OVERRIDE_RF_INTENSITY = 16;
+    //public static final int OVERRIDE_CHANNELS = 17;
+
+    // calibrate locations
+    public static final int CALIBRATE_PH = 0;
+    public static final int CALIBRATE_SALINITY = 1;
+    public static final int CALIBRATE_ORP = 2;
+    public static final int CALIBRATE_PHE = 3;
+    public static final int CALIBRATE_WATERLEVEL = 4;
+
     // Controller Indices
     public static final int T1_INDEX = 0;
     public static final int T2_INDEX = 1;
@@ -105,6 +137,12 @@ public final class Globals {
     public static final int ORP_INDEX = 9;
     public static final int PHE_INDEX = 10;
     public static final int WL_INDEX = 11;
+    public static final int WL1_INDEX = 12;
+    public static final int WL2_INDEX = 13;
+    public static final int WL3_INDEX = 14;
+    public static final int WL4_INDEX = 15;
+    public static final int HUMIDITY_INDEX = 16;
+
 
     private static String buildPackage() {
         String p = Globals.class.getPackage().getName();

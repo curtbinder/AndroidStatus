@@ -145,6 +145,10 @@ public class RAPreferences {
                 R.string.prefReadTimeoutDefault));
     }
 
+    public boolean isAutoRefreshAfterUpdate ( ) {
+        return getBoolean( R.string.prefAutoRefreshAfterUpdateKey, true );
+    }
+
     // Automatic Updating
     public long getUpdateInterval() {
         return Long
@@ -359,12 +363,44 @@ public class RAPreferences {
                 key = R.string.prefPHExpLabelKey;
                 break;
             case Globals.WL_INDEX:
-                def = R.string.labelWaterLevel;
-                key = R.string.prefWaterLevelLabelKey;
+                return getWaterLevelLabel(0);
+            case Globals.WL1_INDEX:
+                return getWaterLevelLabel(1);
+            case Globals.WL2_INDEX:
+                return getWaterLevelLabel(2);
+            case Globals.WL3_INDEX:
+                return getWaterLevelLabel(3);
+            case Globals.WL4_INDEX:
+                return getWaterLevelLabel(4);
+            case Globals.HUMIDITY_INDEX:
+                def = R.string.labelHumidity;
+                key = R.string.prefHumidityLabelKey;
                 break;
         }
         return getString(key, def);
     }
+
+    // key: wl_label
+	public String getWaterLevelLabelKey ( int port ) {
+		String key = "wl";
+		if ( port > 0 ) {
+			key += port;
+		}
+		key += "_label";
+		return key;
+	}
+
+	public String getWaterLevelLabel ( int port ) {
+		return prefs.getString( getWaterLevelLabelKey(port), getWaterLevelDefaultLabel(port));
+	}
+
+	public String getWaterLevelDefaultLabel ( int port ) {
+		String def = rapp.getString( R.string.labelWaterLevel );
+		if ( port > 0 ) {
+			def += " " + port;
+		}
+		return def;
+	}
 
     public boolean getControllerVisibility(int index) {
         int key;
@@ -416,7 +452,27 @@ public class RAPreferences {
                 break;
             case Globals.WL_INDEX:
                 def = false;
+                key = R.string.prefWaterLevel1VisibilityKey;
+                break;
+            case Globals.WL1_INDEX:
+                def = false;
+                key = R.string.prefWaterLevel2VisibilityKey;
+                break;
+            case Globals.WL2_INDEX:
+                def = false;
+                key = R.string.prefWaterLevel3VisibilityKey;
+                break;
+            case Globals.WL3_INDEX:
+                def = false;
+                key = R.string.prefWaterLevel4VisibilityKey;
+                break;
+            case Globals.WL4_INDEX:
+                def = false;
                 key = R.string.prefWaterLevelVisibilityKey;
+                break;
+            case Globals.HUMIDITY_INDEX:
+                def = false;
+                key = R.string.prefHumidityVisibilityKey;
                 break;
         }
         return getBoolean(key, def);
@@ -447,6 +503,14 @@ public class RAPreferences {
 
     public void setPreviousEM(short em) {
         set(rapp.getString(R.string.prefPreviousEMKey), em);
+    }
+
+    public int getPreviousEM1 ( ) {
+        return getInt( R.string.prefPreviousEM1Key, -1 );
+    }
+
+    public void setPreviousEM1 ( short em1 ) {
+        set( rapp.getString( R.string.prefPreviousEM1Key ), em1 );
     }
 
     public boolean isAutoUpdateModulesEnabled() {
@@ -519,31 +583,9 @@ public class RAPreferences {
         return getString(k, v);
     }
 
-    // FIXME improve function
     public void setDimmingModuleChannelLabel(int channel, String label) {
-        int k;
-        switch (channel) {
-            default:
-            case 0:
-                k = R.string.prefExpDimmingCh0LabelKey;
-                break;
-            case 1:
-                k = R.string.prefExpDimmingCh1LabelKey;
-                break;
-            case 2:
-                k = R.string.prefExpDimmingCh2LabelKey;
-                break;
-            case 3:
-                k = R.string.prefExpDimmingCh3LabelKey;
-                break;
-            case 4:
-                k = R.string.prefExpDimmingCh4LabelKey;
-                break;
-            case 5:
-                k = R.string.prefExpDimmingCh5LabelKey;
-                break;
-        }
-        set(k, label);
+        String key = "exp_dim_" + channel;
+        set( key, label );
     }
 
     public boolean getRadionModuleEnabled() {
@@ -595,31 +637,9 @@ public class RAPreferences {
         return getString(k, v);
     }
 
-    // FIXME improve function
     public void setIOModuleChannelLabel(int channel, String label) {
-        int k;
-        switch (channel) {
-            default:
-            case 0:
-                k = R.string.prefExpIO0LabelKey;
-                break;
-            case 1:
-                k = R.string.prefExpIO1LabelKey;
-                break;
-            case 2:
-                k = R.string.prefExpIO2LabelKey;
-                break;
-            case 3:
-                k = R.string.prefExpIO3LabelKey;
-                break;
-            case 4:
-                k = R.string.prefExpIO4LabelKey;
-                break;
-            case 5:
-                k = R.string.prefExpIO5LabelKey;
-                break;
-        }
-        set(k, label);
+        String key = "exp_io_" + channel;
+        set( key, label );
     }
 
     public boolean getCustomModuleEnabled() {
@@ -667,37 +687,9 @@ public class RAPreferences {
         return getString(k, d);
     }
 
-    // FIXME improve function
     public void setCustomModuleChannelLabel(int channel, String label) {
-        int k;
-        switch (channel) {
-            default:
-            case 0:
-                k = R.string.prefExpCustom0LabelKey;
-                break;
-            case 1:
-                k = R.string.prefExpCustom1LabelKey;
-                break;
-            case 2:
-                k = R.string.prefExpCustom2LabelKey;
-                break;
-            case 3:
-                k = R.string.prefExpCustom3LabelKey;
-                break;
-            case 4:
-                k = R.string.prefExpCustom4LabelKey;
-                break;
-            case 5:
-                k = R.string.prefExpCustom5LabelKey;
-                break;
-            case 6:
-                k = R.string.prefExpCustom6LabelKey;
-                break;
-            case 7:
-                k = R.string.prefExpCustom7LabelKey;
-                break;
-        }
-        set(k, label);
+        String key = "exp_custom_" + channel;
+        set( key, label);
     }
 
     private String getRelayControlEnabledKey(int relay, int port) {

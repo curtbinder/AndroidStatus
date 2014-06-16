@@ -132,6 +132,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
         <string name="labelORP">ORP</string>
         <string name="labelPHExp">PH Exp</string>
         <string name="labelWaterLevel">Water</string>
+        <string name="labelHumidity">Humidity</string>
         <string name="labelAtoLow">ATO Low</string>
         <string name="labelAtoHigh">ATO High</string>
         <string name="labelPort1">Port 1</string>
@@ -179,8 +180,18 @@ your controller or have a ReefAngel UserID to use this app.</string>
         <string name="labelLightsOn">Lights On</string>
         <string name="labelLightsOff">Lights Off</string>
         <string name="labelReboot">Reboot</string>
+        <string name="labelCalibratePH">Calibrate PH</string>
+        <string name="labelCalibrateSalinity">Calibrate Salinity</string>
+        <string name="labelCalibrateORP">Calibrate ORP</string>
+        <string name="labelCalibratePHExp">Calibrate PH Exp</string>
+        <string name="labelCalibrateWaterLevel">Calibrate Water Level</string>
+        <string name="labelPwmOverride">PWM Override</string>
         <string name="labelParameter">Parameter:</string>
         <string name="labelCondition">Condition:</string>
+        <string name="labelAtoTimeout">ATO Timeout</string>
+        <string name="labelOverheatTimeout">Overheat Timeout</string>
+        <string name="labelBusLock">Bus Lock</string>
+        <string name="labelLeak">Leak</string>
         <string name="websiteReefangel">http://www.reefangel.com/</string>
         <string name="forumReefangel">http://forum.reefangel.com/</string>
         <string name="defaultStatusText">-</string>
@@ -226,6 +237,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
         <string name="messageMoreErrors">+%1$d more</string>
         <string name="messageGBMoreErrorss">%1$s - %2$d errors</string>
         <string name="messageUnsupported">Unsupported command</string>
+        <string name="messagePWMPopupCustom">%1$s (%2$s)</string>
 
         <!-- Status strings -->
         <string name="statusStart">Starting update</string>
@@ -238,6 +250,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
         <string name="statusParsing">Parsing</string>
         <string name="statusFinished">Finished</string>
         <string name="statusRefreshNeeded">Refresh to update screen</string>
+        <string name="statusWaiting">Waiting to update...</string>
 
         <!-- Settings / Preference Labels -->
         <string name="prefsCategoryDevice">Device</string>
@@ -396,6 +409,8 @@ your controller or have a ReefAngel UserID to use this app.</string>
         <string name="prefConnectionTimeoutDefault">15000</string>
         <string name="prefReadTimeoutTitle">Read Timeout</string>
         <string name="prefReadTimeoutDefault">10000</string>
+        <string name="prefAutoRefreshAfterUpdateTitle">Auto refresh after commands</string>
+        <string name="prefAutoRefreshAfterUpdateSummary">Automatically refresh the status after issuing a command or pwm override</string>
 
         <!-- Preference Keys -->
         <string name="prefFirstRunKey">firstrun</string>
@@ -418,7 +433,12 @@ your controller or have a ReefAngel UserID to use this app.</string>
         <string name="prefSalinityVisibilityKey">salinity_visibility</string>
         <string name="prefORPVisibilityKey">orp_visibility</string>
         <string name="prefPHExpVisibilityKey">phe_visibility</string>
+        <string name="prefHumidityVisibilityKey">humidity_visibility</string>
         <string name="prefWaterLevelVisibilityKey">wl_visibility</string>
+        <string name="prefWaterLevel1VisibilityKey">wl1_visibility</string>
+        <string name="prefWaterLevel2VisibilityKey">wl2_visibility</string>
+        <string name="prefWaterLevel3VisibilityKey">wl3_visibility</string>
+        <string name="prefWaterLevel4VisibilityKey">wl4_visibility</string>
         <string name="prefResetLabelsKey">reset_labels</string>
         <string name="prefResetEnabledPortsKey">reset_enabled_ports</string>
         <string name="prefControllerLabelsDownloadKey">download_labels</string>
@@ -433,7 +453,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
         <string name="prefSalinityLabelKey">salinity_label</string>
         <string name="prefORPLabelKey">orp_label</string>
         <string name="prefPHExpLabelKey">phe_label</string>
-        <string name="prefWaterLevelLabelKey">wl_label</string>
+        <string name="prefHumidityLabelKey">humidity_label</string>
         <string name="prefMainPort1LabelKey">main_port1_label</string>
         <string name="prefMainPort2LabelKey">main_port2_label</string>
         <string name="prefMainPort3LabelKey">main_port3_label</string>
@@ -555,6 +575,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
         <string name="prefPre10MemoryKey">pre_10_memory_locations</string>
         <string name="prefPreviousCodeVersionKey">previous_version</string>
         <string name="prefPreviousEMKey">previous_em</string>
+        <string name="prefPreviousEM1Key">previous_em1</string>
         <string name="prefAutoUpdateIntervalKey">update_interval</string>
         <string name="prefAutoUpdateModulesKey">update_modules</string>
         <string name="prefAutoUpdateProfileKey">update_profile</string>
@@ -568,6 +589,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
         <string name="prefLoggingSendKey">logging_send</string>
         <string name="prefConnectionTimeoutKey">connection_timeout</string>
         <string name="prefReadTimeoutKey">read_timeout</string>
+        <string name="prefAutoRefreshAfterUpdateKey">auto_refresh_update</string>
 
         <!-- Permissions -->
         <string name="permissionQueryStatusLabel">Query status of controller</string>

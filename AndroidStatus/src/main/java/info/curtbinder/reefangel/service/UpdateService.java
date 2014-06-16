@@ -121,105 +121,122 @@ public class UpdateService extends IntentService {
 	}
 
 	private void processRACommand ( Intent intent ) {
-		String action = intent.getAction();
-		String command = RequestCommands.None;
-		final RAPreferences raprefs = rapp.raprefs;
-		boolean isController = raprefs.isCommunicateController();
-		Host h =
-				new Host( raprefs.getConnectionTimeout(),
-					raprefs.getReadTimeout() );
+        String action = intent.getAction();
+        String command = RequestCommands.None;
+        final RAPreferences raprefs = rapp.raprefs;
+        boolean isController = raprefs.isCommunicateController();
+        Host h =
+                new Host( raprefs.getConnectionTimeout(),
+                        raprefs.getReadTimeout() );
 
-		// setup the basics for the host first
-		if ( isController ) {
-			// controller
-			h.setHost( raprefs.getHost() );
-			h.setPort( raprefs.getPort() );
-		} else {
-			// reeefangel.com
-			h.setUserId( raprefs.getUserId() );
-		}
+        // setup the basics for the host first
+        if ( isController ) {
+            // controller
+            h.setHost( raprefs.getHost() );
+            h.setPort( raprefs.getPort() );
+        } else {
+            // reeefangel.com
+            h.setUserId( raprefs.getUserId() );
+        }
 
-		if ( action.equals( MessageCommands.QUERY_STATUS_INTENT ) ) {
-			if ( isController )
-				command = RequestCommands.Status;
-			else
-				command = RequestCommands.ReefAngel;
+        if ( action.equals( MessageCommands.QUERY_STATUS_INTENT ) ) {
+            if ( isController )
+                command = RequestCommands.Status;
+            else
+                command = RequestCommands.ReefAngel;
 
-			h.setCommand( command );
-		} else if ( action.equals( MessageCommands.TOGGLE_RELAY_INTENT ) ) {
-			if ( isController )
-				command =
-						new String(
-							String.format(	"%s%d%d",
-											RequestCommands.Relay,
-											intent.getIntExtra( MessageCommands.TOGGLE_RELAY_PORT_INT,
-																Globals.defaultPort ),
-											intent.getIntExtra( MessageCommands.TOGGLE_RELAY_MODE_INT,
-																Globals.defaultPort ) ) );
-			else
-				command = RequestCommands.ReefAngel;
+            h.setCommand( command );
+        } else if ( action.equals( MessageCommands.TOGGLE_RELAY_INTENT ) ) {
+            if ( isController )
+                command =
+                        new String(
+                                String.format(	"%s%d%d",
+                                        RequestCommands.Relay,
+                                        intent.getIntExtra( MessageCommands.TOGGLE_RELAY_PORT_INT,
+                                                Globals.defaultPort ),
+                                        intent.getIntExtra( MessageCommands.TOGGLE_RELAY_MODE_INT,
+                                                Globals.defaultPort ) ) );
+            else
+                command = RequestCommands.ReefAngel;
 
-			h.setCommand( command );
-		} else if ( action.equals( MessageCommands.MEMORY_SEND_INTENT ) ) {
-			int value =
-					intent.getIntExtra( MessageCommands.MEMORY_SEND_VALUE_INT,
-										Globals.memoryReadOnly );
-			int location =
-					intent.getIntExtra( MessageCommands.MEMORY_SEND_LOCATION_INT,
-										Globals.memoryReadOnly );
-			String type =
-					intent.getStringExtra( MessageCommands.MEMORY_SEND_TYPE_STRING );
-			if ( type.equals( null ) || (location == Globals.memoryReadOnly) ) {
-				Log.d( TAG, "No memory specified" );
-				return;
-			}
+            h.setCommand( command );
+        } else if ( action.equals( MessageCommands.MEMORY_SEND_INTENT ) ) {
+            int value =
+                    intent.getIntExtra( MessageCommands.MEMORY_SEND_VALUE_INT,
+                            Globals.memoryReadOnly );
+            int location =
+                    intent.getIntExtra( MessageCommands.MEMORY_SEND_LOCATION_INT,
+                            Globals.memoryReadOnly );
+            String type =
+                    intent.getStringExtra( MessageCommands.MEMORY_SEND_TYPE_STRING );
+            if ( type.equals( null ) || (location == Globals.memoryReadOnly) ) {
+                Log.d( TAG, "No memory specified" );
+                return;
+            }
 
-			if ( !isController ) {
-				notControllerMessage();
-				return;
-			}
+            if ( !isController ) {
+                notControllerMessage();
+                return;
+            }
 
-			h.setCommand( type );
-			if ( value == Globals.memoryReadOnly )
-				h.setReadLocation( location );
-			else
-				h.setWriteLocation( location, value );
-		} else if ( action.equals( MessageCommands.LABEL_QUERY_INTENT ) ) {
-			// set the userid
-			h.setUserId( raprefs.getUserId() );
-			h.setGetLabelsOnly( true );
-		} else if ( action.equals( MessageCommands.COMMAND_SEND_INTENT ) ) {
-			if ( !isController ) {
-				notControllerMessage();
-				return;
-			}
-			h.setCommand( intent
-					.getStringExtra( MessageCommands.COMMAND_SEND_STRING ) );
-		} else if ( action.equals( MessageCommands.VERSION_QUERY_INTENT ) ) {
-			if ( !isController ) {
-				notControllerMessage();
-				return;
-			}
-			h.setCommand( RequestCommands.Version );
-		} else if ( action.equals( MessageCommands.DATE_QUERY_INTENT ) ) {
-			if ( !isController ) {
-				notControllerMessage();
-				return;
-			}
-			h.setCommand( RequestCommands.DateTime );
-		} else if ( action.equals( MessageCommands.DATE_SEND_INTENT ) ) {
-			if ( !isController ) {
-				notControllerMessage();
-				return;
-			}
-			h.setCommand( intent
-					.getStringExtra( MessageCommands.DATE_SEND_STRING ) );
-		} else {
-			Log.d( TAG, "Unknown command: " + action);
-			return;
-		}
-		Log.d( TAG, "Task Host: " + h.toString() );
-		runTask( h );
+            h.setCommand( type );
+            if ( value == Globals.memoryReadOnly )
+                h.setReadLocation( location );
+            else
+                h.setWriteLocation( location, value );
+        } else if ( action.equals( MessageCommands.OVERRIDE_SEND_INTENT ) ) {
+            if ( !isController ) {
+                notControllerMessage();
+                return;
+            }
+            int value = intent.getIntExtra(MessageCommands.OVERRIDE_SEND_VALUE_INT, 0);
+            int location = intent.getIntExtra( MessageCommands.OVERRIDE_SEND_LOCATION_INT, Globals.OVERRIDE_DISABLE );
+            h.setCommand( RequestCommands.PwmOverride );
+            h.setOverrideChannel( location, value );
+        } else if ( action.equals( MessageCommands.LABEL_QUERY_INTENT ) ) {
+            // set the userid
+            h.setUserId( raprefs.getUserId() );
+            h.setGetLabelsOnly( true );
+        } else if ( action.equals( MessageCommands.COMMAND_SEND_INTENT ) ) {
+            if ( !isController ) {
+                notControllerMessage();
+                return;
+            }
+            h.setCommand( intent
+                    .getStringExtra( MessageCommands.COMMAND_SEND_STRING ) );
+        } else if ( action.equals( MessageCommands.CALIBRATE_SEND_INTENT ) ) {
+            if ( !isController ) {
+                notControllerMessage();
+                return;
+            }
+            h.setCommand( RequestCommands.Calibrate );
+            h.setCalibrateType( intent.getIntExtra(MessageCommands.CALIBRATE_SEND_LOCATION_INT,
+                    Globals.CALIBRATE_PH) );
+        } else if ( action.equals( MessageCommands.VERSION_QUERY_INTENT ) ) {
+            if ( !isController ) {
+                notControllerMessage();
+                return;
+            }
+            h.setCommand( RequestCommands.Version );
+        } else if ( action.equals( MessageCommands.DATE_QUERY_INTENT ) ) {
+            if ( !isController ) {
+                notControllerMessage();
+                return;
+            }
+            h.setCommand( RequestCommands.DateTime );
+        } else if ( action.equals( MessageCommands.DATE_SEND_INTENT ) ) {
+            if ( !isController ) {
+                notControllerMessage();
+                return;
+            }
+            h.setCommand( intent
+                    .getStringExtra( MessageCommands.DATE_SEND_STRING ) );
+        } else {
+            Log.d( TAG, "Unknown command" );
+            return;
+        }
+        Log.d( TAG, "Task Host: " + h.toString() );
+        runTask( h );
 	}
 
 	private void runTask ( Host h ) {

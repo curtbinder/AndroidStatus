@@ -51,10 +51,25 @@ public class NotificationTable {
 			SQLiteDatabase db,
 			int oldVersion,
 			int newVersion ) {
-		// initially, just drop tables and create new ones
-		dropTable( db );
-		onCreate( db );
+        int curVer = oldVersion;
+        while ( curVer < newVersion ) {
+            curVer++;
+            switch (curVer) {
+                default:
+                    break;
+                case 6:
+                    upgradeToVersion6(db);
+                    break;
+            }
+        }
 	}
+
+    private static void upgradeToVersion6 ( SQLiteDatabase db ) {
+        // table did no exist prior to version 6, so just drop it as a safety precaution
+        // then create it
+        dropTable(db);
+        onCreate(db);
+    }
 
 	private static void dropTable ( SQLiteDatabase db ) {
 		db.execSQL( DROP_TABLE );
@@ -64,6 +79,21 @@ public class NotificationTable {
 			SQLiteDatabase db,
 			int oldVersion,
 			int newVersion ) {
-		dropTable( db );
+        int curVer = oldVersion;
+        while ( curVer > newVersion ) {
+            curVer--;
+            switch ( curVer ) {
+                default:
+                    break;
+                case 5:
+                case 4:
+                case 3:
+                case 2:
+                case 1:
+                    // drop the table if the downgraded version is less than 6
+                    dropTable(db);
+                    break;
+            }
+        }
 	}
 }

@@ -51,11 +51,17 @@ public class StatusFragment extends Fragment {
 
     public static final int PAGES = 4;
     private static final String TAG = StatusFragment.class.getSimpleName();
-    // minimum number of pages: status, main relay
-    private static final int MIN_PAGES = 3;
+
+    // minimum number of pages: commands, flags, status, main relay
+    private static final int MIN_PAGES = 4;
+
     private static final int POS_START = 0;
+
     private static final int POS_COMMANDS = POS_START;
-    private static final int POS_CONTROLLER = POS_START + 1;
+    private static final int POS_FLAGS = POS_COMMANDS + 1;
+    private static final int POS_CONTROLLER = POS_COMMANDS + 2;
+
+    // add on module pages
     private static final int POS_MODULES = POS_CONTROLLER + 10;
     private static final int POS_DIMMING = POS_MODULES;
     private static final int POS_RADION = POS_MODULES + 1;
@@ -63,7 +69,8 @@ public class StatusFragment extends Fragment {
     private static final int POS_AI = POS_MODULES + 3;
     private static final int POS_IO = POS_MODULES + 4;
     private static final int POS_CUSTOM = POS_MODULES + 5;
-    private static final int POS_END = POS_CUSTOM + 1;
+
+    // relay pages
     private static final int POS_MAIN_RELAY = POS_CONTROLLER + 1;
     private static final int POS_EXP1_RELAY = POS_MAIN_RELAY + 1;
     private static final int POS_EXP2_RELAY = POS_MAIN_RELAY + 2;
@@ -73,11 +80,16 @@ public class StatusFragment extends Fragment {
     private static final int POS_EXP6_RELAY = POS_MAIN_RELAY + 6;
     private static final int POS_EXP7_RELAY = POS_MAIN_RELAY + 7;
     private static final int POS_EXP8_RELAY = POS_MAIN_RELAY + 8;
+
+    private static final int POS_END = POS_CUSTOM + 1;
+
     private static final String CURRENT_POSITION = "currentPosition";
-    private static int currentPosition = 1;
+    private static int currentPosition = POS_CONTROLLER;  // was 1
+
     // Message Receivers
     StatusReceiver receiver;
     IntentFilter filter;
+
     // display views
     private TextView mUpdateTime;
     private ViewPager mPager;
@@ -105,12 +117,7 @@ public class StatusFragment extends Fragment {
         Log.d(TAG, "onCreateView");
         View root = inflater.inflate(R.layout.frag_status, container, false);
 
-        // Message Receiver stuff
-        receiver = new StatusReceiver();
-        filter = new IntentFilter(MessageCommands.UPDATE_DISPLAY_DATA_INTENT);
-        filter.addAction(MessageCommands.UPDATE_STATUS_INTENT);
-        filter.addAction(MessageCommands.COMMAND_RESPONSE_INTENT);
-        filter.addAction(MessageCommands.ERROR_MESSAGE_INTENT);
+        createMessageReceiver();
 
         mUpdateTime = (TextView) root.findViewById(R.id.textUpdate);
 
@@ -148,6 +155,22 @@ public class StatusFragment extends Fragment {
         // enable the options menu
         setHasOptionsMenu(true);
         return root;
+    }
+
+    private void createMessageReceiver() {
+        // Message Receiver stuff
+        receiver = new StatusReceiver();
+        filter = new IntentFilter(MessageCommands.UPDATE_DISPLAY_DATA_INTENT);
+        filter.addAction(MessageCommands.UPDATE_STATUS_INTENT);
+        filter.addAction(MessageCommands.COMMAND_RESPONSE_INTENT);
+        filter.addAction(MessageCommands.ERROR_MESSAGE_INTENT);
+        filter.addAction(MessageCommands.VORTECH_POPUP_INTENT);
+        filter.addAction(MessageCommands.MEMORY_RESPONSE_INTENT);
+        filter.addAction(MessageCommands.COMMAND_RESPONSE_INTENT);
+        filter.addAction(MessageCommands.VERSION_RESPONSE_INTENT);
+        filter.addAction(MessageCommands.OVERRIDE_RESPONSE_INTENT);
+        filter.addAction(MessageCommands.OVERRIDE_POPUP_INTENT);
+        filter.addAction(MessageCommands.CALIBRATE_RESPONSE_INTENT);
     }
 
     private void refreshPageData(int position) {

@@ -54,10 +54,24 @@ public class ErrorTable {
 			SQLiteDatabase db,
 			int oldVersion,
 			int newVersion ) {
-		// initially, just drop tables and create new ones
-		dropTable( db );
-		onCreate( db );
+        int curVer = oldVersion;
+        while ( curVer < oldVersion ) {
+            curVer++;
+            switch ( curVer ) {
+                default:
+                    break;
+                case 5:
+                    upgradeToVersion5(db);
+                    break;
+            }
+        }
 	}
+
+    private static void upgradeToVersion5 ( SQLiteDatabase db ) {
+        // table did not exist prior to version 5
+        dropTable(db);
+        onCreate(db);
+    }
 
 	private static void dropTable ( SQLiteDatabase db ) {
 		db.execSQL( DROP_TABLE );
@@ -67,6 +81,20 @@ public class ErrorTable {
 			SQLiteDatabase db,
 			int oldVersion,
 			int newVersion ) {
-		dropTable( db );
+        int curVer = oldVersion;
+        while ( curVer > newVersion ) {
+            curVer--;
+            switch ( curVer ) {
+                default:
+                    break;
+                case 4:
+                case 3:
+                case 2:
+                case 1:
+                    // drop the table if the downgraded version is less than 5
+                    dropTable(db);
+                    break;
+            }
+        }
 	}
 }
