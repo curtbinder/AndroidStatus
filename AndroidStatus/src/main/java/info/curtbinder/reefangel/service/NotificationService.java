@@ -458,7 +458,6 @@ public class NotificationService extends IntentService {
 		Bitmap icon =
 				BitmapFactory.decodeResource(	getResources(),
 												R.drawable.ic_launcher );
-        // TODO update the small notification icon
 		NotificationCompat.Builder b =
 				new NotificationCompat.Builder( this )
 						.setAutoCancel( true )
