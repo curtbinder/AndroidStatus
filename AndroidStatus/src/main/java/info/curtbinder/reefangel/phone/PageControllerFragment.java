@@ -79,6 +79,11 @@ public class PageControllerFragment extends Fragment
         deviceRow[Globals.ORP_INDEX] = (TableRow) root.findViewById(R.id.orp_row);
         deviceRow[Globals.PHE_INDEX] = (TableRow) root.findViewById(R.id.phe_row);
         deviceRow[Globals.WL_INDEX] = (TableRow) root.findViewById(R.id.water_row);
+        deviceRow[Globals.WL1_INDEX] = (TableRow) root.findViewById(R.id.water1_row);
+        deviceRow[Globals.WL2_INDEX] = (TableRow) root.findViewById(R.id.water2_row);
+        deviceRow[Globals.WL3_INDEX] = (TableRow) root.findViewById(R.id.water3_row);
+        deviceRow[Globals.WL4_INDEX] = (TableRow) root.findViewById(R.id.water4_row);
+        deviceRow[Globals.HUMIDITY_INDEX] = (TableRow) root.findViewById(R.id.humidity_row);
 
         for (int i = 0; i < Controller.MAX_CONTROLLER_VALUES; i++) {
             deviceText[i] =
@@ -102,6 +107,7 @@ public class PageControllerFragment extends Fragment
         Log.d(TAG, "updateLabelsAndVisibility");
         RAApplication raApp = (RAApplication)getActivity().getApplication();
         RAPreferences raPrefs = raApp.raprefs;
+        // TODO update for new water level and humidity labels
         for(int i = 0; i < Controller.MAX_CONTROLLER_VALUES; i++) {
             setLabel(i, raPrefs.getControllerLabel(i), getDeviceSubtitle(i));
             setVisibility(i, raPrefs.getControllerVisibility(i));
@@ -217,7 +223,12 @@ public class PageControllerFragment extends Fragment
                 c.getString(c.getColumnIndex(StatusTable.COL_SAL)) + " ppt",
                 c.getString(c.getColumnIndex(StatusTable.COL_ORP)) + " mV",
                 c.getString(c.getColumnIndex(StatusTable.COL_PHE)),
-                c.getString(c.getColumnIndex(StatusTable.COL_WL)) + "%"};
+                c.getString(c.getColumnIndex(StatusTable.COL_WL)) + "%",
+                c.getString(c.getColumnIndex(StatusTable.COL_WL1)) + "%",
+                c.getString(c.getColumnIndex(StatusTable.COL_WL2)) + "%",
+                c.getString(c.getColumnIndex(StatusTable.COL_WL3)) + "%",
+                c.getString(c.getColumnIndex(StatusTable.COL_WL4)) + "%",
+                c.getString(c.getColumnIndex(StatusTable.COL_HUM)) + "%"};
     }
 
 
