@@ -94,6 +94,8 @@ public class UpdateService extends IntentService {
 			}
 			h.setHost( host );
 			h.setPort( port );
+			h.setWifiUsername( raprefs.getDeviceWifiUsername() );
+			h.setWifiPassword( raprefs.getDeviceWifiPassword() );
 			h.setCommand( RequestCommands.Status );
 		} else {
 			// reeefangel.com / portal
@@ -103,7 +105,7 @@ public class UpdateService extends IntentService {
 		Log.d( TAG, "AutoUpdate: " + h.toString() );
 		runTask( h );
 	}
-
+	
 	private void processRACommand ( Intent intent ) {
 		String action = intent.getAction();
 		String command = RequestCommands.None;
@@ -118,6 +120,8 @@ public class UpdateService extends IntentService {
 			// controller
 			h.setHost( raprefs.getHost() );
 			h.setPort( raprefs.getPort() );
+			h.setWifiUsername( raprefs.getDeviceWifiUsername() );
+			h.setWifiPassword( raprefs.getDeviceWifiPassword() );
 		} else {
 			// reeefangel.com
 			h.setUserId( raprefs.getUserId() );

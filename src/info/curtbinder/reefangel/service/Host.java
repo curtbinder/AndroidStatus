@@ -21,6 +21,8 @@ public class Host {
 	private int timeoutConnect;
 	private int timeoutRead;
 	private String raUserid;
+	private String wifiUsername;
+	private String wifiPassword;
 
 	private final String RAPARAMS =
 			"http://forum.reefangel.com/status/params.aspx?id=";
@@ -58,13 +60,13 @@ public class Host {
 		this.host = host;
 		this.port = port;
 		this.command = command;
-		//timeoutConnect = 15000; // milliseconds
-		//timeoutRead = 10000; // milliseconds
 		location = 0;
 		value = 0;
 		write = false;
 		raUserid = "";
 		labels = false;
+		wifiUsername = "";
+		wifiPassword = "";
 	}
 
 	public void setHost ( String host ) {
@@ -82,7 +84,28 @@ public class Host {
 	public String getCommand ( ) {
 		return this.command;
 	}
-
+	
+	public void setWifiUsername ( String username ) {
+		this.wifiUsername = username;
+	}
+	
+	public void setWifiPassword ( String password ) {
+		this.wifiPassword = password;
+	}
+	
+	public String getDeviceAuthenticationString ( ) {
+		return wifiUsername + ":" + wifiPassword;
+	}
+	
+	public boolean isDeviceAuthenticationEnabled ( ) {
+		// if either the password or username are empty, 
+		// device authentication is not enabled
+		if ( wifiPassword.equals( "" ) || wifiUsername.equals( "" ) ) {
+			return false;
+		}
+		return true;
+	}
+	
 	public void setUserId ( String userid ) {
 		raUserid = userid;
 		setCommand( RequestCommands.ReefAngel );

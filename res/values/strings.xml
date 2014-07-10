@@ -10,7 +10,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 <resources>
 
     <string name="app_name">Reef Angel Status</string>
-    <string name="app_version">0.9.5</string>
+    <string name="app_version">0.9.6 - Beta 1</string>
 
     <!-- Menu Labels -->
     <string name="menuMainRefresh">Refresh</string>
@@ -277,6 +277,10 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefUserIdSummary">Userid / login for the portal</string>
     <string name="prefUserIdDefault">reefangel</string>
     <string name="prefUserIdInvalid">Invalid userid</string>
+    <string name="prefWifiUserTitle">Wifi Username</string>
+    <string name="prefWifiUserSummary">Username for basic authentication on the controller (libraries v1.1.1 and later)</string>
+    <string name="prefWifiPasswordTitle">Wifi Password</string>
+    <string name="prefWifiPasswordSummary">Password for basic authentication on the controller (libraries v1.1.1 and later)</string>
     <string name="prefAppTitle">Info</string>
     <string name="prefVersionTitle">Version</string>
     <string name="prefAuthorTitle">Author</string>
@@ -413,6 +417,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefPortAwayKey">portaway</string>
     <string name="prefProfileSelectedKey">profileselected</string>
     <string name="prefUserIdKey">userid</string>
+    <string name="prefWifiUserKey">wifi_username</string>
+    <string name="prefWifiPasswordKey">wifi_password</string>
     <string name="prefChangelogKey">changelog</string>
     <string name="prefT2VisibilityKey">t2_visibility</string>
     <string name="prefT3VisibilityKey">t3_visibility</string>

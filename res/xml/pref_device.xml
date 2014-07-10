@@ -16,4 +16,14 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         android:key="@string/prefDeviceKey"
         android:title="@string/prefDeviceTitle" />
 
+    <EditTextPreference
+        android:key="@string/prefWifiUserKey"
+        android:summary="@string/prefWifiUserSummary"
+        android:title="@string/prefWifiUserTitle" />
+    <EditTextPreference
+        android:inputType="textPassword"
+        android:key="@string/prefWifiPasswordKey"
+        android:summary="@string/prefWifiPasswordSummary"
+        android:title="@string/prefWifiPasswordTitle" />
+
 </PreferenceScreen>

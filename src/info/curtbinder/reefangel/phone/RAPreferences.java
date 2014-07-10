@@ -300,6 +300,22 @@ public class RAPreferences {
 	public void setUserId ( String userId ) {
 		set( R.string.prefUserIdKey, userId );
 	}
+	
+	public String getDeviceWifiUsername ( ) {
+		return getString( R.string.prefWifiUserKey, "" );
+	}
+	
+	public void setDeviceWifiUsername ( String username ) {
+		set( R.string.prefWifiUserKey, username );
+	}
+	
+	public String getDeviceWifiPassword ( ) {
+		return getString( R.string.prefWifiPasswordKey, "" );
+	}
+	
+	public void setDeviceWifiPassword ( String password ) {
+		set( R.string.prefWifiPasswordKey, password );
+	}
 
 	// Controller Information
 	public boolean getT2Visibility ( ) {

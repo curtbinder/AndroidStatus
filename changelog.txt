@@ -215,3 +215,5 @@ Changelog of all the versions of AndroidStatus
  ** popup starts with current values instead of defaulting to 0
  * code cleanup
  
+0.9.6
+ * added in basic webserver authentication mechanism for v1.1.1 libraries

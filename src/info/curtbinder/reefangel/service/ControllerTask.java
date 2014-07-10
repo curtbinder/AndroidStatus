@@ -62,6 +62,12 @@ public class ControllerTask implements Runnable {
 		try {
 			URL url = new URL( host.toString() );
 			con = setupConnection(url);
+			if ( host.isDeviceAuthenticationEnabled() ) {
+				String basicAuth = "Basic " +
+					Base64.encodeBytes( host.getDeviceAuthenticationString().getBytes() );
+				Log.d(TAG, "Auth: " + basicAuth);
+				con.setRequestProperty( "Authorization", basicAuth );
+			}
 			broadcastUpdateStatus( R.string.statusConnect );
 			con.connect();
 

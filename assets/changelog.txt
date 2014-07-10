@@ -1,5 +1,10 @@
 <html>
 <body>
+<b>0.9.6</b>
+<ul>
+<li>added in basic webserver authentication mechanism for v1.1.1 libraries</li>
+</ul>
+<br>
 <b>0.9.5</b>
 <ul>
 <li>added in pwm override control</li>
