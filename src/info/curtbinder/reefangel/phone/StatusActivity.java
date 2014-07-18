@@ -74,8 +74,8 @@ public class StatusActivity extends BaseActivity implements
 
 	private static final int POS_START = 0;
 
-	private static final int POS_COMMANDS = POS_START;
-	private static final int POS_FLAGS = POS_START + 1;
+	private static final int POS_FLAGS = POS_START;
+	private static final int POS_COMMANDS = POS_START + 1;
 	private static final int POS_CONTROLLER = POS_START + 2;
 
 	private static final int POS_MODULES = POS_CONTROLLER + 10;
