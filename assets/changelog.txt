@@ -4,6 +4,7 @@
 <ul>
 <li>added in basic webserver authentication mechanism for v1.1.1 libraries</li>
 <li>switched the position of Commands page and Flags Page</li>
+<li>added in Notifications for Water Level 1-4 and Humidity</li>
 </ul>
 <br>
 <b>0.9.5</b>

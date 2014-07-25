@@ -218,4 +218,5 @@ Changelog of all the versions of AndroidStatus
 0.9.6
  * added in basic webserver authentication mechanism for v1.1.1 libraries
  * switched the position of Commands page and Flags Page
+ * added in Notifications for Water Level 1-4 and Humidity
  
