@@ -412,6 +412,26 @@ public class NotificationService extends IntentService {
 				f = l.getFloat( l.getColumnIndex( StatusTable.COL_C7 ) );
 				break;
 			}
+			case Globals.paramWaterLevel1: {
+				f = l.getFloat( l.getColumnIndex( StatusTable.COL_WL1 ) );
+				break;
+			}
+			case Globals.paramWaterLevel2: {
+				f = l.getFloat( l.getColumnIndex( StatusTable.COL_WL2 ) );
+				break;
+			}
+			case Globals.paramWaterLevel3: {
+				f = l.getFloat( l.getColumnIndex( StatusTable.COL_WL3 ) );
+				break;
+			}
+			case Globals.paramWaterLevel4: {
+				f = l.getFloat( l.getColumnIndex( StatusTable.COL_WL4 ) );
+				break;
+			}
+			case Globals.paramHumidity: {
+				f = l.getFloat( l.getColumnIndex( StatusTable.COL_HUM ) );
+				break;
+			}
 			default: {
 				f = 0;
 				break;

@@ -81,6 +81,12 @@ public final class Globals {
 	public static final int paramCustom5 = 41;
 	public static final int paramCustom6 = 42;
 	public static final int paramCustom7 = 43;
+	public static final int paramWaterLevel1 = 44;
+	public static final int paramWaterLevel2 = 45;
+	public static final int paramWaterLevel3 = 46;
+	public static final int paramWaterLevel4 = 47;
+	public static final int paramHumidity = 48;
+	
 	
 	// override locations
 	public static final int OVERRIDE_DISABLE = 255;
