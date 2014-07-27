@@ -89,9 +89,12 @@ public class PageControllerFragment extends Fragment
         deviceRow[Globals.HUMIDITY_INDEX] = (TableRow) root.findViewById(R.id.humidity_row);
 
         for (int i = 0; i < Controller.MAX_CONTROLLER_VALUES; i++) {
-            deviceText[i] =
-                    (TextView) deviceRow[i].findViewById(R.id.rowValue);
+            deviceText[i] = (TextView) deviceRow[i].findViewById(R.id.rowValue);
         }
+        deviceText[Globals.AP_INDEX].setLongClickable(true);
+        deviceText[Globals.AP_INDEX].setOnLongClickListener(this);
+        deviceText[Globals.DP_INDEX].setLongClickable(true);
+        deviceText[Globals.DP_INDEX].setOnLongClickListener(this);
     }
 
     @Override
@@ -194,10 +197,10 @@ public class PageControllerFragment extends Fragment
     private void setVisibility(int device, boolean fVisible) {
         int v;
         if (fVisible) {
-            Log.d(TAG, device + " visible");
+            //Log.d(TAG, device + " visible");
             v = View.VISIBLE;
         } else {
-            Log.d(TAG, device + " gone");
+            //Log.d(TAG, device + " gone");
             v = View.GONE;
         }
         deviceRow[device].setVisibility(v);

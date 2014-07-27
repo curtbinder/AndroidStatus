@@ -99,6 +99,8 @@ public class StatusFragment extends Fragment {
     private ViewPager mPager;
     private SectionsPagerAdapter mPagerAdapter;
     private Fragment[] mAppPages;
+    private int[] mAppPageOrder;
+    private String[] mAppPageTitles;
     private String[] mVortechModes;
     private RAApplication raApp;
 
@@ -126,8 +128,7 @@ public class StatusFragment extends Fragment {
 
         mUpdateTime = (TextView) root.findViewById(R.id.textUpdate);
 
-        // set the maximum number of pages we can have
-        mAppPages = new Fragment[POS_END];
+        createPages();
 
         // Set up the ViewPager with the sections adapter.
         mPager = (ViewPager) root.findViewById(R.id.pager);
@@ -160,6 +161,70 @@ public class StatusFragment extends Fragment {
         // enable the options menu
         setHasOptionsMenu(true);
         return root;
+    }
+
+    private void createPages() {
+        // set the maximum number of pages we can have
+        mAppPages = new Fragment[POS_END];
+        mAppPageTitles = new String[POS_END];
+        mAppPages[POS_FLAGS] = PageFlagsFragment.newInstance();
+        mAppPageTitles[POS_FLAGS] = getString(R.string.titleFlags);
+        mAppPages[POS_COMMANDS] = PageCommandsFragment.newInstance();
+        mAppPageTitles[POS_COMMANDS] = getString(R.string.titleCommands);
+        mAppPages[POS_CONTROLLER] = PageControllerFragment.newInstance();
+        mAppPageTitles[POS_CONTROLLER] = getString(R.string.labelController);
+        mAppPages[POS_DIMMING] = PageDimmingFragment.newInstance();
+        mAppPageTitles[POS_DIMMING] = getString(R.string.labelDimming);
+        mAppPages[POS_RADION] = PageRadionFragment.newInstance();
+        mAppPageTitles[POS_RADION] = getString(R.string.labelRadion);
+        mAppPages[POS_VORTECH] = PageVortechFragment.newInstance();
+        mAppPageTitles[POS_VORTECH] = getString(R.string.labelVortech);
+        mAppPages[POS_AI] = PageAIFragment.newInstance();
+        mAppPageTitles[POS_AI] = getString(R.string.labelAI);
+        mAppPages[POS_IO] = PageIOFragment.newInstance();
+        mAppPageTitles[POS_IO] = getString(R.string.labelIO);
+        mAppPages[POS_CUSTOM] = PageCustomFragment.newInstance();
+        mAppPageTitles[POS_CUSTOM] = getString(R.string.labelCustomVariables);
+        for ( int i = POS_MAIN_RELAY, j = 0; i < POS_EXP8_RELAY+1; i++, j++ ) {
+            // should be 3 through 11
+            mAppPages[i] = PageRelayFragment.newInstance(j);
+            mAppPageTitles[i] = getRelayPageTitle(j);
+        }
+    }
+
+    private String getRelayPageTitle(int relay) {
+        int id;
+        switch ( relay ) {
+            default:
+            case 0:
+                id = R.string.prefMainRelayTitle;
+                break;
+            case 1:
+                id = R.string.prefExp1RelayTitle;
+                break;
+            case 2:
+                id = R.string.prefExp2RelayTitle;
+                break;
+            case 3:
+                id = R.string.prefExp3RelayTitle;
+                break;
+            case 4:
+                id = R.string.prefExp4RelayTitle;
+                break;
+            case 5:
+                id = R.string.prefExp5RelayTitle;
+                break;
+            case 6:
+                id = R.string.prefExp6RelayTitle;
+                break;
+            case 7:
+                id = R.string.prefExp7RelayTitle;
+                break;
+            case 8:
+                id = R.string.prefExp8RelayTitle;
+                break;
+        }
+        return getString(id);
     }
 
     private void createMessageReceiver() {
@@ -261,28 +326,6 @@ public class StatusFragment extends Fragment {
         public Fragment getItem(int position) {
             Log.d(TAG, "getItem: " + position);
             // TODO change case to use actual positions instead of hard coded numbers
-            switch (position) {
-                case 0:
-                    if (mAppPages[0] == null) {
-                        mAppPages[0] = PageCommandsFragment.newInstance();
-                    }
-                    break;
-                case 1:
-                    if (mAppPages[1] == null) {
-                        mAppPages[1] = PageControllerFragment.newInstance();
-                    }
-                    break;
-                case 2:
-                    if (mAppPages[2] == null) {
-                        mAppPages[2] = PageRelayFragment.newInstance(0);
-                    }
-                    break;
-                case 3:
-                    if (mAppPages[3] == null) {
-                        mAppPages[3] = PageRelayFragment.newInstance(1);
-                    }
-                    break;
-            }
             return mAppPages[position];
         }
 
@@ -295,19 +338,8 @@ public class StatusFragment extends Fragment {
         @Override
         public CharSequence getPageTitle(int position) {
             // this gets called before the getItem function gets called
-            // todo add in other page names
             // TODO change case to use actual positions instead of hard coded numbers
-            switch (position) {
-                case 0:
-                    return getString(R.string.titleCommands);
-                case 1:
-                    return getString(R.string.labelController);
-                case 2:
-                    return getString(R.string.prefMainRelayTitle);
-                case 3:
-                    return getString(R.string.prefExp1RelayTitle);
-            }
-            return null;
+            return mAppPageTitles[position];
         }
 
         @Override

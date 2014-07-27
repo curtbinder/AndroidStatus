@@ -208,9 +208,4 @@ public class PageDimmingFragment extends Fragment
             pwmeText[i].setText(v[i]);
         }
     }
-
-    @Override
-    public String getPageTitle() {
-        return getString(R.string.labelDimming);
-    }
 }

@@ -49,8 +49,7 @@ public class PageCommandsFragment extends Fragment
 
 
     public static PageCommandsFragment newInstance() {
-        PageCommandsFragment p = new PageCommandsFragment();
-        return p;
+        return new PageCommandsFragment();
     }
 
     @Override
@@ -84,11 +83,6 @@ public class PageCommandsFragment extends Fragment
     @Override
     public void refreshData() {
         // todo not sure if there needs to be anything in here or not
-    }
-
-    @Override
-    public String getPageTitle() {
-        return getString(R.string.titleCommands);
     }
 
     @Override

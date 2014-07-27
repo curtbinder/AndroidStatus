@@ -48,7 +48,7 @@ implements PageRefreshInterface, PagePWMRefreshInterface, View.OnLongClickListen
     private static final String TAG = PageVortechFragment.class.getSimpleName();
     private TextView[] vortechText = new TextView[Controller.MAX_VORTECH_VALUES];
     private int[] vortechValues = new int[Controller.MAX_VORTECH_VALUES];
-    private String[] vortechModes = getResources().getStringArray(R.array.vortechModeLabels);
+    private String[] vortechModes;
 
     public static PageVortechFragment newInstance() {
         return new PageVortechFragment();
@@ -58,6 +58,7 @@ implements PageRefreshInterface, PagePWMRefreshInterface, View.OnLongClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.page_vortech, container, false);
         findViews(rootView);
+        vortechModes = getResources().getStringArray(R.array.vortechModeLabels);
         return rootView;
     }
 
@@ -203,10 +204,5 @@ implements PageRefreshInterface, PagePWMRefreshInterface, View.OnLongClickListen
         for ( int i = 0; i < Controller.MAX_VORTECH_VALUES; i++ ) {
             vortechText[i].setText(v[i]);
         }
-    }
-
-    @Override
-    public String getPageTitle() {
-        return getString(R.string.labelVortech);
     }
 }

@@ -192,9 +192,4 @@ public class PageRadionFragment extends Fragment
             radionText[i].setText(v[i]);
         }
     }
-
-    @Override
-    public String getPageTitle() {
-        return getString(R.string.labelRadion);
-    }
 }

@@ -29,5 +29,4 @@ package info.curtbinder.reefangel.phone;
  */
 public interface PageRefreshInterface {
     public void refreshData();
-    public String getPageTitle();
 }

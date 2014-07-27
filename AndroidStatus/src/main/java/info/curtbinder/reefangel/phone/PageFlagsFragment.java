@@ -202,9 +202,4 @@ implements PageRefreshInterface {
         updateStatusFlags(sf);
         updateAlertFlags(af);
     }
-
-    @Override
-    public String getPageTitle() {
-        return getString(R.string.titleFlags);
-    }
 }
