@@ -87,6 +87,11 @@ public class PageCommandsFragment extends Fragment
     }
 
     @Override
+    public String getPageTitle() {
+        return getString(R.string.titleCommands);
+    }
+
+    @Override
     public void onClick ( View v ) {
         Intent i = new Intent( getActivity(), UpdateService.class );
         String s = RequestCommands.ExitMode;

@@ -351,4 +351,40 @@ public class PageRelayFragment extends Fragment
         i.putExtra( MessageCommands.TOGGLE_RELAY_MODE_INT, status );
         getActivity().startService(i);
     }
+
+    @Override
+    public String getPageTitle() {
+        int id;
+        switch ( relayNumber ) {
+            default:
+            case 0:
+                id = R.string.prefMainRelayTitle;
+                break;
+            case 1:
+                id = R.string.prefExp1RelayTitle;
+                break;
+            case 2:
+                id = R.string.prefExp2RelayTitle;
+                break;
+            case 3:
+                id = R.string.prefExp3RelayTitle;
+                break;
+            case 4:
+                id = R.string.prefExp4RelayTitle;
+                break;
+            case 5:
+                id = R.string.prefExp5RelayTitle;
+                break;
+            case 6:
+                id = R.string.prefExp6RelayTitle;
+                break;
+            case 7:
+                id = R.string.prefExp7RelayTitle;
+                break;
+            case 8:
+                id = R.string.prefExp8RelayTitle;
+                break;
+        }
+        return getString(id);
+    }
 }

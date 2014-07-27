@@ -28,6 +28,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -43,23 +45,25 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import info.curtbinder.reefangel.db.StatusProvider;
+import info.curtbinder.reefangel.db.StatusTable;
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;
 import info.curtbinder.reefangel.service.XMLTags;
 
 public class StatusFragment extends Fragment {
 
-    public static final int PAGES = 4;
+    //public static final int PAGES = 4;
     private static final String TAG = StatusFragment.class.getSimpleName();
 
-    // minimum number of pages: commands, flags, status, main relay
+    // minimum number of pages: flags, commands, status, main relay
     private static final int MIN_PAGES = 4;
 
     private static final int POS_START = 0;
 
-    private static final int POS_COMMANDS = POS_START;
-    private static final int POS_FLAGS = POS_COMMANDS + 1;
-    private static final int POS_CONTROLLER = POS_COMMANDS + 2;
+    private static final int POS_FLAGS = POS_START;
+    private static final int POS_COMMANDS = POS_START + 1;
+    private static final int POS_CONTROLLER = POS_START + 2;
 
     // add on module pages
     private static final int POS_MODULES = POS_CONTROLLER + 10;
@@ -84,7 +88,7 @@ public class StatusFragment extends Fragment {
     private static final int POS_END = POS_CUSTOM + 1;
 
     private static final String CURRENT_POSITION = "currentPosition";
-    private static int currentPosition = POS_CONTROLLER;  // was 1
+    private static int currentPosition = POS_CONTROLLER;
 
     // Message Receivers
     StatusReceiver receiver;
@@ -96,10 +100,10 @@ public class StatusFragment extends Fragment {
     private SectionsPagerAdapter mPagerAdapter;
     private Fragment[] mAppPages;
     private String[] mVortechModes;
+    private RAApplication raApp;
 
     public static StatusFragment newInstance() {
-        StatusFragment f = new StatusFragment();
-        return f;
+        return new StatusFragment();
     }
 
     @Override
@@ -115,6 +119,7 @@ public class StatusFragment extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView");
+        raApp = (RAApplication) getActivity().getApplication();
         View root = inflater.inflate(R.layout.frag_status, container, false);
 
         createMessageReceiver();
@@ -122,7 +127,7 @@ public class StatusFragment extends Fragment {
         mUpdateTime = (TextView) root.findViewById(R.id.textUpdate);
 
         // set the maximum number of pages we can have
-        mAppPages = new Fragment[PAGES];
+        mAppPages = new Fragment[POS_END];
 
         // Set up the ViewPager with the sections adapter.
         mPager = (ViewPager) root.findViewById(R.id.pager);
@@ -177,6 +182,7 @@ public class StatusFragment extends Fragment {
         PageRefreshInterface page = (PageRefreshInterface) mPagerAdapter.getItem(position);
         if (page != null) {
             page.refreshData();
+            // TODO update the page order
         }
     }
 
@@ -234,6 +240,17 @@ public class StatusFragment extends Fragment {
         }
     }
 
+    public void testFunction(String s) {
+        Log.d(TAG, "testFunction: " + s);
+    }
+
+    protected Cursor getLatestDataCursor() {
+        Uri uri = Uri.parse(StatusProvider.CONTENT_URI + "/" + StatusProvider.PATH_LATEST);
+        Cursor c = getActivity().getContentResolver().query(uri, null, null, null,
+                StatusTable.COL_ID + " DESC");
+        return c;
+    }
+
     private class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -243,6 +260,7 @@ public class StatusFragment extends Fragment {
         @Override
         public Fragment getItem(int position) {
             Log.d(TAG, "getItem: " + position);
+            // TODO change case to use actual positions instead of hard coded numbers
             switch (position) {
                 case 0:
                     if (mAppPages[0] == null) {
@@ -270,13 +288,15 @@ public class StatusFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return PAGES;
+            //return PAGES;
+            return MIN_PAGES + raApp.raprefs.getTotalInstalledModuleQuantity();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             // this gets called before the getItem function gets called
             // todo add in other page names
+            // TODO change case to use actual positions instead of hard coded numbers
             switch (position) {
                 case 0:
                     return getString(R.string.titleCommands);
