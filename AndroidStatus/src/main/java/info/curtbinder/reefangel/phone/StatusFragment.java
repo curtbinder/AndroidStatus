@@ -347,11 +347,6 @@ public class StatusFragment extends Fragment {
         PageRefreshInterface page = (PageRefreshInterface) mPagerAdapter.getItem(position);
         if (page != null) {
             page.refreshData();
-
-            if ( raApp.raprefs.isAutoUpdateModulesEnabled() ) {
-                // update the screen / pages if necessary
-                checkDeviceModules();
-            }
         }
     }
 
@@ -583,6 +578,14 @@ public class StatusFragment extends Fragment {
                 // get the current fragment
                 // call it's update data function
                 refreshPageData(mPager.getCurrentItem());
+                // only refresh after we get the command to refresh
+                // otherwise, if we have this check inside the refreshPageData function,
+                // we have this check being called every time the pages are changed when
+                // the fragment is updating its data
+                if ( raApp.raprefs.isAutoUpdateModulesEnabled() ) {
+                    // update the screen / pages if necessary
+                    checkDeviceModules();
+                }
 //            } else if ( action.equals( MessageCommands.VORTECH_UPDATE_INTENT ) ) {
 //            int type =
 //                    intent.getIntExtra( MessageCommands.VORTECH_UPDATE_TYPE,
