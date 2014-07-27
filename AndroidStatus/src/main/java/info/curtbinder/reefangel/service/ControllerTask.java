@@ -95,8 +95,7 @@ public class ControllerTask implements Runnable {
 		} catch ( IOException e ) {
 			rapp.error( 1, e, "IOException" );
 		} catch ( InterruptedException e ) {
-			res =
-					(String) rapp.getResources()
+			res = (String) rapp.getResources()
 							.getText( R.string.messageCancelled );
 		}
 
