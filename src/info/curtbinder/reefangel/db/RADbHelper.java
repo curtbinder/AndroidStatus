@@ -15,13 +15,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class RADbHelper extends SQLiteOpenHelper {
 
 	private static final String DB_NAME = "radata.db";
-	private static final int DB_VERSION = 10;
+	private static final int DB_VERSION = 11;
 	// Version 5 - ErrorTable added
 	// Version 6 - NotificationTable added
 	// Version 7 - StatusTable updated
 	// Version 8 - StatusTable updated
 	// Version 9 - StatusTable updated
 	// Version 10 - StatusTable updated
+	// Version 11 - StatusTable updated
 
 	public RADbHelper ( Context context ) {
 		super( context, DB_NAME, null, DB_VERSION );

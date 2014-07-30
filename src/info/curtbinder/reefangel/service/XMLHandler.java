@@ -226,6 +226,11 @@ public class XMLHandler extends DefaultHandler {
 							.length() ) );
 			short v = Short.parseShort( currentElementText );
 			ra.setPwmExpansion( channel, v );
+		} else if ( tag.startsWith( XMLTags.PWMExpansion16) &&
+				!tag.endsWith( XMLTags.Override ) ) {
+			short channel = Short.parseShort( tag.substring(XMLTags.PWMExpansion16.length()) );
+			Log.d(TAG, "PWM16: " + channel + ": " + currentElementText);
+			// TODO set in RA object
 		} else if ( tag.equals( XMLTags.Salinity ) ) {
 			ra.setSalinity( Integer.parseInt( currentElementText ) );
 		} else if ( tag.equals( XMLTags.ORP ) ) {
