@@ -376,6 +376,8 @@ public class XMLHandler extends DefaultHandler {
 			ra.setRadionChannelOverride( Controller.RADION_BLUE, value );
 		} else if ( tag.startsWith( XMLTags.RFIntensity ) ) {
 			ra.setRadionChannelOverride( Controller.RADION_INTENSITY, value );
+		} else {
+			Log.d( TAG, "Unhandled XML Override tag (" + tag + ") with data: " + value );
 		}
 	}
 	
