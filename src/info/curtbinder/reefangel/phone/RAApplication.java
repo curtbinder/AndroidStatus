@@ -338,22 +338,12 @@ public class RAApplication extends Application {
 				name = raprefs.getAPLabel();
 				break;
 			case Globals.OVERRIDE_CHANNEL0:
-				name = raprefs.getDimmingModuleChannelLabel( 0 );
-				break;
 			case Globals.OVERRIDE_CHANNEL1:
-				name = raprefs.getDimmingModuleChannelLabel( 1 );
-				break;
 			case Globals.OVERRIDE_CHANNEL2:
-				name = raprefs.getDimmingModuleChannelLabel( 2 );
-				break;
 			case Globals.OVERRIDE_CHANNEL3:
-				name = raprefs.getDimmingModuleChannelLabel( 3 );
-				break;
 			case Globals.OVERRIDE_CHANNEL4:
-				name = raprefs.getDimmingModuleChannelLabel( 4 );
-				break;
 			case Globals.OVERRIDE_CHANNEL5:
-				name = raprefs.getDimmingModuleChannelLabel( 5 );
+				name = raprefs.getDimmingModuleChannelLabel( channel - Globals.OVERRIDE_CHANNEL0 );
 				break;
 			case Globals.OVERRIDE_AI_WHITE:
 				name = getString( R.string.labelAI ) + " " + getString( R.string.labelWhite );
@@ -383,52 +373,22 @@ public class RAApplication extends Application {
 				name = getString( R.string.labelRadion ) + " " + getString( R.string.labelIntensity );
 				break;
 			case Globals.OVERRIDE_16CH_CHANNEL0:
-				name = raprefs.getSCDimmingModuleChannelLabel( 0 );
-				break;
 			case Globals.OVERRIDE_16CH_CHANNEL1:
-				name = raprefs.getSCDimmingModuleChannelLabel( 1 );
-				break;
 			case Globals.OVERRIDE_16CH_CHANNEL2:
-				name = raprefs.getSCDimmingModuleChannelLabel( 2 );
-				break;
 			case Globals.OVERRIDE_16CH_CHANNEL3:
-				name = raprefs.getSCDimmingModuleChannelLabel( 3 );
-				break;
 			case Globals.OVERRIDE_16CH_CHANNEL4:
-				name = raprefs.getSCDimmingModuleChannelLabel( 4 );
-				break;
 			case Globals.OVERRIDE_16CH_CHANNEL5:
-				name = raprefs.getSCDimmingModuleChannelLabel( 5 );
-				break;
 			case Globals.OVERRIDE_16CH_CHANNEL6:
-				name = raprefs.getSCDimmingModuleChannelLabel( 6 );
-				break;
 			case Globals.OVERRIDE_16CH_CHANNEL7:
-				name = raprefs.getSCDimmingModuleChannelLabel( 7 );
-				break;
 			case Globals.OVERRIDE_16CH_CHANNEL8:
-				name = raprefs.getSCDimmingModuleChannelLabel( 8 );
-				break;
 			case Globals.OVERRIDE_16CH_CHANNEL9:
-				name = raprefs.getSCDimmingModuleChannelLabel( 9 );
-				break;
 			case Globals.OVERRIDE_16CH_CHANNEL10:
-				name = raprefs.getSCDimmingModuleChannelLabel( 10 );
-				break;
 			case Globals.OVERRIDE_16CH_CHANNEL11:
-				name = raprefs.getSCDimmingModuleChannelLabel( 11 );
-				break;
 			case Globals.OVERRIDE_16CH_CHANNEL12:
-				name = raprefs.getSCDimmingModuleChannelLabel( 12 );
-				break;
 			case Globals.OVERRIDE_16CH_CHANNEL13:
-				name = raprefs.getSCDimmingModuleChannelLabel( 13 );
-				break;
 			case Globals.OVERRIDE_16CH_CHANNEL14:
-				name = raprefs.getSCDimmingModuleChannelLabel( 14 );
-				break;
 			case Globals.OVERRIDE_16CH_CHANNEL15:
-				name = raprefs.getSCDimmingModuleChannelLabel( 15 );
+				name = raprefs.getSCDimmingModuleChannelLabel( channel - Globals.OVERRIDE_16CH_CHANNEL0 );
 				break;
 		}
 		return name;
