@@ -328,6 +328,9 @@ public class RAApplication extends Application {
 	public String getPWMOverrideChannelName ( int channel ) {
 		String name = "";
 		switch ( channel ) {
+			default:
+				name = getString(R.string.labelChannel);
+				break;
 			case Globals.OVERRIDE_DAYLIGHT:
 				name = raprefs.getDPLabel();
 				break;
@@ -379,6 +382,54 @@ public class RAApplication extends Application {
 			case Globals.OVERRIDE_RF_INTENSITY:
 				name = getString( R.string.labelRadion ) + " " + getString( R.string.labelIntensity );
 				break;
+			case Globals.OVERRIDE_16CH_CHANNEL0:
+				name = raprefs.getSCDimmingModuleChannelLabel( 0 );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL1:
+				name = raprefs.getSCDimmingModuleChannelLabel( 1 );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL2:
+				name = raprefs.getSCDimmingModuleChannelLabel( 2 );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL3:
+				name = raprefs.getSCDimmingModuleChannelLabel( 3 );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL4:
+				name = raprefs.getSCDimmingModuleChannelLabel( 4 );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL5:
+				name = raprefs.getSCDimmingModuleChannelLabel( 5 );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL6:
+				name = raprefs.getSCDimmingModuleChannelLabel( 6 );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL7:
+				name = raprefs.getSCDimmingModuleChannelLabel( 7 );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL8:
+				name = raprefs.getSCDimmingModuleChannelLabel( 8 );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL9:
+				name = raprefs.getSCDimmingModuleChannelLabel( 9 );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL10:
+				name = raprefs.getSCDimmingModuleChannelLabel( 10 );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL11:
+				name = raprefs.getSCDimmingModuleChannelLabel( 11 );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL12:
+				name = raprefs.getSCDimmingModuleChannelLabel( 12 );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL13:
+				name = raprefs.getSCDimmingModuleChannelLabel( 13 );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL14:
+				name = raprefs.getSCDimmingModuleChannelLabel( 14 );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL15:
+				name = raprefs.getSCDimmingModuleChannelLabel( 15 );
+				break;
 		}
 		return name;
 	}
@@ -387,6 +438,9 @@ public class RAApplication extends Application {
 		String msg = "";
 		String name = getPWMOverrideChannelName(channel);
 		switch ( channel ) {
+			default:
+				msg = getString(R.string.labelPwmOverride);
+				break;
 			case Globals.OVERRIDE_DAYLIGHT:
 				msg = String.format( Locale.getDefault(),
 				                     getString( R.string.messagePWMPopupCustom),
@@ -437,6 +491,86 @@ public class RAApplication extends Application {
 			case Globals.OVERRIDE_RF_BLUE:
 			case Globals.OVERRIDE_RF_INTENSITY:
 				msg = name + " " + getString( R.string.labelChannel );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL0:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpSCDimmingCh0LabelTitle));
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL1:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpSCDimmingCh1LabelTitle) );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL2:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpSCDimmingCh2LabelTitle) );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL3:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpSCDimmingCh3LabelTitle) );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL4:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpSCDimmingCh4LabelTitle) );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL5:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpSCDimmingCh5LabelTitle) );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL6:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpSCDimmingCh6LabelTitle));
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL7:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpSCDimmingCh7LabelTitle) );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL8:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpSCDimmingCh8LabelTitle) );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL9:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpSCDimmingCh9LabelTitle) );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL10:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpSCDimmingCh10LabelTitle) );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL11:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpSCDimmingCh11LabelTitle) );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL12:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpSCDimmingCh12LabelTitle));
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL13:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpSCDimmingCh13LabelTitle) );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL14:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpSCDimmingCh14LabelTitle) );
+				break;
+			case Globals.OVERRIDE_16CH_CHANNEL15:
+				msg = String.format( Locale.getDefault(),
+				                     getString( R.string.messagePWMPopupCustom),
+				                     name, getString(R.string.prefExpSCDimmingCh15LabelTitle) );
 				break;
 		}
 		return msg;

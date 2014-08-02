@@ -180,6 +180,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="labelOverheatTimeout">Overheat Timeout</string>
     <string name="labelBusLock">Bus Lock</string>
     <string name="labelLeak">Leak</string>
+    <string name="labelSCDimming">16 Ch Dimming</string>
     <string name="websiteReefangel">http://www.reefangel.com/</string>
     <string name="forumReefangel">http://forum.reefangel.com/</string>
     <string name="defaultStatusText">-</string>
@@ -406,6 +407,23 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefReadTimeoutDefault">10000</string>
     <string name="prefAutoRefreshAfterUpdateTitle">Auto refresh after commands</string>
     <string name="prefAutoRefreshAfterUpdateSummary">Automatically refresh the status after issuing a command or pwm override</string>
+    <string name="prefExpSCDimmingSummary">Configure 16 ch dimming expansion module</string>
+    <string name="prefExpSCDimmingCh0LabelTitle">Channel 0</string>
+    <string name="prefExpSCDimmingCh1LabelTitle">Channel 1</string>
+    <string name="prefExpSCDimmingCh2LabelTitle">Channel 2</string>
+    <string name="prefExpSCDimmingCh3LabelTitle">Channel 3</string>
+    <string name="prefExpSCDimmingCh4LabelTitle">Channel 4</string>
+    <string name="prefExpSCDimmingCh5LabelTitle">Channel 5</string>
+	<string name="prefExpSCDimmingCh6LabelTitle">Channel 6</string>
+    <string name="prefExpSCDimmingCh7LabelTitle">Channel 7</string>
+    <string name="prefExpSCDimmingCh8LabelTitle">Channel 8</string>
+    <string name="prefExpSCDimmingCh9LabelTitle">Channel 9</string>
+    <string name="prefExpSCDimmingCh10LabelTitle">Channel 10</string>
+    <string name="prefExpSCDimmingCh11LabelTitle">Channel 11</string>
+    <string name="prefExpSCDimmingCh12LabelTitle">Channel 12</string>
+    <string name="prefExpSCDimmingCh13LabelTitle">Channel 13</string>
+    <string name="prefExpSCDimmingCh14LabelTitle">Channel 14</string>
+    <string name="prefExpSCDimmingCh15LabelTitle">Channel 15</string>
 
     <!-- Preference Keys -->
     <string name="prefFirstRunKey">firstrun</string>
@@ -584,6 +602,23 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefConnectionTimeoutKey">connection_timeout</string>
     <string name="prefReadTimeoutKey">read_timeout</string>
     <string name="prefAutoRefreshAfterUpdateKey">auto_refresh_update</string>
+    <string name="prefExpSCDimmingEnableKey">sc_dimming_expansion</string>
+    <string name="prefExpSCDimmingCh0LabelKey">exp_sc_dim_0</string>
+    <string name="prefExpSCDimmingCh1LabelKey">exp_sc_dim_1</string>
+    <string name="prefExpSCDimmingCh2LabelKey">exp_sc_dim_2</string>
+    <string name="prefExpSCDimmingCh3LabelKey">exp_sc_dim_3</string>
+    <string name="prefExpSCDimmingCh4LabelKey">exp_sc_dim_4</string>
+    <string name="prefExpSCDimmingCh5LabelKey">exp_sc_dim_5</string>
+    <string name="prefExpSCDimmingCh6LabelKey">exp_sc_dim_6</string>
+    <string name="prefExpSCDimmingCh7LabelKey">exp_sc_dim_7</string>
+    <string name="prefExpSCDimmingCh8LabelKey">exp_sc_dim_8</string>
+    <string name="prefExpSCDimmingCh9LabelKey">exp_sc_dim_9</string>
+    <string name="prefExpSCDimmingCh10LabelKey">exp_sc_dim_10</string>
+    <string name="prefExpSCDimmingCh11LabelKey">exp_sc_dim_11</string>
+    <string name="prefExpSCDimmingCh12LabelKey">exp_sc_dim_12</string>
+    <string name="prefExpSCDimmingCh13LabelKey">exp_sc_dim_13</string>
+    <string name="prefExpSCDimmingCh14LabelKey">exp_sc_dim_14</string>
+    <string name="prefExpSCDimmingCh15LabelKey">exp_sc_dim_15</string>
 
     <!-- Permissions -->
     <string name="permissionQueryStatusLabel">Query status of controller</string>

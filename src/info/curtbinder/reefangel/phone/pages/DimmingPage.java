@@ -69,7 +69,7 @@ public class DimmingPage extends RAPage
 		pwmeRow[5] = (TableRow) findViewById( R.id.rowPWME5 );
 		pwmeText[5] = (TextView) pwmeRow[5].findViewById( R.id.rowValue );
 		for ( int i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
-			pwmeText[i].setLongClickable( true );;
+			pwmeText[i].setLongClickable( true );
 			pwmeText[i].setOnLongClickListener( this );
 		}
 

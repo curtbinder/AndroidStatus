@@ -86,6 +86,22 @@ public final class Globals {
 	public static final int paramWaterLevel3 = 46;
 	public static final int paramWaterLevel4 = 47;
 	public static final int paramHumidity = 48;
+	public static final int paramSCPWMExp0 = 49;
+	public static final int paramSCPWMExp1 = 50;
+	public static final int paramSCPWMExp2 = 51;
+	public static final int paramSCPWMExp3 = 52;
+	public static final int paramSCPWMExp4 = 53;
+	public static final int paramSCPWMExp5 = 54;
+	public static final int paramSCPWMExp6 = 55;
+	public static final int paramSCPWMExp7 = 56;
+	public static final int paramSCPWMExp8 = 57;
+	public static final int paramSCPWMExp9 = 58;
+	public static final int paramSCPWMExp10 = 59;
+	public static final int paramSCPWMExp11 = 60;
+	public static final int paramSCPWMExp12 = 61;
+	public static final int paramSCPWMExp13 = 62;
+	public static final int paramSCPWMExp14 = 63;
+	public static final int paramSCPWMExp15 = 64;
 	
 	
 	// override locations
@@ -108,7 +124,25 @@ public final class Globals {
 	public static final int OVERRIDE_RF_GREEN = 14;
 	public static final int OVERRIDE_RF_BLUE = 15;
 	public static final int OVERRIDE_RF_INTENSITY = 16;
-	//public static final int OVERRIDE_CHANNELS = 17;
+	public static final int OVERRIDE_DAYLIGHT2 = 17;
+	public static final int OVERRIDE_ACTINIC2 = 18;
+	public static final int OVERRIDE_16CH_CHANNEL0 = 19;
+	public static final int OVERRIDE_16CH_CHANNEL1 = 20;
+	public static final int OVERRIDE_16CH_CHANNEL2 = 21;
+	public static final int OVERRIDE_16CH_CHANNEL3 = 22;
+	public static final int OVERRIDE_16CH_CHANNEL4 = 23;
+	public static final int OVERRIDE_16CH_CHANNEL5 = 24;
+	public static final int OVERRIDE_16CH_CHANNEL6 = 25;
+	public static final int OVERRIDE_16CH_CHANNEL7 = 26;
+	public static final int OVERRIDE_16CH_CHANNEL8 = 27;
+	public static final int OVERRIDE_16CH_CHANNEL9 = 28;
+	public static final int OVERRIDE_16CH_CHANNEL10 = 29;
+	public static final int OVERRIDE_16CH_CHANNEL11 = 30;
+	public static final int OVERRIDE_16CH_CHANNEL12 = 31;
+	public static final int OVERRIDE_16CH_CHANNEL13 = 32;
+	public static final int OVERRIDE_16CH_CHANNEL14 = 33;
+	public static final int OVERRIDE_16CH_CHANNEL15 = 34;
+	//public static final int OVERRIDE_CHANNELS = 35;
 	
 	// calibrate locations
 	public static final int CALIBRATE_PH = 0;

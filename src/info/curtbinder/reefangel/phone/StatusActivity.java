@@ -22,6 +22,7 @@ import info.curtbinder.reefangel.phone.pages.IOPage;
 import info.curtbinder.reefangel.phone.pages.RAPage;
 import info.curtbinder.reefangel.phone.pages.RadionPage;
 import info.curtbinder.reefangel.phone.pages.RelayBoxPage;
+import info.curtbinder.reefangel.phone.pages.SCDimmingPage;
 import info.curtbinder.reefangel.phone.pages.VortechPage;
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;
@@ -80,11 +81,12 @@ public class StatusActivity extends BaseActivity implements
 
 	private static final int POS_MODULES = POS_CONTROLLER + 10;
 	private static final int POS_DIMMING = POS_MODULES;
-	private static final int POS_RADION = POS_MODULES + 1;
-	private static final int POS_VORTECH = POS_MODULES + 2;
-	private static final int POS_AI = POS_MODULES + 3;
-	private static final int POS_IO = POS_MODULES + 4;
-	private static final int POS_CUSTOM = POS_MODULES + 5;
+	private static final int POS_SC_DIMMING = POS_MODULES + 1;
+	private static final int POS_RADION = POS_MODULES + 2;
+	private static final int POS_VORTECH = POS_MODULES + 3;
+	private static final int POS_AI = POS_MODULES + 4;
+	private static final int POS_IO = POS_MODULES + 5;
+	private static final int POS_CUSTOM = POS_MODULES + 6;
 
 	private static final int POS_MAIN_RELAY = POS_CONTROLLER + 1;
 	private static final int POS_EXP1_RELAY = POS_MAIN_RELAY + 1;
@@ -102,6 +104,7 @@ public class StatusActivity extends BaseActivity implements
 	private FlagsPage pageFlags;
 	private ControllerPage pageController;
 	private DimmingPage pageDimming;
+	private SCDimmingPage pageSCDimming;
 	private RadionPage pageRadion;
 	private VortechPage pageVortech;
 	private AIPage pageAI;
@@ -219,6 +222,7 @@ public class StatusActivity extends BaseActivity implements
 		pageFlags = new FlagsPage( ctx );
 		pageController = new ControllerPage( ctx );
 		pageDimming = new DimmingPage( ctx );
+		pageSCDimming = new SCDimmingPage( ctx );
 		pageRadion = new RadionPage( ctx );
 		pageVortech = new VortechPage( ctx );
 		pageAI = new AIPage( ctx );
@@ -271,21 +275,26 @@ public class StatusActivity extends BaseActivity implements
 		setControllerLabels();
 
 		setRelayLabels();
-
+		int i;
 		if ( rapp.raprefs.getDimmingModuleEnabled() ) {
-			for ( int i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ )
+			for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ )
 				pageDimming.setLabel( i, rapp.raprefs
 						.getDimmingModuleChannelLabel( i ) );
 		}
 
+		if ( rapp.raprefs.getSCDimmingModuleEnabled() ) {
+			for ( i = 0; i < Controller.MAX_SCPWM_EXPANSION_PORTS; i++ )
+				pageSCDimming.setLabel( i, rapp.raprefs
+				                        .getSCDimmingModuleChannelLabel(i) );
+		}
 		if ( rapp.raprefs.getIOModuleEnabled() ) {
-			for ( int i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
+			for ( i = 0; i < Controller.MAX_IO_CHANNELS; i++ ) {
 				pageIO.setLabel( i, rapp.raprefs.getIOModuleChannelLabel( i ) );
 			}
 		}
 
 		if ( rapp.raprefs.getCustomModuleEnabled() ) {
-			for ( int i = 0; i < Controller.MAX_CUSTOM_VARIABLES; i++ )
+			for ( i = 0; i < Controller.MAX_CUSTOM_VARIABLES; i++ )
 				pageCustom.setLabel( i, rapp.raprefs
 						.getCustomModuleChannelLabel( i ) );
 		}
@@ -447,6 +456,7 @@ public class StatusActivity extends BaseActivity implements
 		String[] ai;
 		String[] io;
 		String[] custom;
+		String[] scpwme;
 		short r, ron, roff, newEM, newEM1, newREM, apValue, dpValue, af, sf;
 		short[] pwmeValues = new short[Controller.MAX_PWM_EXPANSION_PORTS];
 		short[] radionValues = new short[Controller.MAX_RADION_LIGHT_CHANNELS];
@@ -455,6 +465,7 @@ public class StatusActivity extends BaseActivity implements
 		short[] expron = new short[Controller.MAX_EXPANSION_RELAYS];
 		short[] exproff = new short[Controller.MAX_EXPANSION_RELAYS];
 		short[] vtValues = new short[Controller.MAX_VORTECH_VALUES];
+		short[] scpwmeValues = new short[Controller.MAX_SCPWM_EXPANSION_PORTS];
 
 		if ( c.moveToFirst() ) {
 			updateStatus =
@@ -464,6 +475,8 @@ public class StatusActivity extends BaseActivity implements
 			dpValue = c.getShort( c.getColumnIndex(  StatusTable.COL_DP ) );
 			pwme = getPWMETextValues( c );
 			pwmeValues = getPWMEValues( c );
+			scpwme = getSCPWMETextValues( c );
+			scpwmeValues = getSCPWMEValues( c );
 			rf = getRadionTextValues( c );
 			radionValues = getRadionValues( c );
 			vt = getVortechTextValues( c );
@@ -525,6 +538,7 @@ public class StatusActivity extends BaseActivity implements
 			updateStatus = getString( R.string.messageNever );
 			values = getNeverValues( Controller.MAX_CONTROLLER_VALUES );
 			pwme = getNeverValues( Controller.MAX_PWM_EXPANSION_PORTS );
+			scpwme = getNeverValues( Controller.MAX_SCPWM_EXPANSION_PORTS );
 			rf = getNeverValues( Controller.MAX_RADION_LIGHT_CHANNELS );
 			vt = getNeverValues( Controller.MAX_VORTECH_VALUES );
 			ai = getNeverValues( Controller.MAX_AI_CHANNELS );
@@ -537,6 +551,9 @@ public class StatusActivity extends BaseActivity implements
 			}
 			for ( i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
 				pwmeValues[i] = 0;
+			}
+			for ( i = 0; i < Controller.MAX_SCPWM_EXPANSION_PORTS; i++ ) {
+				scpwmeValues[i] = 0;
 			}
 			for ( i = 0; i < Controller.MAX_RADION_LIGHT_CHANNELS; i++ ) {
 				radionValues[i] = 0;
@@ -557,6 +574,8 @@ public class StatusActivity extends BaseActivity implements
 		pageFlags.updateAlert( af );
 		pageDimming.updateDisplay( pwme );
 		pageDimming.updatePWMValues( pwmeValues );
+		pageSCDimming.updateDisplay( scpwme );
+		pageSCDimming.updatePWMValues( scpwmeValues );
 		pageRadion.updateDisplay( rf );
 		pageRadion.updatePWMValues( radionValues );
 		pageVortech.updateDisplay( vt );
@@ -767,6 +786,64 @@ public class StatusActivity extends BaseActivity implements
 		return v;
 	}
 
+	private String[] getSCPWMETextValues ( Cursor c ) {
+		String[] sa = new String[Controller.MAX_SCPWM_EXPANSION_PORTS];
+		sa[0] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME0) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME0O)));
+		sa[1] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME1) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME1O)));
+		sa[2] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME2) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME2O)));
+		sa[3] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME3) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME3O)));
+		sa[4] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME4) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME4O)));
+		sa[5] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME5) ),
+	                                           c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME5O)));
+		sa[6] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME6) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME6O)));
+		sa[7] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME7) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME7O)));
+		sa[8] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME8) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME8O)));
+		sa[9] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME9) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME9O)));
+		sa[10] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME10) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME10O)));
+		sa[11] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME11) ),
+	                                           c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME11O)));
+		sa[12] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME12) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME12O)));
+		sa[13] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME13) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME13O)));
+		sa[14] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME14) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME14O)));
+		sa[15] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME15) ),
+		                                       c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME15O)));
+		return sa;
+	}
+	
+	private short[] getSCPWMEValues ( Cursor c ) {
+		short[] v = new short[Controller.MAX_SCPWM_EXPANSION_PORTS];
+		v[0] = c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME0) );
+		v[1] = c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME1) );
+		v[2] = c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME2) );
+		v[3] = c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME3) );
+		v[4] = c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME4) );
+		v[5] = c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME5) );
+		v[6] = c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME6) );
+		v[7] = c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME7) );
+		v[8] = c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME8) );
+		v[9] = c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME9) );
+		v[10] = c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME10) );
+		v[11] = c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME11) );
+		v[12] = c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME12) );
+		v[13] = c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME13) );
+		v[14] = c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME14) );
+		v[15] = c.getShort( c.getColumnIndex(StatusTable.COL_SCPWME15) );
+		return v;
+	}
+	
 	private String[] getRadionTextValues ( Cursor c ) {
 		String[] sa = new String[Controller.MAX_RADION_LIGHT_CHANNELS];
 		sa[0] = Controller.getPWMDisplayValue( c.getShort( c.getColumnIndex(StatusTable.COL_RFW) ),
@@ -1128,6 +1205,13 @@ public class StatusActivity extends BaseActivity implements
 					if ( rapp.raprefs.getDimmingModuleEnabled() ) {
 						// Log.d( TAG, j + ": Dimming" );
 						appPages[j] = pageDimming;
+						j++;
+					}
+					break;
+				case POS_SC_DIMMING:
+					if ( rapp.raprefs.getSCDimmingModuleEnabled() ) {
+						// Log.d( TAG, j + ": SCDimming" );
+						appPages[j] = pageSCDimming;
 						j++;
 					}
 					break;

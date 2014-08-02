@@ -555,6 +555,88 @@ public class RAPreferences {
 		set( key, label );
 	}
 
+	public boolean getSCDimmingModuleEnabled ( ) {
+		return getBoolean( R.string.prefExpSCDimmingEnableKey, false );
+	}
+
+	// FIXME improve function
+	public String getSCDimmingModuleChannelLabel ( int channel ) {
+		int k, v;
+		switch ( channel ) {
+			default:
+			case 0:
+				k = R.string.prefExpSCDimmingCh0LabelKey;
+				v = R.string.prefExpSCDimmingCh0LabelTitle;
+				break;
+			case 1:
+				k = R.string.prefExpSCDimmingCh1LabelKey;
+				v = R.string.prefExpSCDimmingCh1LabelTitle;
+				break;
+			case 2:
+				k = R.string.prefExpSCDimmingCh2LabelKey;
+				v = R.string.prefExpSCDimmingCh2LabelTitle;
+				break;
+			case 3:
+				k = R.string.prefExpSCDimmingCh3LabelKey;
+				v = R.string.prefExpSCDimmingCh3LabelTitle;
+				break;
+			case 4:
+				k = R.string.prefExpSCDimmingCh4LabelKey;
+				v = R.string.prefExpSCDimmingCh4LabelTitle;
+				break;
+			case 5:
+				k = R.string.prefExpSCDimmingCh5LabelKey;
+				v = R.string.prefExpSCDimmingCh5LabelTitle;
+				break;
+			case 6:
+				k = R.string.prefExpSCDimmingCh6LabelKey;
+				v = R.string.prefExpSCDimmingCh6LabelTitle;
+				break;
+			case 7:
+				k = R.string.prefExpSCDimmingCh7LabelKey;
+				v = R.string.prefExpSCDimmingCh7LabelTitle;
+				break;
+			case 8:
+				k = R.string.prefExpSCDimmingCh8LabelKey;
+				v = R.string.prefExpSCDimmingCh8LabelTitle;
+				break;
+			case 9:
+				k = R.string.prefExpSCDimmingCh9LabelKey;
+				v = R.string.prefExpSCDimmingCh9LabelTitle;
+				break;
+			case 10:
+				k = R.string.prefExpSCDimmingCh10LabelKey;
+				v = R.string.prefExpSCDimmingCh10LabelTitle;
+				break;
+			case 11:
+				k = R.string.prefExpSCDimmingCh11LabelKey;
+				v = R.string.prefExpSCDimmingCh11LabelTitle;
+				break;
+			case 12:
+				k = R.string.prefExpSCDimmingCh12LabelKey;
+				v = R.string.prefExpSCDimmingCh12LabelTitle;
+				break;
+			case 13:
+				k = R.string.prefExpSCDimmingCh13LabelKey;
+				v = R.string.prefExpSCDimmingCh13LabelTitle;
+				break;
+			case 14:
+				k = R.string.prefExpSCDimmingCh14LabelKey;
+				v = R.string.prefExpSCDimmingCh14LabelTitle;
+				break;
+			case 15:
+				k = R.string.prefExpSCDimmingCh15LabelKey;
+				v = R.string.prefExpSCDimmingCh15LabelTitle;
+				break;
+		}
+		return getString( k, v );
+	}
+
+	public void setSCDimmingModuleChannelLabel ( int channel, String label ) {
+		String key = "exp_sc_dim_" + channel;
+		set( key, label );
+	}
+	
 	public boolean getRadionModuleEnabled ( ) {
 		return getBoolean( R.string.prefExpRadionEnableKey, false );
 	}

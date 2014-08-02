@@ -383,7 +383,7 @@ public class Controller {
 	}
 	
 	public void setWaterLevel ( short port, short value ) {
-		waterlevel[port].setData( value );;
+		waterlevel[port].setData( value );
 	}
 	
 	public short getWaterLevel ( short port ) {

@@ -326,6 +326,11 @@ public class ControllerTask implements Runnable {
 				raprefs.setDimmingModuleChannelLabel( i, ra
 						.getPwmExpansionLabel( (short) i ) );
 		}
+		for ( i = 0; i < Controller.MAX_SCPWM_EXPANSION_PORTS; i++ ) {
+			if ( !ra.getSCPwmExpansionLabel( (short) i ).equals( "" ) )
+				raprefs.setSCDimmingModuleChannelLabel( i, ra
+						.getSCPwmExpansionLabel( (short) i ) );
+		}
 		for ( i = 0; i < Controller.MAX_CUSTOM_VARIABLES; i++ ) {
 			if ( !ra.getCustomVariableLabel( (short) i ).equals( "" ) )
 				raprefs.setCustomModuleChannelLabel( i, ra
