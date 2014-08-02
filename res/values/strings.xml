@@ -10,7 +10,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 <resources>
 
     <string name="app_name">Reef Angel Status</string>
-    <string name="app_version">0.9.6 - Beta 3</string>
+    <string name="app_version">0.9.6 - Beta 4</string>
 
     <!-- Menu Labels -->
     <string name="menuMainRefresh">Refresh</string>
