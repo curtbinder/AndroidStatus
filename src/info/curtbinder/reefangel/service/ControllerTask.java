@@ -457,6 +457,38 @@ public class ControllerTask implements Runnable {
 		v.put( StatusTable.COL_RFIO, ra.getRadionChannelOverride( Controller.RADION_INTENSITY ) );
 		v.put( StatusTable.COL_SF, ra.getStatusFlags() );
 		v.put( StatusTable.COL_AF, ra.getAlertFlags() );
+		v.put( StatusTable.COL_SCPWME0, ra.getSCPwmExpansion( (short) 0));
+		v.put( StatusTable.COL_SCPWME0O, ra.getSCPwmExpansionOverride( (short) 0));
+		v.put( StatusTable.COL_SCPWME1, ra.getSCPwmExpansion( (short) 1));
+		v.put( StatusTable.COL_SCPWME1O, ra.getSCPwmExpansionOverride( (short) 1));
+		v.put( StatusTable.COL_SCPWME2, ra.getSCPwmExpansion( (short) 2));
+		v.put( StatusTable.COL_SCPWME2O, ra.getSCPwmExpansionOverride( (short) 2));
+		v.put( StatusTable.COL_SCPWME3, ra.getSCPwmExpansion( (short) 3));
+		v.put( StatusTable.COL_SCPWME3O, ra.getSCPwmExpansionOverride( (short) 3));
+		v.put( StatusTable.COL_SCPWME4, ra.getSCPwmExpansion( (short) 4));
+		v.put( StatusTable.COL_SCPWME4O, ra.getSCPwmExpansionOverride( (short) 4));
+		v.put( StatusTable.COL_SCPWME5, ra.getSCPwmExpansion( (short) 5));
+		v.put( StatusTable.COL_SCPWME5O, ra.getSCPwmExpansionOverride( (short) 5));
+		v.put( StatusTable.COL_SCPWME6, ra.getSCPwmExpansion( (short) 6));
+		v.put( StatusTable.COL_SCPWME6O, ra.getSCPwmExpansionOverride( (short) 6));
+		v.put( StatusTable.COL_SCPWME7, ra.getSCPwmExpansion( (short) 7));
+		v.put( StatusTable.COL_SCPWME7O, ra.getSCPwmExpansionOverride( (short) 7));
+		v.put( StatusTable.COL_SCPWME8, ra.getSCPwmExpansion( (short) 8));
+		v.put( StatusTable.COL_SCPWME8O, ra.getSCPwmExpansionOverride( (short) 8));
+		v.put( StatusTable.COL_SCPWME9, ra.getSCPwmExpansion( (short) 9));
+		v.put( StatusTable.COL_SCPWME9O, ra.getSCPwmExpansionOverride( (short) 9));
+		v.put( StatusTable.COL_SCPWME10, ra.getSCPwmExpansion( (short) 10));
+		v.put( StatusTable.COL_SCPWME10O, ra.getSCPwmExpansionOverride( (short) 10));
+		v.put( StatusTable.COL_SCPWME11, ra.getSCPwmExpansion( (short) 11));
+		v.put( StatusTable.COL_SCPWME11O, ra.getSCPwmExpansionOverride( (short) 11));
+		v.put( StatusTable.COL_SCPWME12, ra.getSCPwmExpansion( (short) 12));
+		v.put( StatusTable.COL_SCPWME12O, ra.getSCPwmExpansionOverride( (short) 12));
+		v.put( StatusTable.COL_SCPWME13, ra.getSCPwmExpansion( (short) 13));
+		v.put( StatusTable.COL_SCPWME13O, ra.getSCPwmExpansionOverride( (short) 13));
+		v.put( StatusTable.COL_SCPWME14, ra.getSCPwmExpansion( (short) 14));
+		v.put( StatusTable.COL_SCPWME14O, ra.getSCPwmExpansionOverride( (short) 14));
+		v.put( StatusTable.COL_SCPWME15, ra.getSCPwmExpansion( (short) 15));
+		v.put( StatusTable.COL_SCPWME15O, ra.getSCPwmExpansionOverride( (short) 15));
 		rapp.getContentResolver()
 				.insert(	Uri.parse( StatusProvider.CONTENT_URI + "/"
 										+ StatusProvider.PATH_STATUS ), v );
