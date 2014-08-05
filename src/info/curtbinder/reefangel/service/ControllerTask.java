@@ -148,6 +148,10 @@ public class ControllerTask implements Runnable {
 				throw new InterruptedException();
 
 			broadcastUpdateStatus( R.string.statusParsing );
+//			java.io.InputStream is = con.getInputStream();
+//			String s = new String(readFully(is));
+//			Log.d(TAG, "XML: " + s);
+//			xr.parse( new InputSource(new StringReader(s)) );
 			xr.parse( new InputSource(con.getInputStream()) );
 			broadcastUpdateStatus( R.string.statusFinished );
 			result = true;
@@ -163,7 +167,18 @@ public class ControllerTask implements Runnable {
 		}
 		return result;
 	}
-
+   
+//	private byte[] readFully(java.io.InputStream inputStream)
+//	        throws IOException {
+//	    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//	    byte[] buffer = new byte[1024];
+//	    int length = 0;
+//	    while ((length = inputStream.read(buffer)) != -1) {
+//	        baos.write(buffer, 0, length);
+//	    }
+//	    return baos.toByteArray();
+//	}
+	
 	// Broadcast Stuff
 	private void broadcastResponses ( XMLHandler xml ) {
 		if ( host.isRequestForLabels() ) {

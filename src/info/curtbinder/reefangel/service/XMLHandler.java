@@ -76,6 +76,7 @@ public class XMLHandler extends DefaultHandler {
 	}
 
 	public void endDocument ( ) throws SAXException {
+//		Log.d(TAG, "endDocument");
 		if ( ra.getLogDate().equals( "" ) ) {
 			// No log date found, set the date to be the current date/time
 			DateFormat dft =
@@ -102,8 +103,6 @@ public class XMLHandler extends DefaultHandler {
 			// Log.d(TAG, "end xml: localName");
 			tag = localName;
 		}
-		// Log.d(TAG, "End: r'" + requestType + "', t'" + tag + "', '" +
-		// currentElementText + "'");
 		// if ( (requestType.equals( RequestCommands.Status )) ||
 		// (requestType.startsWith( RequestCommands.Relay )) ) {
 		if ( requestType.equals( RequestCommands.Status ) ) {
@@ -532,4 +531,22 @@ public class XMLHandler extends DefaultHandler {
 			modeResponse = currentElementText;
 		}
 	}
+
+//	@Override
+//	public void error ( SAXParseException e ) throws SAXException {
+//		Log.d(TAG, "XML Handler Error: " + e.getMessage());
+//		super.error( e );
+//	}
+//
+//	@Override
+//	public void fatalError ( SAXParseException e ) throws SAXException {
+//		Log.d(TAG, "XML Handler Fatal Error: " + e.getMessage());
+//		super.fatalError( e );
+//	}
+//
+//	@Override
+//	public void warning ( SAXParseException e ) throws SAXException {
+//		Log.d(TAG, "XML Handler Warning: " + e.getMessage());
+//		super.warning( e );
+//	}
 }
