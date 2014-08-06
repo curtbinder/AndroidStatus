@@ -1044,6 +1044,7 @@ public class StatusActivity extends BaseActivity implements
 		short oldEM1 = (short) rapp.raprefs.getPreviousEM1();
 		Log.d( TAG, "EM1: Old: " + oldEM1 + " New: " + newEM1 );
 		if ( oldEM1 != newEM1 ) {
+			fReload = true;
 			boolean f = false;
 			if ( Controller.isHumidityModuleInstalled( newEM1 ) )
 				f = true;
