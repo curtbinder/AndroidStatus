@@ -52,7 +52,6 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.viewpagerindicator.TitlePageIndicator;
 
 public class StatusActivity extends BaseActivity implements
 		ActionBar.OnNavigationListener {
@@ -67,7 +66,6 @@ public class StatusActivity extends BaseActivity implements
 	private TextView updateTime;
 	private ViewPager pager;
 	private CustomPagerAdapter pagerAdapter;
-	private TitlePageIndicator titleIndicator;
 	private String[] vortechModes;
 	private View[] appPages;
 	// minimum number of pages: commands, flags, status, main relay
@@ -238,7 +236,6 @@ public class StatusActivity extends BaseActivity implements
 	private void findViews ( ) {
 		updateTime = (TextView) findViewById( R.id.updated );
 		pager = (ViewPager) findViewById( R.id.pager );
-		titleIndicator = (TitlePageIndicator) findViewById( R.id.indicator );
 	}
 
 	private void disableRelayButtons ( ) {
@@ -1174,7 +1171,6 @@ public class StatusActivity extends BaseActivity implements
 		// Set the minimum pages to keep loaded
 		// will set to minimum pages since the pages are not complex
 		pager.setOffscreenPageLimit( MIN_PAGES );
-		titleIndicator.setViewPager( pager );
 	}
 
 	private void updatePageOrder ( ) {
