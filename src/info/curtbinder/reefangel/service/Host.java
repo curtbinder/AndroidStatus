@@ -89,8 +89,16 @@ public class Host {
 		this.wifiUsername = username;
 	}
 	
+	public String getWifiUsername ( ) {
+		return this.wifiUsername;
+	}
+	
 	public void setWifiPassword ( String password ) {
 		this.wifiPassword = password;
+	}
+	
+	public String getWifiPassword ( ) {
+		return this.wifiPassword;
 	}
 	
 	public String getDeviceAuthenticationString ( ) {

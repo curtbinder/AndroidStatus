@@ -19,12 +19,14 @@ import info.curtbinder.reefangel.phone.RAApplication;
 import info.curtbinder.reefangel.phone.RAPreferences;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
@@ -32,6 +34,12 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
+
+import com.squareup.okhttp.Credentials;
+import com.squareup.okhttp.Headers;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -56,21 +64,33 @@ public class ControllerTask implements Runnable {
 
 		// clear out the error code on run
 		rapp.errorCode = 0;
-		HttpURLConnection con = null;
+		Response response = null;
 		String res = "";
 		broadcastUpdateStatus( R.string.statusStart );
 		try {
 			URL url = new URL( host.toString() );
-			con = setupConnection(url);
+			OkHttpClient client = new OkHttpClient();
+			client.setConnectTimeout( host.getConnectTimeout(), TimeUnit.MILLISECONDS );
+			client.setReadTimeout( host.getReadTimeout(), TimeUnit.MILLISECONDS );
+			Request.Builder builder = new Request.Builder();
+			builder.url( url );
+			
 			if ( host.isDeviceAuthenticationEnabled() ) {
-				String basicAuth = "Basic " +
-					Base64.encodeBytes( host.getDeviceAuthenticationString().getBytes() );
-				Log.d(TAG, "Auth: " + basicAuth);
-				con.setRequestProperty( "Authorization", basicAuth );
+//				String basicAuth = "Basic " +
+//					Base64.encodeBytes( host.getDeviceAuthenticationString().getBytes() );
+//				Log.d(TAG, "Auth: " + basicAuth);
+//				con.setRequestProperty( "Authorization", basicAuth );
+				String creds = Credentials.basic( 
+				               host.getWifiUsername(), host.getWifiPassword() );
+				builder.header( "Authorization", creds );
 			}
+			Request req = builder.build();
 			broadcastUpdateStatus( R.string.statusConnect );
-			con.connect();
+			response = client.newCall( req ).execute();
 
+			if ( !response.isSuccessful() ) 
+				throw new IOException("Unexpected code " + response);
+			
 			if ( Thread.interrupted() )
 				throw new InterruptedException();
 
@@ -110,7 +130,7 @@ public class ControllerTask implements Runnable {
 			if ( raprefs.useOld085xExpansionRelays() ) {
 				xml.setOld085xExpansion( true );
 			}
-			if ( !parseXML( xml, con ) ) {
+			if ( !parseXML( xml, response) ) {
 				// error parsing
 				broadcastErrorMessage();
 				return;
@@ -120,16 +140,7 @@ public class ControllerTask implements Runnable {
 		}
 	}
 	
-	private HttpURLConnection setupConnection ( URL url ) throws ProtocolException, IOException {
-		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		con.setReadTimeout( host.getReadTimeout() );
-		con.setConnectTimeout( host.getConnectTimeout() );
-		con.setRequestMethod( "GET" );
-		con.setDoInput( true );
-		return con;
-	}
-	
-	private boolean parseXML ( XMLHandler xml, HttpURLConnection con ) {
+	private boolean parseXML ( XMLHandler xml, Response response ) {
 		SAXParserFactory spf = SAXParserFactory.newInstance();
 		XMLReader xr = null;
 		boolean result = false;
@@ -148,11 +159,12 @@ public class ControllerTask implements Runnable {
 				throw new InterruptedException();
 
 			broadcastUpdateStatus( R.string.statusParsing );
-//			java.io.InputStream is = con.getInputStream();
-//			String s = new String(readFully(is));
-//			Log.d(TAG, "XML: " + s);
-//			xr.parse( new InputSource(new StringReader(s)) );
-			xr.parse( new InputSource(con.getInputStream()) );
+			
+			// OkHttp Calls
+			printHeaders(response);
+			String s = response.body().string();
+			Log.d(TAG, "XML: " + s );
+			xr.parse( new InputSource(new StringReader(s)) );
 			broadcastUpdateStatus( R.string.statusFinished );
 			result = true;
 		} catch ( ParserConfigurationException e ) {
@@ -167,17 +179,13 @@ public class ControllerTask implements Runnable {
 		}
 		return result;
 	}
-   
-//	private byte[] readFully(java.io.InputStream inputStream)
-//	        throws IOException {
-//	    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//	    byte[] buffer = new byte[1024];
-//	    int length = 0;
-//	    while ((length = inputStream.read(buffer)) != -1) {
-//	        baos.write(buffer, 0, length);
-//	    }
-//	    return baos.toByteArray();
-//	}
+	
+	private void printHeaders(Response r) {
+		Headers h = r.headers();
+		for ( int i = 0; i < h.size(); i++ ) {
+			Log.d(TAG, "Header: " + h.name( i ) + ": " + h.value( i ) );
+		}
+	}
 	
 	// Broadcast Stuff
 	private void broadcastResponses ( XMLHandler xml ) {
