@@ -24,13 +24,12 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.PreferenceActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockPreferenceActivity;
-
 @SuppressWarnings("deprecation")
-public class PrefsActivity extends SherlockPreferenceActivity implements
+public class PrefsActivity extends PreferenceActivity implements
 		OnPreferenceChangeListener, OnSharedPreferenceChangeListener {
 
 	private static final String TAG = PrefsActivity.class.getSimpleName();

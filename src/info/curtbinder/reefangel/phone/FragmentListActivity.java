@@ -10,11 +10,10 @@ package info.curtbinder.reefangel.phone;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.ListFragment;
+import android.support.v7.app.ActionBarActivity;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.app.SherlockListFragment;
-
-public class FragmentListActivity extends SherlockFragmentActivity {
+public class FragmentListActivity extends ActionBarActivity {
 
 	public static final String FRAG_TYPE = "type";
 
@@ -32,7 +31,7 @@ public class FragmentListActivity extends SherlockFragmentActivity {
 
 		// Create the list fragment and add it as our sole content.
 		if ( fm.findFragmentById( android.R.id.content ) == null ) {
-			SherlockListFragment list = null;
+			ListFragment list = null;
 			switch ( frag ) {
 				default:
 				case HISTORY:
@@ -55,13 +54,13 @@ public class FragmentListActivity extends SherlockFragmentActivity {
 		switch ( frag ) {
 			default:
 			case HISTORY:
-				setTitle( R.string.titleHistory );
+				getSupportActionBar().setTitle( R.string.titleHistory );
 				break;
 			case NOTIFICATIONS:
-				setTitle( R.string.titleNotifications );
+				getSupportActionBar().setTitle( R.string.titleNotifications );
 				break;
 			case ERRORS:
-				setTitle( R.string.titleError );
+				getSupportActionBar().setTitle( R.string.titleError );
 				break;
 		}
 	}

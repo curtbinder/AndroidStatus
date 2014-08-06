@@ -23,15 +23,13 @@ public class HistoryPopupActivity extends Activity {
 
 	public static final String TAG = HistoryPopupActivity.class.getSimpleName();
 
-	private Uri historyUri;
-
 	protected void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.historypopup );
 
 		Bundle extras = getIntent().getExtras();
 		if ( extras != null ) {
-			historyUri =
+			Uri historyUri =
 					extras.getParcelable( StatusProvider.STATUS_ID_MIME_TYPE );
 			loadData( historyUri );
 		}

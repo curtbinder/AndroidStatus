@@ -40,18 +40,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 
 public class StatusActivity extends BaseActivity implements
 		ActionBar.OnNavigationListener {
@@ -208,8 +207,8 @@ public class StatusActivity extends BaseActivity implements
 		ArrayAdapter<CharSequence> list =
 				ArrayAdapter
 						.createFromResource(	context, arrayID,
-												R.layout.sherlock_spinner_item );
-		list.setDropDownViewResource( R.layout.sherlock_spinner_dropdown_item );
+												R.layout.support_simple_spinner_dropdown_item );
+		list.setDropDownViewResource( R.layout.support_simple_spinner_dropdown_item );
 		ab.setListNavigationCallbacks( list, this );
 		ab.setSelectedNavigationItem( rapp.getSelectedProfile() );
 	}
@@ -1108,9 +1107,8 @@ public class StatusActivity extends BaseActivity implements
 
 	@Override
 	public boolean onCreateOptionsMenu ( Menu menu ) {
-		MenuInflater inflater = getSupportMenuInflater();
-		inflater.inflate( R.menu.status_menu, menu );
-		return true;
+		getMenuInflater().inflate(R.menu.status_menu, menu);
+		return super.onCreateOptionsMenu( menu );
 	}
 
 	@Override

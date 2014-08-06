@@ -7,47 +7,48 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 http://creativecommons.org/licenses/by-nc-sa/3.0/
 -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
 
     <item
         android:id="@+id/refresh"
         android:icon="@drawable/ic_action_reload"
-        android:showAsAction="always"
+        app:showAsAction="always"
         android:title="@string/menuMainRefresh"/>
     <item
         android:id="@+id/settings"
         android:icon="@drawable/ic_action_settings"
-        android:showAsAction="never"
+        app:showAsAction="never"
         android:title="@string/menuMainSettings"/>
     <item
         android:id="@+id/memory"
         android:icon="@drawable/ic_action_flash"
-        android:showAsAction="ifRoom|withText"
+        app:showAsAction="ifRoom|withText"
         android:title="@string/menuMainMemory"/>
     <item 
         android:id="@+id/notifications"
         android:icon="@drawable/ic_action_flag"
-        android:showAsAction="ifRoom|withText"
+        app:showAsAction="ifRoom|withText"
         android:title="@string/menuMainNotifications" />
     <item
         android:id="@+id/history"
         android:icon="@drawable/ic_action_list"
-        android:showAsAction="ifRoom|withText"
+        app:showAsAction="ifRoom|withText"
         android:title="@string/menuMainHistory"/>
     <item
         android:id="@+id/datetime"
         android:icon="@drawable/ic_action_upload"
-        android:showAsAction="never"
+        app:showAsAction="never"
         android:title="@string/titleDateTime"/>
     <item
         android:id="@+id/errors"
         android:icon="@drawable/ic_action_bug"
-        android:showAsAction="never"
+        app:showAsAction="never"
         android:title="@string/menuMainErrors"/>
     <item
         android:id="@+id/about"
         android:icon="@drawable/ic_action_info"
-        android:showAsAction="never"
-        android:title="@string/menuMainAbout"/>
+        android:title="@string/menuMainAbout"
+        app:showAsAction="never"/>
 
 </menu>

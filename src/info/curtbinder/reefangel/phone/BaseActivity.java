@@ -9,10 +9,9 @@
 package info.curtbinder.reefangel.phone;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 
-import com.actionbarsherlock.app.SherlockActivity;
-
-public class BaseActivity extends SherlockActivity {
+public class BaseActivity extends ActionBarActivity {
 	RAApplication rapp;
 
 	protected void onCreate ( Bundle savedInstanceState ) {
