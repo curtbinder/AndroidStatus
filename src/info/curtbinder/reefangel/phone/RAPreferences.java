@@ -510,6 +510,8 @@ public class RAPreferences {
 			total++;
 		if ( getCustomModuleEnabled() )
 			total++;
+		if ( getSCDimmingModuleEnabled() )
+			total++;
 		return total;
 	}
 
