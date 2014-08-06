@@ -21,7 +21,6 @@ import info.curtbinder.reefangel.phone.RAPreferences;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.ConnectException;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
@@ -35,16 +34,15 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import com.squareup.okhttp.Credentials;
-import com.squareup.okhttp.Headers;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
 import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+
+import com.squareup.okhttp.Credentials;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 public class ControllerTask implements Runnable {
 
@@ -161,9 +159,9 @@ public class ControllerTask implements Runnable {
 			broadcastUpdateStatus( R.string.statusParsing );
 			
 			// OkHttp Calls
-			printHeaders(response);
+//			printHeaders(response);
 			String s = response.body().string();
-			Log.d(TAG, "XML: " + s );
+//			Log.d(TAG, "XML: " + s );
 			xr.parse( new InputSource(new StringReader(s)) );
 			broadcastUpdateStatus( R.string.statusFinished );
 			result = true;
@@ -180,12 +178,12 @@ public class ControllerTask implements Runnable {
 		return result;
 	}
 	
-	private void printHeaders(Response r) {
-		Headers h = r.headers();
-		for ( int i = 0; i < h.size(); i++ ) {
-			Log.d(TAG, "Header: " + h.name( i ) + ": " + h.value( i ) );
-		}
-	}
+//	private void printHeaders(Response r) {
+//		Headers h = r.headers();
+//		for ( int i = 0; i < h.size(); i++ ) {
+//			Log.d(TAG, "Header: " + h.name( i ) + ": " + h.value( i ) );
+//		}
+//	}
 	
 	// Broadcast Stuff
 	private void broadcastResponses ( XMLHandler xml ) {
