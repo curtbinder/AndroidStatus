@@ -43,7 +43,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
