@@ -24,6 +24,9 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:title="@string/prefLoggingUpdateTitle" />
 
         <Preference
+            android:key="@string/prefLoggingDisplayKey"
+            android:title="@string/prefLoggingDisplayTitle" />
+        <Preference
             android:key="@string/prefLoggingSendKey"
             android:summary="@string/prefLoggingSendSummary"
             android:title="@string/prefLoggingSendTitle" />

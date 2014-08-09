@@ -220,4 +220,9 @@ Changelog of all the versions of AndroidStatus
  * switched the position of Commands page and Flags Page
  * added in Notifications for Water Level 1-4 and Humidity
  * added in 16 channel pwm support
+ * removed ActionBarSherlock and ViewPagerIndicator library dependencies
+ * switched to use OkHttp library for network function calls
+ * changed minsdk to 7 (was 5), which is Android 2.1
+ * improved error messages
+ * code cleanup and bug fixes
  

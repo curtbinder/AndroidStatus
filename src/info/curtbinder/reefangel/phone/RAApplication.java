@@ -587,7 +587,7 @@ public class RAApplication extends Application {
 			// save code version in preferences
 			raprefs.setPreviousCodeVersion( current );
 			// newer version, display changelog
-			Changelog.displayChangelog( a );
+			DisplayLog.displayChangelog( a );
 		}
 		// deletePref( R.string.prefPreviousCodeVersion );
 	}

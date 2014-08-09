@@ -176,7 +176,7 @@ public class PrefsActivity extends PreferenceActivity implements
 				.setOnPreferenceClickListener( new OnPreferenceClickListener() {
 
 					public boolean onPreferenceClick ( Preference preference ) {
-						Changelog.displayChangelog( PrefsActivity.this );
+						DisplayLog.displayChangelog( PrefsActivity.this );
 						return true;
 					}
 				} );
@@ -207,11 +207,24 @@ public class PrefsActivity extends PreferenceActivity implements
 				findPreference( rapp.getString( R.string.prefLoggingSendKey ) );
 		sendemail
 				.setOnPreferenceClickListener( new SendEmailPreferenceListener() );
+		
+		Preference displayerrorlog =
+				findPreference( rapp.getString( R.string.prefLoggingDisplayKey ) );
+		displayerrorlog.setOnPreferenceClickListener( new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick ( Preference preference ) {
+				DisplayLog.displayErrorlog( PrefsActivity.this, rapp.getLoggingFile() );
+				return true;
+			}
+			
+		});
 
 		// disable deleting and sending of the log file if not present
 		if ( !rapp.isLoggingFilePresent() ) {
 			deletelog.setEnabled( false );
 			sendemail.setEnabled( false );
+			displayerrorlog.setEnabled( false );
 		}
 	}
 

@@ -10,7 +10,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 <resources>
 
     <string name="app_name">Reef Angel Status</string>
-    <string name="app_version">0.9.6 - Beta 4</string>
+    <string name="app_version">0.9.6 - Beta 6</string>
 
     <!-- Menu Labels -->
     <string name="menuMainRefresh">Refresh</string>
@@ -35,6 +35,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
     <string name="titleDateTime">Date / Time</string>
     <string name="titleSelectProfile">Select Profile</string>
     <string name="titleChangelog">Changelog</string>
+    <string name="titleErrorlog">Error Log File</string>
     <string name="titleVortech">Vortech Config</string>
     <string name="titleError">Errors History</string>
     <string name="titleNotifications">Notifications</string>
@@ -282,9 +283,9 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefUserIdSummary">Userid / login for the portal</string>
     <string name="prefUserIdDefault">reefangel</string>
     <string name="prefUserIdInvalid">Invalid userid</string>
-    <string name="prefWifiUserTitle">Wifi Username</string>
+    <string name="prefWifiUserTitle">Device Authentication Username</string>
     <string name="prefWifiUserSummary">Username for basic authentication on the controller (libraries v1.1.1 and later)</string>
-    <string name="prefWifiPasswordTitle">Wifi Password</string>
+    <string name="prefWifiPasswordTitle">Device Authentication Password</string>
     <string name="prefWifiPasswordSummary">Password for basic authentication on the controller (libraries v1.1.1 and later)</string>
     <string name="prefAppTitle">Info</string>
     <string name="prefVersionTitle">Version</string>
@@ -405,6 +406,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefLoggingDeleteTitle">Delete log file</string>
     <string name="prefLoggingSendTitle">Send log file</string>
     <string name="prefLoggingSendSummary">Emails log file to developer</string>
+    <string name="prefLoggingDisplayTitle">Display log file</string>
     <string name="prefConnectionTimeoutTitle">Connection Timeout</string>
     <string name="prefConnectionTimeoutDefault">15000</string>
     <string name="prefReadTimeoutTitle">Read Timeout</string>
@@ -603,6 +605,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefLoggingUpdateKey">logging_update</string>
     <string name="prefLoggingDeleteKey">logging_delete_file</string>
     <string name="prefLoggingSendKey">logging_send</string>
+    <string name="prefLoggingDisplayKey">logging_display</string>
     <string name="prefConnectionTimeoutKey">connection_timeout</string>
     <string name="prefReadTimeoutKey">read_timeout</string>
     <string name="prefAutoRefreshAfterUpdateKey">auto_refresh_update</string>
