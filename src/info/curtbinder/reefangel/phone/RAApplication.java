@@ -10,6 +10,7 @@ package info.curtbinder.reefangel.phone;
 
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;
+import info.curtbinder.reefangel.service.XMLReadException;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -135,10 +136,24 @@ public class RAApplication extends Application {
 		errorCodeMessage = "";
 	}
 	
+	private String getSimpleErrorMessage ( String msg ) {
+		String s = "";
+		if ( msg.contains( "EHOSTUNREACH" ) ) {
+			s = "Host unreachable: " + raprefs.getHost() + ":" + raprefs.getPort();
+		} else if ( msg.contains( "ECONNREFUSED" ) ) {
+			s = "Connection Refused: " + raprefs.getHost() + ":" + raprefs.getPort();
+		} else if ( msg.contains( "ECONNRESET" ) ) {
+			s = "Connection Reset by Peer";
+		} else {
+			s = msg;
+		}
+		return s;
+	}
+	
 	public void error ( int errorCodeIndex, Throwable t, String msg ) {
 		errorCode = Integer.parseInt( errorCodes[errorCodeIndex] );
 		if ( t.getMessage() != null ) 
-			errorCodeMessage = t.getMessage();
+			errorCodeMessage = getSimpleErrorMessage(t.getMessage());
 		Log.d(TAG, "Error: " + errorCode + ", " + errorCodeMessage);
 
 		// if logging enabled, save the log
@@ -168,6 +183,10 @@ public class RAApplication extends Application {
 										raprefs.getUserId() );
 				pw.println( s );
 				pw.println( msg );
+				if ( t instanceof XMLReadException ) {
+					// we have an XML read exception, get the xml data if any
+					pw.println( ((XMLReadException) t).getXmlData() );
+				}
 				pw.println( t.toString() );
 				pw.println( "Stack Trace:" );
 				pw.flush();

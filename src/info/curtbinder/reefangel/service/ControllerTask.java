@@ -18,11 +18,14 @@ import info.curtbinder.reefangel.phone.R;
 import info.curtbinder.reefangel.phone.RAApplication;
 import info.curtbinder.reefangel.phone.RAPreferences;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.StringReader;
+import java.net.ConnectException;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -88,15 +91,17 @@ public class ControllerTask implements Runnable {
 			rapp.error( 1, e, "MalformedURLException" );
 		} catch ( SocketTimeoutException e ) {
 			rapp.error( 5, e, "SocketTimeoutException" );
-		} catch ( IOException e ) {
-			String msg = "";
-			if ( host.isDeviceAuthenticationEnabled() ) {
-				msg = rapp.getString( R.string.errorAuthentication );
-			} else { 
-				msg = rapp.getString( R.string.errorConnection );
-			}
-			IOException io = new IOException(msg);
-			rapp.error( 4, io, "IOException" );
+		} catch ( ConnectException e ) {
+			rapp.error( 3, e, "ConnectException" );
+		} catch ( UnknownHostException e ) {
+			String msg = "Unknown Host: " + host.toString();
+			UnknownHostException ue = new UnknownHostException(msg);
+			rapp.error( 4, ue, "UnknownHostException" );
+		} catch ( EOFException e ) {
+			EOFException eof = new EOFException(rapp.getString( R.string.errorAuthentication ));
+			rapp.error( 3, eof, "EOFException" );
+		} catch ( IOException e ) {			
+			rapp.error( 3, e, "IOException" );
 		} catch ( InterruptedException e ) {
 			fInterrupted = true;
 		}
@@ -167,12 +172,14 @@ public class ControllerTask implements Runnable {
 			
 			// OkHttp Calls
 //			printHeaders(response);
-			String s;
+			String s = "";
 			try {
 				s = response.body().string();
 			} catch ( IOException e ) {
 				// Error reading from the connection
-				throw new XMLReadException();
+				XMLReadException x = new XMLReadException("XMLReadException");
+				x.addXmlData( s );
+				throw x;
 			}
 //			Log.d(TAG, "XML: " + s );
 			xr.parse( new InputSource(new StringReader(s)) );
