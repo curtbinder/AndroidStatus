@@ -75,6 +75,10 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="descriptionSpeed">Change the Vortech Speed</string>
     <string name="descriptionDuration">Change the Vortech Duration</string>
 
+    <!-- Extra Connection Erros -->
+    <string name="errorAuthentication">Device Authentication Error, check your user/password settings.</string>
+    <string name="errorConnection">Error connecting to device</string>
+    
     <!-- Buttons -->
     <string name="buttonRefresh">Refresh</string>
     <string name="buttonOk">OK</string>

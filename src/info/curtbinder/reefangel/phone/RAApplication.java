@@ -48,6 +48,7 @@ public class RAApplication extends Application {
 	// Error code stuff
 	private String[] errorCodes;
 	private String[] errorCodesStrings;
+	private String errorCodeMessage;
 	public int errorCode;
 	public int errorCount;
 
@@ -55,6 +56,7 @@ public class RAApplication extends Application {
 		errorCodes = getResources().getStringArray( R.array.errorCodes );
 		errorCodesStrings =
 				getResources().getStringArray( R.array.errorCodesStrings );
+		errorCodeMessage = ""; // set to no error message
 		errorCode = 0; // set to no error initially
 		raprefs = new RAPreferences( this );
 
@@ -128,8 +130,16 @@ public class RAApplication extends Application {
 	}
 
 	// Error Logging
+	public void clearErrorCode() {
+		errorCode = 0;
+		errorCodeMessage = "";
+	}
+	
 	public void error ( int errorCodeIndex, Throwable t, String msg ) {
 		errorCode = Integer.parseInt( errorCodes[errorCodeIndex] );
+		if ( t.getMessage() != null ) 
+			errorCodeMessage = t.getMessage();
+		Log.d(TAG, "Error: " + errorCode + ", " + errorCodeMessage);
 
 		// if logging enabled, save the log
 		if ( raprefs.isLoggingEnabled() ) {
@@ -178,13 +188,13 @@ public class RAApplication extends Application {
 		for ( int i = 0; i < errorCodes.length; i++ ) {
 			if ( Integer.parseInt( errorCodes[i] ) == errorCode ) {
 				// found code
-				s =
-						String.format(	Locale.US,
-										"%s %d: %s",
-										getResources()
-												.getText( R.string.messageError ),
-										errorCode,
-										errorCodesStrings[i] );
+				s = String.format(	Locale.US,
+									"%s %d: %s",
+									getResources()
+											.getText( R.string.messageError ),
+									errorCode,
+									(errorCodeMessage == "" ) ? errorCodesStrings[i] 
+															: errorCodeMessage);
 				break;
 			}
 		}

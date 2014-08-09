@@ -50,6 +50,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>21</item>
         <item>22</item>
         <item>23</item>
+        <item>24</item>
     </string-array>
     <string-array name="errorCodesStrings">
         <item>Send Command</item>
@@ -60,8 +61,9 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
         <item>Timeout</item>
         <item>XML</item>
         <item>Parser Configuration</item>
-        <item>XML I/O</item>
-        <item>XML SAX Parser</item>
+        <item>I/O error with XML data</item>
+        <item>SAX error parsing XML data</item>
+        <item>Reading XML tags from device</item>
     </string-array>
 
     <!--

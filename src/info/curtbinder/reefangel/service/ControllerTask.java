@@ -20,9 +20,7 @@ import info.curtbinder.reefangel.phone.RAPreferences;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.net.ConnectException;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
@@ -61,9 +59,9 @@ public class ControllerTask implements Runnable {
 		// Communicate with controller
 
 		// clear out the error code on run
-		rapp.errorCode = 0;
+		rapp.clearErrorCode();
 		Response response = null;
-		String res = "";
+		boolean fInterrupted = false;
 		broadcastUpdateStatus( R.string.statusStart );
 		try {
 			URL url = new URL( host.toString() );
@@ -72,10 +70,8 @@ public class ControllerTask implements Runnable {
 			client.setReadTimeout( host.getReadTimeout(), TimeUnit.MILLISECONDS );
 			Request.Builder builder = new Request.Builder();
 			builder.url( url );
-			
 			if ( host.isDeviceAuthenticationEnabled() ) {
-				String creds = Credentials.basic( 
-				               host.getWifiUsername(), host.getWifiPassword() );
+				String creds = Credentials.basic( host.getWifiUsername(), host.getWifiPassword() );
 				builder.header( "Authorization", creds );
 			}
 			Request req = builder.build();
@@ -90,14 +86,25 @@ public class ControllerTask implements Runnable {
 
 		} catch ( MalformedURLException e ) {
 			rapp.error( 1, e, "MalformedURLException" );
+		} catch ( SocketTimeoutException e ) {
+			rapp.error( 5, e, "SocketTimeoutException" );
 		} catch ( IOException e ) {
-			rapp.error( 1, e, "IOException" );
+			String msg = "";
+			if ( host.isDeviceAuthenticationEnabled() ) {
+				msg = rapp.getString( R.string.errorAuthentication );
+			} else { 
+				msg = rapp.getString( R.string.errorConnection );
+			}
+			IOException io = new IOException(msg);
+			rapp.error( 4, io, "IOException" );
 		} catch ( InterruptedException e ) {
-			res =
-					(String) rapp.getResources()
-							.getText( R.string.messageCancelled );
+			fInterrupted = true;
 		}
+		
+		processResponse(response, fInterrupted);
+	}
 
+	private void processResponse ( Response response, boolean fInterrupted  ) {
 		// check if there was an error
 		if ( rapp.errorCode > 0 ) {
 			// encountered an error, display an error on screen
@@ -109,22 +116,32 @@ public class ControllerTask implements Runnable {
 			} else {
 				broadcastErrorMessage();
 			}
-		} else if ( res.equals( (String) rapp.getResources()
-				.getText( R.string.messageCancelled ) ) ) {
+		} else if ( fInterrupted ) {
 			// Interrupted
 			broadcastUpdateStatus( R.string.messageCancelled );
 		} else {
-			XMLHandler xml = new XMLHandler();
-			if ( raprefs.useOld085xExpansionRelays() ) {
-				xml.setOld085xExpansion( true );
+			try {
+				XMLHandler xml = new XMLHandler();
+				if ( raprefs.useOld085xExpansionRelays() ) {
+					xml.setOld085xExpansion( true );
+				}
+				if ( !parseXML( xml, response) ) {
+					// error parsing
+					broadcastErrorMessage();
+					throw new Exception();
+				}
+				broadcastUpdateStatus( R.string.statusUpdatingDisplay );
+				broadcastResponses( xml );
+			} catch ( Exception e ) {
+				// ignore the exception, just needed a way to break out
+				// of the sequence of events to close the response
 			}
-			if ( !parseXML( xml, response) ) {
-				// error parsing
-				broadcastErrorMessage();
-				return;
-			}
-			broadcastUpdateStatus( R.string.statusUpdatingDisplay );
-			broadcastResponses( xml );
+		}
+		if ( response != null ) { 
+			try {
+				response.body().close();
+			} catch ( IOException e ) {
+			} 
 		}
 	}
 	
@@ -150,17 +167,25 @@ public class ControllerTask implements Runnable {
 			
 			// OkHttp Calls
 //			printHeaders(response);
-			String s = response.body().string();
+			String s;
+			try {
+				s = response.body().string();
+			} catch ( IOException e ) {
+				// Error reading from the connection
+				throw new XMLReadException();
+			}
 //			Log.d(TAG, "XML: " + s );
 			xr.parse( new InputSource(new StringReader(s)) );
 			broadcastUpdateStatus( R.string.statusFinished );
 			result = true;
 		} catch ( ParserConfigurationException e ) {
-			rapp.error( 7, e, "parseXML: ParserConfigurationException" );
+			rapp.error( 7, e, "ParserConfigurationException" );
 		} catch ( IOException e ) {
-			rapp.error( 8, e, "parseXML: IOException" );
+			rapp.error( 8, e, "IOException" );
 		} catch ( SAXException e ) {
-			rapp.error( 9, e, "parseXML: SAXException" );
+			rapp.error( 9, e, "SAXException" );
+		} catch ( XMLReadException e ) {
+			rapp.error( 10, e, "XMLReadException" );
 		} catch ( InterruptedException e ) {
 			// Not a true error, so only for debugging
 			Log.d( TAG, "parseXML: InterruptedException", e );
