@@ -21,6 +21,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -219,6 +220,9 @@ public class PrefsActivity extends PreferenceActivity implements
 			}
 			
 		});
+		
+//		Preference updatehost = findPreference( rapp.getString( R.string.prefUpdateControllerIPKey ));
+//		updatehost.setOnPreferenceClickListener( new UpdateHostPreferenceListener() );
 
 		// disable deleting and sending of the log file if not present
 		if ( !rapp.isLoggingFilePresent() ) {
@@ -784,7 +788,13 @@ public class PrefsActivity extends PreferenceActivity implements
 													int id ) {
 												Log.d( TAG, "Reset labels" );
 												dialog.dismiss();
-												resetLabels();
+												Handler h = new Handler();
+												final Runnable r = new Runnable() {
+													public void run() {
+														resetLabels();
+													}
+												};
+												h.post( r );
 											}
 										} )
 					.setNegativeButton( rapp.getString( R.string.buttonNo ),
@@ -804,6 +814,10 @@ public class PrefsActivity extends PreferenceActivity implements
 
 		private void resetLabels ( ) {
 			Log.d( TAG, "Deleting all labels" );
+			Toast.makeText( PrefsActivity.this,
+							rapp.getString( R.string.messageResetLabelsBegin ),
+							Toast.LENGTH_SHORT ).show();
+			
 			// delete all controller labels
 			raprefs.deletePref( R.string.prefT1LabelKey );
 			raprefs.deletePref( R.string.prefT2LabelKey );
@@ -814,17 +828,41 @@ public class PrefsActivity extends PreferenceActivity implements
 			raprefs.deletePref( R.string.prefSalinityLabelKey );
 			raprefs.deletePref( R.string.prefORPLabelKey );
 			raprefs.deletePref( R.string.prefPHExpLabelKey );
-			for ( int i = 0; i <= Controller.MAX_EXPANSION_RELAYS; i++ ) {
+			int i;
+			for ( i = 0; i <= Controller.MAX_EXPANSION_RELAYS; i++ ) {
 				for ( int j = 0; j < Controller.MAX_RELAY_PORTS; j++ ) {
 					raprefs.deletePref( raprefs.getRelayKey( i, j ) );
 				}
 			}
+			raprefs.deletePref( R.string.prefATOHiLabelKey );
+			raprefs.deletePref( R.string.prefATOLoLabelKey );
+			raprefs.deletePref( R.string.prefPHExpLabelKey );
+			for ( i = 0; i <= Controller.MAX_WATERLEVEL_PORTS; i++ ) {
+				raprefs.deletePref( raprefs.getWaterLevelLabelKey( i ) );
+			}
+			raprefs.deletePref( R.string.prefHumidityLabelKey );
 			raprefs.deletePref( R.string.prefExpDimmingCh0LabelKey );
 			raprefs.deletePref( R.string.prefExpDimmingCh1LabelKey );
 			raprefs.deletePref( R.string.prefExpDimmingCh2LabelKey );
 			raprefs.deletePref( R.string.prefExpDimmingCh3LabelKey );
 			raprefs.deletePref( R.string.prefExpDimmingCh4LabelKey );
 			raprefs.deletePref( R.string.prefExpDimmingCh5LabelKey );
+			raprefs.deletePref( R.string.prefExpSCDimmingCh0LabelKey );
+			raprefs.deletePref( R.string.prefExpSCDimmingCh1LabelKey );
+			raprefs.deletePref( R.string.prefExpSCDimmingCh2LabelKey );
+			raprefs.deletePref( R.string.prefExpSCDimmingCh3LabelKey );
+			raprefs.deletePref( R.string.prefExpSCDimmingCh4LabelKey );
+			raprefs.deletePref( R.string.prefExpSCDimmingCh5LabelKey );
+			raprefs.deletePref( R.string.prefExpSCDimmingCh6LabelKey );
+			raprefs.deletePref( R.string.prefExpSCDimmingCh7LabelKey );
+			raprefs.deletePref( R.string.prefExpSCDimmingCh8LabelKey );
+			raprefs.deletePref( R.string.prefExpSCDimmingCh9LabelKey );
+			raprefs.deletePref( R.string.prefExpSCDimmingCh10LabelKey );
+			raprefs.deletePref( R.string.prefExpSCDimmingCh11LabelKey );
+			raprefs.deletePref( R.string.prefExpSCDimmingCh12LabelKey );
+			raprefs.deletePref( R.string.prefExpSCDimmingCh13LabelKey );
+			raprefs.deletePref( R.string.prefExpSCDimmingCh14LabelKey );
+			raprefs.deletePref( R.string.prefExpSCDimmingCh15LabelKey );
 			raprefs.deletePref( R.string.prefExpIO0LabelKey );
 			raprefs.deletePref( R.string.prefExpIO1LabelKey );
 			raprefs.deletePref( R.string.prefExpIO2LabelKey );
@@ -896,4 +934,12 @@ public class PrefsActivity extends PreferenceActivity implements
 		}
 	}
 
+//	class UpdateHostPreferenceListener implements OnPreferenceClickListener {
+//
+//		@Override
+//		public boolean onPreferenceClick ( Preference preference ) {
+//			return true;
+//		}
+//		
+//	}
 }

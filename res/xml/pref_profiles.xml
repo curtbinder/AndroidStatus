@@ -40,6 +40,12 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:defaultValue="@string/prefUserIdDefault"
             android:key="@string/prefUserIdKey"
             android:title="@string/prefUserIdTitle" />
+        <!--
+        <PreferenceScreen
+            android:key="@string/prefUpdateControllerIPKey"
+            android:summary="@string/prefUpdateControllerIPSummary"
+            android:title="@string/prefUpdateControllerIPTitle" />
+            -->
     </PreferenceCategory>
 
 </PreferenceScreen>
