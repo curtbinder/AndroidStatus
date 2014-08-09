@@ -74,10 +74,6 @@ public class ControllerTask implements Runnable {
 			builder.url( url );
 			
 			if ( host.isDeviceAuthenticationEnabled() ) {
-//				String basicAuth = "Basic " +
-//					Base64.encodeBytes( host.getDeviceAuthenticationString().getBytes() );
-//				Log.d(TAG, "Auth: " + basicAuth);
-//				con.setRequestProperty( "Authorization", basicAuth );
 				String creds = Credentials.basic( 
 				               host.getWifiUsername(), host.getWifiPassword() );
 				builder.header( "Authorization", creds );
@@ -94,12 +90,6 @@ public class ControllerTask implements Runnable {
 
 		} catch ( MalformedURLException e ) {
 			rapp.error( 1, e, "MalformedURLException" );
-		} catch ( ProtocolException e ) {
-			rapp.error( 1, e, "ProtocolException" );
-		} catch ( SocketTimeoutException e ) {
-			rapp.error( 5, e, "SocketTimeoutException" );
-		} catch ( ConnectException e ) {
-			rapp.error( 3, e, "ConnectException" );
 		} catch ( IOException e ) {
 			rapp.error( 1, e, "IOException" );
 		} catch ( InterruptedException e ) {
