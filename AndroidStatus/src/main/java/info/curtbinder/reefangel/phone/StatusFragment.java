@@ -54,7 +54,6 @@ import info.curtbinder.reefangel.service.XMLTags;
 
 public class StatusFragment extends Fragment {
 
-    //public static final int PAGES = 4;
     private static final String TAG = StatusFragment.class.getSimpleName();
 
     // minimum number of pages: flags, commands, status, main relay

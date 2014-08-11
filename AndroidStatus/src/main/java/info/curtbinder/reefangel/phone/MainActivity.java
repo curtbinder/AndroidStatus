@@ -55,6 +55,9 @@ public class MainActivity extends ActionBarActivity
 
     private static final String OPENED_KEY = "OPENED_KEY";
     private static final String STATE_CHECKED = "DRAWER_CHECKED";
+//    private static final String POSITION = "POSITION";
+    private static final String PREVIOUS_CHECKED = "PREVIOUS";
+
     // do not switch selected profile when restoring the application state
     private static boolean fRestoreState = false;
     public final String TAG = MainActivity.class.getSimpleName();
@@ -77,6 +80,13 @@ public class MainActivity extends ActionBarActivity
 
         raApp = (RAApplication) getApplication();
 
+        if ( savedInstanceState != null ) {
+            int pos = savedInstanceState.getInt(STATE_CHECKED, -1);
+            int oldpos = savedInstanceState.getInt(PREVIOUS_CHECKED, -1);
+            Log.d(TAG, "onRestoreInstanceState, cur: " + pos + " old: " + oldpos);
+            mCurrentPosition = pos;
+            mOldPosition = oldpos;
+        }
         setupNavDrawer(savedInstanceState);
         updateContent();
         updateActionBar();
@@ -101,16 +111,20 @@ public class MainActivity extends ActionBarActivity
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
+        Log.d(TAG, "onSaveInstanceState");
         outState.putInt(STATE_CHECKED, mDrawerList.getCheckedItemPosition());
+        outState.putInt(PREVIOUS_CHECKED, mOldPosition);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        int pos = savedInstanceState.getInt(STATE_CHECKED, -1);
-
-        if (pos > -1) {
-            mDrawerList.setItemChecked(pos, true);
-        }
+//        int pos = savedInstanceState.getInt(STATE_CHECKED, -1);
+//        int oldpos = savedInstanceState.getInt(PREVIOUS_CHECKED, -1);
+//
+//        Log.d(TAG, "onRestoreInstanceState, cur: " + pos + " old: " + oldpos);
+//        if (pos > -1) {
+//            mDrawerList.setItemChecked(pos, true);
+//        }
     }
 
     @Override
@@ -128,6 +142,7 @@ public class MainActivity extends ActionBarActivity
     }
 
     private void setupNavDrawer(Bundle savedInstanceState) {
+        Log.d(TAG, "setupNavDrawer");
         // get the string array for the navigation items
         mNavTitles = getResources().getStringArray(R.array.nav_items);
 
@@ -150,6 +165,8 @@ public class MainActivity extends ActionBarActivity
         mDrawerList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         if (savedInstanceState == null) {
             mDrawerList.setItemChecked(0, true);
+        } else {
+            mDrawerList.setItemChecked(mCurrentPosition, true);
         }
 
         mDrawerToggle =
@@ -207,6 +224,7 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
@@ -255,8 +273,9 @@ public class MainActivity extends ActionBarActivity
 
             FragmentTransaction ft =
                     getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame, fragment);
 
+            Log.d(TAG, "Old Pos: " + mOldPosition + " New Pos: " + mCurrentPosition);
+            ft.replace(R.id.content_frame, fragment);
             if (fAddToBackStack) {
                 // TODO implement backstack listener in order to change/update
                 // title
