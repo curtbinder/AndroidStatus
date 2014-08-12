@@ -154,6 +154,11 @@ public class RAApplication extends Application {
 		errorCode = Integer.parseInt( errorCodes[errorCodeIndex] );
 		if ( t.getMessage() != null ) 
 			errorCodeMessage = getSimpleErrorMessage(t.getMessage());
+		if ( errorCode == 15 ) 
+			// timeout error
+			errorCodeMessage = String.format( Locale.getDefault(), 
+			                                  getString(R.string.messageErrorTimeout),
+			                                  raprefs.getHost(), raprefs.getPort());
 		Log.d(TAG, "Error: " + errorCode + ", " + errorCodeMessage);
 
 		// if logging enabled, save the log
