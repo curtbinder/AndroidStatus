@@ -10,6 +10,7 @@
 <li>switched to use OkHttp library for network function calls</li>
 <li>changed minsdk to 7 (was 5), which is Android 2.1</li>
 <li>improved error messages</li>
+<li>added the ability to display the error log file</li>
 <li>code cleanup and bug fixes</li>
 </ul>
 <br>
