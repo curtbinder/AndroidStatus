@@ -49,8 +49,7 @@ public class PageCommandsFragment extends Fragment
 
 
     public static PageCommandsFragment newInstance() {
-        PageCommandsFragment p = new PageCommandsFragment();
-        return p;
+        return new PageCommandsFragment();
     }
 
     @Override

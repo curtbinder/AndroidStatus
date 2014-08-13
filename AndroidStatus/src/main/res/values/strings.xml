@@ -26,7 +26,7 @@
 <resources>
 
     <string name="app_name">Reef Angel Status</string>
-    <string name="app_version">0.9.6 - Beta 1</string>
+    <string name="app_version">1.0.0 - Beta 1</string>
     <string name="db_authority">info.curtbinder.reefangel.db</string>
 
     <string name="drawer_open">Open navigation drawer</string>
@@ -60,6 +60,10 @@
         <string name="titleNotifications">Notifications</string>
         <string name="titleCreateNotification">Create Notification</string>
         <string name="titleUpdateNotification">Update Notification</string>
+    <string name="titleOverride">PWM Override</string>
+    <string name="titleFlags">Flags</string>
+    <string name="titleAlert">Alert Flags</string>
+    <string name="titleStatus">Status Flags</string>
 
         <!-- Tabs for memory page -->
         <string name="tabMemory1">memory_tab_1</string>

@@ -64,10 +64,14 @@ public class RAPreferences {
         editor.putBoolean(rapp.getString(keyid), value).commit();
     }
 
+    public void set(String key, boolean value) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(key, value).commit();
+    }
+
     public void set(String key, int value) {
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt(key, value);
-        editor.commit();
+        editor.putInt(key, value).commit();
     }
 
     public void set(int keyid, int value) {

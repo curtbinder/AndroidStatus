@@ -286,7 +286,12 @@ public class MainActivity extends ActionBarActivity
         // handle the rest of the action bar items here
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Log.d(TAG, "Settings clicked");
+                Fragment f = getSupportFragmentManager().findFragmentById(R.id.content_frame);
+                if ( f instanceof StatusFragment ) {
+                    // the current fragment is the status fragment
+                    Log.d(TAG, "Status Fragment is current");
+                    ((StatusFragment) f).reloadPages();
+                }
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
 

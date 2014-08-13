@@ -41,7 +41,9 @@ import info.curtbinder.reefangel.db.StatusProvider;
 import info.curtbinder.reefangel.db.StatusTable;
 
 public class PageControllerFragment extends Fragment
-        implements PageRefreshInterface {
+        implements PageRefreshInterface,
+        PagePWMRefreshInterface,
+        View.OnLongClickListener {
 
     private static final String TAG = PageControllerFragment.class.getSimpleName();
     //Context ctx; // saved context from parent
@@ -49,10 +51,11 @@ public class PageControllerFragment extends Fragment
             new TextView[Controller.MAX_CONTROLLER_VALUES];
     private TableRow[] deviceRow =
             new TableRow[Controller.MAX_CONTROLLER_VALUES];
+    private short dpValue;
+    private short apValue;
 
     public static PageControllerFragment newInstance() {
-        PageControllerFragment p = new PageControllerFragment();
-        return p;
+        return new PageControllerFragment();
     }
 
     @Override
@@ -86,9 +89,12 @@ public class PageControllerFragment extends Fragment
         deviceRow[Globals.HUMIDITY_INDEX] = (TableRow) root.findViewById(R.id.humidity_row);
 
         for (int i = 0; i < Controller.MAX_CONTROLLER_VALUES; i++) {
-            deviceText[i] =
-                    (TextView) deviceRow[i].findViewById(R.id.rowValue);
+            deviceText[i] = (TextView) deviceRow[i].findViewById(R.id.rowValue);
         }
+        deviceText[Globals.AP_INDEX].setLongClickable(true);
+        deviceText[Globals.AP_INDEX].setOnLongClickListener(this);
+        deviceText[Globals.DP_INDEX].setLongClickable(true);
+        deviceText[Globals.DP_INDEX].setOnLongClickListener(this);
     }
 
     @Override
@@ -101,6 +107,23 @@ public class PageControllerFragment extends Fragment
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        View parent = (View) v.getParent();
+        StatusFragment f = (StatusFragment) getParentFragment();
+        switch (parent.getId()) {
+            default:
+                return false;
+            case R.id.dp_row:
+                f.testFunction("DP");
+                break;
+            case R.id.ap_row:
+                f.testFunction("AP");
+                break;
+        }
+        return true;
     }
 
     private void updateLabelsAndVisibility() {
@@ -166,42 +189,24 @@ public class PageControllerFragment extends Fragment
         tv.setText(subtitle);
     }
 
+    public void updatePWMValues(short[] v) {
+        apValue = v[0];
+        dpValue = v[1];
+    }
+
     private void setVisibility(int device, boolean fVisible) {
         int v;
         if (fVisible) {
-            Log.d(TAG, device + " visible");
+            //Log.d(TAG, device + " visible");
             v = View.VISIBLE;
         } else {
-            Log.d(TAG, device + " gone");
+            //Log.d(TAG, device + " gone");
             v = View.GONE;
         }
         deviceRow[device].setVisibility(v);
     }
 
-    private void updateData() {
-        Log.d(TAG, "updateData");
-        Uri uri = Uri.parse(StatusProvider.CONTENT_URI + "/" + StatusProvider.PATH_LATEST);
-        Cursor c = getActivity().getContentResolver().query(uri, null, null, null,
-                StatusTable.COL_ID + " DESC");
-        String updateStatus;
-        String[] v = new String[Controller.MAX_CONTROLLER_VALUES];
-        if (c.moveToFirst()) {
-            updateStatus = c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE));
-            v = getControllerValues(c);
-        } else {
-            updateStatus = getString(R.string.messageNever);
-            v = ((StatusFragment) getParentFragment()).getNeverValues(Controller.MAX_CONTROLLER_VALUES);
-        }
-        c.close();
-
-        ((StatusFragment) getParentFragment()).updateDisplayText(updateStatus);
-        // set ATO LO and HI to icons instead of text
-        for (int i = 0; i < Controller.MAX_CONTROLLER_VALUES; i++ ) {
-            deviceText[i].setText(v[i]);
-        }
-    }
-
-    private String[] getControllerValues(Cursor c) {
+    private String[] getValues(Cursor c) {
         // FIXME switch to only setting the string to 1 or 0
         // FIXME so the controllerpage can easily update the images
         String l, h;
@@ -239,6 +244,23 @@ public class PageControllerFragment extends Fragment
             return;
         }
         // only update if the activity exists
-        updateData();
+        StatusFragment f = ((StatusFragment) getParentFragment());
+        Cursor c = f.getLatestDataCursor();
+        String updateStatus;
+        String[] v;
+        if (c.moveToFirst()) {
+            updateStatus = c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE));
+            v = getValues(c);
+        } else {
+            updateStatus = getString(R.string.messageNever);
+            v = ((StatusFragment) getParentFragment()).getNeverValues(Controller.MAX_CONTROLLER_VALUES);
+        }
+        c.close();
+
+        f.updateDisplayText(updateStatus);
+        // set ATO LO and HI to icons instead of text
+        for (int i = 0; i < Controller.MAX_CONTROLLER_VALUES; i++ ) {
+            deviceText[i].setText(v[i]);
+        }
     }
 }
