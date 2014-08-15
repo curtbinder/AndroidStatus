@@ -2,7 +2,7 @@
 <!--
   ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2014 Curt Binder
+  ~ Copyright (c) 2011 Curt Binder
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -74,6 +74,7 @@
         <item>21</item>
         <item>22</item>
         <item>23</item>
+        <item>24</item>
     </string-array>
     <string-array name="errorCodesStrings">
         <item>Send Command</item>
@@ -84,8 +85,9 @@
         <item>Timeout</item>
         <item>XML</item>
         <item>Parser Configuration</item>
-        <item>XML I/O</item>
-        <item>XML SAX Parser</item>
+        <item>I/O error with XML data</item>
+        <item>SAX error parsing XML data</item>
+        <item>Reading XML tags from device</item>
     </string-array>
 
     <!--
@@ -728,6 +730,27 @@ is listed as a 0 based index and it is associated with this memoryLocations arra
         <item>Custom 5</item>
         <item>Custom 6</item>
         <item>Custom 7</item>
+        <item>Water Level 1</item>
+        <item>Water Level 2</item>
+        <item>Water Level 3</item>
+        <item>Water Level 4</item>
+        <item>Humidity</item>
+        <item>16ch PWM Exp 0</item>
+        <item>16ch PWM Exp 1</item>
+        <item>16ch PWM Exp 2</item>
+        <item>16ch PWM Exp 3</item>
+        <item>16ch PWM Exp 4</item>
+        <item>16ch PWM Exp 5</item>
+        <item>16ch PWM Exp 6</item>
+        <item>16ch PWM Exp 7</item>
+        <item>16ch PWM Exp 8</item>
+        <item>16ch PWM Exp 9</item>
+        <item>16ch PWM Exp 10</item>
+        <item>16ch PWM Exp 11</item>
+        <item>16ch PWM Exp 12</item>
+        <item>16ch PWM Exp 13</item>
+        <item>16ch PWM Exp 14</item>
+        <item>16ch PWM Exp 15</item>
     </string-array>
 
     <string-array name="networkTimeout">

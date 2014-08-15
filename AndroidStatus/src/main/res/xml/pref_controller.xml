@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2014 Curt Binder
+  ~ Copyright (c) 2013 Curt Binder
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -286,6 +287,96 @@
                             android:dependency="@string/prefExpDimmingEnableKey"
                             android:key="@string/prefExpDimmingCh5LabelKey"
                             android:title="@string/prefExpDimmingCh5LabelTitle" />
+                    </PreferenceCategory>
+                </PreferenceScreen>
+
+                <PreferenceScreen android:title="@string/labelSCDimming" >
+                    <CheckBoxPreference
+                        android:defaultValue="false"
+                        android:key="@string/prefExpSCDimmingEnableKey"
+                        android:title="@string/labelEnable" />
+
+                    <PreferenceCategory android:title="@string/prefLabelsCategory" >
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpSCDimmingCh0LabelTitle"
+                            android:dependency="@string/prefExpSCDimmingEnableKey"
+                            android:key="@string/prefExpSCDimmingCh0LabelKey"
+                            android:title="@string/prefExpSCDimmingCh0LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpSCDimmingCh1LabelTitle"
+                            android:dependency="@string/prefExpSCDimmingEnableKey"
+                            android:key="@string/prefExpSCDimmingCh1LabelKey"
+                            android:title="@string/prefExpSCDimmingCh1LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpSCDimmingCh2LabelTitle"
+                            android:dependency="@string/prefExpSCDimmingEnableKey"
+                            android:key="@string/prefExpSCDimmingCh2LabelKey"
+                            android:title="@string/prefExpSCDimmingCh2LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpSCDimmingCh3LabelTitle"
+                            android:dependency="@string/prefExpSCDimmingEnableKey"
+                            android:key="@string/prefExpSCDimmingCh3LabelKey"
+                            android:title="@string/prefExpSCDimmingCh3LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpSCDimmingCh4LabelTitle"
+                            android:dependency="@string/prefExpSCDimmingEnableKey"
+                            android:key="@string/prefExpSCDimmingCh4LabelKey"
+                            android:title="@string/prefExpSCDimmingCh4LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpSCDimmingCh5LabelTitle"
+                            android:dependency="@string/prefExpSCDimmingEnableKey"
+                            android:key="@string/prefExpSCDimmingCh5LabelKey"
+                            android:title="@string/prefExpSCDimmingCh5LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpSCDimmingCh6LabelTitle"
+                            android:dependency="@string/prefExpSCDimmingEnableKey"
+                            android:key="@string/prefExpSCDimmingCh6LabelKey"
+                            android:title="@string/prefExpSCDimmingCh6LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpSCDimmingCh7LabelTitle"
+                            android:dependency="@string/prefExpSCDimmingEnableKey"
+                            android:key="@string/prefExpSCDimmingCh7LabelKey"
+                            android:title="@string/prefExpSCDimmingCh7LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpSCDimmingCh8LabelTitle"
+                            android:dependency="@string/prefExpSCDimmingEnableKey"
+                            android:key="@string/prefExpSCDimmingCh8LabelKey"
+                            android:title="@string/prefExpSCDimmingCh8LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpSCDimmingCh9LabelTitle"
+                            android:dependency="@string/prefExpSCDimmingEnableKey"
+                            android:key="@string/prefExpSCDimmingCh9LabelKey"
+                            android:title="@string/prefExpSCDimmingCh9LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpSCDimmingCh10LabelTitle"
+                            android:dependency="@string/prefExpSCDimmingEnableKey"
+                            android:key="@string/prefExpSCDimmingCh10LabelKey"
+                            android:title="@string/prefExpSCDimmingCh10LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpSCDimmingCh11LabelTitle"
+                            android:dependency="@string/prefExpSCDimmingEnableKey"
+                            android:key="@string/prefExpSCDimmingCh11LabelKey"
+                            android:title="@string/prefExpSCDimmingCh11LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpSCDimmingCh12LabelTitle"
+                            android:dependency="@string/prefExpSCDimmingEnableKey"
+                            android:key="@string/prefExpSCDimmingCh12LabelKey"
+                            android:title="@string/prefExpSCDimmingCh12LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpSCDimmingCh13LabelTitle"
+                            android:dependency="@string/prefExpSCDimmingEnableKey"
+                            android:key="@string/prefExpSCDimmingCh13LabelKey"
+                            android:title="@string/prefExpSCDimmingCh13LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpSCDimmingCh14LabelTitle"
+                            android:dependency="@string/prefExpSCDimmingEnableKey"
+                            android:key="@string/prefExpSCDimmingCh14LabelKey"
+                            android:title="@string/prefExpSCDimmingCh14LabelTitle" />
+                        <EditTextPreference
+                            android:defaultValue="@string/prefExpSCDimmingCh15LabelTitle"
+                            android:dependency="@string/prefExpSCDimmingEnableKey"
+                            android:key="@string/prefExpSCDimmingCh15LabelKey"
+                            android:title="@string/prefExpSCDimmingCh15LabelTitle" />
                     </PreferenceCategory>
                 </PreferenceScreen>
 

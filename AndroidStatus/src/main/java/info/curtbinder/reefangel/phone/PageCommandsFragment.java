@@ -39,14 +39,12 @@ import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.RequestCommands;
 import info.curtbinder.reefangel.service.UpdateService;
 
-/**
- * Created by binder on 3/23/14.
- */
 public class PageCommandsFragment extends Fragment
         implements PageRefreshInterface, View.OnClickListener {
 
     private static final String TAG = PageCommandsFragment.class.getSimpleName();
 
+    private Button cmd_button;
 
     public static PageCommandsFragment newInstance() {
         return new PageCommandsFragment();
@@ -78,17 +76,33 @@ public class PageCommandsFragment extends Fragment
         b.setOnClickListener( this );
         b = (Button) root.findViewById( R.id.command_button_overheat_clear );
         b.setOnClickListener( this );
+        b = (Button) root.findViewById( R.id.command_button_calibrate_ph );
+        b.setOnClickListener( this );
+        b = (Button) root.findViewById( R.id.command_button_calibrate_salinity );
+        b.setOnClickListener( this );
+        b = (Button) root.findViewById( R.id.command_button_calibrate_water );
+        b.setOnClickListener( this );
+        b = (Button) root.findViewById( R.id.command_button_calibrate_orp );
+        b.setOnClickListener( this );
+        b = (Button) root.findViewById( R.id.command_button_calibrate_phe );
+        b.setOnClickListener( this );
+        cmd_button = (Button) root.findViewById( R.id.command_button_version );
+        cmd_button.setOnClickListener( this );
     }
 
     @Override
     public void refreshData() {
         // todo not sure if there needs to be anything in here or not
+        // just reload the date/time from the database?
     }
 
     @Override
     public void onClick ( View v ) {
         Intent i = new Intent( getActivity(), UpdateService.class );
         String s = RequestCommands.ExitMode;
+        String action = MessageCommands.COMMAND_SEND_INTENT;
+        String command = MessageCommands.COMMAND_SEND_STRING;
+        int location = -1;
         switch ( v.getId() ) {
             case R.id.command_button_feed:
                 s = RequestCommands.FeedingMode;
@@ -111,9 +125,38 @@ public class PageCommandsFragment extends Fragment
             case R.id.command_button_reboot:
                 s = RequestCommands.Reboot;
                 break;
+            case R.id.command_button_calibrate_ph:
+                location = Globals.CALIBRATE_PH;
+                break;
+            case R.id.command_button_calibrate_phe:
+                location = Globals.CALIBRATE_PHE;
+                break;
+            case R.id.command_button_calibrate_orp:
+                location = Globals.CALIBRATE_ORP;
+                break;
+            case R.id.command_button_calibrate_salinity:
+                location = Globals.CALIBRATE_SALINITY;
+                break;
+            case R.id.command_button_calibrate_water:
+                location = Globals.CALIBRATE_WATERLEVEL;
+                break;
+            case R.id.command_button_version:
+                action = MessageCommands.VERSION_QUERY_INTENT;
+                s = RequestCommands.Version;
         }
-        i.setAction( MessageCommands.COMMAND_SEND_INTENT );
-        i.putExtra( MessageCommands.COMMAND_SEND_STRING, s );
+        if ( location > -1 ) {
+            // location is greater than -1, which means we have a calibration command
+            // command & s are ignored by the service since the command is the same
+            // for all of the calibration modes
+            i.putExtra(MessageCommands.CALIBRATE_SEND_LOCATION_INT, location);
+            action = MessageCommands.CALIBRATE_SEND_INTENT;
+        }
+        i.setAction( action );
+        i.putExtra( command, s );
         getActivity().startService(i);
+    }
+
+    public void setButtonVersion(String msg) {
+        cmd_button.setText(msg);
     }
 }

@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2014 Curt Binder
+ * Copyright (c) 2013 Curt Binder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -250,6 +250,7 @@ public class NotificationService extends IntentService {
 		return fRet;
 	}
 
+    // TODO add in 16ch dimming values
 	private float getLeftValue ( int id, Cursor l ) {
 		float f;
 		paramPrecision = "%.0f";
@@ -429,6 +430,26 @@ public class NotificationService extends IntentService {
 				f = l.getFloat( l.getColumnIndex( StatusTable.COL_C7 ) );
 				break;
 			}
+            case Globals.paramWaterLevel1: {
+                f = l.getFloat( l.getColumnIndex( StatusTable.COL_WL1 ) );
+                break;
+            }
+            case Globals.paramWaterLevel2: {
+                f = l.getFloat( l.getColumnIndex( StatusTable.COL_WL2 ) );
+                break;
+            }
+            case Globals.paramWaterLevel3: {
+                f = l.getFloat( l.getColumnIndex( StatusTable.COL_WL3 ) );
+                break;
+            }
+            case Globals.paramWaterLevel4: {
+                f = l.getFloat( l.getColumnIndex( StatusTable.COL_WL4 ) );
+                break;
+            }
+            case Globals.paramHumidity: {
+                f = l.getFloat( l.getColumnIndex( StatusTable.COL_HUM ) );
+                break;
+            }
 			default: {
 				f = 0;
 				break;
@@ -475,7 +496,7 @@ public class NotificationService extends IntentService {
 			if ( Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1 ) {
 				String msgGB =
 						String.format(	Locale.US,
-										getString( R.string.messageGBMoreErrorss ),
+										getString( R.string.messageGBMoreErrors ),
 										msg, count );
 				b.setContentText( msgGB );
 			}

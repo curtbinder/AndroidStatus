@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2014 Curt Binder
+  ~ Copyright (c) 2013 Curt Binder
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -25,25 +26,29 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/prefLoggingEnableKey"
-            android:title="@string/labelEnable" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/prefLoggingEnableKey"
+        android:title="@string/labelEnable" />
 
-        <ListPreference
-            android:defaultValue="0"
-            android:dependency="@string/prefLoggingEnableKey"
-            android:entries="@array/loggingUpdate"
-            android:entryValues="@array/loggingUpdateValues"
-            android:key="@string/prefLoggingUpdateKey"
-            android:title="@string/prefLoggingUpdateTitle" />
+    <ListPreference
+        android:defaultValue="0"
+        android:dependency="@string/prefLoggingEnableKey"
+        android:entries="@array/loggingUpdate"
+        android:entryValues="@array/loggingUpdateValues"
+        android:key="@string/prefLoggingUpdateKey"
+        android:title="@string/prefLoggingUpdateTitle" />
 
-        <Preference
-            android:key="@string/prefLoggingSendKey"
-            android:summary="@string/prefLoggingSendSummary"
-            android:title="@string/prefLoggingSendTitle" />
-        <Preference
-            android:key="@string/prefLoggingDeleteKey"
-            android:title="@string/prefLoggingDeleteTitle" />
+    <Preference
+        android:key="@string/prefLoggingDisplayKey"
+        android:title="@string/prefLoggingDisplayTitle" />
+
+    <Preference
+        android:key="@string/prefLoggingSendKey"
+        android:summary="@string/prefLoggingSendSummary"
+        android:title="@string/prefLoggingSendTitle" />
+    <Preference
+        android:key="@string/prefLoggingDeleteKey"
+        android:title="@string/prefLoggingDeleteTitle" />
 
 </PreferenceScreen>

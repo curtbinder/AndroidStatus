@@ -50,7 +50,7 @@ public class PrefAppFragment extends PreferenceFragment {
         changelog
                 .setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     public boolean onPreferenceClick(Preference preference) {
-                        Changelog.displayChangelog(getActivity());
+                        DisplayLog.displayChangelog(getActivity());
                         return true;
                     }
                 });

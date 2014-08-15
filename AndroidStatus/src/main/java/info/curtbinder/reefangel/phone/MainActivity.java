@@ -248,14 +248,14 @@ public class MainActivity extends ActionBarActivity
         getSupportActionBar().setTitle(mNavTitles[mCurrentPosition]);
         if (mCurrentPosition != mOldPosition) {
             // update the main content by replacing fragments
-            Fragment fragment = null;
+            Fragment fragment;
             switch (mCurrentPosition) {
                 default:
                 case 0:
                     fragment = new StatusFragment();
                     break;
                 case 1:
-                    fragment = new MemoryFragment();
+                    fragment = MemoryFragment.newInstance(raApp.raprefs.useOldPre10MemoryLocations());
                     break;
                 case 2:
                     fragment = new NotificationsFragment();
@@ -323,6 +323,10 @@ public class MainActivity extends ActionBarActivity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is open, hide actions other than settings and help
+//        boolean open = isDrawerOpen();
+//        MenuItem r = menu.findItem(R.id.action_refresh);
+//        if ( r != null )
+//            r.setVisible(!open);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -342,7 +346,7 @@ public class MainActivity extends ActionBarActivity
             Log.d(TAG, "DrawerClosed");
             updateContent();
             myInvalidateOptionsMenu();
-            if (opened != null && opened == false) {
+            if (opened != null && !opened) {
                 // drawer closed for the first time ever,
                 // set that it has been closed
                 opened = true;
@@ -382,4 +386,11 @@ public class MainActivity extends ActionBarActivity
 
     }
 
+//    public boolean isDrawerOpen() {
+//        boolean f = false;
+//        if ( mDrawerLayout != null && mDrawerList != null ) {
+//            f = mDrawerLayout.isDrawerOpen(mDrawerList);
+//        }
+//        return f;
+//    }
 }

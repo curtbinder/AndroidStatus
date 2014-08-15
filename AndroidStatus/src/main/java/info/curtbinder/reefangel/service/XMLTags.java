@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2014 Curt Binder
+ * Copyright (c) 2012 Curt Binder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -70,6 +70,7 @@ public final class XMLTags {
     public static final String WaterLevel = "WL";
     public static final String Humidity = "HUM";
     public static final String LeakDetector = "LEAK";
+    public static final String PWMExpansion16 = "SCPWME";
     public static final String Override = "O";
     public static final String PWMOverrideResponse = "P";
     public static final String StatusFlags = "SF";

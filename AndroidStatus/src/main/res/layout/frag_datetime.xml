@@ -1,7 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2014 Curt Binder
+  ~ Copyright (c) 2012 Curt Binder
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:text="Press 'Get Time' to retrieve the current date and time from the controller. Press 'Set Current Time' to set the date and time to match your device." />
+            android:text="@string/descriptionCurrentControllerTime" />
 
         <TableRow
             android:layout_width="fill_parent"
@@ -50,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:text="Controller:" />
+                android:text="@string/labelDateController" />
 
             <TextView
                 android:id="@+id/timeTextControllerTime"
@@ -67,20 +69,20 @@
             android:id="@+id/timeButtonGetControllerTime"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Get Time" />
+            android:text="@string/buttonGetControllerTime" />
 
         <Button
             android:id="@+id/timeButtonSetCurrentTime"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Set Current Time" />
+            android:text="@string/buttonSetCurrentTime" />
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:text="You can enter a custom date and time. Use 'Change Time' or 'Change Date' to enter the custom date and time. Use 'Set Custom Time' to set it." />
+            android:text="@string/descriptionCustomControllerTime" />
 
         <TableRow
             android:layout_width="fill_parent"
@@ -93,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:text="Time:" />
+                android:text="@string/labelDateTime" />
 
             <TextView
                 android:id="@+id/timeTextCustomTime"
@@ -116,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:text="Date:" />
+                android:text="@string/labelDate" />
 
             <TextView
                 android:id="@+id/timeTextCustomDate"
@@ -139,21 +141,21 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Change Time" />
+                android:text="@string/buttonChangeTime" />
 
             <Button
                 android:id="@+id/timeButtonChangeDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Change Date" />
+                android:text="@string/buttonChangeDate" />
         </TableRow>
 
         <Button
             android:id="@+id/timeButtonSetCustomTime"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Set Custom Time" />
+            android:text="@string/buttonSetCustomTime" />
     </TableLayout>
 
 </ScrollView>

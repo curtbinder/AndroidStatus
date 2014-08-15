@@ -31,6 +31,7 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -112,8 +113,20 @@ public class StatusFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        currentPosition = mPager.getCurrentItem();
-        outState.putInt(CURRENT_POSITION, currentPosition);
+        if ( mPager != null ) {
+            currentPosition = mPager.getCurrentItem();
+            outState.putInt(CURRENT_POSITION, currentPosition);
+        }
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        currentPosition = POS_CONTROLLER;
+        if ( savedInstanceState != null ) {
+            currentPosition = savedInstanceState.getInt(CURRENT_POSITION, POS_CONTROLLER);
+        }
+        Log.d(TAG, "onViewStateRestored: pos: " + currentPosition);
     }
 
     @Override
@@ -506,6 +519,11 @@ public class StatusFragment extends Fragment {
     }
 
     @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_refresh:
@@ -523,9 +541,8 @@ public class StatusFragment extends Fragment {
 
     protected Cursor getLatestDataCursor() {
         Uri uri = Uri.parse(StatusProvider.CONTENT_URI + "/" + StatusProvider.PATH_LATEST);
-        Cursor c = getActivity().getContentResolver().query(uri, null, null, null,
+        return getActivity().getContentResolver().query(uri, null, null, null,
                 StatusTable.COL_ID + " DESC");
-        return c;
     }
 
     private class SectionsPagerAdapter extends FragmentStatePagerAdapter {
@@ -563,15 +580,13 @@ public class StatusFragment extends Fragment {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (action.equals(MessageCommands.UPDATE_STATUS_INTENT)) {
-                int id = intent.getIntExtra(MessageCommands.UPDATE_STATUS_ID,
-                        R.string.defaultStatusText);
+                int id = intent.getIntExtra(MessageCommands.UPDATE_STATUS_ID, R.string.defaultStatusText);
                 if (id > -1) {
                     mUpdateTime.setText(id);
                 } else {
                     // we are updating with a string being sent to us
-                    mUpdateTime
-                            .setText(intent
-                                    .getStringExtra(MessageCommands.UPDATE_STATUS_STRING));
+                    mUpdateTime.setText(intent
+                            .getStringExtra(MessageCommands.UPDATE_STATUS_STRING));
                 }
             } else if (action.equals(MessageCommands.UPDATE_DISPLAY_DATA_INTENT)) {
                 // get the current fragment
@@ -585,35 +600,69 @@ public class StatusFragment extends Fragment {
                     // update the screen / pages if necessary
                     checkDeviceModules();
                 }
-//            } else if ( action.equals( MessageCommands.VORTECH_UPDATE_INTENT ) ) {
-//            int type =
-//                    intent.getIntExtra( MessageCommands.VORTECH_UPDATE_TYPE,
-//                            0 );
-//            Intent i =
-//                    new Intent( StatusActivity.this,
-//                            VortechPopupActivity.class );
-//            i.putExtra( VortechPopupActivity.TYPE, type );
-//            i.putExtra( Globals.PRE10_LOCATIONS,
-//                    rapp.raprefs.useOldPre10MemoryLocations() );
-//            startActivity( i );
-//        } else if ( action.equals( MessageCommands.MEMORY_RESPONSE_INTENT ) ) {
-//            String response =
-//                    intent.getStringExtra( MessageCommands.MEMORY_RESPONSE_STRING );
-//            if ( response.equals( XMLTags.Ok ) ) {
-//                updateTime.setText( R.string.statusRefreshNeeded );
-//            } else {
-//                Toast.makeText(StatusActivity.this, response,
-//                        Toast.LENGTH_LONG).show();
-//            }
-            } else if (action.equals(MessageCommands.COMMAND_RESPONSE_INTENT)) {
-                String response =
-                        intent.getStringExtra(MessageCommands.COMMAND_RESPONSE_STRING);
-                if (response.contains(XMLTags.Ok)) {
-                    mUpdateTime.setText(R.string.statusRefreshNeeded);
-                } else {
-                    Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();
-                }
+            } else if ( action.equals( MessageCommands.MEMORY_RESPONSE_INTENT ) ) {
+                // for vortech responses
+                String response = intent.getStringExtra(MessageCommands.MEMORY_RESPONSE_STRING);
+                displayResponse(response, -1, false);
+            }  else if ( action.equals( MessageCommands.OVERRIDE_RESPONSE_INTENT ) ) {
+                String response = intent.getStringExtra(MessageCommands.OVERRIDE_RESPONSE_STRING);
+                displayResponse(response, -1, false);
+            } else if ( action.equals( MessageCommands.OVERRIDE_POPUP_INTENT ) ) {
+                // message to display the popup
+//                int channel = intent.getIntExtra( OverridePopupActivity.CHANNEL_KEY, 0);
+//                String msg = rapp.getPWMOverrideMessageDisplay( channel );
+//                Intent i = new Intent(StatusActivity.this, OverridePopupActivity.class);
+//                i.putExtra( OverridePopupActivity.MESSAGE_KEY, msg );
+//                i.putExtra( OverridePopupActivity.CHANNEL_KEY, channel);
+//                i.putExtra( OverridePopupActivity.VALUE_KEY,
+//                        intent.getShortExtra( OverridePopupActivity.VALUE_KEY, (short) 0) );
+//                startActivity(i);
+            } else if ( action.equals( MessageCommands.COMMAND_RESPONSE_INTENT ) ) {
+                String response = intent.getStringExtra( MessageCommands.COMMAND_RESPONSE_STRING );
+                displayResponse(response, -1, false);
             }
+            else if ( action.equals( MessageCommands.CALIBRATE_RESPONSE_INTENT ) ) {
+                String response =
+                        intent.getStringExtra( MessageCommands.CALIBRATE_RESPONSE_STRING );
+                displayResponse(response, R.string.statusFinished, true );
+            } else if ( action.equals( MessageCommands.VERSION_RESPONSE_INTENT ) ) {
+                // set the version button's text to the version of the software
+                ((PageCommandsFragment) mAppPages[POS_COMMANDS]).setButtonVersion(
+                        intent.getStringExtra( MessageCommands.VERSION_RESPONSE_STRING )
+                );
+                mUpdateTime.setText(R.string.statusFinished);
+            }
+        }
+    }
+
+    private void displayResponse ( String response, int stringId, boolean fAlwaysToast ) {
+        int msgId;
+        boolean fShowToast = false;
+        if ( stringId == -1 ) {
+            msgId = R.string.statusRefreshNeeded;
+        } else {
+            msgId = stringId;
+        }
+        if ( response.contains( XMLTags.Ok ) ) {
+            mUpdateTime.setText( msgId );
+            if ( raApp.raprefs.isAutoRefreshAfterUpdate() ) {
+                mUpdateTime.setText( R.string.statusWaiting );
+                Log.d(TAG, "AutoRefreshAfterUpdate");
+                Handler h = new Handler();
+                Runnable r = new Runnable() {
+                    public void run() {
+                        launchStatusTask();
+                    }
+                };
+                // pause for a second before we proceed
+                h.postDelayed( r, 1000 );
+            }
+        } else {
+            fShowToast = true;
+        }
+
+        if ( fAlwaysToast || fShowToast ) {
+            Toast.makeText( getActivity(), response, Toast.LENGTH_LONG ).show();
         }
     }
 }

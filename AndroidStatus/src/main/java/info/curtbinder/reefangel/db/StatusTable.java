@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2014 Curt Binder
+ * Copyright (c) 2013 Curt Binder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -128,6 +128,38 @@ public class StatusTable {
     public static final String COL_RFIO = "rfio";
     public static final String COL_AF = "af";
     public static final String COL_SF = "sf";
+    public static final String COL_SCPWME0 = "scpwme0";
+    public static final String COL_SCPWME0O = "scpwme0o";
+    public static final String COL_SCPWME1 = "scpwme1";
+    public static final String COL_SCPWME1O = "scpwme1o";
+    public static final String COL_SCPWME2 = "scpwme2";
+    public static final String COL_SCPWME2O = "scpwme2o";
+    public static final String COL_SCPWME3 = "scpwme3";
+    public static final String COL_SCPWME3O = "scpwme3o";
+    public static final String COL_SCPWME4 = "scpwme4";
+    public static final String COL_SCPWME4O = "scpwme4o";
+    public static final String COL_SCPWME5 = "scpwme5";
+    public static final String COL_SCPWME5O = "scpwme5o";
+    public static final String COL_SCPWME6 = "scpwme6";
+    public static final String COL_SCPWME6O = "scpwme6o";
+    public static final String COL_SCPWME7 = "scpwme7";
+    public static final String COL_SCPWME7O = "scpwme7o";
+    public static final String COL_SCPWME8 = "scpwme8";
+    public static final String COL_SCPWME8O = "scpwme8o";
+    public static final String COL_SCPWME9 = "scpwme9";
+    public static final String COL_SCPWME9O = "scpwme9o";
+    public static final String COL_SCPWME10 = "scpwme10";
+    public static final String COL_SCPWME10O = "scpwme10o";
+    public static final String COL_SCPWME11 = "scpwme11";
+    public static final String COL_SCPWME11O = "scpwme11o";
+    public static final String COL_SCPWME12 = "scpwme12";
+    public static final String COL_SCPWME12O = "scpwme12o";
+    public static final String COL_SCPWME13 = "scpwme13";
+    public static final String COL_SCPWME13O = "scpwme13o";
+    public static final String COL_SCPWME14 = "scpwme14";
+    public static final String COL_SCPWME14O = "scpwme14o";
+    public static final String COL_SCPWME15 = "scpwme15";
+    public static final String COL_SCPWME15O = "scpwme15o";
 
 	public static void onCreate ( SQLiteDatabase db ) {
 		// create parameters table
@@ -189,7 +221,39 @@ public class StatusTable {
                 + COL_RFBO + " INTEGER DEFAULT 255, "
                 + COL_RFIO + " INTEGER DEFAULT 255, "
                 + COL_AF + " INTEGER DEFAULT 0, "
-                + COL_SF + " INTEGER DEFAULT 0 "
+                + COL_SF + " INTEGER DEFAULT 0, "
+                + COL_SCPWME0 + " INTEGER, "
+                + COL_SCPWME0O + " INTEGER DEFAULT 255, "
+                + COL_SCPWME1 + " INTEGER, "
+                + COL_SCPWME1O + " INTEGER DEFAULT 255, "
+                + COL_SCPWME2 + " INTEGER, "
+                + COL_SCPWME2O + " INTEGER DEFAULT 255, "
+                + COL_SCPWME3 + " INTEGER, "
+                + COL_SCPWME3O + " INTEGER DEFAULT 255, "
+                + COL_SCPWME4 + " INTEGER, "
+                + COL_SCPWME4O + " INTEGER DEFAULT 255, "
+                + COL_SCPWME5 + " INTEGER, "
+                + COL_SCPWME5O + " INTEGER DEFAULT 255, "
+                + COL_SCPWME6 + " INTEGER, "
+                + COL_SCPWME6O + " INTEGER DEFAULT 255, "
+                + COL_SCPWME7 + " INTEGER, "
+                + COL_SCPWME7O + " INTEGER DEFAULT 255, "
+                + COL_SCPWME8 + " INTEGER, "
+                + COL_SCPWME8O + " INTEGER DEFAULT 255, "
+                + COL_SCPWME9 + " INTEGER, "
+                + COL_SCPWME9O + " INTEGER DEFAULT 255, "
+                + COL_SCPWME10 + " INTEGER, "
+                + COL_SCPWME10O + " INTEGER DEFAULT 255, "
+                + COL_SCPWME11 + " INTEGER, "
+                + COL_SCPWME11O + " INTEGER DEFAULT 255, "
+                + COL_SCPWME12 + " INTEGER, "
+                + COL_SCPWME12O + " INTEGER DEFAULT 255, "
+                + COL_SCPWME13 + " INTEGER, "
+                + COL_SCPWME13O + " INTEGER DEFAULT 255, "
+                + COL_SCPWME14 + " INTEGER, "
+                + COL_SCPWME14O + " INTEGER DEFAULT 255, "
+                + COL_SCPWME15 + " INTEGER, "
+                + COL_SCPWME15O + " INTEGER DEFAULT 255 "
 
                 + ");" );
 
@@ -220,6 +284,9 @@ public class StatusTable {
                     break;
                 case 10:
                     upgradeToVersion10(db);
+                    break;
+                case 11:
+                    upgradeToVersion11(db);
                     break;
             }
         }
@@ -287,5 +354,41 @@ public class StatusTable {
         // add in alert and status flags fields
         db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_AF + " INTEGER DEFAULT 0;" );
         db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SF + " INTEGER DEFAULT 0;" );
+    }
+
+    private static void upgradeToVersion11(SQLiteDatabase db) {
+        // add in 16 channel pwm support
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME0 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME0O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME1 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME1O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME2 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME2O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME3 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME3O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME4 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME4O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME5 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME5O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME6 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME6O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME7 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME7O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME8 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME8O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME9 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME9O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME10 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME10O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME11 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME11O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME12 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME12O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME13 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME13O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME14 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME14O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME15 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME15O + " INTEGER DEFAULT 255;" );
     }
 }

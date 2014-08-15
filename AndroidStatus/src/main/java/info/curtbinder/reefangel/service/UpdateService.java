@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2014 Curt Binder
+ * Copyright (c) 2012 Curt Binder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -110,6 +110,8 @@ public class UpdateService extends IntentService {
 			}
 			h.setHost( host );
 			h.setPort( port );
+            h.setWifiUsername( raprefs.getDeviceWifiUsername() );
+            h.setWifiPassword( raprefs.getDeviceWifiPassword() );
 			h.setCommand( RequestCommands.Status );
 		} else {
 			// reeefangel.com / portal
@@ -134,6 +136,8 @@ public class UpdateService extends IntentService {
             // controller
             h.setHost( raprefs.getHost() );
             h.setPort( raprefs.getPort() );
+            h.setWifiUsername( raprefs.getDeviceWifiUsername() );
+            h.setWifiPassword( raprefs.getDeviceWifiPassword() );
         } else {
             // reeefangel.com
             h.setUserId( raprefs.getUserId() );
@@ -148,14 +152,10 @@ public class UpdateService extends IntentService {
             h.setCommand( command );
         } else if ( action.equals( MessageCommands.TOGGLE_RELAY_INTENT ) ) {
             if ( isController )
-                command =
-                        new String(
-                                String.format(	"%s%d%d",
-                                        RequestCommands.Relay,
-                                        intent.getIntExtra( MessageCommands.TOGGLE_RELAY_PORT_INT,
-                                                Globals.defaultPort ),
-                                        intent.getIntExtra( MessageCommands.TOGGLE_RELAY_MODE_INT,
-                                                Globals.defaultPort ) ) );
+                command = String.format( "%s%d%d",
+                            RequestCommands.Relay,
+                            intent.getIntExtra(MessageCommands.TOGGLE_RELAY_PORT_INT, Globals.defaultPort),
+                            intent.getIntExtra(MessageCommands.TOGGLE_RELAY_MODE_INT, Globals.defaultPort) );
             else
                 command = RequestCommands.ReefAngel;
 

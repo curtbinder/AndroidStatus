@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2014 Curt Binder
+ * Copyright (c) 2012 Curt Binder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -122,7 +122,7 @@ public class DateTime {
 											Locale.getDefault() );
 		Calendar c = Calendar.getInstance();
 		c.clear();
-		c.set( 0, 0, 0, hour, minute );
+		c.set( 0, Calendar.JANUARY, 0, hour, minute );
 		return dft.format( c.getTime() );
 	}
 

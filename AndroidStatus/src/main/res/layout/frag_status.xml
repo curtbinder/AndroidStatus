@@ -1,7 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2014 Curt Binder
+  ~ Copyright (c) 2011 Curt Binder
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -36,9 +38,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:background="@color/reefangelblue"
-        android:text="Last Updated:"
+        android:text="@string/labelLastUpdated"
         android:textColor="@android:color/white"
-        android:paddingLeft="10dp"
+        android:paddingLeft="@dimen/frag_item_horizontal_padding"
+        android:paddingRight="@dimen/frag_item_horizontal_padding"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <android.support.v4.view.ViewPager
@@ -53,7 +56,6 @@
         This title strip will display the currently visible page title, as well as the page
         titles for adjacent pages.
         -->
-
         <android.support.v4.view.PagerTabStrip
             android:id="@+id/pager_tab_strip"
             android:layout_width="match_parent"
@@ -73,9 +75,9 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/textLastUpdate"
         android:background="@color/reefangelblue"
-        android:text="Medium Text"
         android:textColor="@android:color/white"
-        android:paddingLeft="10dp"
+        android:paddingLeft="@dimen/frag_item_horizontal_padding"
+        android:paddingRight="@dimen/frag_item_horizontal_padding"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

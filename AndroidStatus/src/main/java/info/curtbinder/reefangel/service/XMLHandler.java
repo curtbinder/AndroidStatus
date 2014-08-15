@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2014 Curt Binder
+ * Copyright (c) 2012 Curt Binder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -118,8 +118,6 @@ public class XMLHandler extends DefaultHandler {
             // Log.d(TAG, "end xml: localName");
             tag = localName;
         }
-        // Log.d(TAG, "End: r'" + requestType + "', t'" + tag + "', '" +
-        // currentElementText + "'");
         // if ( (requestType.equals( RequestCommands.Status )) ||
         // (requestType.startsWith( RequestCommands.Relay )) ) {
         if ( requestType.equals( RequestCommands.Status ) ) {
@@ -242,6 +240,11 @@ public class XMLHandler extends DefaultHandler {
                             .length() ) );
             short v = Short.parseShort( currentElementText );
             ra.setPwmExpansion( channel, v );
+        } else if ( tag.startsWith( XMLTags.PWMExpansion16) &&
+                !tag.endsWith( XMLTags.Override ) ) {
+            short channel = Short.parseShort( tag.substring(XMLTags.PWMExpansion16.length()) );
+            short v = Short.parseShort( currentElementText );
+            ra.setSCPwmExpansion( channel, v );
         } else if ( tag.equals( XMLTags.Salinity ) ) {
             ra.setSalinity( Integer.parseInt( currentElementText ) );
         } else if ( tag.equals( XMLTags.ORP ) ) {
@@ -374,6 +377,11 @@ public class XMLHandler extends DefaultHandler {
             Short channel = Short.parseShort( tag.substring(
                     XMLTags.PWMExpansion.length(), tag.length()-1) );
             ra.setPwmExpansionOverride( channel, value );
+        } else if ( tag.startsWith( XMLTags.PWMExpansion16 ) ) {
+            // Get the channel from the tag. The last char is an O.
+            Short channel = Short.parseShort( tag.substring(
+                    XMLTags.PWMExpansion16.length(), tag.length()-1) );
+            ra.setSCPwmExpansionOverride( channel, value );
         } else if ( tag.startsWith( XMLTags.AIWhite ) ) {
             ra.setAIChannel( Controller.AI_WHITE, value );
         } else if ( tag.startsWith( XMLTags.AIBlue ) ) {
@@ -413,10 +421,14 @@ public class XMLHandler extends DefaultHandler {
             ra.setTempLabel( sensor, currentElementText );
         } else if ( tag.startsWith( XMLTags.PWMExpansion ) ) {
             // PWME
-            short channel =
-                    Short.parseShort( getTagNumber( tag, XMLTags.PWMExpansion,
+            short channel = Short.parseShort( getTagNumber( tag, XMLTags.PWMExpansion,
                             XMLTags.LabelEnd ) );
             ra.setPwmExpansionLabel( channel, currentElementText );
+        } else if ( tag.startsWith( XMLTags.PWMExpansion16 ) ) {
+            // SCPWME
+            short channel = Short.parseShort( getTagNumber( tag, XMLTags.PWMExpansion16,
+                            XMLTags.LabelEnd ) );
+            ra.setSCPwmExpansionLabel( channel, currentElementText );
         } else if ( tag.startsWith( XMLTags.PWMActinic + "1" ) ) {
             // PWMA
             ra.setPwmALabel( currentElementText );

@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2014 Curt Binder
+ * Copyright (c) 2011 Curt Binder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,6 +27,7 @@ package info.curtbinder.reefangel.phone;
 public final class Globals {
     public static final String PACKAGE = buildPackage();
     public static final String PRE10_LOCATIONS = "PreLocations";
+    public static final String RELAY_BOX_NUMBER = "RelayBoxNumber";
     public static final String loggingFile = "ra_log.txt";
     public static final int logReplace = 0;
     public static final int logAppend = 1;
@@ -94,6 +95,27 @@ public final class Globals {
     public static final int paramCustom5 = 41;
     public static final int paramCustom6 = 42;
     public static final int paramCustom7 = 43;
+    public static final int paramWaterLevel1 = 44;
+    public static final int paramWaterLevel2 = 45;
+    public static final int paramWaterLevel3 = 46;
+    public static final int paramWaterLevel4 = 47;
+    public static final int paramHumidity = 48;
+    public static final int paramSCPWMExp0 = 49;
+    public static final int paramSCPWMExp1 = 50;
+    public static final int paramSCPWMExp2 = 51;
+    public static final int paramSCPWMExp3 = 52;
+    public static final int paramSCPWMExp4 = 53;
+    public static final int paramSCPWMExp5 = 54;
+    public static final int paramSCPWMExp6 = 55;
+    public static final int paramSCPWMExp7 = 56;
+    public static final int paramSCPWMExp8 = 57;
+    public static final int paramSCPWMExp9 = 58;
+    public static final int paramSCPWMExp10 = 59;
+    public static final int paramSCPWMExp11 = 60;
+    public static final int paramSCPWMExp12 = 61;
+    public static final int paramSCPWMExp13 = 62;
+    public static final int paramSCPWMExp14 = 63;
+    public static final int paramSCPWMExp15 = 64;
 
     // override locations
     public static final int OVERRIDE_DISABLE = 255;
@@ -115,7 +137,25 @@ public final class Globals {
     public static final int OVERRIDE_RF_GREEN = 14;
     public static final int OVERRIDE_RF_BLUE = 15;
     public static final int OVERRIDE_RF_INTENSITY = 16;
-    //public static final int OVERRIDE_CHANNELS = 17;
+    public static final int OVERRIDE_DAYLIGHT2 = 17;
+    public static final int OVERRIDE_ACTINIC2 = 18;
+    public static final int OVERRIDE_16CH_CHANNEL0 = 19;
+    public static final int OVERRIDE_16CH_CHANNEL1 = 20;
+    public static final int OVERRIDE_16CH_CHANNEL2 = 21;
+    public static final int OVERRIDE_16CH_CHANNEL3 = 22;
+    public static final int OVERRIDE_16CH_CHANNEL4 = 23;
+    public static final int OVERRIDE_16CH_CHANNEL5 = 24;
+    public static final int OVERRIDE_16CH_CHANNEL6 = 25;
+    public static final int OVERRIDE_16CH_CHANNEL7 = 26;
+    public static final int OVERRIDE_16CH_CHANNEL8 = 27;
+    public static final int OVERRIDE_16CH_CHANNEL9 = 28;
+    public static final int OVERRIDE_16CH_CHANNEL10 = 29;
+    public static final int OVERRIDE_16CH_CHANNEL11 = 30;
+    public static final int OVERRIDE_16CH_CHANNEL12 = 31;
+    public static final int OVERRIDE_16CH_CHANNEL13 = 32;
+    public static final int OVERRIDE_16CH_CHANNEL14 = 33;
+    public static final int OVERRIDE_16CH_CHANNEL15 = 34;
+    //public static final int OVERRIDE_CHANNELS = 35;
 
     // calibrate locations
     public static final int CALIBRATE_PH = 0;

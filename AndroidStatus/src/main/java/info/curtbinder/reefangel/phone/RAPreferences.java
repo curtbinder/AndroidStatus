@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2014 Curt Binder
+ * Copyright (c) 2013 Curt Binder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -135,7 +135,7 @@ public class RAPreferences {
     }
 
     public boolean useOldPre10MemoryLocations() {
-        return getBoolean(R.string.prefPre10MemoryKey, true);
+        return getBoolean(R.string.prefPre10MemoryKey, false);
     }
 
     public int getConnectionTimeout() {
@@ -317,6 +317,22 @@ public class RAPreferences {
         set(R.string.prefUserIdKey, userId);
     }
 
+    public String getDeviceWifiUsername ( ) {
+        return getString( R.string.prefWifiUserKey, "" );
+    }
+
+    public void setDeviceWifiUsername ( String username ) {
+        set( R.string.prefWifiUserKey, username );
+    }
+
+    public String getDeviceWifiPassword ( ) {
+        return getString( R.string.prefWifiPasswordKey, "" );
+    }
+
+    public void setDeviceWifiPassword ( String password ) {
+        set( R.string.prefWifiPasswordKey, password );
+    }
+
     // Controller Information
     public String getControllerLabel(int index) {
         int key, def;
@@ -367,15 +383,11 @@ public class RAPreferences {
                 key = R.string.prefPHExpLabelKey;
                 break;
             case Globals.WL_INDEX:
-                return getWaterLevelLabel(0);
             case Globals.WL1_INDEX:
-                return getWaterLevelLabel(1);
             case Globals.WL2_INDEX:
-                return getWaterLevelLabel(2);
             case Globals.WL3_INDEX:
-                return getWaterLevelLabel(3);
             case Globals.WL4_INDEX:
-                return getWaterLevelLabel(4);
+                return getWaterLevelLabel(index - Globals.WL_INDEX);
             case Globals.HUMIDITY_INDEX:
                 def = R.string.labelHumidity;
                 key = R.string.prefHumidityLabelKey;
@@ -455,15 +467,11 @@ public class RAPreferences {
                 key = R.string.prefPHExpVisibilityKey;
                 break;
             case Globals.WL_INDEX:
-                return getWaterLevelVisibility(0);
             case Globals.WL1_INDEX:
-                return getWaterLevelVisibility(1);
             case Globals.WL2_INDEX:
-                return getWaterLevelVisibility(2);
             case Globals.WL3_INDEX:
-                return getWaterLevelVisibility(3);
             case Globals.WL4_INDEX:
-                return getWaterLevelVisibility(4);
+                return getWaterLevelVisibility(index - Globals.WL_INDEX);
             case Globals.HUMIDITY_INDEX:
                 def = false;
                 key = R.string.prefHumidityVisibilityKey;
@@ -524,7 +532,7 @@ public class RAPreferences {
         // this function gets all the installed modules for the controller
         // that are displayed on their own separate pages
         // the modules include:
-        // expansion relays, dimming, vortech, radion, ai, custom, io
+        // expansion relays, dimming, 16ch dimming, vortech, radion, ai, custom, io
         int total = 0;
         total += getExpansionRelayQuantity();
         total += getInstalledModuleQuantity();
@@ -535,6 +543,8 @@ public class RAPreferences {
         // returns the total installed modules
         int total = 0;
         if (getDimmingModuleEnabled())
+            total++;
+        if ( getSCDimmingModuleEnabled() )
             total++;
         if (getRadionModuleEnabled())
             total++;
@@ -588,6 +598,88 @@ public class RAPreferences {
 
     public void setDimmingModuleChannelLabel(int channel, String label) {
         String key = "exp_dim_" + channel;
+        set( key, label );
+    }
+
+    public boolean getSCDimmingModuleEnabled ( ) {
+        return getBoolean( R.string.prefExpSCDimmingEnableKey, false );
+    }
+
+    // FIXME improve function
+    public String getSCDimmingModuleChannelLabel ( int channel ) {
+        int k, v;
+        switch ( channel ) {
+            default:
+            case 0:
+                k = R.string.prefExpSCDimmingCh0LabelKey;
+                v = R.string.prefExpSCDimmingCh0LabelTitle;
+                break;
+            case 1:
+                k = R.string.prefExpSCDimmingCh1LabelKey;
+                v = R.string.prefExpSCDimmingCh1LabelTitle;
+                break;
+            case 2:
+                k = R.string.prefExpSCDimmingCh2LabelKey;
+                v = R.string.prefExpSCDimmingCh2LabelTitle;
+                break;
+            case 3:
+                k = R.string.prefExpSCDimmingCh3LabelKey;
+                v = R.string.prefExpSCDimmingCh3LabelTitle;
+                break;
+            case 4:
+                k = R.string.prefExpSCDimmingCh4LabelKey;
+                v = R.string.prefExpSCDimmingCh4LabelTitle;
+                break;
+            case 5:
+                k = R.string.prefExpSCDimmingCh5LabelKey;
+                v = R.string.prefExpSCDimmingCh5LabelTitle;
+                break;
+            case 6:
+                k = R.string.prefExpSCDimmingCh6LabelKey;
+                v = R.string.prefExpSCDimmingCh6LabelTitle;
+                break;
+            case 7:
+                k = R.string.prefExpSCDimmingCh7LabelKey;
+                v = R.string.prefExpSCDimmingCh7LabelTitle;
+                break;
+            case 8:
+                k = R.string.prefExpSCDimmingCh8LabelKey;
+                v = R.string.prefExpSCDimmingCh8LabelTitle;
+                break;
+            case 9:
+                k = R.string.prefExpSCDimmingCh9LabelKey;
+                v = R.string.prefExpSCDimmingCh9LabelTitle;
+                break;
+            case 10:
+                k = R.string.prefExpSCDimmingCh10LabelKey;
+                v = R.string.prefExpSCDimmingCh10LabelTitle;
+                break;
+            case 11:
+                k = R.string.prefExpSCDimmingCh11LabelKey;
+                v = R.string.prefExpSCDimmingCh11LabelTitle;
+                break;
+            case 12:
+                k = R.string.prefExpSCDimmingCh12LabelKey;
+                v = R.string.prefExpSCDimmingCh12LabelTitle;
+                break;
+            case 13:
+                k = R.string.prefExpSCDimmingCh13LabelKey;
+                v = R.string.prefExpSCDimmingCh13LabelTitle;
+                break;
+            case 14:
+                k = R.string.prefExpSCDimmingCh14LabelKey;
+                v = R.string.prefExpSCDimmingCh14LabelTitle;
+                break;
+            case 15:
+                k = R.string.prefExpSCDimmingCh15LabelKey;
+                v = R.string.prefExpSCDimmingCh15LabelTitle;
+                break;
+        }
+        return getString( k, v );
+    }
+
+    public void setSCDimmingModuleChannelLabel ( int channel, String label ) {
+        String key = "exp_sc_dim_" + channel;
         set( key, label );
     }
 

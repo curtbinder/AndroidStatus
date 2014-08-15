@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2014 Curt Binder
+ * Copyright (c) 2012 Curt Binder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,7 @@ public class Controller {
     public static final byte MAX_WATERLEVEL_PORTS = 5;
     public static final byte MAX_STATUS_FLAGS = 3;
     public static final byte MAX_ALERT_FLAGS = 4;
+    public static final byte MAX_SCPWM_EXPANSION_PORTS = 16;
 
     // First set of expansion modules - EM
     public static final short MODULE_DIMMING = 1 << 0;
@@ -115,6 +116,7 @@ public class Controller {
     private ShortWithLabelOverride[] radionChannels;
     private ShortWithLabel[] customVariables;
     private short[] vortechValues;
+    private ShortWithLabelOverride[] pwmSCExpansion;
 
     public Controller () {
         init();
@@ -180,6 +182,10 @@ public class Controller {
         vortechValues = new short[MAX_VORTECH_VALUES];
         for ( i = 0; i < MAX_VORTECH_VALUES; i++ ) {
             vortechValues[i] = 0;
+        }
+        pwmSCExpansion = new ShortWithLabelOverride[MAX_SCPWM_EXPANSION_PORTS];
+        for ( i = 0; i < MAX_SCPWM_EXPANSION_PORTS; i++ ) {
+            pwmSCExpansion[i] = new ShortWithLabelOverride();
         }
     }
 
@@ -351,7 +357,6 @@ public class Controller {
         return pwmExpansion[channel].getData();
     }
 
-
     public short getPwmExpansionOverride ( short channel ) {
         return pwmExpansion[channel].getOverrideValue();
     }
@@ -366,6 +371,30 @@ public class Controller {
 
     public String getPwmExpansionLabel ( short channel ) {
         return pwmExpansion[channel].getLabel();
+    }
+
+    public void setSCPwmExpansion ( short channel, short v ) {
+        pwmSCExpansion[channel].setData(v);
+    }
+
+    public short getSCPwmExpansion ( short channel ) {
+        return pwmSCExpansion[channel].getData();
+    }
+
+    public short getSCPwmExpansionOverride ( short channel ) {
+        return pwmSCExpansion[channel].getOverrideValue();
+    }
+
+    public void setSCPwmExpansionOverride ( short channel, short v ) {
+        pwmSCExpansion[channel].setOverride(v);
+    }
+
+    public void setSCPwmExpansionLabel ( short channel, String label ) {
+        pwmSCExpansion[channel].setLabel(label);
+    }
+
+    public String getSCPwmExpansionLabel ( short channel ) {
+        return pwmSCExpansion[channel].getLabel();
     }
 
     public void setWaterLevel ( short port, short value ) {

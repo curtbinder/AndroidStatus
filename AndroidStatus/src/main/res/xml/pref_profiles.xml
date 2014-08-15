@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2014 Curt Binder
+  ~ Copyright (c) 2013 Curt Binder
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +32,16 @@
         android:entryValues="@array/devicesValues"
         android:key="@string/prefDeviceKey"
         android:title="@string/prefDeviceTitle"/>
+
+    <EditTextPreference
+        android:key="@string/prefWifiUserKey"
+        android:summary="@string/prefWifiUserSummary"
+        android:title="@string/prefWifiUserTitle" />
+    <EditTextPreference
+        android:inputType="textPassword"
+        android:key="@string/prefWifiPasswordKey"
+        android:summary="@string/prefWifiPasswordSummary"
+        android:title="@string/prefWifiPasswordTitle" />
 
     <PreferenceCategory android:title="@string/prefsCategoryProfiles" >
         <ListPreference
@@ -63,6 +74,10 @@
             android:defaultValue="@string/prefUserIdDefault"
             android:key="@string/prefUserIdKey"
             android:title="@string/prefUserIdTitle" />
+<!--        <PreferenceScreen
+            android:key="@string/prefUpdateControllerIPKey"
+            android:summary="@string/prefUpdateControllerIPSummary"
+            android:title="@string/prefUpdateControllerIPTitle" />-->
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2014 Curt Binder
+  ~ Copyright (c) 2013 Curt Binder
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -35,6 +36,11 @@
             android:key="@string/prefAutoUpdateModulesKey"
             android:summary="@string/prefAutoUpdateModulesSummary"
             android:title="@string/prefAutoUpdateModulesTitle" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/prefAutoRefreshAfterUpdateKey"
+            android:summary="@string/prefAutoRefreshAfterUpdateSummary"
+            android:title="@string/prefAutoRefreshAfterUpdateTitle" />
         <ListPreference
             android:defaultValue="@string/prefConnectionTimeoutDefault"
             android:entries="@array/networkTimeout"

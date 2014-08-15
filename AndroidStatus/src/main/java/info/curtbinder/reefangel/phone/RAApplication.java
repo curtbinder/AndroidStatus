@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2014 Curt Binder
+ * Copyright (c) 2011 Curt Binder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,6 @@
 
 package info.curtbinder.reefangel.phone;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Application;
@@ -47,6 +46,7 @@ import java.util.Locale;
 
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;
+import info.curtbinder.reefangel.service.XMLReadException;
 
 public class RAApplication extends Application {
 
@@ -61,11 +61,13 @@ public class RAApplication extends Application {
 
     // Preferences
     public RAPreferences raprefs;
-    public int errorCode;
-    public int errorCount;
+
     // Error code stuff
     private String[] errorCodes;
     private String[] errorCodesStrings;
+    private String errorCodeMessage;
+    public int errorCode;
+    public int errorCount;
 
     public static String getFancyDate(long when) {
         DateFormat fmt =
@@ -79,6 +81,7 @@ public class RAApplication extends Application {
         errorCodes = getResources().getStringArray(R.array.errorCodes);
         errorCodesStrings =
                 getResources().getStringArray(R.array.errorCodesStrings);
+        errorCodeMessage = ""; // set to no error message
         errorCode = 0; // set to no error initially
         raprefs = new RAPreferences(this);
 
@@ -152,8 +155,35 @@ public class RAApplication extends Application {
     }
 
     // Error Logging
+    public void clearErrorCode() {
+        errorCode = 0;
+        errorCodeMessage = "";
+    }
+
+    private String getSimpleErrorMessage ( String msg ) {
+        String s = "";
+        if ( msg.contains( "EHOSTUNREACH" ) ) {
+            s = "Host unreachable: " + raprefs.getHost() + ":" + raprefs.getPort();
+        } else if ( msg.contains( "ECONNREFUSED" ) ) {
+            s = "Connection Refused: " + raprefs.getHost() + ":" + raprefs.getPort();
+        } else if ( msg.contains( "ECONNRESET" ) ) {
+            s = "Connection Reset by Peer";
+        } else {
+            s = msg;
+        }
+        return s;
+    }
+
     public void error(int errorCodeIndex, Throwable t, String msg) {
         errorCode = Integer.parseInt(errorCodes[errorCodeIndex]);
+        if ( t.getMessage() != null )
+            errorCodeMessage = getSimpleErrorMessage(t.getMessage());
+        if ( errorCode == 15 )
+            // timeout error
+            errorCodeMessage = String.format( Locale.getDefault(),
+                    getString(R.string.messageErrorTimeout),
+                    raprefs.getHost(), raprefs.getPort());
+        Log.d(TAG, "Error: " + errorCode + ", " + errorCodeMessage);
 
         // if logging enabled, save the log
         if (raprefs.isLoggingEnabled()) {
@@ -183,6 +213,10 @@ public class RAApplication extends Application {
                         );
                 pw.println(s);
                 pw.println(msg);
+                if ( t instanceof XMLReadException) {
+                    // we have an XML read exception, get the xml data if any
+                    pw.println( ((XMLReadException) t).getXmlData() );
+                }
                 pw.println(t.toString());
                 pw.println("Stack Trace:");
                 pw.flush();
@@ -196,8 +230,6 @@ public class RAApplication extends Application {
         }
     }
 
-    // fixme this is only for an android studio bug about String.format
-    //@SuppressLint("StringFormatMatches")
     public String getErrorMessage() {
         String s = getString(R.string.messageUnknownError);
         // loop through array of error codes and match with the current code
@@ -205,7 +237,9 @@ public class RAApplication extends Application {
             if (Integer.parseInt(errorCodes[i]) == errorCode) {
                 // found code
                 s = String.format(Locale.US, "%s %d: %s", getString(R.string.messageError),
-                        errorCode, errorCodesStrings[i]);
+                        errorCode,
+                        (errorCodeMessage == "" ) ? errorCodesStrings[i]
+                                                : errorCodeMessage);
                 break;
             }
         }
@@ -342,9 +376,12 @@ public class RAApplication extends Application {
         return true;
     }
 
-    public String getPWMOverrideChannelName ( int channel ) {
+    public String getPWMOverrideChannelName(int channel) {
         String name = "";
         switch ( channel ) {
+            default:
+                name = getString(R.string.labelChannel);
+                break;
             case Globals.OVERRIDE_DAYLIGHT:
                 name = raprefs.getControllerLabel(Globals.DP_INDEX);
                 break;
@@ -352,22 +389,12 @@ public class RAApplication extends Application {
                 name = raprefs.getControllerLabel(Globals.AP_INDEX);
                 break;
             case Globals.OVERRIDE_CHANNEL0:
-                name = raprefs.getDimmingModuleChannelLabel( 0 );
-                break;
             case Globals.OVERRIDE_CHANNEL1:
-                name = raprefs.getDimmingModuleChannelLabel( 1 );
-                break;
             case Globals.OVERRIDE_CHANNEL2:
-                name = raprefs.getDimmingModuleChannelLabel( 2 );
-                break;
             case Globals.OVERRIDE_CHANNEL3:
-                name = raprefs.getDimmingModuleChannelLabel( 3 );
-                break;
             case Globals.OVERRIDE_CHANNEL4:
-                name = raprefs.getDimmingModuleChannelLabel( 4 );
-                break;
             case Globals.OVERRIDE_CHANNEL5:
-                name = raprefs.getDimmingModuleChannelLabel( 5 );
+                name = raprefs.getDimmingModuleChannelLabel(channel - Globals.OVERRIDE_CHANNEL0);
                 break;
             case Globals.OVERRIDE_AI_WHITE:
                 name = getString( R.string.labelAI ) + " " + getString( R.string.labelWhite );
@@ -396,10 +423,29 @@ public class RAApplication extends Application {
             case Globals.OVERRIDE_RF_INTENSITY:
                 name = getString( R.string.labelRadion ) + " " + getString( R.string.labelIntensity );
                 break;
+            case Globals.OVERRIDE_16CH_CHANNEL0:
+            case Globals.OVERRIDE_16CH_CHANNEL1:
+            case Globals.OVERRIDE_16CH_CHANNEL2:
+            case Globals.OVERRIDE_16CH_CHANNEL3:
+            case Globals.OVERRIDE_16CH_CHANNEL4:
+            case Globals.OVERRIDE_16CH_CHANNEL5:
+            case Globals.OVERRIDE_16CH_CHANNEL6:
+            case Globals.OVERRIDE_16CH_CHANNEL7:
+            case Globals.OVERRIDE_16CH_CHANNEL8:
+            case Globals.OVERRIDE_16CH_CHANNEL9:
+            case Globals.OVERRIDE_16CH_CHANNEL10:
+            case Globals.OVERRIDE_16CH_CHANNEL11:
+            case Globals.OVERRIDE_16CH_CHANNEL12:
+            case Globals.OVERRIDE_16CH_CHANNEL13:
+            case Globals.OVERRIDE_16CH_CHANNEL14:
+            case Globals.OVERRIDE_16CH_CHANNEL15:
+                name = raprefs.getSCDimmingModuleChannelLabel( channel - Globals.OVERRIDE_16CH_CHANNEL0 );
+                break;
         }
         return name;
     }
 
+    // TODO cleanup this function, remove repeated format calls, simplify
     public String getPWMOverrideMessageDisplay ( int channel ) {
         String msg = "";
         String name = getPWMOverrideChannelName(channel);
@@ -455,6 +501,86 @@ public class RAApplication extends Application {
             case Globals.OVERRIDE_RF_INTENSITY:
                 msg = name + " " + getString( R.string.labelChannel );
                 break;
+            case Globals.OVERRIDE_16CH_CHANNEL0:
+                msg = String.format( Locale.getDefault(),
+                        getString( R.string.messagePWMPopupCustom),
+                        name, getString(R.string.prefExpSCDimmingCh0LabelTitle));
+                break;
+            case Globals.OVERRIDE_16CH_CHANNEL1:
+                msg = String.format( Locale.getDefault(),
+                        getString( R.string.messagePWMPopupCustom),
+                        name, getString(R.string.prefExpSCDimmingCh1LabelTitle) );
+                break;
+            case Globals.OVERRIDE_16CH_CHANNEL2:
+                msg = String.format( Locale.getDefault(),
+                        getString( R.string.messagePWMPopupCustom),
+                        name, getString(R.string.prefExpSCDimmingCh2LabelTitle) );
+                break;
+            case Globals.OVERRIDE_16CH_CHANNEL3:
+                msg = String.format( Locale.getDefault(),
+                        getString( R.string.messagePWMPopupCustom),
+                        name, getString(R.string.prefExpSCDimmingCh3LabelTitle) );
+                break;
+            case Globals.OVERRIDE_16CH_CHANNEL4:
+                msg = String.format( Locale.getDefault(),
+                        getString( R.string.messagePWMPopupCustom),
+                        name, getString(R.string.prefExpSCDimmingCh4LabelTitle) );
+                break;
+            case Globals.OVERRIDE_16CH_CHANNEL5:
+                msg = String.format( Locale.getDefault(),
+                        getString( R.string.messagePWMPopupCustom),
+                        name, getString(R.string.prefExpSCDimmingCh5LabelTitle) );
+                break;
+            case Globals.OVERRIDE_16CH_CHANNEL6:
+                msg = String.format( Locale.getDefault(),
+                        getString( R.string.messagePWMPopupCustom),
+                        name, getString(R.string.prefExpSCDimmingCh6LabelTitle));
+                break;
+            case Globals.OVERRIDE_16CH_CHANNEL7:
+                msg = String.format( Locale.getDefault(),
+                        getString( R.string.messagePWMPopupCustom),
+                        name, getString(R.string.prefExpSCDimmingCh7LabelTitle) );
+                break;
+            case Globals.OVERRIDE_16CH_CHANNEL8:
+                msg = String.format( Locale.getDefault(),
+                        getString( R.string.messagePWMPopupCustom),
+                        name, getString(R.string.prefExpSCDimmingCh8LabelTitle) );
+                break;
+            case Globals.OVERRIDE_16CH_CHANNEL9:
+                msg = String.format( Locale.getDefault(),
+                        getString( R.string.messagePWMPopupCustom),
+                        name, getString(R.string.prefExpSCDimmingCh9LabelTitle) );
+                break;
+            case Globals.OVERRIDE_16CH_CHANNEL10:
+                msg = String.format( Locale.getDefault(),
+                        getString( R.string.messagePWMPopupCustom),
+                        name, getString(R.string.prefExpSCDimmingCh10LabelTitle) );
+                break;
+            case Globals.OVERRIDE_16CH_CHANNEL11:
+                msg = String.format( Locale.getDefault(),
+                        getString( R.string.messagePWMPopupCustom),
+                        name, getString(R.string.prefExpSCDimmingCh11LabelTitle) );
+                break;
+            case Globals.OVERRIDE_16CH_CHANNEL12:
+                msg = String.format( Locale.getDefault(),
+                        getString( R.string.messagePWMPopupCustom),
+                        name, getString(R.string.prefExpSCDimmingCh12LabelTitle));
+                break;
+            case Globals.OVERRIDE_16CH_CHANNEL13:
+                msg = String.format( Locale.getDefault(),
+                        getString( R.string.messagePWMPopupCustom),
+                        name, getString(R.string.prefExpSCDimmingCh13LabelTitle) );
+                break;
+            case Globals.OVERRIDE_16CH_CHANNEL14:
+                msg = String.format( Locale.getDefault(),
+                        getString( R.string.messagePWMPopupCustom),
+                        name, getString(R.string.prefExpSCDimmingCh14LabelTitle) );
+                break;
+            case Globals.OVERRIDE_16CH_CHANNEL15:
+                msg = String.format( Locale.getDefault(),
+                        getString( R.string.messagePWMPopupCustom),
+                        name, getString(R.string.prefExpSCDimmingCh15LabelTitle) );
+                break;
         }
         return msg;
     }
@@ -495,12 +621,13 @@ public class RAApplication extends Application {
             current =
                     getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
         } catch (NameNotFoundException e) {
+            // safely ignore the error
         }
         if (current > previous) {
             // save code version in preferences
             raprefs.setPreviousCodeVersion(current);
             // newer version, display changelog
-            Changelog.displayChangelog(a);
+            DisplayLog.displayChangelog(a);
         }
         // deletePref( R.string.prefPreviousCodeVersion );
     }

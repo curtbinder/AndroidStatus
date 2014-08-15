@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2014 Curt Binder
+ * Copyright (c) 2012 Curt Binder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,8 @@ public class Host {
 	private int timeoutConnect;
 	private int timeoutRead;
 	private String raUserid;
+    private String wifiUsername;
+    private String wifiPassword;
 
 	private final String RAPARAMS =
 			"http://forum.reefangel.com/status/params.aspx?id=";
@@ -56,20 +58,7 @@ public class Host {
 		this.timeoutConnect = timeoutConnect;
 		this.timeoutRead = timeoutRead;
 	}
-/*
-	Host ( String userid ) {
-		setDefaults( "", 80, RequestCommands.ReefAngel );
-		raUserid = userid;
-	}
 
-	Host ( String host, int port, String command ) {
-		setDefaults( host, port, command );
-	}
-
-	Host ( String host, String port, String command ) {
-		setDefaults( host, Integer.parseInt( port ), command );
-	}
-*/
 	private void setDefaults ( String host, int port, String command ) {
 		this.host = host;
 		this.port = port;
@@ -79,6 +68,8 @@ public class Host {
 		write = false;
 		raUserid = "";
 		labels = false;
+        wifiUsername = "";
+        wifiPassword = "";
 	}
 
 	public void setHost ( String host ) {
@@ -96,6 +87,35 @@ public class Host {
 	public String getCommand ( ) {
 		return this.command;
 	}
+
+    public void setWifiUsername ( String username ) {
+        this.wifiUsername = username;
+    }
+
+    public String getWifiUsername ( ) {
+        return this.wifiUsername;
+    }
+
+    public void setWifiPassword ( String password ) {
+        this.wifiPassword = password;
+    }
+
+    public String getWifiPassword ( ) {
+        return this.wifiPassword;
+    }
+
+    public String getDeviceAuthenticationString ( ) {
+        return wifiUsername + ":" + wifiPassword;
+    }
+
+    public boolean isDeviceAuthenticationEnabled ( ) {
+        // if either the password or username are empty,
+        // device authentication is not enabled
+        if ( wifiPassword.equals( "" ) || wifiUsername.equals( "" ) ) {
+            return false;
+        }
+        return true;
+    }
 
 	public void setUserId ( String userid ) {
 		raUserid = userid;
@@ -176,27 +196,22 @@ public class Host {
                 || (command.equals( RequestCommands.LightsOn ))
                 || (command.equals( RequestCommands.LightsOff ))
                 || (command.equals( RequestCommands.Reboot )) ) {
-            s = new String( String.format(	"http://%s:%d%s", host, port,
-                    command ) );
+            s = String.format(	"http://%s:%d%s", host, port, command );
         } else if ( (command.equals( RequestCommands.MemoryInt ))
                 || (command.equals( RequestCommands.MemoryByte )) ) {
             if ( write ) {
-                s = new String( String.format(	"http://%s:%d%s%d,%d",
+                s = String.format(	"http://%s:%d%s%d,%d",
                         host,
                         port, command, location,
-                        value ) );
+                        value );
             } else {
-                s = new String( String.format(	"http://%s:%d%s%d", host,
-                        port, command, location ) );
+                s = String.format(	"http://%s:%d%s%d", host, port, command, location );
             }
         } else if ( command.equals( RequestCommands.Calibrate ) ) {
-            s = new String ( String.format( "http://%s:%d%s%d",
-                    host, port,
-                    command, location) );
+            s = String.format( "http://%s:%d%s%d", host, port, command, location);
         } else if ( command.equals( RequestCommands.PwmOverride ) ) {
-            s = new String ( String.format( "http://%s:%d%s%d,%d",
-                    host, port,
-                    command, location, value) );
+            s = String.format( "http://%s:%d%s%d,%d",
+                    host, port, command, location, value);
         } else if ( command.equals( RequestCommands.ReefAngel ) ) {
             String encodedId;
             try {

@@ -1,7 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
 <!--
   ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2014 Curt Binder
+  ~ Copyright (c) 2013 Curt Binder
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -39,7 +41,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Enable"
+            android:text="@string/labelEnable"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <CheckBox
@@ -63,7 +65,7 @@
             android:id="@android:id/android:empty"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="No Notifications"
+            android:text="@string/messageEmptyNotifications"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
 

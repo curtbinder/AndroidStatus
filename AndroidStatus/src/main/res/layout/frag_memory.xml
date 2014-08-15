@@ -1,7 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2014 Curt Binder
+  ~ Copyright (c) 2011 Curt Binder
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -29,17 +31,17 @@
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="@dimen/frag_item_horizontal_padding"
         android:stretchColumns="1" >
 
-        <TextView
-            android:text="Enter memory location and values to view or update" />
-        
+        <TextView android:text="@string/descriptionMemory" />
+
+        <Spinner android:id="@+id/spinMemoryLocation" />
         <!-- Location edit box, disabled unless CUSTOM location -->
 
         <TableRow android:id="@+id/locationRow" >
 
-            <TextView android:text="Location" />
+            <TextView android:text="@string/labelLocation" />
 
             <EditText
                 android:id="@+id/locationText"
@@ -51,29 +53,32 @@
 
             <TextView
                 android:layout_gravity="center_vertical"
-                android:text="Type" />
+                android:text="@string/labelType" />
 
-            <TableLayout android:layout_width="fill_parent" >
+            <RadioGroup
+                android:orientation="horizontal"
+                android:layout_width="fill_parent" >
 
-                <RadioGroup android:orientation="horizontal" >
+                <RadioButton
+                    android:id="@+id/radioButtonByte"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/radioByte" />
 
-                    <RadioButton
-                        android:id="@+id/radioButtonByte"
-                        android:layout_weight="1"
-                        android:text="Byte" />
-
-                    <RadioButton
-                        android:id="@+id/radioButtonInt"
-                        android:layout_weight="1"
-                        android:text="Int" />
-                </RadioGroup>
-            </TableLayout>
+                <RadioButton
+                    android:id="@+id/radioButtonInt"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/radioInt" />
+            </RadioGroup>
         </TableRow>
         <!-- Value edit box -->
 
         <TableRow>
 
-            <TextView android:text="Value" />
+            <TextView android:text="@string/labelValue" />
 
             <EditText
                 android:id="@+id/valueText"
@@ -88,23 +93,24 @@
 
             <TextView android:text="" />
 
-            <TableLayout android:layout_width="fill_parent" >
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/buttonRead"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/buttonRead" />
 
-                <TableRow>
+                <Button
+                    android:id="@+id/buttonWrite"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/buttonWrite" />
+            </LinearLayout>
 
-                    <Button
-                        android:id="@+id/buttonRead"
-                        android:layout_width="fill_parent"
-                        android:layout_weight="1"
-                        android:text="Read" />
-
-                    <Button
-                        android:id="@+id/buttonWrite"
-                        android:layout_width="fill_parent"
-                        android:layout_weight="1"
-                        android:text="Write" />
-                </TableRow>
-            </TableLayout>
         </TableRow>
         <!--
         <TextView

@@ -1,7 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
 <!--
   ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2014 Curt Binder
+  ~ Copyright (c) 2013 Curt Binder
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -38,14 +40,14 @@
             android:id="@+id/rowTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Title"
+            android:text="@string/placeholder_title"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
             android:id="@+id/rowSubTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Subtitle"
+            android:text="@string/placeholder_subtitle"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textStyle="italic" />
     </LinearLayout>
@@ -53,7 +55,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
+        android:gravity="end"
         android:orientation="horizontal" >
 
         <ImageButton
@@ -62,6 +64,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/greenbutton"
             android:layout_marginRight="@dimen/row_horizontal_padding"
+            android:layout_marginLeft="@dimen/row_horizontal_padding"
             android:layout_gravity="center" />
 
         <ToggleButton

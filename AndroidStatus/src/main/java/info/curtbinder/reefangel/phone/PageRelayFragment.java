@@ -61,17 +61,24 @@ public class PageRelayFragment extends Fragment
     private boolean[] controlsEnabled = new boolean[Controller.MAX_RELAY_PORTS];
 
     public PageRelayFragment() {
-        relayNumber = 0;
-    }
-
-    public PageRelayFragment(int position) {
-        relayNumber = position;
     }
 
     public static PageRelayFragment newInstance(int position) {
         // pass in values to construct a new instance
-        PageRelayFragment p = new PageRelayFragment(position);
+        Bundle args = new Bundle();
+        args.putInt(Globals.RELAY_BOX_NUMBER, position);
+        PageRelayFragment p = new PageRelayFragment();
+        p.setArguments(args);
         return p;
+    }
+
+    private void getRelayNumber() {
+        Bundle args = getArguments();
+        if ( args != null ) {
+            relayNumber = args.getInt(Globals.RELAY_BOX_NUMBER, 0);
+        } else {
+            relayNumber = 0;
+        }
     }
 
     @Override
@@ -79,6 +86,7 @@ public class PageRelayFragment extends Fragment
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.page_relaybox, container, false);
         findViews(rootView);
+        getRelayNumber();
         return rootView;
     }
 

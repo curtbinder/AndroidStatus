@@ -174,9 +174,16 @@ public class PageControllerFragment extends Fragment
             case Globals.PHE_INDEX:
                 resId = R.string.labelPHExp;
                 break;
-            case Globals.WL_INDEX:
-                resId = R.string.labelWaterLevel;
+            case Globals.HUMIDITY_INDEX:
+                resId = R.string.labelHumidity;
                 break;
+            case Globals.WL_INDEX:
+            case Globals.WL1_INDEX:
+            case Globals.WL2_INDEX:
+            case Globals.WL3_INDEX:
+            case Globals.WL4_INDEX:
+                RAApplication raApp = (RAApplication)getActivity().getApplication();
+                return raApp.raprefs.getWaterLevelDefaultLabel(index - Globals.WL_INDEX);
         }
         return getString(resId);
     }

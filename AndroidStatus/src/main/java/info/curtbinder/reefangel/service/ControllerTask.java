@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2014 Curt Binder
+ * Copyright (c) 2012 Curt Binder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,17 +29,26 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
+import com.squareup.okhttp.Credentials;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
+import java.io.EOFException;
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.net.UnknownHostException;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
@@ -71,42 +80,57 @@ public class ControllerTask implements Runnable {
 		// Communicate with controller
 
 		// clear out the error code on run
-		rapp.errorCode = 0;
-		HttpURLConnection con = null;
-		String res = "";
+		rapp.clearErrorCode();
+		Response response = null;
+		boolean fInterrupted = false;
 		broadcastUpdateStatus( R.string.statusStart );
 		try {
 			URL url = new URL( host.toString() );
-            con = setupConnection(url);
-			broadcastUpdateStatus( R.string.statusConnect );
-			con.connect();
+            OkHttpClient client = new OkHttpClient();
+            client.setConnectTimeout(host.getConnectTimeout(), TimeUnit.MILLISECONDS);
+            client.setReadTimeout(host.getReadTimeout(), TimeUnit.MILLISECONDS);
+            Request.Builder builder = new Request.Builder();
+            builder.url( url );
+            if ( host.isDeviceAuthenticationEnabled() ) {
+                String creds = Credentials.basic(host.getWifiUsername(), host.getWifiPassword());
+                builder.header( "Authorization", creds );
+            }
+            Request req = builder.build();
+            broadcastUpdateStatus( R.string.statusConnect );
+            response = client.newCall( req ).execute();
 
-			if ( Thread.interrupted() )
+            if ( !response.isSuccessful() )
+                throw new IOException("Unexpected code " + response);
+
+            if ( Thread.interrupted() )
 				throw new InterruptedException();
 
 		} catch ( MalformedURLException e ) {
-			rapp.error( 1, e, "MalformedURLException" );
-		} catch ( ProtocolException e ) {
-			rapp.error( 1, e, "ProtocolException" );
-		} catch ( SocketTimeoutException e ) {
-			rapp.error( 5, e, "SocketTimeoutException" );
-		} catch ( ConnectException e ) {
-			rapp.error( 3, e, "ConnectException" );
-		} catch ( IOException e ) {
-			rapp.error( 1, e, "IOException" );
-		} catch ( InterruptedException e ) {
-			res = (String) rapp.getResources()
-							.getText( R.string.messageCancelled );
-		}
+            rapp.error( 1, e, "MalformedURLException" );
+        } catch ( SocketTimeoutException e ) {
+            rapp.error( 5, e, "SocketTimeoutException" );
+        } catch ( ConnectException e ) {
+            rapp.error( 3, e, "ConnectException" );
+        } catch ( UnknownHostException e ) {
+            String msg = "Unknown Host: " + host.toString();
+            UnknownHostException ue = new UnknownHostException(msg);
+            rapp.error( 4, ue, "UnknownHostException" );
+        } catch ( EOFException e ) {
+            EOFException eof = new EOFException(rapp.getString( R.string.errorAuthentication ));
+            rapp.error( 3, eof, "EOFException" );
+        } catch ( IOException e ) {
+            rapp.error( 3, e, "IOException" );
+        } catch ( InterruptedException e ) {
+            fInterrupted = true;
+        }
 
-		if ( con != null ) {
-			con.disconnect();
-			broadcastUpdateStatus( R.string.statusDisconnected );
-		}
+        processResponse(response, fInterrupted);
+	}
 
-		// check if there was an error
-		if ( rapp.errorCode > 0 ) {
-			// encountered an error, display an error on screen
+    private void processResponse ( Response response, boolean fInterrupted  ) {
+        // check if there was an error
+        if ( rapp.errorCode > 0 ) {
+            // encountered an error, display an error on screen
             if ( (host.getCommand().equals( RequestCommands.Reboot ))
                     && (rapp.errorCode == 15) ) {
                 // if we get a timeout after sending this command, the
@@ -115,35 +139,36 @@ public class ControllerTask implements Runnable {
             } else {
                 broadcastErrorMessage();
             }
-		} else if ( res.equals( (String) rapp.getResources()
-				.getText( R.string.messageCancelled ) ) ) {
-			// Interrupted
-			broadcastUpdateStatus( R.string.messageCancelled );
-		} else {
-			XMLHandler xml = new XMLHandler();
-			if ( raprefs.useOld085xExpansionRelays() ) {
-				xml.setOld085xExpansion( true );
-			}
-			if ( !parseXML( xml, con ) ) {
-				// error parsing
-				broadcastErrorMessage();
-				return;
-			}
-			broadcastUpdateStatus( R.string.statusUpdatingDisplay );
-			broadcastResponses( xml );
-		}
-	}
-
-    private HttpURLConnection setupConnection ( URL url ) throws ProtocolException, IOException {
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setReadTimeout( host.getReadTimeout() );
-        con.setConnectTimeout( host.getConnectTimeout() );
-        con.setRequestMethod( "GET" );
-        con.setDoInput( true );
-        return con;
+        } else if ( fInterrupted ) {
+            // Interrupted
+            broadcastUpdateStatus( R.string.messageCancelled );
+        } else {
+            try {
+                XMLHandler xml = new XMLHandler();
+                if ( raprefs.useOld085xExpansionRelays() ) {
+                    xml.setOld085xExpansion( true );
+                }
+                if ( !parseXML(xml, response) ) {
+                    // error parsing
+                    broadcastErrorMessage();
+                    throw new Exception();
+                }
+                broadcastUpdateStatus( R.string.statusUpdatingDisplay );
+                broadcastResponses( xml );
+            } catch ( Exception e ) {
+                // ignore the exception, just needed a way to break out
+                // of the sequence of events to close the response
+            }
+        }
+        if ( response != null ) {
+            try {
+                response.body().close();
+            } catch ( IOException e ) {
+            }
+        }
     }
 
-	private boolean parseXML ( XMLHandler xml, HttpURLConnection con ) {
+	private boolean parseXML ( XMLHandler xml, Response response ) {
 		SAXParserFactory spf = SAXParserFactory.newInstance();
 		XMLReader xr = null;
 		boolean result = false;
@@ -162,21 +187,43 @@ public class ControllerTask implements Runnable {
 				throw new InterruptedException();
 
 			broadcastUpdateStatus( R.string.statusParsing );
-			xr.parse( new InputSource(con.getInputStream()) );
-			broadcastUpdateStatus( R.string.statusFinished );
-			result = true;
-		} catch ( ParserConfigurationException e ) {
-			rapp.error( 7, e, "parseXML: ParserConfigurationException" );
-		} catch ( IOException e ) {
-			rapp.error( 8, e, "parseXML: IOException" );
-		} catch ( SAXException e ) {
-			rapp.error( 9, e, "parseXML: SAXException" );
-		} catch ( InterruptedException e ) {
+
+            // OkHttp Calls
+//			printHeaders(response);
+            String s = "";
+            try {
+                s = response.body().string();
+            } catch ( IOException e ) {
+                // Error reading from the connection
+                XMLReadException x = new XMLReadException("XMLReadException");
+                x.addXmlData( s );
+                throw x;
+            }
+//			Log.d(TAG, "XML: " + s );
+            xr.parse( new InputSource(new StringReader(s)) );
+            broadcastUpdateStatus( R.string.statusFinished );
+            result = true;
+        } catch ( ParserConfigurationException e ) {
+            rapp.error( 7, e, "ParserConfigurationException" );
+        } catch ( IOException e ) {
+            rapp.error( 8, e, "IOException" );
+        } catch ( SAXException e ) {
+            rapp.error( 9, e, "SAXException" );
+        } catch ( XMLReadException e ) {
+            rapp.error( 10, e, "XMLReadException" );
+        } catch ( InterruptedException e ) {
 			// Not a true error, so only for debugging
 			Log.d( TAG, "parseXML: InterruptedException", e );
 		}
 		return result;
 	}
+
+//	private void printHeaders(Response r) {
+//		Headers h = r.headers();
+//		for ( int i = 0; i < h.size(); i++ ) {
+//			Log.d(TAG, "Header: " + h.name( i ) + ": " + h.value( i ) );
+//		}
+//	}
 
 	// Broadcast Stuff
 	private void broadcastResponses ( XMLHandler xml ) {
@@ -340,6 +387,11 @@ public class ControllerTask implements Runnable {
                 raprefs.setDimmingModuleChannelLabel( i, ra
                         .getPwmExpansionLabel( (short) i ) );
         }
+        for ( i = 0; i < Controller.MAX_SCPWM_EXPANSION_PORTS; i++ ) {
+            if ( !ra.getSCPwmExpansionLabel((short) i).equals( "" ) )
+                raprefs.setSCDimmingModuleChannelLabel(i, ra
+                        .getSCPwmExpansionLabel((short) i));
+        }
         for ( i = 0; i < Controller.MAX_CUSTOM_VARIABLES; i++ ) {
             if ( !ra.getCustomVariableLabel( (short) i ).equals( "" ) )
                 raprefs.setCustomModuleChannelLabel( i, ra
@@ -471,6 +523,38 @@ public class ControllerTask implements Runnable {
         v.put( StatusTable.COL_RFIO, ra.getRadionChannelOverride( Controller.RADION_INTENSITY ) );
         v.put( StatusTable.COL_SF, ra.getStatusFlags() );
         v.put( StatusTable.COL_AF, ra.getAlertFlags() );
+        v.put( StatusTable.COL_SCPWME0, ra.getSCPwmExpansion( (short) 0));
+        v.put( StatusTable.COL_SCPWME0O, ra.getSCPwmExpansionOverride( (short) 0));
+        v.put( StatusTable.COL_SCPWME1, ra.getSCPwmExpansion( (short) 1));
+        v.put( StatusTable.COL_SCPWME1O, ra.getSCPwmExpansionOverride( (short) 1));
+        v.put( StatusTable.COL_SCPWME2, ra.getSCPwmExpansion( (short) 2));
+        v.put( StatusTable.COL_SCPWME2O, ra.getSCPwmExpansionOverride( (short) 2));
+        v.put( StatusTable.COL_SCPWME3, ra.getSCPwmExpansion( (short) 3));
+        v.put( StatusTable.COL_SCPWME3O, ra.getSCPwmExpansionOverride( (short) 3));
+        v.put( StatusTable.COL_SCPWME4, ra.getSCPwmExpansion( (short) 4));
+        v.put( StatusTable.COL_SCPWME4O, ra.getSCPwmExpansionOverride( (short) 4));
+        v.put( StatusTable.COL_SCPWME5, ra.getSCPwmExpansion( (short) 5));
+        v.put( StatusTable.COL_SCPWME5O, ra.getSCPwmExpansionOverride( (short) 5));
+        v.put( StatusTable.COL_SCPWME6, ra.getSCPwmExpansion( (short) 6));
+        v.put( StatusTable.COL_SCPWME6O, ra.getSCPwmExpansionOverride( (short) 6));
+        v.put( StatusTable.COL_SCPWME7, ra.getSCPwmExpansion( (short) 7));
+        v.put( StatusTable.COL_SCPWME7O, ra.getSCPwmExpansionOverride( (short) 7));
+        v.put( StatusTable.COL_SCPWME8, ra.getSCPwmExpansion( (short) 8));
+        v.put( StatusTable.COL_SCPWME8O, ra.getSCPwmExpansionOverride( (short) 8));
+        v.put( StatusTable.COL_SCPWME9, ra.getSCPwmExpansion( (short) 9));
+        v.put( StatusTable.COL_SCPWME9O, ra.getSCPwmExpansionOverride( (short) 9));
+        v.put( StatusTable.COL_SCPWME10, ra.getSCPwmExpansion( (short) 10));
+        v.put( StatusTable.COL_SCPWME10O, ra.getSCPwmExpansionOverride( (short) 10));
+        v.put( StatusTable.COL_SCPWME11, ra.getSCPwmExpansion( (short) 11));
+        v.put( StatusTable.COL_SCPWME11O, ra.getSCPwmExpansionOverride( (short) 11));
+        v.put( StatusTable.COL_SCPWME12, ra.getSCPwmExpansion( (short) 12));
+        v.put( StatusTable.COL_SCPWME12O, ra.getSCPwmExpansionOverride( (short) 12));
+        v.put( StatusTable.COL_SCPWME13, ra.getSCPwmExpansion( (short) 13));
+        v.put( StatusTable.COL_SCPWME13O, ra.getSCPwmExpansionOverride( (short) 13));
+        v.put( StatusTable.COL_SCPWME14, ra.getSCPwmExpansion( (short) 14));
+        v.put( StatusTable.COL_SCPWME14O, ra.getSCPwmExpansionOverride( (short) 14));
+        v.put( StatusTable.COL_SCPWME15, ra.getSCPwmExpansion( (short) 15));
+        v.put( StatusTable.COL_SCPWME15O, ra.getSCPwmExpansionOverride( (short) 15));
         rapp.getContentResolver()
                 .insert(	Uri.parse( StatusProvider.CONTENT_URI + "/"
                         + StatusProvider.PATH_STATUS ), v );

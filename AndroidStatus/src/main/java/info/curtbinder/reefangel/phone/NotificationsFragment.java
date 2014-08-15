@@ -24,8 +24,8 @@
 
 package info.curtbinder.reefangel.phone;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,6 +34,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -52,11 +53,16 @@ import info.curtbinder.reefangel.db.StatusProvider;
 public class NotificationsFragment extends ListFragment
         implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    private static final String TAG = NotificationsFragment.class.getSimpleName();
+
     private static final String[] FROM = {
             NotificationTable.COL_ID,
             NotificationTable.COL_PARAM,
             NotificationTable.COL_CONDITION,
             NotificationTable.COL_VALUE};
+
+    public static final Uri NOTIFY_URI = Uri
+            .parse( StatusProvider.CONTENT_URI + "/" + StatusProvider.PATH_NOTIFICATION );
 
     private static RAApplication raApp;
     private CheckBox ck;
@@ -121,6 +127,24 @@ public class NotificationsFragment extends ListFragment
     }
 
     @Override
+    public void onActivityCreated ( Bundle savedInstanceState ) {
+        super.onActivityCreated( savedInstanceState );
+        getLoaderManager().restartLoader( 0, null, this );
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case DialogYesNo.DELETE_ALL_CALL:
+                if ( resultCode == Activity.RESULT_OK ) {
+                    // User wants to delete all notifications
+                    deleteAll();
+                }
+                break;
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // if not enabled, don't allow changes to the list
         if (!ck.isChecked()) {
@@ -128,56 +152,27 @@ public class NotificationsFragment extends ListFragment
         }
         switch (item.getItemId()) {
             case R.id.action_delete_notification:
-                AlertDialog.Builder builder =
-                        new AlertDialog.Builder(getActivity());
-                builder.setMessage(getString(R.string.messageClearNotifications))
-                        .setCancelable(false)
-                        .setPositiveButton(getString(R.string.buttonYes),
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(
-                                            DialogInterface dialog,
-                                            int id) {
-                                        dialog.dismiss();
-                                        deleteAll();
-                                    }
-                                }
-                        )
-                        .setNegativeButton(getString(R.string.buttonNo),
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(
-                                            DialogInterface dialog,
-                                            int id) {
-                                        dialog.cancel();
-                                    }
-                                }
-                        );
-
-                AlertDialog alert = builder.create();
-                alert.show();
+                DialogYesNo d1 = DialogYesNo.newInstance(R.string.messageClearNotifications);
+                d1.setTargetFragment(this, DialogYesNo.DELETE_ALL_CALL);
+                d1.show(getFragmentManager(), "dlgyesno");
                 break;
             case R.id.action_add_notification:
-//                Intent i = new Intent( getActivity(), NotificationPopupActivity.class );
-//                startActivity( i );
+                DialogAddNotification d2 = DialogAddNotification.newInstance();
+                d2.show(getFragmentManager(), "dlgadd");
                 break;
         }
         return true;
     }
 
     private void deleteAll() {
-        Uri uri =
-                Uri.parse(StatusProvider.CONTENT_URI + "/"
-                        + StatusProvider.PATH_NOTIFICATION);
-        getActivity().getContentResolver().delete(uri, null, null);
+        getActivity().getContentResolver().delete(NOTIFY_URI, null, null);
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-//        Intent i = new Intent( getActivity(), NotificationPopupActivity.class );
-//        Uri uri =
-//                Uri.parse( StatusProvider.CONTENT_URI + "/"
-//                        + StatusProvider.PATH_NOTIFICATION + "/" + id );
-//        i.putExtra( StatusProvider.NOTIFICATION_ID_MIME_TYPE, uri );
-//        startActivity( i );
+        Uri uri = Uri.withAppendedPath( NOTIFY_URI, Long.toString( id ) );
+        DialogAddNotification d2 = DialogAddNotification.newInstance(uri);
+        d2.show(getFragmentManager(), "dlgadd");
     }
 
     @Override
