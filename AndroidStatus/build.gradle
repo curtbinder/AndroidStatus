@@ -53,5 +53,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:19.1.0'
     compile 'com.squareup.okio:okio:1.0.1'
     compile 'com.squareup.okhttp:okhttp:2.0.0'
+    compile 'com.github.gabrielemariotti.changeloglib:library:1.5.1'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }

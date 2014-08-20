@@ -32,6 +32,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
+import android.preference.PreferenceActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -610,16 +612,25 @@ public class RAApplication extends Application {
         return false;
     }
 
-    public void displayChangeLog(Activity a) {
+    public void displayChangeLog(ActionBarActivity a) {
         // check version code stored in preferences vs the version stored in
         // running code
         // display the changelog if the values are different
+//        if ( a instanceof ActionBarActivity ) {
+//            Log.d(TAG, "ActionBarActivity");
+//        } else if ( a instanceof PreferenceActivity ) {
+//            Log.d(TAG, "PreferenceActivity");
+//        } else if ( a instanceof SettingsActivity ) {
+//            Log.d(TAG, "SettingsActivity");
+//        } else {
+//            Log.d(TAG, "Other Activity");
+//        }
+
         int previous = raprefs.getPreviousCodeVersion();
 
         int current = 0;
         try {
-            current =
-                    getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+            current = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
         } catch (NameNotFoundException e) {
             // safely ignore the error
         }
@@ -627,7 +638,9 @@ public class RAApplication extends Application {
             // save code version in preferences
             raprefs.setPreviousCodeVersion(current);
             // newer version, display changelog
-            DisplayLog.displayChangelog(a);
+            //DisplayLog.displayChangelog(a);
+            DialogSupportChangelog dlg = new DialogSupportChangelog();
+            dlg.show(a.getSupportFragmentManager(), "dlg");
         }
         // deletePref( R.string.prefPreviousCodeVersion );
     }

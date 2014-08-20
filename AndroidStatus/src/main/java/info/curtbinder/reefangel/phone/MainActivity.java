@@ -134,6 +134,10 @@ public class MainActivity extends ActionBarActivity
         // todo add in message handlers, broadcast receivers
         fRestoreState = true;
         setNavigationList();
+
+        // last thing we do is display the changelog if necessary
+        // TODO add in a preference check for displaying changelog on app startup
+        raApp.displayChangeLog(this);
     }
 
     @Override

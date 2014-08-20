@@ -43,8 +43,7 @@ public class RAPreferences {
     public RAPreferences(RAApplication ra) {
         this.rapp = ra;
         prefs = PreferenceManager.getDefaultSharedPreferences(rapp);
-        devicesArray =
-                rapp.getResources().getStringArray(R.array.devicesValues);
+        devicesArray = rapp.getResources().getStringArray(R.array.devicesValues);
         fillRelayLabels();
     }
 
@@ -139,8 +138,7 @@ public class RAPreferences {
     }
 
     public int getConnectionTimeout() {
-        return Integer
-                .parseInt(getString(R.string.prefConnectionTimeoutKey,
+        return Integer.parseInt(getString(R.string.prefConnectionTimeoutKey,
                         R.string.prefConnectionTimeoutDefault));
     }
 
@@ -155,14 +153,12 @@ public class RAPreferences {
 
     // Automatic Updating
     public long getUpdateInterval() {
-        return Long
-                .parseLong(getString(R.string.prefAutoUpdateIntervalKey,
+        return Long.parseLong(getString(R.string.prefAutoUpdateIntervalKey,
                         R.string.prefAutoUpdateIntervalDefault));
     }
 
     public int getUpdateProfile() {
-        return Integer
-                .parseInt(getString(R.string.prefAutoUpdateProfileKey,
+        return Integer.parseInt(getString(R.string.prefAutoUpdateProfileKey,
                         R.string.prefAutoUpdateProfileDefault));
     }
 

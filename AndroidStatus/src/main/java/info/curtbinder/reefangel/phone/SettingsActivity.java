@@ -27,6 +27,7 @@ package info.curtbinder.reefangel.phone;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 
@@ -91,6 +92,14 @@ public class SettingsActivity extends PreferenceActivity {
             addPreferencesFromResource(R.xml.pref_notifications);
             addPreferencesFromResource(R.xml.pref_logging);
             addPreferencesFromResource(R.xml.pref_appinfo);
+            Preference changelog = findPreference(raApp.getString(R.string.prefChangelogKey));
+//            changelog.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+//                public boolean onPreferenceClick(Preference preference) {
+//                    raApp.displayChangeLog(getParent());
+//                    return true;
+//                }
+//            });
+            changelog.setEnabled(false);
         }
     }
 

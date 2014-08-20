@@ -30,9 +30,6 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
-/**
- * Created by binder on 3/22/14.
- */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class PrefAppFragment extends PreferenceFragment {
 
@@ -45,14 +42,13 @@ public class PrefAppFragment extends PreferenceFragment {
         // load the preferences from an XML file
         addPreferencesFromResource(R.xml.pref_appinfo);
 
-        Preference changelog =
-                findPreference(raApp.getString(R.string.prefChangelogKey));
-        changelog
-                .setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    public boolean onPreferenceClick(Preference preference) {
-                        DisplayLog.displayChangelog(getActivity());
-                        return true;
-                    }
-                });
+        Preference changelog = findPreference(raApp.getString(R.string.prefChangelogKey));
+        changelog.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference preference) {
+                DialogChangelog dlg = new DialogChangelog();
+                dlg.show(getFragmentManager(), "dlg");
+                return true;
+            }
+        });
     }
 }

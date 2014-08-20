@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ The MIT License (MIT)
   ~
@@ -23,10 +23,9 @@
   ~ SOFTWARE.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/action_settings"
-        android:title="@string/menuMainSettings"
-        android:orderInCategory="200"
-        app:showAsAction="never" />
-</menu>
+<view xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:chg="http://schemas.android.com/apk/res-auto"
+    class="it.gmariotti.changelibs.library.view.ChangeLogListView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/view" />
