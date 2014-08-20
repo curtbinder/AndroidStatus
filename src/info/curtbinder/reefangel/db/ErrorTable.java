@@ -39,7 +39,7 @@ public class ErrorTable {
 			int oldVersion,
 			int newVersion ) {
 		int curVer = oldVersion;
-		while ( curVer < oldVersion ) {
+		while ( curVer < newVersion ) {
 			curVer++;
 			switch ( curVer ) {
 				default:
