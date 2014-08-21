@@ -1,10 +1,10 @@
 Changelog of all the versions of AndroidStatus
 ----------------------------------------------
 
-0.1
+0.1 - October 30, 2011
  * Initial release
 
-0.2
+0.2 - November 2, 2011
  * Improved XML parsing
  * Added more status text updates
  * Switched to use HttpURLConnection, allows for read and connect timeouts
@@ -13,7 +13,7 @@ Changelog of all the versions of AndroidStatus
  * Added ability to enter in userid for web banner on reefangel.com
  * Added ability to choose to query controller directly or reefangel.com for values
  
-0.3
+0.3 - November 19, 2011
  * store controller values inside a database
  * added history menu that displays previous 30 status updates
  * database is limited to only keeping 30 status updates
@@ -32,10 +32,10 @@ Changelog of all the versions of AndroidStatus
  * added French translation
  * added better layout/style for tablets (extra large screens)
  
-0.3.1
+0.3.1 - November 27, 2011
  * fixed bug with reading salinity values
  
-0.4
+0.4 - January 11, 2012
  * added in message broadcast receivers
  * added icons to the menu items
  * added ability to change PH & Salinity labels
@@ -55,16 +55,16 @@ Changelog of all the versions of AndroidStatus
  * when changing bannerid, update the summary on the "Download labels" item to reflect new id
  * add in special permissions to send and receive messages
  
-0.4.1
+0.4.1 - January 18, 2012
  * fixed parsing XML for 0.9 libraries and expansion relay data
  
-0.4.2
+0.4.2 - January 18, 2012
  * fixed parsing expansion relay data (was not fixed with 0.4.1)
  
-0.4.3
+0.4.3 - January 18, 2012
  * fixed expansion relay parsing and but with dev libraries
  
-0.4.4
+0.4.4 - April 15, 2012
  * added in pwm expansion relay channel start %, end % and duration memory values
  * added in new ato and ato high timeout memory locations
  * added in ato clear and overheat clear buttons to commands page
@@ -72,7 +72,7 @@ Changelog of all the versions of AndroidStatus
  * added 'first run' screen when the app is first installed
  * fixed sending commands in reefangel.com mode, displays popup that it's not a controller
  
-0.5.0
+0.5.0 - May 10, 2012
  * added date and time screen to internal memory page
  * moved commands from internal memory to its own menu
  * expansion relays
@@ -84,7 +84,7 @@ Changelog of all the versions of AndroidStatus
  * added reset all labels that resets back to defaults
  * finish button on First Run screen uses string resources
  
-0.6.0
+0.6.0 - May 28, 2012
  * added support for 0.8.5.x expansion relays with setting
  * created custom widget for controller status information
  * only set the labels for the expansion relay boxes displayed
@@ -98,7 +98,7 @@ Changelog of all the versions of AndroidStatus
  ** long press on Refresh button to change/select profile
  ** Refresh button label changes to "Refresh - Home" or "Refresh - Away"
 
-0.6.1
+0.6.1 - June 20, 2012
  * added support for new 1.0 memory locations and ability to choose what locations to reference
  * added PH expansion and water level xml tags to string file, not parsed yet though
  * fixed parsing issue with byte storage values
@@ -106,7 +106,7 @@ Changelog of all the versions of AndroidStatus
  * added PH visibility toggling
  * added additional memory locations
  
-0.7
+0.7 - July 14, 2012
  * fixed labels not downloading from portal
  * added water level and ph expansion fields to database
  * added dimming, radion, vortech, ai, io, custom variables pages (swipe)
@@ -114,13 +114,13 @@ Changelog of all the versions of AndroidStatus
  * added changelog displaying
  * minor bug fixes and improvements
  
-0.7.1
+0.7.1 - August 1, 2012
  * fixed I/O port 0 only updating
  * removed extra I/O port displaying
  * updated module pages to be after the relay pages
  * minor bug fixes
  
-0.8.0
+0.8.0 - August 30, 2012
  * created ContentProvider for external apps to access the stored parameters
  * added automatic updating of status
  ** enabled by default, 15 minute intervals
@@ -141,7 +141,7 @@ Changelog of all the versions of AndroidStatus
  * dropped support for devices below Android 2.0
  * lots of code updates and reorganization
 
-0.8.1
+0.8.1 - January 11, 2013
  * updated the settings page to make it simpler and fewer screens
  * updated for ics and jellybean
  * updated to new logo
@@ -150,7 +150,7 @@ Changelog of all the versions of AndroidStatus
  ** default 5 second interval between retries
  * switched changelog to html view
  
-0.8.2
+0.8.2 - April 2, 2013
  * added ability to disable specific relays to prevent accidental toggling from the app (from triggerNZ)
  ** default all relays are enabled
  * ability to reset disabled ports to defaults
@@ -158,7 +158,7 @@ Changelog of all the versions of AndroidStatus
  * moved date and time tab from memory to commands page
  * code updates
 
-0.9.0
+0.9.0 - May 13, 2013
  * added actionbar support - profile toggle and refresh in title bar
  * added indicators to pages
  * added commands page to swipe left from the status page
@@ -173,10 +173,10 @@ Changelog of all the versions of AndroidStatus
  * added lights on / off commands
  * code updates and cleanup
  
-0.9.1
+0.9.1 - May 15, 2013
  * allow spaces in forum usernames
  
-0.9.2
+0.9.2 - June 14, 2013
  * switched entirely to ContentProvider for better database functionality
  * ability to add custom notifications based on parameters from the controller
  * improved error logging to be stored in a database table
@@ -191,12 +191,12 @@ Changelog of all the versions of AndroidStatus
  * fixed expansion relay bug with autoupdate modules
  * code cleanup
  
-0.9.3
+0.9.3 - December 24, 2013
  * settings for Connection Timeout and Read Timeout
  * added in new memory locations for v1.1.0 libraries
  * added reboot command
  
-0.9.4
+0.9.4 - May 26, 2014
  * improved XML downloading
  * added 4 channel water level displaying
  * allow portal to be chosen from first run screen
@@ -205,7 +205,7 @@ Changelog of all the versions of AndroidStatus
  * added humidity expansion
  * code cleanup
  
-0.9.5
+0.9.5 - June 21, 2014
  * added in pwm override control
  * added in calibration commands
  * added in flags page to display Status and Alert flags
@@ -215,7 +215,7 @@ Changelog of all the versions of AndroidStatus
  ** popup starts with current values instead of defaulting to 0
  * code cleanup
  
-0.9.6
+1.0 - August 20, 2014
  * added in basic webserver authentication mechanism for v1.1.1 libraries
  * switched the position of Commands page and Flags Page
  * added in Notifications for Water Level 1-4 and Humidity
@@ -225,5 +225,6 @@ Changelog of all the versions of AndroidStatus
  * changed minsdk to 7 (was 5), which is Android 2.1
  * improved error messages
  * added the ability to display the error log file
+ * added preference to keep screen on when displaying the main screen
  * code cleanup and bug fixes
  
