@@ -25,6 +25,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
             android:key="@string/prefAutoRefreshAfterUpdateKey"
             android:summary="@string/prefAutoRefreshAfterUpdateSummary"
             android:title="@string/prefAutoRefreshAfterUpdateTitle" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/prefKeepScreenOnKey"
+            android:summary="@string/prefKeepScreenOnSummary"
+            android:title="@string/prefKeepScreenOnTitle" />
         <ListPreference
             android:defaultValue="@string/prefConnectionTimeoutDefault"
             android:entries="@array/networkTimeout"

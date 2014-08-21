@@ -434,6 +434,8 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExpSCDimmingCh15LabelTitle">Channel 15</string>
     <string name="prefUpdateControllerIPSummary">Updates the home host from the last updated host on the Portal</string>
     <string name="prefUpdateControllerIPTitle">Update Home Host</string>
+    <string name="prefKeepScreenOnSummary">Keeps the screen from shutting off while the app is open</string>
+    <string name="prefKeepScreenOnTitle">Keep Screen On</string>
 
     <!-- Preference Keys -->
     <string name="prefFirstRunKey">firstrun</string>
@@ -631,6 +633,7 @@ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</stri
     <string name="prefExpSCDimmingCh14LabelKey">exp_sc_dim_14</string>
     <string name="prefExpSCDimmingCh15LabelKey">exp_sc_dim_15</string>
     <string name="prefUpdateControllerIPKey">update_controller_ip</string>
+    <string name="prefKeepScreenOnKey">keep_screen_on</string>
 
     <!-- Permissions -->
     <string name="permissionQueryStatusLabel">Query status of controller</string>

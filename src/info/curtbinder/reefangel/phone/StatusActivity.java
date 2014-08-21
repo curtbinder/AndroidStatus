@@ -46,6 +46,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
@@ -188,6 +189,10 @@ public class StatusActivity extends BaseActivity implements
 
 		updateViewsVisibility();
 		updateDisplay();
+		
+		if ( rapp.raprefs.isKeepScreenOnEnabled() ) {
+			getWindow().addFlags( WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON );
+		}
 
 		// the last thing we do is display the changelog if necessary
 		rapp.displayChangeLog( this );

@@ -483,6 +483,10 @@ public class RAPreferences {
 	public boolean isAutoUpdateModulesEnabled ( ) {
 		return getBoolean( R.string.prefAutoUpdateModulesKey, true );
 	}
+	
+	public boolean isKeepScreenOnEnabled() {
+		return getBoolean(R.string.prefKeepScreenOnKey, false);
+	}
 
 	public int getTotalInstalledModuleQuantity ( ) {
 		// this function gets all the installed modules for the controller
