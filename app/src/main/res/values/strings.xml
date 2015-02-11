@@ -161,6 +161,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="labelAtoClear">ATO Clear</string>
     <string name="labelOverheatClear">Overheat Clear</string>
     <string name="labelVersion">Installed Version:</string>
+    <string name="labelMemoryLocation">Memory Location:</string>
     <string name="labelLocation">Location:</string>
     <string name="labelValue">Value:</string>
     <string name="labelType">Type:</string>

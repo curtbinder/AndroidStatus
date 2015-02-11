@@ -35,7 +35,7 @@
         android:stretchColumns="1">
 
         <TextView
-            android:text="Memory Location:"
+            android:text="@string/labelMemoryLocation"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textStyle="bold" />
 
