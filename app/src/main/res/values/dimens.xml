@@ -29,7 +29,6 @@
     <dimen name="row_vertical_padding">8dp</dimen>
     <dimen name="row_horizontal_padding">8dp</dimen>
     <dimen name="frag_item_horizontal_padding">10dp</dimen>
-    <dimen name="row_indent_padding">32dp</dimen>
 
         <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
          https://developer.android.com/design/patterns/navigation-drawer.html -->
