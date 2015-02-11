@@ -382,12 +382,24 @@ public class MainActivity extends ActionBarActivity
 
     private void hideMenuItems(Menu menu, boolean open) {
         // hide the menu item(s) when the drawer is open
-//        MenuItem mi = menu.findItem(R.id.action_example);
-//        if (mi != null)
-//            mi.setVisible(!open);
-//        mi = menu.findItem(R.id.action_settings);
-//        if (mi != null)
-//            mi.setVisible(!open);
+        // Refresh button on Status page
+        MenuItem mi = menu.findItem(R.id.action_refresh);
+        if ( mi != null )
+            mi.setVisible(!open);
+
+        // Add button on Notification page
+        mi = menu.findItem(R.id.action_add_notification);
+        if ( mi != null )
+            mi.setVisible(!open);
+        // Delete button on Notification page
+        mi = menu.findItem(R.id.action_delete_notification);
+        if ( mi != null )
+            mi.setVisible(!open);
+
+        // Delete button on History and Error pages
+        mi = menu.findItem(R.id.menu_delete);
+        if ( mi != null )
+            mi.setVisible(!open);
     }
 
     @SuppressLint("NewApi")
