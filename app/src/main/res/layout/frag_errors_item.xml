@@ -28,24 +28,29 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:padding="8sp" >
+    android:padding="@dimen/row_horizontal_padding">
 
     <TextView
         android:id="@+id/error_date"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/placeholder_controllertime"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/error_dash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/error_date"
-        android:text=" - " />
+        android:text=" - "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/error_message"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/error_dash" />
+        android:layout_toRightOf="@id/error_dash"
+        android:text="@string/placeholder_errorstring"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
