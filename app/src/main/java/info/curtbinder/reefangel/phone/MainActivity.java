@@ -306,7 +306,7 @@ public class MainActivity extends ActionBarActivity
                     fragment = new ErrorsFragment();
                     break;
                 case 5:
-                    fragment = new DateTimeFragment();
+                    fragment = DateTimeFragment.newInstance();
                     break;
             }
 
