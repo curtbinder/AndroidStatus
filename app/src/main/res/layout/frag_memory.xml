@@ -26,63 +26,78 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent">
 
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/frag_item_horizontal_padding"
-        android:stretchColumns="1" >
+        android:padding="@dimen/activity_horizontal_margin"
+        android:stretchColumns="1">
 
-        <TextView android:text="@string/descriptionMemory" />
+        <TextView
+            android:text="Memory Location:"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold" />
 
         <Spinner android:id="@+id/spinMemoryLocation" />
+
         <!-- Location edit box, disabled unless CUSTOM location -->
+        <TableRow android:id="@+id/locationRow">
 
-        <TableRow android:id="@+id/locationRow" >
-
-            <TextView android:text="@string/labelLocation" />
+            <TextView
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/labelLocation"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
                 android:id="@+id/locationText"
-                android:inputType="number" >
-            </EditText>
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:inputType="number"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </TableRow>
 
-        <TableRow android:id="@+id/typeRow" >
+        <TableRow android:id="@+id/typeRow">
 
             <TextView
                 android:layout_gravity="center_vertical"
-                android:text="@string/labelType" />
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/labelType"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <RadioGroup
-                android:orientation="horizontal"
-                android:layout_width="fill_parent" >
+                android:layout_width="fill_parent"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/radioButtonByte"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/radioByte" />
+                    android:layout_weight="1"
+                    android:text="@string/radioByte"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <RadioButton
                     android:id="@+id/radioButtonInt"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/radioInt" />
+                    android:layout_weight="1"
+                    android:text="@string/radioInt"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
             </RadioGroup>
         </TableRow>
+
         <!-- Value edit box -->
+        <TableRow android:layout_marginTop="@dimen/activity_vertical_margin">
 
-        <TableRow>
-
-            <TextView android:text="@string/labelValue" />
+            <TextView
+                android:text="@string/labelValue"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
                 android:id="@+id/valueText"
-                android:inputType="number" >
+                android:inputType="number"
+                android:textAppearance="?android:attr/textAppearanceMedium">
 
                 <requestFocus />
             </EditText>
@@ -96,26 +111,23 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/buttonRead"
                     android:layout_width="fill_parent"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="@string/buttonRead" />
 
                 <Button
                     android:id="@+id/buttonWrite"
                     android:layout_width="fill_parent"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="@string/buttonWrite" />
             </LinearLayout>
 
         </TableRow>
-        <!--
-        <TextView
-            android:id="@+id/statusText" />
-        -->
     </TableLayout>
 
 </ScrollView>
