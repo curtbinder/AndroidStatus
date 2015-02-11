@@ -36,6 +36,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -51,7 +52,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 public class MainActivity extends ActionBarActivity
-        implements android.support.v7.app.ActionBar.OnNavigationListener {
+        implements android.support.v7.app.ActionBar.OnNavigationListener,
+        FragmentManager.OnBackStackChangedListener {
 
     private static final String OPENED_KEY = "OPENED_KEY";
     private static final String STATE_CHECKED = "DRAWER_CHECKED";
@@ -64,14 +66,11 @@ public class MainActivity extends ActionBarActivity
     private RAApplication raApp;
     private String[] mNavTitles;
     private DrawerLayout mDrawerLayout;
-    private LinearLayout mDrawer;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
-    private boolean fAddToBackStack = false;
-    private int mCurrentPosition = 0;
-    private int mOldPosition = -1;
     private SharedPreferences prefs = null;
     private Boolean opened = null;
+    private int mOldPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,19 +79,16 @@ public class MainActivity extends ActionBarActivity
 
         raApp = (RAApplication) getApplication();
 
+        // Load any saved position
+        int position = 0;
         if ( savedInstanceState != null ) {
-            int pos = savedInstanceState.getInt(STATE_CHECKED, -1);
-            int oldpos = savedInstanceState.getInt(PREVIOUS_CHECKED, -1);
-            Log.d(TAG, "onRestoreInstanceState, cur: " + pos + " old: " + oldpos);
-            mCurrentPosition = pos;
-            mOldPosition = oldpos;
+            position = savedInstanceState.getInt(STATE_CHECKED, 0);
+            Log.d(TAG, "Restore, position: " + position);
         }
-        setupNavDrawer(savedInstanceState);
-        updateContent();
+        setupNavDrawer();
         updateActionBar();
-
-        // selectItem( 0 );
-        fAddToBackStack = true;
+        getSupportFragmentManager().addOnBackStackChangedListener(this);
+        selectItem(position);
 
         // launch a new thread to show the drawer on very first app launch
         new Thread(new Runnable() {
@@ -101,7 +97,7 @@ public class MainActivity extends ActionBarActivity
                 prefs = getPreferences(MODE_PRIVATE);
                 opened = prefs.getBoolean(OPENED_KEY, false);
                 if (!opened) {
-                    mDrawerLayout.openDrawer(mDrawer);
+                    mDrawerLayout.openDrawer(mDrawerList);
                 }
             }
         }).start();
@@ -110,21 +106,9 @@ public class MainActivity extends ActionBarActivity
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
-        Log.d(TAG, "onSaveInstanceState");
-        outState.putInt(STATE_CHECKED, mDrawerList.getCheckedItemPosition());
-        outState.putInt(PREVIOUS_CHECKED, mOldPosition);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-//        int pos = savedInstanceState.getInt(STATE_CHECKED, -1);
-//        int oldpos = savedInstanceState.getInt(PREVIOUS_CHECKED, -1);
-//
-//        Log.d(TAG, "onRestoreInstanceState, cur: " + pos + " old: " + oldpos);
-//        if (pos > -1) {
-//            mDrawerList.setItemChecked(pos, true);
-//        }
+        // get the checked item and subtract off one to get the actual position
+        // the same logic applies that is used in the DrawerItemClickedListener.onItemClicked
+        outState.putInt(STATE_CHECKED, mDrawerList.getCheckedItemPosition()-1);
     }
 
     @Override
@@ -145,14 +129,12 @@ public class MainActivity extends ActionBarActivity
         super.onPause();
     }
 
-    private void setupNavDrawer(Bundle savedInstanceState) {
-        Log.d(TAG, "setupNavDrawer");
+    private void setupNavDrawer() {;
         // get the string array for the navigation items
         mNavTitles = getResources().getStringArray(R.array.nav_items);
 
         // locate the navigation drawer items in the layout
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawer = (LinearLayout) findViewById(R.id.drawer);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         // set a custom shadow that overlays the main content when the drawer
@@ -160,19 +142,18 @@ public class MainActivity extends ActionBarActivity
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
                 GravityCompat.START);
 
+        // add in the logo header
+        View header = getLayoutInflater().inflate(R.layout.drawer_list_header, null);
+        mDrawerList.addHeaderView(header, null, false);
+
         // set the adapter for the navigation list view
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(this, R.layout.drawer_list_item,
                         mNavTitles);
         mDrawerList.setAdapter(adapter);
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-        mDrawerList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        if (savedInstanceState == null) {
-            mDrawerList.setItemChecked(0, true);
-        } else {
-            mDrawerList.setItemChecked(mCurrentPosition, true);
-        }
 
+        // setup the toggling for the drawer
         mDrawerToggle =
                 new MyDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer,
                         R.string.drawer_open, R.string.drawer_close);
@@ -239,21 +220,77 @@ public class MainActivity extends ActionBarActivity
         mDrawerToggle.syncState();
     }
 
-    @SuppressLint("NewApi")
-    protected void myInvalidateOptionsMenu() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            supportInvalidateOptionsMenu();
-        } else {
-            invalidateOptionsMenu();
+    @Override
+    public void onBackPressed() {
+        /*
+        When the back button is pressed, this function is called.
+        If the drawer is open, check it and cancel it here.
+
+        Calling super.onBackPressed() causes the BackStackChangeListener to be called
+         */
+//        Log.d(TAG, "onBackPressed");
+        if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+//            Log.d(TAG, "drawer open, closing");
+            mDrawerLayout.closeDrawer(mDrawerList);
+            return;
         }
+        super.onBackPressed();
     }
 
-    private void updateContent() {
-        getSupportActionBar().setTitle(mNavTitles[mCurrentPosition]);
-        if (mCurrentPosition != mOldPosition) {
+    @Override
+    public void onBackStackChanged() {
+//        Log.d(TAG, "onBackStackChanged");
+        /*
+        This is called when there is a change to the backstack.
+        The call is when items are added or removed from the backstack.
+        Mostly just need to update the UI in this function.
+
+        Since we are replacing all the fragments in our example, we need to check
+        for an empty backstack and exit the app when it is encountered. If we do not,
+        we are left with a blank screen in the activity and the last fragment is removed.
+        We are then required to press back one more time to actually exit the application.
+        This check combines the extra step to make it function more naturally.
+         */
+        FragmentManager manager = getSupportFragmentManager();
+        //dumpBackStack(manager);
+        int count = manager.getBackStackEntryCount();
+        if (count == 0) {
+//            Log.d(TAG, "empty backstack, exit");
+            finish();
+            return;
+        }
+        /*
+        Our fragment backstack uses the position number in the navigation drawer as
+        the fragment tag for simplicity with highlighting the item.
+
+        uncertain how this will be handled if we have additional fragments added to the
+        backstack that are not referenced in the navigation drawer
+         */
+        FragmentManager.BackStackEntry entry = manager.getBackStackEntryAt(count - 1);
+        int last = Integer.parseInt(entry.getName());
+        highlightItem(last);
+    }
+
+    /*private void dumpBackStack(FragmentManager fm) {
+        // dumps the contents of the backstack in a string
+        int count = fm.getBackStackEntryCount();
+        // 0 based index, last item is 1 less than count
+        FragmentManager.BackStackEntry e;
+        String s = "";
+        for (int i = count - 1; i >= 0; i--) {
+            e = fm.getBackStackEntryAt(i);
+            s += e.getName() + ", ";
+        }
+        s += "null";
+        Log.d(TAG, "BS Dump (" + count + "): " + s);
+    }*/
+
+    private void updateContent(int position) {
+        getSupportActionBar().setTitle(mNavTitles[position]);
+        if (position != mOldPosition) {
             // update the main content by replacing fragments
             Fragment fragment;
-            switch (mCurrentPosition) {
+            switch (position) {
                 default:
                 case 0:
                     fragment = new StatusFragment();
@@ -275,20 +312,30 @@ public class MainActivity extends ActionBarActivity
                     break;
             }
 
+            Log.d(TAG, "UpdateContent: " + position);
             FragmentTransaction ft =
                     getSupportFragmentManager().beginTransaction();
-
-            Log.d(TAG, "Old Pos: " + mOldPosition + " New Pos: " + mCurrentPosition);
             ft.replace(R.id.content_frame, fragment);
-            if (fAddToBackStack) {
-                // TODO implement backstack listener in order to change/update
-                // title
-                ft.addToBackStack(null);
-            }
-
+            ft.addToBackStack("" + position);
             ft.commit();
-            mOldPosition = mCurrentPosition;
+            mOldPosition = position;
         }
+    }
+
+    public void selectItem(int position) {
+//        Log.d(TAG, "selectItem: " + position);
+        updateContent(position);
+        mDrawerLayout.closeDrawer(mDrawerList);
+    }
+
+    public void highlightItem(int position) {
+//        Log.d(TAG, "highlightItem: " + position);
+        // since we are using a header for the list, the first
+        // item/position in the list is the header. our header is non-selectable
+        // so in order for us to have the proper item in our list selected, we must
+        // increase the position by 1. this same logic is applied to the
+        // DrawerItemClickedListener.onItemClicked
+        mDrawerList.setItemChecked(position+1, true);
     }
 
     @Override
@@ -326,12 +373,32 @@ public class MainActivity extends ActionBarActivity
     // called whenever we call invalidateOptionsMenu()
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        // if nav drawer is open, hide actions other than settings and help
-//        boolean open = isDrawerOpen();
-//        MenuItem r = menu.findItem(R.id.action_refresh);
-//        if ( r != null )
-//            r.setVisible(!open);
+        /*
+        This function is called after invalidateOptionsMenu is called.
+        This happens when the Navigation drawer is opened and closed.
+         */
+        boolean open = mDrawerLayout.isDrawerOpen(mDrawerList);
+        hideMenuItems(menu, open);
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    private void hideMenuItems(Menu menu, boolean open) {
+        // hide the menu item(s) when the drawer is open
+//        MenuItem mi = menu.findItem(R.id.action_example);
+//        if (mi != null)
+//            mi.setVisible(!open);
+//        mi = menu.findItem(R.id.action_settings);
+//        if (mi != null)
+//            mi.setVisible(!open);
+    }
+
+    @SuppressLint("NewApi")
+    protected void myInvalidateOptionsMenu() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+            supportInvalidateOptionsMenu();
+        } else {
+            invalidateOptionsMenu();
+        }
     }
 
     private class MyDrawerToggle extends ActionBarDrawerToggle {
@@ -347,8 +414,7 @@ public class MainActivity extends ActionBarActivity
         @Override
         public void onDrawerClosed(View drawerView) {
             super.onDrawerClosed(drawerView);
-            Log.d(TAG, "DrawerClosed");
-            updateContent();
+//            Log.d(TAG, "DrawerClosed");
             myInvalidateOptionsMenu();
             if (opened != null && !opened) {
                 // drawer closed for the first time ever,
@@ -381,20 +447,12 @@ public class MainActivity extends ActionBarActivity
                 int position,
                 long id) {
             // Perform action when a drawer item is selected
-            // call parent classes function
-            // selectItem( position );
-            mCurrentPosition = position;
-            //mDrawerLayout.closeDrawer( mDrawerList );
-            mDrawerLayout.closeDrawer(mDrawer);
+//            Log.d(TAG, "onDrawerItemClick: " + position);
+            // when we have a list header, it counts as a position in the list
+            // the first position to be exact. so we have to decrease the
+            // position by 1 to get the proper item chosen in our list
+            selectItem(position-1);
         }
 
     }
-
-//    public boolean isDrawerOpen() {
-//        boolean f = false;
-//        if ( mDrawerLayout != null && mDrawerList != null ) {
-//            f = mDrawerLayout.isDrawerOpen(mDrawerList);
-//        }
-//        return f;
-//    }
 }
