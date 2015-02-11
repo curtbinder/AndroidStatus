@@ -35,4 +35,8 @@
     <string name="placeholder_value">Value</string>
     <string name="placeholder_controllertime">12/12/2015 12:36:21 PM</string>
     <string name="placeholder_errorstring">Error 13 - Device Authentication Error</string>
+    <string name="placeholder_logdate">Dec 20, 2014 12:36:16 PM</string>
+    <string name="placeholder_history_pt1">89.0</string>
+    <string name="placeholder_history_pt2">100.0</string>
+    <string name="placeholder_history_pt3">74.0</string>
 </resources>

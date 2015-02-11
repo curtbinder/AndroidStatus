@@ -34,5 +34,9 @@
     <string name="placeholder_subtitle"></string>
     <string name="placeholder_value"></string>
     <string name="placeholder_controllertime"></string>
+    <string name="placeholder_logdate"></string>
     <string name="placeholder_errorstring"></string>
+    <string name="placeholder_history_pt1"></string>
+    <string name="placeholder_history_pt2"></string>
+    <string name="placeholder_history_pt3"></string>
 </resources>

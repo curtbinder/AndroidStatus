@@ -24,47 +24,77 @@
   ~ SOFTWARE.
   -->
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:layout_marginBottom="@dimen/row_vertical_padding"
+    android:layout_marginTop="@dimen/row_vertical_padding"
     android:orientation="vertical"
-    android:padding="10sp">
+    android:padding="@dimen/row_horizontal_padding">
+
     <TextView
         android:id="@+id/plog"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/placeholder_logdate"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <TextView
         android:id="@+id/plogcolon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=": " 
-        android:layout_toRightOf="@id/plog" />
+        android:layout_toRightOf="@id/plog"
+        android:text=": "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <TextView
         android:id="@+id/pt1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/plogcolon" />
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/plog"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/row_vertical_padding"
+        android:text="@string/placeholder_history_pt1"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <TextView
         android:id="@+id/pt1comma"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=", " 
-        android:layout_toRightOf="@id/pt1" /> 
+        android:layout_below="@id/plog"
+        android:layout_toRightOf="@id/pt1"
+        android:paddingTop="@dimen/row_vertical_padding"
+        android:text=", "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <TextView
         android:id="@+id/pt2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/pt1comma" />
+        android:layout_below="@id/plog"
+        android:layout_toRightOf="@id/pt1comma"
+        android:paddingTop="@dimen/row_vertical_padding"
+        android:text="@string/placeholder_history_pt2"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <TextView
         android:id="@+id/pt2comma"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/plog"
+        android:layout_toRightOf="@id/pt2"
+        android:paddingTop="@dimen/row_vertical_padding"
         android:text=", "
-        android:layout_toRightOf="@id/pt2" /> 
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <TextView
         android:id="@+id/pt3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/pt2comma" />
+        android:layout_below="@id/plog"
+        android:layout_toRightOf="@id/pt2comma"
+        android:paddingTop="@dimen/row_vertical_padding"
+        android:text="@string/placeholder_history_pt3"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 </RelativeLayout>
