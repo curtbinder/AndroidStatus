@@ -49,7 +49,10 @@
         android:id="@+id/error_message"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/error_dash"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/error_date"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/row_vertical_padding"
         android:text="@string/placeholder_errorstring"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
