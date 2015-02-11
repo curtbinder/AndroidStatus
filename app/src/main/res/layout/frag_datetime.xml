@@ -3,7 +3,7 @@
 <!--
   ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2012 Curt Binder
+  ~ Copyright (c) 2015 Curt Binder
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -32,115 +32,123 @@
     <TableLayout
         android:id="@+id/tableLayout1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:text="@string/descriptionCurrentControllerTime" />
+            android:text="@string/labelDateController"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <TextView
+            android:id="@+id/timeTextControllerTime"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/placeholder_controllertime"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textIsSelectable="false"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:gravity="center"/>
 
         <TableRow
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp" >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:text="@string/labelDateController" />
-
-            <TextView
-                android:id="@+id/timeTextControllerTime"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textIsSelectable="false" />
-        </TableRow>
-
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/activity_vertical_margin">
         <Button
             android:id="@+id/timeButtonGetControllerTime"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/buttonGetControllerTime" />
+            android:text="@string/buttonGetControllerTime"
+            android:layout_marginRight="@dimen/row_horizontal_padding"
+            android:layout_marginEnd="@dimen/row_horizontal_padding"
+            android:layout_weight="1"/>
 
         <Button
             android:id="@+id/timeButtonSetCurrentTime"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/buttonSetCurrentTime" />
+            android:text="@string/buttonSetCurrentTime"
+            android:layout_weight="1"/>
+        </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"/>
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:text="@string/descriptionCustomControllerTime" />
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:text="@string/labelDateCustomController"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp" >
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/labelDateTime" />
 
             <TextView
                 android:id="@+id/timeTextCustomTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textIsSelectable="false" />
+                android:textIsSelectable="false"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
         </TableRow>
 
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp" >
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+             >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/labelDate" />
 
             <TextView
                 android:id="@+id/timeTextCustomDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textIsSelectable="false" />
+                android:textIsSelectable="false"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
         </TableRow>
 
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp" >
+            android:layout_marginBottom="@dimen/row_vertical_padding"
+            >
 
             <Button
                 android:id="@+id/timeButtonChangeTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginRight="@dimen/row_horizontal_padding"
+                android:layout_marginEnd="@dimen/row_horizontal_padding"
                 android:text="@string/buttonChangeTime" />
 
             <Button

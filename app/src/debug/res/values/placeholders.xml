@@ -33,4 +33,5 @@
     <string name="placeholder_title">Title</string>
     <string name="placeholder_subtitle">Subtitle</string>
     <string name="placeholder_value">Value</string>
+    <string name="placeholder_controllertime">12/12/2015 12:36:21 PM</string>
 </resources>

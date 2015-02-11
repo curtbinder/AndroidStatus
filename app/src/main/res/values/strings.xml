@@ -88,8 +88,6 @@ your controller or have a ReefAngel UserID to use this app.</string>
 * Port: Enter the port for the controller (leave blank if unknown or the default).\n
 * User ID: Enter your username for the forum. This is to download your labels and/or data from the portal.</string>
     <!-- Date and Time screen -->
-    <string name="descriptionCurrentControllerTime">Press \'Get Time\' to retrieve the current date and time from the controller.  Press \'Set Current Time\' to set the date and time to match your device.</string>
-    <string name="descriptionCustomControllerTime">You can enter a custom date and time. Use \'Change Time\' or \'Change Date\' to enter the custom date and time. Use \'Set Custom Time\' to set it.</string>
     <string name="descriptionMode">Change the Vortech Mode</string>
     <string name="descriptionSpeed">Change the Vortech Speed</string>
     <string name="descriptionDuration">Change the Vortech Duration</string>
@@ -115,9 +113,9 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="buttonAtoClear">Clear ATO</string>
     <string name="buttonOverheatClear">Clear Overheat</string>
     <string name="buttonGetControllerTime">Get Time</string>
-    <string name="buttonSetCurrentTime">Set Current Time</string>
-    <string name="buttonChangeDate">Change Date</string>
-    <string name="buttonChangeTime">Change Time</string>
+    <string name="buttonSetCurrentTime">Set to match device</string>
+    <string name="buttonChangeDate">Choose Date</string>
+    <string name="buttonChangeTime">Choose Time</string>
     <string name="buttonSetCustomTime">Set Custom Time</string>
     <string name="buttonCancel">Cancel</string>
     <string name="buttonUpdate">Update</string>
@@ -166,7 +164,8 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="labelLocation">Location:</string>
     <string name="labelValue">Value:</string>
     <string name="labelType">Type:</string>
-    <string name="labelDateController">Controller:</string>
+    <string name="labelDateController">Controller</string>
+    <string name="labelDateCustomController">Custom Controller Time</string>
     <string name="labelDateTime">Time:</string>
     <string name="labelDate">Date:</string>
     <string name="labelDimming">Dimming</string>

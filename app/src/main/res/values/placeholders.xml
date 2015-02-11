@@ -33,4 +33,5 @@
     <string name="placeholder_title"></string>
     <string name="placeholder_subtitle"></string>
     <string name="placeholder_value"></string>
+    <string name="placeholder_controllertime"></string>
 </resources>
