@@ -48,7 +48,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 public class MainActivity extends ActionBarActivity
@@ -57,7 +56,6 @@ public class MainActivity extends ActionBarActivity
 
     private static final String OPENED_KEY = "OPENED_KEY";
     private static final String STATE_CHECKED = "DRAWER_CHECKED";
-//    private static final String POSITION = "POSITION";
     private static final String PREVIOUS_CHECKED = "PREVIOUS";
 
     // do not switch selected profile when restoring the application state
@@ -81,7 +79,7 @@ public class MainActivity extends ActionBarActivity
 
         // Load any saved position
         int position = 0;
-        if ( savedInstanceState != null ) {
+        if (savedInstanceState != null) {
             position = savedInstanceState.getInt(STATE_CHECKED, 0);
             Log.d(TAG, "Restore, position: " + position);
         }
@@ -108,7 +106,7 @@ public class MainActivity extends ActionBarActivity
         super.onSaveInstanceState(outState);
         // get the checked item and subtract off one to get the actual position
         // the same logic applies that is used in the DrawerItemClickedListener.onItemClicked
-        outState.putInt(STATE_CHECKED, mDrawerList.getCheckedItemPosition()-1);
+        outState.putInt(STATE_CHECKED, mDrawerList.getCheckedItemPosition() - 1);
     }
 
     @Override
@@ -129,7 +127,8 @@ public class MainActivity extends ActionBarActivity
         super.onPause();
     }
 
-    private void setupNavDrawer() {;
+    private void setupNavDrawer() {
+        ;
         // get the string array for the navigation items
         mNavTitles = getResources().getStringArray(R.array.nav_items);
 
@@ -335,7 +334,7 @@ public class MainActivity extends ActionBarActivity
         // so in order for us to have the proper item in our list selected, we must
         // increase the position by 1. this same logic is applied to the
         // DrawerItemClickedListener.onItemClicked
-        mDrawerList.setItemChecked(position+1, true);
+        mDrawerList.setItemChecked(position + 1, true);
     }
 
     @Override
@@ -357,7 +356,7 @@ public class MainActivity extends ActionBarActivity
         switch (item.getItemId()) {
             case R.id.action_settings:
                 Fragment f = getSupportFragmentManager().findFragmentById(R.id.content_frame);
-                if ( f instanceof StatusFragment ) {
+                if (f instanceof StatusFragment) {
                     // the current fragment is the status fragment
                     Log.d(TAG, "Status Fragment is current");
                     ((StatusFragment) f).reloadPages();
@@ -451,7 +450,7 @@ public class MainActivity extends ActionBarActivity
             // when we have a list header, it counts as a position in the list
             // the first position to be exact. so we have to decrease the
             // position by 1 to get the proper item chosen in our list
-            selectItem(position-1);
+            selectItem(position - 1);
         }
 
     }
