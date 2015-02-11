@@ -128,7 +128,6 @@ public class MainActivity extends ActionBarActivity
     }
 
     private void setupNavDrawer() {
-        ;
         // get the string array for the navigation items
         mNavTitles = getResources().getStringArray(R.array.nav_items);
 
