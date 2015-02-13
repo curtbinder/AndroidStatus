@@ -65,6 +65,13 @@ public class HistoryFragment extends ListFragment
 
     private static RAApplication raApp;
 
+    public static HistoryFragment newInstance() {
+        return new HistoryFragment();
+    }
+
+    public HistoryFragment() {
+    }
+
     @Override
     public View onCreateView (
             LayoutInflater inflater,

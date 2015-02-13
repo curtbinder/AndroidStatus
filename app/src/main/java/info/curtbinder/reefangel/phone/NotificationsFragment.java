@@ -70,6 +70,13 @@ public class NotificationsFragment extends ListFragment
     private TextView tv;
     private boolean fRunOnStartup;
 
+    public static NotificationsFragment newInstance() {
+        return new NotificationsFragment();
+    }
+
+    public NotificationsFragment() {
+    }
+
     @Override
     public View onCreateView(
             LayoutInflater inflater,

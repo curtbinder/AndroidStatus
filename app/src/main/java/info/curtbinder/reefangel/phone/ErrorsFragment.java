@@ -56,6 +56,13 @@ public class ErrorsFragment extends ListFragment
     private static final Uri uri = Uri.parse( StatusProvider.CONTENT_URI + "/"
                                             + StatusProvider.PATH_ERROR );
 
+    public static ErrorsFragment newInstance() {
+        return new ErrorsFragment();
+    }
+
+    public ErrorsFragment() {
+    }
+
     @Override
     public View onCreateView(
             LayoutInflater inflater,

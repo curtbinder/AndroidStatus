@@ -291,19 +291,19 @@ public class MainActivity extends ActionBarActivity
             switch (position) {
                 default:
                 case 0:
-                    fragment = new StatusFragment();
+                    fragment = StatusFragment.newInstance();
                     break;
                 case 1:
                     fragment = MemoryFragment.newInstance(raApp.raprefs.useOldPre10MemoryLocations());
                     break;
                 case 2:
-                    fragment = new NotificationsFragment();
+                    fragment = NotificationsFragment.newInstance();
                     break;
                 case 3:
-                    fragment = new HistoryFragment();
+                    fragment = HistoryFragment.newInstance();
                     break;
                 case 4:
-                    fragment = new ErrorsFragment();
+                    fragment = ErrorsFragment.newInstance();
                     break;
                 case 5:
                     fragment = DateTimeFragment.newInstance();
