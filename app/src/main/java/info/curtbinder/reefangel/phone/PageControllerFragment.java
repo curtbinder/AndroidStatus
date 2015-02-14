@@ -117,10 +117,10 @@ public class PageControllerFragment extends Fragment
             default:
                 return false;
             case R.id.dp_row:
-                f.testFunction("DP");
+                f.displayOverrideDialog(Globals.OVERRIDE_DAYLIGHT, dpValue);
                 break;
             case R.id.ap_row:
-                f.testFunction("AP");
+                f.displayOverrideDialog(Globals.OVERRIDE_ACTINIC, apValue);
                 break;
         }
         return true;
@@ -197,6 +197,8 @@ public class PageControllerFragment extends Fragment
     }
 
     public void updatePWMValues(short[] v) {
+        // TODO this function call is unnecessary
+        Log.d(TAG, "updatePWMValues: " + v[0] + ", " + v[1]);
         apValue = v[0];
         dpValue = v[1];
     }
@@ -225,12 +227,17 @@ public class PageControllerFragment extends Fragment
             h = getString(R.string.labelON); // ACTIVE, GREEN, ON
         else
             h = getString(R.string.labelOFF); // INACTIVE, RED, OFF
+        // update the ap & dp values
+        dpValue = c.getShort(c.getColumnIndex(StatusTable.COL_DP));
+        apValue = c.getShort(c.getColumnIndex(StatusTable.COL_AP));
         return new String[]{c.getString(c.getColumnIndex(StatusTable.COL_T1)),
                 c.getString(c.getColumnIndex(StatusTable.COL_T2)),
                 c.getString(c.getColumnIndex(StatusTable.COL_T3)),
                 c.getString(c.getColumnIndex(StatusTable.COL_PH)),
-                c.getString(c.getColumnIndex(StatusTable.COL_DP)) + "%",
-                c.getString(c.getColumnIndex(StatusTable.COL_AP)) + "%",
+                Controller.getPWMDisplayValue(dpValue,
+                        c.getShort(c.getColumnIndex(StatusTable.COL_PWMDO))),
+                Controller.getPWMDisplayValue(apValue,
+                        c.getShort(c.getColumnIndex(StatusTable.COL_PWMAO))),
                 l, h,
                 c.getString(c.getColumnIndex(StatusTable.COL_SAL)) + " ppt",
                 c.getString(c.getColumnIndex(StatusTable.COL_ORP)) + " mV",

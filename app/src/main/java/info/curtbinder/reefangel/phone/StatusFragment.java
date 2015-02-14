@@ -539,6 +539,10 @@ public class StatusFragment extends Fragment {
         Log.d(TAG, "testFunction: " + s);
     }
 
+    public void displayOverrideDialog(int channel, short value) {
+        Log.d(TAG, "displayOverride: channel: " + channel + ", value: " + value);
+    }
+
     protected Cursor getLatestDataCursor() {
         Uri uri = Uri.parse(StatusProvider.CONTENT_URI + "/" + StatusProvider.PATH_LATEST);
         return getActivity().getContentResolver().query(uri, null, null, null,
