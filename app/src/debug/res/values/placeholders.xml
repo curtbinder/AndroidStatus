@@ -39,4 +39,6 @@
     <string name="placeholder_history_pt1">89.0</string>
     <string name="placeholder_history_pt2">100.0</string>
     <string name="placeholder_history_pt3">74.0</string>
+    <string name="placeholder_override_pwm_msg">Channel being overridden</string>
+    <string name="placeholder_override_pwm_value">100%</string>
 </resources>

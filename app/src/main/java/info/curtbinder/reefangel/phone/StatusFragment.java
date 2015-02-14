@@ -540,7 +540,9 @@ public class StatusFragment extends Fragment {
     }
 
     public void displayOverrideDialog(int channel, short value) {
-        Log.d(TAG, "displayOverride: channel: " + channel + ", value: " + value);
+        DialogOverridePwm d = DialogOverridePwm.newInstance(channel, value,
+                raApp.getPWMOverrideMessageDisplay(channel));
+        d.show(getFragmentManager(), "dlgoverridepwm");
     }
 
     protected Cursor getLatestDataCursor() {
@@ -611,16 +613,6 @@ public class StatusFragment extends Fragment {
             }  else if ( action.equals( MessageCommands.OVERRIDE_RESPONSE_INTENT ) ) {
                 String response = intent.getStringExtra(MessageCommands.OVERRIDE_RESPONSE_STRING);
                 displayResponse(response, -1, false);
-            } else if ( action.equals( MessageCommands.OVERRIDE_POPUP_INTENT ) ) {
-                // message to display the popup
-//                int channel = intent.getIntExtra( OverridePopupActivity.CHANNEL_KEY, 0);
-//                String msg = rapp.getPWMOverrideMessageDisplay( channel );
-//                Intent i = new Intent(StatusActivity.this, OverridePopupActivity.class);
-//                i.putExtra( OverridePopupActivity.MESSAGE_KEY, msg );
-//                i.putExtra( OverridePopupActivity.CHANNEL_KEY, channel);
-//                i.putExtra( OverridePopupActivity.VALUE_KEY,
-//                        intent.getShortExtra( OverridePopupActivity.VALUE_KEY, (short) 0) );
-//                startActivity(i);
             } else if ( action.equals( MessageCommands.COMMAND_RESPONSE_INTENT ) ) {
                 String response = intent.getStringExtra( MessageCommands.COMMAND_RESPONSE_STRING );
                 displayResponse(response, -1, false);
