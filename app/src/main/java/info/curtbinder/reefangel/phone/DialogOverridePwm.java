@@ -24,34 +24,24 @@
 
 package info.curtbinder.reefangel.phone;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.SeekBar;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Locale;
 
-import info.curtbinder.reefangel.db.NotificationTable;
-import info.curtbinder.reefangel.db.StatusProvider;
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;
 
 public class DialogOverridePwm extends DialogFragment
-    implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
+        implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
 
     private static final String TAG = DialogOverridePwm.class.getSimpleName();
     private static final String CHANNEL_KEY = "channel_key";
@@ -87,7 +77,7 @@ public class DialogOverridePwm extends DialogFragment
         getDialog().setTitle(R.string.titleOverride);
         findViews(v);
         Bundle args = getArguments();
-        if ( args != null ) {
+        if (args != null) {
             pwmChannel = args.getInt(CHANNEL_KEY);
             currentValue = args.getShort(VALUE_KEY);
             tvTitle.setText(args.getString(MESSAGE_KEY));
@@ -113,7 +103,7 @@ public class DialogOverridePwm extends DialogFragment
 
     @Override
     public void onClick(View v) {
-        switch ( v.getId() ) {
+        switch (v.getId()) {
             case R.id.buttonClearOverride:
                 updateOverride(Globals.OVERRIDE_DISABLE);
                 break;
@@ -129,10 +119,10 @@ public class DialogOverridePwm extends DialogFragment
     }
 
     private void updateOverride(int value) {
-        Intent i = new Intent( getActivity(), UpdateService.class );
-        i.setAction( MessageCommands.OVERRIDE_SEND_INTENT );
-        i.putExtra( MessageCommands.OVERRIDE_SEND_LOCATION_INT, pwmChannel );
-        i.putExtra( MessageCommands.OVERRIDE_SEND_VALUE_INT, value );
+        Intent i = new Intent(getActivity(), UpdateService.class);
+        i.setAction(MessageCommands.OVERRIDE_SEND_INTENT);
+        i.putExtra(MessageCommands.OVERRIDE_SEND_LOCATION_INT, pwmChannel);
+        i.putExtra(MessageCommands.OVERRIDE_SEND_VALUE_INT, value);
         Log.d(TAG, "updateOverride: channel: " + pwmChannel + ", value: " + value);
         getActivity().startService(i);
     }

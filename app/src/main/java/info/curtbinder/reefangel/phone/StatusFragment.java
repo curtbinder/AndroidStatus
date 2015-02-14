@@ -113,7 +113,7 @@ public class StatusFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if ( mPager != null ) {
+        if (mPager != null) {
             currentPosition = mPager.getCurrentItem();
             outState.putInt(CURRENT_POSITION, currentPosition);
         }
@@ -123,7 +123,7 @@ public class StatusFragment extends Fragment {
     public void onViewStateRestored(Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
         currentPosition = POS_CONTROLLER;
-        if ( savedInstanceState != null ) {
+        if (savedInstanceState != null) {
             currentPosition = savedInstanceState.getInt(CURRENT_POSITION, POS_CONTROLLER);
         }
         Log.d(TAG, "onViewStateRestored: pos: " + currentPosition);
@@ -201,7 +201,7 @@ public class StatusFragment extends Fragment {
         mAppPageTitles[POS_IO] = getString(R.string.labelIO);
         mAppPages[POS_CUSTOM] = PageCustomFragment.newInstance();
         mAppPageTitles[POS_CUSTOM] = getString(R.string.labelCustomVariables);
-        for ( int i = POS_MAIN_RELAY, j = 0; i < POS_EXP8_RELAY+1; i++, j++ ) {
+        for (int i = POS_MAIN_RELAY, j = 0; i < POS_EXP8_RELAY + 1; i++, j++) {
             // should be 3 through 11
             mAppPages[i] = PageRelayFragment.newInstance(j);
             mAppPageTitles[i] = getRelayPageTitle(j);
@@ -229,8 +229,8 @@ public class StatusFragment extends Fragment {
         // keep track of the pages installed compared to the total pages
         // if the module is enabled, add it to the available pages list
         // then increment the installed pages counter
-        for ( page = POS_START, pos = POS_START; page <= POS_END; page++ ) {
-            switch ( page ) {
+        for (page = POS_START, pos = POS_START; page <= POS_END; page++) {
+            switch (page) {
                 // the first 4 pages are non-changeable, each case performs
                 // the same action
                 case POS_FLAGS:
@@ -241,37 +241,37 @@ public class StatusFragment extends Fragment {
                     pos++;
                     break;
                 case POS_DIMMING:
-                    if ( raApp.raprefs.getDimmingModuleEnabled() ) {
+                    if (raApp.raprefs.getDimmingModuleEnabled()) {
                         mAppPageOrder[pos] = page;
                         pos++;
                     }
                     break;
                 case POS_RADION:
-                    if ( raApp.raprefs.getRadionModuleEnabled() ) {
+                    if (raApp.raprefs.getRadionModuleEnabled()) {
                         mAppPageOrder[pos] = page;
                         pos++;
                     }
                     break;
                 case POS_VORTECH:
-                    if ( raApp.raprefs.getVortechModuleEnabled() ) {
+                    if (raApp.raprefs.getVortechModuleEnabled()) {
                         mAppPageOrder[pos] = page;
                         pos++;
                     }
                     break;
                 case POS_AI:
-                    if ( raApp.raprefs.getAIModuleEnabled() ) {
+                    if (raApp.raprefs.getAIModuleEnabled()) {
                         mAppPageOrder[pos] = page;
                         pos++;
                     }
                     break;
                 case POS_IO:
-                    if ( raApp.raprefs.getIOModuleEnabled() ) {
+                    if (raApp.raprefs.getIOModuleEnabled()) {
                         mAppPageOrder[pos] = page;
                         pos++;
                     }
                     break;
                 case POS_CUSTOM:
-                    if ( raApp.raprefs.getCustomModuleEnabled() ) {
+                    if (raApp.raprefs.getCustomModuleEnabled()) {
                         mAppPageOrder[pos] = page;
                         pos++;
                     }
@@ -284,9 +284,9 @@ public class StatusFragment extends Fragment {
                 case POS_EXP6_RELAY:
                 case POS_EXP7_RELAY:
                 case POS_EXP8_RELAY:
-                    if ( qty > 0 ) {
+                    if (qty > 0) {
                         int relay = page - POS_EXP1_RELAY;
-                        if ( relay < qty ) {
+                        if (relay < qty) {
                             mAppPageOrder[pos] = page;
                             pos++;
                         }
@@ -297,8 +297,8 @@ public class StatusFragment extends Fragment {
 
         // fill the rest of the order array with the first position...
         // ie, zero out the rest of the array
-        if ( pos < POS_END ) {
-            for ( ; pos < POS_END; pos++ ) {
+        if (pos < POS_END) {
+            for (; pos < POS_END; pos++) {
                 mAppPageOrder[pos] = POS_START;
             }
         }
@@ -306,7 +306,7 @@ public class StatusFragment extends Fragment {
 
     private String getRelayPageTitle(int relay) {
         int id;
-        switch ( relay ) {
+        switch (relay) {
             default:
             case 0:
                 id = R.string.prefMainRelayTitle;
@@ -365,7 +365,7 @@ public class StatusFragment extends Fragment {
     private void checkDeviceModules() {
         Cursor c = getLatestDataCursor();
         short newEM, newEM1, newREM;
-        if ( c.moveToFirst() ) {
+        if (c.moveToFirst()) {
             newEM = c.getShort(c.getColumnIndex(StatusTable.COL_EM));
             newEM1 = c.getShort(c.getColumnIndex(StatusTable.COL_EM1));
             newREM = c.getShort(c.getColumnIndex(StatusTable.COL_REM));
@@ -374,9 +374,9 @@ public class StatusFragment extends Fragment {
         }
         c.close();
 
-        if ( checkExpansionModules(newEM) ||
-             checkExpansionModules1(newEM1) ||
-             checkRelayModules(newREM) ) {
+        if (checkExpansionModules(newEM) ||
+                checkExpansionModules1(newEM1) ||
+                checkRelayModules(newREM)) {
             // Reload the stuff
             reloadPages();
             // TODO do we call updateViewsAndVisibility??
@@ -388,7 +388,7 @@ public class StatusFragment extends Fragment {
         boolean fReload = false;
         short oldEM = (short) raApp.raprefs.getPreviousEM();
         Log.d(TAG, "EM: Old: " + oldEM + " New: " + newEM);
-        if ( oldEM != newEM ) {
+        if (oldEM != newEM) {
             // expansion modules are different
             // set the flag to reload the pages
             fReload = true;
@@ -420,9 +420,9 @@ public class StatusFragment extends Fragment {
             f = (Controller.isWaterLevelModuleInstalled(newEM));
             Log.d(TAG, "Water: " + f);
             String key;
-            for ( int i = 0; i < Controller.MAX_WATERLEVEL_PORTS; i++ ) {
+            for (int i = 0; i < Controller.MAX_WATERLEVEL_PORTS; i++) {
                 key = "wl";
-                if ( i > 0 ) key += i;
+                if (i > 0) key += i;
                 key += "_visibility";
                 raApp.raprefs.set(key, f);
             }
@@ -437,7 +437,7 @@ public class StatusFragment extends Fragment {
         boolean fReload = false;
         short oldEM1 = (short) raApp.raprefs.getPreviousEM1();
         Log.d(TAG, "EM1: Old: " + oldEM1 + " New: " + newEM1);
-        if ( oldEM1 != newEM1 ) {
+        if (oldEM1 != newEM1) {
             fReload = true;
             boolean f;
             f = (Controller.isHumidityModuleInstalled(newEM1));
@@ -463,7 +463,7 @@ public class StatusFragment extends Fragment {
         int oldRQty = raApp.raprefs.getExpansionRelayQuantity();
         int newRQty = Controller.getRelayExpansionModulesInstalled(newREM);
         Log.d(TAG, "Old Qty: " + oldRQty + " New Qty: " + newRQty);
-        if ( oldRQty != newRQty ) {
+        if (oldRQty != newRQty) {
             fReload = true;
             Log.d(TAG, "Relays: " + newRQty);
             raApp.raprefs.set(R.string.prefExpQtyKey, Integer.toString(newRQty));
@@ -480,7 +480,7 @@ public class StatusFragment extends Fragment {
         getActivity().registerReceiver(receiver, filter, Permissions.SEND_COMMAND, null);
 
         // Redraw pages if needed
-        if ( fReloadPages ) {
+        if (fReloadPages) {
             redrawPages();
         }
 
@@ -602,47 +602,46 @@ public class StatusFragment extends Fragment {
                 // otherwise, if we have this check inside the refreshPageData function,
                 // we have this check being called every time the pages are changed when
                 // the fragment is updating its data
-                if ( raApp.raprefs.isAutoUpdateModulesEnabled() ) {
+                if (raApp.raprefs.isAutoUpdateModulesEnabled()) {
                     // update the screen / pages if necessary
                     checkDeviceModules();
                 }
-            } else if ( action.equals( MessageCommands.MEMORY_RESPONSE_INTENT ) ) {
+            } else if (action.equals(MessageCommands.MEMORY_RESPONSE_INTENT)) {
                 // for vortech responses
                 String response = intent.getStringExtra(MessageCommands.MEMORY_RESPONSE_STRING);
                 displayResponse(response, -1, false);
-            }  else if ( action.equals( MessageCommands.OVERRIDE_RESPONSE_INTENT ) ) {
+            } else if (action.equals(MessageCommands.OVERRIDE_RESPONSE_INTENT)) {
                 String response = intent.getStringExtra(MessageCommands.OVERRIDE_RESPONSE_STRING);
                 displayResponse(response, -1, false);
-            } else if ( action.equals( MessageCommands.COMMAND_RESPONSE_INTENT ) ) {
-                String response = intent.getStringExtra( MessageCommands.COMMAND_RESPONSE_STRING );
+            } else if (action.equals(MessageCommands.COMMAND_RESPONSE_INTENT)) {
+                String response = intent.getStringExtra(MessageCommands.COMMAND_RESPONSE_STRING);
                 displayResponse(response, -1, false);
-            }
-            else if ( action.equals( MessageCommands.CALIBRATE_RESPONSE_INTENT ) ) {
+            } else if (action.equals(MessageCommands.CALIBRATE_RESPONSE_INTENT)) {
                 String response =
-                        intent.getStringExtra( MessageCommands.CALIBRATE_RESPONSE_STRING );
-                displayResponse(response, R.string.statusFinished, true );
-            } else if ( action.equals( MessageCommands.VERSION_RESPONSE_INTENT ) ) {
+                        intent.getStringExtra(MessageCommands.CALIBRATE_RESPONSE_STRING);
+                displayResponse(response, R.string.statusFinished, true);
+            } else if (action.equals(MessageCommands.VERSION_RESPONSE_INTENT)) {
                 // set the version button's text to the version of the software
                 ((PageCommandsFragment) mAppPages[POS_COMMANDS]).setButtonVersion(
-                        intent.getStringExtra( MessageCommands.VERSION_RESPONSE_STRING )
+                        intent.getStringExtra(MessageCommands.VERSION_RESPONSE_STRING)
                 );
                 mUpdateTime.setText(R.string.statusFinished);
             }
         }
     }
 
-    private void displayResponse ( String response, int stringId, boolean fAlwaysToast ) {
+    private void displayResponse(String response, int stringId, boolean fAlwaysToast) {
         int msgId;
         boolean fShowToast = false;
-        if ( stringId == -1 ) {
+        if (stringId == -1) {
             msgId = R.string.statusRefreshNeeded;
         } else {
             msgId = stringId;
         }
-        if ( response.contains( XMLTags.Ok ) ) {
-            mUpdateTime.setText( msgId );
-            if ( raApp.raprefs.isAutoRefreshAfterUpdate() ) {
-                mUpdateTime.setText( R.string.statusWaiting );
+        if (response.contains(XMLTags.Ok)) {
+            mUpdateTime.setText(msgId);
+            if (raApp.raprefs.isAutoRefreshAfterUpdate()) {
+                mUpdateTime.setText(R.string.statusWaiting);
                 Log.d(TAG, "AutoRefreshAfterUpdate");
                 Handler h = new Handler();
                 Runnable r = new Runnable() {
@@ -651,14 +650,14 @@ public class StatusFragment extends Fragment {
                     }
                 };
                 // pause for a second before we proceed
-                h.postDelayed( r, 1000 );
+                h.postDelayed(r, 1000);
             }
         } else {
             fShowToast = true;
         }
 
-        if ( fAlwaysToast || fShowToast ) {
-            Toast.makeText( getActivity(), response, Toast.LENGTH_LONG ).show();
+        if (fAlwaysToast || fShowToast) {
+            Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();
         }
     }
 }
