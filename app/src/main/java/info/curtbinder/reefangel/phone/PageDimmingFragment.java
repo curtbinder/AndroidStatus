@@ -94,27 +94,26 @@ public class PageDimmingFragment extends Fragment
     public boolean onLongClick(View v) {
         View parent = (View) v.getParent();
         StatusFragment f = (StatusFragment) getParentFragment();
-        // TODO call displayOverridePopup
         switch (parent.getId()) {
             default:
                 return false;
             case R.id.rowPWME0:
-                f.testFunction("PWME0");
+                f.displayOverrideDialog(Globals.OVERRIDE_CHANNEL0, pwmeValues[0]);
                 break;
             case R.id.rowPWME1:
-                f.testFunction("PWME1");
+                f.displayOverrideDialog(Globals.OVERRIDE_CHANNEL1, pwmeValues[1]);
                 break;
             case R.id.rowPWME2:
-                f.testFunction("PWME2");
+                f.displayOverrideDialog(Globals.OVERRIDE_CHANNEL2, pwmeValues[2]);
                 break;
             case R.id.rowPWME3:
-                f.testFunction("PWME3");
+                f.displayOverrideDialog(Globals.OVERRIDE_CHANNEL3, pwmeValues[3]);
                 break;
             case R.id.rowPWME4:
-                f.testFunction("PWME4");
+                f.displayOverrideDialog(Globals.OVERRIDE_CHANNEL4, pwmeValues[4]);
                 break;
             case R.id.rowPWME5:
-                f.testFunction("PWME5");
+                f.displayOverrideDialog(Globals.OVERRIDE_CHANNEL5, pwmeValues[5]);
                 break;
         }
         return true;
@@ -156,31 +155,37 @@ public class PageDimmingFragment extends Fragment
         }
     }
 
-    public short[] getPWMEValues(Cursor c) {
-        return new short[] {
-            c.getShort(c.getColumnIndex(StatusTable.COL_PWME0)),
-            c.getShort(c.getColumnIndex(StatusTable.COL_PWME1)),
-            c.getShort(c.getColumnIndex(StatusTable.COL_PWME2)),
-            c.getShort(c.getColumnIndex(StatusTable.COL_PWME3)),
-            c.getShort(c.getColumnIndex(StatusTable.COL_PWME4)),
-            c.getShort(c.getColumnIndex(StatusTable.COL_PWME5))};
-    }
+//    public short[] getPWMEValues(Cursor c) {
+//        return new short[] {
+//            c.getShort(c.getColumnIndex(StatusTable.COL_PWME0)),
+//            c.getShort(c.getColumnIndex(StatusTable.COL_PWME1)),
+//            c.getShort(c.getColumnIndex(StatusTable.COL_PWME2)),
+//            c.getShort(c.getColumnIndex(StatusTable.COL_PWME3)),
+//            c.getShort(c.getColumnIndex(StatusTable.COL_PWME4)),
+//            c.getShort(c.getColumnIndex(StatusTable.COL_PWME5))};
+//    }
 
     private String[] getValues(Cursor c) {
-        return new String[] {
-                Controller.getPWMDisplayValue(c.getShort(c.getColumnIndex(StatusTable.COL_PWME0)),
-                        c.getShort(c.getColumnIndex(StatusTable.COL_PWME0O))),
-                Controller.getPWMDisplayValue(c.getShort(c.getColumnIndex(StatusTable.COL_PWME1)),
-                        c.getShort(c.getColumnIndex(StatusTable.COL_PWME1O))),
-                Controller.getPWMDisplayValue(c.getShort(c.getColumnIndex(StatusTable.COL_PWME2)),
-                        c.getShort(c.getColumnIndex(StatusTable.COL_PWME2O))),
-                Controller.getPWMDisplayValue(c.getShort(c.getColumnIndex(StatusTable.COL_PWME3)),
-                        c.getShort(c.getColumnIndex(StatusTable.COL_PWME3O))),
-                Controller.getPWMDisplayValue(c.getShort(c.getColumnIndex(StatusTable.COL_PWME4)),
-                        c.getShort(c.getColumnIndex(StatusTable.COL_PWME4O))),
-                Controller.getPWMDisplayValue(c.getShort(c.getColumnIndex(StatusTable.COL_PWME5)),
-                        c.getShort(c.getColumnIndex(StatusTable.COL_PWME5O))),
-        };
+        String sa[] = new String[Controller.MAX_PWM_EXPANSION_PORTS];
+        pwmeValues[0] = c.getShort(c.getColumnIndex(StatusTable.COL_PWME0));
+        sa[0] = Controller.getPWMDisplayValue(pwmeValues[0],
+                        c.getShort(c.getColumnIndex(StatusTable.COL_PWME0O)));
+        pwmeValues[1] = c.getShort(c.getColumnIndex(StatusTable.COL_PWME1));
+        sa[1] = Controller.getPWMDisplayValue(pwmeValues[1],
+                        c.getShort(c.getColumnIndex(StatusTable.COL_PWME1O)));
+        pwmeValues[2] = c.getShort(c.getColumnIndex(StatusTable.COL_PWME2));
+        sa[2] = Controller.getPWMDisplayValue(pwmeValues[2],
+                        c.getShort(c.getColumnIndex(StatusTable.COL_PWME2O)));
+        pwmeValues[3] = c.getShort(c.getColumnIndex(StatusTable.COL_PWME3));
+        sa[3] = Controller.getPWMDisplayValue(pwmeValues[3],
+                        c.getShort(c.getColumnIndex(StatusTable.COL_PWME3O)));
+        pwmeValues[4] = c.getShort(c.getColumnIndex(StatusTable.COL_PWME4));
+        sa[4] = Controller.getPWMDisplayValue(pwmeValues[4],
+                        c.getShort(c.getColumnIndex(StatusTable.COL_PWME4O)));
+        pwmeValues[5] = c.getShort(c.getColumnIndex(StatusTable.COL_PWME5));
+        sa[5] = Controller.getPWMDisplayValue(pwmeValues[5],
+                        c.getShort(c.getColumnIndex(StatusTable.COL_PWME5O)));
+        return sa;
     }
 
     @Override
