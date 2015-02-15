@@ -111,22 +111,28 @@ public class PageRadionFragment extends Fragment
             default:
                 return false;
             case R.id.rowWhite:
-                f.testFunction("White");
+                f.displayOverrideDialog(Globals.OVERRIDE_RF_WHITE,
+                        radionValues[Controller.RADION_WHITE]);
                 break;
             case R.id.rowRoyalBlue:
-                f.testFunction("RoyalBlue");
+                f.displayOverrideDialog(Globals.OVERRIDE_RF_ROYALBLUE,
+                        radionValues[Controller.RADION_ROYALBLUE]);
                 break;
             case R.id.rowRed:
-                f.testFunction("Red");
+                f.displayOverrideDialog(Globals.OVERRIDE_RF_RED,
+                        radionValues[Controller.RADION_RED]);
                 break;
             case R.id.rowGreen:
-                f.testFunction("Green");
+                f.displayOverrideDialog(Globals.OVERRIDE_RF_GREEN,
+                        radionValues[Controller.RADION_GREEN]);
                 break;
             case R.id.rowBlue:
-                f.testFunction("Blue");
+                f.displayOverrideDialog(Globals.OVERRIDE_RF_BLUE,
+                        radionValues[Controller.RADION_BLUE]);
                 break;
             case R.id.rowIntensity:
-                f.testFunction("Intensity");
+                f.displayOverrideDialog(Globals.OVERRIDE_RF_INTENSITY,
+                        radionValues[Controller.RADION_INTENSITY]);
                 break;
         }
         return true;
@@ -139,32 +145,44 @@ public class PageRadionFragment extends Fragment
         }
     }
 
-    public short[] getRadionValues(Cursor c) {
-        return new short[] {
-                c.getShort(c.getColumnIndex(StatusTable.COL_RFW)),
-                c.getShort(c.getColumnIndex(StatusTable.COL_RFRB)),
-                c.getShort(c.getColumnIndex(StatusTable.COL_RFR)),
-                c.getShort(c.getColumnIndex(StatusTable.COL_RFG)),
-                c.getShort(c.getColumnIndex(StatusTable.COL_RFB)),
-                c.getShort(c.getColumnIndex(StatusTable.COL_RFI))
-        };
-    }
+//    public short[] getRadionValues(Cursor c) {
+//        return new short[] {
+//                c.getShort(c.getColumnIndex(StatusTable.COL_RFW)),
+//                c.getShort(c.getColumnIndex(StatusTable.COL_RFRB)),
+//                c.getShort(c.getColumnIndex(StatusTable.COL_RFR)),
+//                c.getShort(c.getColumnIndex(StatusTable.COL_RFG)),
+//                c.getShort(c.getColumnIndex(StatusTable.COL_RFB)),
+//                c.getShort(c.getColumnIndex(StatusTable.COL_RFI))
+//        };
+//    }
 
     private String[] getValues(Cursor c) {
-        return new String[] {
-                Controller.getPWMDisplayValue(c.getShort(c.getColumnIndex(StatusTable.COL_RFW)),
-                        c.getShort(c.getColumnIndex(StatusTable.COL_RFWO))),
-                Controller.getPWMDisplayValue(c.getShort(c.getColumnIndex(StatusTable.COL_RFRB)),
-                        c.getShort(c.getColumnIndex(StatusTable.COL_RFRBO))),
-                Controller.getPWMDisplayValue(c.getShort(c.getColumnIndex(StatusTable.COL_RFR)),
-                        c.getShort(c.getColumnIndex(StatusTable.COL_RFRO))),
-                Controller.getPWMDisplayValue(c.getShort(c.getColumnIndex(StatusTable.COL_RFG)),
-                        c.getShort(c.getColumnIndex(StatusTable.COL_RFGO))),
-                Controller.getPWMDisplayValue(c.getShort(c.getColumnIndex(StatusTable.COL_RFB)),
-                        c.getShort(c.getColumnIndex(StatusTable.COL_RFBO))),
-                Controller.getPWMDisplayValue(c.getShort(c.getColumnIndex(StatusTable.COL_RFI)),
-                        c.getShort(c.getColumnIndex(StatusTable.COL_RFIO)))
-        };
+        String sa[] = new String[Controller.MAX_RADION_LIGHT_CHANNELS];
+        radionValues[Controller.RADION_WHITE] = c.getShort(c.getColumnIndex(StatusTable.COL_RFW));
+        sa[Controller.RADION_WHITE] = Controller.getPWMDisplayValue(
+                radionValues[Controller.RADION_WHITE],
+                c.getShort(c.getColumnIndex(StatusTable.COL_RFWO)));
+        radionValues[Controller.RADION_ROYALBLUE] = c.getShort(c.getColumnIndex(StatusTable.COL_RFRB));
+        sa[Controller.RADION_ROYALBLUE] = Controller.getPWMDisplayValue(
+                radionValues[Controller.RADION_ROYALBLUE],
+                c.getShort(c.getColumnIndex(StatusTable.COL_RFRBO)));
+        radionValues[Controller.RADION_RED] = c.getShort(c.getColumnIndex(StatusTable.COL_RFR));
+        sa[Controller.RADION_RED] = Controller.getPWMDisplayValue(
+                radionValues[Controller.RADION_RED],
+                c.getShort(c.getColumnIndex(StatusTable.COL_RFRO)));
+        radionValues[Controller.RADION_GREEN] = c.getShort(c.getColumnIndex(StatusTable.COL_RFG));
+        sa[Controller.RADION_GREEN] = Controller.getPWMDisplayValue(
+                radionValues[Controller.RADION_GREEN],
+                c.getShort(c.getColumnIndex(StatusTable.COL_RFGO)));
+        radionValues[Controller.RADION_BLUE] = c.getShort(c.getColumnIndex(StatusTable.COL_RFB));
+        sa[Controller.RADION_BLUE] = Controller.getPWMDisplayValue(
+                radionValues[Controller.RADION_BLUE],
+                c.getShort(c.getColumnIndex(StatusTable.COL_RFBO)));
+        radionValues[Controller.RADION_INTENSITY] = c.getShort(c.getColumnIndex(StatusTable.COL_RFI));
+        sa[Controller.RADION_INTENSITY] = Controller.getPWMDisplayValue(
+                radionValues[Controller.RADION_INTENSITY],
+                c.getShort(c.getColumnIndex(StatusTable.COL_RFIO)));
+        return sa;
     }
 
     @Override
