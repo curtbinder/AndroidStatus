@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ The MIT License (MIT)
   ~
   ~ Copyright (c) 2015 Curt Binder
@@ -26,26 +25,26 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:padding="@dimen/activity_vertical_margin" >
+    android:padding="@dimen/activity_vertical_margin">
 
     <TextView
         android:id="@+id/textDescription"
-        android:text="@string/placeholder_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"/>
-    
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:text="@string/placeholder_title" />
+
     <Spinner
-            android:id="@+id/vtSpinner"
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent" />
+        android:id="@+id/vtSpinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/buttonCancel"

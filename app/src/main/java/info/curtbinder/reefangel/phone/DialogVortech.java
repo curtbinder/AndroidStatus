@@ -96,7 +96,7 @@ public class DialogVortech extends DialogFragment
         }
         validateArguments();
         int layoutId = R.layout.dlg_vortech2;
-        if ( popupType == Controller.VORTECH_MODE ) {
+        if (popupType == Controller.VORTECH_MODE) {
             layoutId = R.layout.dlg_vortech;
         }
         View root = inflater.inflate(layoutId, container);
@@ -106,25 +106,25 @@ public class DialogVortech extends DialogFragment
 
     private void validateArguments() {
         // validate the input arguments
-        if ( (popupType > Controller.VORTECH_DURATION) ||
-                (popupType < Controller.VORTECH_MODE) ) {
+        if ((popupType > Controller.VORTECH_DURATION) ||
+                (popupType < Controller.VORTECH_MODE)) {
             popupType = Controller.VORTECH_MODE;
         }
-        if ( popupType == Controller.VORTECH_MODE ) {
-            if ( (currentValue < 0) ||
-                    (currentValue > 11) ) {
+        if (popupType == Controller.VORTECH_MODE) {
+            if ((currentValue < 0) ||
+                    (currentValue > 11)) {
                 currentValue = 0;
             }
         }
-        if ( popupType == Controller.VORTECH_SPEED ) {
-            if ( (currentValue > MAX_SPEED_VALUE) ||
-                    (currentValue < 0) ) {
+        if (popupType == Controller.VORTECH_SPEED) {
+            if ((currentValue > MAX_SPEED_VALUE) ||
+                    (currentValue < 0)) {
                 currentValue = 0;
             }
         }
-        if ( popupType == Controller.VORTECH_DURATION) {
-            if ( (currentValue > MAX_DURATION_VALUE) ||
-                    (currentValue < 0) ) {
+        if (popupType == Controller.VORTECH_DURATION) {
+            if ((currentValue > MAX_DURATION_VALUE) ||
+                    (currentValue < 0)) {
                 currentValue = 0;
             }
         }
@@ -158,8 +158,8 @@ public class DialogVortech extends DialogFragment
                 descriptionId = R.string.descriptionDuration;
                 break;
         }
-        ((TextView)v.findViewById(R.id.textDescription)).setText(descriptionId);
-        if ( popupType == Controller.VORTECH_MODE ) {
+        ((TextView) v.findViewById(R.id.textDescription)).setText(descriptionId);
+        if (popupType == Controller.VORTECH_MODE) {
             spinner = (Spinner) v.findViewById(R.id.vtSpinner);
             setupSpinner();
         } else {
@@ -171,29 +171,29 @@ public class DialogVortech extends DialogFragment
 
     private void setupSpinner() {
         List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-        String[] from = new String[] { "data" };
-        int[] to = new int[] { android.R.id.text1 };
+        String[] from = new String[]{"data"};
+        int[] to = new int[]{android.R.id.text1};
         String[] labels = getResources().getStringArray(R.array.vortechModeLabels);
         // only modes 0 - 11
-        for ( int i = 0; i < 12; i++ ) {
-            data.add( addData( labels[i] ) );
+        for (int i = 0; i < 12; i++) {
+            data.add(addData(labels[i]));
         }
-        SimpleAdapter simpleAdapter = new SimpleAdapter( getActivity(), data,
-                android.R.layout.simple_spinner_item, from, to );
+        SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(), data,
+                android.R.layout.simple_spinner_item, from, to);
         simpleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(simpleAdapter);
-        spinner.setSelection( currentValue );
+        spinner.setSelection(currentValue);
     }
 
-    private Map<String, String> addData ( String value ) {
+    private Map<String, String> addData(String value) {
         Map<String, String> mapList = new HashMap<String, String>();
-        mapList.put( "data", value );
+        mapList.put("data", value);
         return mapList;
     }
 
     private void setupSeekBar(boolean fSpeed) {
         int max;
-        if ( fSpeed ) {
+        if (fSpeed) {
             max = MAX_SPEED_VALUE; //100;
         } else {
             max = MAX_DURATION_VALUE; //255;
@@ -206,7 +206,7 @@ public class DialogVortech extends DialogFragment
 
     @Override
     public void onClick(View v) {
-        if ( v.getId() == R.id.buttonUpdate ) {
+        if (v.getId() == R.id.buttonUpdate) {
             updateVortechSettings();
         }
         dismiss();
@@ -214,7 +214,7 @@ public class DialogVortech extends DialogFragment
 
     private void updateProgressText() {
         String fmt;
-        if ( popupType == Controller.VORTECH_SPEED ) {
+        if (popupType == Controller.VORTECH_SPEED) {
             fmt = "%d%%";
         } else {
             fmt = "%d";
@@ -224,10 +224,10 @@ public class DialogVortech extends DialogFragment
 
     private void updateVortechSettings() {
         // get the starting memory locations
-        Intent i = new Intent( getActivity(), UpdateService.class );
-        i.setAction( MessageCommands.MEMORY_SEND_INTENT );
+        Intent i = new Intent(getActivity(), UpdateService.class);
+        i.setAction(MessageCommands.MEMORY_SEND_INTENT);
         int location;
-        if ( preLocations ) {
+        if (preLocations) {
             location = MemoryFragment.LOCATION_START_OLD;
         } else {
             location = MemoryFragment.LOCATION_START;
@@ -238,14 +238,14 @@ public class DialogVortech extends DialogFragment
         // use the spinner for the MODES and use the seek bar for the SPEED & DURATION
         // could use the currentValue variable because it is updated each time
         int value;
-        if ( popupType == Controller.VORTECH_MODE ) {
+        if (popupType == Controller.VORTECH_MODE) {
             value = spinner.getSelectedItemPosition();
         } else {
             value = seek.getProgress();
         }
-        i.putExtra( MessageCommands.MEMORY_SEND_TYPE_STRING, RequestCommands.MemoryByte );
-        i.putExtra( MessageCommands.MEMORY_SEND_LOCATION_INT, location );
-        i.putExtra( MessageCommands.MEMORY_SEND_VALUE_INT, value );
+        i.putExtra(MessageCommands.MEMORY_SEND_TYPE_STRING, RequestCommands.MemoryByte);
+        i.putExtra(MessageCommands.MEMORY_SEND_LOCATION_INT, location);
+        i.putExtra(MessageCommands.MEMORY_SEND_VALUE_INT, value);
         Log.d(TAG, "Update Vortech:  " + RequestCommands.MemoryByte + location + "," + value);
         // send the memory command
         getActivity().startService(i);
