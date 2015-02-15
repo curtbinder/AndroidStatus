@@ -103,7 +103,6 @@ public class StatusFragment extends Fragment {
     private Fragment[] mAppPages;
     private int[] mAppPageOrder;
     private String[] mAppPageTitles;
-    private String[] mVortechModes;  // TODO check on mVortechModes
     private RAApplication raApp;
     private boolean fReloadPages = false;
 
@@ -542,10 +541,6 @@ public class StatusFragment extends Fragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    public void testFunction(String s) {
-        Log.d(TAG, "testFunction: " + s);
     }
 
     public void displayOverrideDialog(int channel, short value) {
