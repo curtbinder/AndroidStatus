@@ -116,42 +116,45 @@ public class PageAIFragment extends Fragment
     public boolean onLongClick(View v) {
         View parent = (View) v.getParent();
         StatusFragment f = (StatusFragment) getParentFragment();
-        // TODO call displayOverridePopup, add function to base fragment
         switch (parent.getId()) {
             default:
                 return false;
             case R.id.rowAIWhite:
-                f.testFunction("White");
+                f.displayOverrideDialog(Globals.OVERRIDE_AI_WHITE, aiValues[Controller.AI_WHITE]);
                 break;
             case R.id.rowAIBlue:
-                f.testFunction("Blue");
+                f.displayOverrideDialog(Globals.OVERRIDE_AI_BLUE, aiValues[Controller.AI_BLUE]);
                 break;
             case R.id.rowAIRoyalBlue:
-                f.testFunction("RoyalBlue");
+                f.displayOverrideDialog(Globals.OVERRIDE_AI_ROYALBLUE,
+                        aiValues[Controller.AI_ROYALBLUE]);
                 break;
         }
         return true;
     }
 
-    public short[] getAIValues(Cursor c) {
-        // TODO how is this function used??
-        short[] v = new short[Controller.MAX_AI_CHANNELS];
-        v[0] = c.getShort(c.getColumnIndex(StatusTable.COL_AIW));
-        v[1] = c.getShort(c.getColumnIndex(StatusTable.COL_AIB));
-        v[2] = c.getShort(c.getColumnIndex(StatusTable.COL_AIRB));
-        return v;
-    }
+//    public short[] getAIValues(Cursor c) {
+//        // TODO how is this function used??
+//        short[] v = new short[Controller.MAX_AI_CHANNELS];
+//        v[0] = c.getShort(c.getColumnIndex(StatusTable.COL_AIW));
+//        v[1] = c.getShort(c.getColumnIndex(StatusTable.COL_AIB));
+//        v[2] = c.getShort(c.getColumnIndex(StatusTable.COL_AIRB));
+//        return v;
+//    }
 
     private String[] getValues(Cursor c) {
         String[] sa = new String[Controller.MAX_AI_CHANNELS];
+        aiValues[Controller.AI_WHITE] = c.getShort(c.getColumnIndex(StatusTable.COL_AIW));
         sa[Controller.AI_WHITE] = Controller.getPWMDisplayValue(
-                c.getShort(c.getColumnIndex(StatusTable.COL_AIW)),
+                aiValues[Controller.AI_WHITE],
                 c.getShort(c.getColumnIndex(StatusTable.COL_AIWO)));
+        aiValues[Controller.AI_BLUE] = c.getShort(c.getColumnIndex(StatusTable.COL_AIB));
         sa[Controller.AI_BLUE] = Controller.getPWMDisplayValue(
-                c.getShort(c.getColumnIndex(StatusTable.COL_AIB)),
+                aiValues[Controller.AI_BLUE],
                 c.getShort(c.getColumnIndex(StatusTable.COL_AIBO)));
+        aiValues[Controller.AI_ROYALBLUE] = c.getShort(c.getColumnIndex(StatusTable.COL_AIRB));
         sa[Controller.AI_ROYALBLUE] = Controller.getPWMDisplayValue(
-                c.getShort(c.getColumnIndex(StatusTable.COL_AIRB)),
+                aiValues[Controller.AI_ROYALBLUE],
                 c.getShort(c.getColumnIndex(StatusTable.COL_AIRBO)));
         return sa;
     }
