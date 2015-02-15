@@ -69,11 +69,12 @@ public class StatusFragment extends Fragment {
     // add on module pages
     private static final int POS_MODULES = POS_CONTROLLER + 10;
     private static final int POS_DIMMING = POS_MODULES;
-    private static final int POS_RADION = POS_MODULES + 1;
-    private static final int POS_VORTECH = POS_MODULES + 2;
-    private static final int POS_AI = POS_MODULES + 3;
-    private static final int POS_IO = POS_MODULES + 4;
-    private static final int POS_CUSTOM = POS_MODULES + 5;
+    private static final int POS_SC_DIMMING = POS_MODULES + 1;
+    private static final int POS_RADION = POS_MODULES + 2;
+    private static final int POS_VORTECH = POS_MODULES + 3;
+    private static final int POS_AI = POS_MODULES + 4;
+    private static final int POS_IO = POS_MODULES + 5;
+    private static final int POS_CUSTOM = POS_MODULES + 6;
 
     // relay pages
     private static final int POS_MAIN_RELAY = POS_CONTROLLER + 1;
@@ -102,7 +103,7 @@ public class StatusFragment extends Fragment {
     private Fragment[] mAppPages;
     private int[] mAppPageOrder;
     private String[] mAppPageTitles;
-    private String[] mVortechModes;
+    private String[] mVortechModes;  // TODO check on mVortechModes
     private RAApplication raApp;
     private boolean fReloadPages = false;
 
@@ -191,6 +192,8 @@ public class StatusFragment extends Fragment {
         mAppPageTitles[POS_CONTROLLER] = getString(R.string.labelController);
         mAppPages[POS_DIMMING] = PageDimmingFragment.newInstance();
         mAppPageTitles[POS_DIMMING] = getString(R.string.labelDimming);
+        mAppPages[POS_SC_DIMMING] = PageSCDimmingFragment.newInstance();
+        mAppPageTitles[POS_SC_DIMMING] = getString(R.string.labelSCDimming);
         mAppPages[POS_RADION] = PageRadionFragment.newInstance();
         mAppPageTitles[POS_RADION] = getString(R.string.labelRadion);
         mAppPages[POS_VORTECH] = PageVortechFragment.newInstance();
@@ -242,6 +245,12 @@ public class StatusFragment extends Fragment {
                     break;
                 case POS_DIMMING:
                     if (raApp.raprefs.getDimmingModuleEnabled()) {
+                        mAppPageOrder[pos] = page;
+                        pos++;
+                    }
+                    break;
+                case POS_SC_DIMMING:
+                    if (raApp.raprefs.getSCDimmingModuleEnabled()) {
                         mAppPageOrder[pos] = page;
                         pos++;
                     }
