@@ -28,6 +28,7 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,18 +100,23 @@ implements PageRefreshInterface, PagePWMRefreshInterface, View.OnLongClickListen
     public boolean onLongClick(View v) {
         View parent = (View) v.getParent();
         StatusFragment f = (StatusFragment) getParentFragment();
-        // TODO call displayVortechPopup, add function to base fragment
         switch (parent.getId()) {
             default:
                 return false;
             case R.id.rowMode:
-                f.testFunction("Mode");
+                Log.d(TAG, "longclick MODE");
+                f.displayVortechDialog(Controller.VORTECH_MODE,
+                        vortechValues[Controller.VORTECH_MODE]);
                 break;
             case R.id.rowSpeed:
-                f.testFunction("Speed");
+                Log.d(TAG, "longclick SPEED");
+                f.displayVortechDialog(Controller.VORTECH_SPEED,
+                        vortechValues[Controller.VORTECH_SPEED]);
                 break;
             case R.id.rowDuration:
-                f.testFunction("Duration");
+                Log.d(TAG, "longclick DURATION");
+                f.displayVortechDialog(Controller.VORTECH_DURATION,
+                        vortechValues[Controller.VORTECH_DURATION]);
                 break;
         }
         return true;
@@ -124,13 +130,14 @@ implements PageRefreshInterface, PagePWMRefreshInterface, View.OnLongClickListen
         }
     }
 
-    public short[] getVortechValues(Cursor c) {
-        return new short[] {
-                c.getShort(c.getColumnIndex(StatusTable.COL_RFM)),
-                c.getShort(c.getColumnIndex(StatusTable.COL_RFS)),
-                c.getShort(c.getColumnIndex(StatusTable.COL_RFD))
-        };
-    }
+//    public short[] getVortechValues(Cursor c) {
+//        // TODO is getVortechValues needed?? not currently used.
+//        return new short[] {
+//                c.getShort(c.getColumnIndex(StatusTable.COL_RFM)),
+//                c.getShort(c.getColumnIndex(StatusTable.COL_RFS)),
+//                c.getShort(c.getColumnIndex(StatusTable.COL_RFD))
+//        };
+//    }
 
     private String getMode(int v) {
         String s;
@@ -166,17 +173,19 @@ implements PageRefreshInterface, PagePWMRefreshInterface, View.OnLongClickListen
     }
 
     private String[] getValues(Cursor c) {
+        // Updates the display text and the values
         String sa[] = new String[Controller.MAX_VORTECH_VALUES];
-        int v, mode;
         // mode
-        mode = v = c.getInt(c.getColumnIndex(StatusTable.COL_RFM));
-        sa[Controller.VORTECH_MODE] = getMode(v);
+        vortechValues[Controller.VORTECH_MODE] = c.getInt(c.getColumnIndex(StatusTable.COL_RFM));
+        sa[Controller.VORTECH_MODE] = getMode(vortechValues[Controller.VORTECH_MODE]);
         // speed
-        v = c.getInt(c.getColumnIndex(StatusTable.COL_RFS));
-        sa[Controller.VORTECH_SPEED] = String.format(Locale.US, "%d%c", v, '%');
+        vortechValues[Controller.VORTECH_SPEED] = c.getInt(c.getColumnIndex(StatusTable.COL_RFS));
+        sa[Controller.VORTECH_SPEED] = String.format(Locale.US, "%d%c",
+                vortechValues[Controller.VORTECH_SPEED], '%');
         // duration
-        v = c.getInt(c.getColumnIndex(StatusTable.COL_RFD));
-        sa[Controller.VORTECH_DURATION] = getDuration(v, mode);
+        vortechValues[Controller.VORTECH_DURATION] = c.getInt(c.getColumnIndex(StatusTable.COL_RFD));
+        sa[Controller.VORTECH_DURATION] = getDuration(vortechValues[Controller.VORTECH_DURATION],
+                vortechValues[Controller.VORTECH_MODE]);
         return sa;
     }
 

@@ -545,6 +545,12 @@ public class StatusFragment extends Fragment {
         d.show(getFragmentManager(), "dlgoverridepwm");
     }
 
+    public void displayVortechDialog(int type, int value) {
+        DialogVortech d = DialogVortech.newInstance(type, value,
+                raApp.raprefs.useOldPre10MemoryLocations());
+        d.show(getFragmentManager(), "dlgvortech");
+    }
+
     protected Cursor getLatestDataCursor() {
         Uri uri = Uri.parse(StatusProvider.CONTENT_URI + "/" + StatusProvider.PATH_LATEST);
         return getActivity().getContentResolver().query(uri, null, null, null,
