@@ -96,8 +96,7 @@ public class PrefProfileFragment extends PreferenceFragment
             // 1 index is Portal
             s = ((SettingsActivity) getActivity()).getDevicesArrayValue(1);
         }
-        findPreference(raApp.getString(R.string.prefDeviceKey))
-                .setSummary(s);
+        findPreference(raApp.getString(R.string.prefDeviceKey)).setSummary(s);
     }
 
     private void updateSelectedProfileVisibility() {
@@ -121,68 +120,45 @@ public class PrefProfileFragment extends PreferenceFragment
     }
 
     private void updateHomeHostSummary() {
-        findPreference(raApp.getString(R.string.prefHostKey))
-                .setSummary(raPrefs.getHomeHost());
+        findPreference(raApp.getString(R.string.prefHostKey)).setSummary(raPrefs.getHomeHost());
     }
 
     private void updateHomePortSummary() {
-        findPreference(raApp.getString(R.string.prefPortKey))
-                .setSummary(raPrefs.getHomePort());
+        findPreference(raApp.getString(R.string.prefPortKey)).setSummary(raPrefs.getHomePort());
     }
 
     private void updateAwayHostSummary() {
-        findPreference(raApp.getString(R.string.prefHostAwayKey))
-                .setSummary(raPrefs.getAwayHost());
+        findPreference(raApp.getString(R.string.prefHostAwayKey)).setSummary(raPrefs.getAwayHost());
     }
 
     private void updateAwayPortSummary() {
-        findPreference(raApp.getString(R.string.prefPortAwayKey))
-                .setSummary(raPrefs.getAwayPort());
+        findPreference(raApp.getString(R.string.prefPortAwayKey)).setSummary(raPrefs.getAwayPort());
     }
-
-//    private void updateDownloadLabelUserId(String userId) {
-//        // not on this preference screen
-//        CharSequence cs =
-//                raApp.getString(R.string.prefControllerLabelsDownloadSummary)
-//                        + " " + userId;
-//        findPreference(raApp.getString(R.string.prefControllerLabelsDownloadKey)).setSummary(cs);
-//    }
 
     private void updateUserIdSummary(String s) {
         // on this preference screen
-        findPreference(raApp.getString(R.string.prefUserIdKey))
-                .setSummary(s);
+        findPreference(raApp.getString(R.string.prefUserIdKey)).setSummary(s);
     }
-
-//    private void updateUserIds() {
-//        updateUserIdSummary(raPrefs.getUserId());
-//        updateDownloadLabelUserId(raPrefs.getUserId());
-//    }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         Log.d(TAG, "onPreferenceChange");
 
         // return true to change, false to not
-        if (preference.getKey()
-                .equals(raApp.getString(R.string.prefPortKey))) {
+        if (preference.getKey().equals(raApp.getString(R.string.prefPortKey))) {
             return raApp.validatePort(newValue);
-        } else if (preference.getKey()
-                .equals(raApp.getString(R.string.prefHostKey))) {
+        } else if (preference.getKey().equals(raApp.getString(R.string.prefHostKey))) {
             return raApp.validateHost(newValue);
-        } else if (preference.getKey()
-                .equals(raApp.getString(R.string.prefPortAwayKey))) {
+        } else if (preference.getKey().equals(raApp.getString(R.string.prefPortAwayKey))) {
             return raApp.validatePort(newValue);
-        } else if (preference.getKey()
-                .equals(raApp.getString(R.string.prefHostAwayKey))) {
+        } else if (preference.getKey().equals(raApp.getString(R.string.prefHostAwayKey))) {
             Log.d(TAG, "Change away host: " + newValue.toString());
             // Away Host can be empty
             if (newValue.toString().equals("")) {
                 return true;
             }
             return raApp.validateHost(newValue);
-        } else if (preference.getKey()
-                .equals(raApp.getString(R.string.prefUserIdKey))) {
+        } else if (preference.getKey().equals(raApp.getString(R.string.prefUserIdKey))) {
             if (!raApp.validateUser(newValue))
                 return false;
 
@@ -194,8 +170,7 @@ public class PrefProfileFragment extends PreferenceFragment
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Log.d(TAG, "onSharedPreferenceChanged");
 
-        if (key.equals(raApp.getString(R.string.prefHostKey))
-                || key.equals(raApp.getString(R.string.prefPortKey))) {
+        if (key.equals(raApp.getString(R.string.prefHostKey)) || key.equals(raApp.getString(R.string.prefPortKey))) {
             homeHostChanged();
         } else if (key.equals(raApp.getString(R.string.prefPortAwayKey))
                 || key.equals(raApp.getString(R.string.prefHostAwayKey))) {

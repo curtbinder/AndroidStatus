@@ -31,7 +31,7 @@
         android:title="@string/prefsCategoryProfiles"
         android:summary="@string/prefCategoryProfilesSummary" />
     <header
-        android:fragment="info.curtbinder.reefangel.phone.SettingsActivity$ControllerFragment"
+        android:fragment="info.curtbinder.reefangel.phone.PrefControllerFragment"
         android:title="@string/prefsCategoryController"
         android:summary="@string/prefControllerSummary"/>
     <header

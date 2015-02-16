@@ -172,24 +172,12 @@ public class SettingsActivity extends PreferenceActivity {
     @Override
     protected boolean isValidFragment(String fragmentName) {
         return PrefProfileFragment.class.getName().equals(fragmentName) ||
-                ControllerFragment.class.getName().equals(fragmentName) ||
+                PrefControllerFragment.class.getName().equals(fragmentName) ||
                 PrefAutoUpdateFragment.class.getName().equals(fragmentName) ||
                 PrefAdvancedFragment.class.getName().equals(fragmentName) ||
                 PrefNotificationsFragment.class.getName().equals(fragmentName) ||
                 PrefLoggingFragment.class.getName().equals(fragmentName) ||
                 PrefAppFragment.class.getName().equals(fragmentName) ||
                 super.isValidFragment(fragmentName);
-    }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class ControllerFragment extends PreferenceFragment {
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-            // load the preferences from an XML file
-            addPreferencesFromResource(R.xml.pref_controller);
-        }
     }
 }
