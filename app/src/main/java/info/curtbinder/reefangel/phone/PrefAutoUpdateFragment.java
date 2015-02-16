@@ -55,9 +55,7 @@ public class PrefAutoUpdateFragment extends PreferenceFragment
         // load the preferences from an XML file
         addPreferencesFromResource(R.xml.pref_autoupdate);
 
-        updateprofilekey =
-                findPreference(raApp
-                        .getString(R.string.prefAutoUpdateProfileKey));
+        updateprofilekey = findPreference(raApp.getString(R.string.prefAutoUpdateProfileKey));
         updateprofilekey.setSummary(getUpdateProfileDisplay());
         updateAutoUpdateProfileVisibility(raApp.isAwayProfileEnabled());
         updateAutoUpdateIntervalSummary();
