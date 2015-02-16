@@ -43,7 +43,7 @@ public class SettingsActivity extends PreferenceActivity {
     protected Method mHasHeaders = null;
 
     private RAApplication raApp;
-    private RAPreferences raPrefs;
+    //private RAPreferences raPrefs;
 
     private String[] devicesArray;
     private String[] profilesArray;
@@ -80,7 +80,7 @@ public class SettingsActivity extends PreferenceActivity {
         super.onCreate(savedInstanceState);
 
         raApp = (RAApplication) getApplication();
-        raPrefs = raApp.raprefs;
+        //raPrefs = raApp.raprefs;
 
         devicesArray = raApp.getResources().getStringArray(R.array.devices);
         profilesArray = raApp.getResources().getStringArray(R.array.profileLabels);
