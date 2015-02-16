@@ -25,15 +25,26 @@
 package info.curtbinder.reefangel.phone;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.util.Log;
+import android.widget.Toast;
+
+import info.curtbinder.reefangel.service.MessageCommands;
+import info.curtbinder.reefangel.service.UpdateService;
 
 /**
  * Created by binder on 2/15/15.
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class PrefControllerFragment extends PreferenceFragment {
+
+    private static final String TAG = PrefControllerFragment.class.getSimpleName();
 
     private RAApplication raApp;
 
@@ -46,6 +57,10 @@ public class PrefControllerFragment extends PreferenceFragment {
         // load the preferences from an XML file
         addPreferencesFromResource(R.xml.pref_controller);
 
+        // set onclicklistener for downloading the labels
+        Preference p = findPreference(raApp.getString(R.string.prefControllerLabelsDownloadKey));
+        p.setOnPreferenceClickListener(new DownloadLabelsPreferenceListener());
+
         // update the download label summary
         updateDownloadLabelUserId(raApp.raprefs.getUserId());
     }
@@ -54,5 +69,47 @@ public class PrefControllerFragment extends PreferenceFragment {
         CharSequence cs = raApp.getString(R.string.prefControllerLabelsDownloadSummary)
                 + " " + userId;
         findPreference(raApp.getString(R.string.prefControllerLabelsDownloadKey)).setSummary(cs);
+    }
+
+    class DownloadLabelsPreferenceListener implements Preference.OnPreferenceClickListener {
+
+        @Override
+        public boolean onPreferenceClick(Preference preference) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(raApp.getString(R.string.messageDownloadLabelsPrompt)
+                    + " " + raApp.raprefs.getUserId() + "?")
+                    .setCancelable(false)
+                    .setPositiveButton(raApp.getString(R.string.buttonYes),
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(
+                                        DialogInterface dialog,
+                                        int id) {
+                                    // launch download
+                                    Log.d(TAG, "Download labels");
+                                    Intent i = new Intent(raApp, UpdateService.class);
+                                    i.setAction(MessageCommands.LABEL_QUERY_INTENT);
+                                    raApp.startService(i);
+                                    dialog.dismiss();
+                                    Toast.makeText(getActivity(),
+                                            raApp.getString(R.string.messageDownloadLabels),
+                                            Toast.LENGTH_SHORT)
+                                            .show();
+                                }
+                            })
+                    .setNegativeButton(raApp.getString(R.string.buttonNo),
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(
+                                        DialogInterface dialog,
+                                        int id) {
+                                    Log.d(TAG, "Cancel download");
+                                    dialog.cancel();
+                                }
+                            });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+            return true;
+        }
+
     }
 }

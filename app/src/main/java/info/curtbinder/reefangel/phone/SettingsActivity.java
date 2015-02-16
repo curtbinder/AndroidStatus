@@ -25,15 +25,23 @@
 package info.curtbinder.reefangel.phone;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceFragment;
+import android.util.Log;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+
+import info.curtbinder.reefangel.service.MessageCommands;
 
 public class SettingsActivity extends PreferenceActivity {
 
@@ -44,6 +52,8 @@ public class SettingsActivity extends PreferenceActivity {
 
     private RAApplication raApp;
     //private RAPreferences raPrefs;
+    private PrefsReceiver receiver;
+    private IntentFilter filter;
 
     private String[] devicesArray;
     private String[] profilesArray;
@@ -84,6 +94,9 @@ public class SettingsActivity extends PreferenceActivity {
 
         devicesArray = raApp.getResources().getStringArray(R.array.devices);
         profilesArray = raApp.getResources().getStringArray(R.array.profileLabels);
+
+        receiver = new PrefsReceiver();
+        filter = new IntentFilter(MessageCommands.LABEL_RESPONSE_INTENT);
 
         if (!isNewV11Prefs()) {
             addPreferencesFromResource(R.xml.pref_profiles);
@@ -148,11 +161,13 @@ public class SettingsActivity extends PreferenceActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        registerReceiver(receiver, filter, Permissions.SEND_COMMAND, null);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        unregisterReceiver(receiver);
     }
 
     @Override
@@ -179,5 +194,26 @@ public class SettingsActivity extends PreferenceActivity {
                 PrefLoggingFragment.class.getName().equals(fragmentName) ||
                 PrefAppFragment.class.getName().equals(fragmentName) ||
                 super.isValidFragment(fragmentName);
+    }
+
+    class PrefsReceiver extends BroadcastReceiver {
+
+        public void onReceive(Context context, Intent intent) {
+            Log.d(TAG, "Warn about labels");
+            AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+            builder.setMessage(raApp.getString(R.string.messageDownloadMessage))
+                    .setCancelable(false)
+                    .setPositiveButton(raApp.getString(R.string.buttonOk),
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(
+                                        DialogInterface dialog,
+                                        int id) {
+                                    dialog.dismiss();
+                                }
+                            });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 }

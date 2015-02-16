@@ -91,7 +91,10 @@ public class ControllerTask implements Runnable {
             client.setReadTimeout(host.getReadTimeout(), TimeUnit.MILLISECONDS);
             Request.Builder builder = new Request.Builder();
             builder.url( url );
-            if ( host.isDeviceAuthenticationEnabled() ) {
+            // set authentication if enabled AND ONLY if this not a request for labels.
+            // the labels are obtained from the Portal using a special query string that
+            // does not use the authentication string.
+            if ( host.isDeviceAuthenticationEnabled() && !host.isRequestForLabels() ) {
                 String creds = Credentials.basic(host.getWifiUsername(), host.getWifiPassword());
                 builder.header( "Authorization", creds );
             }
