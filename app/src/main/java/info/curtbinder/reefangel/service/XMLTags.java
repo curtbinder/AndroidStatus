@@ -71,6 +71,10 @@ public final class XMLTags {
     public static final String Humidity = "HUM";
     public static final String LeakDetector = "LEAK";
     public static final String PWMExpansion16 = "SCPWME";
+    public static final String DCPumpMode = "DCM";
+    public static final String DCPumpSpeed = "DCS";
+    public static final String DCPumpDuration = "DCD";
+    public static final String DCPumpThreshold = "DCT";
     public static final String Override = "O";
     public static final String PWMOverrideResponse = "P";
     public static final String StatusFlags = "SF";

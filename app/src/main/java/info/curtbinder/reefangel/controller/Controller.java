@@ -44,6 +44,7 @@ public class Controller {
     public static final byte MAX_STATUS_FLAGS = 3;
     public static final byte MAX_ALERT_FLAGS = 4;
     public static final byte MAX_SCPWM_EXPANSION_PORTS = 16;
+    public static final byte MAX_DCPUMP_VALUES = 4;
 
     // First set of expansion modules - EM
     public static final short MODULE_DIMMING = 1 << 0;
@@ -89,6 +90,12 @@ public class Controller {
     public static final byte VORTECH_SPEED = 1;
     public static final byte VORTECH_DURATION = 2;
 
+    // DCPump modes
+    public static final byte DCPUMP_MODE = 0;
+    public static final byte DCPUMP_SPEED = 1;
+    public static final byte DCPUMP_DURATION = 2;
+    public static final byte DCPUMP_THRESHOLD = 3;
+
     private String updateLogDate;
     private NumberWithLabel[] tempSensors;
     private NumberWithLabel pH;
@@ -117,6 +124,7 @@ public class Controller {
     private ShortWithLabel[] customVariables;
     private short[] vortechValues;
     private ShortWithLabelOverride[] pwmSCExpansion;
+    private short[] dcPumpValues;
 
     public Controller () {
         init();
@@ -186,6 +194,10 @@ public class Controller {
         pwmSCExpansion = new ShortWithLabelOverride[MAX_SCPWM_EXPANSION_PORTS];
         for ( i = 0; i < MAX_SCPWM_EXPANSION_PORTS; i++ ) {
             pwmSCExpansion[i] = new ShortWithLabelOverride();
+        }
+        dcPumpValues = new short[MAX_DCPUMP_VALUES];
+        for ( i = 0; i < MAX_DCPUMP_VALUES; i++ ) {
+            dcPumpValues[i] = 0;
         }
     }
 
@@ -398,7 +410,7 @@ public class Controller {
     }
 
     public void setWaterLevel ( short port, short value ) {
-        waterlevel[port].setData( value );;
+        waterlevel[port].setData( value );
     }
 
     public short getWaterLevel ( short port ) {
@@ -554,6 +566,14 @@ public class Controller {
 
     public void setVortechValue ( byte type, short value ) {
         vortechValues[type] = value;
+    }
+
+    public short getDCPumpValue ( byte type ) {
+        return dcPumpValues[type];
+    }
+
+    public void setDCPumpValue ( byte type, short value ) {
+        dcPumpValues[type] = value;
     }
 
     public short getExpansionModules ( ) {

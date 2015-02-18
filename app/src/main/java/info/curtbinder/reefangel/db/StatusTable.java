@@ -160,6 +160,11 @@ public class StatusTable {
     public static final String COL_SCPWME14O = "scpwme14o";
     public static final String COL_SCPWME15 = "scpwme15";
     public static final String COL_SCPWME15O = "scpwme15o";
+    public static final String COL_DCM = "dcm";
+    public static final String COL_DCS = "dcs";
+    public static final String COL_DCD = "dcd";
+    public static final String COL_DCT = "dct";
+
 
 	public static void onCreate ( SQLiteDatabase db ) {
 		// create parameters table
@@ -253,7 +258,11 @@ public class StatusTable {
                 + COL_SCPWME14 + " INTEGER, "
                 + COL_SCPWME14O + " INTEGER DEFAULT 255, "
                 + COL_SCPWME15 + " INTEGER, "
-                + COL_SCPWME15O + " INTEGER DEFAULT 255 "
+                + COL_SCPWME15O + " INTEGER DEFAULT 255, "
+                + COL_DCM + " INTEGER, "
+                + COL_DCS + " INTEGER, "
+                + COL_DCD + " INTEGER, "
+                + COL_DCT + " INTEGER"
 
                 + ");" );
 
@@ -287,6 +296,9 @@ public class StatusTable {
                     break;
                 case 11:
                     upgradeToVersion11(db);
+                    break;
+                case 12:
+                    upgradeToVersion12(db);
                     break;
             }
         }
@@ -390,5 +402,13 @@ public class StatusTable {
         db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME14O + " INTEGER DEFAULT 255;" );
         db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME15 + " INTEGER;" );
         db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_SCPWME15O + " INTEGER DEFAULT 255;" );
+    }
+
+    private static void upgradeToVersion12(SQLiteDatabase db) {
+        // add in dc pump support
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_DCM + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_DCS + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_DCD + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_DCT + " INTEGER;" );
     }
 }

@@ -310,12 +310,19 @@ public class XMLHandler extends DefaultHandler {
             ra.setRadionChannel(	Controller.RADION_INTENSITY,
                     Short.parseShort( currentElementText ) );
         } else if ( tag.equals( XMLTags.IO ) ) {
-            ra.setIOChannels( Short.parseShort( currentElementText ) );
+            ra.setIOChannels(Short.parseShort(currentElementText));
+        } else if ( tag.equals( XMLTags.DCPumpMode ) ) {
+            ra.setDCPumpValue( Controller.DCPUMP_MODE, Short.parseShort(currentElementText));
+        } else if ( tag.equals( XMLTags.DCPumpSpeed ) ) {
+            ra.setDCPumpValue( Controller.DCPUMP_SPEED, Short.parseShort(currentElementText));
+        } else if ( tag.equals( XMLTags.DCPumpDuration ) ) {
+            ra.setDCPumpValue( Controller.DCPUMP_DURATION, Short.parseShort(currentElementText));
+        } else if ( tag.equals( XMLTags.DCPumpThreshold ) ) {
+            ra.setDCPumpValue( Controller.DCPUMP_THRESHOLD, Short.parseShort(currentElementText));
         } else if ( tag.endsWith( XMLTags.Override ) ) {
             processPwmOverride(tag, currentElementText);
         } else if ( tag.startsWith( XMLTags.Custom ) ) {
-            short v =
-                    Short.parseShort( tag.substring( XMLTags.Custom.length() ) );
+            short v = Short.parseShort( tag.substring( XMLTags.Custom.length() ) );
             short c = Short.parseShort( currentElementText );
             ra.setCustomVariable( v, c );
         } else if ( tag.startsWith( XMLTags.WaterLevel ) ) {
@@ -328,23 +335,18 @@ public class XMLHandler extends DefaultHandler {
         } else if ( tag.equals( XMLTags.AlertFlags ) ) {
             ra.setAlertFlags( Short.parseShort(currentElementText) );
         } else if ( tag.startsWith( XMLTags.RelayMaskOn ) ) {
-            int relay =
-                    Integer.parseInt( tag.substring( XMLTags.RelayMaskOn
-                            .length() ) );
+            int relay = Integer.parseInt( tag.substring( XMLTags.RelayMaskOn.length() ) );
             if ( fUse085XRelays )
                 relay += 1;
             ra.setExpRelayOnMask( relay, Short.parseShort( currentElementText ) );
         } else if ( tag.startsWith( XMLTags.RelayMaskOff ) ) {
-            int relay =
-                    Integer.parseInt( tag.substring( XMLTags.RelayMaskOff
-                            .length() ) );
+            int relay = Integer.parseInt( tag.substring( XMLTags.RelayMaskOff.length() ) );
             if ( fUse085XRelays )
                 relay += 1;
             ra.setExpRelayOffMask( relay, Short.parseShort( currentElementText ) );
         } else if ( tag.startsWith( XMLTags.Relay ) ) {
             try {
-                int relay =
-                        Integer.parseInt( tag.substring( XMLTags.Relay.length() ) );
+                int relay = Integer.parseInt( tag.substring( XMLTags.Relay.length() ) );
                 if ( fUse085XRelays )
                     relay += 1;
                 ra.setExpRelayData( relay, Short.parseShort( currentElementText ) );

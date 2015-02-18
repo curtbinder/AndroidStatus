@@ -558,6 +558,10 @@ public class ControllerTask implements Runnable {
         v.put( StatusTable.COL_SCPWME14O, ra.getSCPwmExpansionOverride( (short) 14));
         v.put( StatusTable.COL_SCPWME15, ra.getSCPwmExpansion( (short) 15));
         v.put( StatusTable.COL_SCPWME15O, ra.getSCPwmExpansionOverride( (short) 15));
+        v.put( StatusTable.COL_DCM, ra.getDCPumpValue(Controller.DCPUMP_MODE) );
+        v.put( StatusTable.COL_DCS, ra.getDCPumpValue(Controller.DCPUMP_SPEED) );
+        v.put( StatusTable.COL_DCD, ra.getDCPumpValue(Controller.DCPUMP_DURATION) );
+        v.put( StatusTable.COL_DCT, ra.getDCPumpValue(Controller.DCPUMP_THRESHOLD) );
         rapp.getContentResolver()
                 .insert(	Uri.parse( StatusProvider.CONTENT_URI + "/"
                         + StatusProvider.PATH_STATUS ), v );
