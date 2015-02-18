@@ -74,10 +74,10 @@ public class PageDCPumpFragment extends Fragment
         dcpumpText[3] = (TextView) tr.findViewById(R.id.rowValue);
         setRowTitle(tr, R.string.labelThreshold);
 
-        for ( int i = 0; i < Controller.MAX_DCPUMP_VALUES; i++ ) {
-            dcpumpText[i].setLongClickable(true);
-            dcpumpText[i].setOnLongClickListener(this);
-        }
+//        for ( int i = 0; i < Controller.MAX_DCPUMP_VALUES; i++ ) {
+//            dcpumpText[i].setLongClickable(true);
+//            dcpumpText[i].setOnLongClickListener(this);
+//        }
     }
 
     private void setRowTitle(TableRow row, int labelId) {
@@ -103,13 +103,13 @@ public class PageDCPumpFragment extends Fragment
             default:
                 return false;
             case R.id.rowMode:
-                f.displayVortechDialog(Controller.VORTECH_MODE, dcpumpValues[Controller.DCPUMP_MODE]);
+                //f.displayVortechDialog(Controller.VORTECH_MODE, dcpumpValues[Controller.DCPUMP_MODE]);
                 break;
             case R.id.rowSpeed:
-                f.displayVortechDialog(Controller.VORTECH_SPEED, dcpumpValues[Controller.DCPUMP_SPEED]);
+                //f.displayVortechDialog(Controller.VORTECH_SPEED, dcpumpValues[Controller.DCPUMP_SPEED]);
                 break;
             case R.id.rowDuration:
-                f.displayVortechDialog(Controller.VORTECH_DURATION, dcpumpValues[Controller.DCPUMP_DURATION]);
+                //f.displayVortechDialog(Controller.VORTECH_DURATION, dcpumpValues[Controller.DCPUMP_DURATION]);
                 break;
             case R.id.rowThreshold:
                 //f.displayOverrideDialog(Globals.OVERRIDE_RF_GREEN, dcpumpValues[Controller.DCPUMP_THRESHOLD]);
