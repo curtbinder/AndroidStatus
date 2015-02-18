@@ -687,6 +687,10 @@ public class RAPreferences {
         return getBoolean(R.string.prefExpVortechEnableKey, false);
     }
 
+    public boolean getDCPumpModuleEnabled() {
+        return getBoolean(R.string.prefExpDCPumpEnabledKey, false);
+    }
+
     public boolean getAIModuleEnabled() {
         return getBoolean(R.string.prefExpAIEnableKey, false);
     }

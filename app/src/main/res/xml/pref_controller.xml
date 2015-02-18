@@ -390,6 +390,10 @@
                     android:title="@string/labelVortech" />
                 <CheckBoxPreference
                     android:defaultValue="false"
+                    android:key="@string/prefExpDCPumpEnabledKey"
+                    android:title="@string/labelDCPump" />
+                <CheckBoxPreference
+                    android:defaultValue="false"
                     android:key="@string/prefExpAIEnableKey"
                     android:title="@string/labelAI" />
 

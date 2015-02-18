@@ -181,6 +181,8 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="labelMode">Mode</string>
     <string name="labelSpeed">Speed</string>
     <string name="labelDuration">Duration</string>
+    <string name="labelThreshold">Threshold</string>
+    <string name="labelDCPump">DC Pump</string>
     <string name="labelAI">Aqua Illuminations</string>
     <string name="labelIO">I/O</string>
     <string name="labelON">ON</string>
@@ -594,6 +596,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="prefExpDimmingCh5LabelKey">exp_dim_5</string>
     <string name="prefExpRadionEnableKey">radion_expansion</string>
     <string name="prefExpVortechEnableKey">vortech_expansion</string>
+    <string name="prefExpDCPumpEnabledKey">dcpump_expansion</string>
     <string name="prefExpAIEnableKey">ai_expansion</string>
     <string name="prefExpIOEnableKey">io_expansion</string>
     <string name="prefExpIO0LabelKey">exp_io_0</string>

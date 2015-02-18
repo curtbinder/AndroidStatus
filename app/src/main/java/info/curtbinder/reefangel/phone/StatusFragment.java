@@ -72,9 +72,10 @@ public class StatusFragment extends Fragment {
     private static final int POS_SC_DIMMING = POS_MODULES + 1;
     private static final int POS_RADION = POS_MODULES + 2;
     private static final int POS_VORTECH = POS_MODULES + 3;
-    private static final int POS_AI = POS_MODULES + 4;
-    private static final int POS_IO = POS_MODULES + 5;
-    private static final int POS_CUSTOM = POS_MODULES + 6;
+    private static final int POS_DCPUMP = POS_MODULES + 4;
+    private static final int POS_AI = POS_MODULES + 5;
+    private static final int POS_IO = POS_MODULES + 6;
+    private static final int POS_CUSTOM = POS_MODULES + 7;
 
     // relay pages
     private static final int POS_MAIN_RELAY = POS_CONTROLLER + 1;
@@ -197,6 +198,8 @@ public class StatusFragment extends Fragment {
         mAppPageTitles[POS_RADION] = getString(R.string.labelRadion);
         mAppPages[POS_VORTECH] = PageVortechFragment.newInstance();
         mAppPageTitles[POS_VORTECH] = getString(R.string.labelVortech);
+        mAppPages[POS_DCPUMP] = PageDCPumpFragment.newInstance();
+        mAppPageTitles[POS_DCPUMP] = getString(R.string.labelDCPump);
         mAppPages[POS_AI] = PageAIFragment.newInstance();
         mAppPageTitles[POS_AI] = getString(R.string.labelAI);
         mAppPages[POS_IO] = PageIOFragment.newInstance();
@@ -262,6 +265,12 @@ public class StatusFragment extends Fragment {
                     break;
                 case POS_VORTECH:
                     if (raApp.raprefs.getVortechModuleEnabled()) {
+                        mAppPageOrder[pos] = page;
+                        pos++;
+                    }
+                    break;
+                case POS_DCPUMP:
+                    if (raApp.raprefs.getDCPumpModuleEnabled()) {
                         mAppPageOrder[pos] = page;
                         pos++;
                     }
@@ -453,8 +462,7 @@ public class StatusFragment extends Fragment {
             raApp.raprefs.set(R.string.prefHumidityVisibilityKey, f);
             f = (Controller.isDCPumpControlModuleInstalled(newEM1));
             Log.d(TAG, "DCPump: " + f);
-            // TODO enable DCPump module
-            //raApp.raprefs.set(R.string.prefExpDCPumpEnabledKey, f);
+            raApp.raprefs.set(R.string.prefExpDCPumpEnabledKey, f);
             f = (Controller.isLeakDetectorModuleInstalled(newEM1));
             Log.d(TAG, "Leak: " + f);
             // TODO enable Leak module?? maybe it's not needed since it's a flag
