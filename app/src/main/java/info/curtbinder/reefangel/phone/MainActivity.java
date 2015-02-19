@@ -32,6 +32,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -181,6 +182,8 @@ public class MainActivity extends ActionBarActivity
         ab.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         ab.setDisplayShowTitleEnabled(false);
         ab.setDisplayHomeAsUpEnabled(true);
+        // hide the icon on the actionbar by replacing it with a transparent icon
+        ab.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
         enableActionBarHomeButton();
     }
 
