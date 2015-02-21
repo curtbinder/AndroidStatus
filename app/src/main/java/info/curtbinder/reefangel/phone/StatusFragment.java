@@ -563,6 +563,11 @@ public class StatusFragment extends Fragment {
         d.show(getFragmentManager(), "dlgvortech");
     }
 
+    public void displayDCPumpDialog(int type, int value) {
+        DialogDCPump d= DialogDCPump.newInstance(type, value);
+        d.show(getFragmentManager(), "dlgdcpump");
+    }
+
     protected Cursor getLatestDataCursor() {
         Uri uri = Uri.parse(StatusProvider.CONTENT_URI + "/" + StatusProvider.PATH_LATEST);
         return getActivity().getContentResolver().query(uri, null, null, null,

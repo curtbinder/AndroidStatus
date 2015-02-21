@@ -47,6 +47,7 @@ public class PageDCPumpFragment extends Fragment
     private static final String TAG = PageDCPumpFragment.class.getSimpleName();
     private TextView[] dcpumpText = new TextView[Controller.MAX_DCPUMP_VALUES];
     private short[] dcpumpValues = new short[Controller.MAX_DCPUMP_VALUES];
+    private String[] dcpumpModes;
 
     public static PageDCPumpFragment newInstance() {
         return new PageDCPumpFragment();
@@ -56,6 +57,7 @@ public class PageDCPumpFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.page_dcpump, container, false);
         findViews(rootView);
+        dcpumpModes = getResources().getStringArray(R.array.dcPumpModeLabels);
         return rootView;
     }
 
@@ -74,10 +76,10 @@ public class PageDCPumpFragment extends Fragment
         dcpumpText[3] = (TextView) tr.findViewById(R.id.rowValue);
         setRowTitle(tr, R.string.labelThreshold);
 
-//        for ( int i = 0; i < Controller.MAX_DCPUMP_VALUES; i++ ) {
-//            dcpumpText[i].setLongClickable(true);
-//            dcpumpText[i].setOnLongClickListener(this);
-//        }
+        for ( int i = 0; i < Controller.MAX_DCPUMP_VALUES; i++ ) {
+            dcpumpText[i].setLongClickable(true);
+            dcpumpText[i].setOnLongClickListener(this);
+        }
     }
 
     private void setRowTitle(TableRow row, int labelId) {
@@ -103,25 +105,37 @@ public class PageDCPumpFragment extends Fragment
             default:
                 return false;
             case R.id.rowMode:
-                //f.displayVortechDialog(Controller.VORTECH_MODE, dcpumpValues[Controller.DCPUMP_MODE]);
+                f.displayDCPumpDialog(Controller.DCPUMP_MODE, dcpumpValues[Controller.DCPUMP_MODE]);
                 break;
             case R.id.rowSpeed:
-                //f.displayVortechDialog(Controller.VORTECH_SPEED, dcpumpValues[Controller.DCPUMP_SPEED]);
+                f.displayDCPumpDialog(Controller.DCPUMP_SPEED, dcpumpValues[Controller.DCPUMP_SPEED]);
                 break;
             case R.id.rowDuration:
-                //f.displayVortechDialog(Controller.VORTECH_DURATION, dcpumpValues[Controller.DCPUMP_DURATION]);
+                f.displayDCPumpDialog(Controller.DCPUMP_DURATION, dcpumpValues[Controller.DCPUMP_DURATION]);
                 break;
             case R.id.rowThreshold:
-                //f.displayOverrideDialog(Globals.OVERRIDE_RF_GREEN, dcpumpValues[Controller.DCPUMP_THRESHOLD]);
+                f.displayDCPumpDialog(Controller.DCPUMP_THRESHOLD, dcpumpValues[Controller.DCPUMP_THRESHOLD]);
                 break;
         }
         return true;
     }
 
+    private String getMode(int v) {
+        // array is from 0-9 indices
+        // indices 7-9 actually correspond to values 12-14
+        int index = 0;
+        if ((v >= 0) && (v <= 6)) {
+            index = v;
+        } else if ((v >= 12) && (v <= 14)) {
+            index = v - 5;
+        }
+        return dcpumpModes[index];
+    }
+
     private String[] getValues(Cursor c) {
         String sa[] = new String[Controller.MAX_DCPUMP_VALUES];
         dcpumpValues[Controller.DCPUMP_MODE] = c.getShort(c.getColumnIndex(StatusTable.COL_DCM));
-        sa[Controller.DCPUMP_MODE] = dcpumpValues[Controller.DCPUMP_MODE] + "";
+        sa[Controller.DCPUMP_MODE] = getMode(dcpumpValues[Controller.DCPUMP_MODE]);
         dcpumpValues[Controller.DCPUMP_SPEED] = c.getShort(c.getColumnIndex(StatusTable.COL_DCS));
         sa[Controller.DCPUMP_SPEED] = dcpumpValues[Controller.DCPUMP_SPEED] + "%";
         dcpumpValues[Controller.DCPUMP_DURATION] = c.getShort(c.getColumnIndex(StatusTable.COL_DCD));

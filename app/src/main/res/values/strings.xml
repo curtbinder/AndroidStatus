@@ -57,6 +57,7 @@
     <string name="titleChangelog">Changelog</string>
     <string name="titleErrorlog">Error Log File</string>
     <string name="titleVortech">Vortech Config</string>
+    <string name="titleDCPump">DC Pump Config</string>
     <string name="titleError">Errors History</string>
     <string name="titleNotifications">Notifications</string>
     <string name="titleCreateNotification">Create Notification</string>
@@ -88,9 +89,10 @@ your controller or have a ReefAngel UserID to use this app.</string>
 * Port: Enter the port for the controller (leave blank if unknown or the default).\n
 * User ID: Enter your username for the forum. This is to download your labels and/or data from the portal.</string>
     <!-- Date and Time screen -->
-    <string name="descriptionMode">Change the Vortech Mode</string>
-    <string name="descriptionSpeed">Change the Vortech Speed</string>
-    <string name="descriptionDuration">Change the Vortech Duration</string>
+    <string name="descriptionMode">Change the Mode</string>
+    <string name="descriptionSpeed">Change the Speed</string>
+    <string name="descriptionDuration">Change the Duration</string>
+    <string name="descriptionThreshold">Change the Threshold</string>
     <string name="descriptionReefAngelLogo">Reef Angel Logo</string>
 
     <!-- Extra Connection Errors -->

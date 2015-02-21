@@ -546,6 +546,8 @@ public class RAPreferences {
             total++;
         if (getVortechModuleEnabled())
             total++;
+        if (getDCPumpModuleEnabled())
+            total++;
         if (getAIModuleEnabled())
             total++;
         if (getIOModuleEnabled())

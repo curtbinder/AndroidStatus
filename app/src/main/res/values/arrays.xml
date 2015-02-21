@@ -603,6 +603,18 @@ is listed as a 0 based index and it is associated with this memoryLocations arra
         <item>None</item>
         <item>Radion</item>
     </string-array>
+    <string-array name="dcPumpModeLabels">
+        <item>Constant</item>
+        <item>Lagoon</item>
+        <item>Reef Crest</item>
+        <item>Short Pulse</item>
+        <item>Long Pulse</item>
+        <item>Nutrient</item>
+        <item>Tidal Swell</item>
+        <item>Else</item>
+        <item>Sine</item>
+        <item>Gyre</item>
+    </string-array>
     <string-array name="updateInterval">
         <item>Manual (Never)</item>
         <item>1 minute</item>
