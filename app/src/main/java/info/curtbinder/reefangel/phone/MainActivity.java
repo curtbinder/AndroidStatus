@@ -57,6 +57,9 @@ public class MainActivity extends ActionBarActivity
         implements android.support.v7.app.ActionBar.OnNavigationListener,
         FragmentManager.OnBackStackChangedListener {
 
+//    public static final int REQUEST_EXIT = 1;
+//    public static final int RESULT_EXIT = 1024;
+
     private static final String OPENED_KEY = "OPENED_KEY";
     private static final String STATE_CHECKED = "DRAWER_CHECKED";
     private static final String PREVIOUS_CHECKED = "PREVIOUS";
@@ -375,12 +378,23 @@ public class MainActivity extends ActionBarActivity
                     ((StatusFragment) f).reloadPages();
                 }
                 startActivity(new Intent(this, SettingsActivity.class));
+//                startActivityForResult(new Intent(this, SettingsActivity.class), REQUEST_EXIT);
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        Log.d(TAG, "onActivityResult");
+//        if (requestCode == REQUEST_EXIT) {
+//            if (resultCode == RESULT_EXIT) {
+//                this.finish();
+//            }
+//        }
+//    }
 
     // called whenever we call invalidateOptionsMenu()
     @Override

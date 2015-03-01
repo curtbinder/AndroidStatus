@@ -274,6 +274,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="messageUnsupported">Unsupported command</string>
     <string name="messagePWMPopupCustom">%1$s (%2$s)</string>
     <string name="messageErrorTimeout">Timeout connecting to %1$s:%2$s</string>
+    <string name="messageResetAllPrefsPrompt">Reset all application preferences?</string>
 
     <!-- Status strings -->
     <string name="statusStart">Starting update</string>
@@ -474,6 +475,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="prefExpSCDimmingCh15LabelTitle">Channel 15</string>
     <string name="prefUpdateControllerIPSummary">Updates the home host from the last updated host on the Portal</string>
     <string name="prefUpdateControllerIPTitle">Update Home Host</string>
+    <string name="prefResetAllPrefsTitle">Reset All App Preferences</string>
 
     <!-- Preference Keys -->
     <string name="prefFirstRunKey">firstrun</string>
@@ -670,6 +672,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="prefExpSCDimmingCh14LabelKey">exp_sc_dim_14</string>
     <string name="prefExpSCDimmingCh15LabelKey">exp_sc_dim_15</string>
     <string name="prefUpdateControllerIPKey">update_controller_ip</string>
+    <string name="prefResetAllPrefsKey">reset_all_prefs</string>
 
     <!-- Permissions -->
     <string name="permissionQueryStatusLabel">Query status of controller</string>

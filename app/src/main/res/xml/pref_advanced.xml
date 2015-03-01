@@ -53,5 +53,9 @@
             android:entryValues="@array/networkTimeoutValues"
             android:key="@string/prefReadTimeoutKey"
             android:title="@string/prefReadTimeoutTitle" />
+        <!--<PreferenceScreen-->
+            <!--android:key="@string/prefResetAllPrefsKey"-->
+            <!--android:summary="@string/prefResetSummary"-->
+            <!--android:title="@string/prefResetAllPrefsTitle" />-->
 
 </PreferenceScreen>

@@ -25,10 +25,15 @@
 package info.curtbinder.reefangel.phone;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.util.Log;
+
 
 /**
  * Created by binder on 3/22/14.
@@ -36,6 +41,8 @@ import android.preference.PreferenceFragment;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class PrefAdvancedFragment extends PreferenceFragment
         implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+    private static final String TAG = PrefAdvancedFragment.class.getSimpleName();
 
     private RAApplication raApp;
     private RAPreferences raPrefs;
@@ -52,6 +59,9 @@ public class PrefAdvancedFragment extends PreferenceFragment
 
         updateConnectionTimeoutSummary();
         updateReadTimeoutSummary();
+
+//        Preference p = findPreference(raApp.getString(R.string.prefResetAllPrefsKey));
+//        p.setOnPreferenceClickListener(new ResetAllPreferenceListener());
     }
 
     @Override
@@ -92,4 +102,42 @@ public class PrefAdvancedFragment extends PreferenceFragment
             updateReadTimeoutSummary();
         }
     }
+
+    // This code is not working. I believe it may be too deep to work properly and additional
+    // calls must be made
+//    class ResetAllPreferenceListener implements Preference.OnPreferenceClickListener {
+//
+//        @Override
+//        public boolean onPreferenceClick(Preference preference) {
+//            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//            builder.setMessage(raApp.getString(R.string.messageResetAllPrefsPrompt))
+//                    .setCancelable(false)
+//                    .setPositiveButton(raApp.getString(R.string.buttonYes),
+//                            new DialogInterface.OnClickListener() {
+//                                public void onClick(
+//                                        DialogInterface dialog,
+//                                        int id) {
+//                                    Log.d(TAG, "Delete All Prefs");
+//                                    raApp.raprefs.clearAllAppPreferences();
+//                                    Log.d(TAG, "finish activity with good exit");
+//                                    getActivity().finishActivity(MainActivity.RESULT_EXIT);
+//                                    Log.d(TAG, "dismiss dialog");
+//                                    dialog.dismiss();
+//                                }
+//                            })
+//                    .setNegativeButton(raApp.getString(R.string.buttonNo),
+//                            new DialogInterface.OnClickListener() {
+//                                public void onClick(
+//                                        DialogInterface dialog,
+//                                        int id) {
+//                                    Log.d(TAG, "Cancel");
+//                                    dialog.cancel();
+//                                }
+//                            });
+//
+//            AlertDialog alert = builder.create();
+//            alert.show();
+//            return true;
+//        }
+//    }
 }

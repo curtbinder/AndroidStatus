@@ -117,6 +117,12 @@ public class RAPreferences {
         set(R.string.prefPreviousCodeVersionKey, version);
     }
 
+    public void clearAllAppPreferences() {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.commit();
+    }
+
     public boolean isFirstRun() {
         return getBoolean(R.string.prefFirstRunKey, true);
     }
