@@ -83,12 +83,15 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="descriptionMemory">Select the memory location to update or enter a custom location.</string>
     <!-- Commands screen -->
     <string name="descriptionModes">Feeding and Water Change buttons enter the appropriate modes. Press the Exit button to simulate a button press on the controller, which exits the modes.</string>
-    <!-- First Run screen -->
-    <string name="descriptionFirstRun">Before you begin, you must configure a few settings in order for the application to run properly.\n
-* Device: Select Portal or Controller\n
-* Hostname: Enter the hostname or IP address of your controller.\n
-* Port: Enter the port for the controller (leave blank if unknown or the default).\n
-* User ID: Enter your username for the forum. This is to download your labels and/or data from the portal.</string>
+    <!-- SetupWizard pages -->
+    <string name="descriptionWizardMainStep">Welcome\n\nLet\'s configure your setup.\n\nPress \'Next\' to get started.</string>
+    <string name="descriptionWizardDeviceStep">How do you want to communicate?</string>
+    <string name="descriptionWizardUsernameStep">Enter your Reef Angel Forum username.</string>
+    <string name="descriptionWizardRADNSStep">Did you enable Dynamic DNS with Reef Angel?</string>
+    <string name="descriptionWizardDNSStep">Do you use a domain name for your controller?</string>
+    <string name="descriptionWizardIPStep">Do you connect to your controller directly via an IP address?</string>
+    <string name="descriptionWizardAuthUsernameStep">Do you have Device Authentication enabled on your controller?</string>
+    <string name="descriptionWizardAuthPasswordStep">Enter your Device Authentication password:</string>
     <!-- Date and Time screen -->
     <string name="descriptionMode">Change the Mode</string>
     <string name="descriptionSpeed">Change the Speed</string>
@@ -215,6 +218,14 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="labelSCDimming">16 Ch Dimming</string>
     <string name="labelSummary">Summary</string>
     <string name="labelDownloadLabelsOnFinish">Download Labels on Finish</string>
+    <string name="labelMissing">Missing</string>
+    <string name="labelUsername">username</string>
+    <string name="labelPassword">password</string>
+    <string name="labelExampleDNS">user.tank-stats.com</string>
+    <string name="labelMyReefangelDomain">.myreefangel.com</string>
+    <string name="labelPortalUsername">Portal Username</string>
+    <string name="labelDeviceUsername">Device Username</string>
+    <string name="labelDevicePassword">Device Password</string>
     <string name="websiteReefangel">http://www.reefangel.com/</string>
     <string name="forumReefangel">http://forum.reefangel.com/</string>
     <string name="defaultStatusText">-</string>

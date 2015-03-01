@@ -80,6 +80,7 @@ public class MainActivity extends ActionBarActivity
 
         raApp = (RAApplication) getApplication();
 
+//        raApp.raprefs.clearFirstRun();
         // Check for first run
         if (raApp.isFirstRun()) {
             Intent i = new Intent(this, SetupWizardActivity.class);

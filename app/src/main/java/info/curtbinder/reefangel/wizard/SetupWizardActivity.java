@@ -57,11 +57,13 @@ public class SetupWizardActivity extends ActionBarActivity
     private Fragment[] mSteps;
     private StepItem[] aStepItems;
     private LinkedList<Integer> stepsList;
+    private RAApplication raApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup_wizard);
+        raApp = (RAApplication) getApplication();
         final ActionBar ab = getSupportActionBar();
         ab.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
         stepsList = new LinkedList<Integer>();
@@ -99,15 +101,15 @@ public class SetupWizardActivity extends ActionBarActivity
 
     private void createSteps() {
         aStepItems = new StepItem[]{
-                new StepItem("Start", ""),
-                new StepItem("Device", "device"),
-                new StepItem("Portal Username", "username"),
-                new StepItem("Away Host", "away_host"),
-                new StepItem("Away Host", "away_host"),
-                new StepItem("Home Host", "home_host"),
-                new StepItem("Device Username", "authuser"),
-                new StepItem("Device Password", "authpass"),
-                new StepItem("Summary", ""),
+                new StepItem("", ""),
+                new StepItem(getString(R.string.prefsCategoryDevice), getString(R.string.prefDeviceKey)),
+                new StepItem(getString(R.string.labelPortalUsername), getString(R.string.prefUserIdKey)),
+                new StepItem(getString(R.string.prefHostAwayTitle), getString(R.string.prefHostAwayKey)),
+                new StepItem(getString(R.string.prefHostAwayTitle), getString(R.string.prefHostAwayKey)),
+                new StepItem(getString(R.string.prefHostTitle), getString(R.string.prefHostKey)),
+                new StepItem(getString(R.string.labelDeviceUsername), getString(R.string.prefWifiUserKey)),
+                new StepItem(getString(R.string.labelDevicePassword), getString(R.string.prefWifiPasswordKey)),
+                new StepItem(getString(R.string.labelSummary), ""),
         };
 
         mSteps = new Fragment[]{
@@ -124,58 +126,58 @@ public class SetupWizardActivity extends ActionBarActivity
     }
 
     private Fragment createMainStep() {
-        return StepTextFragment.newInstance("Welcome\n\nLet's configure your setup.\n\nPress 'Next' to get started.");
+        return StepTextFragment.newInstance(getString(R.string.descriptionWizardMainStep));
     }
 
     private Fragment createDeviceStep() {
         StepTwoChoiceFragment f = StepTwoChoiceFragment.newInstance();
-        f.setStepDescription("How do you want to communicate?");
-        f.setYesDescription("Controller");
-        f.setNoDescription("Portal");
+        f.setStepDescription(getString(R.string.descriptionWizardDeviceStep));
+        f.setYesDescription(getString(R.string.prefsCategoryController));
+        f.setNoDescription(getString(R.string.prefsCategoryPortal));
         f.setValueHidden(true);
         return f;
     }
 
     private Fragment createUsernameStep() {
         StepSingleInputFragment f = StepSingleInputFragment.newInstance();
-        f.setStepDescription("Enter your Reef Angel Forum username.");
-        f.setHint("reefangel");
+        f.setStepDescription(getString(R.string.descriptionWizardUsernameStep));
+        f.setHint(getString(R.string.prefUserIdDefault));
         return f;
     }
 
     private Fragment createRADDNSStep() {
         StepTwoChoiceFragment f = StepTwoChoiceFragment.newInstance();
-        f.setStepDescription("Did you enable Dynamic DNS with Reef Angel?");
-        f.setYesHint("home");
+        f.setStepDescription(getString(R.string.descriptionWizardRADNSStep));
+        f.setYesHint(getString(R.string.prefProfileHomeTitle));
         return f;
     }
 
     private Fragment createAltDDNSStep() {
         StepTwoChoiceFragment f = StepTwoChoiceFragment.newInstance();
-        f.setStepDescription("Do you use a domain name for your controller?");
-        f.setYesHint("user.tank-stats.com");
+        f.setStepDescription(getString(R.string.descriptionWizardDNSStep));
+        f.setYesHint(getString(R.string.labelExampleDNS));
         return f;
     }
 
     private Fragment createDirectIpStep() {
         StepTwoChoiceFragment f = StepTwoChoiceFragment.newInstance();
-        f.setStepDescription("Do you connect to your controller directly via an IP address?");
-        f.setYesHint("192.168.1.100");
+        f.setStepDescription(getString(R.string.descriptionWizardIPStep));
+        f.setYesHint(getString(R.string.prefHostHomeDefault));
         f.setValueNumeric();
         return f;
     }
 
     private Fragment createDeviceAuthUsername() {
         StepTwoChoiceFragment f = StepTwoChoiceFragment.newInstance();
-        f.setStepDescription("Do you have Device Authentication enabled on your controller?");
-        f.setYesHint("username");
+        f.setStepDescription(getString(R.string.descriptionWizardAuthUsernameStep));
+        f.setYesHint(getString(R.string.labelUsername));
         return f;
     }
 
     private Fragment createDeviceAuthPassword() {
         StepSingleInputFragment f = StepSingleInputFragment.newInstance();
-        f.setStepDescription("Enter your Device Authentication password:");
-        f.setHint("password");
+        f.setStepDescription(getString(R.string.descriptionWizardAuthPasswordStep));
+        f.setHint(getString(R.string.labelPassword));
         f.setValueRequired(true);
         return f;
     }
@@ -207,7 +209,7 @@ public class SetupWizardActivity extends ActionBarActivity
             // skip displaying the step if the value is empty
             if (!(summaryText.length() == 0)) {
                 title = aStepItems[v].getTitle();
-                if (title.compareTo("Home Host") == 0) {
+                if (title.compareTo(getString(R.string.prefHostTitle)) == 0) {
                     // if we have a home_host, then we are good
                     fNoHostProvided = false;
                 }
@@ -219,7 +221,7 @@ public class SetupWizardActivity extends ActionBarActivity
         if (fNoHostProvided && !isDevicePortal()) {
             // no host was provided, we need to display something in the summary
             // AND we are not communicating with the portal
-            step.updateSummary("Home Host", "Missing");
+            step.updateSummary(getString(R.string.prefHostTitle), getString(R.string.labelMissing));
             fHostMissing = true;
         }
         step.setHostMissing(fHostMissing);
@@ -271,7 +273,6 @@ public class SetupWizardActivity extends ActionBarActivity
     private void saveValues() {
         // TODO implement saveValues
         Log.d(TAG, "Save Values");
-        final RAApplication raApp = (RAApplication) getApplication();
         if (isDownloadLabelsChecked()) {
             Log.d(TAG, "Download labels");
         }
@@ -279,7 +280,6 @@ public class SetupWizardActivity extends ActionBarActivity
 
     private void finishAndLaunch() {
         Log.d(TAG, "Finished setup wizard, launching main app");
-        final RAApplication raApp = (RAApplication) getApplication();
         raApp.raprefs.disableFirstRun();
         Intent i = new Intent(this, MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -344,11 +344,11 @@ public class SetupWizardActivity extends ActionBarActivity
                     // Portal chosen, jump to the end
                     newPosition = MAX_STEPS - 1;
                     // set the summary text for the device to be Portal
-                    aStepItems[1].setSummaryText("Portal");
+                    aStepItems[1].setSummaryText(getString(R.string.prefsCategoryPortal));
                 } else {
                     // Controller chosen, check if the username was given
                     // set the summary text for the device to be Controller
-                    aStepItems[1].setSummaryText("Controller");
+                    aStepItems[1].setSummaryText(getString(R.string.prefsCategoryController));
                     if (isUsernameGiven()) {
                         // Username was provided, so proceed to next step
                         newPosition = 3;
@@ -370,7 +370,7 @@ public class SetupWizardActivity extends ActionBarActivity
                     // Update the summary text to contain the full hostname
                     // host is:  username-subdomain.myreefangel.com
                     String host = aStepItems[2].getValue() + "-" +
-                            aStepItems[3].getValue() + ".myreefangel.com";
+                            aStepItems[3].getValue() + getString(R.string.labelMyReefangelDomain);
                     aStepItems[3].setSummaryText(host);
                     newPosition = 5;
                 }
@@ -382,13 +382,13 @@ public class SetupWizardActivity extends ActionBarActivity
                     // user did not provide an IP address for the controller
                     // we need to assume that one of the Dynamic DNS hosts was provided
                     // look at previous step and set that title and preference key to be Home
-                    aStepItems[previous].setTitle("Home Host");
-                    aStepItems[previous].setPreferenceKey("home_host");
+                    aStepItems[previous].setTitle(getString(R.string.prefHostTitle));
+                    aStepItems[previous].setPreferenceKey(getString(R.string.prefHostKey));
                 } else {
                     // otherwise, the user provided an IP address and we need to set the
                     // Dynamic DNS host as the Away host
-                    aStepItems[previous].setTitle("Away Host");
-                    aStepItems[previous].setPreferenceKey("away_host");
+                    aStepItems[previous].setTitle(getString(R.string.prefHostAwayTitle));
+                    aStepItems[previous].setPreferenceKey(getString(R.string.prefHostAwayKey));
                 }
                 break;
             case 6:
