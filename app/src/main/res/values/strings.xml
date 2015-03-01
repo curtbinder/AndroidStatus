@@ -337,7 +337,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="prefContributorTitle">Contributors</string>
     <string name="prefContributorSummary">Roberto Imai, Mathieu Brisson, Tin Pavlinic</string>
     <string name="prefCopyrightTitle">Copyright</string>
-    <string name="prefCopyrightSummary">Copyright 2011–13 Curt Binder</string>
+    <string name="prefCopyrightSummary">Copyright 2011–15 Curt Binder</string>
     <string name="prefLicenseTitle">License</string>
     <string name="prefLicenseSummary">This work is licensed under the MIT License.</string>
     <string name="prefChangelogSummary">Displays changelog</string>
