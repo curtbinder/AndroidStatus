@@ -1,7 +1,7 @@
 <!--
   ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2014 Curt Binder
+  ~ Copyright (c) 2015 Curt Binder
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +29,9 @@
     <dimen name="row_vertical_padding">8dp</dimen>
     <dimen name="row_horizontal_padding">8dp</dimen>
     <dimen name="frag_item_horizontal_padding">10dp</dimen>
+    <dimen name="step_radio_group_horizontal_margin">40dp</dimen>
+    <dimen name="step_radio_group_vertical_margin">96dp</dimen>
+    <dimen name="step_value_margin">32dp</dimen>
 
         <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
          https://developer.android.com/design/patterns/navigation-drawer.html -->

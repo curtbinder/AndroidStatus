@@ -22,38 +22,22 @@
  * SOFTWARE.
  */
 
-apply plugin: 'com.android.application'
+package info.curtbinder.reefangel.wizard;
 
-android {
-    compileSdkVersion 19
-    buildToolsVersion '19.1.0'
+import android.support.v4.app.Fragment;
 
-    defaultConfig {
-        minSdkVersion 8
-        targetSdkVersion 19
-        versionCode 52
-        versionName "1.1.0"
+/**
+ * Created by binder on 2/25/15.
+ */
+public abstract class StepBase extends Fragment {
+
+
+    public StepBase() {
     }
 
-    buildTypes {
-        debug {
-            applicationIdSuffix '.debug'
-            versionNameSuffix '-DEBUG'
-        }
+    public abstract boolean isNextEnabled();
 
-        release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+    public abstract String getValue();
 
-dependencies {
-    compile 'com.android.support:support-v4:19.1.0'
-    compile 'com.android.support:appcompat-v7:19.1.0'
-    compile 'com.squareup.okio:okio:1.0.1'
-    compile 'com.squareup.okhttp:okhttp:2.0.0'
-    compile 'com.github.gabrielemariotti.changeloglib:library:1.5.1'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    public abstract int getOption();
 }

@@ -2,7 +2,7 @@
 <!--
   ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2011 Curt Binder
+  ~ Copyright (c) 2015 Curt Binder
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -66,6 +66,7 @@
     <string name="titleFlags">Flags</string>
     <string name="titleAlert">Alert Flags</string>
     <string name="titleStatus">Status Flags</string>
+    <string name="titleSetupWizard">Setup Wizard</string>
 
     <!-- Tabs for memory page -->
     <string name="tabMemory1">memory_tab_1</string>
@@ -111,7 +112,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="buttonWrite">Write Value</string>
     <string name="buttonFeeding">Feeding Mode</string>
     <string name="buttonWater">Water Change</string>
-    <string name="buttonExit">Exit Mode</string>
+    <string name="buttonExitMode">Exit Mode</string>
     <string name="buttonAtoClear">Clear ATO</string>
     <string name="buttonOverheatClear">Clear Overheat</string>
     <string name="buttonGetControllerTime">Get Time</string>
@@ -127,6 +128,9 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="buttonSave">Save</string>
     <string name="buttonClear">Clear</string>
     <string name="buttonSet">Set</string>
+    <string name="buttonNext">Next</string>
+    <string name="buttonPrevious">Previous</string>
+    <string name="buttonExit">Exit</string>
     <string name="radioByte">Byte</string>
     <string name="radioInt">Int</string>
 
@@ -209,6 +213,8 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="labelBusLock">Bus Lock</string>
     <string name="labelLeak">Leak</string>
     <string name="labelSCDimming">16 Ch Dimming</string>
+    <string name="labelSummary">Summary</string>
+    <string name="labelDownloadLabelsOnFinish">Download Labels on Finish</string>
     <string name="websiteReefangel">http://www.reefangel.com/</string>
     <string name="forumReefangel">http://forum.reefangel.com/</string>
     <string name="defaultStatusText">-</string>

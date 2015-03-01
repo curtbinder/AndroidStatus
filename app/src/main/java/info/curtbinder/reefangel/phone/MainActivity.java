@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2014 Curt Binder
+ * Copyright (c) 2015 Curt Binder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import info.curtbinder.reefangel.wizard.SetupWizardActivity;
+
 public class MainActivity extends ActionBarActivity
         implements android.support.v7.app.ActionBar.OnNavigationListener,
         FragmentManager.OnBackStackChangedListener {
@@ -77,6 +79,14 @@ public class MainActivity extends ActionBarActivity
         setContentView(R.layout.activity_main);
 
         raApp = (RAApplication) getApplication();
+
+        // Check for first run
+        if (raApp.isFirstRun()) {
+            Intent i = new Intent(this, SetupWizardActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(i);
+            finish();
+        }
 
         // Load any saved position
         int position = 0;

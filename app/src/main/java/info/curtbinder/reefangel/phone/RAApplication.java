@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2011 Curt Binder
+ * Copyright (c) 2015 Curt Binder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +31,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Debug;
 import android.os.Environment;
 import android.preference.PreferenceActivity;
 import android.support.v7.app.ActionBarActivity;
@@ -594,9 +595,13 @@ public class RAApplication extends Application {
         // if the host key is NOT set OR if it's the same as the default
         boolean fFirst = raprefs.isFirstRun();
 
+        // TODO remove debug build code check
+        if (BuildConfig.DEBUG) {
+            return fFirst;
+        }
         // if it's already set, no need to compare the hosts
         if (!fFirst) {
-            // Log.w( TAG, "First run already set" );
+            Log.w( TAG, "First run already set" );
             return false;
         }
 

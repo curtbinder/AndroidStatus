@@ -41,4 +41,5 @@
     <string name="placeholder_history_pt3"></string>
     <string name="placeholder_override_pwm_msg"></string>
     <string name="placeholder_override_pwm_value"></string>
+    <string name="placeholder_hint"></string>
 </resources>

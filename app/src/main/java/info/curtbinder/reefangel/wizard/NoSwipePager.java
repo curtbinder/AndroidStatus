@@ -22,38 +22,35 @@
  * SOFTWARE.
  */
 
-apply plugin: 'com.android.application'
+package info.curtbinder.reefangel.wizard;
 
-android {
-    compileSdkVersion 19
-    buildToolsVersion '19.1.0'
+import android.content.Context;
+import android.support.v4.view.ViewPager;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
 
-    defaultConfig {
-        minSdkVersion 8
-        targetSdkVersion 19
-        versionCode 52
-        versionName "1.1.0"
+/**
+ * Created by binder on 2/21/15.
+ */
+public class NoSwipePager extends ViewPager {
+
+    public NoSwipePager(Context context) {
+        super(context);
     }
 
-    buildTypes {
-        debug {
-            applicationIdSuffix '.debug'
-            versionNameSuffix '-DEBUG'
-        }
-
-        release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+    public NoSwipePager(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
-}
 
-dependencies {
-    compile 'com.android.support:support-v4:19.1.0'
-    compile 'com.android.support:appcompat-v7:19.1.0'
-    compile 'com.squareup.okio:okio:1.0.1'
-    compile 'com.squareup.okhttp:okhttp:2.0.0'
-    compile 'com.github.gabrielemariotti.changeloglib:library:1.5.1'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent event) {
+        // Never allow swiping to switch between pages
+        return false;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // Never allow swiping to switch between pages
+        return false;
+    }
 }

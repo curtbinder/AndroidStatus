@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2014 Curt Binder
+  ~ Copyright (c) 2015 Curt Binder
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -24,22 +23,23 @@
   ~ SOFTWARE.
   -->
 
-<resources>
-    <!--
-    Placeholder text strings that are used to preview strings while developing.
-    These strings will only appear when debugging and will not appear in release builds.
-    Make sure all values here match the main/res/values counterparts
-    -->
-    <string name="placeholder_title">Title</string>
-    <string name="placeholder_subtitle">Subtitle</string>
-    <string name="placeholder_value">Value</string>
-    <string name="placeholder_controllertime">12/12/2015 12:36:21 PM</string>
-    <string name="placeholder_errorstring">Error 13 - Device Authentication Error</string>
-    <string name="placeholder_logdate">Dec 20, 2014 12:36:16 PM</string>
-    <string name="placeholder_history_pt1">89.0</string>
-    <string name="placeholder_history_pt2">100.0</string>
-    <string name="placeholder_history_pt3">74.0</string>
-    <string name="placeholder_override_pwm_msg">Channel being overridden</string>
-    <string name="placeholder_override_pwm_value">100%</string>
-    <string name="placeholder_hint">hint goes here</string>
-</resources>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/placeholder_title"
+        android:id="@+id/tvTitle" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/placeholder_subtitle"
+        android:id="@+id/tvValue"
+        android:gravity="end" />
+
+</LinearLayout>
