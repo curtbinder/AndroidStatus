@@ -6,6 +6,7 @@
 /.idea/dataSources.ids
 /.idea/datasources.xml
 /.idea/libraries/*.xml
+/app/manifest-merger-debug-report.txt
 
 # Module folder, mostly in ignore file inside the Module
 build/
