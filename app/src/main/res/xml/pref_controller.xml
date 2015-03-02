@@ -1098,10 +1098,15 @@
                     android:positiveButtonText="@string/buttonYes"
                     android:persistent="false"
                     />
-                <PreferenceScreen
+                <info.curtbinder.reefangel.phone.PrefDialogResetEnabledPorts
+                    android:dialogMessage="@string/messageResetEnabledPortsPrompt"
                     android:key="@string/prefResetEnabledPortsKey"
+                    android:title="@string/prefResetEnabledPortsTitle"
                     android:summary="@string/prefResetSummary"
-                    android:title="@string/prefResetEnabledPortsTitle" />
+                    android:negativeButtonText="@string/buttonNo"
+                    android:positiveButtonText="@string/buttonYes"
+                    android:persistent="false"
+                    />
             </PreferenceCategory>
 
 </PreferenceScreen>
