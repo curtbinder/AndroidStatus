@@ -595,10 +595,6 @@ public class RAApplication extends Application {
         // if the host key is NOT set OR if it's the same as the default
         boolean fFirst = raprefs.isFirstRun();
 
-        // TODO remove debug build code check
-        if (BuildConfig.DEBUG) {
-            return fFirst;
-        }
         // if it's already set, no need to compare the hosts
         if (!fFirst) {
             Log.w( TAG, "First run already set" );
