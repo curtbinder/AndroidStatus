@@ -272,7 +272,6 @@ public class SetupWizardActivity extends ActionBarActivity
     }
 
     private void saveValues() {
-        Log.d(TAG, "Save Values");
         int size = stepsList.size() - 1;
         // skip the first step, which is the summary step
         // set the Device, since the value is empty / not set
@@ -285,12 +284,10 @@ public class SetupWizardActivity extends ActionBarActivity
             Integer v = stepsList.get(i);
             // store it if we have a value
             if (!(aStepItems[v].getValue().length() == 0)) {
-                Log.d(TAG, aStepItems[v].getPreferenceKey() + " - " + aStepItems[v].getValue());
                 raApp.raprefs.set(aStepItems[v].getPreferenceKey(), aStepItems[v].getValue());
             }
         }
         if (isDownloadLabelsChecked()) {
-            Log.d(TAG, "Download labels");
             Intent i = new Intent(this, UpdateService.class);
             i.setAction(MessageCommands.LABEL_QUERY_INTENT);
             startService(i);
@@ -298,7 +295,6 @@ public class SetupWizardActivity extends ActionBarActivity
     }
 
     private void finishAndLaunch() {
-        Log.d(TAG, "Finished setup wizard, launching main app");
         raApp.raprefs.disableFirstRun();
         Intent i = new Intent(this, MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
