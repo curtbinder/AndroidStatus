@@ -1089,10 +1089,15 @@
                 </PreferenceScreen>
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/prefResetCategory" >
-                <PreferenceScreen
+                <info.curtbinder.reefangel.phone.PrefDialogResetLabels
+                    android:dialogMessage="@string/messageResetLabelsPrompt"
                     android:key="@string/prefResetLabelsKey"
+                    android:title="@string/prefResetLabelsTitle"
                     android:summary="@string/prefResetSummary"
-                    android:title="@string/prefResetLabelsTitle" />
+                    android:negativeButtonText="@string/buttonNo"
+                    android:positiveButtonText="@string/buttonYes"
+                    android:persistent="false"
+                    />
                 <PreferenceScreen
                     android:key="@string/prefResetEnabledPortsKey"
                     android:summary="@string/prefResetSummary"
