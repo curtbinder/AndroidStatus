@@ -42,6 +42,8 @@ import java.util.LinkedList;
 import info.curtbinder.reefangel.phone.MainActivity;
 import info.curtbinder.reefangel.phone.R;
 import info.curtbinder.reefangel.phone.RAApplication;
+import info.curtbinder.reefangel.service.MessageCommands;
+import info.curtbinder.reefangel.service.UpdateService;
 
 
 public class SetupWizardActivity extends ActionBarActivity
@@ -246,7 +248,6 @@ public class SetupWizardActivity extends ActionBarActivity
         updateValues(position);
         if (fForward) {
             if (isLastStep(position)) {
-                Log.d(TAG, "No more pages");
                 saveValues();
                 finishAndLaunch();
             } else {
@@ -271,10 +272,28 @@ public class SetupWizardActivity extends ActionBarActivity
     }
 
     private void saveValues() {
-        // TODO implement saveValues
         Log.d(TAG, "Save Values");
+        int size = stepsList.size() - 1;
+        // skip the first step, which is the summary step
+        // set the Device, since the value is empty / not set
+        String sValue = "0";  // Controller
+        if (isDevicePortal()) {
+            sValue = "1"; // Portal
+        }
+        raApp.raprefs.set(aStepItems[1].getPreferenceKey(), sValue);
+        for (int i = size - 1; i >= 0; i--) {
+            Integer v = stepsList.get(i);
+            // store it if we have a value
+            if (!(aStepItems[v].getValue().length() == 0)) {
+                Log.d(TAG, aStepItems[v].getPreferenceKey() + " - " + aStepItems[v].getValue());
+                raApp.raprefs.set(aStepItems[v].getPreferenceKey(), aStepItems[v].getValue());
+            }
+        }
         if (isDownloadLabelsChecked()) {
             Log.d(TAG, "Download labels");
+            Intent i = new Intent(this, UpdateService.class);
+            i.setAction(MessageCommands.LABEL_QUERY_INTENT);
+            startService(i);
         }
     }
 
