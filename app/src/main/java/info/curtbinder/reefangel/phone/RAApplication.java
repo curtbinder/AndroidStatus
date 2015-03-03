@@ -617,16 +617,6 @@ public class RAApplication extends Application {
         // check version code stored in preferences vs the version stored in
         // running code
         // display the changelog if the values are different
-//        if ( a instanceof ActionBarActivity ) {
-//            Log.d(TAG, "ActionBarActivity");
-//        } else if ( a instanceof PreferenceActivity ) {
-//            Log.d(TAG, "PreferenceActivity");
-//        } else if ( a instanceof SettingsActivity ) {
-//            Log.d(TAG, "SettingsActivity");
-//        } else {
-//            Log.d(TAG, "Other Activity");
-//        }
-
         int previous = raprefs.getPreviousCodeVersion();
 
         int current = 0;
@@ -639,7 +629,6 @@ public class RAApplication extends Application {
             // save code version in preferences
             raprefs.setPreviousCodeVersion(current);
             // newer version, display changelog
-            //DisplayLog.displayChangelog(a);
             DialogSupportChangelog dlg = new DialogSupportChangelog();
             dlg.show(a.getSupportFragmentManager(), "dlg");
         }
