@@ -42,6 +42,8 @@ import info.curtbinder.reefangel.db.StatusTable;
 
 /**
  * Created by binder on 7/26/14.
+ *
+ * Status page for the Dimming expansion module
  */
 public class PageDimmingFragment extends Fragment
     implements PageRefreshInterface, View.OnLongClickListener {
@@ -159,22 +161,6 @@ public class PageDimmingFragment extends Fragment
             //setVisibility(i, true);
         }
     }
-
-    public void updatePWMValues(short[] v) {
-        for ( int i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
-            pwmeValues[i] = v[i];
-        }
-    }
-
-//    public short[] getPWMEValues(Cursor c) {
-//        return new short[] {
-//            c.getShort(c.getColumnIndex(StatusTable.COL_PWME0)),
-//            c.getShort(c.getColumnIndex(StatusTable.COL_PWME1)),
-//            c.getShort(c.getColumnIndex(StatusTable.COL_PWME2)),
-//            c.getShort(c.getColumnIndex(StatusTable.COL_PWME3)),
-//            c.getShort(c.getColumnIndex(StatusTable.COL_PWME4)),
-//            c.getShort(c.getColumnIndex(StatusTable.COL_PWME5))};
-//    }
 
     private String[] getValues(Cursor c) {
         String sa[] = new String[Controller.MAX_PWM_EXPANSION_PORTS];

@@ -40,7 +40,6 @@ import info.curtbinder.reefangel.db.StatusTable;
 
 public class PageControllerFragment extends Fragment
         implements PageRefreshInterface,
-        PagePWMRefreshInterface,
         View.OnLongClickListener {
 
     private static final String TAG = PageControllerFragment.class.getSimpleName();
@@ -202,13 +201,6 @@ public class PageControllerFragment extends Fragment
         tv.setText(title);
         tv = (TextView) deviceRow[device].findViewById(R.id.rowSubTitle);
         tv.setText(subtitle);
-    }
-
-    public void updatePWMValues(short[] v) {
-        // TODO this function call is unnecessary
-        Log.d(TAG, "updatePWMValues: " + v[0] + ", " + v[1]);
-        apValue = v[0];
-        dpValue = v[1];
     }
 
     private void setVisibility(int device, boolean fVisible) {

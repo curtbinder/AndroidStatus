@@ -42,6 +42,8 @@ import info.curtbinder.reefangel.db.StatusTable;
 
 /**
  * Created by binder on 7/26/14.
+ *
+ * Status page for the Aqua Illumincations page
  */
 public class PageAIFragment extends Fragment
     implements PageRefreshInterface, View.OnLongClickListener {
@@ -87,12 +89,6 @@ public class PageAIFragment extends Fragment
     public void setLabel(int channel, String label) {
         TableRow tr = (TableRow) aiText[channel].getParent();
         setRowTitle(tr, label);
-    }
-
-    public void updatePWMValues(short[] v) {
-        for ( int i = 0; i < Controller.MAX_AI_CHANNELS; i++ ) {
-            aiValues[i] = v[i];
-        }
     }
 
     @Override

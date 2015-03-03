@@ -44,7 +44,7 @@ import info.curtbinder.reefangel.db.StatusTable;
  * Created by binder on 7/26/14.
  */
 public class PageVortechFragment extends Fragment
-implements PageRefreshInterface, PagePWMRefreshInterface, View.OnLongClickListener {
+implements PageRefreshInterface, View.OnLongClickListener {
 
     private static final String TAG = PageVortechFragment.class.getSimpleName();
     private TextView[] vortechText = new TextView[Controller.MAX_VORTECH_VALUES];
@@ -130,23 +130,6 @@ implements PageRefreshInterface, PagePWMRefreshInterface, View.OnLongClickListen
         }
         return true;
     }
-
-    @Override
-    public void updatePWMValues(short[] v) {
-        // TODO may need to function exactly like refreshData()
-        for ( int i = 0; i < Controller.MAX_VORTECH_VALUES; i++ ) {
-            vortechValues[i] = v[i];
-        }
-    }
-
-//    public short[] getVortechValues(Cursor c) {
-//        // TODO is getVortechValues needed?? not currently used.
-//        return new short[] {
-//                c.getShort(c.getColumnIndex(StatusTable.COL_RFM)),
-//                c.getShort(c.getColumnIndex(StatusTable.COL_RFS)),
-//                c.getShort(c.getColumnIndex(StatusTable.COL_RFD))
-//        };
-//    }
 
     private String getMode(int v) {
         String s;

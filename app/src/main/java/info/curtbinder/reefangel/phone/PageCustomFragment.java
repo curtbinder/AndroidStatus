@@ -40,6 +40,8 @@ import info.curtbinder.reefangel.db.StatusTable;
 
 /**
  * Created by binder on 7/26/14.
+ *
+ * Status page for the Custom Variables
  */
 public class PageCustomFragment extends Fragment
     implements PageRefreshInterface {

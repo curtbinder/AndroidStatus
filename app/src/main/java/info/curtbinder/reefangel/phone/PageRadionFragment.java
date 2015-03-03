@@ -41,10 +41,11 @@ import info.curtbinder.reefangel.db.StatusTable;
 
 /**
  * Created by binder on 7/26/14.
+ *
+ * Status page for the Radion device
  */
 public class PageRadionFragment extends Fragment
-    implements PageRefreshInterface,
-    PagePWMRefreshInterface, View.OnLongClickListener {
+    implements PageRefreshInterface, View.OnLongClickListener {
 
     private static final String TAG = PageRadionFragment.class.getSimpleName();
     private TextView[] radionText = new TextView[Controller.MAX_RADION_LIGHT_CHANNELS];
@@ -146,24 +147,6 @@ public class PageRadionFragment extends Fragment
         }
         return true;
     }
-
-    @Override
-    public void updatePWMValues(short[] v) {
-        for ( int i = 0; i < Controller.MAX_RADION_LIGHT_CHANNELS; i++ ) {
-            radionValues[i] = v[i];
-        }
-    }
-
-//    public short[] getRadionValues(Cursor c) {
-//        return new short[] {
-//                c.getShort(c.getColumnIndex(StatusTable.COL_RFW)),
-//                c.getShort(c.getColumnIndex(StatusTable.COL_RFRB)),
-//                c.getShort(c.getColumnIndex(StatusTable.COL_RFR)),
-//                c.getShort(c.getColumnIndex(StatusTable.COL_RFG)),
-//                c.getShort(c.getColumnIndex(StatusTable.COL_RFB)),
-//                c.getShort(c.getColumnIndex(StatusTable.COL_RFI))
-//        };
-//    }
 
     private String[] getValues(Cursor c) {
         String sa[] = new String[Controller.MAX_RADION_LIGHT_CHANNELS];

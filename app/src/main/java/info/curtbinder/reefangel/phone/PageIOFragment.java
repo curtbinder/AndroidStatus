@@ -42,6 +42,8 @@ import info.curtbinder.reefangel.db.StatusTable;
 
 /**
  * Created by binder on 7/26/14.
+ *
+ * Status page for the I/O expansion module
  */
 public class PageIOFragment extends Fragment
     implements PageRefreshInterface {

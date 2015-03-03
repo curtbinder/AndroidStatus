@@ -201,12 +201,6 @@ public class PageSCDimmingFragment extends Fragment
         }
     }
 
-    public void updatePWMValues(short[] v) {
-        for ( int i = 0; i < Controller.MAX_SCPWM_EXPANSION_PORTS; i++ ) {
-            pwmeValues[i] = v[i];
-        }
-    }
-
     private String[] getValues(Cursor c) {
         String sa[] = new String[Controller.MAX_SCPWM_EXPANSION_PORTS];
         pwmeValues[0] = c.getShort(c.getColumnIndex(StatusTable.COL_SCPWME0));

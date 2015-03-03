@@ -26,6 +26,8 @@ package info.curtbinder.reefangel.phone;
 
 /**
  * Created by binder on 3/23/14.
+ *
+ * Interface for the Status Pages to Refresh their data
  */
 public interface PageRefreshInterface {
     public void refreshData();
