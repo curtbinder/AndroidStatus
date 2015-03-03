@@ -47,6 +47,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -130,6 +131,10 @@ public class MainActivity extends ActionBarActivity
         // todo add in message handlers, broadcast receivers
         fRestoreState = true;
         setNavigationList();
+
+        if (raApp.raprefs.isKeepScreenOnEnabled()) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
 
         // last thing we do is display the changelog if necessary
         // TODO add in a preference check for displaying changelog on app startup

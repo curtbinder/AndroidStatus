@@ -24,38 +24,43 @@
   ~ SOFTWARE.
   -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/prefPre10MemoryKey"
-            android:summary="@string/prefPre10MemorySummary"
-            android:title="@string/prefPre10MemoryTitle" />
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/prefAutoUpdateModulesKey"
-            android:summary="@string/prefAutoUpdateModulesSummary"
-            android:title="@string/prefAutoUpdateModulesTitle" />
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/prefAutoRefreshAfterUpdateKey"
-            android:summary="@string/prefAutoRefreshAfterUpdateSummary"
-            android:title="@string/prefAutoRefreshAfterUpdateTitle" />
-        <ListPreference
-            android:defaultValue="@string/prefConnectionTimeoutDefault"
-            android:entries="@array/networkTimeout"
-            android:entryValues="@array/networkTimeoutValues"
-            android:key="@string/prefConnectionTimeoutKey"
-            android:title="@string/prefConnectionTimeoutTitle" />
-        <ListPreference
-            android:defaultValue="@string/prefReadTimeoutDefault"
-            android:entries="@array/networkTimeout"
-            android:entryValues="@array/networkTimeoutValues"
-            android:key="@string/prefReadTimeoutKey"
-            android:title="@string/prefReadTimeoutTitle" />
-        <!--<PreferenceScreen-->
-            <!--android:key="@string/prefResetAllPrefsKey"-->
-            <!--android:summary="@string/prefResetSummary"-->
-            <!--android:title="@string/prefResetAllPrefsTitle" />-->
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/prefPre10MemoryKey"
+        android:summary="@string/prefPre10MemorySummary"
+        android:title="@string/prefPre10MemoryTitle" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/prefAutoUpdateModulesKey"
+        android:summary="@string/prefAutoUpdateModulesSummary"
+        android:title="@string/prefAutoUpdateModulesTitle" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/prefAutoRefreshAfterUpdateKey"
+        android:summary="@string/prefAutoRefreshAfterUpdateSummary"
+        android:title="@string/prefAutoRefreshAfterUpdateTitle" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/prefKeepScreenOnKey"
+        android:summary="@string/prefKeepScreenOnSummary"
+        android:title="@string/prefKeepScreenOnTitle" />
+    <ListPreference
+        android:defaultValue="@string/prefConnectionTimeoutDefault"
+        android:entries="@array/networkTimeout"
+        android:entryValues="@array/networkTimeoutValues"
+        android:key="@string/prefConnectionTimeoutKey"
+        android:title="@string/prefConnectionTimeoutTitle" />
+    <ListPreference
+        android:defaultValue="@string/prefReadTimeoutDefault"
+        android:entries="@array/networkTimeout"
+        android:entryValues="@array/networkTimeoutValues"
+        android:key="@string/prefReadTimeoutKey"
+        android:title="@string/prefReadTimeoutTitle" />
+    <!--<PreferenceScreen-->
+    <!--android:key="@string/prefResetAllPrefsKey"-->
+    <!--android:summary="@string/prefResetSummary"-->
+    <!--android:title="@string/prefResetAllPrefsTitle" />-->
 
 </PreferenceScreen>

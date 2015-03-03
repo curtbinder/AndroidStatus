@@ -157,6 +157,10 @@ public class RAPreferences {
         return getBoolean( R.string.prefAutoRefreshAfterUpdateKey, true );
     }
 
+    public boolean isKeepScreenOnEnabled() {
+        return getBoolean(R.string.prefKeepScreenOnKey, false);
+    }
+
     // Automatic Updating
     public long getUpdateInterval() {
         return Long.parseLong(getString(R.string.prefAutoUpdateIntervalKey,
