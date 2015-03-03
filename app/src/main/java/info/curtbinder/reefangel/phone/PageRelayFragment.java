@@ -59,6 +59,7 @@ public class PageRelayFragment extends Fragment
     private View[] portMaskBtns = new View[Controller.MAX_RELAY_PORTS];
 
     private boolean[] controlsEnabled = new boolean[Controller.MAX_RELAY_PORTS];
+    private RAApplication raApp;
 
     public PageRelayFragment() {
     }
@@ -86,6 +87,7 @@ public class PageRelayFragment extends Fragment
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.page_relaybox, container, false);
         findViews(rootView);
+        raApp = (RAApplication) getActivity().getApplication();
         getRelayNumber();
         return rootView;
     }
@@ -121,9 +123,9 @@ public class PageRelayFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
-        refreshButtonEnablement();
         setOnClickListeners();
         setPortLabels();
+        refreshButtonEnablement();
         refreshData();
     }
 
@@ -142,18 +144,23 @@ public class PageRelayFragment extends Fragment
     }
 
     private boolean isControlEnabled(int port) {
+        // TODO if creating a monitor only mode for the controller, this is where we would alter the code
+        // If we are communicating with the Portal, the buttons are always DISABLED
+        // Otherwise, if we are communicating with a Controller, ENABLE/DISABLE the buttons based
+        // on the user's preferences
+        if (!raApp.raprefs.isCommunicateController())
+            return false;
         return controlsEnabled[port];
     }
 
     private void setControlEnabled(int port, boolean enabled) {
         controlsEnabled[port] = enabled;
-        refreshButtonEnablement();
     }
 
     private void setClickable(boolean clickable) {
         for (int i = 0; i < Controller.MAX_RELAY_PORTS; i++) {
-            portBtns[i].setClickable(false);
-            portMaskBtns[i].setClickable(false);
+            portBtns[i].setClickable(clickable);
+            portMaskBtns[i].setClickable(clickable);
         }
     }
 
@@ -165,15 +172,11 @@ public class PageRelayFragment extends Fragment
     }
 
     private void setPortLabels() {
-        Resources r = getActivity().getResources();
-        RAApplication raApp = (RAApplication) getActivity().getApplication();
         RAPreferences raPrefs = raApp.raprefs;
-        boolean enabled;
-        String defaultPort = r.getString(R.string.defaultPortName);
+        String defaultPort = raApp.getString(R.string.defaultPortName);
         for (int i = 0; i < Controller.MAX_RELAY_PORTS; i++) {
             setPortLabel(i, raPrefs.getRelayLabel(relayNumber, i), defaultPort + (i+1));
-            enabled = raPrefs.getRelayControlEnabled(relayNumber, i);
-            setControlEnabled(i, enabled);
+            setControlEnabled(i, raPrefs.getRelayControlEnabled(relayNumber, i));
         }
     }
 
