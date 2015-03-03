@@ -83,8 +83,6 @@ public class PageSCDimmingFragment extends Fragment
 
         for ( int i = 0; i < Controller.MAX_SCPWM_EXPANSION_PORTS; i++ ) {
             pwmeText[i] = (TextView) pwmeRow[i].findViewById(R.id.rowValue);
-            pwmeText[i].setLongClickable(true);
-            pwmeText[i].setOnLongClickListener(this);
         }
     }
 
@@ -92,7 +90,21 @@ public class PageSCDimmingFragment extends Fragment
     public void onResume() {
         super.onResume();
         updateLabelsAndVisibility();
+        updateClickable();
         refreshData();
+    }
+
+    private void updateClickable() {
+        boolean fClickable = ((RAApplication) getActivity().getApplication()).raprefs.isCommunicateController();
+        View.OnLongClickListener l = null;
+        // Update the long clickablility and longclick listener based on the device we communicate
+        if (fClickable) {
+            l = this;
+        }
+        for ( int i = 0; i < Controller.MAX_SCPWM_EXPANSION_PORTS; i++ ) {
+            pwmeText[i].setLongClickable(fClickable);
+            pwmeText[i].setOnLongClickListener(l);
+        }
     }
 
     @Override

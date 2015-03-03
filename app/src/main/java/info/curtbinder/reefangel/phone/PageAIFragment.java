@@ -51,8 +51,7 @@ public class PageAIFragment extends Fragment
     private short[] aiValues = new short[Controller.MAX_AI_CHANNELS];
 
     public static PageAIFragment newInstance() {
-        PageAIFragment p = new PageAIFragment();
-        return p;
+        return new PageAIFragment();
     }
 
     @Override
@@ -75,11 +74,6 @@ public class PageAIFragment extends Fragment
         tr = (TableRow) root.findViewById(R.id.rowAIRoyalBlue);
         aiText[2] = (TextView) tr.findViewById(R.id.rowValue);
         setRowTitle(tr, R.string.labelRoyalBlue);
-
-        for (int i = 0; i < Controller.MAX_AI_CHANNELS; i++ ) {
-            aiText[i].setLongClickable(true);
-            aiText[i].setOnLongClickListener(this);
-        }
     }
 
     private void setRowTitle(TableRow row, int labelId) {
@@ -109,7 +103,21 @@ public class PageAIFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
+        updateClickable();
         refreshData();
+    }
+
+    private void updateClickable() {
+        boolean fClickable = ((RAApplication) getActivity().getApplication()).raprefs.isCommunicateController();
+        View.OnLongClickListener l = null;
+        // Update the long clickablility and longclick listener based on the device we communicate
+        if (fClickable) {
+            l = this;
+        }
+        for (int i = 0; i < Controller.MAX_AI_CHANNELS; i++ ) {
+            aiText[i].setLongClickable(fClickable);
+            aiText[i].setOnLongClickListener(l);
+        }
     }
 
     @Override

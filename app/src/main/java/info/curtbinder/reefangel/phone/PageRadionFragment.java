@@ -81,11 +81,6 @@ public class PageRadionFragment extends Fragment
         tr = (TableRow) root.findViewById(R.id.rowIntensity);
         radionText[5] = (TextView) tr.findViewById(R.id.rowValue);
         setRowTitle(tr, R.string.labelIntensity);
-
-        for ( int i = 0; i < Controller.MAX_RADION_LIGHT_CHANNELS; i++ ) {
-            radionText[i].setLongClickable(true);
-            radionText[i].setOnLongClickListener(this);
-        }
     }
 
     private void setRowTitle(TableRow row, int labelId) {
@@ -95,7 +90,21 @@ public class PageRadionFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
+        updateClickable();
         refreshData();
+    }
+
+    private void updateClickable() {
+        boolean fClickable = ((RAApplication) getActivity().getApplication()).raprefs.isCommunicateController();
+        View.OnLongClickListener l = null;
+        // Update the long clickablility and longclick listener based on the device we communicate
+        if (fClickable) {
+            l = this;
+        }
+        for ( int i = 0; i < Controller.MAX_RADION_LIGHT_CHANNELS; i++ ) {
+            radionText[i].setLongClickable(fClickable);
+            radionText[i].setOnLongClickListener(l);
+        }
     }
 
     @Override

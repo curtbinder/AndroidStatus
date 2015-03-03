@@ -26,7 +26,6 @@ package info.curtbinder.reefangel.phone;
 
 import android.app.Activity;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -37,7 +36,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import info.curtbinder.reefangel.controller.Controller;
-import info.curtbinder.reefangel.db.StatusProvider;
 import info.curtbinder.reefangel.db.StatusTable;
 
 public class PageControllerFragment extends Fragment
@@ -91,17 +89,27 @@ public class PageControllerFragment extends Fragment
         for (int i = 0; i < Controller.MAX_CONTROLLER_VALUES; i++) {
             deviceText[i] = (TextView) deviceRow[i].findViewById(R.id.rowValue);
         }
-        deviceText[Globals.AP_INDEX].setLongClickable(true);
-        deviceText[Globals.AP_INDEX].setOnLongClickListener(this);
-        deviceText[Globals.DP_INDEX].setLongClickable(true);
-        deviceText[Globals.DP_INDEX].setOnLongClickListener(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         updateLabelsAndVisibility();
+        updateClickable();
         refreshData();
+    }
+
+    private void updateClickable() {
+        boolean fClickable = ((RAApplication) getActivity().getApplication()).raprefs.isCommunicateController();
+        View.OnLongClickListener l = null;
+        // Update the long clickablility and longclick listener based on the device we communicate
+        if (fClickable) {
+            l = this;
+        }
+        deviceText[Globals.AP_INDEX].setLongClickable(fClickable);
+        deviceText[Globals.AP_INDEX].setOnLongClickListener(l);
+        deviceText[Globals.DP_INDEX].setLongClickable(fClickable);
+        deviceText[Globals.DP_INDEX].setOnLongClickListener(l);
     }
 
     @Override

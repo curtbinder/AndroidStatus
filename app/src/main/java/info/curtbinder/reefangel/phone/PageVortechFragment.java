@@ -74,11 +74,6 @@ implements PageRefreshInterface, PagePWMRefreshInterface, View.OnLongClickListen
         tr = (TableRow) root.findViewById(R.id.rowDuration);
         vortechText[2] = (TextView) tr.findViewById(R.id.rowValue);
         setRowTitle(tr, R.string.labelDuration);
-
-        for ( int i = 0; i < Controller.MAX_VORTECH_VALUES; i++ ) {
-            vortechText[i].setLongClickable(true);
-            vortechText[i].setOnLongClickListener(this);
-        }
     }
 
     private void setRowTitle(TableRow row, int labelId) {
@@ -88,7 +83,21 @@ implements PageRefreshInterface, PagePWMRefreshInterface, View.OnLongClickListen
     @Override
     public void onResume() {
         super.onResume();
+        updateClickable();
         refreshData();
+    }
+
+    private void updateClickable() {
+        boolean fClickable = ((RAApplication) getActivity().getApplication()).raprefs.isCommunicateController();
+        View.OnLongClickListener l = null;
+        // Update the long clickablility and longclick listener based on the device we communicate
+        if (fClickable) {
+            l = this;
+        }
+        for ( int i = 0; i < Controller.MAX_VORTECH_VALUES; i++ ) {
+            vortechText[i].setLongClickable(fClickable);
+            vortechText[i].setOnLongClickListener(l);
+        }
     }
 
     @Override

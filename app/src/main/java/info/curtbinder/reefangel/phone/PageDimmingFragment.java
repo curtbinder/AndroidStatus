@@ -73,8 +73,6 @@ public class PageDimmingFragment extends Fragment
 
         for ( int i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
             pwmeText[i] = (TextView) pwmeRow[i].findViewById(R.id.rowValue);
-            pwmeText[i].setLongClickable(true);
-            pwmeText[i].setOnLongClickListener(this);
         }
     }
 
@@ -82,7 +80,21 @@ public class PageDimmingFragment extends Fragment
     public void onResume() {
         super.onResume();
         updateLabelsAndVisibility();
+        updateClickable();
         refreshData();
+    }
+
+    private void updateClickable() {
+        boolean fClickable = ((RAApplication) getActivity().getApplication()).raprefs.isCommunicateController();
+        View.OnLongClickListener l = null;
+        // Update the long clickablility and longclick listener based on the device we communicate
+        if (fClickable) {
+            l = this;
+        }
+        for ( int i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++ ) {
+            pwmeText[i].setLongClickable(fClickable);
+            pwmeText[i].setOnLongClickListener(l);
+        }
     }
 
     @Override
@@ -140,8 +152,7 @@ public class PageDimmingFragment extends Fragment
 
     private void updateLabelsAndVisibility() {
         Log.d(TAG, "updateLabelsAndVisibility");
-        RAApplication raApp = (RAApplication)getActivity().getApplication();
-        RAPreferences raPrefs = raApp.raprefs;
+        RAPreferences raPrefs = ((RAApplication) getActivity().getApplication()).raprefs;
         for(int i = 0; i < Controller.MAX_PWM_EXPANSION_PORTS; i++) {
             setLabel(i, raPrefs.getDimmingModuleChannelLabel(i));
             // TODO add in visibility functions

@@ -75,11 +75,6 @@ public class PageDCPumpFragment extends Fragment
         tr = (TableRow) root.findViewById(R.id.rowThreshold);
         dcpumpText[3] = (TextView) tr.findViewById(R.id.rowValue);
         setRowTitle(tr, R.string.labelThreshold);
-
-        for ( int i = 0; i < Controller.MAX_DCPUMP_VALUES; i++ ) {
-            dcpumpText[i].setLongClickable(true);
-            dcpumpText[i].setOnLongClickListener(this);
-        }
     }
 
     private void setRowTitle(TableRow row, int labelId) {
@@ -89,7 +84,21 @@ public class PageDCPumpFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
+        updateClickable();
         refreshData();
+    }
+
+    private void updateClickable() {
+        boolean fClickable = ((RAApplication) getActivity().getApplication()).raprefs.isCommunicateController();
+        View.OnLongClickListener l = null;
+        // Update the long clickablility and longclick listener based on the device we communicate
+        if (fClickable) {
+            l = this;
+        }
+        for ( int i = 0; i < Controller.MAX_DCPUMP_VALUES; i++ ) {
+            dcpumpText[i].setLongClickable(fClickable);
+            dcpumpText[i].setOnLongClickListener(l);
+        }
     }
 
     @Override

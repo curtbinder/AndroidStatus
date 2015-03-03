@@ -31,10 +31,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TableRow;
-import android.widget.TextView;
 
-import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.RequestCommands;
 import info.curtbinder.reefangel.service.UpdateService;
@@ -43,8 +40,10 @@ public class PageCommandsFragment extends Fragment
         implements PageRefreshInterface, View.OnClickListener {
 
     private static final String TAG = PageCommandsFragment.class.getSimpleName();
+    private static final int MAX_BUTTONS = 13;
 
     private Button cmd_button;
+    private Button[] btns = new Button[MAX_BUTTONS];
 
     public static PageCommandsFragment newInstance() {
         return new PageCommandsFragment();
@@ -60,32 +59,32 @@ public class PageCommandsFragment extends Fragment
     }
 
     private void findViews(View root) {
-        Button b = (Button) root.findViewById( R.id.command_button_feed );
-        b.setOnClickListener( this );
-        b = (Button) root.findViewById( R.id.command_button_water );
-        b.setOnClickListener( this );
-        b = (Button) root.findViewById( R.id.command_button_exit );
-        b.setOnClickListener( this );
-        b = (Button) root.findViewById( R.id.command_button_reboot );
-        b.setOnClickListener( this );
-        b = (Button) root.findViewById( R.id.command_button_lights_on );
-        b.setOnClickListener( this );
-        b = (Button) root.findViewById( R.id.command_button_lights_off );
-        b.setOnClickListener( this );
-        b = (Button) root.findViewById( R.id.command_button_ato_clear );
-        b.setOnClickListener( this );
-        b = (Button) root.findViewById( R.id.command_button_overheat_clear );
-        b.setOnClickListener( this );
-        b = (Button) root.findViewById( R.id.command_button_calibrate_ph );
-        b.setOnClickListener( this );
-        b = (Button) root.findViewById( R.id.command_button_calibrate_salinity );
-        b.setOnClickListener( this );
-        b = (Button) root.findViewById( R.id.command_button_calibrate_water );
-        b.setOnClickListener( this );
-        b = (Button) root.findViewById( R.id.command_button_calibrate_orp );
-        b.setOnClickListener( this );
-        b = (Button) root.findViewById( R.id.command_button_calibrate_phe );
-        b.setOnClickListener( this );
+        btns[0] = (Button) root.findViewById( R.id.command_button_feed );
+        btns[0].setOnClickListener( this );
+        btns[1] = (Button) root.findViewById( R.id.command_button_water );
+        btns[1].setOnClickListener( this );
+        btns[2] = (Button) root.findViewById( R.id.command_button_exit );
+        btns[2].setOnClickListener( this );
+        btns[3] = (Button) root.findViewById( R.id.command_button_reboot );
+        btns[3].setOnClickListener( this );
+        btns[4] = (Button) root.findViewById( R.id.command_button_lights_on );
+        btns[4].setOnClickListener( this );
+        btns[5] = (Button) root.findViewById( R.id.command_button_lights_off );
+        btns[5].setOnClickListener( this );
+        btns[6] = (Button) root.findViewById( R.id.command_button_ato_clear );
+        btns[6].setOnClickListener( this );
+        btns[7] = (Button) root.findViewById( R.id.command_button_overheat_clear );
+        btns[7].setOnClickListener( this );
+        btns[8] = (Button) root.findViewById( R.id.command_button_calibrate_ph );
+        btns[8].setOnClickListener( this );
+        btns[9] = (Button) root.findViewById( R.id.command_button_calibrate_salinity );
+        btns[9].setOnClickListener( this );
+        btns[10] = (Button) root.findViewById( R.id.command_button_calibrate_water );
+        btns[10].setOnClickListener( this );
+        btns[11] = (Button) root.findViewById( R.id.command_button_calibrate_orp );
+        btns[11].setOnClickListener( this );
+        btns[12] = (Button) root.findViewById( R.id.command_button_calibrate_phe );
+        btns[12].setOnClickListener( this );
         cmd_button = (Button) root.findViewById( R.id.command_button_version );
         cmd_button.setOnClickListener( this );
     }
@@ -96,6 +95,20 @@ public class PageCommandsFragment extends Fragment
         // just reload the date/time from the database?
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateButtonsEnabled();
+    }
+
+    private void updateButtonsEnabled() {
+        boolean fClickable = ((RAApplication) getActivity().getApplication()).raprefs.isCommunicateController();
+        for (int i = 0; i < MAX_BUTTONS; i++) {
+            btns[i].setEnabled(fClickable);
+        }
+        cmd_button.setEnabled(fClickable);
+    }
+    
     @Override
     public void onClick ( View v ) {
         Intent i = new Intent( getActivity(), UpdateService.class );
