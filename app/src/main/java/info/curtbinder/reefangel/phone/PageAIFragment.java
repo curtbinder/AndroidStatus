@@ -137,15 +137,6 @@ public class PageAIFragment extends Fragment
         return true;
     }
 
-//    public short[] getAIValues(Cursor c) {
-//        // TODO how is this function used??
-//        short[] v = new short[Controller.MAX_AI_CHANNELS];
-//        v[0] = c.getShort(c.getColumnIndex(StatusTable.COL_AIW));
-//        v[1] = c.getShort(c.getColumnIndex(StatusTable.COL_AIB));
-//        v[2] = c.getShort(c.getColumnIndex(StatusTable.COL_AIRB));
-//        return v;
-//    }
-
     private String[] getValues(Cursor c) {
         String[] sa = new String[Controller.MAX_AI_CHANNELS];
         aiValues[Controller.AI_WHITE] = c.getShort(c.getColumnIndex(StatusTable.COL_AIW));
@@ -179,7 +170,7 @@ public class PageAIFragment extends Fragment
             v = getValues(c);
         } else {
             updateStatus = getString(R.string.messageNever);
-            v = ((StatusFragment) getParentFragment()).getNeverValues(Controller.MAX_AI_CHANNELS);
+            v = f.getNeverValues(Controller.MAX_AI_CHANNELS);
         }
         c.close();
 

@@ -131,13 +131,13 @@ public class PageIOFragment extends Fragment
         StatusFragment f = ((StatusFragment) getParentFragment());
         Cursor c = f.getLatestDataCursor();
         String updateStatus;
-        String[] v = new String[Controller.MAX_IO_CHANNELS];
+        String[] v;
         if (c.moveToFirst()) {
             updateStatus = c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE));
             v = getValues(c);
         } else {
             updateStatus = getString(R.string.messageNever);
-            v = ((StatusFragment) getParentFragment()).getNeverValues(Controller.MAX_IO_CHANNELS);
+            v = f.getNeverValues(Controller.MAX_IO_CHANNELS);
         }
         c.close();
 

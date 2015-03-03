@@ -147,7 +147,7 @@ public class PageCustomFragment extends Fragment
             v = getValues(c);
         } else {
             updateStatus = getString(R.string.messageNever);
-            v = ((StatusFragment) getParentFragment()).getNeverValues(Controller.MAX_CUSTOM_VARIABLES);
+            v = f.getNeverValues(Controller.MAX_CUSTOM_VARIABLES);
         }
         c.close();
 

@@ -172,7 +172,7 @@ public class PageDCPumpFragment extends Fragment
             v = getValues(c);
         } else {
             updateStatus = getString(R.string.messageNever);
-            v = ((StatusFragment) getParentFragment()).getNeverValues(Controller.MAX_DCPUMP_VALUES);
+            v = f.getNeverValues(Controller.MAX_DCPUMP_VALUES);
         }
         c.close();
 

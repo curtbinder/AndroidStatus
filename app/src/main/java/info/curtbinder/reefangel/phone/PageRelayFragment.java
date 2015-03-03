@@ -218,29 +218,6 @@ public class PageRelayFragment extends Fragment
         ((TextView) tr.findViewById(R.id.rowSubTitle)).setText(subtitle);
     }
 
-    private void updateData() {
-        Log.d(TAG, "updateData");
-        Uri uri = Uri.parse(StatusProvider.CONTENT_URI + "/" + StatusProvider.PATH_LATEST);
-        Cursor c = getActivity().getContentResolver().query(uri, null, null, null,
-                StatusTable.COL_ID + " DESC");
-        String updateStatus;
-        short r, ron, roff;
-        if (c.moveToFirst()) {
-            updateStatus = c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE));
-            r = c.getShort(c.getColumnIndex(getColumnName(COL_R)));
-            ron = c.getShort(c.getColumnIndex(getColumnName(COL_RON)));
-            roff = c.getShort(c.getColumnIndex(getColumnName(COL_ROFF)));
-        } else {
-            updateStatus = getString(R.string.messageNever);
-            r = ron = roff = 0;
-        }
-        c.close();
-
-        ((StatusFragment) getParentFragment()).updateDisplayText(updateStatus);
-        updateRelayValues(new Relay(r, ron, roff),
-                ((RAApplication) getActivity().getApplication()).raprefs.isCommunicateController());
-    }
-
     private String getColumnName(int type) {
         String column = "r";
         if (relayNumber > 0) {
@@ -281,7 +258,24 @@ public class PageRelayFragment extends Fragment
         if (a == null) {
             return;
         }
-        updateData();
+        StatusFragment f = ((StatusFragment) getParentFragment());
+        Cursor c = f.getLatestDataCursor();
+        String updateStatus;
+        short r, ron, roff;
+        if (c.moveToFirst()) {
+            updateStatus = c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE));
+            r = c.getShort(c.getColumnIndex(getColumnName(COL_R)));
+            ron = c.getShort(c.getColumnIndex(getColumnName(COL_RON)));
+            roff = c.getShort(c.getColumnIndex(getColumnName(COL_ROFF)));
+        } else {
+            updateStatus = getString(R.string.messageNever);
+            r = ron = roff = 0;
+        }
+        c.close();
+
+        f.updateDisplayText(updateStatus);
+        updateRelayValues(new Relay(r, ron, roff),
+                ((RAApplication) getActivity().getApplication()).raprefs.isCommunicateController());
     }
 
     @Override

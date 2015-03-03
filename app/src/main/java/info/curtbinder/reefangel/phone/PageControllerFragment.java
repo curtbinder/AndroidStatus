@@ -267,7 +267,7 @@ public class PageControllerFragment extends Fragment
             v = getValues(c);
         } else {
             updateStatus = getString(R.string.messageNever);
-            v = ((StatusFragment) getParentFragment()).getNeverValues(Controller.MAX_CONTROLLER_VALUES);
+            v = f.getNeverValues(Controller.MAX_CONTROLLER_VALUES);
         }
         c.close();
 
