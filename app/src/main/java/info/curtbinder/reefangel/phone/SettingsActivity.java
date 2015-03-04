@@ -37,8 +37,6 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.util.Log;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
 
 import info.curtbinder.reefangel.service.MessageCommands;
@@ -47,75 +45,24 @@ public class SettingsActivity extends PreferenceActivity {
 
     private static final String TAG = SettingsActivity.class.getSimpleName();
 
-    protected Method mLoadHeaders = null;
-    protected Method mHasHeaders = null;
-
     private RAApplication raApp;
-    //private RAPreferences raPrefs;
     private PrefsReceiver receiver;
     private IntentFilter filter;
 
     private String[] devicesArray;
     private String[] profilesArray;
 
-    /**
-     * Checks to see if using the new v11+ way of handling PrefsFragments.
-     *
-     * @return Returns false pre-v11, else checks to see if using headers
-     */
-    public boolean isNewV11Prefs() {
-        if (mHasHeaders != null && mLoadHeaders != null) {
-            try {
-                return (Boolean) mHasHeaders.invoke(this);
-            } catch (IllegalArgumentException e) {
-
-            } catch (IllegalAccessException e) {
-
-            } catch (InvocationTargetException e) {
-
-            }
-        }
-        return false;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // onBuildHeaders() will be called during super.onCreate()
-        try {
-            mLoadHeaders = getClass().getMethod("loadHeadersFromResource", int.class, List.class);
-            mHasHeaders = getClass().getMethod("hasHeaders");
-        } catch (NoSuchMethodException e) {
-
-        }
         super.onCreate(savedInstanceState);
 
         raApp = (RAApplication) getApplication();
-        //raPrefs = raApp.raprefs;
 
         devicesArray = raApp.getResources().getStringArray(R.array.devices);
         profilesArray = raApp.getResources().getStringArray(R.array.profileLabels);
 
         receiver = new PrefsReceiver();
         filter = new IntentFilter(MessageCommands.LABEL_RESPONSE_INTENT);
-
-        if (!isNewV11Prefs()) {
-            addPreferencesFromResource(R.xml.pref_profiles);
-            addPreferencesFromResource(R.xml.pref_controller);
-            addPreferencesFromResource(R.xml.pref_advanced);
-            addPreferencesFromResource(R.xml.pref_notifications);
-            addPreferencesFromResource(R.xml.pref_logging);
-            addPreferencesFromResource(R.xml.pref_appinfo);
-            Preference changelog = findPreference(raApp.getString(R.string.prefChangelogKey));
-//            changelog.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-//                public boolean onPreferenceClick(Preference preference) {
-//                    raApp.displayChangeLog(getParent());
-//                    return true;
-//                }
-//            });
-            changelog.setEnabled(false);
-
-            updateDownloadLabelUserId(findPreference(raApp.getString(R.string.prefControllerLabelsDownloadKey)));
-        }
     }
 
     public String getDevicesArrayValue(int index) {
@@ -174,15 +121,7 @@ public class SettingsActivity extends PreferenceActivity {
 
     @Override
     public void onBuildHeaders(List<Header> target) {
-        try {
-            mLoadHeaders.invoke(this, new Object[]{R.xml.pref_headers, target});
-        } catch (IllegalArgumentException e) {
-
-        } catch (IllegalAccessException e) {
-
-        } catch (InvocationTargetException e) {
-
-        }
+        loadHeadersFromResource(R.xml.pref_headers, target);
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
