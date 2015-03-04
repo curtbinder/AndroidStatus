@@ -24,8 +24,6 @@
 
 package info.curtbinder.reefangel.phone;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -33,7 +31,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -41,7 +38,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
+import android.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -55,7 +52,7 @@ import android.widget.ListView;
 import info.curtbinder.reefangel.wizard.SetupWizardActivity;
 
 public class MainActivity extends ActionBarActivity
-        implements android.support.v7.app.ActionBar.OnNavigationListener,
+        implements android.app.ActionBar.OnNavigationListener,
         FragmentManager.OnBackStackChangedListener {
 
 //    public static final int REQUEST_EXIT = 1;
@@ -179,7 +176,7 @@ public class MainActivity extends ActionBarActivity
 
     private void setNavigationList() {
         // set list navigation items
-        final ActionBar ab = getSupportActionBar();
+        final ActionBar ab = getActionBar();
         Context context = ab.getThemedContext();
         int arrayID;
         if (raApp.isAwayProfileEnabled()) {
@@ -196,21 +193,12 @@ public class MainActivity extends ActionBarActivity
 
     private void updateActionBar() {
         // update actionbar
-        final ActionBar ab = getSupportActionBar();
+        final ActionBar ab = getActionBar();
         ab.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         ab.setDisplayShowTitleEnabled(false);
         ab.setDisplayHomeAsUpEnabled(true);
         // hide the icon on the actionbar by replacing it with a transparent icon
         ab.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-        enableActionBarHomeButton();
-    }
-
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    private void enableActionBarHomeButton() {
-        // function available in api 14 and later
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            getActionBar().setHomeButtonEnabled(true);
-        }
     }
 
     @Override
@@ -434,15 +422,6 @@ public class MainActivity extends ActionBarActivity
             mi.setVisible(!open);
     }
 
-    @SuppressLint("NewApi")
-    protected void myInvalidateOptionsMenu() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            supportInvalidateOptionsMenu();
-        } else {
-            invalidateOptionsMenu();
-        }
-    }
-
     private class MyDrawerToggle extends ActionBarDrawerToggle {
 
         public MyDrawerToggle(Activity activity, DrawerLayout drawerLayout,
@@ -457,7 +436,7 @@ public class MainActivity extends ActionBarActivity
         public void onDrawerClosed(View drawerView) {
             super.onDrawerClosed(drawerView);
 //            Log.d(TAG, "DrawerClosed");
-            myInvalidateOptionsMenu();
+            invalidateOptionsMenu();
             if (opened != null && !opened) {
                 // drawer closed for the first time ever,
                 // set that it has been closed
@@ -474,7 +453,7 @@ public class MainActivity extends ActionBarActivity
         public void onDrawerOpened(View drawerView) {
             super.onDrawerOpened(drawerView);
             getSupportActionBar().setTitle(R.string.app_name);
-            myInvalidateOptionsMenu();
+            invalidateOptionsMenu();
         }
 
     }
