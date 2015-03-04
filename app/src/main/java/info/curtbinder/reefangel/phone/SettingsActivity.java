@@ -25,12 +25,14 @@
 package info.curtbinder.reefangel.phone;
 
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -111,6 +113,9 @@ public class SettingsActivity extends PreferenceActivity {
     protected void onResume() {
         super.onResume();
         registerReceiver(receiver, filter, Permissions.SEND_COMMAND, null);
+        final ActionBar ab = getActionBar();
+        // hide the icon on the actionbar by replacing it with a transparent icon
+        ab.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
     }
 
     @Override
