@@ -226,6 +226,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="labelPortalUsername">Portal Username</string>
     <string name="labelDeviceUsername">Device Username</string>
     <string name="labelDevicePassword">Device Password</string>
+    <string name="labelDisabledDueToPortal">Disabled due to Portal</string>
     <string name="websiteReefangel">http://www.reefangel.com/</string>
     <string name="forumReefangel">http://forum.reefangel.com/</string>
     <string name="defaultStatusText">-</string>

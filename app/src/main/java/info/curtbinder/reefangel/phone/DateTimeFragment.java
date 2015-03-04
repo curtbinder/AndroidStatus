@@ -61,6 +61,7 @@ public class DateTimeFragment extends Fragment
     private TextView controllerTimeText;
     private TextView customTimeText;
     private TextView customDateText;
+    private TextView tvDisabled;
     private DateTime dt = new DateTime();
     private boolean fCustomDateSet = false;
     private boolean fCustomTimeSet = false;
@@ -91,6 +92,21 @@ public class DateTimeFragment extends Fragment
     public void onResume() {
         super.onResume();
         getActivity().registerReceiver(receiver, filter, Permissions.SEND_COMMAND, null);
+        updateButtonsEnabled();
+    }
+
+    private void updateButtonsEnabled() {
+        boolean fClickable = ((RAApplication) getActivity().getApplication()).raprefs.isCommunicateController();
+        getTimeButton.setEnabled(fClickable);
+        setTimeButton.setEnabled(fClickable);
+        changeDateButton.setEnabled(fClickable);
+        changeTimeButton.setEnabled(fClickable);
+        setCustomTimeButton.setEnabled(fClickable);
+        if (fClickable) {
+            tvDisabled.setVisibility(View.GONE);
+        } else {
+            tvDisabled.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -114,6 +130,7 @@ public class DateTimeFragment extends Fragment
         controllerTimeText = (TextView) root.findViewById(R.id.timeTextControllerTime);
         customTimeText = (TextView) root.findViewById(R.id.timeTextCustomTime);
         customDateText = (TextView) root.findViewById(R.id.timeTextCustomDate);
+        tvDisabled = (TextView) root.findViewById(R.id.tvDisabled);
     }
 
     private void setOnClickListeners() {

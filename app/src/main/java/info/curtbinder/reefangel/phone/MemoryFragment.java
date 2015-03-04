@@ -39,7 +39,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import info.curtbinder.reefangel.service.MessageCommands;
@@ -81,6 +83,7 @@ public class MemoryFragment extends Fragment {
     private Button writeButton;
     private RadioButton byteButton;
     private RadioButton intButton;
+    private TextView tvDisabled;
     private int[] memoryLocations;
     private int[] memoryLocationsTypes;
     private boolean preLocations;
@@ -101,10 +104,9 @@ public class MemoryFragment extends Fragment {
 
     private void getUsePreLocations() {
         Bundle args = getArguments();
+        preLocations = false;
         if ( args != null ) {
             preLocations = args.getBoolean(Globals.PRE10_LOCATIONS);
-        } else {
-            preLocations = false;
         }
     }
 
@@ -130,6 +132,18 @@ public class MemoryFragment extends Fragment {
     public void onResume() {
         super.onResume();
         getActivity().registerReceiver(receiver, filter, Permissions.SEND_COMMAND, null);
+        updateButtonsEnabled();
+    }
+
+    private void updateButtonsEnabled() {
+        boolean fClickable = ((RAApplication) getActivity().getApplication()).raprefs.isCommunicateController();
+        readButton.setEnabled(fClickable);
+        writeButton.setEnabled(fClickable);
+        if (fClickable) {
+            tvDisabled.setVisibility(View.GONE);
+        } else {
+            tvDisabled.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -153,6 +167,7 @@ public class MemoryFragment extends Fragment {
         writeButton = (Button) root.findViewById(R.id.buttonWrite);
         byteButton = (RadioButton) root.findViewById(R.id.radioButtonByte);
         intButton = (RadioButton) root.findViewById(R.id.radioButtonInt);
+        tvDisabled = (TextView) root.findViewById(R.id.tvDisabled);
     }
 
     private void setAdapters() {
