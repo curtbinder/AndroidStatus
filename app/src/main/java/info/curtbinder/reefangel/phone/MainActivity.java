@@ -52,7 +52,7 @@ import android.widget.ListView;
 import info.curtbinder.reefangel.wizard.SetupWizardActivity;
 
 public class MainActivity extends ActionBarActivity
-        implements android.app.ActionBar.OnNavigationListener,
+        implements ActionBar.OnNavigationListener,
         FragmentManager.OnBackStackChangedListener {
 
 //    public static final int REQUEST_EXIT = 1;
