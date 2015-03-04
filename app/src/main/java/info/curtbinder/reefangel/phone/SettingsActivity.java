@@ -113,6 +113,8 @@ public class SettingsActivity extends PreferenceActivity {
 //                }
 //            });
             changelog.setEnabled(false);
+
+            updateDownloadLabelUserId(findPreference(raApp.getString(R.string.prefControllerLabelsDownloadKey)));
         }
     }
 
@@ -124,10 +126,7 @@ public class SettingsActivity extends PreferenceActivity {
         return profilesArray[index];
     }
 
-    public String getDisplayValue(
-            int v,
-            int arrayValuesId,
-            int arrayDisplayId) {
+    public String getDisplayValue(int v, int arrayValuesId, int arrayDisplayId) {
         int pos = 0;
         String[] values = raApp.getResources().getStringArray(arrayValuesId);
         String[] display = raApp.getResources().getStringArray(arrayDisplayId);
@@ -141,10 +140,7 @@ public class SettingsActivity extends PreferenceActivity {
         return display[pos];
     }
 
-    public String getDisplayValueLong(
-            long v,
-            int arrayValuesId,
-            int arrayDisplayId) {
+    public String getDisplayValueLong(long v, int arrayValuesId, int arrayDisplayId) {
         int pos = 0;
         String[] values = raApp.getResources().getStringArray(arrayValuesId);
         String[] display = raApp.getResources().getStringArray(arrayDisplayId);
@@ -156,6 +152,12 @@ public class SettingsActivity extends PreferenceActivity {
             }
         }
         return display[pos];
+    }
+
+    public void updateDownloadLabelUserId(Preference p) {
+        CharSequence cs = raApp.getString(R.string.prefControllerLabelsDownloadSummary)
+                + " " + raApp.raprefs.getUserId();
+        p.setSummary(cs);
     }
 
     @Override

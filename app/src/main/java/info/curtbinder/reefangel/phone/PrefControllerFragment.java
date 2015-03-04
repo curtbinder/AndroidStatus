@@ -46,24 +46,21 @@ public class PrefControllerFragment extends PreferenceFragment {
 
     private static final String TAG = PrefControllerFragment.class.getSimpleName();
 
-    private RAApplication raApp;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        raApp = (RAApplication) getActivity().getApplication();
-
         // load the preferences from an XML file
         addPreferencesFromResource(R.xml.pref_controller);
-
-        // update the download label summary
-        updateDownloadLabelUserId(raApp.raprefs.getUserId());
     }
 
-    private void updateDownloadLabelUserId(String userId) {
-        CharSequence cs = raApp.getString(R.string.prefControllerLabelsDownloadSummary)
-                + " " + userId;
-        findPreference(raApp.getString(R.string.prefControllerLabelsDownloadKey)).setSummary(cs);
+    @Override
+    public void onResume() {
+        super.onResume();
+        // update the download label summary
+        RAApplication raApp = (RAApplication) getActivity().getApplication();
+        ((SettingsActivity) getActivity()).updateDownloadLabelUserId(
+                findPreference(raApp.getString(R.string.prefControllerLabelsDownloadKey))
+        );
     }
 }
