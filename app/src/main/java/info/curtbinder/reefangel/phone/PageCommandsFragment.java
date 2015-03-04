@@ -91,8 +91,6 @@ public class PageCommandsFragment extends Fragment
 
     @Override
     public void refreshData() {
-        // todo not sure if there needs to be anything in here or not
-        // just reload the date/time from the database?
     }
 
     @Override
