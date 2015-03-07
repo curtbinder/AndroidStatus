@@ -394,10 +394,10 @@ public class StatusFragment extends Fragment {
         if (checkExpansionModules(newEM) ||
                 checkExpansionModules1(newEM1) ||
                 checkRelayModules(newREM)) {
-            // Reload the stuff
-            reloadPages();
             // TODO do we call updateViewsAndVisibility??
+            // if the modules change, redraw the pages first then navigate to the main page
             redrawPages();
+            reloadPages();
         }
     }
 
