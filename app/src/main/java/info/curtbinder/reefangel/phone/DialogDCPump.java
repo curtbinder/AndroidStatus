@@ -220,7 +220,7 @@ public class DialogDCPump extends DialogFragment
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.buttonUpdate) {
-            updateVortechSettings();
+            updateDCPumpSettings();
         }
         dismiss();
     }
@@ -247,7 +247,7 @@ public class DialogDCPump extends DialogFragment
         return v;
     }
 
-    private void updateVortechSettings() {
+    private void updateDCPumpSettings() {
         // get the starting memory locations
         Intent i = new Intent(getActivity(), UpdateService.class);
         i.setAction(MessageCommands.MEMORY_SEND_INTENT);
