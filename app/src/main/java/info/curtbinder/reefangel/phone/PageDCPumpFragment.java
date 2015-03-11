@@ -138,7 +138,7 @@ public class PageDCPumpFragment extends Fragment
         if ((v >= 0) && (v <= 6)) {
             index = v;
         } else if ((v >= 12) && (v <= 14)) {
-            index = v - 5;
+            index = v - DialogDCPump.DCPUMP_UPPER_MODES_OFFSET;
         }
         return dcpumpModes[index];
     }
