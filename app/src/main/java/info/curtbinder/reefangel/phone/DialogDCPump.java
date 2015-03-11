@@ -178,8 +178,8 @@ public class DialogDCPump extends DialogFragment
         String[] from = new String[]{"data"};
         int[] to = new int[]{android.R.id.text1};
         String[] labels = getResources().getStringArray(R.array.dcPumpModeLabels);
-        for (int i = 0; i < labels.length; i++) {
-            data.add(addData(labels[i]));
+        for (String label : labels) {
+            data.add(addData(label));
         }
         SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(), data,
                 android.R.layout.simple_spinner_item, from, to);
