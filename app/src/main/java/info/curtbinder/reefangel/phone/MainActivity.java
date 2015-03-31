@@ -79,6 +79,7 @@ public class MainActivity extends ActionBarActivity
         setContentView(R.layout.activity_main);
 
         raApp = (RAApplication) getApplication();
+        raApp.raprefs.setDefaultPreferences();
 
         // Check for first run
         if (raApp.isFirstRun()) {
@@ -123,7 +124,6 @@ public class MainActivity extends ActionBarActivity
     protected void onResume() {
         super.onResume();
 
-        // todo add in message handlers, broadcast receivers
         fRestoreState = true;
         setNavigationList();
 

@@ -117,6 +117,17 @@ public class RAPreferences {
         set(R.string.prefPreviousCodeVersionKey, version);
     }
 
+    public void setDefaultPreferences() {
+        // initialize the default preferences for the application
+        PreferenceManager.setDefaultValues(rapp, R.xml.pref_advanced, false);
+        PreferenceManager.setDefaultValues(rapp, R.xml.pref_appinfo, false);
+        PreferenceManager.setDefaultValues(rapp, R.xml.pref_autoupdate, false);
+        PreferenceManager.setDefaultValues(rapp, R.xml.pref_controller, false);
+        PreferenceManager.setDefaultValues(rapp, R.xml.pref_logging, false);
+        PreferenceManager.setDefaultValues(rapp, R.xml.pref_notifications, false);
+        PreferenceManager.setDefaultValues(rapp, R.xml.pref_profiles, false);
+    }
+
     public void clearAllAppPreferences() {
         SharedPreferences.Editor editor = prefs.edit();
         editor.clear();

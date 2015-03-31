@@ -82,8 +82,7 @@ public class RAApplication extends Application {
 
     public void onCreate() {
         errorCodes = getResources().getStringArray(R.array.errorCodes);
-        errorCodesStrings =
-                getResources().getStringArray(R.array.errorCodesStrings);
+        errorCodesStrings = getResources().getStringArray(R.array.errorCodesStrings);
         errorCodeMessage = ""; // set to no error message
         errorCode = 0; // set to no error initially
         raprefs = new RAPreferences(this);
