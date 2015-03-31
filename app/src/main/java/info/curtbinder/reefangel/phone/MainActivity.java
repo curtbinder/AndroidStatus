@@ -70,7 +70,6 @@ public class MainActivity extends ActionBarActivity
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
-    private SharedPreferences prefs = null;
     private Boolean opened = null;
     private int mOldPosition = -1;
 
@@ -104,8 +103,7 @@ public class MainActivity extends ActionBarActivity
         new Thread(new Runnable() {
             @Override
             public void run() {
-                prefs = getPreferences(MODE_PRIVATE);
-                opened = prefs.getBoolean(OPENED_KEY, false);
+                opened = raApp.raprefs.getBoolean(OPENED_KEY, false);
                 if (!opened) {
                     mDrawerLayout.openDrawer(mDrawerList);
                 }
@@ -441,11 +439,7 @@ public class MainActivity extends ActionBarActivity
                 // drawer closed for the first time ever,
                 // set that it has been closed
                 opened = true;
-                if (prefs != null) {
-                    Editor editor = prefs.edit();
-                    editor.putBoolean(OPENED_KEY, true);
-                    editor.commit();
-                }
+                raApp.raprefs.set(OPENED_KEY, true);
             }
         }
 
