@@ -51,7 +51,7 @@ import info.curtbinder.reefangel.service.UpdateService;
 public class DialogDCPump extends DialogFragment
         implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
 
-    public static final int DCPUMP_UPPER_MODES_OFFSET = 5;
+    public static final int DCPUMP_UPPER_MODES_OFFSET = 4;
     private static final String TAG = DialogDCPump.class.getSimpleName();
     private static final String TYPE_KEY = "type_key";
     private static final String VALUE_KEY = "value_key";
@@ -112,7 +112,7 @@ public class DialogDCPump extends DialogFragment
         if (popupType == Controller.DCPUMP_MODE) {
             // make sure the value is within the range
             if ((currentValue < 0) ||
-                    ((currentValue > 6) && (currentValue < 12)) ||
+                    ((currentValue > 6) && (currentValue < 11)) ||
                     (currentValue > 14)) {
                 currentValue = 0;
             }
@@ -121,7 +121,7 @@ public class DialogDCPump extends DialogFragment
             // in the parameters database from the controller. we need to adjust the offset
             // here before displaying the dialog box. the offset will be adjusted again
             // before se send the value out to the controller.  see getModeValue()
-            if ((currentValue > 11) && (currentValue < 15)) {
+            if ((currentValue > 10) && (currentValue < 15)) {
                 currentValue = currentValue - DCPUMP_UPPER_MODES_OFFSET;
             }
         }
@@ -238,7 +238,7 @@ public class DialogDCPump extends DialogFragment
     private int getModeValue() {
         /*
         modes 0-6 return the exact position value.
-        modes 7-9 return the value + 5
+        modes 7-10 return the value + 4
          */
         int v = spinner.getSelectedItemPosition();
         if ( v > 6 ) {

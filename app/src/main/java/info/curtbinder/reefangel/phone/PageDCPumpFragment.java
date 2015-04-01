@@ -132,12 +132,12 @@ public class PageDCPumpFragment extends Fragment
     }
 
     private String getMode(int v) {
-        // array is from 0-9 indices
-        // indices 7-9 actually correspond to values 12-14
+        // array is from 0-10 indices
+        // indices 7-10 actually correspond to values 11-14
         int index = 0;
         if ((v >= 0) && (v <= 6)) {
             index = v;
-        } else if ((v >= 12) && (v <= 14)) {
+        } else if ((v >= 11) && (v <= 14)) {
             index = v - DialogDCPump.DCPUMP_UPPER_MODES_OFFSET;
         }
         return dcpumpModes[index];
