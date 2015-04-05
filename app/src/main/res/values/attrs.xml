@@ -23,6 +23,13 @@
   -->
 
 <resources>
-    <attr name="cbDrawerItemSelectedBackground" format="reference" />
-    <attr name="cbDrawerItemSelectedText" format="reference" />
+  <attr name="cbDrawerItemSelectedBackground" format="reference" />
+  <attr name="cbDrawerItemSelectedText" format="reference" />
+
+  <attr name="myNavDrawerBackground" format="reference" />
+  <attr name="myReefAngelLogo" format="reference" />
+  <attr name="myFrameBackground" format="reference" />
+  <attr name="myDefaultTextColor" format="reference" />
+  <attr name="myDefaultToolbarTextColor" format="reference" />
+  <attr name="myArrowColor" format="reference" />
 </resources>

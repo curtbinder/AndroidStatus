@@ -28,7 +28,7 @@
 <!-- Generated with http://android-holo-colors.com -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="reefangel" parent="Theme.AppCompat.Light">
+    <style name="reefangel" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:editTextStyle">@style/EditTextreefangel</item>
         <item name="android:checkboxStyle">@style/CheckBoxreefangel</item>
         <item name="android:radioButtonStyle">@style/RadioButtonreefangel</item>
@@ -44,6 +44,51 @@
         <item name="android:spinnerItemStyle">@style/SpinnerItemreefangel</item>
         <item name="actionBarStyle">@style/ActionBarreefangel</item>
         <item name="popupMenuStyle">@style/PopupMenureefangel</item>
+
+        <item name="colorPrimary">@color/reefangelblue</item>
+        <item name="colorPrimaryDark">@color/reefangelblue_dark</item>
+        <item name="colorAccent">@color/reefangelblue</item>
+        <item name="myFrameBackground">@color/background_material_light</item>
+        <item name="myNavDrawerBackground">@color/background_material_light</item>
+        <item name="myReefAngelLogo">@drawable/reefangel_drawerlogo</item>
+        <item name="myDefaultTextColor">@android:color/black</item>
+        <item name="myDefaultToolbarTextColor">@android:color/black</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="myArrowColor">@android:color/black</item>
+    </style>
+
+    <style name="reefangel.dark" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:editTextStyle">@style/EditTextreefangel</item>
+        <item name="android:checkboxStyle">@style/CheckBoxreefangel</item>
+        <item name="android:radioButtonStyle">@style/RadioButtonreefangel</item>
+        <item name="android:buttonStyle">@style/Buttonreefangel</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonreefangel</item>
+        <item name="android:spinnerStyle">@style/Spinnerreefangel</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemreefangel</item>
+        <item name="android:tabWidgetStyle">@style/TabWidgetreefangel</item>
+        <item name="android:seekBarStyle">@style/SeekBarreefangel</item>
+        <item name="android:buttonStyleToggle">@style/Togglereefangel</item>
+        <item name="android:listViewStyle">@style/ListViewreefangel</item>
+        <item name="android:listViewWhiteStyle">@style/ListViewreefangel.White</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItemreefangel</item>
+        <item name="actionBarStyle">@style/ActionBarreefangel</item>
+        <item name="popupMenuStyle">@style/PopupMenureefangel</item>
+
+        <item name="colorPrimary">@color/reefangelblue</item>
+        <item name="colorPrimaryDark">@color/reefangelblue_dark</item>
+        <item name="colorAccent">@color/reefangelblue</item>
+        <item name="myFrameBackground">@color/background_material_dark</item>
+        <item name="myNavDrawerBackground">@color/background_material_dark</item>
+        <item name="myReefAngelLogo">@drawable/reefangel_drawerlogo</item>
+        <item name="myDefaultTextColor">@android:color/white</item>
+        <item name="myDefaultToolbarTextColor">@android:color/white</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="myArrowColor">@android:color/white</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">?attr/myDefaultToolbarTextColor</item>
     </style>
 
 </resources>

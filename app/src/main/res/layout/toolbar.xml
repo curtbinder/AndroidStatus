@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ The MIT License (MIT)
   ~
@@ -24,9 +23,9 @@
   ~ SOFTWARE.
   -->
 
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.Toolbar
+    android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?attr/myReefAngelLogo"
-    android:contentDescription="Reef Angel Logo"
-    android:minHeight="?attr/listPreferredItemHeightSmall" />
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

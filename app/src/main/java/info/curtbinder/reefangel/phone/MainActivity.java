@@ -32,14 +32,15 @@ import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.app.ActionBar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -67,6 +68,7 @@ public class MainActivity extends ActionBarActivity
     public final String TAG = MainActivity.class.getSimpleName();
     private RAApplication raApp;
     private String[] mNavTitles;
+    private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -76,10 +78,12 @@ public class MainActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
         raApp = (RAApplication) getApplication();
         raApp.raprefs.setDefaultPreferences();
+        // Set the Theme before the layout is instantiated
+        //Utils.onActivityCreateSetTheme(this, raApp.raprefs.getSelectedTheme());
+
+        setContentView(R.layout.activity_main);
 
         // Check for first run
         if (raApp.isFirstRun()) {
@@ -95,6 +99,7 @@ public class MainActivity extends ActionBarActivity
             position = savedInstanceState.getInt(STATE_CHECKED, 0);
             Log.d(TAG, "Restore, position: " + position);
         }
+        setupToolbar();
         setupNavDrawer();
         updateActionBar();
         getSupportFragmentManager().addOnBackStackChangedListener(this);
@@ -141,6 +146,12 @@ public class MainActivity extends ActionBarActivity
         super.onPause();
     }
 
+    private void setupToolbar() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle("");
+        setSupportActionBar(mToolbar);
+    }
+
     private void setupNavDrawer() {
         // get the string array for the navigation items
         mNavTitles = getResources().getStringArray(R.array.nav_items);
@@ -167,14 +178,14 @@ public class MainActivity extends ActionBarActivity
 
         // setup the toggling for the drawer
         mDrawerToggle =
-                new MyDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer,
+                new MyDrawerToggle(this, mDrawerLayout, mToolbar,
                         R.string.drawer_open, R.string.drawer_close);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
     private void setNavigationList() {
         // set list navigation items
-        final ActionBar ab = getActionBar();
+        final ActionBar ab = getSupportActionBar();
         Context context = ab.getThemedContext();
         int arrayID;
         if (raApp.isAwayProfileEnabled()) {
@@ -191,12 +202,12 @@ public class MainActivity extends ActionBarActivity
 
     private void updateActionBar() {
         // update actionbar
-        final ActionBar ab = getActionBar();
+        final ActionBar ab = getSupportActionBar();
         ab.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-        ab.setDisplayShowTitleEnabled(false);
-        ab.setDisplayHomeAsUpEnabled(true);
+//        ab.setDisplayShowTitleEnabled(false);
+//        ab.setDisplayHomeAsUpEnabled(true);
         // hide the icon on the actionbar by replacing it with a transparent icon
-        ab.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+//        ab.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
     }
 
     @Override
@@ -291,7 +302,7 @@ public class MainActivity extends ActionBarActivity
     }*/
 
     private void updateContent(int position) {
-        getSupportActionBar().setTitle(mNavTitles[position]);
+//        getSupportActionBar().setTitle(mNavTitles[position]);
         if (position != mOldPosition) {
             // update the main content by replacing fragments
             Fragment fragment;
@@ -423,10 +434,10 @@ public class MainActivity extends ActionBarActivity
     private class MyDrawerToggle extends ActionBarDrawerToggle {
 
         public MyDrawerToggle(Activity activity, DrawerLayout drawerLayout,
-                              int drawerImageRes,
+                              Toolbar toolbar,
                               int openDrawerContentDescRes,
                               int closeDrawerContentDescRes) {
-            super(activity, drawerLayout, drawerImageRes,
+            super(activity, drawerLayout, toolbar,
                     openDrawerContentDescRes, closeDrawerContentDescRes);
         }
 
@@ -446,7 +457,7 @@ public class MainActivity extends ActionBarActivity
         @Override
         public void onDrawerOpened(View drawerView) {
             super.onDrawerOpened(drawerView);
-            getSupportActionBar().setTitle(R.string.app_name);
+//            getSupportActionBar().setTitle(R.string.app_name);
             invalidateOptionsMenu();
         }
 

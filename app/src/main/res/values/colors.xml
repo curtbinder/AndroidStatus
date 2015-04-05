@@ -24,6 +24,8 @@
 
 <resources>
     <color name="reefangelblue">#007EF6</color>
+    <color name="reefangelblue_dark">#0D47A1</color>
+
     <color name="my_holo_blue">#33b5e5</color>
     <color name="defaultLightBar">#e4e4e4</color>
     <color name="drawerBackground">#ffffff</color>
