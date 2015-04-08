@@ -24,19 +24,16 @@
 
 package info.curtbinder.reefangel.phone;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;

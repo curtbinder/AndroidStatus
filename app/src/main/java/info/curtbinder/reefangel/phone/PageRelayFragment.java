@@ -26,9 +26,7 @@ package info.curtbinder.reefangel.phone;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -41,7 +39,6 @@ import android.widget.ToggleButton;
 
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.controller.Relay;
-import info.curtbinder.reefangel.db.StatusProvider;
 import info.curtbinder.reefangel.db.StatusTable;
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;

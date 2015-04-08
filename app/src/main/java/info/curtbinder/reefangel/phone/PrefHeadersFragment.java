@@ -24,9 +24,7 @@
 
 package info.curtbinder.reefangel.phone;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -37,6 +35,7 @@ import android.preference.PreferenceFragment;
 public class PrefHeadersFragment extends  PreferenceFragment
         implements Preference.OnPreferenceClickListener {
 
+    // TODO convert interface to its own class
         public interface PrefLoadFragListener {
             void loadFragment(int id);
         }

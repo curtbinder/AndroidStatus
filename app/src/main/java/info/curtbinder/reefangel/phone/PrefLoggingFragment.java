@@ -24,13 +24,11 @@
 
 package info.curtbinder.reefangel.phone;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -38,7 +36,6 @@ import android.preference.PreferenceFragment;
 /**
  * Created by binder on 3/22/14.
  */
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class PrefLoggingFragment extends PreferenceFragment
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 

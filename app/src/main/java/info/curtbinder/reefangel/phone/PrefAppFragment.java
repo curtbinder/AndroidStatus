@@ -24,13 +24,10 @@
 
 package info.curtbinder.reefangel.phone;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class PrefAppFragment extends PreferenceFragment {
 
     @Override

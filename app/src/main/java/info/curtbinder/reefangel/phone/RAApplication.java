@@ -24,16 +24,13 @@
 
 package info.curtbinder.reefangel.phone;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Debug;
 import android.os.Environment;
-import android.preference.PreferenceActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.widget.Toast;

@@ -24,24 +24,12 @@
 
 package info.curtbinder.reefangel.phone;
 
-import android.annotation.TargetApi;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.util.Log;
-import android.widget.Toast;
-
-import info.curtbinder.reefangel.service.MessageCommands;
-import info.curtbinder.reefangel.service.UpdateService;
 
 /**
  * Created by binder on 2/15/15.
  */
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class PrefControllerFragment extends PreferenceFragment {
 
     private static final String TAG = PrefControllerFragment.class.getSimpleName();

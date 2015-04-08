@@ -24,9 +24,7 @@
 
 package info.curtbinder.reefangel.phone;
 
-import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;

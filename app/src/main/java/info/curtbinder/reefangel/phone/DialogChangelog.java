@@ -24,13 +24,11 @@
 
 package info.curtbinder.reefangel.phone;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
@@ -38,7 +36,6 @@ import it.gmariotti.changelibs.library.view.ChangeLogListView;
 
 // This class is the same as DialogSupportChangeLog except it uses regular fragments
 // This is needed for displaying the changelog from the preference screen
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class DialogChangelog extends DialogFragment {
 
     public DialogChangelog() {

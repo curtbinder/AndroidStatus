@@ -29,10 +29,7 @@ import android.content.DialogInterface;
 import android.os.Handler;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.Toast;
-
-import info.curtbinder.reefangel.controller.Controller;
 
 /**
  * Created by binder on 3/1/15.
