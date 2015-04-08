@@ -25,25 +25,27 @@
 package info.curtbinder.reefangel.phone;
 
 import android.annotation.TargetApi;
-import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
+import android.app.FragmentManager;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-
-import java.util.List;
+import android.view.View;
 
 import info.curtbinder.reefangel.service.MessageCommands;
 
-public class SettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends ActionBarActivity
+implements PrefHeadersFragment.PrefLoadFragListener {
 
     private static final String TAG = SettingsActivity.class.getSimpleName();
 
@@ -57,14 +59,32 @@ public class SettingsActivity extends PreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         raApp = (RAApplication) getApplication();
+        // Set the Theme before the layout is instantiated
+        //Utils.onActivityCreateSetTheme(this, raApp.raprefs.getSelectedTheme());
+        setContentView(R.layout.activity_settings);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        // Enable the Back/Up button on the toolbar to allow for the user to press the button
+        // to exit this activity. Otherwise, they must press the actual back button on the device.
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateBackwards();
+            }
+        });
 
         devicesArray = raApp.getResources().getStringArray(R.array.devices);
         profilesArray = raApp.getResources().getStringArray(R.array.profileLabels);
 
         receiver = new PrefsReceiver();
         filter = new IntentFilter(MessageCommands.LABEL_RESPONSE_INTENT);
+
+
+        loadFragment(0);
     }
 
     public String getDevicesArrayValue(int index) {
@@ -113,33 +133,12 @@ public class SettingsActivity extends PreferenceActivity {
     protected void onResume() {
         super.onResume();
         registerReceiver(receiver, filter, Permissions.SEND_COMMAND, null);
-        final ActionBar ab = getActionBar();
-        // hide the icon on the actionbar by replacing it with a transparent icon
-        ab.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         unregisterReceiver(receiver);
-    }
-
-    @Override
-    public void onBuildHeaders(List<Header> target) {
-        loadHeadersFromResource(R.xml.pref_headers, target);
-    }
-
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    @Override
-    protected boolean isValidFragment(String fragmentName) {
-        return PrefProfileFragment.class.getName().equals(fragmentName) ||
-                PrefControllerFragment.class.getName().equals(fragmentName) ||
-                PrefAutoUpdateFragment.class.getName().equals(fragmentName) ||
-                PrefAdvancedFragment.class.getName().equals(fragmentName) ||
-                PrefNotificationsFragment.class.getName().equals(fragmentName) ||
-                PrefLoggingFragment.class.getName().equals(fragmentName) ||
-                PrefAppFragment.class.getName().equals(fragmentName) ||
-                super.isValidFragment(fragmentName);
     }
 
     class PrefsReceiver extends BroadcastReceiver {
@@ -160,6 +159,57 @@ public class SettingsActivity extends PreferenceActivity {
 
             AlertDialog alert = builder.create();
             alert.show();
+        }
+    }
+
+    public void loadFragment(int id) {
+        PreferenceFragment pf = null;
+        switch(id){
+            default:
+            case 0:
+                pf = new PrefHeadersFragment();
+                break;
+            case 1:
+                pf = new PrefProfileFragment();
+                break;
+            case 2:
+                pf = new PrefControllerFragment();
+                break;
+            case 3:
+                pf = new PrefAutoUpdateFragment();
+                break;
+            case 4:
+                pf = new PrefAdvancedFragment();
+                break;
+            case 5:
+                pf = new PrefNotificationsFragment();
+                break;
+            case 6:
+                pf = new PrefLoggingFragment();
+                break;
+            case 7:
+                pf = new PrefAppFragment();
+                break;
+
+        }
+        // todo set the title on the toolbar inside each fragment
+        getFragmentManager().beginTransaction()
+                .replace(R.id.container, pf)
+                .addToBackStack("" + id)
+                .commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        navigateBackwards();
+    }
+
+    protected void navigateBackwards() {
+        FragmentManager fm = getFragmentManager();
+        if (fm.getBackStackEntryCount() > 1) {
+            fm.popBackStack();
+        } else {
+            finish();
         }
     }
 }
