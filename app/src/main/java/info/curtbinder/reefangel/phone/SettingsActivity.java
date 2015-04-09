@@ -208,6 +208,8 @@ implements PrefLoadFragListener, PrefSetTitleListener {
     }
 
     public void setToolbarTitle(String title) {
+        if (mToolbar == null)
+            return;
         mToolbar.setTitle(title);
     }
 
