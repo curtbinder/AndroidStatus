@@ -24,11 +24,19 @@
 
 package info.curtbinder.reefangel.phone;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
 public class PrefAppFragment extends PreferenceFragment {
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        PrefSetTitleListener prefSetTitleListener = (PrefSetTitleListener) activity;
+        prefSetTitleListener.setToolbarTitle(getString(R.string.prefsCategoryApp));
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

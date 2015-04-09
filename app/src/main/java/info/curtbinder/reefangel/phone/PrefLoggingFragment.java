@@ -24,6 +24,7 @@
 
 package info.curtbinder.reefangel.phone;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -41,6 +42,13 @@ public class PrefLoggingFragment extends PreferenceFragment
 
     private RAApplication raApp;
     private RAPreferences raPrefs;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        PrefSetTitleListener prefSetTitleListener = (PrefSetTitleListener) activity;
+        prefSetTitleListener.setToolbarTitle(getString(R.string.prefLoggingCategory));
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

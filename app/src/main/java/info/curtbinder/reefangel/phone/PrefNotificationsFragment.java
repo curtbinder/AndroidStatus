@@ -24,6 +24,7 @@
 
 package info.curtbinder.reefangel.phone;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -37,6 +38,13 @@ public class PrefNotificationsFragment extends PreferenceFragment
 
     private RAApplication raApp;
     private RAPreferences raPrefs;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        PrefSetTitleListener prefSetTitleListener = (PrefSetTitleListener) activity;
+        prefSetTitleListener.setToolbarTitle(getString(R.string.prefNotificationCategory));
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

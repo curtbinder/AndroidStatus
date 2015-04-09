@@ -25,6 +25,7 @@
 package info.curtbinder.reefangel.phone;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -42,13 +43,14 @@ import android.view.View;
 import info.curtbinder.reefangel.service.MessageCommands;
 
 public class SettingsActivity extends ActionBarActivity
-implements PrefHeadersFragment.PrefLoadFragListener {
+implements PrefLoadFragListener, PrefSetTitleListener {
 
     private static final String TAG = SettingsActivity.class.getSimpleName();
 
     private RAApplication raApp;
     private PrefsReceiver receiver;
     private IntentFilter filter;
+    private Toolbar mToolbar;
 
     private String[] devicesArray;
     private String[] profilesArray;
@@ -61,13 +63,13 @@ implements PrefHeadersFragment.PrefLoadFragListener {
         //Utils.onActivityCreateSetTheme(this, raApp.raprefs.getSelectedTheme());
         setContentView(R.layout.activity_settings);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
         // Enable the Back/Up button on the toolbar to allow for the user to press the button
         // to exit this activity. Otherwise, they must press the actual back button on the device.
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navigateBackwards();
@@ -161,39 +163,52 @@ implements PrefHeadersFragment.PrefLoadFragListener {
 
     public void loadFragment(int id) {
         PreferenceFragment pf = null;
+        // todo move getting the title down into the fragment
+        String title = "";
         switch(id){
             default:
-            case 0:
+            case PrefLoadFragListener.PREF_HEADERS:
                 pf = new PrefHeadersFragment();
+                title = getString(R.string.menuMainSettings);
                 break;
-            case 1:
+            case PrefLoadFragListener.PREF_PROFILE:
                 pf = new PrefProfileFragment();
+                title = getString(R.string.prefsCategoryProfiles);
                 break;
-            case 2:
+            case PrefLoadFragListener.PREF_CONTROLLER:
                 pf = new PrefControllerFragment();
+                title = getString(R.string.prefsCategoryController);
                 break;
-            case 3:
+            case PrefLoadFragListener.PREF_AUTOUPDATE:
                 pf = new PrefAutoUpdateFragment();
+                title = getString(R.string.prefAutoUpdateCategory);
                 break;
-            case 4:
+            case PrefLoadFragListener.PREF_ADVANCED:
                 pf = new PrefAdvancedFragment();
+                title = getString(R.string.prefsCategoryAdvanced);
                 break;
-            case 5:
+            case PrefLoadFragListener.PREF_NOTIFICATIONS:
                 pf = new PrefNotificationsFragment();
+                title = getString(R.string.prefNotificationCategory);
                 break;
-            case 6:
+            case PrefLoadFragListener.PREF_LOGGING:
                 pf = new PrefLoggingFragment();
+                title = getString(R.string.prefLoggingCategory);
                 break;
-            case 7:
+            case PrefLoadFragListener.PREF_APP:
                 pf = new PrefAppFragment();
+                title = getString(R.string.prefsCategoryApp);
                 break;
 
         }
-        // todo set the title on the toolbar inside each fragment
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, pf)
-                .addToBackStack("" + id)
+                .addToBackStack(title)
                 .commit();
+    }
+
+    public void setToolbarTitle(String title) {
+        mToolbar.setTitle(title);
     }
 
     @Override
@@ -203,8 +218,15 @@ implements PrefHeadersFragment.PrefLoadFragListener {
 
     protected void navigateBackwards() {
         FragmentManager fm = getFragmentManager();
-        if (fm.getBackStackEntryCount() > 1) {
+        int count = fm.getBackStackEntryCount();
+        if (count > 1) {
+            // pop the backstack
             fm.popBackStack();
+            // Get the second to last item on the backstack
+            FragmentManager.BackStackEntry be = fm.getBackStackEntryAt(count-2);
+            // set the toolbar title based on the name added to the backstack
+            Log.d(TAG, "Back to:  " + be.getName());
+            setToolbarTitle(be.getName());
         } else {
             finish();
         }

@@ -24,6 +24,7 @@
 
 package info.curtbinder.reefangel.phone;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
@@ -33,6 +34,14 @@ import android.preference.PreferenceFragment;
 public class PrefControllerFragment extends PreferenceFragment {
 
     private static final String TAG = PrefControllerFragment.class.getSimpleName();
+
+    // TODO implement prefloadfraglistener and onpreferenceclick for the subscreens
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        PrefSetTitleListener prefSetTitleListener = (PrefSetTitleListener) activity;
+        prefSetTitleListener.setToolbarTitle(getString(R.string.prefsCategoryController));
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

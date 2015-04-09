@@ -32,66 +32,60 @@ import android.preference.PreferenceFragment;
 /**
  * Created by binder on 4/8/15.
  */
-public class PrefHeadersFragment extends  PreferenceFragment
+public class PrefHeadersFragment extends PreferenceFragment
         implements Preference.OnPreferenceClickListener {
 
-    // TODO convert interface to its own class
-        public interface PrefLoadFragListener {
-            void loadFragment(int id);
+    private PrefLoadFragListener prefLoadFragListener;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        prefLoadFragListener = (PrefLoadFragListener) activity;
+        PrefSetTitleListener prefSetTitleListener = (PrefSetTitleListener) activity;
+        prefSetTitleListener.setToolbarTitle(getString(R.string.menuMainSettings));
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        addPreferencesFromResource(R.xml.pref_main);
+
+        Preference p = findPreference(getString(R.string.prefsCategoryProfiles));
+        p.setOnPreferenceClickListener(this);
+        p = findPreference(getString(R.string.prefsCategoryController));
+        p.setOnPreferenceClickListener(this);
+        p = findPreference(getString(R.string.prefAutoUpdateCategory));
+        p.setOnPreferenceClickListener(this);
+        p = findPreference(getString(R.string.prefsCategoryAdvanced));
+        p.setOnPreferenceClickListener(this);
+        p = findPreference(getString(R.string.prefNotificationCategory));
+        p.setOnPreferenceClickListener(this);
+        p = findPreference(getString(R.string.prefLoggingCategory));
+        p.setOnPreferenceClickListener(this);
+        p = findPreference(getString(R.string.prefsCategoryApp));
+        p.setOnPreferenceClickListener(this);
+    }
+
+    @Override
+    public boolean onPreferenceClick(Preference preference) {
+        String key = preference.getKey();
+        int id = PrefLoadFragListener.PREF_HEADERS;
+        if (key.equals(getString(R.string.prefsCategoryProfiles))) {
+            id = PrefLoadFragListener.PREF_PROFILE;
+        } else if (key.equals(getString(R.string.prefsCategoryController))) {
+            id = PrefLoadFragListener.PREF_CONTROLLER;
+        } else if (key.equals(getString(R.string.prefAutoUpdateCategory))) {
+            id = PrefLoadFragListener.PREF_AUTOUPDATE;
+        } else if (key.equals(getString(R.string.prefsCategoryAdvanced))) {
+            id = PrefLoadFragListener.PREF_ADVANCED;
+        } else if (key.equals(getString(R.string.prefNotificationCategory))) {
+            id = PrefLoadFragListener.PREF_NOTIFICATIONS;
+        } else if (key.equals(getString(R.string.prefLoggingCategory))) {
+            id = PrefLoadFragListener.PREF_LOGGING;
+        } else if (key.equals(getString(R.string.prefsCategoryApp))) {
+            id = PrefLoadFragListener.PREF_APP;
         }
-        private PrefLoadFragListener callback;
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            callback = (PrefLoadFragListener) activity;
-        }
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_main);
-
-            Preference p = findPreference(getString(R.string.prefsCategoryProfiles));
-            p.setOnPreferenceClickListener(this);
-            p = findPreference(getString(R.string.prefsCategoryController));
-            p.setOnPreferenceClickListener(this);
-            p = findPreference(getString(R.string.prefAutoUpdateCategory));
-            p.setOnPreferenceClickListener(this);
-            p = findPreference(getString(R.string.prefsCategoryAdvanced));
-            p.setOnPreferenceClickListener(this);
-            p = findPreference(getString(R.string.prefNotificationCategory));
-            p.setOnPreferenceClickListener(this);
-            p = findPreference(getString(R.string.prefLoggingCategory));
-            p.setOnPreferenceClickListener(this);
-            p = findPreference(getString(R.string.prefsCategoryApp));
-            p.setOnPreferenceClickListener(this);
-        }
-
-        @Override
-        public boolean onPreferenceClick(Preference preference) {
-
-            // TODO implement fragmentloading for other screens in preferences
-
-            // TODO have a master/global ID for the fragments
-            String key = preference.getKey();
-            int id = 0;
-            if (key.equals(getString(R.string.prefsCategoryProfiles))) {
-                id = 1;
-            } else if (key.equals(getString(R.string.prefsCategoryController))){
-                id = 2;
-            } else if (key.equals(getString(R.string.prefAutoUpdateCategory))){
-                id = 3;
-            } else if (key.equals(getString(R.string.prefsCategoryAdvanced))){
-                id = 4;
-            } else if (key.equals(getString(R.string.prefNotificationCategory))){
-                id = 5;
-            } else if (key.equals(getString(R.string.prefLoggingCategory))){
-                id = 6;
-            } else if (key.equals(getString(R.string.prefsCategoryApp))){
-                id = 7;
-            }
-            callback.loadFragment(id);
-            return true;
-        }
+        prefLoadFragListener.loadFragment(id);
+        return true;
+    }
 }

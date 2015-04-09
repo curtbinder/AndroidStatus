@@ -24,6 +24,7 @@
 
 package info.curtbinder.reefangel.phone;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
@@ -39,6 +40,13 @@ public class PrefAdvancedFragment extends PreferenceFragment
 
     private RAApplication raApp;
     private RAPreferences raPrefs;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        PrefSetTitleListener prefSetTitleListener = (PrefSetTitleListener) activity;
+        prefSetTitleListener.setToolbarTitle(getString(R.string.prefsCategoryAdvanced));
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
