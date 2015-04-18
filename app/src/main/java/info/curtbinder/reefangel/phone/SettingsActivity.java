@@ -163,7 +163,6 @@ implements PrefLoadFragListener, PrefSetTitleListener {
 
     public void loadFragment(int id) {
         PreferenceFragment pf = null;
-        // todo move getting the title down into the fragment
         String title = getFragTitle(id);
         switch(id){
             default:
