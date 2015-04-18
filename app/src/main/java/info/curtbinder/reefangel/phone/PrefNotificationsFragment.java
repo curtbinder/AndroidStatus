@@ -43,7 +43,7 @@ public class PrefNotificationsFragment extends PreferenceFragment
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         PrefSetTitleListener prefSetTitleListener = (PrefSetTitleListener) activity;
-        prefSetTitleListener.setToolbarTitle(getString(R.string.prefNotificationCategory));
+        prefSetTitleListener.setToolbarTitle(PrefLoadFragListener.PREF_NOTIFICATIONS);
     }
 
     @Override

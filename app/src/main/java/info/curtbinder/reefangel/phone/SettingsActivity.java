@@ -164,40 +164,32 @@ implements PrefLoadFragListener, PrefSetTitleListener {
     public void loadFragment(int id) {
         PreferenceFragment pf = null;
         // todo move getting the title down into the fragment
-        String title = "";
+        String title = getFragTitle(id);
         switch(id){
             default:
             case PrefLoadFragListener.PREF_HEADERS:
                 pf = new PrefHeadersFragment();
-                title = getString(R.string.menuMainSettings);
                 break;
             case PrefLoadFragListener.PREF_PROFILE:
                 pf = new PrefProfileFragment();
-                title = getString(R.string.prefsCategoryProfiles);
                 break;
             case PrefLoadFragListener.PREF_CONTROLLER:
                 pf = new PrefControllerFragment();
-                title = getString(R.string.prefsCategoryController);
                 break;
             case PrefLoadFragListener.PREF_AUTOUPDATE:
                 pf = new PrefAutoUpdateFragment();
-                title = getString(R.string.prefAutoUpdateCategory);
                 break;
             case PrefLoadFragListener.PREF_ADVANCED:
                 pf = new PrefAdvancedFragment();
-                title = getString(R.string.prefsCategoryAdvanced);
                 break;
             case PrefLoadFragListener.PREF_NOTIFICATIONS:
                 pf = new PrefNotificationsFragment();
-                title = getString(R.string.prefNotificationCategory);
                 break;
             case PrefLoadFragListener.PREF_LOGGING:
                 pf = new PrefLoggingFragment();
-                title = getString(R.string.prefLoggingCategory);
                 break;
             case PrefLoadFragListener.PREF_APP:
                 pf = new PrefAppFragment();
-                title = getString(R.string.prefsCategoryApp);
                 break;
 
         }
@@ -211,6 +203,42 @@ implements PrefLoadFragListener, PrefSetTitleListener {
         if (mToolbar == null)
             return;
         mToolbar.setTitle(title);
+    }
+
+    public void setToolbarTitle(int id) {
+        setToolbarTitle(getFragTitle(id));
+    }
+
+    protected String getFragTitle(int id) {
+        String title = "";
+        switch(id){
+            default:
+            case PrefLoadFragListener.PREF_HEADERS:
+                title = getString(R.string.menuMainSettings);
+                break;
+            case PrefLoadFragListener.PREF_PROFILE:
+                title = getString(R.string.prefsCategoryProfiles);
+                break;
+            case PrefLoadFragListener.PREF_CONTROLLER:
+                title = getString(R.string.prefsCategoryController);
+                break;
+            case PrefLoadFragListener.PREF_AUTOUPDATE:
+                title = getString(R.string.prefAutoUpdateCategory);
+                break;
+            case PrefLoadFragListener.PREF_ADVANCED:
+                title = getString(R.string.prefsCategoryAdvanced);
+                break;
+            case PrefLoadFragListener.PREF_NOTIFICATIONS:
+                title = getString(R.string.prefNotificationCategory);
+                break;
+            case PrefLoadFragListener.PREF_LOGGING:
+                title = getString(R.string.prefLoggingCategory);
+                break;
+            case PrefLoadFragListener.PREF_APP:
+                title = getString(R.string.prefsCategoryApp);
+                break;
+        }
+        return title;
     }
 
     @Override

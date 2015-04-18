@@ -28,5 +28,6 @@ package info.curtbinder.reefangel.phone;
  * Created by binder on 4/8/15.
  */
 public interface PrefSetTitleListener {
-    public void setToolbarTitle(String title);
+    //public void setToolbarTitle(String title);
+    public void setToolbarTitle(int id);
 }

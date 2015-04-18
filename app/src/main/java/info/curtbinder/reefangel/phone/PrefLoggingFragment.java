@@ -47,7 +47,7 @@ public class PrefLoggingFragment extends PreferenceFragment
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         PrefSetTitleListener prefSetTitleListener = (PrefSetTitleListener) activity;
-        prefSetTitleListener.setToolbarTitle(getString(R.string.prefLoggingCategory));
+        prefSetTitleListener.setToolbarTitle(PrefLoadFragListener.PREF_LOGGING);
     }
 
     @Override

@@ -47,7 +47,7 @@ public class PrefAutoUpdateFragment extends PreferenceFragment
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         PrefSetTitleListener prefSetTitleListener = (PrefSetTitleListener) activity;
-        prefSetTitleListener.setToolbarTitle(getString(R.string.prefAutoUpdateCategory));
+        prefSetTitleListener.setToolbarTitle(PrefLoadFragListener.PREF_AUTOUPDATE);
     }
 
     @Override

@@ -35,7 +35,7 @@ public class PrefAppFragment extends PreferenceFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         PrefSetTitleListener prefSetTitleListener = (PrefSetTitleListener) activity;
-        prefSetTitleListener.setToolbarTitle(getString(R.string.prefsCategoryApp));
+        prefSetTitleListener.setToolbarTitle(PrefLoadFragListener.PREF_APP);
     }
 
     @Override

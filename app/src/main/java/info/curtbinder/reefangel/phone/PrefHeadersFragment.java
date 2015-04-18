@@ -42,7 +42,7 @@ public class PrefHeadersFragment extends PreferenceFragment
         super.onAttach(activity);
         prefLoadFragListener = (PrefLoadFragListener) activity;
         PrefSetTitleListener prefSetTitleListener = (PrefSetTitleListener) activity;
-        prefSetTitleListener.setToolbarTitle(getString(R.string.menuMainSettings));
+        prefSetTitleListener.setToolbarTitle(PrefLoadFragListener.PREF_HEADERS);
     }
 
     @Override

@@ -48,7 +48,7 @@ public class PrefProfileFragment extends PreferenceFragment
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         PrefSetTitleListener prefSetTitleListener = (PrefSetTitleListener) activity;
-        prefSetTitleListener.setToolbarTitle(getString(R.string.prefsCategoryProfiles));
+        prefSetTitleListener.setToolbarTitle(PrefLoadFragListener.PREF_PROFILE);
     }
 
     @Override
