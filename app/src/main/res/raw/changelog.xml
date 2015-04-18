@@ -25,6 +25,7 @@
 
 <changelog bulletedList="true">
     <changelogversion versionName="2.0.0" changeDate="TBD">
+        <changelogtext>Migrated to Toolbar from Actionbar</changelogtext>
         <changelogtext>Added in DC Pump page</changelogtext>
         <changelogtext>Added in a Navigation drawer</changelogtext>
         <changelogtext>Fixed RA DDNS communication error</changelogtext>
