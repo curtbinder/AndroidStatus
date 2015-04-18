@@ -39,8 +39,8 @@
     <PreferenceCategory android:title="Controller">
         <PreferenceScreen
             android:key="labels"
-            android:title="Labels">
-            <PreferenceCategory android:title="Labels">
+            android:title="@string/labelLabels">
+            <PreferenceCategory android:title="@string/labelLabels">
                 <EditTextPreference
                     android:defaultValue="@string/labelTemp1"
                     android:key="@string/prefT1LabelKey"
@@ -185,8 +185,8 @@
     <PreferenceCategory android:title="Main Relay">
         <PreferenceScreen
             android:key="main_relay_labels"
-            android:title="Labels">
-            <PreferenceCategory android:title="Labels">
+            android:title="@string/labelLabels">
+            <PreferenceCategory android:title="@string/labelLabels">
                 <EditTextPreference
                     android:defaultValue="@string/labelPort1"
                     android:key="@string/prefMainPort1LabelKey"
@@ -524,7 +524,7 @@
                     <PreferenceScreen
                         android:key="@string/prefExp1RelayKey"
                         android:title="@string/prefExp1RelayTitle">
-                        <PreferenceCategory android:title="Labels">
+                        <PreferenceCategory android:title="@string/labelLabels">
                             <EditTextPreference
                                 android:defaultValue="@string/labelPort1"
                                 android:key="@string/prefExp1Port1LabelKey"
@@ -563,7 +563,7 @@
                 <PreferenceScreen
                     android:key="@string/prefExp2RelayKey"
                     android:title="@string/prefExp2RelayTitle">
-                    <PreferenceCategory android:title="Labels">
+                    <PreferenceCategory android:title="@string/labelLabels">
                         <EditTextPreference
                             android:defaultValue="@string/labelPort1"
                             android:key="@string/prefExp2Port1LabelKey"
@@ -601,7 +601,7 @@
                 <PreferenceScreen
                     android:key="@string/prefExp3RelayKey"
                     android:title="@string/prefExp3RelayTitle">
-                    <PreferenceCategory android:title="Labels">
+                    <PreferenceCategory android:title="@string/labelLabels">
                         <EditTextPreference
                             android:defaultValue="@string/labelPort1"
                             android:key="@string/prefExp3Port1LabelKey"
@@ -639,7 +639,7 @@
                 <PreferenceScreen
                     android:key="@string/prefExp4RelayKey"
                     android:title="@string/prefExp4RelayTitle">
-                    <PreferenceCategory android:title="Labels">
+                    <PreferenceCategory android:title="@string/labelLabels">
                         <EditTextPreference
                             android:defaultValue="@string/labelPort1"
                             android:key="@string/prefExp4Port1LabelKey"
@@ -677,7 +677,7 @@
                 <PreferenceScreen
                     android:key="@string/prefExp5RelayKey"
                     android:title="@string/prefExp5RelayTitle">
-                    <PreferenceCategory android:title="Labels">
+                    <PreferenceCategory android:title="@string/labelLabels">
                         <EditTextPreference
                             android:defaultValue="@string/labelPort1"
                             android:key="@string/prefExp5Port1LabelKey"
@@ -715,7 +715,7 @@
                 <PreferenceScreen
                     android:key="@string/prefExp6RelayKey"
                     android:title="@string/prefExp6RelayTitle">
-                    <PreferenceCategory android:title="Labels">
+                    <PreferenceCategory android:title="@string/labelLabels">
                         <EditTextPreference
                             android:defaultValue="@string/labelPort1"
                             android:key="@string/prefExp6Port1LabelKey"
@@ -753,7 +753,7 @@
                 <PreferenceScreen
                     android:key="@string/prefExp7RelayKey"
                     android:title="@string/prefExp7RelayTitle">
-                    <PreferenceCategory android:title="Labels">
+                    <PreferenceCategory android:title="@string/labelLabels">
                         <EditTextPreference
                             android:defaultValue="@string/labelPort1"
                             android:key="@string/prefExp7Port1LabelKey"
@@ -791,7 +791,7 @@
                 <PreferenceScreen
                     android:key="@string/prefExp8RelayKey"
                     android:title="@string/prefExp8RelayTitle">
-                    <PreferenceCategory android:title="Labels">
+                    <PreferenceCategory android:title="@string/labelLabels">
                         <EditTextPreference
                             android:defaultValue="@string/labelPort1"
                             android:key="@string/prefExp8Port1LabelKey"
