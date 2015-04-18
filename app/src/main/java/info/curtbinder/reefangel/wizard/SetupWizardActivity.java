@@ -33,6 +33,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -64,10 +65,10 @@ public class SetupWizardActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setup_wizard);
         raApp = (RAApplication) getApplication();
-        final ActionBar ab = getSupportActionBar();
-        ab.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+        setContentView(R.layout.activity_setup_wizard);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.titleSetupWizard);
         stepsList = new LinkedList<Integer>();
         findViews();
         createSteps();
