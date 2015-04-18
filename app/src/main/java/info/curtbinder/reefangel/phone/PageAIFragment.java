@@ -65,13 +65,13 @@ public class PageAIFragment extends Fragment
     private void findViews(View root) {
         TableRow tr;
         tr = (TableRow) root.findViewById(R.id.rowAIWhite);
-        aiText[0] = (TextView) tr.findViewById(R.id.rowValue);
+        aiText[Controller.AI_WHITE] = (TextView) tr.findViewById(R.id.rowValue);
         setRowTitle(tr, R.string.labelWhite);
         tr = (TableRow) root.findViewById(R.id.rowAIBlue);
-        aiText[1] = (TextView) tr.findViewById(R.id.rowValue);
+        aiText[Controller.AI_BLUE] = (TextView) tr.findViewById(R.id.rowValue);
         setRowTitle(tr, R.string.labelBlue);
         tr = (TableRow) root.findViewById(R.id.rowAIRoyalBlue);
-        aiText[2] = (TextView) tr.findViewById(R.id.rowValue);
+        aiText[Controller.AI_ROYALBLUE] = (TextView) tr.findViewById(R.id.rowValue);
         setRowTitle(tr, R.string.labelRoyalBlue);
     }
 

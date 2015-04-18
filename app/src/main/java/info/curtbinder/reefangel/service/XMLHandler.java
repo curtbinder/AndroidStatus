@@ -385,11 +385,11 @@ public class XMLHandler extends DefaultHandler {
                     XMLTags.PWMExpansion16.length(), tag.length()-1) );
             ra.setSCPwmExpansionOverride( channel, value );
         } else if ( tag.startsWith( XMLTags.AIWhite ) ) {
-            ra.setAIChannel( Controller.AI_WHITE, value );
+            ra.setAIChannelOverride( Controller.AI_WHITE, value );
         } else if ( tag.startsWith( XMLTags.AIBlue ) ) {
-            ra.setAIChannel( Controller.AI_BLUE, value );
+            ra.setAIChannelOverride( Controller.AI_BLUE, value );
         } else if ( tag.startsWith( XMLTags.AIRoyalBlue ) ) {
-            ra.setAIChannel( Controller.AI_ROYALBLUE, value );
+            ra.setAIChannelOverride( Controller.AI_ROYALBLUE, value );
         } else if ( tag.startsWith( XMLTags.RFWhite ) ) {
             ra.setRadionChannelOverride( Controller.RADION_WHITE, value );
         } else if ( tag.startsWith( XMLTags.RFRoyalBlue ) ) {

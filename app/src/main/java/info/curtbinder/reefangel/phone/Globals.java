@@ -129,8 +129,8 @@ public final class Globals {
     public static final int OVERRIDE_CHANNEL4 = 6;
     public static final int OVERRIDE_CHANNEL5 = 7;
     public static final int OVERRIDE_AI_WHITE = 8;
-    public static final int OVERRIDE_AI_ROYALBLUE = 9;
-    public static final int OVERRIDE_AI_BLUE = 10;
+    public static final int OVERRIDE_AI_BLUE = 9;
+    public static final int OVERRIDE_AI_ROYALBLUE = 10;
     public static final int OVERRIDE_RF_WHITE = 11;
     public static final int OVERRIDE_RF_ROYALBLUE = 12;
     public static final int OVERRIDE_RF_RED = 13;
