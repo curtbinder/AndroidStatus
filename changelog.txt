@@ -229,6 +229,9 @@ Changelog of all the versions of AndroidStatus
  * code cleanup and bug fixes
  
 2.0 - ?
+ * Added Custom Variable value updating
+ * Fixed AI display bug and channel swap
+ * Migrated to Toolbar from Actionbar
  * Added in DC Pump page 
  * Added in a Navigation drawer
  * Fixed RA DDNS communication error
