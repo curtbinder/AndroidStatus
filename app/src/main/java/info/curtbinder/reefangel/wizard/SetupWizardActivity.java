@@ -53,6 +53,16 @@ public class SetupWizardActivity extends ActionBarActivity
     private static final String TAG = SetupWizardActivity.class.getSimpleName();
     private static final int MAX_STEPS = 9;
 
+    private static final int STEP_START = 0;
+    private static final int STEP_DEVICE = 1;
+    private static final int STEP_USERNAME = 2;
+    private static final int STEP_RADDNS = 3;
+    private static final int STEP_ALTDDNS = 4;
+    private static final int STEP_IP = 5;
+    private static final int STEP_AUTHUSER = 6;
+    private static final int STEP_AUTHPASS = 7;
+//    private static final int STEP_SUMMARY = 8;
+
     private NoSwipePager mWizardPager;
     private WizardAdapter mWizardAdapter;
     private Button btnNext;
@@ -326,7 +336,7 @@ public class SetupWizardActivity extends ActionBarActivity
     }
 
     private boolean isFirstStep(int position) {
-        return (position == 0);
+        return (position == STEP_START);
     }
 
     private boolean isLastStep(int position) {
@@ -344,14 +354,14 @@ public class SetupWizardActivity extends ActionBarActivity
             default:
                 break;
             // case 0: Start step
-            case 1:
+            case STEP_DEVICE:
                 // Device Step
                 // Update the Username step to be required if Portal is chosen
                 // or not required if the Controller is chosen
-                StepSingleInputFragment step = (StepSingleInputFragment) mWizardAdapter.getItem(2);
+                StepSingleInputFragment step = (StepSingleInputFragment) mWizardAdapter.getItem(STEP_USERNAME);
                 step.setValueRequired(isDevicePortal());
                 break;
-            case 2:
+            case STEP_USERNAME:
                 // Username step
                 // if Portal was chosen, then we jump straight to the end
                 // if Controller was chosen, we proceed based on the value given at this step
@@ -360,41 +370,39 @@ public class SetupWizardActivity extends ActionBarActivity
                     // Portal chosen, jump to the end
                     newPosition = MAX_STEPS - 1;
                     // set the summary text for the device to be Portal
-                    aStepItems[1].setSummaryText(getString(R.string.prefsCategoryPortal));
+                    aStepItems[STEP_DEVICE].setSummaryText(getString(R.string.prefsCategoryPortal));
                 } else {
                     // Controller chosen, check if the username was given
                     // set the summary text for the device to be Controller
-                    aStepItems[1].setSummaryText(getString(R.string.prefsCategoryController));
+                    aStepItems[STEP_DEVICE].setSummaryText(getString(R.string.prefsCategoryController));
                     if (isUsernameGiven()) {
                         // Username was provided, so proceed to next step
-                        newPosition = 3;
+                        newPosition = STEP_RADDNS;
                     } else {
                         // No username given, so skip over the next step
-                        newPosition = 4;
+                        newPosition = STEP_ALTDDNS;
                     }
                 }
                 break;
-            case 3:
+            case STEP_RADDNS:
                 // RA Dynamic DNS step
                 // if they are using the RA DDNS step, we can skip the next step which
                 // asks if they are using an alternate DDNS
-                if (aStepItems[3].getValue().length() == 0) {
+                if (aStepItems[STEP_RADDNS].getValue().length() == 0) {
                     // Not using RA Dynamic DNS, so proceed to next step
-                    newPosition = 4;
+                    newPosition = STEP_ALTDDNS;
                 } else {
                     // Using RA Dynamic DNS, so skip the next step and goto the IP step
                     // Update the summary text to contain the full hostname
                     // host is:  username-subdomain.myreefangel.com
-                    String host = aStepItems[2].getValue() + "-" +
-                            aStepItems[3].getValue() + getString(R.string.labelMyReefangelDomain);
-                    aStepItems[3].setSummaryText(host);
-                    newPosition = 5;
+                    aStepItems[STEP_RADDNS].setSummaryText(getRADynDNSHostname());
+                    newPosition = STEP_IP;
                 }
                 break;
-            // case 4: Alternate DDNS step
-            case 5:
+            // case STEP_ALTDDNS: Alternate DDNS step
+            case STEP_IP:
                 // IP Address step
-                if (aStepItems[5].getValue().length() == 0) {
+                if (aStepItems[STEP_IP].getValue().length() == 0) {
                     // user did not provide an IP address for the controller
                     // we need to assume that one of the Dynamic DNS hosts was provided
                     // look at previous step and set that title and preference key to be Home
@@ -407,18 +415,18 @@ public class SetupWizardActivity extends ActionBarActivity
                     aStepItems[previous].setPreferenceKey(getString(R.string.prefHostAwayKey));
                 }
                 break;
-            case 6:
+            case STEP_AUTHUSER:
                 // Wifi Authentication Username step
                 // if a username was entered, then we proceed to the next step and ask for
                 // the password
                 // otherwise, if no username given, we skip the password step and jump to the end
-                if (aStepItems[6].getValue().length() == 0) {
+                if (aStepItems[STEP_AUTHUSER].getValue().length() == 0) {
                     newPosition = MAX_STEPS - 1;
                 } else {
-                    newPosition = 7;
+                    newPosition = STEP_AUTHPASS;
                 }
                 break;
-            // case 7: Wifi Authentication Password step
+            // case STEP_AUTHPASS: Wifi Authentication Password step
         }
         Log.d(TAG, "next: " + newPosition);
         return newPosition;
@@ -432,12 +440,19 @@ public class SetupWizardActivity extends ActionBarActivity
         return newPos;
     }
 
+    private String getRADynDNSHostname() {
+        // Gets the full dynamic dns hostname based on the user's values entered
+        // host is:  username-subdomain.myreefangel.com
+        return aStepItems[STEP_USERNAME].getValue() + "-" +
+                aStepItems[STEP_RADDNS].getValue() + getString(R.string.labelMyReefangelDomain);
+    }
+
     private boolean isUsernameGiven() {
-        return !(aStepItems[2].getValue().length() == 0);
+        return !(aStepItems[STEP_USERNAME].getValue().length() == 0);
     }
 
     private boolean isDevicePortal() {
-        return (aStepItems[1].getOptionSelected() == 0);
+        return (aStepItems[STEP_DEVICE].getOptionSelected() == 0);
     }
 
     private boolean isDownloadLabelsChecked() {
