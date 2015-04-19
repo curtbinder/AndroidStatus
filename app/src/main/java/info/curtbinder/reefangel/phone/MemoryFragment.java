@@ -64,10 +64,6 @@ public class MemoryFragment extends Fragment {
     final static int HR_MAX = 23;
     final static int MIN_MIN = 0;
     final static int MIN_MAX = 59;
-    final static int BYTE_MIN = 0;
-    final static int BYTE_MAX = 255;
-    final static int INT_MIN = 0;
-    final static int INT_MAX = 32767;
     final static int WM_MIN = 0;
     final static int WM_MAX = 21600;
     final static int PH_MIN = 0;
@@ -219,10 +215,10 @@ public class MemoryFragment extends Fragment {
                     fRet = false;
                 }
             } else {
-                if ( (v < INT_MIN) || (v > INT_MAX) ) {
+                if ( (v < Globals.INT_MIN) || (v > Globals.INT_MAX) ) {
                     Toast.makeText( getActivity(),
                             getResources().getString( R.string.messageInvalidRangeFormat,
-                                            INT_MIN, INT_MAX ),
+                                    Globals.INT_MIN, Globals.INT_MAX ),
                             Toast.LENGTH_SHORT ).show();
                     fRet = false;
                 }
@@ -253,10 +249,10 @@ public class MemoryFragment extends Fragment {
                     fRet = false;
                 }
             } else {
-                if ( (v < BYTE_MIN) || (v > BYTE_MAX) ) {
+                if ( (v < Globals.BYTE_MIN) || (v > Globals.BYTE_MAX) ) {
                     Toast.makeText( getActivity(),
                             getResources().getString( R.string.messageInvalidRangeFormat,
-                                            BYTE_MIN, BYTE_MAX ),
+                                    Globals.BYTE_MIN, Globals.BYTE_MAX ),
                             Toast.LENGTH_SHORT ).show();
                     fRet = false;
                 }

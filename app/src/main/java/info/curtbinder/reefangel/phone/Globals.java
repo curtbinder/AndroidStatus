@@ -183,6 +183,12 @@ public final class Globals {
     public static final int WL4_INDEX = 15;
     public static final int HUMIDITY_INDEX = 16;
 
+    // variable ranges
+    public static final int BYTE_MIN = 0;
+    public static final int BYTE_MAX = 255;
+    public static final int INT_MIN = 0;
+    public static final int INT_MAX = 32767;
+
 
     private static String buildPackage() {
         String p = Globals.class.getPackage().getName();
