@@ -209,7 +209,8 @@ public class Host {
             }
         } else if ( command.equals( RequestCommands.Calibrate ) ) {
             s = String.format( "http://%s:%d%s%d", host, port, command, location);
-        } else if ( command.equals( RequestCommands.PwmOverride ) ) {
+        } else if ((command.equals(RequestCommands.PwmOverride))
+                || (command.equals(RequestCommands.CustomVar))) {
             s = String.format( "http://%s:%d%s%d,%d",
                     host, port, command, location, value);
         } else if ( command.equals( RequestCommands.ReefAngel ) ) {

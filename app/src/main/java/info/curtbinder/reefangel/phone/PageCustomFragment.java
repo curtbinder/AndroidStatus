@@ -44,7 +44,7 @@ import info.curtbinder.reefangel.db.StatusTable;
  * Status page for the Custom Variables
  */
 public class PageCustomFragment extends Fragment
-    implements PageRefreshInterface {
+    implements PageRefreshInterface, View.OnLongClickListener {
 
     private static final String TAG = PageCustomFragment.class.getSimpleName();
     private TextView[] customText = new TextView[Controller.MAX_CUSTOM_VARIABLES];
@@ -81,12 +81,47 @@ public class PageCustomFragment extends Fragment
     public void onResume() {
         super.onResume();
         updateLabelsAndVisibility();
+        updateClickable();
         refreshData();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    private void updateClickable() {
+        boolean fClickable = ((RAApplication) getActivity().getApplication()).raprefs.isCommunicateController();
+        View.OnLongClickListener l = null;
+        // Update the long clickablility and longclick listener based on the device we communicate
+        if (fClickable) {
+            l = this;
+        }
+        for (int i = 0; i < Controller.MAX_AI_CHANNELS; i++ ) {
+//            aiText[i].setLongClickable(fClickable);
+//            aiText[i].setOnLongClickListener(l);
+        }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        View parent = (View) v.getParent();
+        StatusFragment f = (StatusFragment) getParentFragment();
+//        switch (parent.getId()) {
+//            default:
+//                return false;
+//            case R.id.rowAIWhite:
+//                f.displayOverrideDialog(Globals.OVERRIDE_AI_WHITE, aiValues[Controller.AI_WHITE]);
+//                break;
+//            case R.id.rowAIBlue:
+//                f.displayOverrideDialog(Globals.OVERRIDE_AI_BLUE, aiValues[Controller.AI_BLUE]);
+//                break;
+//            case R.id.rowAIRoyalBlue:
+//                f.displayOverrideDialog(Globals.OVERRIDE_AI_ROYALBLUE,
+//                        aiValues[Controller.AI_ROYALBLUE]);
+//                break;
+//        }
+        return true;
     }
 
     private void setLabel(int channel, String label) {

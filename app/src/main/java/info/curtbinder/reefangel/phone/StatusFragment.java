@@ -568,6 +568,10 @@ public class StatusFragment extends Fragment {
         d.show(getFragmentManager(), "dlgdcpump");
     }
 
+    public void displayCustomVarDialog(int channel, short value) {
+
+    }
+
     protected Cursor getLatestDataCursor() {
         Uri uri = Uri.parse(StatusProvider.CONTENT_URI + "/" + StatusProvider.PATH_LATEST);
         return getActivity().getContentResolver().query(uri, null, null, null,
