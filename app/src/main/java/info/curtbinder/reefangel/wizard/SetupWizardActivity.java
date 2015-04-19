@@ -295,7 +295,13 @@ public class SetupWizardActivity extends ActionBarActivity
             Integer v = stepsList.get(i);
             // store it if we have a value
             if (!(aStepItems[v].getValue().length() == 0)) {
-                raApp.raprefs.set(aStepItems[v].getPreferenceKey(), aStepItems[v].getValue());
+                String value = aStepItems[v].getValue();
+                // If we are on the RA DynDNS step, we need to compute the hostname
+                // based on the given values
+                if (v == STEP_RADDNS) {
+                    value = getRADynDNSHostname();
+                } // otherwise, if it's an Alternate DynDNS host, just use the value entered
+                raApp.raprefs.set(aStepItems[v].getPreferenceKey(), value);
             }
         }
         if (isDownloadLabelsChecked()) {
