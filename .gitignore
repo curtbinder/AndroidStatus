@@ -6,6 +6,8 @@
 /.idea/dataSources.ids
 /.idea/datasources.xml
 /.idea/libraries/*.xml
+/.idea/dictionaries/
+/app/manifest*.txt
 
 # Module folder, mostly in ignore file inside the Module
 build/

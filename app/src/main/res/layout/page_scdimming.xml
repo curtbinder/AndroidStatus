@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ The MIT License (MIT)
+  ~
+  ~ Copyright (c) 2014 Curt Binder
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:stretchColumns="1" >
+
+        <include
+            android:id="@+id/rowSCPWME0"
+            layout="@layout/genericlabelrow" />
+
+        <include
+            android:id="@+id/rowSCPWME1"
+            layout="@layout/genericlabelrow" />
+
+        <include
+            android:id="@+id/rowSCPWME2"
+            layout="@layout/genericlabelrow" />
+
+        <include
+            android:id="@+id/rowSCPWME3"
+            layout="@layout/genericlabelrow" />
+
+        <include
+            android:id="@+id/rowSCPWME4"
+            layout="@layout/genericlabelrow" />
+
+        <include
+            android:id="@+id/rowSCPWME5"
+            layout="@layout/genericlabelrow" />
+        
+        <include
+            android:id="@+id/rowSCPWME6"
+            layout="@layout/genericlabelrow" />
+
+        <include
+            android:id="@+id/rowSCPWME7"
+            layout="@layout/genericlabelrow" />
+
+        <include
+            android:id="@+id/rowSCPWME8"
+            layout="@layout/genericlabelrow" />
+
+        <include
+            android:id="@+id/rowSCPWME9"
+            layout="@layout/genericlabelrow" />
+
+        <include
+            android:id="@+id/rowSCPWME10"
+            layout="@layout/genericlabelrow" />
+
+        <include
+            android:id="@+id/rowSCPWME11"
+            layout="@layout/genericlabelrow" />
+        
+        <include
+            android:id="@+id/rowSCPWME12"
+            layout="@layout/genericlabelrow" />
+
+        <include
+            android:id="@+id/rowSCPWME13"
+            layout="@layout/genericlabelrow" />
+
+        <include
+            android:id="@+id/rowSCPWME14"
+            layout="@layout/genericlabelrow" />
+
+        <include
+            android:id="@+id/rowSCPWME15"
+            layout="@layout/genericlabelrow" />
+
+    </TableLayout>
+
+</ScrollView>

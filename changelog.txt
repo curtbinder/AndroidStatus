@@ -228,3 +228,15 @@ Changelog of all the versions of AndroidStatus
  * added preference to keep screen on when displaying the main screen
  * code cleanup and bug fixes
  
+2.0 - ?
+ * Added in DC Pump page 
+ * Added in a Navigation drawer
+ * Fixed RA DDNS communication error
+ * Changed app theme to be a light theme
+ * Updated the app logo
+ * Added a Setup Wizard to help configure the app
+ * Migrated from Eclipse to Android Studio
+ * Switched to using Fragments
+ * Improved displaying changelog
+ * Code cleanup
+

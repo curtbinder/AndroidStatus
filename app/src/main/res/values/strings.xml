@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ The MIT License (MIT)
+  ~
+  ~ Copyright (c) 2015 Curt Binder
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<resources>
+
+    <string name="app_name">Reef Angel Status</string>
+    <string name="app_version">2.0.0 - Beta 2</string>
+    <string name="db_authority">info.curtbinder.reefangel.db</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <!-- Menu Labels -->
+    <string name="menuMainRefresh">Refresh</string>
+    <string name="menuMainSettings">Settings</string>
+    <string name="menuMainAbout">About</string>
+    <string name="menuMainCommands">Commands</string>
+    <string name="menuMainMemory">Memory</string>
+    <string name="menuMainHistory">History</string>
+    <string name="menuMainErrors">Errors</string>
+    <string name="menuMainNotifications">Notifications</string>
+    <string name="menuDelete">Delete</string>
+
+    <!-- Titles for Screens -->
+    <string name="titleHistory">Parameters History</string>
+    <string name="titleMemory">Internal Memory</string>
+    <string name="titleCommands">Commands</string>
+    <string name="titleAbout">About Reef Angel Status</string>
+    <string name="titleLicense">License Information</string>
+    <string name="titleMemoryTabs">Memory Pages</string>
+    <string name="titleCommandTabs">Command Pages</string>
+    <string name="titlePrefs">Status Settings</string>
+    <string name="titleDateTime">Date / Time</string>
+    <string name="titleSelectProfile">Select Profile</string>
+    <string name="titleChangelog">Changelog</string>
+    <string name="titleErrorlog">Error Log File</string>
+    <string name="titleVortech">Vortech Config</string>
+    <string name="titleDCPump">DC Pump Config</string>
+    <string name="titleError">Errors History</string>
+    <string name="titleNotifications">Notifications</string>
+    <string name="titleCreateNotification">Create Notification</string>
+    <string name="titleUpdateNotification">Update Notification</string>
+    <string name="titleOverride">PWM Override</string>
+    <string name="titleFlags">Flags</string>
+    <string name="titleAlert">Alert Flags</string>
+    <string name="titleStatus">Status Flags</string>
+    <string name="titleSetupWizard">Setup Wizard</string>
+
+    <!-- Tabs for memory page -->
+    <string name="tabMemory1">memory_tab_1</string>
+    <string name="tabMemory2">memory_tab_2</string>
+
+    <!-- Tabs for command page -->
+    <string name="tabCommand1">command_tab_1</string>
+    <string name="tabCommand2">command_tab_2</string>
+
+    <!-- Text descriptions -->
+<string name="textAbout">Monitors the status of your Reef Angel Controller and displays the values.  You must have a wifi attachment installed on
+your controller or have a ReefAngel UserID to use this app.</string>
+    <!-- Memory Location screen -->
+    <string name="descriptionMemory">Select the memory location to update or enter a custom location.</string>
+    <!-- Commands screen -->
+    <string name="descriptionModes">Feeding and Water Change buttons enter the appropriate modes. Press the Exit button to simulate a button press on the controller, which exits the modes.</string>
+    <!-- SetupWizard pages -->
+    <string name="descriptionWizardMainStep">Welcome\n\nLet\'s configure your setup.\n\nPress \'Next\' to get started.</string>
+    <string name="descriptionWizardDeviceStep">How do you want to communicate?</string>
+    <string name="descriptionWizardUsernameStep">Enter your Reef Angel Forum username.</string>
+    <string name="descriptionWizardRADNSStep">Did you enable Dynamic DNS with Reef Angel?</string>
+    <string name="descriptionWizardDNSStep">Do you use a domain name for your controller?</string>
+    <string name="descriptionWizardIPStep">Do you connect to your controller directly via an IP address?</string>
+    <string name="descriptionWizardAuthUsernameStep">Do you have Device Authentication enabled on your controller?</string>
+    <string name="descriptionWizardAuthPasswordStep">Enter your Device Authentication password:</string>
+    <!-- Date and Time screen -->
+    <string name="descriptionMode">Change the Mode</string>
+    <string name="descriptionSpeed">Change the Speed</string>
+    <string name="descriptionDuration">Change the Duration</string>
+    <string name="descriptionThreshold">Change the Threshold</string>
+    <string name="descriptionReefAngelLogo">Reef Angel Logo</string>
+
+    <!-- Extra Connection Errors -->
+    <string name="errorAuthentication">Device Authentication Error, check your user/password settings.</string>
+    <string name="errorConnection">Error connecting to device</string>
+
+    <!-- Buttons -->
+    <string name="buttonRefresh">Refresh</string>
+    <string name="buttonOk">OK</string>
+    <string name="buttonYes">Yes</string>
+    <string name="buttonNo">No</string>
+    <string name="buttonVersion">Get RA Version</string>
+    <string name="buttonDateGet">Get Time</string>
+    <string name="buttonDateSet">Set Current Time</string>
+    <string name="buttonRead">Read Value</string>
+    <string name="buttonWrite">Write Value</string>
+    <string name="buttonFeeding">Feeding Mode</string>
+    <string name="buttonWater">Water Change</string>
+    <string name="buttonExitMode">Exit Mode</string>
+    <string name="buttonAtoClear">Clear ATO</string>
+    <string name="buttonOverheatClear">Clear Overheat</string>
+    <string name="buttonGetControllerTime">Get Time</string>
+    <string name="buttonSetCurrentTime">Set to match device</string>
+    <string name="buttonChangeDate">Choose Date</string>
+    <string name="buttonChangeTime">Choose Time</string>
+    <string name="buttonSetCustomTime">Set Custom Time</string>
+    <string name="buttonCancel">Cancel</string>
+    <string name="buttonUpdate">Update</string>
+    <string name="buttonFinish">Finish</string>
+    <string name="buttonAdd">Add</string>
+    <string name="buttonDelete">Delete</string>
+    <string name="buttonSave">Save</string>
+    <string name="buttonClear">Clear</string>
+    <string name="buttonSet">Set</string>
+    <string name="buttonNext">Next</string>
+    <string name="buttonPrevious">Previous</string>
+    <string name="buttonExit">Exit</string>
+    <string name="radioByte">Byte</string>
+    <string name="radioInt">Int</string>
+
+    <!-- Labels -->
+    <string name="labelLastUpdated">Last Updated:</string>
+    <string name="labelStatus">Status</string>
+    <string name="labelController">Controller</string>
+    <string name="labelTemp1">T1</string>
+    <string name="labelTemp2">T2</string>
+    <string name="labelTemp3">T3</string>
+    <string name="labelPH">PH</string>
+    <string name="labelDP">DP</string>
+    <string name="labelAP">AP</string>
+    <string name="labelSalinity">Salinity</string>
+    <string name="labelORP">ORP</string>
+    <string name="labelPHExp">PH Exp</string>
+    <string name="labelWaterLevel">Water</string>
+    <string name="labelHumidity">Humidity</string>
+    <string name="labelAtoLow">ATO Low</string>
+    <string name="labelAtoHigh">ATO High</string>
+    <string name="labelPort1">Port 1</string>
+    <string name="labelPort2">Port 2</string>
+    <string name="labelPort3">Port 3</string>
+    <string name="labelPort4">Port 4</string>
+    <string name="labelPort5">Port 5</string>
+    <string name="labelPort6">Port 6</string>
+    <string name="labelPort7">Port 7</string>
+    <string name="labelPort8">Port 8</string>
+    <string name="labelRelayBox">Relay Box</string>
+    <string name="labelSeparator">:</string>
+    <string name="labelFeedingMode">Feeding Mode</string>
+    <string name="labelWaterMode">Water Change Mode</string>
+    <string name="labelExitMode">Exit Mode</string>
+    <string name="labelAtoClear">ATO Clear</string>
+    <string name="labelOverheatClear">Overheat Clear</string>
+    <string name="labelVersion">Installed Version:</string>
+    <string name="labelMemoryLocation">Memory Location:</string>
+    <string name="labelLocation">Location:</string>
+    <string name="labelValue">Value:</string>
+    <string name="labelType">Type:</string>
+    <string name="labelDateController">Controller</string>
+    <string name="labelDateCustomController">Custom Controller Time</string>
+    <string name="labelDateTime">Time:</string>
+    <string name="labelDate">Date:</string>
+    <string name="labelDimming">Dimming</string>
+    <string name="labelRadion">Radion</string>
+    <string name="labelWhite">White</string>
+    <string name="labelRoyalBlue">Royal Blue</string>
+    <string name="labelRed">Red</string>
+    <string name="labelGreen">Green</string>
+    <string name="labelBlue">Blue</string>
+    <string name="labelIntensity">Intensity</string>
+    <string name="labelVortech">Vortech</string>
+    <string name="labelMode">Mode</string>
+    <string name="labelSpeed">Speed</string>
+    <string name="labelDuration">Duration</string>
+    <string name="labelThreshold">Threshold</string>
+    <string name="labelDCPump">DC Pump</string>
+    <string name="labelAI">Aqua Illuminations</string>
+    <string name="labelIO">I/O</string>
+    <string name="labelON">ON</string>
+    <string name="labelOFF">OFF</string>
+    <string name="labelCustomVariables">Custom Variables</string>
+    <string name="labelCustom">Custom</string>
+    <string name="labelEnable">Enable</string>
+    <string name="labelChannel">Channel</string>
+    <string name="labelLightsOn">Lights On</string>
+    <string name="labelLightsOff">Lights Off</string>
+    <string name="labelReboot">Reboot</string>
+    <string name="labelCalibratePH">Calibrate PH</string>
+    <string name="labelCalibrateSalinity">Calibrate Salinity</string>
+    <string name="labelCalibrateORP">Calibrate ORP</string>
+    <string name="labelCalibratePHExp">Calibrate PH Exp</string>
+    <string name="labelCalibrateWaterLevel">Calibrate Water Level</string>
+    <string name="labelPwmOverride">PWM Override</string>
+    <string name="labelParameter">Parameter:</string>
+    <string name="labelCondition">Condition:</string>
+    <string name="labelAtoTimeout">ATO Timeout</string>
+    <string name="labelOverheatTimeout">Overheat Timeout</string>
+    <string name="labelBusLock">Bus Lock</string>
+    <string name="labelLeak">Leak</string>
+    <string name="labelSCDimming">16 Ch Dimming</string>
+    <string name="labelSummary">Summary</string>
+    <string name="labelDownloadLabelsOnFinish">Download Labels on Finish</string>
+    <string name="labelMissing">Missing</string>
+    <string name="labelUsername">username</string>
+    <string name="labelPassword">password</string>
+    <string name="labelExampleDNS">user.tank-stats.com</string>
+    <string name="labelMyReefangelDomain">.myreefangel.com</string>
+    <string name="labelPortalUsername">Portal Username</string>
+    <string name="labelDeviceUsername">Device Username</string>
+    <string name="labelDevicePassword">Device Password</string>
+    <string name="labelDisabledDueToPortal">Disabled due to Portal</string>
+    <string name="labelLabels">Labels</string>
+    <string name="websiteReefangel">http://www.reefangel.com/</string>
+    <string name="forumReefangel">http://forum.reefangel.com/</string>
+    <string name="defaultStatusText">-</string>
+    <string name="defaultPortName">Port</string>
+    <!-- Minimum Versions -->
+    <string name="minModesVersion">0.8.5.19</string>
+    <string name="minNewStatus">0.8.5.17</string>
+
+    <!-- Messages -->
+    <string name="messageEmptyParams">No parameters logged</string>
+    <string name="messageError">Error</string>
+    <string name="messageNever">Never</string>
+    <string name="messageCancelled">Cancelled</string>
+    <string name="messageNotNumber">Value is not a number</string>
+    <string name="messageEmptyValue">Value cannot be empty</string>
+    <string name="messageInvalidRangeFormat">Value must be between %1$d and %2$d</string>
+    <string name="messageEmptyLocation">Location cannot be empty</string>
+    <string name="messageInvalidLocation">Location must be between %1$d and %2$d</string>
+    <string name="messageUnknownError">Error Unknown</string>
+    <string name="messageDownloadLabelsPrompt">Download all labels for</string>
+    <string name="messageDownloadLabels">Downloading labels…</string>
+    <string name="messageDownloadLabelsComplete">Labels downloaded and updated</string>
+    <string name="messageDownloadMessage">Labels downloaded and updated.\n\nPlease exit preferences to see updated labels</string>
+    <string name="messageReadingMemory">Reading memory…</string>
+    <string name="messageWritingMemory">Writing to memory…</string>
+    <string name="messageDeleteAllPrompt">Delete all history?</string>
+    <string name="messageDeleted">Deleted</string>
+    <string name="messageNotController">Not a controller</string>
+    <string name="messageResetLabelsPrompt">Reset all labels?</string>
+    <string name="messageResetLabelsBegin">Resetting labels…</string>
+    <string name="messageResetLabelsComplete">Labels reset to default</string>
+    <string name="messageResetEnabledPortsPrompt">Reset all enabled ports?</string>
+    <string name="messageResetEanbledPortsComplete">All ports enabled</string>
+    <string name="messageNetworkOffline">Unable to send, no network connection</string>
+    <string name="messageDeleteLogPrompt">Delete log file?</string>
+    <string name="messageSendLogPrompt">Email log to developer?</string>
+    <string name="messageNoExternalStorage">Need SD card for log file</string>
+    <string name="messageErrorRetry">Error retry count: %1$d</string>
+    <string name="messageEmptyErrors">No errors logged</string>
+    <string name="messageClearErrorHistory">Clear error notification history?</string>
+    <string name="messageEmptyNotifications">No notifications created</string>
+    <string name="messageClearNotifications">Clear all notifications?</string>
+    <string name="messageAddNotification">Add notification</string>
+    <string name="messageMoreErrors">+%1$d more</string>
+    <string name="messageGBMoreErrors">%1$s - %2$d errors</string>
+    <string name="messageUnsupported">Unsupported command</string>
+    <string name="messagePWMPopupCustom">%1$s (%2$s)</string>
+    <string name="messageErrorTimeout">Timeout connecting to %1$s:%2$s</string>
+    <string name="messageResetAllPrefsPrompt">Reset all application preferences?</string>
+
+    <!-- Status strings -->
+    <string name="statusStart">Starting update</string>
+    <string name="statusConnect">Connecting</string>
+    <string name="statusDisconnected">Disconnected</string>
+    <string name="statusReadResponse">Read response</string>
+    <string name="statusUpdatingDisplay">Updating display</string>
+    <string name="statusSendingCommand">Sending command</string>
+    <string name="statusInitParser">Init parser</string>
+    <string name="statusParsing">Parsing</string>
+    <string name="statusFinished">Finished</string>
+    <string name="statusRefreshNeeded">Refresh to update screen</string>
+    <string name="statusWaiting">Waiting to update…</string>
+
+    <!-- Settings / Preference Labels -->
+    <string name="prefsCategoryDevice">Device</string>
+    <string name="prefsCategoryHost">Host</string>
+    <string name="prefsCategoryProfiles">Profiles</string>
+    <string name="prefsCategoryPortal">Portal</string>
+    <string name="prefsCategoryController">Controller</string>
+    <string name="prefsCategoryApp">Application Info</string>
+    <string name="prefsCategoryAdvanced">Advanced</string>
+    <string name="prefCategoryProfilesSummary">Select your Device, update your hosts, set your Portal ID</string>
+    <string name="prefDeviceTitle">Device</string>
+    <string name="prefDeviceSummary">Query data from your controller directly or your portal on reefangel.com</string>
+    <string name="prefDeviceDefault">0</string>
+    <string name="prefHostScreenTitle">Host Information</string>
+    <string name="prefHostScreenSummary">Hostname, Port, User ID, Profiles</string>
+    <string name="prefHostTitle">Home Host</string>
+    <string name="prefHostSummary">Hostname or IP address of the controller</string>
+    <string name="prefHostHomeDefault">192.168.1.10</string>
+    <string name="prefHostAwayDefault"></string>
+    <string name="prefHostInvalidHost">Invalid host</string>
+    <string name="prefPortTitle">Home Port</string>
+    <string name="prefPortSummary">Port for the controller between 1 and 65535  (default: 2000)</string>
+    <string name="prefPortDefault">2000</string>
+    <string name="prefPortMin">1</string>
+    <string name="prefPortMax">65535</string>
+    <string name="prefPortInvalidPort">Invalid port</string>
+    <string name="prefHostAwayTitle">Away Host</string>
+    <string name="prefPortAwayTitle">Away Port</string>
+    <string name="prefProfileSelectedDefault">0</string>
+    <string name="prefProfileSelectedTitle">Selected Profile</string>
+    <string name="prefProfileSelectedSummary">Profile to be used when querying controller, can long press on refresh button to change quickly</string>
+    <string name="prefProfileHomeTitle">Home</string>
+    <string name="prefProfileHomeSummary">Default profile or for use while on home network.  Must be set.</string>
+    <string name="prefProfileAwayTitle">Away</string>
+    <string name="prefProfileAwaySummary">Profile used while outside of your home network.  Optional.</string>
+    <string name="prefUserIdTitle">User ID</string>
+    <string name="prefUserIdSummary">Userid / login for the portal</string>
+    <string name="prefUserIdDefault">reefangel</string>
+    <string name="prefUserIdInvalid">Invalid userid</string>
+    <string name="prefWifiUserTitle">Device Authentication Username</string>
+    <string name="prefWifiUserSummary">Username for basic authentication on the controller (libraries v1.1.1 and later)</string>
+    <string name="prefWifiPasswordTitle">Device Authentication Password</string>
+    <string name="prefWifiPasswordSummary">Password for basic authentication on the controller (libraries v1.1.1 and later)</string>
+    <string name="prefAppTitle">Info</string>
+    <string name="prefVersionTitle">Version</string>
+    <string name="prefAuthorTitle">Author</string>
+    <string name="prefAuthorSummary">Curt Binder</string>
+    <string name="prefContributorTitle">Contributors</string>
+    <string name="prefContributorSummary">Roberto Imai, Mathieu Brisson, Tin Pavlinic</string>
+    <string name="prefCopyrightTitle">Copyright</string>
+    <string name="prefCopyrightSummary">Copyright 2011–15 Curt Binder</string>
+    <string name="prefLicenseTitle">License</string>
+    <string name="prefLicenseSummary">This work is licensed under the MIT License.</string>
+    <string name="prefChangelogSummary">Displays changelog</string>
+    <string name="prefReefAngelTitle">Reef Angel Controller</string>
+    <string name="prefReefAngelSummary">http://www.reefangel.com/</string>
+    <string name="prefForumTitle">Reef Angel Forums</string>
+    <string name="prefForumSummary">http://forum.reefangel.com/</string>
+    <string name="prefControllerTitle">Controller Information</string>
+    <string name="prefControllerSummary">Update labels, Toggle visibility, Set Expansion Modules</string>
+    <string name="prefVisibilityCategory">Visibility Settings</string>
+    <string name="prefControllerVisibilityTitle">Label Visibility</string>
+    <string name="prefControllerVisibilitySummary">Controller labels</string>
+    <string name="prefT2VisibilityTitle">Temp Sensor 2</string>
+    <string name="prefT3VisibilityTitle">Temp Sensor 3</string>
+    <string name="prefDPVisibilityTitle">Daylight Channel</string>
+    <string name="prefAPVisibilityTitle">Actinic Channel</string>
+    <string name="prefPHVisibilityTitle">PH</string>
+    <string name="prefSalinityVisibilityTitle">Salinity</string>
+    <string name="prefORPVisibilityTitle">ORP</string>
+    <string name="prefPHExpVisibilityTitle">PH Expansion</string>
+    <string name="prefResetCategory">Reset Settings</string>
+    <string name="prefResetLabelsTitle">Reset Labels</string>
+    <string name="prefResetSummary">Defaults</string>
+    <string name="prefResetEnabledPortsTitle">Reset Enabled Ports</string>
+    <string name="prefLabelsCategory">Label Settings</string>
+    <string name="prefControllerLabelsDownloadTitle">Download</string>
+    <string name="prefControllerLabelsDownloadSummary">Retrieves your labels from reefangel.com using id: </string>
+    <string name="prefControllerLabelsTitle">Controller</string>
+    <string name="prefT1LabelTitle">Temp Sensor 1</string>
+    <string name="prefT2LabelTitle">Temp Sensor 2</string>
+    <string name="prefT3LabelTitle">Temp Sensor 3</string>
+    <string name="prefDPLabelTitle">Daylight Channel</string>
+    <string name="prefAPLabelTitle">Actinic Channel</string>
+    <string name="prefPHExpLabelTitle">PH Expansion</string>
+    <string name="prefWaterLevelLabelTitle">Water Level</string>
+    <string name="prefWaterLevel1LabelTitle">Water Level 1</string>
+    <string name="prefWaterLevel2LabelTitle">Water Level 2</string>
+    <string name="prefWaterLevel3LabelTitle">Water Level 3</string>
+    <string name="prefWaterLevel4LabelTitle">Water Level 4</string>
+    <string name="prefPort1LabelTitle">Port 1</string>
+    <string name="prefPort2LabelTitle">Port 2</string>
+    <string name="prefPort3LabelTitle">Port 3</string>
+    <string name="prefPort4LabelTitle">Port 4</string>
+    <string name="prefPort5LabelTitle">Port 5</string>
+    <string name="prefPort6LabelTitle">Port 6</string>
+    <string name="prefPort7LabelTitle">Port 7</string>
+    <string name="prefPort8LabelTitle">Port 8</string>
+    <string name="prefMainRelayTitle">Main Relay</string>
+    <string name="prefMainRelayEnableTitle">Main Relay Button enable/disable</string>
+    <string name="prefRelayEnabledPortsTitle">Enabled Ports</string>
+    <string name="prefRelayEnabledPortsSummary">Disabled ports cannot be toggled, only displayed</string>
+    <string name="prefExpansionCategory">Expansion Settings</string>
+    <string name="prefExpRelayTitle">Relay</string>
+    <string name="prefExpRelaySummary">Quantity and labels</string>
+    <string name="prefExpQtyTitle">Quantity</string>
+    <string name="prefExpLabelsTitle">Expansion Labels</string>
+    <string name="prefExp1RelayTitle">Expansion Relay 1</string>
+    <string name="prefExp2RelayTitle">Expansion Relay 2</string>
+    <string name="prefExp3RelayTitle">Expansion Relay 3</string>
+    <string name="prefExp4RelayTitle">Expansion Relay 4</string>
+    <string name="prefExp5RelayTitle">Expansion Relay 5</string>
+    <string name="prefExp6RelayTitle">Expansion Relay 6</string>
+    <string name="prefExp7RelayTitle">Expansion Relay 7</string>
+    <string name="prefExp8RelayTitle">Expansion Relay 8</string>
+    <string name="prefExpEnabledPortsTitle">Expansion Enabled Ports</string>
+    <string name="prefExp085xSummary">v0.8.5.X libraries support</string>
+    <string name="prefExp085xTitle">Old Expansion</string>
+    <string name="prefExpDimmingSummary">Configure dimming expansion module</string>
+    <string name="prefExpDimmingCh0LabelTitle">Channel 0</string>
+    <string name="prefExpDimmingCh1LabelTitle">Channel 1</string>
+    <string name="prefExpDimmingCh2LabelTitle">Channel 2</string>
+    <string name="prefExpDimmingCh3LabelTitle">Channel 3</string>
+    <string name="prefExpDimmingCh4LabelTitle">Channel 4</string>
+    <string name="prefExpDimmingCh5LabelTitle">Channel 5</string>
+    <string name="prefExpIO0LabelTitle">I/O 0</string>
+    <string name="prefExpIO1LabelTitle">I/O 1</string>
+    <string name="prefExpIO2LabelTitle">I/O 2</string>
+    <string name="prefExpIO3LabelTitle">I/O 3</string>
+    <string name="prefExpIO4LabelTitle">I/O 4</string>
+    <string name="prefExpIO5LabelTitle">I/O 5</string>
+    <string name="prefExpCustom0LabelTitle">Custom 0</string>
+    <string name="prefExpCustom1LabelTitle">Custom 1</string>
+    <string name="prefExpCustom2LabelTitle">Custom 2</string>
+    <string name="prefExpCustom3LabelTitle">Custom 3</string>
+    <string name="prefExpCustom4LabelTitle">Custom 4</string>
+    <string name="prefExpCustom5LabelTitle">Custom 5</string>
+    <string name="prefExpCustom6LabelTitle">Custom 6</string>
+    <string name="prefExpCustom7LabelTitle">Custom 7</string>
+    <string name="prefAppSettingsTitle">Settings</string>
+    <string name="prefPre10MemorySummary">Memory locations</string>
+    <string name="prefPre10MemoryTitle">Pre v1.0 Locations </string>
+    <string name="prefAutoUpdateIntervalTitle">Interval</string>
+    <string name="prefAutoUpdateIntervalDefault">900000</string>
+    <string name="prefAutoUpdateModulesSummary">Based on the controller</string>
+    <string name="prefAutoUpdateModulesTitle">Auto Update Modules</string>
+    <string name="prefAutoUpdateProfileTitle">Profile</string>
+    <string name="prefAutoUpdateProfileDefault">1</string>
+    <string name="prefAutoUpdateCategory">Automatic Updating</string>
+    <string name="prefNotificationCategory">Notifications</string>
+    <string name="prefNotificationEnableSummary">Display in status bar</string>
+    <string name="prefNotificationSoundTitle">Choose ringtone</string>
+    <string name="prefNotificationErrorRetryTitle">Error Retries</string>
+    <string name="prefNotificationErrorRetryDefault">0</string>
+    <string name="prefNotificationErrorRetryIntervalDefault">5000</string>
+    <string name="prefNotificationErrorRetryIntervalTitle">Error Retry Interval</string>
+    <string name="prefLoggingCategory">Logging</string>
+    <string name="prefLoggingUpdateTitle">File Updating</string>
+    <string name="prefLoggingDeleteTitle">Delete log file</string>
+    <string name="prefLoggingSendTitle">Send log file</string>
+    <string name="prefLoggingSendSummary">Emails log file to developer</string>
+    <string name="prefLoggingDisplayTitle">Display log file</string>
+    <string name="prefConnectionTimeoutTitle">Connection Timeout</string>
+    <string name="prefConnectionTimeoutDefault">15000</string>
+    <string name="prefReadTimeoutTitle">Read Timeout</string>
+    <string name="prefReadTimeoutDefault">10000</string>
+    <string name="prefAutoRefreshAfterUpdateTitle">Auto refresh after commands</string>
+    <string name="prefAutoRefreshAfterUpdateSummary">Automatically refresh the status after issuing a command or pwm override</string>
+    <string name="prefExpSCDimmingSummary">Configure 16 ch dimming expansion module</string>
+    <string name="prefExpSCDimmingCh0LabelTitle">Channel 0</string>
+    <string name="prefExpSCDimmingCh1LabelTitle">Channel 1</string>
+    <string name="prefExpSCDimmingCh2LabelTitle">Channel 2</string>
+    <string name="prefExpSCDimmingCh3LabelTitle">Channel 3</string>
+    <string name="prefExpSCDimmingCh4LabelTitle">Channel 4</string>
+    <string name="prefExpSCDimmingCh5LabelTitle">Channel 5</string>
+    <string name="prefExpSCDimmingCh6LabelTitle">Channel 6</string>
+    <string name="prefExpSCDimmingCh7LabelTitle">Channel 7</string>
+    <string name="prefExpSCDimmingCh8LabelTitle">Channel 8</string>
+    <string name="prefExpSCDimmingCh9LabelTitle">Channel 9</string>
+    <string name="prefExpSCDimmingCh10LabelTitle">Channel 10</string>
+    <string name="prefExpSCDimmingCh11LabelTitle">Channel 11</string>
+    <string name="prefExpSCDimmingCh12LabelTitle">Channel 12</string>
+    <string name="prefExpSCDimmingCh13LabelTitle">Channel 13</string>
+    <string name="prefExpSCDimmingCh14LabelTitle">Channel 14</string>
+    <string name="prefExpSCDimmingCh15LabelTitle">Channel 15</string>
+    <string name="prefUpdateControllerIPSummary">Updates the home host from the last updated host on the Portal</string>
+    <string name="prefUpdateControllerIPTitle">Update Home Host</string>
+    <string name="prefResetAllPrefsTitle">Reset All App Preferences</string>
+    <string name="prefKeepScreenOnSummary">Keeps the screen from shutting off while the app is open</string>
+    <string name="prefKeepScreenOnTitle">Keep Screen On</string>
+
+    <!-- Preference Keys -->
+    <string name="prefFirstRunKey">firstrun</string>
+    <string name="prefDeviceKey">device</string>
+    <string name="prefHostScreenKey">hostscreen</string>
+    <string name="prefHostKey">host</string>
+    <string name="prefPortKey">port</string>
+    <string name="prefHostAwayKey">hostaway</string>
+    <string name="prefPortAwayKey">portaway</string>
+    <string name="prefProfileSelectedKey">profileselected</string>
+    <string name="prefUserIdKey">userid</string>
+    <string name="prefWifiUserKey">wifi_username</string>
+    <string name="prefWifiPasswordKey">wifi_password</string>
+    <string name="prefChangelogKey">changelog</string>
+    <string name="prefT2VisibilityKey">t2_visibility</string>
+    <string name="prefT3VisibilityKey">t3_visibility</string>
+    <string name="prefDPVisibilityKey">dp_visibility</string>
+    <string name="prefAPVisibilityKey">ap_visibility</string>
+    <string name="prefPHVisibilityKey">ph_visibility</string>
+    <string name="prefATOLoVisibilityKey">atolo_visibility</string>
+    <string name="prefATOHiVisibilityKey">atohi_visibility</string>
+    <string name="prefSalinityVisibilityKey">salinity_visibility</string>
+    <string name="prefORPVisibilityKey">orp_visibility</string>
+    <string name="prefPHExpVisibilityKey">phe_visibility</string>
+    <string name="prefHumidityVisibilityKey">humidity_visibility</string>
+    <string name="prefResetLabelsKey">reset_labels</string>
+    <string name="prefResetEnabledPortsKey">reset_enabled_ports</string>
+    <string name="prefControllerLabelsDownloadKey">download_labels</string>
+    <string name="prefT1LabelKey">t1_label</string>
+    <string name="prefT2LabelKey">t2_label</string>
+    <string name="prefT3LabelKey">t3_label</string>
+    <string name="prefPHLabelKey">ph_label</string>
+    <string name="prefDPLabelKey">dp_label</string>
+    <string name="prefAPLabelKey">ap_label</string>
+    <string name="prefATOLoLabelKey">atolo_label</string>
+    <string name="prefATOHiLabelKey">atohi_label</string>
+    <string name="prefSalinityLabelKey">salinity_label</string>
+    <string name="prefORPLabelKey">orp_label</string>
+    <string name="prefPHExpLabelKey">phe_label</string>
+    <string name="prefHumidityLabelKey">humidity_label</string>
+    <string name="prefMainPort1LabelKey">main_port1_label</string>
+    <string name="prefMainPort2LabelKey">main_port2_label</string>
+    <string name="prefMainPort3LabelKey">main_port3_label</string>
+    <string name="prefMainPort4LabelKey">main_port4_label</string>
+    <string name="prefMainPort5LabelKey">main_port5_label</string>
+    <string name="prefMainPort6LabelKey">main_port6_label</string>
+    <string name="prefMainPort7LabelKey">main_port7_label</string>
+    <string name="prefMainPort8LabelKey">main_port8_label</string>
+    <string name="prefExpQtyKey">expansion_quantity</string>
+    <string name="prefExpLabelsKey">exp_relay_labels</string>
+    <string name="prefExp1RelayKey">exp1_relay_labels</string>
+    <string name="prefExp1Port1LabelKey">exp1_port1_label</string>
+    <string name="prefExp1Port2LabelKey">exp1_port2_label</string>
+    <string name="prefExp1Port3LabelKey">exp1_port3_label</string>
+    <string name="prefExp1Port4LabelKey">exp1_port4_label</string>
+    <string name="prefExp1Port5LabelKey">exp1_port5_label</string>
+    <string name="prefExp1Port6LabelKey">exp1_port6_label</string>
+    <string name="prefExp1Port7LabelKey">exp1_port7_label</string>
+    <string name="prefExp1Port8LabelKey">exp1_port8_label</string>
+    <string name="prefExp2RelayKey">exp2_relay_labels</string>
+    <string name="prefExp2Port1LabelKey">exp2_port1_label</string>
+    <string name="prefExp2Port2LabelKey">exp2_port2_label</string>
+    <string name="prefExp2Port3LabelKey">exp2_port3_label</string>
+    <string name="prefExp2Port4LabelKey">exp2_port4_label</string>
+    <string name="prefExp2Port5LabelKey">exp2_port5_label</string>
+    <string name="prefExp2Port6LabelKey">exp2_port6_label</string>
+    <string name="prefExp2Port7LabelKey">exp2_port7_label</string>
+    <string name="prefExp2Port8LabelKey">exp2_port8_label</string>
+    <string name="prefExp3RelayKey">exp3_relay_labels</string>
+    <string name="prefExp3Port1LabelKey">exp3_port1_label</string>
+    <string name="prefExp3Port2LabelKey">exp3_port2_label</string>
+    <string name="prefExp3Port3LabelKey">exp3_port3_label</string>
+    <string name="prefExp3Port4LabelKey">exp3_port4_label</string>
+    <string name="prefExp3Port5LabelKey">exp3_port5_label</string>
+    <string name="prefExp3Port6LabelKey">exp3_port6_label</string>
+    <string name="prefExp3Port7LabelKey">exp3_port7_label</string>
+    <string name="prefExp3Port8LabelKey">exp3_port8_label</string>
+    <string name="prefExp4RelayKey">exp4_relay_labels</string>
+    <string name="prefExp4Port1LabelKey">exp4_port1_label</string>
+    <string name="prefExp4Port2LabelKey">exp4_port2_label</string>
+    <string name="prefExp4Port3LabelKey">exp4_port3_label</string>
+    <string name="prefExp4Port4LabelKey">exp4_port4_label</string>
+    <string name="prefExp4Port5LabelKey">exp4_port5_label</string>
+    <string name="prefExp4Port6LabelKey">exp4_port6_label</string>
+    <string name="prefExp4Port7LabelKey">exp4_port7_label</string>
+    <string name="prefExp4Port8LabelKey">exp4_port8_label</string>
+    <string name="prefExp5RelayKey">exp5_relay_labels</string>
+    <string name="prefExp5Port1LabelKey">exp5_port1_label</string>
+    <string name="prefExp5Port2LabelKey">exp5_port2_label</string>
+    <string name="prefExp5Port3LabelKey">exp5_port3_label</string>
+    <string name="prefExp5Port4LabelKey">exp5_port4_label</string>
+    <string name="prefExp5Port5LabelKey">exp5_port5_label</string>
+    <string name="prefExp5Port6LabelKey">exp5_port6_label</string>
+    <string name="prefExp5Port7LabelKey">exp5_port7_label</string>
+    <string name="prefExp5Port8LabelKey">exp5_port8_label</string>
+    <string name="prefExp6RelayKey">exp6_relay_labels</string>
+    <string name="prefExp6Port1LabelKey">exp6_port1_label</string>
+    <string name="prefExp6Port2LabelKey">exp6_port2_label</string>
+    <string name="prefExp6Port3LabelKey">exp6_port3_label</string>
+    <string name="prefExp6Port4LabelKey">exp6_port4_label</string>
+    <string name="prefExp6Port5LabelKey">exp6_port5_label</string>
+    <string name="prefExp6Port6LabelKey">exp6_port6_label</string>
+    <string name="prefExp6Port7LabelKey">exp6_port7_label</string>
+    <string name="prefExp6Port8LabelKey">exp6_port8_label</string>
+    <string name="prefExp7RelayKey">exp7_relay_labels</string>
+    <string name="prefExp7Port1LabelKey">exp7_port1_label</string>
+    <string name="prefExp7Port2LabelKey">exp7_port2_label</string>
+    <string name="prefExp7Port3LabelKey">exp7_port3_label</string>
+    <string name="prefExp7Port4LabelKey">exp7_port4_label</string>
+    <string name="prefExp7Port5LabelKey">exp7_port5_label</string>
+    <string name="prefExp7Port6LabelKey">exp7_port6_label</string>
+    <string name="prefExp7Port7LabelKey">exp7_port7_label</string>
+    <string name="prefExp7Port8LabelKey">exp7_port8_label</string>
+    <string name="prefExp8RelayKey">exp8_relay_labels</string>
+    <string name="prefExp8Port1LabelKey">exp8_port1_label</string>
+    <string name="prefExp8Port2LabelKey">exp8_port2_label</string>
+    <string name="prefExp8Port3LabelKey">exp8_port3_label</string>
+    <string name="prefExp8Port4LabelKey">exp8_port4_label</string>
+    <string name="prefExp8Port5LabelKey">exp8_port5_label</string>
+    <string name="prefExp8Port6LabelKey">exp8_port6_label</string>
+    <string name="prefExp8Port7LabelKey">exp8_port7_label</string>
+    <string name="prefExp8Port8LabelKey">exp8_port8_label</string>
+    <string name="prefExpRelayEnabledKey">exp_relay_controls_enabled</string>
+    <string name="prefExp1RelayEnabledKey">exp1_relay_controls_enabled</string>
+    <string name="prefExp2RelayEnabledKey">exp2_relay_controls_enabled</string>
+    <string name="prefExp3RelayEnabledKey">exp3_relay_controls_enabled</string>
+    <string name="prefExp4RelayEnabledKey">exp4_relay_controls_enabled</string>
+    <string name="prefExp5RelayEnabledKey">exp5_relay_controls_enabled</string>
+    <string name="prefExp6RelayEnabledKey">exp6_relay_controls_enabled</string>
+    <string name="prefExp7RelayEnabledKey">exp7_relay_controls_enabled</string>
+    <string name="prefExp8RelayEnabledKey">exp8_relay_controls_enabled</string>
+    <string name="prefExp085xKey">exp_085_relays</string>
+    <string name="prefExpDimmingEnableKey">dimming_expansion</string>
+    <string name="prefExpDimmingCh0LabelKey">exp_dim_0</string>
+    <string name="prefExpDimmingCh1LabelKey">exp_dim_1</string>
+    <string name="prefExpDimmingCh2LabelKey">exp_dim_2</string>
+    <string name="prefExpDimmingCh3LabelKey">exp_dim_3</string>
+    <string name="prefExpDimmingCh4LabelKey">exp_dim_4</string>
+    <string name="prefExpDimmingCh5LabelKey">exp_dim_5</string>
+    <string name="prefExpRadionEnableKey">radion_expansion</string>
+    <string name="prefExpVortechEnableKey">vortech_expansion</string>
+    <string name="prefExpDCPumpEnabledKey">dcpump_expansion</string>
+    <string name="prefExpAIEnableKey">ai_expansion</string>
+    <string name="prefExpIOEnableKey">io_expansion</string>
+    <string name="prefExpIO0LabelKey">exp_io_0</string>
+    <string name="prefExpIO1LabelKey">exp_io_1</string>
+    <string name="prefExpIO2LabelKey">exp_io_2</string>
+    <string name="prefExpIO3LabelKey">exp_io_3</string>
+    <string name="prefExpIO4LabelKey">exp_io_4</string>
+    <string name="prefExpIO5LabelKey">exp_io_5</string>
+    <string name="prefExpCustomEnableKey">custom_expansion</string>
+    <string name="prefExpCustom0LabelKey">exp_custom_0</string>
+    <string name="prefExpCustom1LabelKey">exp_custom_1</string>
+    <string name="prefExpCustom2LabelKey">exp_custom_2</string>
+    <string name="prefExpCustom3LabelKey">exp_custom_3</string>
+    <string name="prefExpCustom4LabelKey">exp_custom_4</string>
+    <string name="prefExpCustom5LabelKey">exp_custom_5</string>
+    <string name="prefExpCustom6LabelKey">exp_custom_6</string>
+    <string name="prefExpCustom7LabelKey">exp_custom_7</string>
+    <string name="prefPre10MemoryKey">pre_10_memory_locations</string>
+    <string name="prefPreviousCodeVersionKey">previous_version</string>
+    <string name="prefPreviousEMKey">previous_em</string>
+    <string name="prefPreviousEM1Key">previous_em1</string>
+    <string name="prefAutoUpdateIntervalKey">update_interval</string>
+    <string name="prefAutoUpdateModulesKey">update_modules</string>
+    <string name="prefAutoUpdateProfileKey">update_profile</string>
+    <string name="prefNotificationEnableKey">notification</string>
+    <string name="prefNotificationSoundKey">notification_sound</string>
+    <string name="prefNotificationErrorRetryKey">error_retry_count</string>
+    <string name="prefNotificationErrorRetryIntervalKey">error_retry_interval</string>
+    <string name="prefLoggingEnableKey">logging</string>
+    <string name="prefLoggingUpdateKey">logging_update</string>
+    <string name="prefLoggingDeleteKey">logging_delete_file</string>
+    <string name="prefLoggingSendKey">logging_send</string>
+    <string name="prefLoggingDisplayKey">logging_display</string>
+    <string name="prefConnectionTimeoutKey">connection_timeout</string>
+    <string name="prefReadTimeoutKey">read_timeout</string>
+    <string name="prefAutoRefreshAfterUpdateKey">auto_refresh_update</string>
+    <string name="prefExpSCDimmingEnableKey">sc_dimming_expansion</string>
+    <string name="prefExpSCDimmingCh0LabelKey">exp_sc_dim_0</string>
+    <string name="prefExpSCDimmingCh1LabelKey">exp_sc_dim_1</string>
+    <string name="prefExpSCDimmingCh2LabelKey">exp_sc_dim_2</string>
+    <string name="prefExpSCDimmingCh3LabelKey">exp_sc_dim_3</string>
+    <string name="prefExpSCDimmingCh4LabelKey">exp_sc_dim_4</string>
+    <string name="prefExpSCDimmingCh5LabelKey">exp_sc_dim_5</string>
+    <string name="prefExpSCDimmingCh6LabelKey">exp_sc_dim_6</string>
+    <string name="prefExpSCDimmingCh7LabelKey">exp_sc_dim_7</string>
+    <string name="prefExpSCDimmingCh8LabelKey">exp_sc_dim_8</string>
+    <string name="prefExpSCDimmingCh9LabelKey">exp_sc_dim_9</string>
+    <string name="prefExpSCDimmingCh10LabelKey">exp_sc_dim_10</string>
+    <string name="prefExpSCDimmingCh11LabelKey">exp_sc_dim_11</string>
+    <string name="prefExpSCDimmingCh12LabelKey">exp_sc_dim_12</string>
+    <string name="prefExpSCDimmingCh13LabelKey">exp_sc_dim_13</string>
+    <string name="prefExpSCDimmingCh14LabelKey">exp_sc_dim_14</string>
+    <string name="prefExpSCDimmingCh15LabelKey">exp_sc_dim_15</string>
+    <string name="prefUpdateControllerIPKey">update_controller_ip</string>
+    <string name="prefResetAllPrefsKey">reset_all_prefs</string>
+    <string name="prefKeepScreenOnKey">keep_screen_on</string>
+
+    <!-- Permissions -->
+    <string name="permissionQueryStatusLabel">Query status of controller</string>
+    <string name="permissionQueryStatusDescription">Allows this application to query the status of the controller</string>
+    <string name="permissionSendCommandLabel">Send commands to controller</string>
+    <string name="permissionSendCommandDescription">\
+Allows this application to send commands to the controller.  The following commands are allowed:
+* Sending modes (Water change, Feeding, Exit)
+* Label retrieval from website
+* Reading / writing internal memory
+* Toggling relay status
+* Version query
+* Get / set date and time
+</string>
+    <string name="permissionReadProviderDescription">Allow other apps to get access to controller history</string>
+    <string name="permissionReadProviderLabel">Read Reef Angel Status Data</string>
+
+</resources>
