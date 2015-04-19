@@ -155,7 +155,7 @@ public class XMLHandler extends DefaultHandler {
         } else if ( requestType.equals( RequestCommands.Version ) ) {
             processVersionXml( tag );
         } else if ( requestType.equals( RequestCommands.PwmOverride ) ) {
-            processPWMOverrideResponseXml( tag );
+            processPWMOverrideResponseXml(tag);
         } else if ( requestType.equals( RequestCommands.ExitMode ) ) {
             processModeXml( tag );
         } else {

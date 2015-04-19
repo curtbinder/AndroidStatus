@@ -185,14 +185,23 @@ public class UpdateService extends IntentService {
             else
                 h.setWriteLocation( location, value );
         } else if ( action.equals( MessageCommands.OVERRIDE_SEND_INTENT ) ) {
-            if ( !isController ) {
+            if (!isController) {
                 notControllerMessage();
                 return;
             }
             int value = intent.getIntExtra(MessageCommands.OVERRIDE_SEND_VALUE_INT, 0);
-            int location = intent.getIntExtra( MessageCommands.OVERRIDE_SEND_LOCATION_INT, Globals.OVERRIDE_DISABLE );
-            h.setCommand( RequestCommands.PwmOverride );
-            h.setOverrideChannel( location, value );
+            int location = intent.getIntExtra(MessageCommands.OVERRIDE_SEND_LOCATION_INT, Globals.OVERRIDE_DISABLE);
+            h.setCommand(RequestCommands.PwmOverride);
+            h.setOverrideChannel(location, value);
+        } else if (action.equals(MessageCommands.CUSTOMVAR_SEND_INTENT)) {
+            if (!isController) {
+                notControllerMessage();
+                return;
+            }
+            int value = intent.getIntExtra(MessageCommands.CUSTOMVAR_SEND_VALUE_INT, 0);
+            int channel = intent.getIntExtra(MessageCommands.CUSTOMVAR_SEND_CHANNEL_INT, 0);
+            h.setCommand(RequestCommands.CustomVar);
+            h.setCustomVarChannel(channel, value);
         } else if ( action.equals( MessageCommands.LABEL_QUERY_INTENT ) ) {
             // set the userid
             h.setUserId( raprefs.getUserId() );

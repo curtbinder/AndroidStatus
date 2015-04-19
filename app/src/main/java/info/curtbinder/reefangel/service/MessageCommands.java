@@ -45,13 +45,16 @@ public final class MessageCommands {
     public static final String CALIBRATE_SEND_INTENT = PACKAGE_BASE + ".CALIBRATE_SEND";
     public static final String CALIBRATE_SEND_LOCATION_INT = "CALIBRATE_SEND_LOCATION_INT";
 
-    public static final String COMMAND_RESPONSE_INTENT =
-            PACKAGE_BASE + ".COMMAND_RESPOSNE";
-    public static final String COMMAND_RESPONSE_STRING =
-            "COMMAND_RESPONSE_STRING";
-    public static final String COMMAND_SEND_INTENT = PACKAGE_BASE
-            + ".COMMAND_SEND";
+    public static final String COMMAND_RESPONSE_INTENT = PACKAGE_BASE + ".COMMAND_RESPOSNE";
+    public static final String COMMAND_RESPONSE_STRING = "COMMAND_RESPONSE_STRING";
+    public static final String COMMAND_SEND_INTENT = PACKAGE_BASE + ".COMMAND_SEND";
     public static final String COMMAND_SEND_STRING = "COMMAND_SEND_STRING";
+
+    public static final String CUSTOMVAR_SEND_INTENT = PACKAGE_BASE + ".CUSTOMVAR_SEND";
+    public static final String CUSTOMVAR_SEND_CHANNEL_INT = "CUSTOMVAR_SEND_CHANNEL_INT";
+    public static final String CUSTOMVAR_SEND_VALUE_INT = "CUSTOMVAR_SEND_VALUE_INT";
+    public static final String CUSTOMVAR_RESPONSE_INTENT = PACKAGE_BASE + ".CUSTOMVAR_RESPONSE";
+    public static final String CUSTOMVAR_RESPONSE_STRING = "CUSTOMVAR_RESPONSE_STRING";
 
     public static final String DATE_QUERY_INTENT = PACKAGE_BASE + ".DATE_QUERY";
     public static final String DATE_QUERY_RESPONSE_INTENT =
@@ -99,6 +102,7 @@ public final class MessageCommands {
     public static final String NOTIFICATION_LAUNCH_INTENT =
             PACKAGE_BASE + ".NOTIFICATION_LAUNCH";
 
+    // TODO is OVERRIDE_POPUP_INTENT needed? does not appear to be
     public static final String OVERRIDE_POPUP_INTENT = PACKAGE_BASE + ".OVERRIDE_POPUP";
     public static final String OVERRIDE_SEND_INTENT = PACKAGE_BASE + ".OVERRIDE_SEND";
     public static final String OVERRIDE_SEND_LOCATION_INT = "OVERRIDE_SEND_LOCATION_INT";

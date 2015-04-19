@@ -257,6 +257,10 @@ public class ControllerTask implements Runnable {
                     xml.getModeResponse());
         } else if (host.getCommand().equals(RequestCommands.PwmOverride)) {
             broadcastOverrideResponse(host.getOverrideChannel(), xml.getModeResponse());
+        } else if (host.getCommand().equals(RequestCommands.CustomVar)) {
+            // The response from the controller is M#, which matches a memory response
+            // So we need to read the MemoryResponse string and display it
+            broadcastCustomVarResponse(host.getCustomVarChannel(), xml.getMemoryResponse());
         } else if (host.getCommand().equals(RequestCommands.Version)) {
             Intent i = new Intent(MessageCommands.VERSION_RESPONSE_INTENT);
             i.putExtra(MessageCommands.VERSION_RESPONSE_STRING, xml.getVersion());
@@ -300,6 +304,17 @@ public class ControllerTask implements Runnable {
         Log.d(TAG, msg + " " + response);
         Intent i = new Intent(MessageCommands.CALIBRATE_RESPONSE_INTENT);
         i.putExtra(MessageCommands.CALIBRATE_RESPONSE_STRING, msg + " " + response);
+        rapp.sendBroadcast(i, Permissions.SEND_COMMAND);
+    }
+
+    private void broadcastCustomVarResponse(int channel, String response) {
+        // Get the variable name
+        // Create the response -  variable name: MESSAGE
+        String msg = rapp.raprefs.getCustomModuleChannelLabel(channel) +
+                rapp.getString(R.string.labelSeparator);
+        Log.d(TAG, msg + " " + response);
+        Intent i = new Intent(MessageCommands.CUSTOMVAR_RESPONSE_INTENT);
+        i.putExtra(MessageCommands.CUSTOMVAR_RESPONSE_STRING, msg + " " + response);
         rapp.sendBroadcast(i, Permissions.SEND_COMMAND);
     }
 

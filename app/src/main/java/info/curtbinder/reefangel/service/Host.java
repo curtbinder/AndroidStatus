@@ -164,6 +164,15 @@ public class Host {
 		return this.write;
 	}
 
+    public void setCustomVarChannel(int channel, int value) {
+        this.location = channel;
+        this.value = value;
+    }
+
+    public int getCustomVarChannel() {
+        return this.location;
+    }
+
     public void setOverrideChannel ( int port, int value ) {
         this.location = port;
         this.value = value;

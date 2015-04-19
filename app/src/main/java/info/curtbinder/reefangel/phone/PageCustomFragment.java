@@ -49,6 +49,7 @@ public class PageCustomFragment extends Fragment
     private static final String TAG = PageCustomFragment.class.getSimpleName();
     private TextView[] customText = new TextView[Controller.MAX_CUSTOM_VARIABLES];
     private TableRow[] customRow = new TableRow[Controller.MAX_CUSTOM_VARIABLES];
+    private RAApplication raApp;
 
     public static PageCustomFragment newInstance() {
         return new PageCustomFragment();
@@ -78,6 +79,12 @@ public class PageCustomFragment extends Fragment
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        raApp = (RAApplication) activity.getApplication();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         updateLabelsAndVisibility();
@@ -97,9 +104,9 @@ public class PageCustomFragment extends Fragment
         if (fClickable) {
             l = this;
         }
-        for (int i = 0; i < Controller.MAX_AI_CHANNELS; i++ ) {
-//            aiText[i].setLongClickable(fClickable);
-//            aiText[i].setOnLongClickListener(l);
+        for (int i = 0; i < Controller.MAX_CUSTOM_VARIABLES; i++ ) {
+            customText[i].setLongClickable(fClickable);
+            customText[i].setOnLongClickListener(l);
         }
     }
 
@@ -107,20 +114,39 @@ public class PageCustomFragment extends Fragment
     public boolean onLongClick(View v) {
         View parent = (View) v.getParent();
         StatusFragment f = (StatusFragment) getParentFragment();
-//        switch (parent.getId()) {
-//            default:
-//                return false;
-//            case R.id.rowAIWhite:
-//                f.displayOverrideDialog(Globals.OVERRIDE_AI_WHITE, aiValues[Controller.AI_WHITE]);
-//                break;
-//            case R.id.rowAIBlue:
-//                f.displayOverrideDialog(Globals.OVERRIDE_AI_BLUE, aiValues[Controller.AI_BLUE]);
-//                break;
-//            case R.id.rowAIRoyalBlue:
-//                f.displayOverrideDialog(Globals.OVERRIDE_AI_ROYALBLUE,
-//                        aiValues[Controller.AI_ROYALBLUE]);
-//                break;
-//        }
+        int channel = 0;
+        switch (parent.getId()){
+            default:
+                return false;
+            case R.id.rowCustom0:
+                channel = 0;
+                break;
+            case R.id.rowCustom1:
+                channel = 1;
+                break;
+            case R.id.rowCustom2:
+                channel = 2;
+                break;
+            case R.id.rowCustom3:
+                channel = 3;
+                break;
+            case R.id.rowCustom4:
+                channel = 4;
+                break;
+            case R.id.rowCustom5:
+                channel = 5;
+                break;
+            case R.id.rowCustom6:
+                channel = 6;
+                break;
+            case R.id.rowCustom7:
+                channel = 7;
+                break;
+
+        }
+        f.displayCustomVarDialog(channel,
+                Short.parseShort(customText[channel].getText().toString()),
+                raApp.raprefs.getCustomModuleChannelLabel(channel));
         return true;
     }
 
@@ -144,10 +170,8 @@ public class PageCustomFragment extends Fragment
 
     private void updateLabelsAndVisibility() {
         Log.d(TAG, "updateLabelsAndVisibility");
-        RAApplication raApp = (RAApplication)getActivity().getApplication();
-        RAPreferences raPrefs = raApp.raprefs;
         for(int i = 0; i < Controller.MAX_CUSTOM_VARIABLES; i++) {
-            setLabel(i, raPrefs.getCustomModuleChannelLabel(i));
+            setLabel(i, raApp.raprefs.getCustomModuleChannelLabel(i));
             // TODO add in visibility functions
             //setVisibility(i, true);
         }

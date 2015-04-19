@@ -369,6 +369,7 @@ public class StatusFragment extends Fragment {
         filter.addAction(MessageCommands.VERSION_RESPONSE_INTENT);
         filter.addAction(MessageCommands.OVERRIDE_RESPONSE_INTENT);
         filter.addAction(MessageCommands.OVERRIDE_POPUP_INTENT);
+        filter.addAction(MessageCommands.CUSTOMVAR_RESPONSE_INTENT);
         filter.addAction(MessageCommands.CALIBRATE_RESPONSE_INTENT);
     }
 
@@ -568,8 +569,9 @@ public class StatusFragment extends Fragment {
         d.show(getFragmentManager(), "dlgdcpump");
     }
 
-    public void displayCustomVarDialog(int channel, short value) {
-
+    public void displayCustomVarDialog(int channel, short value, String msg) {
+        DialogCustomVar d = DialogCustomVar.newInstance(channel, value, msg);
+        d.show(getFragmentManager(), "dlgcustomvar");
     }
 
     protected Cursor getLatestDataCursor() {
@@ -639,6 +641,9 @@ public class StatusFragment extends Fragment {
                 displayResponse(response, -1, false);
             } else if (action.equals(MessageCommands.OVERRIDE_RESPONSE_INTENT)) {
                 String response = intent.getStringExtra(MessageCommands.OVERRIDE_RESPONSE_STRING);
+                displayResponse(response, -1, false);
+            } else if (action.equals(MessageCommands.CUSTOMVAR_RESPONSE_INTENT)) {
+                String response = intent.getStringExtra(MessageCommands.CUSTOMVAR_RESPONSE_STRING);
                 displayResponse(response, -1, false);
             } else if (action.equals(MessageCommands.COMMAND_RESPONSE_INTENT)) {
                 String response = intent.getStringExtra(MessageCommands.COMMAND_RESPONSE_STRING);
