@@ -123,7 +123,6 @@ public class StatusFragment extends Fragment {
     @Override
     public void onViewStateRestored(Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        currentPosition = POS_CONTROLLER;
         if (savedInstanceState != null) {
             currentPosition = savedInstanceState.getInt(CURRENT_POSITION, POS_CONTROLLER);
         }
@@ -172,9 +171,6 @@ public class StatusFragment extends Fragment {
             }
         });
 
-        if (savedInstanceState != null) {
-            currentPosition = savedInstanceState.getInt(CURRENT_POSITION);
-        }
         // enable the options menu
         setHasOptionsMenu(true);
         return root;
