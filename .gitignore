@@ -8,6 +8,7 @@
 /.idea/libraries/*.xml
 /.idea/dictionaries/
 /app/manifest*.txt
+*.iml
 
 # Module folder, mostly in ignore file inside the Module
 build/
