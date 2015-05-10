@@ -25,11 +25,11 @@
 package info.curtbinder.reefangel.phone;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 
 public class DialogYesNo extends DialogFragment {
 
@@ -50,7 +50,7 @@ public class DialogYesNo extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new AlertDialog.Builder(getActivity())
+        return new AlertDialog.Builder(getActivity(), R.style.AlertDialogStyle)
                 .setMessage(getArguments().getInt(MESSAGE))
                 .setCancelable(false)
                 .setPositiveButton(R.string.buttonYes,

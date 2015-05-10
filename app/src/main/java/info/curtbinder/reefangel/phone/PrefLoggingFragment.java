@@ -25,7 +25,6 @@
 package info.curtbinder.reefangel.phone;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,6 +32,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.support.v7.app.AlertDialog;
 
 /**
  * Created by binder on 3/22/14.
@@ -108,7 +108,7 @@ public class PrefLoggingFragment extends PreferenceFragment
 
         @Override
         public boolean onPreferenceClick(Preference preference) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogStyle);
             builder.setMessage(raApp.getString(R.string.messageDeleteLogPrompt))
                     .setCancelable(false)
                     .setPositiveButton(raApp.getString(R.string.buttonYes),
@@ -156,7 +156,7 @@ public class PrefLoggingFragment extends PreferenceFragment
 
         @Override
         public boolean onPreferenceClick(Preference preference) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogStyle);
             builder.setMessage(raApp.getString(R.string.messageSendLogPrompt))
                     .setCancelable(false)
                     .setPositiveButton(raApp.getString(R.string.buttonYes),

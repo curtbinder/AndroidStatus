@@ -24,7 +24,6 @@
 
 package info.curtbinder.reefangel.phone;
 
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
@@ -36,6 +35,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -144,7 +144,7 @@ implements PrefLoadFragListener, PrefSetTitleListener {
 
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "Warn about labels");
-            AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this, R.style.AlertDialogStyle);
             builder.setMessage(raApp.getString(R.string.messageDownloadMessage))
                     .setCancelable(false)
                     .setPositiveButton(raApp.getString(R.string.buttonOk),

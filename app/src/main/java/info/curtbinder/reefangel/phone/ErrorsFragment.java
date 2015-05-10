@@ -99,7 +99,7 @@ public class ErrorsFragment extends ListFragment
     public boolean onOptionsItemSelected ( MenuItem item ) {
         switch ( item.getItemId() ) {
             case R.id.menu_delete:
-                DialogYesNo d1 = DialogYesNo.newInstance(R.string.messageDeleteAllPrompt);
+                DialogYesNo d1 = DialogYesNo.newInstance(R.string.messageClearErrorHistory);
                 d1.setTargetFragment(this, DialogYesNo.DELETE_ALL_CALL);
                 d1.show(getFragmentManager(), "dlgyesno");
                 break;

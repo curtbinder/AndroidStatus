@@ -267,7 +267,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="messageNoExternalStorage">Need SD card for log file</string>
     <string name="messageErrorRetry">Error retry count: %1$d</string>
     <string name="messageEmptyErrors">No errors logged</string>
-    <string name="messageClearErrorHistory">Clear error notification history?</string>
+    <string name="messageClearErrorHistory">Clear error history?</string>
     <string name="messageEmptyNotifications">No notifications created</string>
     <string name="messageClearNotifications">Clear all notifications?</string>
     <string name="messageAddNotification">Add notification</string>
