@@ -40,12 +40,11 @@
             android:layout_height="wrap_content"
             android:text="@string/titleAlert"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <!-- TODO change background color of the view when the theme changes: black or white -->
+        
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/black" />
+            android:background="?attr/myArrowColor" />
 
         <include
             android:id="@+id/rowAto"
@@ -70,11 +69,10 @@
             android:text="@string/titleStatus"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <!-- TODO change background color of the view when the theme changes: black or white -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/black" />
+            android:background="?attr/myArrowColor" />
 
         <include
             android:id="@+id/rowLightsOn"
