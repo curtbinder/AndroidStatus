@@ -28,7 +28,6 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
 	android:paddingTop="@dimen/row_vertical_padding"
-	android:paddingBottom="@dimen/row_vertical_padding"
     android:orientation="horizontal" >
 <!--     android:layout_margin="8dp" -->
     <LinearLayout
@@ -41,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/placeholder_title"
-            android:textAppearance="@android:style/TextAppearance.Large" />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
             android:id="@+id/rowSubTitle"
@@ -49,7 +48,7 @@
             android:layout_height="wrap_content"
             android:text="@string/placeholder_subtitle"
             android:textStyle="italic"
-            android:textAppearance="@android:style/TextAppearance.Small" />
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
 
@@ -59,6 +58,6 @@
         android:layout_height="fill_parent"
         android:gravity="end|center_vertical"
         android:text="@string/placeholder_value"
-        android:textAppearance="@android:style/TextAppearance.Large" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </TableRow>

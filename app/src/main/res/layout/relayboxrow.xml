@@ -28,7 +28,6 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
 	android:paddingTop="@dimen/row_vertical_padding"
-	android:paddingBottom="@dimen/row_vertical_padding"
     android:orientation="horizontal" >
 
     <LinearLayout
