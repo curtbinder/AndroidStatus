@@ -37,7 +37,7 @@
         <!--<item name="android:dropDownSpinnerStyle">@style/Spinnerreefangel</item>-->
         <!--<item name="android:seekBarStyle">@style/SeekBarreefangel</item>-->
         <item name="android:buttonStyleToggle">@style/ToggleReefAngel</item>
-        <!--<item name="android:listChoiceBackgroundIndicator">@drawable/reefangel_list_selector_holo_light</item>-->
+        <item name="android:listChoiceBackgroundIndicator">@drawable/reefangel_list_selector_holo_light</item>
         <!--<item name="android:activatedBackgroundIndicator">@drawable/reefangel_activated_background_holo_light</item>-->
         <!--<item name="android:fastScrollThumbDrawable">@drawable/reefangel_fastscroll_thumb_holo</item>-->
         <!--<item name="android:actionBarStyle">@style/ActionBarreefangel</item>-->
