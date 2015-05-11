@@ -40,6 +40,10 @@
       <!--<item name="android:background">@drawable/reefangel_spinner_background_holo_light</item>-->
       <!--<item name="android:dropDownSelector">@drawable/reefangel_list_selector_holo_light</item>-->
   <!--</style>-->
+  <!--<style name="SpinnerReefAngel" parent="android:Widget.Holo.Light.Spinner">-->
+    <!--<item name="android:background">@drawable/reefangel_spinner_background_holo_light</item>-->
+    <!--<item name="android:dropDownSelector">@drawable/reefangel_list_selector_holo_light</item>-->
+  <!--</style>-->
 
   <!--<style name="SeekBarreefangel" parent="android:Widget.Holo.Light.SeekBar">-->
       <!--<item name="android:progressDrawable">@drawable/reefangel_scrubber_progress_horizontal_holo_light</item>-->
