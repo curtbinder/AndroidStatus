@@ -36,7 +36,7 @@
         <!--<item name="android:imageButtonStyle">@style/ImageButtonreefangel</item>-->
         <!--<item name="android:dropDownSpinnerStyle">@style/Spinnerreefangel</item>-->
         <!--<item name="android:seekBarStyle">@style/SeekBarreefangel</item>-->
-        <!--<item name="android:buttonStyleToggle">@style/Togglereefangel</item>-->
+        <item name="android:buttonStyleToggle">@style/ToggleReefAngel</item>
         <!--<item name="android:listChoiceBackgroundIndicator">@drawable/reefangel_list_selector_holo_light</item>-->
         <!--<item name="android:activatedBackgroundIndicator">@drawable/reefangel_activated_background_holo_light</item>-->
         <!--<item name="android:fastScrollThumbDrawable">@drawable/reefangel_fastscroll_thumb_holo</item>-->
@@ -56,6 +56,7 @@
     </style>
 
     <style name="reefangel.dark" parent="Theme.AppCompat.NoActionBar">
+        <!-- Convert these to DARK themed elements -->
         <!--<item name="android:editTextBackground">@drawable/reefangel_edit_text_holo_light</item>z-->
         <!--<item name="android:listChoiceIndicatorMultiple">@drawable/reefangel_btn_check_holo_light</item>-->
         <!--<item name="android:listChoiceIndicatorSingle">@drawable/reefangel_btn_radio_holo_light</item>-->

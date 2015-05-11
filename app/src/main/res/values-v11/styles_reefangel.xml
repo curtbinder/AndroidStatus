@@ -50,6 +50,9 @@
   <!--<style name="Togglereefangel" parent="android:Widget.Holo.Light.Button.Toggle">-->
       <!--<item name="android:background">@drawable/reefangel_btn_toggle_holo_light</item>-->
   <!--</style>-->
+  <style name="ToggleReefAngel" parent="android:Widget.Holo.Light.Button.Toggle">
+    <item name="android:background">@drawable/reefangel_btn_toggle_holo_light</item>
+  </style>
   
     <!--<style name="ActionBarreefangel" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">-->
       <!--<item name="android:background">@android:color/white</item>      -->
