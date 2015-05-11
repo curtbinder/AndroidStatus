@@ -29,19 +29,14 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="reefangel" parent="Theme.AppCompat.Light.NoActionBar">
-        <!--<item name="android:editTextBackground">@drawable/reefangel_edit_text_holo_light</item>-->
-        <!--<item name="android:listChoiceIndicatorMultiple">@drawable/reefangel_btn_check_holo_light</item>-->
-        <!--<item name="android:listChoiceIndicatorSingle">@drawable/reefangel_btn_radio_holo_light</item>-->
         <!--<item name="android:buttonStyle">@style/Buttonreefangel</item>-->
         <!--<item name="android:imageButtonStyle">@style/ImageButtonreefangel</item>-->
-        <!--<item name="android:dropDownSpinnerStyle">@style/Spinnerreefangel</item>-->
-        <!--<item name="android:seekBarStyle">@style/SeekBarreefangel</item>-->
+        <!--<item name="android:dropDownSpinnerStyle">@style/SpinnerReefAngel</item>-->
+        <item name="android:seekBarStyle">@style/SeekBarReefAngel</item>
         <item name="android:buttonStyleToggle">@style/ToggleReefAngel</item>
         <item name="android:listChoiceBackgroundIndicator">@drawable/reefangel_list_selector_holo_light</item>
         <item name="android:activatedBackgroundIndicator">@drawable/reefangel_activated_background_holo_light</item>
         <!--<item name="android:fastScrollThumbDrawable">@drawable/reefangel_fastscroll_thumb_holo</item>-->
-        <!--<item name="android:actionBarStyle">@style/ActionBarreefangel</item>-->
-        <!--<item name="android:popupMenuStyle">@style/PopupMenureefangel</item>-->
 
         <item name="colorPrimary">@color/reefangelblue</item>
         <item name="colorPrimaryDark">@color/reefangelblue_dark</item>
