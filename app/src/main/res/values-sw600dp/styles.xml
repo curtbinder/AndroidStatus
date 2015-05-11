@@ -26,7 +26,7 @@
 
 <resources>
     <style name="CommandButtons">
-        <item name="android:padding">50dp</item>
+        <item name="android:padding">42dp</item>
         <item name="android:layout_margin">8dp</item>
         <item name="android:textSize">32sp</item>
     </style>
