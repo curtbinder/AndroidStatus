@@ -100,7 +100,7 @@ public class DialogAddNotification extends DialogFragment {
             }
         });
         if (isUpdate()) {
-            builder.setTitle(getString(R.string.titleUpdateNotification));
+            builder.setTitle(R.string.titleUpdateNotification);
             builder.setNegativeButton(R.string.buttonDelete, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -114,7 +114,7 @@ public class DialogAddNotification extends DialogFragment {
                 }
             });
         } else {
-            builder.setTitle(getString(R.string.titleCreateNotification));
+            builder.setTitle(R.string.titleCreateNotification);
             builder.setNegativeButton(R.string.buttonCancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
