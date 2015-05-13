@@ -24,26 +24,25 @@
 
 package info.curtbinder.reefangel.phone;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Locale;
 
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;
 
-public class DialogCustomVar extends DialogFragment
-        implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
+public class DialogCustomVar extends DialogFragment {
 
     private static final String TAG = DialogCustomVar.class.getSimpleName();
     private static final String CHANNEL_KEY = "channel_key";
@@ -52,10 +51,8 @@ public class DialogCustomVar extends DialogFragment
 
     private TextView tvTitle;
     private EditText editValue;
-//    private TextView tvValue;
     private int varChannel;
     private int currentValue;
-//    private SeekBar seek;
 
     public DialogCustomVar() {
         varChannel = 0;
@@ -72,59 +69,57 @@ public class DialogCustomVar extends DialogFragment
         return d;
     }
 
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.dlg_custom_var, container);
-        getDialog().setTitle(R.string.labelCustomVariables);
-        findViews(v);
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        // TODO improve getting current theme
+        final int themeId = R.style.AlertDialogStyle;
+        final ContextThemeWrapper themeWrapper = new ContextThemeWrapper(getActivity(), themeId);
+        LayoutInflater inflater = getActivity().getLayoutInflater().cloneInContext(themeWrapper);
+        AlertDialog.Builder builder = new AlertDialog.Builder(themeWrapper, themeId);
+        View root = inflater.inflate(R.layout.dlg_custom_var, null);
+        findViews(root);
         Bundle args = getArguments();
         if (args != null) {
             varChannel = args.getInt(CHANNEL_KEY);
             currentValue = args.getShort(VALUE_KEY);
             tvTitle.setText(args.getString(MESSAGE_KEY));
         }
-//        seek.setProgress(currentValue);
-//        updateProgressText();
+
         editValue.setText(String.format("%d", currentValue));
-        return v;
+        builder.setView(root)
+                .setTitle(R.string.labelCustomVariables)
+                .setPositiveButton(R.string.buttonSet, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        buttonSetClick();
+                    }
+                })
+                .setNegativeButton(R.string.buttonCancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dismiss();
+                    }
+                });
+        return builder.create();
     }
 
     private void findViews(View v) {
         tvTitle = (TextView) v.findViewById(R.id.textCustomTitle);
         editValue = (EditText) v.findViewById(R.id.editCustomValue);
-//        tvValue = (TextView) v.findViewById(R.id.textOverrideValue);
-//        seek = (SeekBar) v.findViewById(R.id.seekOverride);
-//        seek.setMax(Globals.OVERRIDE_MAX_VALUE);
-//        seek.setOnSeekBarChangeListener(this);
-        Button b = (Button) v.findViewById(R.id.buttonCancel);
-        b.setOnClickListener(this);
-        b = (Button) v.findViewById(R.id.buttonSetVariable);
-        b.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.buttonSetVariable:
-                if (!updateAndValidateValue()) {
-                    // invalid new value, do not proceed
-                    Toast.makeText(getActivity(),
-                            getString(R.string.messageInvalidRangeFormat,
-                                    Globals.BYTE_MIN, Globals.BYTE_MAX),
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                updateCustomVar(currentValue);
-                break;
+    private void buttonSetClick() {
+        if (!updateAndValidateValue()) {
+            // invalid new value, do not proceed
+            Toast.makeText(getActivity(),
+                    getString(R.string.messageInvalidRangeFormat,
+                            Globals.BYTE_MIN, Globals.BYTE_MAX),
+                    Toast.LENGTH_SHORT).show();
+            return;
         }
-        dismiss();
+        updateCustomVar(currentValue);
     }
-
-//    private void updateProgressText() {
-//        tvValue.setText(String.format(Locale.getDefault(), "%d%%", currentValue));
-//    }
 
     private boolean updateAndValidateValue() {
         String s = editValue.getText().toString();
@@ -146,21 +141,5 @@ public class DialogCustomVar extends DialogFragment
         i.putExtra(MessageCommands.CUSTOMVAR_SEND_VALUE_INT, value);
         Log.d(TAG, "updateCustomVar: channel: " + varChannel + ", value: " + value);
         getActivity().startService(i);
-    }
-
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//        currentValue = (short) progress;
-//        updateProgressText();
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-
     }
 }
