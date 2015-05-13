@@ -77,7 +77,7 @@ public class DialogAddNotification extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // TODO improve getting current theme
-        int themeId = R.style.AlertDialogStyle;
+        final int themeId = R.style.AlertDialogStyle;
         final ContextThemeWrapper themeWrapper = new ContextThemeWrapper(getActivity(), themeId);
         LayoutInflater inflater = getActivity().getLayoutInflater().cloneInContext(themeWrapper);
         AlertDialog.Builder builder = new AlertDialog.Builder(themeWrapper, themeId);

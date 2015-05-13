@@ -30,6 +30,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 
 import it.gmariotti.changelibs.library.view.ChangeLogListView;
@@ -46,12 +47,12 @@ public class DialogSupportChangelog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(
-                Context.LAYOUT_INFLATER_SERVICE);
-        ChangeLogListView chgList = (ChangeLogListView)inflater.inflate(
-                R.layout.dlg_changelog, null
-        );
-        return new AlertDialog.Builder(getActivity(), R.style.ChangelogDialogStyle)
+        // TODO improve getting current theme
+        final int themeId = R.style.AlertDialogStyle;
+        final ContextThemeWrapper themeWrapper = new ContextThemeWrapper(getActivity(), themeId);
+        LayoutInflater inflater = getActivity().getLayoutInflater().cloneInContext(themeWrapper);
+        ChangeLogListView chgList = (ChangeLogListView)inflater.inflate(R.layout.dlg_changelog, null);
+        return new AlertDialog.Builder(themeWrapper, themeId)
                 .setTitle("Changelog")
                 .setView(chgList)
                 .setPositiveButton(android.R.string.ok,
