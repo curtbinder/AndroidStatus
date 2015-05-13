@@ -27,7 +27,9 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="10dp" >
+    android:paddingLeft="@dimen/dialog_external_margin"
+    android:paddingRight="@dimen/dialog_external_margin"
+    android:paddingTop="@dimen/dialog_title_content_margin" >
 
     <TableRow
         android:layout_width="wrap_content"
@@ -40,14 +42,15 @@
 
         <Spinner
             android:id="@+id/notifyParameterSpin"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
     </TableRow>
 
     <TableRow
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/row_vertical_padding">
 
         <TextView
             android:layout_width="wrap_content"
@@ -56,14 +59,15 @@
 
         <Spinner
             android:id="@+id/notifyConditionSpin"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
     </TableRow>
 
     <TableRow
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/row_vertical_padding">
 
         <TextView
             android:layout_width="wrap_content"
@@ -72,37 +76,10 @@
 
         <EditText
             android:id="@+id/notifyValue"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="numberDecimal" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp" >
-
-        <Button
-            android:id="@+id/cancelButton"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/buttonCancel"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/deleteButton"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/buttonDelete"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/saveButton"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/buttonSave"
-            android:layout_weight="1" />
     </TableRow>
 
 </TableLayout>

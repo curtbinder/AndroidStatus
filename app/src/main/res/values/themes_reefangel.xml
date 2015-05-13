@@ -83,10 +83,12 @@
         <item name="color">?attr/myDefaultToolbarTextColor</item>
     </style>
 
+    <!-- Alert Dialog Styles-->
     <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/reefangelblue</item>
-        <item name="android:background">?attr/myFrameBackground</item>
-        <item name="android:textColor">?attr/myDefaultTextColor</item>
+    </style>
+    <style name="AlertDialogStyle.Dark" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="colorAccent">@color/reefangelblue</item>
     </style>
 
     <style name="ChangelogDialogStyle" parent="Theme.AppCompat.Dialog.Alert">
