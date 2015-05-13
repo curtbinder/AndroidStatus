@@ -35,7 +35,7 @@
   <!--<style name="ImageButtonreefangel" parent="android:Widget.Holo.Light.ImageButton">-->
 	  <!--<item name="android:background">@drawable/reefangel_btn_default_holo_light</item>-->
   <!--</style>-->
-    
+
   <style name="SeekBarReefAngel" parent="android:Widget.Holo.Light.SeekBar">
     <item name="android:progressDrawable">@drawable/reefangel_scrubber_progress_horizontal_holo_light</item>
     <item name="android:indeterminateDrawable">@drawable/reefangel_scrubber_progress_horizontal_holo_light</item>

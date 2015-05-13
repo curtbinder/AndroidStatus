@@ -26,7 +26,7 @@
 <resources>
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="reefangel">
+    <style name="AppTheme" parent="ReefAngel">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="cbDrawerItemSelectedBackground">@drawable/activated_background</item>
         <item name="cbDrawerItemSelectedText">@drawable/activated_text</item>

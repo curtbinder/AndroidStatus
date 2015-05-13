@@ -28,7 +28,7 @@
 <!-- Generated with http://android-holo-colors.com -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="reefangel" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="ReefAngel" parent="Theme.AppCompat.Light.NoActionBar">
         <!--<item name="android:buttonStyle">@style/Buttonreefangel</item>-->
         <!--<item name="android:imageButtonStyle">@style/ImageButtonreefangel</item>-->
         <!--<item name="android:dropDownSpinnerStyle">@style/SpinnerReefAngel</item>-->
@@ -50,7 +50,7 @@
         <item name="myArrowColor">@android:color/black</item>
     </style>
 
-    <style name="reefangel.dark" parent="Theme.AppCompat.NoActionBar">
+    <style name="ReefAngel.Dark" parent="Theme.AppCompat.NoActionBar">
         <!-- Convert these to DARK themed elements -->
         <!--<item name="android:editTextBackground">@drawable/reefangel_edit_text_holo_light</item>z-->
         <!--<item name="android:listChoiceIndicatorMultiple">@drawable/reefangel_btn_check_holo_light</item>-->
