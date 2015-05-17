@@ -24,14 +24,17 @@
 
 package info.curtbinder.reefangel.phone;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -41,7 +44,7 @@ import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;
 
 public class DialogOverridePwm extends DialogFragment
-        implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
+        implements SeekBar.OnSeekBarChangeListener {
 
     private static final String TAG = DialogOverridePwm.class.getSimpleName();
     private static final String CHANNEL_KEY = "channel_key";
@@ -69,13 +72,16 @@ public class DialogOverridePwm extends DialogFragment
         return d;
     }
 
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.dlg_override_pwm, container);
-        getDialog().setTitle(R.string.titleOverride);
-        findViews(v);
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        // TODO improve getting current theme
+        final int themeId = R.style.AlertDialogStyle;
+        final ContextThemeWrapper themeWrapper = new ContextThemeWrapper(getActivity(), themeId);
+        LayoutInflater inflater = getActivity().getLayoutInflater().cloneInContext(themeWrapper);
+        AlertDialog.Builder builder = new AlertDialog.Builder(themeWrapper, themeId);
+        View root = inflater.inflate(R.layout.dlg_override_pwm, null);
+        findViews(root);
         Bundle args = getArguments();
         if (args != null) {
             pwmChannel = args.getInt(CHANNEL_KEY);
@@ -84,7 +90,27 @@ public class DialogOverridePwm extends DialogFragment
         }
         seek.setProgress(currentValue);
         updateProgressText();
-        return v;
+        builder.setTitle(R.string.titleOverride)
+                .setView(root)
+                .setPositiveButton(R.string.buttonUpdate, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        updateOverride(currentValue);
+                    }
+                })
+                .setNegativeButton(R.string.buttonCancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dismiss();
+                    }
+                })
+                .setNeutralButton(R.string.buttonClear, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        updateOverride(Globals.OVERRIDE_DISABLE);
+                    }
+                });
+        return builder.create();
     }
 
     private void findViews(View v) {
@@ -93,28 +119,9 @@ public class DialogOverridePwm extends DialogFragment
         seek = (SeekBar) v.findViewById(R.id.seekOverride);
         seek.setMax(Globals.OVERRIDE_MAX_VALUE);
         seek.setOnSeekBarChangeListener(this);
-        Button b = (Button) v.findViewById(R.id.buttonCancel);
-        b.setOnClickListener(this);
-        b = (Button) v.findViewById(R.id.buttonSetOverride);
-        b.setOnClickListener(this);
-        b = (Button) v.findViewById(R.id.buttonClearOverride);
-        b.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.buttonClearOverride:
-                updateOverride(Globals.OVERRIDE_DISABLE);
-                break;
-            case R.id.buttonSetOverride:
-                updateOverride(currentValue);
-                break;
-        }
-        dismiss();
-    }
-
-    private void updateProgressText() {
+   private void updateProgressText() {
         tvValue.setText(String.format(Locale.getDefault(), "%d%%", currentValue));
     }
 

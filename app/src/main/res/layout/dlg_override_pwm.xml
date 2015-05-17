@@ -24,20 +24,22 @@
   -->
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:paddingLeft="@dimen/dialog_external_margin"
+    android:paddingRight="@dimen/dialog_external_margin"
+    android:paddingTop="@dimen/dialog_title_content_margin" >
     
     <TextView
         android:id="@+id/textOverrideTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_vertical_margin"
         android:text="@string/placeholder_override_pwm_msg" />
 
     <TableRow
         android:id="@+id/tableRow1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_vertical_margin" >
+        android:paddingTop="@dimen/row_vertical_padding" >
 
         <SeekBar
             android:id="@+id/seekOverride"
@@ -51,36 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/row_horizontal_padding"
+            android:layout_marginStart="@dimen/row_horizontal_padding"
             android:text="@string/placeholder_override_pwm_value" />
-
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_vertical_margin" >
-
-        <Button
-            android:id="@+id/buttonCancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/buttonCancel" />
-
-        <Button
-            android:id="@+id/buttonClearOverride"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/buttonClear" />
-
-        <Button
-            android:id="@+id/buttonSetOverride"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/buttonSet" />
 
     </TableRow>
 
