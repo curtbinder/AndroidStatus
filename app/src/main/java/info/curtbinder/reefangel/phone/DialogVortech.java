@@ -24,14 +24,17 @@
 
 package info.curtbinder.reefangel.phone;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
@@ -49,7 +52,7 @@ import info.curtbinder.reefangel.service.RequestCommands;
 import info.curtbinder.reefangel.service.UpdateService;
 
 public class DialogVortech extends DialogFragment
-        implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
+        implements SeekBar.OnSeekBarChangeListener {
 
     private static final String TAG = DialogVortech.class.getSimpleName();
     private static final String TYPE_KEY = "type_key";
@@ -83,11 +86,14 @@ public class DialogVortech extends DialogFragment
         return d;
     }
 
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
-        getDialog().setTitle(R.string.titleVortech);
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        // TODO improve getting current theme
+        final int themeId = R.style.AlertDialogStyle;
+        final ContextThemeWrapper themeWrapper = new ContextThemeWrapper(getActivity(), themeId);
+        LayoutInflater inflater = getActivity().getLayoutInflater().cloneInContext(themeWrapper);
+        AlertDialog.Builder builder = new AlertDialog.Builder(themeWrapper, themeId);
         Bundle args = getArguments();
         if (args != null) {
             popupType = args.getInt(TYPE_KEY);
@@ -99,9 +105,23 @@ public class DialogVortech extends DialogFragment
         if (popupType == Controller.VORTECH_MODE) {
             layoutId = R.layout.dlg_mds_spinner;
         }
-        View root = inflater.inflate(layoutId, container);
+        View root = inflater.inflate(layoutId, null);
         updateDialogType(root);
-        return root;
+        builder.setTitle(R.string.titleVortech)
+                .setView(root)
+                .setPositiveButton(R.string.buttonUpdate, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        updateVortechSettings();
+                    }
+                })
+                .setNegativeButton(R.string.buttonCancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dismiss();
+                    }
+                });
+        return builder.create();
     }
 
     private void validateArguments() {
@@ -130,17 +150,9 @@ public class DialogVortech extends DialogFragment
         }
     }
 
-    private void findViews(View v) {
-        Button b = (Button) v.findViewById(R.id.buttonCancel);
-        b.setOnClickListener(this);
-        b = (Button) v.findViewById(R.id.buttonUpdate);
-        b.setOnClickListener(this);
-    }
-
     private void updateDialogType(View v) {
         // updates the type of the dialog
         // updates the description and configures the spinner
-        findViews(v);
         int descriptionId;
         boolean fSpeed = false;
         switch (popupType) {
@@ -202,14 +214,6 @@ public class DialogVortech extends DialogFragment
         seek.setProgress(currentValue);
         seek.setOnSeekBarChangeListener(this);
         updateProgressText();
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.buttonUpdate) {
-            updateVortechSettings();
-        }
-        dismiss();
     }
 
     private void updateProgressText() {
