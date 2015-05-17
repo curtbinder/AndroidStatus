@@ -32,7 +32,8 @@
         <!--<item name="android:buttonStyle">@style/Buttonreefangel</item>-->
         <!--<item name="android:imageButtonStyle">@style/ImageButtonreefangel</item>-->
         <!--<item name="android:dropDownSpinnerStyle">@style/SpinnerReefAngel</item>-->
-        <item name="android:seekBarStyle">@style/SeekBarReefAngel</item>
+        <!-- Seekbar is not used inside the main app, only in the dialogs -->
+        <!--<item name="android:seekBarStyle">@style/SeekBarReefAngel</item>-->
         <item name="android:buttonStyleToggle">@style/ToggleReefAngel</item>
         <item name="android:listChoiceBackgroundIndicator">@drawable/reefangel_list_selector_holo_light</item>
         <item name="android:activatedBackgroundIndicator">@drawable/reefangel_activated_background_holo_light</item>
@@ -86,6 +87,7 @@
     <!-- Alert Dialog Styles-->
     <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/reefangelblue</item>
+        <item name="android:seekBarStyle">@style/SeekBarReefAngel</item>
     </style>
     <style name="AlertDialogStyle.Dark" parent="Theme.AppCompat.Dialog.Alert">
         <item name="colorAccent">@color/reefangelblue</item>
