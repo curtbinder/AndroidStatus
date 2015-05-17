@@ -186,6 +186,8 @@ public class DateTimeFragment extends Fragment
 
     private void displayChangeDateDialog() {
         final Calendar c = Calendar.getInstance();
+//        final int themeId = R.style.AlertDialogStyle;
+//        final ContextThemeWrapper themeWrapper = new ContextThemeWrapper(getActivity(), themeId);
         DatePickerDialog t;
         t = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -202,6 +204,8 @@ public class DateTimeFragment extends Fragment
 
     private void displayChangeTimeDialog() {
         final Calendar c = Calendar.getInstance();
+//        final int themeId = R.style.AlertDialogStyle;
+//        final ContextThemeWrapper themeWrapper = new ContextThemeWrapper(getActivity(), themeId);
         TimePickerDialog t;
         t = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
             @Override
