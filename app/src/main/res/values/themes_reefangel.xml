@@ -39,6 +39,9 @@
         <item name="android:activatedBackgroundIndicator">@drawable/reefangel_activated_background_holo_light</item>
         <!--<item name="android:fastScrollThumbDrawable">@drawable/reefangel_fastscroll_thumb_holo</item>-->
 
+        <!-- The cursor in the edittext boxes, should be default to @null but
+            for some reason it does not get set like that-->
+        <item name="android:textCursorDrawable">@null</item>
         <item name="colorPrimary">@color/reefangelblue</item>
         <item name="colorPrimaryDark">@color/reefangelblue_dark</item>
         <item name="colorAccent">@color/reefangelblue</item>
@@ -67,6 +70,7 @@
         <!--<item name="android:actionBarStyle">@style/ActionBarreefangel</item>-->
         <!--<item name="android:popupMenuStyle">@style/PopupMenureefangel</item>-->
 
+        <item name="android:textCursorDrawable">@null</item>
         <item name="colorPrimary">@color/reefangelblue</item>
         <item name="colorPrimaryDark">@color/reefangelblue_dark</item>
         <item name="colorAccent">@color/reefangelblue</item>
