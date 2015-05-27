@@ -24,8 +24,6 @@
   ~ SOFTWARE.
   -->
 
-<!-- v11 Styles -->
-<!-- Generated with http://android-holo-colors.com -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="ReefAngel" parent="Theme.AppCompat.Light.NoActionBar">
@@ -52,6 +50,9 @@
         <item name="myDefaultToolbarTextColor">@android:color/black</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="myArrowColor">@android:color/black</item>
+
+        <item name="cbDrawerItemSelectedBackground">@drawable/activated_background</item>
+        <item name="cbDrawerItemSelectedText">@drawable/activated_text</item>
     </style>
 
     <style name="ReefAngel.Dark" parent="Theme.AppCompat.NoActionBar">
@@ -81,6 +82,9 @@
         <item name="myDefaultToolbarTextColor">@android:color/white</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="myArrowColor">@android:color/white</item>
+
+        <item name="cbDrawerItemSelectedBackground">@drawable/activated_background</item>
+        <item name="cbDrawerItemSelectedText">@drawable/activated_text_dark</item>
     </style>
 
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
