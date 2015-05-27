@@ -50,6 +50,8 @@
         <item name="cbDrawerItemSelectedText">@drawable/activated_text</item>
 
         <item name="android:alertDialogTheme">@style/AlertDialogStyle</item>
+        <item name="android:datePickerDialogTheme">@style/PickerDialogStyle</item>
+        <item name="android:timePickerDialogTheme">@style/PickerDialogStyle</item>
     </style>
 
     <!-- Alert Dialog Styles-->
@@ -59,7 +61,20 @@
         <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
         <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="colorControlActivated">@color/reefangelblue</item>
-        <!--<item name="colorControlHighlight">@color/primary_highlight</item>-->
+    </style>
+    <style name="AlertDialogStyle.Dark" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="colorAccent">@color/reefangelblue</item>
+
+        <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <!-- Date & Time Picker Dialog Styles-->
+    <style name="PickerDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/reefangelblue</item>
+    </style>
+    <style name="PickerDialogStyle.Dark" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="colorAccent">@color/reefangelblue</item>
     </style>
 </resources>
