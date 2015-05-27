@@ -236,6 +236,8 @@ Changelog of all the versions of AndroidStatus
  * Added in a Navigation drawer
  * Fixed RA DDNS communication error
  * Changed app theme to be a light theme
+ * Improved material theme
+ * Changed minsdk to 15
  * Updated the app logo
  * Added a Setup Wizard to help configure the app
  * Migrated from Eclipse to Android Studio

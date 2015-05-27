@@ -32,6 +32,8 @@
         <changelogtext>Added in a Navigation drawer</changelogtext>
         <changelogtext>Fixed RA DDNS communication error</changelogtext>
         <changelogtext>Changed app theme to be a light theme</changelogtext>
+        <changelogtext>Improved material theme</changelogtext>
+        <changelogtext>Changed minsdk to 15</changelogtext>
         <changelogtext>Updated the app logo</changelogtext>
         <changelogtext>Added a Setup Wizard to help configure the app</changelogtext>
         <changelogtext>Migrated from Eclipse to Android Studio</changelogtext>
