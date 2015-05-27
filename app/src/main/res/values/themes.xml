@@ -87,11 +87,6 @@
         <item name="cbDrawerItemSelectedText">@drawable/activated_text_dark</item>
     </style>
 
-    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="spinBars">true</item>
-        <item name="color">?attr/myDefaultToolbarTextColor</item>
-    </style>
-
     <!-- Alert Dialog Styles-->
     <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/reefangelblue</item>

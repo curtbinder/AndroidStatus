@@ -34,4 +34,34 @@
         <item name="android:padding">20dp</item>
         <item name="android:layout_margin">8dp</item>
     </style>
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">?attr/myDefaultToolbarTextColor</item>
+    </style>
+
+    <!-- Custom ReefAngel Widget styles, to replace the widgets that are not built-in to the AppCompat for Material -->
+
+    <!--<style name="Buttonreefangel" parent="android:Widget.Holo.Light.Button">-->
+    <!--<item name="android:background">@drawable/reefangel_btn_default_holo_light</item>-->
+    <!--</style>-->
+
+    <!--<style name="ImageButtonreefangel" parent="android:Widget.Holo.Light.ImageButton">-->
+    <!--<item name="android:background">@drawable/reefangel_btn_default_holo_light</item>-->
+    <!--</style>-->
+
+    <style name="SeekBarReefAngel" parent="android:Widget.Holo.Light.SeekBar">
+        <item name="android:progressDrawable">@drawable/reefangel_scrubber_progress_horizontal_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/reefangel_scrubber_progress_horizontal_holo_light</item>
+        <item name="android:thumb">@drawable/reefangel_scrubber_control_selector_holo_light</item>
+    </style>
+
+    <style name="ToggleReefAngel" parent="android:Widget.Holo.Light.Button.Toggle">
+        <item name="android:background">@drawable/reefangel_btn_toggle_holo_light</item>
+    </style>
+
+    <!--<style name="ActionBarreefangel" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">-->
+    <!--<item name="android:background">@android:color/white</item>      -->
+    <!--</style>-->
+
 </resources>

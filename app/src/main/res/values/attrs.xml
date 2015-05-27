@@ -23,13 +23,29 @@
   -->
 
 <resources>
-  <attr name="cbDrawerItemSelectedBackground" format="reference" />
-  <attr name="cbDrawerItemSelectedText" format="reference" />
+    <attr name="cbDrawerItemSelectedBackground" format="reference" />
+    <attr name="cbDrawerItemSelectedText" format="reference" />
 
-  <attr name="myNavDrawerBackground" format="reference" />
-  <attr name="myReefAngelLogo" format="reference" />
-  <attr name="myFrameBackground" format="reference" />
-  <attr name="myDefaultTextColor" format="reference" />
-  <attr name="myDefaultToolbarTextColor" format="reference" />
-  <attr name="myArrowColor" format="reference" />
+    <attr name="myNavDrawerBackground" format="reference" />
+    <attr name="myReefAngelLogo" format="reference" />
+    <attr name="myFrameBackground" format="reference" />
+    <attr name="myDefaultTextColor" format="reference" />
+    <attr name="myDefaultToolbarTextColor" format="reference" />
+    <attr name="myArrowColor" format="reference" />
+
+
+    <!-- TODO verify TabWidget styleable is used-->
+    <declare-styleable name="TabWidget">
+        <!-- Drawable used to draw the divider between tabs. -->
+        <!--  <attr name="divider" format="reference"/> -->
+        <!-- Determines whether the strip under the tab indicators is drawn or not. -->
+        <attr name="tabStripEnabled" format="boolean"/>
+        <!-- Drawable used to draw the left part of the strip underneath the tabs. -->
+        <attr name="tabStripLeft" format="reference"/>
+        <!-- Drawable used to draw the right part of the strip underneath the tabs. -->
+        <attr name="tabStripRight" format="reference"/>
+        <!-- Layout used to organize each tab's content. -->
+        <attr name="tabLayout" format="reference"/>
+
+    </declare-styleable>
 </resources>
