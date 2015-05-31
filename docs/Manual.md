@@ -125,7 +125,7 @@ Long Press options:
 	![PWM Override](images/dlg-controller-pwm.png)
 - Actinic Channel (AP) - Displays a dialog to manually override the PWM value or clear the override. *Note: This looks almost identical to the Daylight Channel dialog.*
 
-*Note: If the PWM values are manually overridden, a double asterisk (`**`) will be displayed in front (before) the value.*
+*Note: If the PWM values are manually overridden, a double asterisk ( `**` ) will be displayed in front (before) the value.*
 
 #### Main Relay
 This displays the status of the individual ports on the Main Relay box. Each port is on a separate row. Each row has several views/controls in it that refer to different things. From Left to Right, they are:
@@ -156,7 +156,7 @@ Long Press options:
 - All Channels - Displays a dialog to manually override the PWM value or clear the override.
 	![PWM Override](images/dlg-dimming-pwm.png)
 
-*Note: If the PWM values are manually overridden, a double asterisk (`**`) will be displayed in front (before) the value.*
+*Note: If the PWM values are manually overridden, a double asterisk ( `**` ) will be displayed in front (before) the value.*
 
 #### 16 Ch Dimming
 This is the custom 16 channel dimming expansion module. Not all the channels will fit on the screen and the screen must be scrolled up to view the rest of the channels.
@@ -170,7 +170,7 @@ Long Press options:
 - All Channels - Displays a dialog to manually override the PWM value or clear the override.
 	![PWM Override](images/dlg-16ch-pwm.png)
 
-*Note: If the PWM values are manually overridden, a double asterisk (`**`) will be displayed in front (before) the value.*
+*Note: If the PWM values are manually overridden, a double asterisk ( `**` ) will be displayed in front (before) the value.*
 
 #### Radion
 This uses the RF Expansion Module to control all channels and intensity of the Radion XR30w LED Fixture.
@@ -188,7 +188,7 @@ Long Press options:
 - All Channels - Displays a dialog to manually override the PWM value or clear the override.
 	![PWM Override](images/dlg-radion-pwm.png)
 
-*Note: If the PWM values are manually overridden, a double asterisk (`**`) will be displayed in front (before) the value.*
+*Note: If the PWM values are manually overridden, a double asterisk ( `**` ) will be displayed in front (before) the value.*
 
 #### Vortech
 This uses the RF Expansion Module to control the Ecotech Vortech pumps with the ES wireless drivers.
@@ -272,7 +272,7 @@ Long Press options:
 - All Channels - Displays a dialog to manually override the PWM value or clear the override.
 	![AI Override](images/dlg-ai-pwm.png)
 
-*Note: If the PWM values are manually overridden, a double asterisk (`**`) will be displayed in front (before) the value.*
+*Note: If the PWM values are manually overridden, a double asterisk ( `**` ) will be displayed in front (before) the value.*
 
 #### I/O
 This page shows you the status of the 6 additional I/O channels that are from the I/O Expansion module. This page shows whether the channel is ON or OFF.
