@@ -304,6 +304,7 @@ Each entry displays the Date and Time the status was obtained and then it displa
 ![History Section](images/section-history.png)
 
 If you tap on the Delete (or Trash) button from the toolbar, you will be presented with an option to delete all the history.
+
 ![Delete Dialog](images/dlg-history-delete.png)
 
 Action Buttons:  **Delete Button**
@@ -335,13 +336,17 @@ In the top half of the screen, the section is titled Controller. There are 2 but
 In the bottom half of the screen, this section is titled Custom Controller Time. This section allows you to set a custom or specific date and time for your controller. This can be useful if you are testing a scenario in your code that happens at a specific time of day and you do not want to wait until that time comes.
 It contains 3 buttons under a Time and Date label. The buttons and their meanings are:
 - Choose Time - Displays a Time Picker dialog to select the custom Time.
+
 	*Holo Theme*
 	![Time Dialog Holo](images/dlg-date-time-holo.png)
+    
     *Material Theme*
     ![Time Dialog Material](images/dlg-date-time-material.png)
 - Choose Date - Displays a Date Picker dialog to select the custom Date.
+
 	*Holo Theme*
 	![Date Dialog Holo](images/dlg-date-date-holo.png)
+    
     *Material Theme*
     ![Date Dialog Material](images/dlg-date-date-material.png)
 - Set Custom Time - Sends the custom / specific date and time to the controller.
