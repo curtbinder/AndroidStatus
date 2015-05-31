@@ -149,7 +149,9 @@ This is the standard 6 channel dimming expansion module.
 
 ![Dimming Page](images/page-dimming.png)
 
-Channels Available: 0 through 5
+Channels Available:
+- 0 through 5
+
 Long Press options:
 - All Channels - Displays a dialog to manually override the PWM value or clear the override.
 	![PWM Override](images/dlg-dimming-pwm.png)
@@ -161,7 +163,9 @@ This is the custom 16 channel dimming expansion module. Not all the channels wil
 
 ![16 Ch Dimming Page](images/page-16ch-dimming.png)
 
-Channels Available: 0 through 15
+Channels Available:
+- 0 through 15
+
 Long Press options:
 - All Channels - Displays a dialog to manually override the PWM value or clear the override.
 	![PWM Override](images/dlg-16ch-pwm.png)
@@ -173,7 +177,13 @@ This uses the RF Expansion Module to control all channels and intensity of the R
 
 ![Radion Page](images/page-radion.png)
 
-Channels Available: White, Royal Blue, Red, Green Blue, Intensity
+Channels Available:
+- White
+- Royal Blue
+- Red
+- Green Blue
+- Intensity
+
 Long Press options:
 - All Channels - Displays a dialog to manually override the PWM value or clear the override.
 	![PWM Override](images/dlg-radion-pwm.png)
@@ -185,9 +195,25 @@ This uses the RF Expansion Module to control the Ecotech Vortech pumps with the 
 
 ![Vortech Page](images/page-vortech.png)
 
-Modes: Constant, Lagoonal, Reef Crest, Short Wave, Long Wave, Nutrient, Tidal Swell, Feeding Start, Feeding Stop, Night, Storm, Custom
-Speed: 0-100%
-Duration: 0-255
+Modes:
+- Constant
+- Lagoonal
+- Reef Crest
+- Short Wave
+- Long Wave
+- Nutrient
+- Tidal Swell
+- Feeding Start
+- Feeding Stop
+- Night
+- Storm
+- Custom
+
+Speed:
+- 0-100%
+
+Duration:
+- 0-255
 
 Long Press options:
 - Mode - Displays a dialog with a drop down menu to change the mode.
@@ -201,10 +227,27 @@ This page is used to control a DC Pump. More details on the specifics of the DC 
 
 ![DC Pump Page](images/page-dc-pump.png)
 
-Modes: Constant, Lagoon, Reef Crest, Short Pulse, Long Pulse, Nutrient, Tidal Swell, Custom, Else, Sine, Gyre
-Speed: 0-100%
-Duration: 0-255
-Threshold: 0-100
+Modes:
+- Constant
+- Lagoon
+- Reef Crest
+- Short Pulse
+- Long Pulse
+- Nutrient
+- Tidal Swell
+- Custom
+- Else
+- Sine
+- Gyre
+
+Speed:
+- 0-100%
+
+Duration:
+- 0-255
+
+Threshold:
+- 0-100
 
 Long Press options:
 - Mode - Displays a dialog with a drop down menu to change the mode.
@@ -220,7 +263,11 @@ Requires the Aqua Illumination Cable Attachment that connects to any available A
 
 ![AI Page](images/page-ai.png)
 
-Channels Available: White, Blue, Royal Blue
+Channels Available:
+- White
+- Blue
+- Royal Blue
+
 Long Press options:
 - All Channels - Displays a dialog to manually override the PWM value or clear the override.
 	![AI Override](images/dlg-ai-pwm.png)
