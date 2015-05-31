@@ -286,12 +286,15 @@ Typically, you will want to use the `>`, `>=`, `<`, or `<=` conditions for evalu
 The `=` and `!=` conditions will be used for evaluating if a value matches exactly or does not match at all, such as checking if an IO port is ON or if a Custom Variable is a specific value.
 
 Here's the Add Notification Dialog:
+
 ![Add Dialog](images/dlg-notifications-add.png)
 
 Here's the Update Notification Dialog:
+
 ![Update Dialog](images/dlg-notifications-update.png)
 
 If you tap on the Delete (or Trash) button from the toolbar, you will be presented with an option to delete all the notifications.
+
 ![Delete Dialog](images/dlg-notifications-delete.png)
 
 Action Buttons:  **Add, Delete Buttons**
@@ -338,16 +341,20 @@ It contains 3 buttons under a Time and Date label. The buttons and their meaning
 - Choose Time - Displays a Time Picker dialog to select the custom Time.
 
 	*Holo Theme*
+    
 	![Time Dialog Holo](images/dlg-date-time-holo.png)
     
     *Material Theme*
+    
     ![Time Dialog Material](images/dlg-date-time-material.png)
 - Choose Date - Displays a Date Picker dialog to select the custom Date.
 
 	*Holo Theme*
-	![Date Dialog Holo](images/dlg-date-date-holo.png)
+	
+    ![Date Dialog Holo](images/dlg-date-date-holo.png)
     
     *Material Theme*
+    
     ![Date Dialog Material](images/dlg-date-date-material.png)
 - Set Custom Time - Sends the custom / specific date and time to the controller.
 
