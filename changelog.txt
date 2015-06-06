@@ -228,7 +228,7 @@ Changelog of all the versions of AndroidStatus
  * added preference to keep screen on when displaying the main screen
  * code cleanup and bug fixes
  
-2.0 - ?
+2.0 - June 5, 2015
  * Added Custom Variable value updating
  * Fixed AI display bug and channel swap
  * Migrated to Toolbar from Actionbar

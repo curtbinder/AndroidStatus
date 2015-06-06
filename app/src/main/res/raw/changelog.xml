@@ -24,7 +24,7 @@
   -->
 
 <changelog bulletedList="true">
-    <changelogversion versionName="2.0.0" changeDate="TBD">
+    <changelogversion versionName="2.0.0" changeDate="June 5, 2015">
         <changelogtext>Added Custom Variable value updating</changelogtext>
         <changelogtext>Fixed AI display bug and channel swap</changelogtext>
         <changelogtext>Migrated to Toolbar from Actionbar</changelogtext>

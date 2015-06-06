@@ -59,29 +59,32 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
 
-        <activity
-            android:name=".MainActivity"
+        <activity android:name=".MainActivity" />
+        <!-- Alias the OLD activity launcher to the new activity to preserve existing launchers-->
+        <activity-alias
+            android:name=".StatusActivity"
+            android:targetActivity=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".SettingsActivity"
+        </activity-alias>
+
+        <activity
+            android:name=".SettingsActivity"
             android:label="Settings">
             <intent-filter>
                 <category android:name="android.intent.category.PREFERENCE" />
             </intent-filter>
         </activity>
-        <activity android:name="info.curtbinder.reefangel.wizard.SetupWizardActivity"
-            android:label="@string/titleSetupWizard">
-        </activity>
+        <activity
+            android:name="info.curtbinder.reefangel.wizard.SetupWizardActivity"
+            android:label="@string/titleSetupWizard" />
 
-        <service android:name="info.curtbinder.reefangel.service.UpdateService" >
-        </service>
-        <service android:name="info.curtbinder.reefangel.service.NotificationService" >
-        </service>
+        <service android:name="info.curtbinder.reefangel.service.UpdateService" />
+        <service android:name="info.curtbinder.reefangel.service.NotificationService" />
 
         <receiver android:name=".BootReceiver" >
             <intent-filter>
@@ -92,8 +95,7 @@
         <provider
             android:name="info.curtbinder.reefangel.db.StatusProvider"
             android:authorities="@string/db_authority"
-            android:readPermission="info.curtbinder.reefangel.permission.READ_PROVIDER" >
-        </provider>
+            android:readPermission="info.curtbinder.reefangel.permission.READ_PROVIDER" />
     </application>
 
 </manifest>
