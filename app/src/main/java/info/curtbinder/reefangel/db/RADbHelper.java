@@ -40,6 +40,10 @@ public class RADbHelper extends SQLiteOpenHelper {
     // Version 10 - StatusTable updated
     // Version 11 - StatusTable updated
     // Version 12 - StatusTable updated
+	// Version 13 - LabelsTable, ControllersTable,
+    //              ControllerProbesVisibilityTable, RelayEnabledPortsTable added
+	//              TODO add foreign key references for ErrorTable, NotificationTable and StatusTable
+    //              TODO update Status, Notification, Error tables to reference Controllers Table
 
 	public RADbHelper ( Context context ) {
 		super( context, DB_NAME, null, DB_VERSION );
