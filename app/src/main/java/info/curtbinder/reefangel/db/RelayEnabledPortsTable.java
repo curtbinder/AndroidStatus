@@ -39,6 +39,12 @@ public class RelayEnabledPortsTable {
     Disabled ports cannot have their value changed via the app, only displayed.
     The app limits the control based on the values stored in the database.
 
+    Values:
+        1 - port enabled
+        0 - port disabled
+
+    Default:  1 - all ports enabled
+
     Added in DB Version 13
      */
 
