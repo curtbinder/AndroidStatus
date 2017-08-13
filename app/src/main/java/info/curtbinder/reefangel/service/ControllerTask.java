@@ -427,6 +427,8 @@ public class ControllerTask implements Runnable {
         v.put(StatusTable.COL_PH, ra.getPH());
         v.put(StatusTable.COL_DP, ra.getPwmD());
         v.put(StatusTable.COL_AP, ra.getPwmA());
+        v.put(StatusTable.COL_PWMA2, ra.getPwmA2());
+        v.put(StatusTable.COL_PWMD2, ra.getPwmD2());
         v.put(StatusTable.COL_SAL, ra.getSalinity());
         v.put(StatusTable.COL_ORP, ra.getORP());
         v.put(StatusTable.COL_ATOHI, ra.getAtoHigh());
@@ -498,6 +500,8 @@ public class ControllerTask implements Runnable {
         v.put(StatusTable.COL_HUM, ra.getHumidity());
         v.put(StatusTable.COL_PWMAO, ra.getPwmAOverride());
         v.put(StatusTable.COL_PWMDO, ra.getPwmDOverride());
+        v.put(StatusTable.COL_PWMA2O, ra.getPwmA2Override());
+        v.put(StatusTable.COL_PWMD2O, ra.getPwmD2Override());
         v.put(StatusTable.COL_PWME0O, ra.getPwmExpansionOverride((short) 0));
         v.put(StatusTable.COL_PWME1O, ra.getPwmExpansionOverride((short) 1));
         v.put(StatusTable.COL_PWME2O, ra.getPwmExpansionOverride((short) 2));
@@ -551,6 +555,7 @@ public class ControllerTask implements Runnable {
         v.put(StatusTable.COL_DCS, ra.getDCPumpValue(Controller.DCPUMP_SPEED));
         v.put(StatusTable.COL_DCD, ra.getDCPumpValue(Controller.DCPUMP_DURATION));
         v.put(StatusTable.COL_DCT, ra.getDCPumpValue(Controller.DCPUMP_THRESHOLD));
+        v.put(StatusTable.COL_PAR, ra.getPar());
         rapp.getContentResolver().insert(Uri.parse(StatusProvider.CONTENT_URI + "/"
                 + StatusProvider.PATH_STATUS), v);
         // Clear the error retry count on successful insertion of data

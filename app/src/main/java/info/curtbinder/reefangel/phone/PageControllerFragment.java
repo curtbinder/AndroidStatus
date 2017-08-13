@@ -50,6 +50,8 @@ public class PageControllerFragment extends Fragment
             new TableRow[Controller.MAX_CONTROLLER_VALUES];
     private short dpValue;
     private short apValue;
+    private short dp2Value;
+    private short ap2Value;
 
     public static PageControllerFragment newInstance() {
         return new PageControllerFragment();
@@ -73,6 +75,8 @@ public class PageControllerFragment extends Fragment
         deviceRow[Globals.PH_INDEX] = (TableRow) root.findViewById(R.id.ph_row);
         deviceRow[Globals.DP_INDEX] = (TableRow) root.findViewById(R.id.dp_row);
         deviceRow[Globals.AP_INDEX] = (TableRow) root.findViewById(R.id.ap_row);
+        deviceRow[Globals.DP2_INDEX] = (TableRow) root.findViewById(R.id.dp2_row);
+        deviceRow[Globals.AP2_INDEX] = (TableRow) root.findViewById(R.id.ap2_row);
         deviceRow[Globals.ATOLO_INDEX] = (TableRow) root.findViewById(R.id.atolow_row);
         deviceRow[Globals.ATOHI_INDEX] = (TableRow) root.findViewById(R.id.atohi_row);
         deviceRow[Globals.SALINITY_INDEX] = (TableRow) root.findViewById(R.id.salinity_row);
@@ -84,6 +88,7 @@ public class PageControllerFragment extends Fragment
         deviceRow[Globals.WL3_INDEX] = (TableRow) root.findViewById(R.id.water3_row);
         deviceRow[Globals.WL4_INDEX] = (TableRow) root.findViewById(R.id.water4_row);
         deviceRow[Globals.HUMIDITY_INDEX] = (TableRow) root.findViewById(R.id.humidity_row);
+        deviceRow[Globals.PAR_INDEX] = (TableRow) root.findViewById(R.id.par_row);
 
         for (int i = 0; i < Controller.MAX_CONTROLLER_VALUES; i++) {
             deviceText[i] = (TextView) deviceRow[i].findViewById(R.id.rowValue);
@@ -109,6 +114,10 @@ public class PageControllerFragment extends Fragment
         deviceText[Globals.AP_INDEX].setOnLongClickListener(l);
         deviceText[Globals.DP_INDEX].setLongClickable(fClickable);
         deviceText[Globals.DP_INDEX].setOnLongClickListener(l);
+        deviceText[Globals.AP2_INDEX].setLongClickable(fClickable);
+        deviceText[Globals.AP2_INDEX].setOnLongClickListener(l);
+        deviceText[Globals.DP2_INDEX].setLongClickable(fClickable);
+        deviceText[Globals.DP2_INDEX].setOnLongClickListener(l);
     }
 
     @Override
@@ -128,6 +137,12 @@ public class PageControllerFragment extends Fragment
                 break;
             case R.id.ap_row:
                 f.displayOverrideDialog(Globals.OVERRIDE_ACTINIC, apValue);
+                break;
+            case R.id.dp2_row:
+                f.displayOverrideDialog(Globals.OVERRIDE_DAYLIGHT2, dp2Value);
+                break;
+            case R.id.ap2_row:
+                f.displayOverrideDialog(Globals.OVERRIDE_ACTINIC2, ap2Value);
                 break;
         }
         return true;
@@ -166,6 +181,12 @@ public class PageControllerFragment extends Fragment
             case Globals.AP_INDEX:
                 resId = R.string.labelAP;
                 break;
+            case Globals.DP2_INDEX:
+                resId = R.string.labelDP2;
+                break;
+            case Globals.AP2_INDEX:
+                resId = R.string.labelAP2;
+                break;
             case Globals.ATOLO_INDEX:
                 resId = R.string.labelAtoLow;
                 break;
@@ -183,6 +204,9 @@ public class PageControllerFragment extends Fragment
                 break;
             case Globals.HUMIDITY_INDEX:
                 resId = R.string.labelHumidity;
+                break;
+            case Globals.PAR_INDEX:
+                resId = R.string.labelPar;
                 break;
             case Globals.WL_INDEX:
             case Globals.WL1_INDEX:
@@ -230,6 +254,8 @@ public class PageControllerFragment extends Fragment
         // update the ap & dp values
         dpValue = c.getShort(c.getColumnIndex(StatusTable.COL_DP));
         apValue = c.getShort(c.getColumnIndex(StatusTable.COL_AP));
+        dp2Value = c.getShort(c.getColumnIndex(StatusTable.COL_PWMD2));
+        ap2Value = c.getShort(c.getColumnIndex(StatusTable.COL_PWMA2));
         return new String[]{c.getString(c.getColumnIndex(StatusTable.COL_T1)),
                 c.getString(c.getColumnIndex(StatusTable.COL_T2)),
                 c.getString(c.getColumnIndex(StatusTable.COL_T3)),
@@ -238,6 +264,10 @@ public class PageControllerFragment extends Fragment
                         c.getShort(c.getColumnIndex(StatusTable.COL_PWMDO))),
                 Controller.getPWMDisplayValue(apValue,
                         c.getShort(c.getColumnIndex(StatusTable.COL_PWMAO))),
+                Controller.getPWMDisplayValue(dp2Value,
+                        c.getShort(c.getColumnIndex(StatusTable.COL_PWMD2O))),
+                Controller.getPWMDisplayValue(ap2Value,
+                        c.getShort(c.getColumnIndex(StatusTable.COL_PWMA2O))),
                 l, h,
                 c.getString(c.getColumnIndex(StatusTable.COL_SAL)) + " ppt",
                 c.getString(c.getColumnIndex(StatusTable.COL_ORP)) + " mV",
@@ -247,7 +277,8 @@ public class PageControllerFragment extends Fragment
                 c.getString(c.getColumnIndex(StatusTable.COL_WL2)) + "%",
                 c.getString(c.getColumnIndex(StatusTable.COL_WL3)) + "%",
                 c.getString(c.getColumnIndex(StatusTable.COL_WL4)) + "%",
-                c.getString(c.getColumnIndex(StatusTable.COL_HUM)) + "%"};
+                c.getString(c.getColumnIndex(StatusTable.COL_HUM)) + "%",
+                c.getString(c.getColumnIndex(StatusTable.COL_PAR))};
     }
 
 

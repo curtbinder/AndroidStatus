@@ -147,11 +147,14 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="labelPH">PH</string>
     <string name="labelDP">DP</string>
     <string name="labelAP">AP</string>
+    <string name="labelDP2">DP 2</string>
+    <string name="labelAP2">AP 2</string>
     <string name="labelSalinity">Salinity</string>
     <string name="labelORP">ORP</string>
     <string name="labelPHExp">PH Exp</string>
     <string name="labelWaterLevel">Water</string>
     <string name="labelHumidity">Humidity</string>
+    <string name="labelPar">PAR</string>
     <string name="labelAtoLow">ATO Low</string>
     <string name="labelAtoHigh">ATO High</string>
     <string name="labelPort1">Port 1</string>

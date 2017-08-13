@@ -30,7 +30,7 @@ import java.util.Locale;
 import info.curtbinder.reefangel.phone.Globals;
 
 public class Controller {
-    public static final byte MAX_CONTROLLER_VALUES = 17;
+    public static final byte MAX_CONTROLLER_VALUES = 20;
     public static final byte MAX_EXPANSION_RELAYS = 8;
     public static final byte MAX_RELAY_PORTS = 8;
     public static final byte MAX_TEMP_SENSORS = 3;
@@ -104,6 +104,8 @@ public class Controller {
     private boolean atoHigh;
     private ShortWithLabelOverride pwmA;
     private ShortWithLabelOverride pwmD;
+    private ShortWithLabelOverride pwmA2;
+    private ShortWithLabelOverride pwmD2;
     private ShortWithLabel[] waterlevel;
     private ShortWithLabel humidity;
     private NumberWithLabel salinity;
@@ -125,6 +127,10 @@ public class Controller {
     private short[] vortechValues;
     private ShortWithLabelOverride[] pwmSCExpansion;
     private short[] dcPumpValues;
+    private NumberWithLabel par;
+
+    // TODO add in Board ID (bid)
+    // TODO add in PAR expansion
 
     public Controller () {
         init();
@@ -148,6 +154,8 @@ public class Controller {
         atoHigh = false;
         pwmA = new ShortWithLabelOverride();
         pwmD = new ShortWithLabelOverride();
+        pwmA2 = new ShortWithLabelOverride();
+        pwmD2 = new ShortWithLabelOverride();
         pwmExpansion = new ShortWithLabelOverride[MAX_PWM_EXPANSION_PORTS];
         for ( i = 0; i < MAX_PWM_EXPANSION_PORTS; i++ ) {
             pwmExpansion[i] = new ShortWithLabelOverride();
@@ -159,6 +167,7 @@ public class Controller {
         humidity = new ShortWithLabel();
         salinity = new NumberWithLabel( (byte) 1 );
         orp = new NumberWithLabel();
+        par = new NumberWithLabel();
         main = new Relay();
         expansionRelays = new Relay[MAX_EXPANSION_RELAYS];
         for ( i = 0; i < MAX_EXPANSION_RELAYS; i++ ) {
@@ -361,6 +370,54 @@ public class Controller {
         return pwmD.getLabel();
     }
 
+    public void setPwmA2 ( short v ) {
+        pwmA2.setData( v );
+    }
+
+    public short getPwmA2 ( ) {
+        return pwmA2.getData();
+    }
+
+    public short getPwmA2Override ( ) {
+        return pwmA2.getOverrideValue();
+    }
+
+    public void setPwmA2Override ( short v ) {
+        pwmA2.setOverride( v );
+    }
+
+    public void setPwmA2Label ( String label ) {
+        pwmA2.setLabel( label );
+    }
+
+    public String getPwmA2Label ( ) {
+        return pwmA2.getLabel();
+    }
+
+    public void setPwmD2 ( short v ) {
+        pwmD2.setData( v );
+    }
+
+    public short getPwmD2 ( ) {
+        return pwmD2.getData();
+    }
+
+    public short getPwmD2Override ( ) {
+        return pwmD2.getOverrideValue();
+    }
+
+    public void setPwmD2Override ( short v ) {
+        pwmD2.setOverride( v );
+    }
+
+    public void setPwmD2Label ( String label ) {
+        pwmD2.setLabel( label );
+    }
+
+    public String getPwmD2Label ( ) {
+        return pwmD2.getLabel();
+    }
+
     public void setPwmExpansion ( short channel, short v ) {
         pwmExpansion[channel].setData( v );
     }
@@ -471,6 +528,22 @@ public class Controller {
 
     public String getORPLabel ( ) {
         return orp.getLabel();
+    }
+
+    public void setPar ( int value ) {
+        par.setData( value );
+    }
+
+    public String getPar ( ) {
+        return par.getData();
+    }
+
+    public void setParLabel ( String label ) {
+        par.setLabel( label );
+    }
+
+    public String getParLabel ( ) {
+        return par.getLabel();
     }
 
     public void setMainRelayData ( short data, short maskOn, short maskOff ) {

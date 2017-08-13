@@ -164,6 +164,12 @@ public class StatusTable {
     public static final String COL_DCS = "dcs";
     public static final String COL_DCD = "dcd";
     public static final String COL_DCT = "dct";
+    public static final String COL_PWMD2 = "pwmd2";
+    public static final String COL_PWMD2O = "pwmd2o";
+    public static final String COL_PWMA2 = "pwma2";
+    public static final String COL_PWMA2O = "pwma2o";
+    public static final String COL_BOARD = "bid";
+    public static final String COL_PAR = "par";
 
 
 	public static void onCreate ( SQLiteDatabase db ) {
@@ -262,7 +268,13 @@ public class StatusTable {
                 + COL_DCM + " INTEGER, "
                 + COL_DCS + " INTEGER, "
                 + COL_DCD + " INTEGER, "
-                + COL_DCT + " INTEGER"
+                + COL_DCT + " INTEGER, "
+                + COL_PWMA2 + " INTEGER, "
+                + COL_PWMD2 + " INTEGER, "
+                + COL_PWMA2O + " INTEGER DEFAULT 255, "
+                + COL_PWMD2O + " INTEGER DEFAULT 255, "
+                + COL_PAR + " INTEGER, "
+                + COL_BOARD + " INTEGER"
 
                 + ");" );
 
@@ -299,6 +311,9 @@ public class StatusTable {
                     break;
                 case 12:
                     upgradeToVersion12(db);
+                    break;
+                case 13:
+                    upgradeToVersion13(db);
                     break;
             }
         }
@@ -410,5 +425,16 @@ public class StatusTable {
         db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_DCS + " INTEGER;" );
         db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_DCD + " INTEGER;" );
         db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_DCT + " INTEGER;" );
+    }
+
+    private static void upgradeToVersion13(SQLiteDatabase db) {
+        // add in extra columns for ra* support
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWMA2 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWMD2 + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWMA2O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWMD2O + " INTEGER DEFAULT 255;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PAR + " INTEGER;" );
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_BOARD + " INTEGER;" );
+        // TODO check on default board id value
     }
 }

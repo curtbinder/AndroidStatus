@@ -116,6 +116,10 @@ public final class Globals {
     public static final int paramSCPWMExp13 = 62;
     public static final int paramSCPWMExp14 = 63;
     public static final int paramSCPWMExp15 = 64;
+    public static final int paramDaylight2PWM = 65;
+    public static final int paramActinic2PWM = 66;
+    public static final int paramAlarm = 67;
+    public static final int paramPAR = 68;
 
     // override locations
     public static final int OVERRIDE_DISABLE = 255;
@@ -171,17 +175,20 @@ public final class Globals {
     public static final int PH_INDEX = 3;
     public static final int DP_INDEX = 4;
     public static final int AP_INDEX = 5;
-    public static final int ATOLO_INDEX = 6;
-    public static final int ATOHI_INDEX = 7;
-    public static final int SALINITY_INDEX = 8;
-    public static final int ORP_INDEX = 9;
-    public static final int PHE_INDEX = 10;
-    public static final int WL_INDEX = 11;
-    public static final int WL1_INDEX = 12;
-    public static final int WL2_INDEX = 13;
-    public static final int WL3_INDEX = 14;
-    public static final int WL4_INDEX = 15;
-    public static final int HUMIDITY_INDEX = 16;
+    public static final int DP2_INDEX = 6;
+    public static final int AP2_INDEX = 7;
+    public static final int ATOLO_INDEX = 8;
+    public static final int ATOHI_INDEX = 9;
+    public static final int SALINITY_INDEX = 10;
+    public static final int ORP_INDEX = 11;
+    public static final int PHE_INDEX = 12;
+    public static final int WL_INDEX = 13;
+    public static final int WL1_INDEX = 14;
+    public static final int WL2_INDEX = 15;
+    public static final int WL3_INDEX = 16;
+    public static final int WL4_INDEX = 17;
+    public static final int HUMIDITY_INDEX = 18;
+    public static final int PAR_INDEX = 19;
 
     // variable ranges
     public static final int BYTE_MIN = 0;
