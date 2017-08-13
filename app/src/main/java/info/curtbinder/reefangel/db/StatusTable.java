@@ -428,7 +428,7 @@ public class StatusTable {
     }
 
     private static void upgradeToVersion13(SQLiteDatabase db) {
-        // add in extra columns for ra* support
+        // add in extra columns for ra* support plus the par expansion module
         db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWMA2 + " INTEGER;" );
         db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWMD2 + " INTEGER;" );
         db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWMA2O + " INTEGER DEFAULT 255;" );
