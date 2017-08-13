@@ -274,7 +274,7 @@ public class StatusTable {
                 + COL_PWMA2O + " INTEGER DEFAULT 255, "
                 + COL_PWMD2O + " INTEGER DEFAULT 255, "
                 + COL_PAR + " INTEGER, "
-                + COL_BOARD + " INTEGER"
+                + COL_BOARD + " INTEGER DEFAULT 1"
 
                 + ");" );
 
@@ -434,7 +434,6 @@ public class StatusTable {
         db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWMA2O + " INTEGER DEFAULT 255;" );
         db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PWMD2O + " INTEGER DEFAULT 255;" );
         db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_PAR + " INTEGER;" );
-        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_BOARD + " INTEGER;" );
-        // TODO check on default board id value
+        db.execSQL( "ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_BOARD + " INTEGER DEFAULT 1;" );
     }
 }
