@@ -47,7 +47,7 @@ public class Controller {
     public static final byte MAX_DCPUMP_VALUES = 4;
 
     // First set of expansion modules - EM
-    public static final short MODULE_DIMMING = 1 << 0;
+    public static final short MODULE_DIMMING = 1;
     public static final short MODULE_RF = 1 << 1;
     public static final short MODULE_AI = 1 << 2;
     public static final short MODULE_SALINITY = 1 << 3;
@@ -57,17 +57,19 @@ public class Controller {
     public static final short MODULE_WATERLEVEL = 1 << 7;
 
     // Second set of expansion modules - EM1
-    public static final short MODULE_HUMIDITY = 1 << 0;
+    public static final short MODULE_HUMIDITY = 1;
     public static final short MODULE_DCPUMP = 1 << 1;
     public static final short MODULE_LEAKDETECTOR = 1 << 2;
+    public static final short MODULE_PAR = 1 << 3;
+    public static final short MODULE_SCPWM = 1 << 4;  // 16 channel pwm module
 
     // Status flags - SF
-    public static final short SF_LIGHTSON = 1 << 0;
+    public static final short SF_LIGHTSON = 1;
     public static final short SF_FEEDING = 1 << 1;
     public static final short SF_WATERCHANGE = 1 << 2;
 
     // Alert flags - AF
-    public static final short AF_ATOTIMEOUT = 1 << 0;
+    public static final short AF_ATOTIMEOUT = 1;
     public static final short AF_OVERHEAT = 1 << 1;
     public static final short AF_BUSLOCK = 1 << 2;
     public static final short AF_LEAK = 1 << 3;
@@ -95,6 +97,14 @@ public class Controller {
     public static final byte DCPUMP_SPEED = 1;
     public static final byte DCPUMP_DURATION = 2;
     public static final byte DCPUMP_THRESHOLD = 3;
+
+    // Board IDs
+    public static final byte RA = 0;
+    public static final byte RAPlus = 1;
+    public static final byte RATouchDisplay = 2;
+    public static final byte RATouch = 3;
+    public static final byte RAStar = 4;
+    public static final byte RAEvolution = 5;
 
     private String updateLogDate;
     private NumberWithLabel[] tempSensors;
