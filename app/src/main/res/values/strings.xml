@@ -501,6 +501,8 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="prefT3VisibilityKey">t3_visibility</string>
     <string name="prefDPVisibilityKey">dp_visibility</string>
     <string name="prefAPVisibilityKey">ap_visibility</string>
+    <string name="prefDP2VisibilityKey">dp2_visibility</string>
+    <string name="prefAP2VisibilityKey">ap2_visibility</string>
     <string name="prefPHVisibilityKey">ph_visibility</string>
     <string name="prefATOLoVisibilityKey">atolo_visibility</string>
     <string name="prefATOHiVisibilityKey">atohi_visibility</string>
@@ -508,6 +510,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="prefORPVisibilityKey">orp_visibility</string>
     <string name="prefPHExpVisibilityKey">phe_visibility</string>
     <string name="prefHumidityVisibilityKey">humidity_visibility</string>
+    <string name="prefParVisibilityKey">par_visibility</string>
     <string name="prefResetLabelsKey">reset_labels</string>
     <string name="prefResetEnabledPortsKey">reset_enabled_ports</string>
     <string name="prefControllerLabelsDownloadKey">download_labels</string>
@@ -517,12 +520,15 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="prefPHLabelKey">ph_label</string>
     <string name="prefDPLabelKey">dp_label</string>
     <string name="prefAPLabelKey">ap_label</string>
+    <string name="prefDP2LabelKey">dp2_label</string>
+    <string name="prefAP2LabelKey">ap2_label</string>
     <string name="prefATOLoLabelKey">atolo_label</string>
     <string name="prefATOHiLabelKey">atohi_label</string>
     <string name="prefSalinityLabelKey">salinity_label</string>
     <string name="prefORPLabelKey">orp_label</string>
     <string name="prefPHExpLabelKey">phe_label</string>
     <string name="prefHumidityLabelKey">humidity_label</string>
+    <string name="prefParLabelKey">par_label</string>
     <string name="prefMainPort1LabelKey">main_port1_label</string>
     <string name="prefMainPort2LabelKey">main_port2_label</string>
     <string name="prefMainPort3LabelKey">main_port3_label</string>
