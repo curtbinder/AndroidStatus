@@ -138,9 +138,7 @@ public class Controller {
     private ShortWithLabelOverride[] pwmSCExpansion;
     private short[] dcPumpValues;
     private NumberWithLabel par;
-
-    // TODO add in Board ID (bid)
-    // TODO add in PAR expansion
+    private byte board;
 
     public Controller () {
         init();
@@ -178,6 +176,7 @@ public class Controller {
         salinity = new NumberWithLabel( (byte) 1 );
         orp = new NumberWithLabel();
         par = new NumberWithLabel();
+        board = RAPlus;  // default to RAPlus board
         main = new Relay();
         expansionRelays = new Relay[MAX_EXPANSION_RELAYS];
         for ( i = 0; i < MAX_EXPANSION_RELAYS; i++ ) {
@@ -556,6 +555,18 @@ public class Controller {
         return par.getLabel();
     }
 
+    public void setBoard ( byte bid ) {
+        board = bid;
+    }
+
+    public byte getBoard ( ) {
+        return board;
+    }
+
+    public boolean isRAStar() {
+        return board == RAPlus;
+    }
+
     public void setMainRelayData ( short data, short maskOn, short maskOff ) {
         main.setRelayData( data, maskOn, maskOff );
     }
@@ -717,6 +728,10 @@ public class Controller {
 
     public static boolean isLeakDetectorModuleInstalled ( short expansionModules1 ) {
         return (expansionModules1 & MODULE_LEAKDETECTOR) == MODULE_LEAKDETECTOR;
+    }
+
+    public static boolean isParModuleInstalled ( short expansionModules1 ) {
+        return (expansionModules1 & MODULE_PAR) == MODULE_PAR;
     }
 
     public short getRelayExpansionModules ( ) {
