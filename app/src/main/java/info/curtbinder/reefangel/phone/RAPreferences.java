@@ -475,6 +475,14 @@ public class RAPreferences {
                 def = true;
                 key = R.string.prefAPVisibilityKey;
                 break;
+            case Globals.DP2_INDEX:
+                def = false;
+                key = R.string.prefDP2VisibilityKey;
+                break;
+            case Globals.AP2_INDEX:
+                def = false;
+                key = R.string.prefAP2VisibilityKey;
+                break;
             case Globals.ATOLO_INDEX:
                 def = true;
                 key = R.string.prefATOLoVisibilityKey;
@@ -504,6 +512,10 @@ public class RAPreferences {
             case Globals.HUMIDITY_INDEX:
                 def = false;
                 key = R.string.prefHumidityVisibilityKey;
+                break;
+            case Globals.PAR_INDEX:
+                def = false;
+                key = R.string.prefParVisibilityKey;
                 break;
         }
         return getBoolean(key, def);
