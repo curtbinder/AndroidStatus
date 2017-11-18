@@ -24,6 +24,11 @@
   -->
 
 <changelog bulletedList="true">
+    <changelogversion versionName="2.1.0" changeDate="December, 2017">
+        <changelogtext>Added RA Star support</changelogtext>
+        <changelogtext>Added support for PAR expansion module</changelogtext>
+        <changelogtext>Code cleanup</changelogtext>
+    </changelogversion>
     <changelogversion versionName="2.0.0" changeDate="June 5, 2015">
         <changelogtext>Added Custom Variable value updating</changelogtext>
         <changelogtext>Fixed AI display bug and channel swap</changelogtext>
@@ -40,18 +45,5 @@
         <changelogtext>Switched to using Fragments</changelogtext>
         <changelogtext>Improved displaying changelog</changelogtext>
         <changelogtext>Code cleanup</changelogtext>
-    </changelogversion>
-    <changelogversion versionName="1.0.0" changeDate="August 20, 2014">
-        <changelogtext>added in basic webserver authentication mechanism for v1.1.1 libraries</changelogtext>
-        <changelogtext>switched the position of Commands page and Flags Page</changelogtext>
-        <changelogtext>added in Notifications for Water Level 1-4 and Humidity</changelogtext>
-        <changelogtext>added in 16 channel pwm support</changelogtext>
-        <changelogtext>removed ActionBarSherlock and ViewPagerIndicator library dependencies</changelogtext>
-        <changelogtext>switched to use OkHttp library for network function calls</changelogtext>
-        <changelogtext>changed minsdk to 7 (was 5), which is Android 2.1</changelogtext>
-        <changelogtext>improved error messages</changelogtext>
-        <changelogtext>added the ability to display the error log file</changelogtext>
-        <changelogtext>added preference to keep screen on when displaying the main screen</changelogtext>
-        <changelogtext>code cleanup and bug fixes</changelogtext>
     </changelogversion>
 </changelog>
