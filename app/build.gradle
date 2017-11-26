@@ -25,11 +25,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
+    compileSdkVersion 23
     buildToolsVersion '26.0.2'
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 206
         versionName '2.1.0'
     }
@@ -50,10 +50,10 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:22.2.0'
-    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.android.support:support-v4:23.3.0'
+    compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.squareup.okio:okio:1.13.0'
     compile 'com.squareup.okhttp3:okhttp:3.9.1'
-    compile 'com.github.gabrielemariotti.changeloglib:changelog:2.0.0'
+    compile 'com.github.gabrielemariotti.changeloglib:changelog:2.1.0'
     compile fileTree(include: ['*.jar'], dir: 'libs')
 }

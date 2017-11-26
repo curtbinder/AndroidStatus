@@ -29,10 +29,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
-import com.squareup.okhttp.Credentials;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+import okhttp3.Credentials;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -84,9 +84,10 @@ public class ControllerTask implements Runnable {
         broadcastUpdateStatus(R.string.statusStart);
         try {
             URL url = new URL(host.toString());
-            OkHttpClient client = new OkHttpClient();
-            client.setConnectTimeout(host.getConnectTimeout(), TimeUnit.MILLISECONDS);
-            client.setReadTimeout(host.getReadTimeout(), TimeUnit.MILLISECONDS);
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .connectTimeout(host.getConnectTimeout(), TimeUnit.MILLISECONDS)
+                    .readTimeout(host.getReadTimeout(), TimeUnit.MILLISECONDS)
+                    .build();
             Request.Builder builder = new Request.Builder();
             builder.url(url);
             // set authentication if enabled AND ONLY if this not a request for labels.
@@ -162,10 +163,7 @@ public class ControllerTask implements Runnable {
             }
         }
         if (response != null) {
-            try {
-                response.body().close();
-            } catch (IOException e) {
-            }
+            response.close();
         }
     }
 

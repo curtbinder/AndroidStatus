@@ -27,6 +27,7 @@
     <changelogversion versionName="2.1.0" changeDate="December, 2017">
         <changelogtext>Added RA Star support</changelogtext>
         <changelogtext>Added support for PAR expansion module</changelogtext>
+        <changelogtext>Updated code libraries</changelogtext>
         <changelogtext>Code cleanup</changelogtext>
     </changelogversion>
     <changelogversion versionName="2.0.0" changeDate="June 5, 2015">
