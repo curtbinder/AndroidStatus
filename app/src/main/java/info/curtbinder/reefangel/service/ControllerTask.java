@@ -554,6 +554,7 @@ public class ControllerTask implements Runnable {
         v.put(StatusTable.COL_DCD, ra.getDCPumpValue(Controller.DCPUMP_DURATION));
         v.put(StatusTable.COL_DCT, ra.getDCPumpValue(Controller.DCPUMP_THRESHOLD));
         v.put(StatusTable.COL_PAR, ra.getPar());
+        v.put(StatusTable.COL_BOARD, ra.getBoard());
         rapp.getContentResolver().insert(Uri.parse(StatusProvider.CONTENT_URI + "/"
                 + StatusProvider.PATH_STATUS), v);
         // Clear the error retry count on successful insertion of data

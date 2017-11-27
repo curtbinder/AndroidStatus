@@ -362,7 +362,8 @@ public class XMLHandler extends DefaultHandler {
                 Log.e(TAG, "Invalid XML tag: " + tag);
             }
         } else if ( tag.equals( XMLTags.BoardID ) ) {
-            Log.d( TAG, "Board ID: " + currentElementText );
+            //Log.d( TAG, "Board ID: " + currentElementText );
+            ra.setBoard(Byte.parseByte(currentElementText));
         } else if ( tag.equals( XMLTags.MyReefAngelID ) ) {
             Log.d( TAG, "Reefangel ID: " + currentElementText );
         } else {
