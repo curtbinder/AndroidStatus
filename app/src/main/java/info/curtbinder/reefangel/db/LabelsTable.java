@@ -53,6 +53,8 @@ public class LabelsTable {
     public static final String COL_PH = "ph";
     public static final String COL_AP = "ap";
     public static final String COL_DP = "dp";
+    public static final String COL_AP2 = "ap2";
+    public static final String COL_DP2 = "dp2";
     public static final String COL_ATOLOW = "atolow";
     public static final String COL_ATOHIGH = "atohigh";
     public static final String COL_SALINITY = "salinity";
@@ -65,6 +67,7 @@ public class LabelsTable {
     public static final String COL_W3 = "w3";
     public static final String COL_W4 = "w4";
     public static final String COL_HUMIDITY = "humidity";
+    public static final String COL_PAR = "par";
     // pwm expansion
     public static final String COL_PWME0 = "pwme0";
     public static final String COL_PWME1 = "pwme1";
@@ -190,6 +193,8 @@ public class LabelsTable {
             + COL_PH + " TEXT, "
             + COL_AP + " TEXT, "
             + COL_DP + " TEXT, "
+            + COL_AP2 + " TEXT, "
+            + COL_DP2 + " TEXT, "
             + COL_ATOLOW + " TEXT, "
             + COL_ATOHIGH + " TEXT, "
             + COL_SALINITY + " TEXT, "
@@ -201,6 +206,7 @@ public class LabelsTable {
             + COL_W3 + " TEXT, "
             + COL_W4 + " TEXT, "
             + COL_HUMIDITY + " TEXT, "
+            + COL_PAR + " TEXT, "
             + COL_PWME0 + " TEXT, "
             + COL_PWME1 + " TEXT, "
             + COL_PWME2 + " TEXT, "
