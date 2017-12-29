@@ -62,6 +62,8 @@ public class ControllersTable {
     public static final String COL_DEVICE_TYPE = "device_type";
     public static final String COL_PORTAL_ID = "portal_id";
     public static final String COL_PORTAL_URL = "portal_url";
+    // Which Controller, RA, RA Plus, RA Star
+    public static final String COL_BOARD_ID = "bid";
     // integer value for quantity
     public static final String COL_RELAY_EXPANSION_QTY = "relay_expansion_qty";
     // boolean to auto update this controllers values
@@ -81,6 +83,7 @@ public class ControllersTable {
             + COL_DEVICE_TYPE + " INTEGER DEFAULT 0, "
             + COL_PORTAL_ID + " TEXT, "
             + COL_PORTAL_URL + " TEXT, "
+            + COL_BOARD_ID + " INTEGER DEFAULT 1, "
             + COL_RELAY_EXPANSION_QTY + " INTEGER DEFAULT 0, "
             + COL_AUTOUPDATE + " INTEGER DEFAULT 1, "
             + COL_PRE10_MEMORY + " INTEGER DEFAULT 0, "
