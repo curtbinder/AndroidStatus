@@ -58,6 +58,7 @@ public class StatusProvider extends ContentProvider {
 	public static final String PATH_STATUS = "status";
 	public static final String PATH_ERROR = "error";
 	public static final String PATH_NOTIFICATION = "notification";
+	public static final String PATH_CONTROLLER = "controller";
 
 	// MIME Types
 	// latest item
@@ -88,6 +89,14 @@ public class StatusProvider extends ContentProvider {
 	public static final String NOTIFICATION_MIME_TYPE =
 			ContentResolver.CURSOR_DIR_BASE_TYPE + CONTENT_MIME_TYPE
 					+ PATH_NOTIFICATION;
+	// controller - 1 item
+	public static final String CONTROLLER_ID_MIME_TYPE =
+			ContentResolver.CURSOR_ITEM_BASE_TYPE + CONTENT_MIME_TYPE
+					+ PATH_CONTROLLER;
+	// controller - all items
+	public static final String CONTROLLER_MIME_TYPE =
+			ContentResolver.CURSOR_DIR_BASE_TYPE + CONTENT_MIME_TYPE
+					+ PATH_CONTROLLER;
 
 	// Used for the UriMatcher
 	private static final int CODE_LATEST = 10;
@@ -97,6 +106,8 @@ public class StatusProvider extends ContentProvider {
 	private static final int CODE_ERROR_ID = 14;
 	private static final int CODE_NOTIFICATION = 15;
 	private static final int CODE_NOTIFICATION_ID = 16;
+	private static final int CODE_CONTROLLER = 20;  // all controllers
+	private static final int CODE_CONTROLLER_ID = 21; // individual controllers
 	private static final UriMatcher sUriMatcher = new UriMatcher(
 		UriMatcher.NO_MATCH );
 	static {
@@ -108,6 +119,8 @@ public class StatusProvider extends ContentProvider {
 		sUriMatcher.addURI( CONTENT, PATH_NOTIFICATION, CODE_NOTIFICATION );
 		sUriMatcher.addURI( CONTENT, PATH_NOTIFICATION + "/#",
 							CODE_NOTIFICATION_ID );
+		sUriMatcher.addURI( CONTENT, PATH_CONTROLLER, CODE_CONTROLLER );
+		sUriMatcher.addURI( CONTENT, PATH_CONTROLLER + "/#", CODE_CONTROLLER_ID );
 	}
 
 	@Override
@@ -160,6 +173,14 @@ public class StatusProvider extends ContentProvider {
 				qb.appendWhere( NotificationTable.COL_ID + "="
 								+ uri.getLastPathSegment() );
 				break;
+            case CODE_CONTROLLER: // no limits
+                table = ControllersTable.TABLE_NAME;
+                break;
+            case CODE_CONTROLLER_ID:
+                table = ControllersTable.TABLE_NAME;
+                qb.appendWhere( ControllersTable.COL_CONTROLLER_ID + "="
+                                + uri.getLastPathSegment() );
+                break;
 			default:
 				throw new IllegalArgumentException( "Uknown URI: " + uri );
 		}
@@ -191,6 +212,10 @@ public class StatusProvider extends ContentProvider {
 				return NOTIFICATION_MIME_TYPE;
 			case CODE_NOTIFICATION_ID:
 				return NOTIFICATION_ID_MIME_TYPE;
+            case CODE_CONTROLLER:
+                return CONTROLLER_MIME_TYPE;
+            case CODE_CONTROLLER_ID:
+                return CONTROLLER_ID_MIME_TYPE;
 			default:
 		}
 		return null;
@@ -214,6 +239,11 @@ public class StatusProvider extends ContentProvider {
 				id = db.insert( NotificationTable.TABLE_NAME, null, cv );
 				path = PATH_NOTIFICATION;
 				break;
+            case CODE_CONTROLLER:
+                // TODO verify insertion of Controller into ControllersTable works
+                id = db.insert( ControllersTable.TABLE_NAME, null, cv );
+                path = PATH_CONTROLLER;
+                break;
 			default:
 				throw new IllegalArgumentException( "Unknown URI: " + uri );
 		}
@@ -259,6 +289,13 @@ public class StatusProvider extends ContentProvider {
 									NotificationTable.COL_ID + "=?",
 									new String[] { uri.getLastPathSegment() } );
 				break;
+            case CODE_CONTROLLER_ID:
+                // TODO verify deletion of Controller from ControllersTable works
+                rowsDeleted =
+                        db.delete( ControllersTable.TABLE_NAME,
+                                    ControllersTable.COL_CONTROLLER_ID + "=?",
+                                    new String[] { uri.getLastPathSegment() } );
+                break;
 			default:
 				throw new IllegalArgumentException( "Unknown URI: " + uri );
 		}
@@ -284,6 +321,12 @@ public class StatusProvider extends ContentProvider {
 						db.update(	NotificationTable.TABLE_NAME, values,
 									selection, selectionArgs );
 				break;
+            case CODE_CONTROLLER:
+                // TODO verify updating of Controller in ControllersTable works
+                rowsUpdated =
+                        db.update( ControllersTable.TABLE_NAME, values,
+                                    selection, selectionArgs);
+                break;
 			default:
 				throw new IllegalArgumentException( "Unknown Update URI: "
 													+ uri );
