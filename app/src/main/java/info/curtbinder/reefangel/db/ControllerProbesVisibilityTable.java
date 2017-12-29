@@ -67,6 +67,8 @@ public class ControllerProbesVisibilityTable {
     public static final String COL_PH = "ph";
     public static final String COL_AP = "ap";
     public static final String COL_DP = "dp";
+    public static final String COL_AP2 = "ap2";
+    public static final String COL_DP2 = "dp2";
     public static final String COL_ATOLOW = "atolow";
     public static final String COL_ATOHIGH = "atohigh";
     public static final String COL_SALINITY = "salinity";
@@ -79,6 +81,7 @@ public class ControllerProbesVisibilityTable {
     public static final String COL_W3 = "w3";
     public static final String COL_W4 = "w4";
     public static final String COL_HUMIDITY = "humidity";
+    public static final String COL_PAR = "par";
 
     private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME
             + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -89,6 +92,8 @@ public class ControllerProbesVisibilityTable {
             + COL_PH + " INTEGER DEFAULT 1, "
             + COL_AP + " INTEGER DEFAULT 1, "
             + COL_DP + " INTEGER DEFAULT 1, "
+            + COL_AP2 + " INTEGER DEFAULT 0, "
+            + COL_DP2 + " INTEGER DEFAULT 0, "
             + COL_ATOLOW + " INTEGER DEFAULT 1, "
             + COL_ATOHIGH + " INTEGER DEFAULT 1, "
             + COL_SALINITY + " INTEGER DEFAULT 0, "
@@ -100,6 +105,7 @@ public class ControllerProbesVisibilityTable {
             + COL_W3 + " INTEGER DEFAULT 0, "
             + COL_W4 + " INTEGER DEFAULT 0, "
             + COL_HUMIDITY + " INTEGER DEFAULT 0, "
+            + COL_PAR + " INTEGER DEFAULT 0, "
             + "FOREIGN KEY (" + COL_CONTROLLER_ID + ") REFERENCES "
             + ControllersTable.TABLE_NAME + "(" + ControllersTable.COL_CONTROLLER_ID + ")"
             + ");";
