@@ -465,6 +465,7 @@ public class StatusFragment extends Fragment {
             // TODO enable Leak module?? maybe it's not needed since it's a flag
             //raApp.raprefs.set(R.string.prefExpLeakDetectorEnableKey, f);
 
+            // TODO add PAR checking?
             raApp.raprefs.setPreviousEM1(newEM1);
         }
 

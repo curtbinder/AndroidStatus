@@ -231,8 +231,14 @@ public class XMLHandler extends DefaultHandler {
             short v = Short.parseShort( currentElementText );
             ra.setPwmA( v );
         } else if ( tag.equals( XMLTags.PWMDaylight ) ) {
-            short v = Short.parseShort( currentElementText );
-            ra.setPwmD( v );
+            short v = Short.parseShort(currentElementText);
+            ra.setPwmD(v);
+        } else if ( tag.equals( XMLTags.PWMActinic2 ) ) {
+            short v = Short.parseShort(currentElementText);
+            ra.setPwmA2(v);
+        } else if ( tag.equals( XMLTags.PWMDaylight2 ) ) {
+            short v = Short.parseShort(currentElementText);
+            ra.setPwmD2(v);
         } else if ( tag.startsWith( XMLTags.PWMExpansion ) &&
                 !tag.endsWith( XMLTags.Override )) {
             short channel =
@@ -327,9 +333,11 @@ public class XMLHandler extends DefaultHandler {
             ra.setCustomVariable( v, c );
         } else if ( tag.startsWith( XMLTags.WaterLevel ) ) {
             // 4 channel water level, tags start with WL
-            short p = Short.parseShort( tag.substring( XMLTags.WaterLevel.length() ) );
-            short v = Short.parseShort( currentElementText );
-            ra.setWaterLevel( p, v );
+            short p = Short.parseShort(tag.substring(XMLTags.WaterLevel.length()));
+            short v = Short.parseShort(currentElementText);
+            ra.setWaterLevel(p, v);
+        } else if ( tag.equals( XMLTags.Par ) ) {
+            Log.d(TAG, "PAR Value: " + currentElementText);
         } else if ( tag.equals( XMLTags.StatusFlags ) ) {
             ra.setStatusFlags( Short.parseShort(currentElementText) );
         } else if ( tag.equals( XMLTags.AlertFlags ) ) {
@@ -346,13 +354,16 @@ public class XMLHandler extends DefaultHandler {
             ra.setExpRelayOffMask( relay, Short.parseShort( currentElementText ) );
         } else if ( tag.startsWith( XMLTags.Relay ) ) {
             try {
-                int relay = Integer.parseInt( tag.substring( XMLTags.Relay.length() ) );
-                if ( fUse085XRelays )
+                int relay = Integer.parseInt(tag.substring(XMLTags.Relay.length()));
+                if (fUse085XRelays)
                     relay += 1;
-                ra.setExpRelayData( relay, Short.parseShort( currentElementText ) );
-            } catch ( NumberFormatException e ) {
-                Log.e( TAG, "Invalid XML tag: " + tag );
+                ra.setExpRelayData(relay, Short.parseShort(currentElementText));
+            } catch (NumberFormatException e) {
+                Log.e(TAG, "Invalid XML tag: " + tag);
             }
+        } else if ( tag.equals( XMLTags.BoardID ) ) {
+            //Log.d( TAG, "Board ID: " + currentElementText );
+            ra.setBoard(Byte.parseByte(currentElementText));
         } else if ( tag.equals( XMLTags.MyReefAngelID ) ) {
             Log.d( TAG, "Reefangel ID: " + currentElementText );
         } else {
@@ -370,7 +381,11 @@ public class XMLHandler extends DefaultHandler {
     private void processPwmOverride ( String tag, String element ) {
 //		Log.d( TAG, "Override tag (" + tag + ") with data: " + element );
         Short value = Short.parseShort( element );
-        if ( tag.startsWith( XMLTags.PWMActinic ) ) {
+        if ( tag.startsWith( XMLTags.PWMActinic2) ) {
+            ra.setPwmA2Override( value );
+        } else if ( tag.startsWith( XMLTags.PWMDaylight2) ) {
+            ra.setPwmD2Override( value );
+        } else if ( tag.startsWith( XMLTags.PWMActinic ) ) {
             ra.setPwmAOverride( value );
         } else if ( tag.startsWith( XMLTags.PWMDaylight ) ) {
             ra.setPwmDOverride( value );
@@ -431,6 +446,12 @@ public class XMLHandler extends DefaultHandler {
             short channel = Short.parseShort( getTagNumber( tag, XMLTags.PWMExpansion16,
                             XMLTags.LabelEnd ) );
             ra.setSCPwmExpansionLabel( channel, currentElementText );
+        } else if ( tag.startsWith( XMLTags.PWMActinic2 + "1" ) ) {
+            // PWMA2
+            ra.setPwmA2Label( currentElementText );
+        } else if ( tag.startsWith( XMLTags.PWMDaylight2 + "1" ) ) {
+            // PWMD2
+            ra.setPwmD2Label( currentElementText );
         } else if ( tag.startsWith( XMLTags.PWMActinic + "1" ) ) {
             // PWMA
             ra.setPwmALabel( currentElementText );

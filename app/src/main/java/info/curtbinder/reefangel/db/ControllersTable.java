@@ -42,7 +42,7 @@ public class ControllersTable {
         host/ip, port, type of device (controller or portal)
         portal id associated with it, quantity of expansion relays, etc
 
-    Added in DB Version 13
+    Added in DB Version 20
      */
 
 
@@ -120,8 +120,8 @@ public class ControllersTable {
             switch (curVer) {
                 default:
                     break;
-                case 12:
-                    // drop the table if the downgraded version is less than 13
+                case 19:
+                    // drop the table if the downgraded version is less than 20
                     dropTable(db);
                     break;
             }

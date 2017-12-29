@@ -45,7 +45,7 @@ public class RelayEnabledPortsTable {
 
     Default:  1 - all ports enabled
 
-    Added in DB Version 13
+    Added in DB Version 20
      */
 
 
@@ -241,8 +241,8 @@ public class RelayEnabledPortsTable {
             switch (curVer) {
                 default:
                     break;
-                case 12:
-                    // drop the table if the downgraded version is less than 13
+                case 19:
+                    // drop the table if the downgraded version is less than 20
                     dropTable(db);
                     break;
             }

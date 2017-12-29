@@ -36,7 +36,7 @@ public class LabelsTable {
     This table contains all the labels associated with each controller.
     Prior to using this table, the labels were all stored in the Settings
 
-    Added in DB Version 13
+    Added in DB Version 20
      */
 
 
@@ -346,8 +346,8 @@ public class LabelsTable {
             switch (curVer) {
                 default:
                     break;
-                case 12:
-                    // drop the table if the downgraded version is less than 13
+                case 19:
+                    // drop the table if the downgraded version is less than 20
                     dropTable(db);
                     break;
             }

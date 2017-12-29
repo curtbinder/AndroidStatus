@@ -43,6 +43,8 @@ public final class XMLTags {
     public static final String PWMDaylight = "PWMD";
     public static final String PWMActinic = "PWMA";
     public static final String PWMExpansion = "PWME";
+    public static final String PWMDaylight2 = "PWMD2";
+    public static final String PWMActinic2 = "PWMA2";
     public static final String Relay = "R";
     public static final String RelayMaskOn = "RON";
     public static final String RelayMaskOff = "ROFF";
@@ -75,6 +77,9 @@ public final class XMLTags {
     public static final String DCPumpSpeed = "DCS";
     public static final String DCPumpDuration = "DCD";
     public static final String DCPumpThreshold = "DCT";
+    public static final String Alarm = "ALARM";
+    public static final String BoardID = "BID";
+    public static final String Par = "PAR";
     public static final String Override = "O";
     public static final String PWMOverrideResponse = "P";
     public static final String StatusFlags = "SF";

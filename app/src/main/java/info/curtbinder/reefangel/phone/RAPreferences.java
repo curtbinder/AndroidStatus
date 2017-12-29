@@ -379,6 +379,14 @@ public class RAPreferences {
                 def = R.string.labelAP;
                 key = R.string.prefAPLabelKey;
                 break;
+            case Globals.DP2_INDEX:
+                def = R.string.labelDP2;
+                key = R.string.prefDP2LabelKey;
+                break;
+            case Globals.AP2_INDEX:
+                def = R.string.labelAP2;
+                key = R.string.prefAP2LabelKey;
+                break;
             case Globals.ATOLO_INDEX:
                 def = R.string.labelAtoLow;
                 key = R.string.prefATOLoLabelKey;
@@ -408,6 +416,10 @@ public class RAPreferences {
             case Globals.HUMIDITY_INDEX:
                 def = R.string.labelHumidity;
                 key = R.string.prefHumidityLabelKey;
+                break;
+            case Globals.PAR_INDEX:
+                def = R.string.labelPar;
+                key = R.string.prefParLabelKey;
                 break;
         }
         return getString(key, def);
@@ -463,6 +475,14 @@ public class RAPreferences {
                 def = true;
                 key = R.string.prefAPVisibilityKey;
                 break;
+            case Globals.DP2_INDEX:
+                def = false;
+                key = R.string.prefDP2VisibilityKey;
+                break;
+            case Globals.AP2_INDEX:
+                def = false;
+                key = R.string.prefAP2VisibilityKey;
+                break;
             case Globals.ATOLO_INDEX:
                 def = true;
                 key = R.string.prefATOLoVisibilityKey;
@@ -492,6 +512,10 @@ public class RAPreferences {
             case Globals.HUMIDITY_INDEX:
                 def = false;
                 key = R.string.prefHumidityVisibilityKey;
+                break;
+            case Globals.PAR_INDEX:
+                def = false;
+                key = R.string.prefParVisibilityKey;
                 break;
         }
         return getBoolean(key, def);

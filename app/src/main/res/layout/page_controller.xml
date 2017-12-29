@@ -58,7 +58,15 @@
         <include
             android:id="@+id/ap_row"
             layout="@layout/genericlabelrow" />
-        
+
+        <include
+            android:id="@+id/dp2_row"
+            layout="@layout/genericlabelrow" />
+
+        <include
+            android:id="@+id/ap2_row"
+            layout="@layout/genericlabelrow" />
+
         <include
             android:id="@+id/atolow_row"
             layout="@layout/genericlabelrow" />
@@ -101,6 +109,10 @@
 
         <include
             android:id="@+id/humidity_row"
+            layout="@layout/genericlabelrow" />
+
+        <include
+            android:id="@+id/par_row"
             layout="@layout/genericlabelrow" />
     </TableLayout>
 

@@ -452,12 +452,22 @@ public class RAApplication extends Application {
             case Globals.OVERRIDE_DAYLIGHT:
                 msg = String.format( Locale.getDefault(),
                         getString( R.string.messagePWMPopupCustom),
-                        name, getString(R.string.prefDPVisibilityTitle) );
+                        name, getString(R.string.prefDPTitle) );
                 break;
             case Globals.OVERRIDE_ACTINIC:
                 msg = String.format( Locale.getDefault(),
                         getString( R.string.messagePWMPopupCustom),
-                        name, getString(R.string.prefAPVisibilityTitle) );
+                        name, getString(R.string.prefAPTitle) );
+                break;
+            case Globals.OVERRIDE_DAYLIGHT2:
+                msg = String.format( Locale.getDefault(),
+                        getString( R.string.messagePWMPopupCustom),
+                        name, getString(R.string.prefDP2Title) );
+                break;
+            case Globals.OVERRIDE_ACTINIC2:
+                msg = String.format( Locale.getDefault(),
+                        getString( R.string.messagePWMPopupCustom),
+                        name, getString(R.string.prefAP2Title) );
                 break;
             case Globals.OVERRIDE_CHANNEL0:
                 msg = String.format( Locale.getDefault(),

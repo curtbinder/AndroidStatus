@@ -44,15 +44,15 @@
                 <EditTextPreference
                     android:defaultValue="@string/labelTemp1"
                     android:key="@string/prefT1LabelKey"
-                    android:title="@string/prefT1LabelTitle" />
+                    android:title="@string/prefT1Title" />
                 <EditTextPreference
                     android:defaultValue="@string/labelTemp2"
                     android:key="@string/prefT2LabelKey"
-                    android:title="@string/prefT2LabelTitle" />
+                    android:title="@string/prefT2Title" />
                 <EditTextPreference
                     android:defaultValue="@string/labelTemp3"
                     android:key="@string/prefT3LabelKey"
-                    android:title="@string/prefT3LabelTitle" />
+                    android:title="@string/prefT3Title" />
                 <EditTextPreference
                     android:defaultValue="@string/labelPH"
                     android:key="@string/prefPHLabelKey"
@@ -60,11 +60,19 @@
                 <EditTextPreference
                     android:defaultValue="@string/labelDP"
                     android:key="@string/prefDPLabelKey"
-                    android:title="@string/prefDPLabelTitle" />
+                    android:title="@string/prefDPTitle" />
                 <EditTextPreference
                     android:defaultValue="@string/labelAP"
                     android:key="@string/prefAPLabelKey"
-                    android:title="@string/prefAPLabelTitle" />
+                    android:title="@string/prefAPTitle" />
+                <EditTextPreference
+                    android:defaultValue="@string/labelDP2"
+                    android:key="@string/prefDP2LabelKey"
+                    android:title="@string/prefDP2Title" />
+                <EditTextPreference
+                    android:defaultValue="@string/labelAP2"
+                    android:key="@string/prefAP2LabelKey"
+                    android:title="@string/prefAP2Title" />
                 <EditTextPreference
                     android:defaultValue="@string/labelAtoLow"
                     android:key="@string/prefATOLoLabelKey"
@@ -109,6 +117,10 @@
                     android:defaultValue="@string/labelHumidity"
                     android:key="@string/prefHumidityLabelKey"
                     android:title="@string/labelHumidity" />
+                <EditTextPreference
+                    android:defaultValue="@string/labelPar"
+                    android:key="@string/prefParLabelKey"
+                    android:title="@string/labelPar" />
             </PreferenceCategory>
         </PreferenceScreen>
         <PreferenceScreen
@@ -118,11 +130,11 @@
                 <CheckBoxPreference
                     android:defaultValue="true"
                     android:key="@string/prefT2VisibilityKey"
-                    android:title="@string/prefT2VisibilityTitle" />
+                    android:title="@string/prefT2Title" />
                 <CheckBoxPreference
                     android:defaultValue="true"
                     android:key="@string/prefT3VisibilityKey"
-                    android:title="@string/prefT3VisibilityTitle" />
+                    android:title="@string/prefT3Title" />
                 <CheckBoxPreference
                     android:defaultValue="true"
                     android:key="@string/prefPHVisibilityKey"
@@ -130,11 +142,19 @@
                 <CheckBoxPreference
                     android:defaultValue="true"
                     android:key="@string/prefDPVisibilityKey"
-                    android:title="@string/prefDPVisibilityTitle" />
+                    android:title="@string/prefDPTitle" />
                 <CheckBoxPreference
                     android:defaultValue="true"
                     android:key="@string/prefAPVisibilityKey"
-                    android:title="@string/prefAPVisibilityTitle" />
+                    android:title="@string/prefAPTitle" />
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:key="@string/prefDP2VisibilityKey"
+                    android:title="@string/prefDP2Title" />
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:key="@string/prefAP2VisibilityKey"
+                    android:title="@string/prefAP2Title" />
                 <CheckBoxPreference
                     android:defaultValue="true"
                     android:key="@string/prefATOLoVisibilityKey"
@@ -179,6 +199,10 @@
                     android:defaultValue="false"
                     android:key="@string/prefHumidityVisibilityKey"
                     android:title="@string/labelHumidity" />
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:key="@string/prefParVisibilityKey"
+                    android:title="@string/labelPar" />
             </PreferenceCategory>
         </PreferenceScreen>
     </PreferenceCategory>

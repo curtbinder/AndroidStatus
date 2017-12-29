@@ -26,7 +26,7 @@
 <resources>
 
     <string name="app_name">Reef Angel Status</string>
-    <string name="app_version">2.0.0</string>
+    <string name="app_version">2.1.0</string>
     <string name="db_authority">info.curtbinder.reefangel.db</string>
 
     <string name="drawer_open">Open navigation drawer</string>
@@ -147,11 +147,14 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="labelPH">PH</string>
     <string name="labelDP">DP</string>
     <string name="labelAP">AP</string>
+    <string name="labelDP2">DP 2</string>
+    <string name="labelAP2">AP 2</string>
     <string name="labelSalinity">Salinity</string>
     <string name="labelORP">ORP</string>
     <string name="labelPHExp">PH Exp</string>
     <string name="labelWaterLevel">Water</string>
     <string name="labelHumidity">Humidity</string>
+    <string name="labelPar">PAR</string>
     <string name="labelAtoLow">ATO Low</string>
     <string name="labelAtoHigh">ATO High</string>
     <string name="labelPort1">Port 1</string>
@@ -340,7 +343,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="prefContributorTitle">Contributors</string>
     <string name="prefContributorSummary">Roberto Imai, Mathieu Brisson, Tin Pavlinic</string>
     <string name="prefCopyrightTitle">Copyright</string>
-    <string name="prefCopyrightSummary">Copyright 2011–15 Curt Binder</string>
+    <string name="prefCopyrightSummary">Copyright 2011–17 Curt Binder</string>
     <string name="prefLicenseTitle">License</string>
     <string name="prefLicenseSummary">This work is licensed under the MIT License.</string>
     <string name="prefChangelogSummary">Displays changelog</string>
@@ -353,10 +356,10 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="prefVisibilityCategory">Visibility Settings</string>
     <string name="prefControllerVisibilityTitle">Label Visibility</string>
     <string name="prefControllerVisibilitySummary">Controller labels</string>
-    <string name="prefT2VisibilityTitle">Temp Sensor 2</string>
-    <string name="prefT3VisibilityTitle">Temp Sensor 3</string>
-    <string name="prefDPVisibilityTitle">Daylight Channel</string>
-    <string name="prefAPVisibilityTitle">Actinic Channel</string>
+    <string name="prefDPTitle">Daylight Channel</string>
+    <string name="prefAPTitle">Actinic Channel</string>
+    <string name="prefDP2Title">Daylight 2 Channel</string>
+    <string name="prefAP2Title">Actinic 2 Channel</string>
     <string name="prefPHVisibilityTitle">PH</string>
     <string name="prefSalinityVisibilityTitle">Salinity</string>
     <string name="prefORPVisibilityTitle">ORP</string>
@@ -369,11 +372,9 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="prefControllerLabelsDownloadTitle">Download</string>
     <string name="prefControllerLabelsDownloadSummary">Retrieves your labels from reefangel.com using id: </string>
     <string name="prefControllerLabelsTitle">Controller</string>
-    <string name="prefT1LabelTitle">Temp Sensor 1</string>
-    <string name="prefT2LabelTitle">Temp Sensor 2</string>
-    <string name="prefT3LabelTitle">Temp Sensor 3</string>
-    <string name="prefDPLabelTitle">Daylight Channel</string>
-    <string name="prefAPLabelTitle">Actinic Channel</string>
+    <string name="prefT1Title">Temp Sensor 1</string>
+    <string name="prefT2Title">Temp Sensor 2</string>
+    <string name="prefT3Title">Temp Sensor 3</string>
     <string name="prefPHExpLabelTitle">PH Expansion</string>
     <string name="prefWaterLevelLabelTitle">Water Level</string>
     <string name="prefWaterLevel1LabelTitle">Water Level 1</string>
@@ -498,6 +499,8 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="prefT3VisibilityKey">t3_visibility</string>
     <string name="prefDPVisibilityKey">dp_visibility</string>
     <string name="prefAPVisibilityKey">ap_visibility</string>
+    <string name="prefDP2VisibilityKey">dp2_visibility</string>
+    <string name="prefAP2VisibilityKey">ap2_visibility</string>
     <string name="prefPHVisibilityKey">ph_visibility</string>
     <string name="prefATOLoVisibilityKey">atolo_visibility</string>
     <string name="prefATOHiVisibilityKey">atohi_visibility</string>
@@ -505,6 +508,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="prefORPVisibilityKey">orp_visibility</string>
     <string name="prefPHExpVisibilityKey">phe_visibility</string>
     <string name="prefHumidityVisibilityKey">humidity_visibility</string>
+    <string name="prefParVisibilityKey">par_visibility</string>
     <string name="prefResetLabelsKey">reset_labels</string>
     <string name="prefResetEnabledPortsKey">reset_enabled_ports</string>
     <string name="prefControllerLabelsDownloadKey">download_labels</string>
@@ -514,12 +518,15 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="prefPHLabelKey">ph_label</string>
     <string name="prefDPLabelKey">dp_label</string>
     <string name="prefAPLabelKey">ap_label</string>
+    <string name="prefDP2LabelKey">dp2_label</string>
+    <string name="prefAP2LabelKey">ap2_label</string>
     <string name="prefATOLoLabelKey">atolo_label</string>
     <string name="prefATOHiLabelKey">atohi_label</string>
     <string name="prefSalinityLabelKey">salinity_label</string>
     <string name="prefORPLabelKey">orp_label</string>
     <string name="prefPHExpLabelKey">phe_label</string>
     <string name="prefHumidityLabelKey">humidity_label</string>
+    <string name="prefParLabelKey">par_label</string>
     <string name="prefMainPort1LabelKey">main_port1_label</string>
     <string name="prefMainPort2LabelKey">main_port2_label</string>
     <string name="prefMainPort3LabelKey">main_port3_label</string>
