@@ -29,6 +29,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -46,12 +47,12 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import info.curtbinder.reefangel.wizard.SetupWizardActivity;
 
 public class MainActivity extends ActionBarActivity
-        implements ActionBar.OnNavigationListener,
-        FragmentManager.OnBackStackChangedListener {
+        implements ActionBar.OnNavigationListener {
 
 //    public static final int REQUEST_EXIT = 1;
 //    public static final int RESULT_EXIT = 1024;
@@ -71,6 +72,7 @@ public class MainActivity extends ActionBarActivity
     private ActionBarDrawerToggle mDrawerToggle;
     private Boolean opened = null;
     private int mOldPosition = -1;
+    private Boolean fCanExit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +101,6 @@ public class MainActivity extends ActionBarActivity
         setupToolbar();
         setupNavDrawer();
         updateActionBar();
-        getSupportFragmentManager().addOnBackStackChangedListener(this);
         selectItem(position);
 
         // launch a new thread to show the drawer on very first app launch
@@ -126,6 +127,7 @@ public class MainActivity extends ActionBarActivity
     protected void onResume() {
         super.onResume();
 
+        fCanExit = false;
         fRestoreState = true;
         setNavigationList();
 
@@ -243,56 +245,23 @@ public class MainActivity extends ActionBarActivity
             mDrawerLayout.closeDrawer(mDrawerList);
             return;
         }
-        super.onBackPressed();
-    }
+        if ( !fCanExit ) {
+            Toast.makeText(this, R.string.messageExitNotification, Toast.LENGTH_SHORT).show();
+            fCanExit = true;
 
-    @Override
-    public void onBackStackChanged() {
-//        Log.d(TAG, "onBackStackChanged");
-        /*
-        This is called when there is a change to the backstack.
-        The call is when items are added or removed from the backstack.
-        Mostly just need to update the UI in this function.
+            Handler h = new Handler();
+            h.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+//                    Log.d(TAG, "Disabling exit flag");
+                    fCanExit = false;
+                }
+            }, 2000);
 
-        Since we are replacing all the fragments in our example, we need to check
-        for an empty backstack and exit the app when it is encountered. If we do not,
-        we are left with a blank screen in the activity and the last fragment is removed.
-        We are then required to press back one more time to actually exit the application.
-        This check combines the extra step to make it function more naturally.
-         */
-        FragmentManager manager = getSupportFragmentManager();
-        //dumpBackStack(manager);
-        int count = manager.getBackStackEntryCount();
-        if (count == 0) {
-//            Log.d(TAG, "empty backstack, exit");
-            finish();
             return;
         }
-        /*
-        Our fragment backstack uses the position number in the navigation drawer as
-        the fragment tag for simplicity with highlighting the item.
-
-        uncertain how this will be handled if we have additional fragments added to the
-        backstack that are not referenced in the navigation drawer
-         */
-        FragmentManager.BackStackEntry entry = manager.getBackStackEntryAt(count - 1);
-        int last = Integer.parseInt(entry.getName());
-        highlightItem(last);
+        super.onBackPressed();
     }
-
-    /*private void dumpBackStack(FragmentManager fm) {
-        // dumps the contents of the backstack in a string
-        int count = fm.getBackStackEntryCount();
-        // 0 based index, last item is 1 less than count
-        FragmentManager.BackStackEntry e;
-        String s = "";
-        for (int i = count - 1; i >= 0; i--) {
-            e = fm.getBackStackEntryAt(i);
-            s += e.getName() + ", ";
-        }
-        s += "null";
-        Log.d(TAG, "BS Dump (" + count + "): " + s);
-    }*/
 
     private void updateContent(int position) {
         if (position != mOldPosition) {
@@ -324,7 +293,6 @@ public class MainActivity extends ActionBarActivity
             FragmentTransaction ft =
                     getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_frame, fragment);
-            ft.addToBackStack("" + position);
             ft.commit();
             mOldPosition = position;
         }
@@ -333,6 +301,7 @@ public class MainActivity extends ActionBarActivity
     public void selectItem(int position) {
 //        Log.d(TAG, "selectItem: " + position);
         updateContent(position);
+        highlightItem(position);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 

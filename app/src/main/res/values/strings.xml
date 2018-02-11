@@ -280,6 +280,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="messagePWMPopupCustom">%1$s (%2$s)</string>
     <string name="messageErrorTimeout">Timeout connecting to %1$s:%2$s</string>
     <string name="messageResetAllPrefsPrompt">Reset all application preferences?</string>
+    <string name="messageExitNotification">Press \'Back\' again to exit</string>
 
     <!-- Status strings -->
     <string name="statusStart">Starting update</string>
