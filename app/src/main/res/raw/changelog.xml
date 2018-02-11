@@ -24,6 +24,9 @@
   -->
 
 <changelog bulletedList="true">
+    <changelogversion versionName="2.2.0" changeDate="Unknown">
+        <changelogtext>Changed the way the Back button works</changelogtext>
+    </changelogversion>
     <changelogversion versionName="2.1.0" changeDate="November 26, 2017">
         <changelogtext>Added initial RA Star support</changelogtext>
         <changelogtext>Added support for PAR expansion module</changelogtext>

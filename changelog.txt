@@ -245,3 +245,11 @@ Changelog of all the versions of AndroidStatus
  * Improved displaying changelog
  * Code cleanup
 
+2.1 - November 26, 2017
+ * Added initial RA Star support
+ * Added support for PAR expansion module
+ * Updated code libraries
+ * Code cleanup
+
+2.2 - ?
+ * Changed the way the Back button operates
