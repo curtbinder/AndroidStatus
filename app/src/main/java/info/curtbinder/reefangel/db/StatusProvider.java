@@ -295,6 +295,16 @@ public class StatusProvider extends ContentProvider {
                         db.delete( ControllersTable.TABLE_NAME,
                                     ControllersTable.COL_CONTROLLER_ID + "=?",
                                     new String[] { uri.getLastPathSegment() } );
+                /* TODO need to delete all references in other tables to the deleted controller
+                When deleting a controller, we need to delete all of the following:
+                    * errors
+                    * notifications
+                    * status
+                    * labels
+                    * enabled ports
+                    * probes visibility
+                 related to the deleted controller
+                 */
                 break;
 			default:
 				throw new IllegalArgumentException( "Unknown URI: " + uri );
