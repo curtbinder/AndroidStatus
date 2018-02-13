@@ -36,14 +36,18 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.channels.FileChannel;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import info.curtbinder.reefangel.db.RADbHelper;
 import info.curtbinder.reefangel.service.MessageCommands;
 import info.curtbinder.reefangel.service.UpdateService;
 import info.curtbinder.reefangel.service.XMLReadException;
@@ -300,6 +304,29 @@ public class RAApplication extends Application {
             }
         }
         return f;
+    }
+
+    public void exportDatabase() {
+        File path = getDatabasePath(RADbHelper.DB_NAME);
+        File exportedDb = new File(getLoggingDirectory(), RADbHelper.DB_NAME + "3");
+        try {
+            copy(path, exportedDb);
+            Toast.makeText(this, R.string.messageExportSuccessful, Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            Toast.makeText(this, R.string.messageError, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Log.d(TAG, "Exported DB: " + exportedDb.getAbsolutePath());
+    }
+
+    public void copy(File src, File dst) throws IOException {
+        FileInputStream inStream = new FileInputStream(src);
+        FileOutputStream outStream = new FileOutputStream(dst);
+        FileChannel inChannel = inStream.getChannel();
+        FileChannel outChannel = outStream.getChannel();
+        inChannel.transferTo(0, inChannel.size(), outChannel);
+        inStream.close();
+        outStream.close();
     }
 
     private boolean isNumber(Object value) {

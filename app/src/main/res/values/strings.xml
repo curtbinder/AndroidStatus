@@ -281,6 +281,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="messageErrorTimeout">Timeout connecting to %1$s:%2$s</string>
     <string name="messageResetAllPrefsPrompt">Reset all application preferences?</string>
     <string name="messageExitNotification">Press \'Back\' again to exit</string>
+    <string name="messageExportSuccessful">Database Exported</string>
 
     <!-- Status strings -->
     <string name="statusStart">Starting update</string>
@@ -482,6 +483,8 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="prefResetAllPrefsTitle">Reset All App Preferences</string>
     <string name="prefKeepScreenOnSummary">Keeps the screen from shutting off while the app is open</string>
     <string name="prefKeepScreenOnTitle">Keep Screen On</string>
+    <string name="prefExportDatabaseSummary">Exports your database to your SD card</string>
+    <string name="prefExportDatabaseTitle">Export Database</string>
 
     <!-- Preference Keys -->
     <string name="prefFirstRunKey">firstrun</string>
@@ -686,6 +689,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="prefUpdateControllerIPKey">update_controller_ip</string>
     <string name="prefResetAllPrefsKey">reset_all_prefs</string>
     <string name="prefKeepScreenOnKey">keep_screen_on</string>
+    <string name="prefExportDatabaseKey">export_database</string>
 
     <!-- Permissions -->
     <string name="permissionQueryStatusLabel">Query status of controller</string>

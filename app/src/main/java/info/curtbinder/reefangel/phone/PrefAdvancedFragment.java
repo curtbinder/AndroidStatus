@@ -27,6 +27,7 @@ package info.curtbinder.reefangel.phone;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
 
@@ -63,6 +64,14 @@ public class PrefAdvancedFragment extends PreferenceFragment
 
 //        Preference p = findPreference(raApp.getString(R.string.prefResetAllPrefsKey));
 //        p.setOnPreferenceClickListener(new ResetAllPreferenceListener());
+        Preference p = findPreference(raApp.getString(R.string.prefExportDatabaseKey));
+        p.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                raApp.exportDatabase();
+                return false;
+            }
+        });
     }
 
     @Override

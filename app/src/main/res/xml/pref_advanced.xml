@@ -58,6 +58,10 @@
         android:entryValues="@array/networkTimeoutValues"
         android:key="@string/prefReadTimeoutKey"
         android:title="@string/prefReadTimeoutTitle" />
+    <PreferenceScreen
+        android:key="@string/prefExportDatabaseKey"
+        android:summary="@string/prefExportDatabaseSummary"
+        android:title="@string/prefExportDatabaseTitle" />
     <!--<PreferenceScreen-->
     <!--android:key="@string/prefResetAllPrefsKey"-->
     <!--android:summary="@string/prefResetSummary"-->
