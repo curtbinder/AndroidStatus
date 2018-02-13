@@ -55,5 +55,6 @@ dependencies {
     compile 'com.squareup.okio:okio:1.13.0'
     compile 'com.squareup.okhttp3:okhttp:3.9.1'
     compile 'com.github.gabrielemariotti.changeloglib:changelog:2.1.0'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     compile fileTree(include: ['*.jar'], dir: 'libs')
 }

@@ -279,7 +279,8 @@ public class MainActivity extends ActionBarActivity
                     fragment = NotificationsFragment.newInstance();
                     break;
                 case 3:
-                    fragment = HistoryFragment.newInstance();
+                    //fragment = HistoryFragment.newInstance();
+                    fragment = History2Fragment.newInstance();
                     break;
                 case 4:
                     fragment = ErrorsFragment.newInstance();
