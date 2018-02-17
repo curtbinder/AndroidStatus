@@ -29,18 +29,15 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
@@ -49,15 +46,15 @@ import java.util.List;
 import info.curtbinder.reefangel.db.StatusProvider;
 import info.curtbinder.reefangel.db.StatusTable;
 
-public class History2Fragment extends Fragment {
+public class HistoryGraphFragment extends Fragment {
 
     private LineChart chart;
 
-    public History2Fragment() {
+    public HistoryGraphFragment() {
     }
 
-    public static History2Fragment newInstance() {
-        return new History2Fragment();
+    public static HistoryGraphFragment newInstance() {
+        return new HistoryGraphFragment();
     }
 
     @Override
