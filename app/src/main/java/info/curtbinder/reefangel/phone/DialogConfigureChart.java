@@ -24,6 +24,7 @@
 
 package info.curtbinder.reefangel.phone;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.support.v4.app.DialogFragment;
@@ -89,7 +90,9 @@ public class DialogConfigureChart extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Log.d(TAG, "OK clicked");
-                saveChartSettings();
+                Intent intent = saveChartSettings();
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+                dismiss();
             }
         });
         builder.setNegativeButton(R.string.buttonCancel, new DialogInterface.OnClickListener() {
@@ -109,17 +112,17 @@ public class DialogConfigureChart extends DialogFragment {
 
     }
 
-    protected void saveChartSettings() {
+    protected Intent saveChartSettings() {
         // TODO copy the indices back into the variables
         v1_index = 5;
         v2_index = 3;
         v3_index = 0;
         d1_index = 9;
-        Bundle args = new Bundle();
-        args.putInt(VALUES1, v1_index);
-        args.putInt(VALUES2, v2_index);
-        args.putInt(VALUES3, v3_index);
-        args.putInt(DATE1, d1_index);
-//        setArguments(args);
+        Bundle extras = new Bundle();
+        extras.putInt(VALUES1, v1_index);
+        extras.putInt(VALUES2, v2_index);
+        extras.putInt(VALUES3, v3_index);
+        extras.putInt(DATE1, d1_index);
+        return new Intent().putExtras(extras);
     }
 }

@@ -106,7 +106,9 @@ public class HistoryGraphFragment extends Fragment {
         switch (requestCode) {
             case DialogConfigureChart.CONFIGURE_CHART:
                 if ( resultCode == Activity.RESULT_OK ) {
-                    // TODO verify data exists
+                    if ( data == null ) {
+                        return;
+                    }
                     updateChartSettings(data);
 //                    displayChart();
                 }
@@ -144,12 +146,12 @@ public class HistoryGraphFragment extends Fragment {
 
     private void updateChartSettings(Intent data) {
         // get the indices from the dialog for the values and date range
-        valuesItemIndex[0] = data.getIntExtra(DialogConfigureChart.VALUES1, 0);
+        valuesItemIndex[0] = data.getIntExtra(DialogConfigureChart.VALUES1, 1);
         valuesItemIndex[1] = data.getIntExtra(DialogConfigureChart.VALUES2, 0);
         valuesItemIndex[2] = data.getIntExtra(DialogConfigureChart.VALUES3, 0);
         dateRangeItemIndex = data.getIntExtra(DialogConfigureChart.DATE1, 0);
-        Log.d(TAG, "Values: " + valuesItemIndex[0] + ", " + valuesItemIndex[1] + ", " +
-        valuesItemIndex[2] + ", " + dateRangeItemIndex);
+//        Log.d(TAG, "Values: " + valuesItemIndex[0] + ", " + valuesItemIndex[1] + ", " +
+//        valuesItemIndex[2] + ", " + dateRangeItemIndex);
     }
 
     private void displayChart() {
