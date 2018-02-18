@@ -24,12 +24,19 @@
 
 package info.curtbinder.reefangel.phone;
 
+import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -43,12 +50,22 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.db.StatusProvider;
 import info.curtbinder.reefangel.db.StatusTable;
 
 public class HistoryGraphFragment extends Fragment {
 
+    public static final String TAG = HistoryGraphFragment.class.getSimpleName();
     private LineChart chart;
+
+    // There are a max of 3 values that can be charted
+    private int[] valuesItemIndex = {1,0,0};
+    // The date range item index
+    private int dateRangeItemIndex = 0;    // Default to 1st item, which is 1 day
+
+    String[] dataSetLabels;
+    String[] dataSetValues;
 
     public HistoryGraphFragment() {
     }
@@ -65,63 +82,133 @@ public class HistoryGraphFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadData();
+        displayChart();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.frag_history2, container, false);
-
+        setHasOptionsMenu( true );
+        dataSetLabels = getResources().getStringArray(R.array.chartDataSetNames);
+        dataSetValues = getResources().getStringArray(R.array.chartDataSetValues);
+        View root = inflater.inflate(R.layout.frag_history_chart, container, false);
         findViews(root);
         return root;
+    }
+
+    @Override
+    public void onCreateOptionsMenu (Menu menu, MenuInflater inflater ) {
+        inflater.inflate( R.menu.frag_history_chart, menu );
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case DialogConfigureChart.CONFIGURE_CHART:
+                if ( resultCode == Activity.RESULT_OK ) {
+                    // TODO verify data exists
+                    updateChartSettings(data);
+//                    displayChart();
+                }
+                break;
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected ( MenuItem item ) {
+        switch ( item.getItemId() ) {
+            case R.id.action_configure_chart:
+                Log.d(TAG, "Configure chart");
+                // Launch dialog to configure the data
+                DialogConfigureChart d1 = DialogConfigureChart.newInstance(valuesItemIndex[0],
+                        valuesItemIndex[1], valuesItemIndex[2], dateRangeItemIndex);
+                d1.setTargetFragment(this, DialogConfigureChart.CONFIGURE_CHART);
+                d1.show(getFragmentManager(), "dlgconfigurechart");
+                break;
+            case R.id.action_refresh_chart:
+                // Call loadData to reload the data based on the options selected
+                displayChart();
+                break;
+            case R.id.action_save_chart:
+                Log.d(TAG, "Save chart");
+                // save with 80% quality
+//                chart.saveToGallery("File", 80);
+                break;
+        }
+        return true;
     }
 
     private void findViews(View root) {
         chart = (LineChart) root.findViewById(R.id.line_chart);
     }
 
-    private void loadData() {
-        // TODO query the data from the database
+    private void updateChartSettings(Intent data) {
+        // get the indices from the dialog for the values and date range
+        valuesItemIndex[0] = data.getIntExtra(DialogConfigureChart.VALUES1, 0);
+        valuesItemIndex[1] = data.getIntExtra(DialogConfigureChart.VALUES2, 0);
+        valuesItemIndex[2] = data.getIntExtra(DialogConfigureChart.VALUES3, 0);
+        dateRangeItemIndex = data.getIntExtra(DialogConfigureChart.DATE1, 0);
+        Log.d(TAG, "Values: " + valuesItemIndex[0] + ", " + valuesItemIndex[1] + ", " +
+        valuesItemIndex[2] + ", " + dateRangeItemIndex);
+    }
+
+    private void displayChart() {
+        final Cursor c = loadData();
+        if ( c == null ) {
+            chart.setNoDataText(getResources().getString(R.string.messageNoChartData));
+            return;
+        }
+        refreshChart(c);
+    }
+
+    @Nullable
+    private Cursor loadData() {
+        // Sanity check, ensure a parameter is chosen for charting
+        if ( isDataSetEnabled(0) && isDataSetEnabled(1) && isDataSetEnabled(2) ) {
+            Log.d(TAG, "No data chosen, don't bother updating or reloading");
+            return null;
+        }
+
         Uri uri = Uri.parse(StatusProvider.CONTENT_URI + "/"
                         + StatusProvider.PATH_STATUS);
         final ContentResolver resolver = getActivity().getContentResolver();
-        final String[] projection = {   StatusTable.COL_ID,
-                                        StatusTable.COL_LOGDATE,
-                                        StatusTable.COL_T1,
-                                        StatusTable.COL_PH,
-                                        StatusTable.COL_SAL};
-        // query the database for the values
-        Cursor c = resolver.query(uri, projection, null, null, StatusTable.COL_ID + " ASC LIMIT 25");
+        final String[] projection = getProjectionList();
+        // TODO update the LIMIT
+        String sortOrder = StatusTable.COL_ID + " ASC LIMIT 25";
+        /// TODO selection criteria will limit the data
 
+        // query the database for the values
+        return resolver.query(uri, projection, null, null, sortOrder);
+    }
+
+    private void refreshChart(Cursor c) {
         // create a list of the data points for the chart
-        List<Entry> t1_entries = new ArrayList<Entry>();
-//        List<Entry> t2_entries = new ArrayList<Entry>();
-//        List<Entry> t3_entries = new ArrayList<Entry>();
+        List<Entry> v1 = new ArrayList<Entry>();
+        List<Entry> v2 = new ArrayList<Entry>();
+        List<Entry> v3 = new ArrayList<Entry>();
         final ArrayList<String> dates = new ArrayList<String>();
         float count = 0;
 
-        if ( c == null ) {
-            chart.setNoDataText("No data available");
-            return;
-        }
-
         float fX, fY1, fY2, fY3;
-        String s;
         if ( c.moveToFirst() ) {
             do {
                 // we have data
-                fY1 = c.getFloat(c.getColumnIndex(StatusTable.COL_T1));
-//                fY2 = c.getFloat(c.getColumnIndex(StatusTable.COL_PH));
-//                fY3 = c.getFloat(c.getColumnIndex(StatusTable.COL_SAL));
-                //fX = c.getFloat(c.getColumnIndex(StatusTable.COL_ID));
                 fX = count++;
-                s = c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE));
-//                Log.d("CHART", "X: " + fX + ", T1: " + fY1 + ", T2: " + fY2 + ", T3: " + fY3 + " - " + s);
-                dates.add(s);
-                t1_entries.add(new Entry(fX, fY1));
-//                t2_entries.add(new Entry(fX, fY2));
-//                t3_entries.add(new Entry(fX, fY3));
+
+                if ( isDataSetEnabled(0) ) {
+                    fY1 = getActualValue(c, 0);
+                    v1.add(new Entry(fX, fY1));
+                }
+                if ( isDataSetEnabled(1) ) {
+                    fY2 = getActualValue(c, 1);
+                    v2.add(new Entry(fX, fY2));
+                }
+                if ( isDataSetEnabled(2) ) {
+                    fY3 = getActualValue(c, 2);
+                    v3.add(new Entry(fX, fY3));
+                }
+
+                dates.add(c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE)));
             } while(c.moveToNext());
         } else {
             // no data
@@ -133,25 +220,97 @@ public class HistoryGraphFragment extends Fragment {
         XAxis xAxis = chart.getXAxis();
         xAxis.setDrawLabels(false);
 
-        // Create the DataSet for the line, set the Legend label for the data and change the color
-        LineDataSet ds1 = new LineDataSet(t1_entries, "T1");
-//        ds1.setColor(R.color.red);
-//        LineDataSet ds2 = new LineDataSet(t2_entries, "pH");
-//        ds2.setColor(R.color.reefangelblue);
-//        LineDataSet ds3 = new LineDataSet(t3_entries, "Sal");
-//        ds3.setColor(R.color.green);
-
-        // Create list of datasets for the chart
+        /*
+        Create the main list for the Dataset for the chart
+        If the any of the 3 available datasets are available, creat a new dataset and add to list
+         */
         List<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-        dataSets.add(ds1);
-//        dataSets.add(ds2);
-//        dataSets.add(ds3);
+        if (isDataSetEnabled(0)) {
+            LineDataSet ds1 = new LineDataSet(v1, getDataSetLabel(0));
+//            ds1.setColor(R.color.red);
+            dataSets.add(ds1);
+        }
+        if (isDataSetEnabled(1)) {
+            LineDataSet ds2 = new LineDataSet(v2, getDataSetLabel(1));
+//            ds2.setColor(R.color.reefangelblue);
+            dataSets.add(ds2);
+
+        }
+        if (isDataSetEnabled(2)) {
+            LineDataSet ds3 = new LineDataSet(v3, getDataSetLabel(2));
+//            ds3.setColor(R.color.green);
+            dataSets.add(ds3);
+        }
 
         // Create the Line Data
         LineData lineData = new LineData(dataSets);
 
         chart.setData(lineData); // add the line data to the chart
+        // TODO consider changing max range based on screen size OR user selectable
         chart.setVisibleXRangeMaximum(10);
         chart.invalidate(); // refresh the data
+    }
+
+    private String[] getProjectionList() {
+        // returns the projection list needed for the cursor based on the parameters selected
+        // in the configuration dialog
+        final ArrayList<String> parameters = new ArrayList<>();
+        parameters.add(StatusTable.COL_ID);
+        parameters.add(StatusTable.COL_LOGDATE);
+        // loop through the values and get the index for each value
+        for (int i = 0; i < valuesItemIndex.length; i++ ) {
+            if (valuesItemIndex[i] == 0 ) {
+                // skip over the None item
+                continue;
+            }
+            // Add the item to the list
+            parameters.add(dataSetValues[valuesItemIndex[i]]);
+            String s = getPWMColumnOverride(valuesItemIndex[i]);
+            if (!s.isEmpty() ) {
+                parameters.add(s);
+            }
+        }
+        String[] a = new String[parameters.size()];
+        a = parameters.toArray(a);
+        return a;
+    }
+
+    private boolean isDataSetEnabled(int index) {
+        return ( valuesItemIndex[index] > 0 );
+    }
+
+    private String getDataSetLabel(int index) {
+        return dataSetLabels[valuesItemIndex[index]];
+    }
+
+    private float getActualValue(Cursor c, int index) {
+        float y, tmp;
+        String s = "";
+        y = c.getFloat(c.getColumnIndex(dataSetValues[valuesItemIndex[index]]));
+        s = getPWMColumnOverride(valuesItemIndex[index]);
+        if ( !s.isEmpty() ) {
+            tmp = c.getFloat(c.getColumnIndex(s));
+            y = Controller.getPWMValueFromOverride(y, tmp);
+        }
+        return y;
+    }
+
+    private String getPWMColumnOverride(int index) {
+        String column = "";
+        switch (index) {
+            case 6:  // DP
+                column = StatusTable.COL_PWMDO;
+                break;
+            case 7:  // AP
+                column = StatusTable.COL_PWMAO;
+                break;
+            case 8:  // DP2
+                column = StatusTable.COL_PWMD2O;
+                break;
+            case 9:  // AP2
+                column = StatusTable.COL_PWMA2O;
+                break;
+        }
+        return column;
     }
 }

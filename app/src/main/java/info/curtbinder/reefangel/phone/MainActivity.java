@@ -386,9 +386,17 @@ public class MainActivity extends ActionBarActivity
         if ( mi != null )
             mi.setVisible(!open);
 
-        // Delete button on History and Error pages
+        // Delete button on Error page
         mi = menu.findItem(R.id.menu_delete);
         if ( mi != null )
+            mi.setVisible(!open);
+
+        // hide buttons on History / Chart page
+        mi = menu.findItem(R.id.action_configure_chart);
+        if (mi != null)
+            mi.setVisible(!open);
+        mi = menu.findItem(R.id.action_refresh_chart);
+        if (mi != null)
             mi.setVisible(!open);
     }
 

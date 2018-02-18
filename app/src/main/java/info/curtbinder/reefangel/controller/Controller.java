@@ -840,6 +840,16 @@ public class Controller {
         return v;
     }
 
+    public static float getPWMValueFromOverride( float data, float override) {
+        float v;
+        if ( override > Globals.OVERRIDE_MAX_VALUE ) {
+            v = override;
+        } else {
+            v = data;
+        }
+        return v;
+    }
+
     public static String getPWMDisplayValue( short data, short override ) {
         String s = String.format(Locale.getDefault(), "%d%%", getPWMValueFromOverride(data, override));
         if ( isPWMOverrideEnabled(data, override) ) {

@@ -783,4 +783,56 @@ is listed as a 0 based index and it is associated with this memoryLocations arra
         <item>60000</item>
     </string-array>
 
+    <string-array name="chartDataSetNames">
+        <item>None</item>
+        <item>Temp 1</item>
+        <item>Temp 2</item>
+        <item>Temp 3</item>
+        <item>PH</item>
+        <item>PH Expansion</item>
+        <item>Daylight PWM</item>
+        <item>Actinic PWM</item>
+        <item>Daylight 2 PWM</item>
+        <item>Actinic 2 PWM</item>
+        <item>Salinity</item>
+        <item>ORP</item>
+        <item>PAR</item>
+        <item>Humidity</item>
+        <item>Water Level</item>
+        <item>Water Level 1</item>
+        <item>Water Level 2</item>
+        <item>Water Level 3</item>
+        <item>Water Level 4</item>
+    </string-array>
+    <string-array name="chartDataSetValues">
+        <item></item>
+        <item>t1</item>
+        <item>t2</item>
+        <item>t3</item>
+        <item>ph</item>
+        <item>phe</item>
+        <item>dp</item>
+        <item>ap</item>
+        <item>pwmd2</item>
+        <item>pwma2</item>
+        <item>sal</item>
+        <item>orp</item>
+        <item>par</item>
+        <item>hum</item>
+        <item>wl</item>
+        <item>wl1</item>
+        <item>wl2</item>
+        <item>wl3</item>
+        <item>wl4</item>
+    </string-array>
+    <string-array name="chartDateRangeLabels">
+        <item>1 day</item>
+        <item>1 week</item>
+        <item>2 weeks</item>
+        <item>1 month</item>
+        <item>90 days</item>
+        <item>6 months</item>
+        <item>1 year</item>
+        <item>All</item>
+    </string-array>
 </resources>
