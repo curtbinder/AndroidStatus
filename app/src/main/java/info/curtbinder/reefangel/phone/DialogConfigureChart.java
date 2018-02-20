@@ -35,6 +35,8 @@ import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 /**
  * Created by binder on 2/17/18.
@@ -51,6 +53,11 @@ public class DialogConfigureChart extends DialogFragment {
     public static final String DATE1 = "date1";
 
     private int v1_index = 1, v2_index = 0, v3_index = 0, d1_index = 0;
+
+    private Spinner param1Spinner;
+    private Spinner param2Spinner;
+    private Spinner param3Spinner;
+    private Spinner dateSpinner;
 
     public DialogConfigureChart(){
     }
@@ -84,12 +91,18 @@ public class DialogConfigureChart extends DialogFragment {
             v3_index = args.getInt(VALUES3, 0);
             d1_index = args.getInt(DATE1, 0);
         }
+        // Set the values to the spinners
+        param1Spinner.setSelection(v1_index);
+        param2Spinner.setSelection(v2_index);
+        param3Spinner.setSelection(v3_index);
+        dateSpinner.setSelection(d1_index);
+
         builder.setView(root);
         builder.setTitle(R.string.titleConfigureChart);
         builder.setPositiveButton(R.string.buttonOk, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Log.d(TAG, "OK clicked");
+//                Log.d(TAG, "OK clicked");
                 Intent intent = saveChartSettings();
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
                 dismiss();
@@ -105,19 +118,30 @@ public class DialogConfigureChart extends DialogFragment {
     }
 
     private void findViews(View root) {
-
+        param1Spinner = (Spinner) root.findViewById(R.id.chartParam1Spin);
+        param2Spinner = (Spinner) root.findViewById(R.id.chartParam2Spin);
+        param3Spinner = (Spinner) root.findViewById(R.id.chartParam3Spin);
+        dateSpinner = (Spinner) root.findViewById(R.id.chartDateSpin);
     }
 
     private void setAdapters() {
-
+        ArrayAdapter<CharSequence> p = ArrayAdapter.createFromResource(getActivity(),
+                R.array.chartDataSetNames, android.R.layout.simple_spinner_item);
+        p.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        param1Spinner.setAdapter(p);
+        param2Spinner.setAdapter(p);
+        param3Spinner.setAdapter(p);
+        p = ArrayAdapter.createFromResource(getActivity(),
+                R.array.chartDateRangeLabels, android.R.layout.simple_spinner_item);
+        p.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        dateSpinner.setAdapter(p);
     }
 
     protected Intent saveChartSettings() {
-        // TODO copy the indices back into the variables
-        v1_index = 5;
-        v2_index = 3;
-        v3_index = 0;
-        d1_index = 9;
+        v1_index = param1Spinner.getSelectedItemPosition();
+        v2_index = param2Spinner.getSelectedItemPosition();
+        v3_index = param3Spinner.getSelectedItemPosition();
+        d1_index = dateSpinner.getSelectedItemPosition();
         Bundle extras = new Bundle();
         extras.putInt(VALUES1, v1_index);
         extras.putInt(VALUES2, v2_index);

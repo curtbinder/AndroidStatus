@@ -842,10 +842,13 @@ public class Controller {
 
     public static float getPWMValueFromOverride( float data, float override) {
         float v;
+        // above 100%, so override is disabled
         if ( override > Globals.OVERRIDE_MAX_VALUE ) {
-            v = override;
-        } else {
+            // override disabled, return actual value
             v = data;
+        } else {
+            // override is enabled, so we return override value
+            v = override;
         }
         return v;
     }

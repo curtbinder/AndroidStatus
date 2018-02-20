@@ -28,6 +28,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -41,6 +42,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -77,11 +79,36 @@ public class HistoryGraphFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if ( savedInstanceState != null ) {
+            valuesItemIndex = savedInstanceState.getIntArray("values_index");
+            dateRangeItemIndex = savedInstanceState.getInt("date_index");
+            Log.d(TAG, "create loaded");
+        }
+        Log.d(TAG, "oncreate: {" + valuesItemIndex[0] + ", " + valuesItemIndex[1] + ", " + valuesItemIndex[2] + "}");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putIntArray("values_index", valuesItemIndex);
+        outState.putInt("date_index", dateRangeItemIndex);
+        Log.d(TAG, "saved: {" + valuesItemIndex[0] + ", " + valuesItemIndex[1] + ", " + valuesItemIndex[2] + "}");
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if ( savedInstanceState != null ) {
+            valuesItemIndex = savedInstanceState.getIntArray("values_index");
+            dateRangeItemIndex = savedInstanceState.getInt("date_index");
+            Log.d(TAG, "restored: {" + valuesItemIndex[0] + ", " + valuesItemIndex[1] + ", " + valuesItemIndex[2] + "}");
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        Log.d(TAG, "onresume: {" + valuesItemIndex[0] + ", " + valuesItemIndex[1] + ", " + valuesItemIndex[2] + "}");
         displayChart();
     }
 
@@ -93,6 +120,13 @@ public class HistoryGraphFragment extends Fragment {
         dataSetValues = getResources().getStringArray(R.array.chartDataSetValues);
         View root = inflater.inflate(R.layout.frag_history_chart, container, false);
         findViews(root);
+
+        // Chart Configuration Settings
+        // disable the description text
+        chart.getDescription().setEnabled(false);
+        // disable right axis
+        chart.getAxisRight().setEnabled(false);
+
         return root;
     }
 
@@ -110,7 +144,7 @@ public class HistoryGraphFragment extends Fragment {
                         return;
                     }
                     updateChartSettings(data);
-//                    displayChart();
+                    displayChart();
                 }
                 break;
         }
@@ -158,6 +192,7 @@ public class HistoryGraphFragment extends Fragment {
         final Cursor c = loadData();
         if ( c == null ) {
             chart.setNoDataText(getResources().getString(R.string.messageNoChartData));
+            chart.clear();
             return;
         }
         refreshChart(c);
@@ -166,7 +201,7 @@ public class HistoryGraphFragment extends Fragment {
     @Nullable
     private Cursor loadData() {
         // Sanity check, ensure a parameter is chosen for charting
-        if ( isDataSetEnabled(0) && isDataSetEnabled(1) && isDataSetEnabled(2) ) {
+        if ( !isDataSetEnabled(0) && !isDataSetEnabled(1) && !isDataSetEnabled(2) ) {
             Log.d(TAG, "No data chosen, don't bother updating or reloading");
             return null;
         }
@@ -184,6 +219,9 @@ public class HistoryGraphFragment extends Fragment {
     }
 
     private void refreshChart(Cursor c) {
+        // Clear the chart first, then refresh the data
+        chart.clear();
+
         // create a list of the data points for the chart
         List<Entry> v1 = new ArrayList<Entry>();
         List<Entry> v2 = new ArrayList<Entry>();
@@ -229,18 +267,23 @@ public class HistoryGraphFragment extends Fragment {
         List<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
         if (isDataSetEnabled(0)) {
             LineDataSet ds1 = new LineDataSet(v1, getDataSetLabel(0));
-//            ds1.setColor(R.color.red);
+            ds1.setColor(Color.RED);
+            ds1.setCircleColor(Color.RED);
+            ds1.setCircleRadius(3f);
             dataSets.add(ds1);
         }
         if (isDataSetEnabled(1)) {
             LineDataSet ds2 = new LineDataSet(v2, getDataSetLabel(1));
-//            ds2.setColor(R.color.reefangelblue);
+            ds2.setColor(Color.BLUE);
+            ds2.setCircleColor(Color.BLUE);
+            ds2.setCircleRadius(3f);
             dataSets.add(ds2);
-
         }
         if (isDataSetEnabled(2)) {
             LineDataSet ds3 = new LineDataSet(v3, getDataSetLabel(2));
-//            ds3.setColor(R.color.green);
+            ds3.setColor(Color.GREEN);
+            ds3.setCircleColor(Color.GREEN);
+            ds3.setCircleRadius(3f);
             dataSets.add(ds3);
         }
 
@@ -248,6 +291,8 @@ public class HistoryGraphFragment extends Fragment {
         LineData lineData = new LineData(dataSets);
 
         chart.setData(lineData); // add the line data to the chart
+        Legend l = chart.getLegend();
+        l.setTextSize(16f);
         // TODO consider changing max range based on screen size OR user selectable
         chart.setVisibleXRangeMaximum(10);
         chart.invalidate(); // refresh the data
