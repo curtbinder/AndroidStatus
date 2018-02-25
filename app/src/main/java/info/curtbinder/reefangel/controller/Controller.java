@@ -236,10 +236,16 @@ public class Controller {
     }
 
     public void setTempLabel ( int sensor, String label ) {
+        // sanity check: make sure the sensor is within range
+        if ((sensor < 1) || (sensor > MAX_TEMP_SENSORS))
+            return;
         tempSensors[sensor - 1].setLabel( label );
     }
 
     public String getTempLabel ( int sensor ) {
+        // sanity check: make sure the sensor is within range
+        if ((sensor < 1) || (sensor > MAX_TEMP_SENSORS))
+            return "";
         return tempSensors[sensor - 1].getLabel();
     }
 
@@ -428,66 +434,98 @@ public class Controller {
     }
 
     public void setPwmExpansion ( short channel, short v ) {
+        if ((channel < 0) || (channel > MAX_PWM_EXPANSION_PORTS))
+            return;
         pwmExpansion[channel].setData( v );
     }
 
     public short getPwmExpansion ( short channel ) {
+        if ((channel < 0) || (channel > MAX_PWM_EXPANSION_PORTS))
+            return 0;
         return pwmExpansion[channel].getData();
     }
 
     public short getPwmExpansionOverride ( short channel ) {
+        if ((channel < 0) || (channel > MAX_PWM_EXPANSION_PORTS))
+            return Globals.OVERRIDE_DISABLE;
         return pwmExpansion[channel].getOverrideValue();
     }
 
     public void setPwmExpansionOverride ( short channel, short v ) {
+        if ((channel < 0) || (channel > MAX_PWM_EXPANSION_PORTS))
+            return;
         pwmExpansion[channel].setOverride( v );
     }
 
     public void setPwmExpansionLabel ( short channel, String label ) {
+        if ((channel < 0) || (channel > MAX_PWM_EXPANSION_PORTS))
+            return;
         pwmExpansion[channel].setLabel( label );
     }
 
     public String getPwmExpansionLabel ( short channel ) {
+        if ((channel < 0) || (channel > MAX_PWM_EXPANSION_PORTS))
+            return "";
         return pwmExpansion[channel].getLabel();
     }
 
     public void setSCPwmExpansion ( short channel, short v ) {
+        if ((channel < 0) || (channel > MAX_SCPWM_EXPANSION_PORTS))
+            return;
         pwmSCExpansion[channel].setData(v);
     }
 
     public short getSCPwmExpansion ( short channel ) {
+        if ((channel < 0) || (channel > MAX_SCPWM_EXPANSION_PORTS))
+            return 0;
         return pwmSCExpansion[channel].getData();
     }
 
     public short getSCPwmExpansionOverride ( short channel ) {
+        if ((channel < 0) || (channel > MAX_SCPWM_EXPANSION_PORTS))
+            return Globals.OVERRIDE_DISABLE;
         return pwmSCExpansion[channel].getOverrideValue();
     }
 
     public void setSCPwmExpansionOverride ( short channel, short v ) {
+        if ((channel < 0) || (channel > MAX_SCPWM_EXPANSION_PORTS))
+            return;
         pwmSCExpansion[channel].setOverride(v);
     }
 
     public void setSCPwmExpansionLabel ( short channel, String label ) {
+        if ((channel < 0) || (channel > MAX_SCPWM_EXPANSION_PORTS))
+            return;
         pwmSCExpansion[channel].setLabel(label);
     }
 
     public String getSCPwmExpansionLabel ( short channel ) {
+        if ((channel < 0) || (channel > MAX_SCPWM_EXPANSION_PORTS))
+            return "";
         return pwmSCExpansion[channel].getLabel();
     }
 
     public void setWaterLevel ( short port, short value ) {
+        if ((port < 0) || (port > MAX_WATERLEVEL_PORTS))
+            return;
         waterlevel[port].setData( value );
     }
 
     public short getWaterLevel ( short port ) {
+        if ((port < 0) || (port > MAX_WATERLEVEL_PORTS))
+            return 0;
         return waterlevel[port].getData();
     }
 
     public void setWaterLevelLabel ( short port, String label ) {
+        if ((port < 0) || (port > MAX_WATERLEVEL_PORTS))
+            return;
         waterlevel[port].setLabel( label );
     }
 
     public String getWaterLevelLabel ( short port ) {
+        if ((port < 0) || (port > MAX_WATERLEVEL_PORTS))
+            return "";
         return waterlevel[port].getLabel();
     }
 
@@ -607,18 +645,26 @@ public class Controller {
     }
 
     public short getCustomVariable ( short var ) {
+        if ((var < 0) || (var > MAX_CUSTOM_VARIABLES))
+            return 0;
         return customVariables[var].getData();
     }
 
     public void setCustomVariable ( short var, short value ) {
+        if ((var < 0) || (var > MAX_CUSTOM_VARIABLES))
+            return;
         customVariables[var].setData( value );
     }
 
     public String getCustomVariableLabel ( short var ) {
+        if ((var < 0) || (var > MAX_CUSTOM_VARIABLES))
+            return "";
         return customVariables[var].getLabel();
     }
 
     public void setCustomVariableLabel ( short var, String label ) {
+        if ((var < 0) || (var > MAX_CUSTOM_VARIABLES))
+            return;
         customVariables[var].setLabel( label );
     }
 

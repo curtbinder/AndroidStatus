@@ -440,11 +440,15 @@ public class XMLHandler extends DefaultHandler {
             // PWME
             short channel = Short.parseShort( getTagNumber( tag, XMLTags.PWMExpansion,
                             XMLTags.LabelEnd ) );
+            if ( channel < 0 || channel > Controller.MAX_PWM_EXPANSION_PORTS )
+                Log.e(TAG, "Incorrect PWM Expansion port: " + tag);
             ra.setPwmExpansionLabel( channel, currentElementText );
         } else if ( tag.startsWith( XMLTags.PWMExpansion16 ) ) {
             // SCPWME
             short channel = Short.parseShort( getTagNumber( tag, XMLTags.PWMExpansion16,
                             XMLTags.LabelEnd ) );
+            if ( channel < 0 || channel > Controller.MAX_SCPWM_EXPANSION_PORTS )
+                Log.e(TAG, "Incorrect SCPWM Expansion port: " + tag);
             ra.setSCPwmExpansionLabel( channel, currentElementText );
         } else if ( tag.startsWith( XMLTags.PWMActinic2 + "1" ) ) {
             // PWMA2
@@ -479,12 +483,16 @@ public class XMLHandler extends DefaultHandler {
         } else if ( tag.startsWith( XMLTags.WaterLevel ) ) {
             // 4 channel Water Level
             short p = Short.parseShort( getTagNumber(tag, XMLTags.WaterLevel, XMLTags.LabelEnd) );
+            if ( p < 0 || p > Controller.MAX_WATERLEVEL_PORTS )
+                Log.e(TAG, "Incorrect Water Level Port: " + tag);
             ra.setWaterLevelLabel( p, currentElementText );;
         } else if ( tag.startsWith( XMLTags.Custom ) ) {
             // C
             short v =
                     Short.parseShort( getTagNumber( tag, XMLTags.Custom,
                             XMLTags.LabelEnd ) );
+            if ( v < 0 || v > Controller.MAX_CUSTOM_VARIABLES )
+                Log.e(TAG, "Incorrect Custom Variable: " + tag);
             ra.setCustomVariableLabel( v, currentElementText );
         } else if ( tag.startsWith( XMLTags.IO ) ) {
             // IO
