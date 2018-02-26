@@ -49,8 +49,12 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.db.StatusProvider;
@@ -210,9 +214,10 @@ public class HistoryGraphFragment extends Fragment {
                         + StatusProvider.PATH_STATUS);
         final ContentResolver resolver = getActivity().getContentResolver();
         final String[] projection = getProjectionList();
-        // TODO update the LIMIT
-        String sortOrder = StatusTable.COL_ID + " ASC LIMIT 25";
+        // Add LIMIT to restrict the quantity of the results
+        String sortOrder = StatusTable.COL_ID + " ASC";
         /// TODO selection criteria will limit the data
+        final String selection = getSelectionCriteria();
 
         // query the database for the values
         return resolver.query(uri, projection, null, null, sortOrder);
@@ -320,6 +325,61 @@ public class HistoryGraphFragment extends Fragment {
         String[] a = new String[parameters.size()];
         a = parameters.toArray(a);
         return a;
+    }
+
+    @Nullable
+    private String getSelectionCriteria() {
+        String s;
+        Boolean fAllData = false;
+        /*
+        Get Current Date / Time
+        Put in format that Controller uses
+        Match criteria accordingly
+         */
+        DateFormat dft = DateFormat.getDateTimeInstance( DateFormat.DEFAULT,
+                        DateFormat.DEFAULT,
+                        Locale.getDefault() );
+        // Get today's date in the default format
+        Date today = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(today);
+        switch (dateRangeItemIndex) {
+            case 0:  // 1 day
+                calendar.add(Calendar.DATE, -1);
+                break;
+            case 1:  // 1 week
+                calendar.add(Calendar.WEEK_OF_YEAR, -1);
+                break;
+            case 2:  // 2 weeks
+                calendar.add(Calendar.WEEK_OF_YEAR, -2);
+                break;
+            case 3:  // 1 month
+                calendar.add(Calendar.MONTH, -1);
+                break;
+            case 4:  // 90 days
+                calendar.add(Calendar.DAY_OF_YEAR, -90);
+                break;
+            case 5:  // 6 months
+                calendar.add(Calendar.MONTH, -6);
+                break;
+            case 6:  // 1 year
+                calendar.add(Calendar.YEAR, -1);
+                break;
+            case 7:  // all data
+            default:
+                fAllData = true;
+                break;
+        }
+        // If we want all data, don't bother creating any additional selection criteria
+        if (fAllData) {
+            return null;
+        }
+        // Let's create the WHERE clause
+        s = dft.format(calendar.getTime());
+        Log.d(TAG, "getSelectionCriteria:  Today (" + today.toString() + "),  Date Range (" + s + ")");
+
+        // TODO construct proper WHERE clause from the date
+        return s;
     }
 
     private boolean isDataSetEnabled(int index) {
