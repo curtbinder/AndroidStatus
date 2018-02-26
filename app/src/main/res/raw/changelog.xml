@@ -26,6 +26,9 @@
 <changelog bulletedList="true">
     <changelogversion versionName="2.2.0" changeDate="Unknown">
         <changelogtext>Changed the way the Back button works</changelogtext>
+        <changelogtext>Improved XML processing of labels and values</changelogtext>
+        <changelogtext>Added initial graphing/chart support (Date range does not work currently)</changelogtext>
+        <changelogtext>Added ability to export the raw history sqlite3 database</changelogtext>
     </changelogversion>
     <changelogversion versionName="2.1.0" changeDate="November 26, 2017">
         <changelogtext>Added initial RA Star support</changelogtext>
