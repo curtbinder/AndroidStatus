@@ -174,6 +174,10 @@ public class HistoryGraphFragment extends Fragment {
                 // save with 80% quality
 //                chart.saveToGallery("File", 80);
                 break;
+            case R.id.action_display_dates:
+                Log.d(TAG, "Display Dates");
+                displayDates();
+                break;
         }
         return true;
     }
@@ -419,5 +423,9 @@ public class HistoryGraphFragment extends Fragment {
                 break;
         }
         return column;
+    }
+
+    private void displayDates() {
+        // Displays all the current dates in the database and
     }
 }

@@ -41,4 +41,9 @@
         android:title="@string/menuSaveChart"
         android:orderInCategory="300"
         app:showAsAction="never" />
+
+    <item android:id="@+id/action_display_dates"
+        android:title="Show Dates"
+        android:orderInCategory="400"
+        app:showAsAction="never" />
 </menu>
