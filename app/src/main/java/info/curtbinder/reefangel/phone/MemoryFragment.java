@@ -29,6 +29,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -82,6 +83,7 @@ public class MemoryFragment extends Fragment {
     private int[] memoryLocations;
     private int[] memoryLocationsTypes;
     private boolean preLocations;
+    boolean fOverridePHLimit;
 
     MemoryReceiver receiver;
     IntentFilter filter;
@@ -128,6 +130,7 @@ public class MemoryFragment extends Fragment {
         super.onResume();
         getActivity().registerReceiver(receiver, filter, Permissions.SEND_COMMAND, null);
         updateButtonsEnabled();
+        fOverridePHLimit = false;
     }
 
     private void updateButtonsEnabled() {
@@ -199,11 +202,35 @@ public class MemoryFragment extends Fragment {
                 }
             } else if ( isSpecialLocation( sel, R.array.phIndex ) ) {
                 if ( (v < PH_MIN) || (v > PH_MAX) ) {
-                    Toast.makeText( getActivity(),
-                            getResources().getString( R.string.messageInvalidRangeFormat,
-                                            PH_MIN, PH_MAX ),
-                            Toast.LENGTH_SHORT ).show();
-                    fRet = false;
+                    if (fOverridePHLimit) {
+                        // We are allowing the user to override the built-in safeguard for values of pH
+                        // We need to make sure the value falls within the INT range before letting them
+                        // write a new value to their locations
+                        if ( (v < Globals.INT_MIN) || (v > Globals.INT_MAX) ) {
+                            Toast.makeText( getActivity(),
+                                    getResources().getString( R.string.messageInvalidRangeFormat,
+                                            Globals.INT_MIN, Globals.INT_MAX ),
+                                    Toast.LENGTH_SHORT ).show();
+                            fRet = false;
+                        }
+                    } else {
+                        Toast.makeText(getActivity(),
+                                getResources().getString(R.string.messageInvalidRangeFormat,
+                                        PH_MIN, PH_MAX),
+                                Toast.LENGTH_SHORT).show();
+                        fRet = false;
+                        // Time to allow the user to override the hard coded pH limitations
+                        // We will still show the warning about the value BUT we will allow the user
+                        // to press the WRITE button again within 10 seconds to override the limitations
+                        // as long as they are within the proper range of the INT variable type
+                        Handler h = new Handler();
+                        h.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                fOverridePHLimit = false;
+                            }
+                        }, 10000);
+                    }
                 }
             } else if ( isSpecialLocation( sel, R.array.timeoutIndex ) ) {
                 if ( (v < TIMEOUTS_MIN) || (v > TIMEOUTS_MAX) ) {
