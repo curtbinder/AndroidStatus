@@ -251,7 +251,7 @@ Changelog of all the versions of AndroidStatus
  * Updated code libraries
  * Code cleanup
 
-2.2 - ?
+2.2 - March 4, 2018
  * Changed the way the Back button operates
  * Improved XML processing of labels and values (Added sanity checks for array indices)
  * Added initial graphing/chart support (Date range does not work currently)
