@@ -256,3 +256,4 @@ Changelog of all the versions of AndroidStatus
  * Improved XML processing of labels and values (Added sanity checks for array indices)
  * Added initial graphing/chart support (Date range does not work currently)
  * Added ability to export the raw history sqlite3 database (exports to logging folder)
+ * Added ability to override pH memory value storing limits

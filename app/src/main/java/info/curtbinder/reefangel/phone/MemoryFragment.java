@@ -223,6 +223,7 @@ public class MemoryFragment extends Fragment {
                         // We will still show the warning about the value BUT we will allow the user
                         // to press the WRITE button again within 10 seconds to override the limitations
                         // as long as they are within the proper range of the INT variable type
+                        fOverridePHLimit = true;
                         Handler h = new Handler();
                         h.postDelayed(new Runnable() {
                             @Override
