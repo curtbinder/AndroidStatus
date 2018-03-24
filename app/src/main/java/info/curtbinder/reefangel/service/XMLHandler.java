@@ -26,8 +26,11 @@ package info.curtbinder.reefangel.service;
 
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.controller.DateTime;
+import info.curtbinder.reefangel.phone.RAApplication;
+import info.curtbinder.reefangel.phone.Utils;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -94,10 +97,12 @@ public class XMLHandler extends DefaultHandler {
 	public void endDocument ( ) throws SAXException {
 		if ( ra.getLogDate().equals( "" ) ) {
 			// No log date found, set the date to be the current date/time
-			DateFormat dft =
-					DateFormat.getDateTimeInstance( DateFormat.DEFAULT,
-													DateFormat.DEFAULT,
-													Locale.getDefault() );
+            // TODO Remove this old date format when conversion is known to work properly
+//			DateFormat dft =
+//					DateFormat.getDateTimeInstance( DateFormat.DEFAULT,
+//													DateFormat.DEFAULT,
+//													Locale.getDefault() );
+            SimpleDateFormat dft = Utils.getDefaultDateFormat();
 			ra.setLogDate( dft.format( new Date() ) );
 		}
 	}

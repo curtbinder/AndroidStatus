@@ -127,6 +127,7 @@ public class DateTime {
 	}
 
 	public String getDateTimeString ( ) {
+		// TODO confirm usage of getDateTimeString function call
 		DateFormat dft =
 				DateFormat.getDateTimeInstance( DateFormat.DEFAULT,
 												DateFormat.DEFAULT,

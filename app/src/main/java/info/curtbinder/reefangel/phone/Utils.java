@@ -3,6 +3,10 @@ package info.curtbinder.reefangel.phone;
 import android.app.Activity;
 import android.content.Intent;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 /**
  * Created by binder on 3/6/15.
  */
@@ -40,5 +44,15 @@ public class Utils {
     public static void onActivityCreateSetTheme(Activity activity, int theme) {
         iTheme = theme;
         onActivityCreateSetTheme(activity);
+    }
+
+    public static SimpleDateFormat getDefaultDateFormat() {
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+    }
+
+    public static DateFormat getOldDefaultDateFormat() {
+        return DateFormat.getDateTimeInstance( DateFormat.DEFAULT,
+                DateFormat.DEFAULT,
+                Locale.getDefault() );
     }
 }

@@ -337,6 +337,12 @@ public class StatusProvider extends ContentProvider {
                         db.update( ControllersTable.TABLE_NAME, values,
                                     selection, selectionArgs);
                 break;
+			case CODE_STATUS_ID:
+				rowsUpdated =
+						db.update( StatusTable.TABLE_NAME, values,
+								StatusTable.COL_ID + "=?",
+								new String[] { uri.getLastPathSegment() } );
+				break;
 			default:
 				throw new IllegalArgumentException( "Unknown Update URI: "
 													+ uri );

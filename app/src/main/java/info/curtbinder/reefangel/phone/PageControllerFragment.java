@@ -35,6 +35,13 @@ import android.view.ViewGroup;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 import info.curtbinder.reefangel.controller.Controller;
 import info.curtbinder.reefangel.db.StatusTable;
 
@@ -295,6 +302,19 @@ public class PageControllerFragment extends Fragment
         String[] v;
         if (c.moveToFirst()) {
             updateStatus = c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE));
+            SimpleDateFormat dftProper = Utils.getDefaultDateFormat();
+            Date d;
+            try {
+                // Parse the universal standard date format that is stored in the DB
+                d = dftProper.parse(updateStatus);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(d);
+                DateFormat dftDisplay = Utils.getOldDefaultDateFormat();
+                // Convert to the display date format
+                updateStatus = dftDisplay.format(cal.getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             v = getValues(c);
         } else {
             updateStatus = getString(R.string.messageNever);

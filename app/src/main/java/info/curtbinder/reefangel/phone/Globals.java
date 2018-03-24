@@ -29,6 +29,7 @@ public final class Globals {
     public static final String PRE10_LOCATIONS = "PreLocations";
     public static final String RELAY_BOX_NUMBER = "RelayBoxNumber";
     public static final String loggingFile = "ra_log.txt";
+    public static final String dateConversionFile = "ra_convert_dates.txt";
     public static final int logReplace = 0;
     public static final int logAppend = 1;
     public static final int errorRetryNone = 0;

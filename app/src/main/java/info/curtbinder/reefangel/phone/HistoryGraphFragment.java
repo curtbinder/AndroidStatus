@@ -25,7 +25,9 @@
 package info.curtbinder.reefangel.phone;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -33,7 +35,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -176,7 +180,7 @@ public class HistoryGraphFragment extends Fragment {
                 break;
             case R.id.action_display_dates:
                 Log.d(TAG, "Display Dates");
-                displayDates();
+                fixLogDates();
                 break;
         }
         return true;
@@ -425,7 +429,26 @@ public class HistoryGraphFragment extends Fragment {
         return column;
     }
 
-    private void displayDates() {
-        // Displays all the current dates in the database and
+    private void fixLogDates() {
+        final int themeId = R.style.AlertDialogStyle;
+        final ContextThemeWrapper themeWrapper = new ContextThemeWrapper(getActivity(), themeId);
+        AlertDialog.Builder builder = new AlertDialog.Builder(themeWrapper, themeId);
+        builder.setMessage(R.string.messagePromptDateConversion)
+                .setTitle(R.string.titleConvertDatesPrompt)
+                .setPositiveButton(R.string.buttonYes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        DialogProgressFixDates dlg = DialogProgressFixDates.newInstance();
+                        dlg.show(getFragmentManager(), "dlgprogressfixdates");
+                    }
+                })
+                .setNegativeButton(R.string.buttonNo, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+        Dialog dlg = builder.create();
+        dlg.show();
     }
 }

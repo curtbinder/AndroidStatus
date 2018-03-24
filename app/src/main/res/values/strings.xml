@@ -44,6 +44,7 @@
     <string name="menuDelete">Delete</string>
     <string name="menuConfigureChart">Configure</string>
     <string name="menuSaveChart">Save Graph</string>
+    <string name="menuFixDates">Fix Dates</string>
 
     <!-- Titles for Screens -->
     <string name="titleHistory">Parameters History</string>
@@ -70,6 +71,8 @@
     <string name="titleStatus">Status Flags</string>
     <string name="titleSetupWizard">Setup Wizard</string>
     <string name="titleConfigureChart">Configure Chart</string>
+    <string name="titleFixDates">Fixing Dates</string>
+    <string name="titleConvertDatesPrompt">Proceed with Date Conversion</string>
 
     <!-- Tabs for memory page -->
     <string name="tabMemory1">memory_tab_1</string>
@@ -137,6 +140,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="buttonNext">Next</string>
     <string name="buttonPrevious">Previous</string>
     <string name="buttonExit">Exit</string>
+    <string name="buttonClose">Close</string>
     <string name="radioByte">Byte</string>
     <string name="radioInt">Int</string>
 
@@ -286,6 +290,12 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="messageExitNotification">Press \'Back\' again to exit</string>
     <string name="messageExportSuccessful">Database Exported</string>
     <string name="messageNoChartData">No Chart data available</string>
+    <string name="messageConvertingDates">Converting dates</string>
+    <string name="messageParsingDates">Parsing through %1$d rows</string>
+    <string name="messageParsingDatesCount">Parsing through %1$d of %2$d rows</string>
+    <string name="messagePromptDateConversion">Date conversion from existing, non ISO Standard format to the ISO8601 is about to begin. All current logdates will be converted to the official format.
+        This is necessary to allow the Charts to sort by date ranges. Once the conversion is completed, you do not need to run this again. If you accidentally run it again, it will not hurt anything.
+        \n\nDo you wish to proceed?</string>
 
     <!-- Status strings -->
     <string name="statusStart">Starting update</string>

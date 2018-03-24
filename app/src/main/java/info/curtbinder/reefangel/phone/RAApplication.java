@@ -82,6 +82,7 @@ public class RAApplication extends Application {
     }
 
     public void onCreate() {
+        super.onCreate();
         errorCodes = getResources().getStringArray(R.array.errorCodes);
         errorCodesStrings = getResources().getStringArray(R.array.errorCodesStrings);
         errorCodeMessage = ""; // set to no error message
@@ -304,6 +305,37 @@ public class RAApplication extends Application {
             }
         }
         return f;
+    }
+
+    public String getDateConversionFile() {
+        return getLoggingDirectory() + Globals.dateConversionFile;
+    }
+
+    public PrintWriter openDateConversionFile() {
+        PrintWriter pw = null;
+        try {
+            String sFile = getDateConversionFile();
+            FileWriter fw = new FileWriter(sFile, true);
+            pw = new PrintWriter(fw);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return pw;
+    }
+
+    public void closeDateConversionFile(PrintWriter pw) {
+        if ( pw != null ) {
+            pw.flush();
+            pw.close();
+        }
+    }
+
+    public void logRepeatMsgDateConversion(PrintWriter pw, String msg) {
+        if ( pw != null ) {
+            DateFormat dft = Utils.getOldDefaultDateFormat();
+            pw.println(dft.format(Calendar.getInstance().getTime()));
+            pw.println(msg);
+        }
     }
 
     public void exportDatabase() {
