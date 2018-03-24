@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -54,5 +57,25 @@ public class Utils {
         return DateFormat.getDateTimeInstance( DateFormat.DEFAULT,
                 DateFormat.DEFAULT,
                 Locale.getDefault() );
+    }
+
+    public static String getDisplayDate(String dbDateFormat) {
+        // Assign the return value to be the date given
+        // If there is a problem converting the date, just return the given date
+        String displayDate = dbDateFormat;
+        SimpleDateFormat dftProper = Utils.getDefaultDateFormat();
+        Date d;
+        try {
+            // Parse the universal standard date format that is stored in the DB
+            d = dftProper.parse(dbDateFormat);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(d);
+            DateFormat dftDisplay = Utils.getOldDefaultDateFormat();
+            // Convert to the display date format
+            displayDate = dftDisplay.format(cal.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return displayDate;
     }
 }

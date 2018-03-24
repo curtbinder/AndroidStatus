@@ -301,20 +301,7 @@ public class PageControllerFragment extends Fragment
         String updateStatus;
         String[] v;
         if (c.moveToFirst()) {
-            updateStatus = c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE));
-            SimpleDateFormat dftProper = Utils.getDefaultDateFormat();
-            Date d;
-            try {
-                // Parse the universal standard date format that is stored in the DB
-                d = dftProper.parse(updateStatus);
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(d);
-                DateFormat dftDisplay = Utils.getOldDefaultDateFormat();
-                // Convert to the display date format
-                updateStatus = dftDisplay.format(cal.getTime());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            updateStatus = Utils.getDisplayDate(c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE)));
             v = getValues(c);
         } else {
             updateStatus = getString(R.string.messageNever);

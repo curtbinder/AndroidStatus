@@ -261,7 +261,8 @@ public class HistoryGraphFragment extends Fragment {
                     v3.add(new Entry(fX, fY3));
                 }
 
-                dates.add(c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE)));
+                // TODO verify is the dates need to be in ISO format or "fancy" format
+                dates.add(Utils.getDisplayDate(c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE))));
             } while(c.moveToNext());
         } else {
             // no data

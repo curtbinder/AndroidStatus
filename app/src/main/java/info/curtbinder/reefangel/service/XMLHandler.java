@@ -97,11 +97,6 @@ public class XMLHandler extends DefaultHandler {
 	public void endDocument ( ) throws SAXException {
 		if ( ra.getLogDate().equals( "" ) ) {
 			// No log date found, set the date to be the current date/time
-            // TODO Remove this old date format when conversion is known to work properly
-//			DateFormat dft =
-//					DateFormat.getDateTimeInstance( DateFormat.DEFAULT,
-//													DateFormat.DEFAULT,
-//													Locale.getDefault() );
             SimpleDateFormat dft = Utils.getDefaultDateFormat();
 			ra.setLogDate( dft.format( new Date() ) );
 		}

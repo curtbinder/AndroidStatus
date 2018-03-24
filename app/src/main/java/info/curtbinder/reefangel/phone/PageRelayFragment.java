@@ -260,7 +260,7 @@ public class PageRelayFragment extends Fragment
         String updateStatus;
         short r, ron, roff;
         if (c.moveToFirst()) {
-            updateStatus = c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE));
+            updateStatus = Utils.getDisplayDate(c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE)));
             r = c.getShort(c.getColumnIndex(getColumnName(COL_R)));
             ron = c.getShort(c.getColumnIndex(getColumnName(COL_RON)));
             roff = c.getShort(c.getColumnIndex(getColumnName(COL_ROFF)));

@@ -168,7 +168,7 @@ public class PageDCPumpFragment extends Fragment
         String updateStatus;
         String[] v;
         if (c.moveToFirst()) {
-            updateStatus = c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE));
+            updateStatus = Utils.getDisplayDate(c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE)));
             v = getValues(c);
         } else {
             updateStatus = getString(R.string.messageNever);

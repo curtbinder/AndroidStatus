@@ -191,7 +191,7 @@ implements PageRefreshInterface {
         String updateStatus;
         short sf, af;
         if (c.moveToFirst()) {
-            updateStatus = c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE));
+            updateStatus = Utils.getDisplayDate(c.getString(c.getColumnIndex(StatusTable.COL_LOGDATE)));
             sf = c.getShort(c.getColumnIndex(StatusTable.COL_SF));
             af = c.getShort(c.getColumnIndex(StatusTable.COL_AF));
         } else {
