@@ -24,6 +24,7 @@
 
 package info.curtbinder.reefangel.controller;
 
+import info.curtbinder.reefangel.phone.Utils;
 import info.curtbinder.reefangel.service.RequestCommands;
 
 import java.text.DateFormat;
@@ -128,10 +129,7 @@ public class DateTime {
 
 	public String getDateTimeString ( ) {
 		// TODO confirm usage of getDateTimeString function call
-		DateFormat dft =
-				DateFormat.getDateTimeInstance( DateFormat.DEFAULT,
-												DateFormat.DEFAULT,
-												Locale.getDefault() );
+		DateFormat dft = Utils.getOldDefaultDateFormat();
 		Calendar c = Calendar.getInstance();
 		c.clear();
 		c.set( year, month, day, hour, minute );

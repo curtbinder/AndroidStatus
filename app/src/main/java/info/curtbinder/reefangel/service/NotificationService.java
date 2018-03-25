@@ -34,6 +34,7 @@ import info.curtbinder.reefangel.phone.Permissions;
 import info.curtbinder.reefangel.phone.R;
 import info.curtbinder.reefangel.phone.RAApplication;
 import info.curtbinder.reefangel.phone.MainActivity;
+import info.curtbinder.reefangel.phone.Utils;
 
 import java.util.Locale;
 
@@ -507,7 +508,7 @@ public class NotificationService extends IntentService {
 	private String getInboxStyleMessage ( String msg, long when ) {
 		String extraMessage =
 				String.format(	Locale.getDefault(), "%s - %s", msg,
-								RAApplication.getFancyDate( when ) );
+						Utils.getNotificationDateFormatString(when));
 		return extraMessage;
 	}
 

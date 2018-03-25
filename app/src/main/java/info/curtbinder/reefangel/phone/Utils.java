@@ -53,6 +53,17 @@ public class Utils {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
     }
 
+    public static String getNotificationDateFormatString(long when) {
+        DateFormat fmt = Utils.getNotificationDateFormat();
+        return fmt.format(new Date(when));
+    }
+
+    private static DateFormat getNotificationDateFormat() {
+        return DateFormat.getDateTimeInstance(DateFormat.SHORT,
+                DateFormat.SHORT,
+                Locale.getDefault());
+    }
+
     public static DateFormat getOldDefaultDateFormat() {
         return DateFormat.getDateTimeInstance( DateFormat.DEFAULT,
                 DateFormat.DEFAULT,

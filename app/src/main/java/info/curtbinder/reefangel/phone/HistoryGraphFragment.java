@@ -345,9 +345,8 @@ public class HistoryGraphFragment extends Fragment {
         Put in format that Controller uses
         Match criteria accordingly
          */
-        DateFormat dft = DateFormat.getDateTimeInstance( DateFormat.DEFAULT,
-                        DateFormat.DEFAULT,
-                        Locale.getDefault() );
+        // TODO - convert to new ISO formatted date
+        DateFormat dft = Utils.getOldDefaultDateFormat();
         // Get today's date in the default format
         Date today = new Date();
         Calendar calendar = Calendar.getInstance();

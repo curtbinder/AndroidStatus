@@ -73,14 +73,6 @@ public class RAApplication extends Application {
     public int errorCode;
     public int errorCount;
 
-    public static String getFancyDate(long when) {
-        DateFormat fmt =
-                DateFormat.getDateTimeInstance(DateFormat.SHORT,
-                        DateFormat.SHORT,
-                        Locale.getDefault());
-        return fmt.format(new Date(when));
-    }
-
     public void onCreate() {
         super.onCreate();
         errorCodes = getResources().getStringArray(R.array.errorCodes);
@@ -203,10 +195,7 @@ public class RAApplication extends Application {
                 String sFile = getLoggingFile();
                 FileWriter fw = new FileWriter(sFile, keepFile);
                 PrintWriter pw = new PrintWriter(fw);
-                DateFormat dft =
-                        DateFormat.getDateTimeInstance(DateFormat.DEFAULT,
-                                DateFormat.DEFAULT,
-                                Locale.getDefault());
+                DateFormat dft = Utils.getOldDefaultDateFormat();
                 pw.println(dft.format(Calendar.getInstance().getTime()));
                 String s =
                         String.format("Profile: %s\nHost: %s:%s\nUser ID: %s",

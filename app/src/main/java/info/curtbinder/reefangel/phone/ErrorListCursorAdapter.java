@@ -65,7 +65,7 @@ public class ErrorListCursorAdapter extends CursorAdapter {
 
 	private void setViews ( ViewHolder v, Cursor c ) {
 		v.msg.setText( c.getString( c.getColumnIndex( ErrorTable.COL_MESSAGE ) ) );
-		v.date.setText( RAApplication.getFancyDate(
-                c.getLong( c.getColumnIndex(ErrorTable.COL_TIME) ) ) );
+		v.date.setText( Utils.getNotificationDateFormatString(
+				c.getLong( c.getColumnIndex(ErrorTable.COL_TIME) ) ) );
 	}
 }
