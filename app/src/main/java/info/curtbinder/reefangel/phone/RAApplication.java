@@ -279,11 +279,7 @@ public class RAApplication extends Application {
     }
 
     public boolean isLoggingFilePresent() {
-        boolean f = false;
-        File l = new File(getLoggingFile());
-        if ((l != null) && (l.exists()))
-            f = true;
-        return f;
+        return isFilePresent(getLoggingFile());
     }
 
     public void deleteLoggingFile() {
@@ -307,12 +303,32 @@ public class RAApplication extends Application {
         return f;
     }
 
+    public boolean isFilePresent(String fileName) {
+        boolean f = false;
+        File l = new File(fileName);
+        if ((l != null) && (l.exists()))
+            f = true;
+        return f;
+    }
+
     public String getDateConversionFile() {
         return getLoggingDirectory() + Globals.dateConversionFile;
     }
 
+    private boolean isDateConversionFilePresent() {
+        return isFilePresent(getDateConversionFile());
+    }
+
     public PrintWriter openDateConversionFile() {
+        if (!hasExternalStorage()) {
+            Log.d(TAG, "No external storage available");
+            return null;
+        }
         PrintWriter pw = null;
+        if (!isDateConversionFilePresent()) {
+            // file not present
+            Log.d(TAG, "Date Conversion file not present, creating it");
+        }
         try {
             String sFile = getDateConversionFile();
             FileWriter fw = new FileWriter(sFile, true);
