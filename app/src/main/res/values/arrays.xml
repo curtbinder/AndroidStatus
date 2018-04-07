@@ -825,6 +825,27 @@ is listed as a 0 based index and it is associated with this memoryLocations arra
         <item>wl3</item>
         <item>wl4</item>
     </string-array>
+    <integer-array name="chartDataSetPrecision">
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>2</item>
+        <item>2</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+    </integer-array>
     <string-array name="chartDateRangeLabels">
         <item>1 day</item>
         <item>1 week</item>

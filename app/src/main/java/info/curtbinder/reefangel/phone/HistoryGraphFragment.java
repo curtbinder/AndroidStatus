@@ -76,6 +76,7 @@ public class HistoryGraphFragment extends Fragment {
 
     String[] dataSetLabels;
     String[] dataSetValues;
+    int[] dataSetPrecision;
 
     public HistoryGraphFragment() {
     }
@@ -270,9 +271,17 @@ public class HistoryGraphFragment extends Fragment {
         }
         c.close();
 
+        // TODO Update / improve the popup window, set the background using a drawable
+        // Set the MarkerView, which is the popup when the user taps on a point
+        RAMarkerView mv = new RAMarkerView(getActivity().getApplicationContext(), R.layout.ra_custom_marker, dates);
+        mv.setChartView(chart);
+        chart.setMarker(mv);
 
+        // TODO change the formatting to only have the decimal point for the y-axis and data points
         XAxis xAxis = chart.getXAxis();
         xAxis.setDrawLabels(false);
+
+        // TODO verify axis formatting values
 
         /*
         Create the main list for the Dataset for the chart
@@ -284,6 +293,7 @@ public class HistoryGraphFragment extends Fragment {
             ds1.setColor(Color.RED);
             ds1.setCircleColor(Color.RED);
             ds1.setCircleRadius(3f);
+            ds1.setValueTextSize(10f);
             dataSets.add(ds1);
         }
         if (isDataSetEnabled(1)) {
@@ -291,6 +301,7 @@ public class HistoryGraphFragment extends Fragment {
             ds2.setColor(Color.BLUE);
             ds2.setCircleColor(Color.BLUE);
             ds2.setCircleRadius(3f);
+            ds2.setValueTextSize(10f);
             dataSets.add(ds2);
         }
         if (isDataSetEnabled(2)) {
@@ -298,6 +309,7 @@ public class HistoryGraphFragment extends Fragment {
             ds3.setColor(Color.GREEN);
             ds3.setCircleColor(Color.GREEN);
             ds3.setCircleRadius(3f);
+            ds3.setValueTextSize(10f);
             dataSets.add(ds3);
         }
 
@@ -309,6 +321,7 @@ public class HistoryGraphFragment extends Fragment {
         l.setTextSize(16f);
         // TODO consider changing max range based on screen size OR user selectable
         chart.setVisibleXRangeMaximum(10);
+//        chart.setKeepPositionOnRotation(true);
         chart.invalidate(); // refresh the data
     }
 
