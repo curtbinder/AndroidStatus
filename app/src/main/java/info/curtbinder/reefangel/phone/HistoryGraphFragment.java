@@ -54,6 +54,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -224,12 +225,11 @@ public class HistoryGraphFragment extends Fragment {
         final ContentResolver resolver = getActivity().getContentResolver();
         final String[] projection = getProjectionList();
         // Add LIMIT to restrict the quantity of the results
-        String sortOrder = StatusTable.COL_ID + " ASC";
-        /// TODO selection criteria will limit the data
+        String sortOrder = StatusTable.COL_ID;
         final String selection = getSelectionCriteria();
 
         // query the database for the values
-        return resolver.query(uri, projection, null, null, sortOrder);
+        return resolver.query(uri, projection, selection, null, sortOrder);
     }
 
     private void refreshChart(Cursor c) {
@@ -358,8 +358,8 @@ public class HistoryGraphFragment extends Fragment {
         Put in format that Controller uses
         Match criteria accordingly
          */
-        // TODO - convert to new ISO formatted date
-        DateFormat dft = Utils.getOldDefaultDateFormat();
+        SimpleDateFormat dft = Utils.getDefaultDateFormat();
+
         // Get today's date in the default format
         Date today = new Date();
         Calendar calendar = Calendar.getInstance();
@@ -396,10 +396,8 @@ public class HistoryGraphFragment extends Fragment {
             return null;
         }
         // Let's create the WHERE clause
-        s = dft.format(calendar.getTime());
-        Log.d(TAG, "getSelectionCriteria:  Today (" + today.toString() + "),  Date Range (" + s + ")");
-
-        // TODO construct proper WHERE clause from the date
+        s = "" + StatusTable.COL_LOGDATE + " >= datetime('" + dft.format(calendar.getTime()) + "')";
+        Log.d(TAG, "WHERE: " + s);
         return s;
     }
 
