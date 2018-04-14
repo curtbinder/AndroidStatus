@@ -25,7 +25,8 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="40dp">
+    android:layout_height="40dp"
+    android:background="@drawable/marker">
 
     <TextView
         android:id="@+id/tvContent"
@@ -36,7 +37,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:text=""
-        android:textSize="12dp"
+        android:textSize="12sp"
         android:textColor="@android:color/black"
         android:ellipsize="end"
         android:singleLine="true"
