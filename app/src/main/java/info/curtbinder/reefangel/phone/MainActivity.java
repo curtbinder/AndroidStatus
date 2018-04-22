@@ -294,7 +294,8 @@ public class MainActivity extends ActionBarActivity
                     if (mHistoryContent != null ) {
                         fragment = mHistoryContent;
                     } else {
-                        mHistoryContent = HistoryGraphFragment.newInstance();
+//                        mHistoryContent = HistoryGraphFragment.newInstance();
+                        mHistoryContent = HistoryMultipleGraphFragment.newInstance();
                         fragment = mHistoryContent;
                     }
                     break;
