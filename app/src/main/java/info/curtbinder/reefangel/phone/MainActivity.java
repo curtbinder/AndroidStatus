@@ -48,6 +48,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import info.curtbinder.reefangel.wizard.SetupWizardActivity;
 
 public class MainActivity extends ActionBarActivity
@@ -72,6 +74,7 @@ public class MainActivity extends ActionBarActivity
     private Boolean opened = null;
     private int mOldPosition = -1;
     private Boolean fCanExit = false;
+    private Fragment mHistoryContent = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +99,10 @@ public class MainActivity extends ActionBarActivity
         if (savedInstanceState != null) {
             position = savedInstanceState.getInt(STATE_CHECKED, 0);
             Log.d(TAG, "Restore, position: " + position);
+            if (position == 3) {
+                // history fragment
+                mHistoryContent = getSupportFragmentManager().getFragment(savedInstanceState, "HistoryGraphFragment");
+            }
         }
         setupToolbar();
         setupNavDrawer();
@@ -119,7 +126,11 @@ public class MainActivity extends ActionBarActivity
         super.onSaveInstanceState(outState);
         // get the checked item and subtract off one to get the actual position
         // the same logic applies that is used in the DrawerItemClickedListener.onItemClicked
-        outState.putInt(STATE_CHECKED, mDrawerList.getCheckedItemPosition() - 1);
+        int position = mDrawerList.getCheckedItemPosition() - 1;
+        outState.putInt(STATE_CHECKED, position);
+        if (position == 3) {
+            getSupportFragmentManager().putFragment(outState, "HistoryGraphFragment", mHistoryContent);
+        }
     }
 
     @Override
@@ -279,7 +290,13 @@ public class MainActivity extends ActionBarActivity
                     break;
                 case 3:
                     //fragment = HistoryFragment.newInstance();
-                    fragment = HistoryGraphFragment.newInstance();
+                    // TODO check the restoration of the fragment content
+                    if (mHistoryContent != null ) {
+                        fragment = mHistoryContent;
+                    } else {
+                        mHistoryContent = HistoryGraphFragment.newInstance();
+                        fragment = mHistoryContent;
+                    }
                     break;
                 case 4:
                     fragment = ErrorsFragment.newInstance();

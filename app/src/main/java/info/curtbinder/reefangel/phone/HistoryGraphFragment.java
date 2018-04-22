@@ -87,38 +87,26 @@ public class HistoryGraphFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if ( savedInstanceState != null ) {
-            valuesItemIndex = savedInstanceState.getIntArray("values_index");
-            dateRangeItemIndex = savedInstanceState.getInt("date_index");
-            Log.d(TAG, "create loaded");
-        }
-        Log.d(TAG, "oncreate: {" + valuesItemIndex[0] + ", " + valuesItemIndex[1] + ", " + valuesItemIndex[2] + "}");
-    }
-
-    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putIntArray("values_index", valuesItemIndex);
         outState.putInt("date_index", dateRangeItemIndex);
-        Log.d(TAG, "saved: {" + valuesItemIndex[0] + ", " + valuesItemIndex[1] + ", " + valuesItemIndex[2] + "}");
+        Log.d(TAG, "saved: {" + valuesItemIndex[0] + ", " + valuesItemIndex[1] + ", " + valuesItemIndex[2] + ", " + dateRangeItemIndex + "}");
     }
 
     @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         if ( savedInstanceState != null ) {
             valuesItemIndex = savedInstanceState.getIntArray("values_index");
             dateRangeItemIndex = savedInstanceState.getInt("date_index");
-            Log.d(TAG, "restored: {" + valuesItemIndex[0] + ", " + valuesItemIndex[1] + ", " + valuesItemIndex[2] + "}");
         }
+        Log.d(TAG, "activity created: {" + valuesItemIndex[0] + ", " + valuesItemIndex[1] + ", " + valuesItemIndex[2] + ", " + dateRangeItemIndex + "}");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onresume: {" + valuesItemIndex[0] + ", " + valuesItemIndex[1] + ", " + valuesItemIndex[2] + "}");
         displayChart();
     }
 
@@ -130,6 +118,11 @@ public class HistoryGraphFragment extends Fragment {
         dataSetValues = getResources().getStringArray(R.array.chartDataSetValues);
         View root = inflater.inflate(R.layout.frag_history_chart, container, false);
         findViews(root);
+
+        if ( savedInstanceState != null ) {
+            valuesItemIndex = savedInstanceState.getIntArray("values_index");
+            dateRangeItemIndex = savedInstanceState.getInt("date_index");
+        }
 
         // Chart Configuration Settings
         // disable the description text
@@ -198,8 +191,8 @@ public class HistoryGraphFragment extends Fragment {
         valuesItemIndex[1] = data.getIntExtra(DialogConfigureChart.VALUES2, 0);
         valuesItemIndex[2] = data.getIntExtra(DialogConfigureChart.VALUES3, 0);
         dateRangeItemIndex = data.getIntExtra(DialogConfigureChart.DATE1, 0);
-//        Log.d(TAG, "Values: " + valuesItemIndex[0] + ", " + valuesItemIndex[1] + ", " +
-//        valuesItemIndex[2] + ", " + dateRangeItemIndex);
+        Log.d(TAG, "Values: " + valuesItemIndex[0] + ", " + valuesItemIndex[1] + ", " +
+        valuesItemIndex[2] + ", " + dateRangeItemIndex);
     }
 
     private void displayChart() {
