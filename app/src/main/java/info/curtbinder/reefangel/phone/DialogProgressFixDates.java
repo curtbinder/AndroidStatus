@@ -24,7 +24,6 @@
 
 package info.curtbinder.reefangel.phone;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -89,7 +88,7 @@ public class DialogProgressFixDates extends DialogFragment {
         final ContextThemeWrapper themeWrapper = new ContextThemeWrapper(getActivity(), themeId);
         LayoutInflater inflater = getActivity().getLayoutInflater().cloneInContext(themeWrapper);
         AlertDialog.Builder builder = new AlertDialog.Builder(themeWrapper, themeId);
-        View root = inflater.inflate(R.layout.dlg_progreass_fixdates, null);
+        View root = inflater.inflate(R.layout.dlg_progress_fixdates, null);
         bar = (ProgressBar) root.findViewById(R.id.progressFixDate);
         message = (TextView) root.findViewById(R.id.textFixDateMessage);
         updateMessage(getString(R.string.messageConvertingDates));
