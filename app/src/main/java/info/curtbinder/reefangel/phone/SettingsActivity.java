@@ -34,7 +34,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -42,7 +42,7 @@ import android.view.View;
 
 import info.curtbinder.reefangel.service.MessageCommands;
 
-public class SettingsActivity extends ActionBarActivity
+public class SettingsActivity extends AppCompatActivity
 implements PrefLoadFragListener, PrefSetTitleListener {
 
     private static final String TAG = SettingsActivity.class.getSimpleName();

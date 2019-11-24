@@ -27,6 +27,7 @@
     <changelogversion versionName="2.3.0" changeDate="?">
         <changelogtext>Changed stored logdate to ISO8601 standard</changelogtext>
         <changelogtext>Added conversion function to convert all stored logdates to ISO8601 format</changelogtext>
+        <changelogtext>Updated library versions</changelogtext>
     </changelogversion>
     <changelogversion versionName="2.2.0" changeDate="March 4, 2018">
         <changelogtext>Changed the way the Back button works</changelogtext>

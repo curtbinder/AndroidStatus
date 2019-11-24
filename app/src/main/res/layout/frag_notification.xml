@@ -56,13 +56,13 @@
         android:orientation="vertical" >
 
         <ListView
-            android:id="@android:id/android:list"
+            android:id="@android:id/list"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
         </ListView>
 
         <TextView
-            android:id="@android:id/android:empty"
+            android:id="@android:id/empty"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/messageEmptyNotifications"
