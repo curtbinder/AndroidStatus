@@ -10,6 +10,7 @@
 .idea/caches
 .idea/modules.xml
 .idea/navEditor.xml
+.idea/misc.xml
 /app/manifest*.txt
 *.iml
 
