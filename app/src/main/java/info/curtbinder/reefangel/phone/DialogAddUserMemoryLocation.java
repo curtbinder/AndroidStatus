@@ -26,11 +26,8 @@ package info.curtbinder.reefangel.phone;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -44,9 +41,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import java.net.URI;
-
-import info.curtbinder.reefangel.db.StatusProvider;
 import info.curtbinder.reefangel.db.UserMemoryLocationsTable;
 
 import static info.curtbinder.reefangel.phone.MemoryFragment.TabUserFrag.CONFIRM_DELETE;
@@ -55,14 +49,12 @@ public class DialogAddUserMemoryLocation extends DialogFragment {
 
     private static final String TAG = DialogAddUserMemoryLocation.class.getSimpleName();
 
-    // TODO add in widgets for the layout
     private EditText name;
     private EditText location;
     private RadioButton intButton;
     private RadioButton byteButton;
 
     private long id;
-//    private Uri uri = null;
 
     public DialogAddUserMemoryLocation() {
 
@@ -75,8 +67,6 @@ public class DialogAddUserMemoryLocation extends DialogFragment {
     public static DialogAddUserMemoryLocation newInstance(MemoryFragment.TabUserFrag.MemoryData memoryData) {
         DialogAddUserMemoryLocation d = DialogAddUserMemoryLocation.newInstance();
         Bundle args = new Bundle();
-        // TODO get the URI
-//        args.putParcelable(StatusProvider.USER_MEMORY_ID_MIME_TYPE, memoryData);
         args.putLong(UserMemoryLocationsTable.COL_ID, memoryData.id);
         args.putString(UserMemoryLocationsTable.COL_NAME, memoryData.name);
         args.putInt(UserMemoryLocationsTable.COL_LOCATION, memoryData.location);
@@ -95,10 +85,7 @@ public class DialogAddUserMemoryLocation extends DialogFragment {
         View root = inflater.inflate(R.layout.dlg_add_user_memory, null);
         findViews(root);
         Bundle args = getArguments();
-//        uri = USER_MEMORY_URI;
         if (args != null) {
-//            uri = args.getParcelable(StatusProvider.USER_MEMORY_ID_MIME_TYPE);
-//            id = Long.parseLong(uri.getLastPathSegment());
             loadData(args);
         } else {
             id = -1;
@@ -127,13 +114,11 @@ public class DialogAddUserMemoryLocation extends DialogFragment {
                     intent.putExtras(extras);
                     getTargetFragment().onActivityResult(getTargetRequestCode(),
                             CONFIRM_DELETE, intent);
-                    //deleteUserMemoryLocation();
                 }
             });
             builder.setNeutralButton(R.string.buttonCancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-//                    dismiss();
                     dialogInterface.cancel();
                 }
             });
@@ -143,7 +128,6 @@ public class DialogAddUserMemoryLocation extends DialogFragment {
             builder.setNegativeButton(R.string.buttonCancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-//                    dismiss();
                     dialogInterface.cancel();
                 }
             });
@@ -197,8 +181,6 @@ public class DialogAddUserMemoryLocation extends DialogFragment {
     }
 
     protected Intent saveUserMemoryLocation() {
-
-        // TODO move to MemoryFragment - pass CV
         Log.d(TAG, "Save user location");
         String sName = name.getText().toString();
         int iLocation = Integer.parseInt(location.getText().toString());
@@ -211,26 +193,5 @@ public class DialogAddUserMemoryLocation extends DialogFragment {
         extras.putInt(UserMemoryLocationsTable.COL_LOCATION, iLocation);
         extras.putBoolean(UserMemoryLocationsTable.COL_TYPE, fInt);
         return new Intent().putExtras(extras);
-//        ContentValues cv = new ContentValues();
-//        cv.put(UserMemoryLocationsTable.COL_NAME, sName);
-//        cv.put(UserMemoryLocationsTable.COL_LOCATION, iLocation);
-//        cv.put(UserMemoryLocationsTable.COL_TYPE, fInt);
-
-//        if (isUpdate()) {
-//            Log.d(TAG, "Update: " + uri.toString());
-//            Log.d(TAG, "     " + id + " - values: " + cv);
-//            getActivity().getContentResolver().update(uri, cv,
-//                    UserMemoryLocationsTable.COL_ID + "=?",
-//                    new String[]{Long.toString(id)});
-//        } else {
-//            getActivity().getContentResolver().insert(uri, cv);
-//            Log.d(TAG, "Add: " + uri.toString());
-//        }
     }
-
-//    protected void deleteUserMemoryLocation() {
-//        Uri deleteUri = Uri.withAppendedPath(uri, Long.toString(id));
-//        Log.d(TAG, "Delete user location: " + deleteUri.toString());
-////        getActivity().getContentResolver().delete(deleteUri, null, null);
-//    }
 }

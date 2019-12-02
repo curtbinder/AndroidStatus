@@ -31,6 +31,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -52,6 +53,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -330,21 +332,13 @@ public class MemoryFragment extends Fragment {
 
         private void findViews(View root) {
             locationSpinner = (Spinner) root.findViewById(R.id.spinMemoryLocation);
-//            locationText = (EditText) root.findViewById(R.id.locationText);
             valueText = (EditText) root.findViewById(R.id.valueText);
             readButton = (Button) root.findViewById(R.id.buttonRead);
             writeButton = (Button) root.findViewById(R.id.buttonWrite);
             addButton = (ImageButton) root.findViewById(R.id.buttonAdd);
             editButton = (ImageButton) root.findViewById(R.id.buttonEdit);
             deleteButton = (ImageButton) root.findViewById(R.id.buttonDelete);
-//            byteButton = (RadioButton) root.findViewById(R.id.radioButtonByte);
-//            intButton = (RadioButton) root.findViewById(R.id.radioButtonInt);
             tvDisabled = (TextView) root.findViewById(R.id.tvDisabled);
-
-            // Disable these buttons initially, potentially need to remove them since there's no use for them.
-//            locationText.setEnabled(false);
-//            byteButton.setEnabled(false);
-//            intButton.setEnabled(false);
         }
 
         private void reloadUserMemoryLocations() {
@@ -354,10 +348,6 @@ public class MemoryFragment extends Fragment {
             if ( locationsCount > 0 ) {
                 setInitialValues();
                 fEnable = true;
-//                controlsEnableDisable(true);
-//            } else {
-                // TODO add item to spinner that says "No Locations"
-//                controlsEnableDisable(false);
             }
             controlsEnableDisable(fEnable);
         }
@@ -387,15 +377,20 @@ public class MemoryFragment extends Fragment {
         }
 
         private void setBuiltinAdapters() {
-            UserMemoryCursorAdapter adapter = new UserMemoryCursorAdapter(getActivity(), getUserMemoryCursor());
-            locationSpinner.setAdapter(adapter);
+            if ( locationsCount > 0 ) {
+                UserMemoryCursorAdapter adapter = new UserMemoryCursorAdapter(getActivity(), getUserMemoryCursor());
+                locationSpinner.setAdapter(adapter);
+            } else {
+                // no locations
+                ArrayAdapter<CharSequence> b = new ArrayAdapter(getActivity(),
+                        android.R.layout.simple_spinner_item);
+                b.add(getActivity().getString(R.string.messageNoUserMemoryLocationsCreated));
+                b.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                locationSpinner.setAdapter(b);
+            }
         }
 
         private void controlsEnableDisable(boolean fEnabled) {
-            // TODO determine how to disable the buttons if we are connecting to the Portal
-//            if(isController) {
-//                addButton.setEnabled(fEnabled);
-//            }
             readButton.setEnabled(fEnabled);
             writeButton.setEnabled(fEnabled);
             locationSpinner.setEnabled(fEnabled);
