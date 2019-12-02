@@ -25,6 +25,7 @@
   -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
@@ -51,22 +52,46 @@
                 android:layout_gravity="end"
                 >
 
-                <Button
+<!--                <Button-->
+<!--                    android:id="@+id/buttonAdd"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Add" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/buttonEdit"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Edit" />-->
+<!--                <Button-->
+<!--                    android:id="@+id/buttonDelete"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Delete" />-->
+
+                <ImageButton
                     android:id="@+id/buttonAdd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add" />
+                    android:layout_weight="1"
+                    app:srcCompat="@android:drawable/ic_menu_add"
+                    android:background="?android:selectableItemBackground" />
 
-                <Button
+                <ImageButton
                     android:id="@+id/buttonEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edit" />
-                <Button
+                    android:layout_weight="1"
+                    app:srcCompat="@android:drawable/ic_menu_edit"
+                    android:background="?android:selectableItemBackground" />
+
+                <ImageButton
                     android:id="@+id/buttonDelete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Delete" />
+                    android:layout_weight="1"
+                    app:srcCompat="@android:drawable/ic_menu_delete"
+                    android:background="?android:selectableItemBackground" />
             </LinearLayout>
         </TableRow>
 

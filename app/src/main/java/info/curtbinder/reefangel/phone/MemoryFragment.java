@@ -49,6 +49,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -283,22 +284,12 @@ public class MemoryFragment extends Fragment {
         private static EditText valueText;
         private Button readButton;
         private Button writeButton;
-        private Button addButton;
-        private Button editButton;
-        private Button deleteButton;
+        private ImageButton addButton;
+        private ImageButton editButton;
+        private ImageButton deleteButton;
         private TextView tvDisabled;
         ArrayList<MemoryData> memoryData;
         private int locationsCount;
-        private long currentSelection;
-
-        /*
-        Add in the 3 buttons to configure:  Add, Edit, Delete
-                Edit & Delete should be disabled until there is at least 1 location
-                Add should always be enabled
-
-        After editing locations (Add, Edit, Delete), the dataset should be reloaded
-        This is performed by ADAPTER.changeCursor(CURSOR)
-         */
 
         // Class for UserMemory data
         class MemoryData {
@@ -343,9 +334,9 @@ public class MemoryFragment extends Fragment {
             valueText = (EditText) root.findViewById(R.id.valueText);
             readButton = (Button) root.findViewById(R.id.buttonRead);
             writeButton = (Button) root.findViewById(R.id.buttonWrite);
-            addButton = (Button) root.findViewById(R.id.buttonAdd);
-            editButton = (Button) root.findViewById(R.id.buttonEdit);
-            deleteButton = (Button) root.findViewById(R.id.buttonDelete);
+            addButton = (ImageButton) root.findViewById(R.id.buttonAdd);
+            editButton = (ImageButton) root.findViewById(R.id.buttonEdit);
+            deleteButton = (ImageButton) root.findViewById(R.id.buttonDelete);
 //            byteButton = (RadioButton) root.findViewById(R.id.radioButtonByte);
 //            intButton = (RadioButton) root.findViewById(R.id.radioButtonInt);
             tvDisabled = (TextView) root.findViewById(R.id.tvDisabled);
@@ -373,15 +364,11 @@ public class MemoryFragment extends Fragment {
 
         private void getUserMemoryLocationsTypesFromDB() {
             // clear the memory locations
-//            memoryLocations = null;
-//            memoryLocationsTypes = null;
             memoryData = new ArrayList<>();
 
             Cursor c = getUserMemoryCursor();
             locationsCount = c.getCount();
             Log.d(TAG, "getUserMemoryCount: " + locationsCount);
-//            memoryLocations = new int[locationsCount];
-//            memoryLocationsTypes = new int[locationsCount];
             int i = 0;
             while(c.moveToNext()) {
                 int loc = c.getInt(c.getColumnIndexOrThrow(UserMemoryLocationsTable.COL_LOCATION));
@@ -389,8 +376,6 @@ public class MemoryFragment extends Fragment {
                 String name = c.getString(c.getColumnIndexOrThrow(UserMemoryLocationsTable.COL_NAME));
                 long id = c.getLong(c.getColumnIndexOrThrow(UserMemoryLocationsTable.COL_ID));
                 Log.d(TAG, "Fill:  " + i + ") "+ id + ", " + name + ", " + loc + ", " + type);
-//                memoryLocations[i] = loc;
-//                memoryLocationsTypes[i] = type;
                 memoryData.add(new MemoryData(id, name, loc, type));
                 i++;
             }
@@ -533,10 +518,6 @@ public class MemoryFragment extends Fragment {
                 public void onClick ( View v ) {
                     // get the selected item
                     int id = locationSpinner.getSelectedItemPosition();
-//                    if ( !mf.checkLocationValue(memoryLocations[id]) ) {
-//                        return;
-//                    }
-                    // good location, proceed
                     Log.d(TAG, "Read Memory: " + id + ": " + memoryData.get(id).location + ", " + memoryData.get(id).type);
                     boolean fInt = false;
                     if ( memoryData.get(id).type == 1) {
@@ -550,9 +531,6 @@ public class MemoryFragment extends Fragment {
             } );
             writeButton.setOnClickListener( new View.OnClickListener() {
                 public void onClick ( View v ) {
-//                    if ( !mf.checkLocationValue(locationText.getText().toString()) ) {
-//                        return;
-//                    }
                     if ( !checkValueRange() ) {
                         return;
                     }
@@ -578,7 +556,7 @@ public class MemoryFragment extends Fragment {
                         int position,
                         long id) {
                     // TODO save the current selected item
-                    currentSelection = id;
+//                    currentSelection = id;
                 }
 
                 public void onNothingSelected(AdapterView<?> arg0) {
