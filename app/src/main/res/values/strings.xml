@@ -75,8 +75,8 @@
     <string name="titleConvertDatesPrompt">Proceed with Date Conversion</string>
 
     <!-- Tabs for memory page -->
-    <string name="tabMemory1">memory_tab_1</string>
-    <string name="tabMemory2">memory_tab_2</string>
+    <string name="tabMemory1">User-Defined</string>
+    <string name="tabMemory2">Built-In</string>
 
     <!-- Tabs for command page -->
     <string name="tabCommand1">command_tab_1</string>
@@ -181,9 +181,11 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="labelOverheatClear">Overheat Clear</string>
     <string name="labelVersion">Installed Version:</string>
     <string name="labelMemoryLocation">Memory Location:</string>
+    <string name="labelUserMemoryLocation">User-Defined Location:</string>
     <string name="labelLocation">Location:</string>
     <string name="labelValue">Value:</string>
     <string name="labelType">Type:</string>
+    <string name="labelName">Name:</string>
     <string name="labelDateController">Controller</string>
     <string name="labelDateCustomController">Custom Controller Time</string>
     <string name="labelDateTime">Time:</string>
@@ -264,6 +266,8 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="messageReadingMemory">Reading memory…</string>
     <string name="messageWritingMemory">Writing to memory…</string>
     <string name="messageDeleteAllPrompt">Delete all history?</string>
+    <string name="messageDeleteCurrentUserLocation">Delete current user location?</string>
+
     <string name="messageDeleted">Deleted</string>
     <string name="messageNotController">Not a controller</string>
     <string name="messageResetLabelsPrompt">Reset all labels?</string>

@@ -59,6 +59,7 @@ public class StatusProvider extends ContentProvider {
 	public static final String PATH_ERROR = "error";
 	public static final String PATH_NOTIFICATION = "notification";
 	public static final String PATH_CONTROLLER = "controller";
+	public static final String PATH_USER_MEMORY = "usermemory";
 
 	// MIME Types
 	// latest item
@@ -97,6 +98,14 @@ public class StatusProvider extends ContentProvider {
 	public static final String CONTROLLER_MIME_TYPE =
 			ContentResolver.CURSOR_DIR_BASE_TYPE + CONTENT_MIME_TYPE
 					+ PATH_CONTROLLER;
+	// usermemory - 1 item
+	public static final String USER_MEMORY_ID_MIME_TYPE =
+			ContentResolver.CURSOR_ITEM_BASE_TYPE + CONTENT_MIME_TYPE
+					+ PATH_USER_MEMORY;
+	// usermemory = all items
+	public static final String USER_MEMORY_MIME_TYPE =
+			ContentResolver.CURSOR_DIR_BASE_TYPE + CONTENT_MIME_TYPE
+					+ PATH_USER_MEMORY;
 
 	// Used for the UriMatcher
 	private static final int CODE_LATEST = 10;
@@ -106,8 +115,11 @@ public class StatusProvider extends ContentProvider {
 	private static final int CODE_ERROR_ID = 14;
 	private static final int CODE_NOTIFICATION = 15;
 	private static final int CODE_NOTIFICATION_ID = 16;
+	private static final int CODE_USER_MEMORY = 17;
+	private static final int CODE_USER_MEMORY_ID = 18;
 	private static final int CODE_CONTROLLER = 20;  // all controllers
 	private static final int CODE_CONTROLLER_ID = 21; // individual controllers
+
 	private static final UriMatcher sUriMatcher = new UriMatcher(
 		UriMatcher.NO_MATCH );
 	static {
@@ -121,6 +133,8 @@ public class StatusProvider extends ContentProvider {
 							CODE_NOTIFICATION_ID );
 		sUriMatcher.addURI( CONTENT, PATH_CONTROLLER, CODE_CONTROLLER );
 		sUriMatcher.addURI( CONTENT, PATH_CONTROLLER + "/#", CODE_CONTROLLER_ID );
+		sUriMatcher.addURI( CONTENT, PATH_USER_MEMORY, CODE_USER_MEMORY );
+		sUriMatcher.addURI( CONTENT, PATH_USER_MEMORY + "/#", CODE_USER_MEMORY_ID );
 	}
 
 	@Override
@@ -173,6 +187,14 @@ public class StatusProvider extends ContentProvider {
 				qb.appendWhere( NotificationTable.COL_ID + "="
 								+ uri.getLastPathSegment() );
 				break;
+			case CODE_USER_MEMORY:
+				table = UserMemoryLocationsTable.TABLE_NAME;
+				break;
+			case CODE_USER_MEMORY_ID:
+				table = UserMemoryLocationsTable.TABLE_NAME;
+				qb.appendWhere( UserMemoryLocationsTable.COL_ID + "="
+						+ uri.getLastPathSegment() );
+				break;
             case CODE_CONTROLLER: // no limits
                 table = ControllersTable.TABLE_NAME;
                 break;
@@ -212,6 +234,10 @@ public class StatusProvider extends ContentProvider {
 				return NOTIFICATION_MIME_TYPE;
 			case CODE_NOTIFICATION_ID:
 				return NOTIFICATION_ID_MIME_TYPE;
+			case CODE_USER_MEMORY:
+				return USER_MEMORY_MIME_TYPE;
+			case CODE_USER_MEMORY_ID:
+				return USER_MEMORY_ID_MIME_TYPE;
             case CODE_CONTROLLER:
                 return CONTROLLER_MIME_TYPE;
             case CODE_CONTROLLER_ID:
@@ -238,6 +264,10 @@ public class StatusProvider extends ContentProvider {
 			case CODE_NOTIFICATION:
 				id = db.insert( NotificationTable.TABLE_NAME, null, cv );
 				path = PATH_NOTIFICATION;
+				break;
+			case CODE_USER_MEMORY:
+				id = db.insert( UserMemoryLocationsTable.TABLE_NAME, null, cv );
+				path = PATH_USER_MEMORY;
 				break;
             case CODE_CONTROLLER:
                 // TODO verify insertion of Controller into ControllersTable works
@@ -289,6 +319,14 @@ public class StatusProvider extends ContentProvider {
 									NotificationTable.COL_ID + "=?",
 									new String[] { uri.getLastPathSegment() } );
 				break;
+			case CODE_USER_MEMORY:
+				rowsDeleted = db.delete(UserMemoryLocationsTable.TABLE_NAME, selection, selectionArgs);
+				break;
+			case CODE_USER_MEMORY_ID:
+				rowsDeleted = db.delete(UserMemoryLocationsTable.TABLE_NAME,
+						UserMemoryLocationsTable.COL_ID + "=?",
+						new String[] {uri.getLastPathSegment()});
+				break;
             case CODE_CONTROLLER_ID:
                 // TODO verify deletion of Controller from ControllersTable works
                 rowsDeleted =
@@ -330,6 +368,9 @@ public class StatusProvider extends ContentProvider {
 				rowsUpdated =
 						db.update(	NotificationTable.TABLE_NAME, values,
 									selection, selectionArgs );
+				break;
+			case CODE_USER_MEMORY:
+				rowsUpdated = db.update(UserMemoryLocationsTable.TABLE_NAME, values, selection, selectionArgs);
 				break;
             case CODE_CONTROLLER:
                 // TODO verify updating of Controller in ControllersTable works

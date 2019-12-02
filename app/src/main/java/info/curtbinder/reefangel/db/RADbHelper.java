@@ -31,7 +31,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class RADbHelper extends SQLiteOpenHelper {
 
 	public static final String DB_NAME = "radata.db";
-    private static final int DB_VERSION = 13;
+    private static final int DB_VERSION = 15;
     // Version 5 - ErrorTable added
     // Version 6 - NotificationTable added
     // Version 7 - StatusTable updated
@@ -41,6 +41,7 @@ public class RADbHelper extends SQLiteOpenHelper {
     // Version 11 - StatusTable updated
     // Version 12 - StatusTable updated
 	// Version 13 - StatusTable updated
+	// Version 15 - UserMemoryLocationsTable added
 	// Version 20 - LabelsTable, ControllersTable,
     //              ControllerProbesVisibilityTable, RelayEnabledPortsTable added
 	//              TODO add foreign key references for ErrorTable, NotificationTable and StatusTable
@@ -56,6 +57,7 @@ public class RADbHelper extends SQLiteOpenHelper {
 		StatusTable.onCreate( db );
 		ErrorTable.onCreate( db );
 		NotificationTable.onCreate( db );
+		UserMemoryLocationsTable.onCreate(db);
 		// TODO add creation of LabelsTable, ControllersTable, ControllerProbesVisibilityTable, RelayEnabledPortsTable
 	}
 
@@ -63,6 +65,7 @@ public class RADbHelper extends SQLiteOpenHelper {
 	public void onDowngrade ( SQLiteDatabase db, int oldVersion, int newVersion ) {
 		ErrorTable.onDowngrade( db, oldVersion, newVersion );
 		NotificationTable.onDowngrade( db, oldVersion, newVersion );
+		UserMemoryLocationsTable.onDowngrade(db, oldVersion, newVersion);
         // TODO add deletion of LabelsTable, ControllersTable, ControllerProbesVisibilityTable, RelayEnabledPortsTable
 	}
 
@@ -71,6 +74,7 @@ public class RADbHelper extends SQLiteOpenHelper {
 		StatusTable.onUpgrade( db, oldVersion, newVersion );
 		ErrorTable.onUpgrade( db, oldVersion, newVersion );
 		NotificationTable.onUpgrade( db, oldVersion, newVersion );
+		UserMemoryLocationsTable.onUpgrade(db, oldVersion, newVersion);
         // TODO add upgrade of LabelsTable, ControllersTable, ControllerProbesVisibilityTable, RelayEnabledPortsTable
 	}
 }

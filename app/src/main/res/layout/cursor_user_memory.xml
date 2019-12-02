@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2011 Curt Binder
+  ~ Copyright (c) 2019 Curt Binder
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -24,20 +23,28 @@
   ~ SOFTWARE.
   -->
 
-<android.support.v4.view.ViewPager
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tab_pager"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="?attr/listPreferredItemHeightSmall"
+    style="@style/Widget.AppCompat.DropDownItem.Spinner"
+    android:singleLine="true" >
 
-    <android.support.v4.view.PagerTabStrip
-        android:id="@+id/memory_pager_tab_strip"
-        android:layout_gravity="top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:textColor="?attr/myDefaultToolbarTextColor"
-        />
-</android.support.v4.view.ViewPager>
+    <TextView
+        android:id="@+id/textViewMemoryName"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        style="@style/Widget.AppCompat.DropDownItem.Spinner"
+        android:text="Name"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <TextView
+        android:id="@+id/textViewMemoryDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        style="@style/Widget.AppCompat.DropDownItem.Spinner"
+        android:text="Details"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+</LinearLayout>
