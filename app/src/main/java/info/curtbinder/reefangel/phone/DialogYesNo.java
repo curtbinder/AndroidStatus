@@ -36,6 +36,7 @@ public class DialogYesNo extends DialogFragment {
     public static final int DELETE_ALL_CALL = 1;
 
     private static final String MESSAGE = "message";
+    private static final String MESSAGE_ID = "messageid";
 
     public DialogYesNo() {
     }
@@ -43,15 +44,31 @@ public class DialogYesNo extends DialogFragment {
     public static DialogYesNo newInstance(int messageId) {
         DialogYesNo dlg = new DialogYesNo();
         Bundle args = new Bundle();
-        args.putInt(MESSAGE, messageId);
+        args.putInt(MESSAGE_ID, messageId);
+        dlg.setArguments(args);
+        return dlg;
+    }
+
+    public static DialogYesNo newInstance(String message) {
+        DialogYesNo dlg = new DialogYesNo();
+        Bundle args = new Bundle();
+        args.putInt(MESSAGE_ID, -1);
+        args.putString(MESSAGE, message);
         dlg.setArguments(args);
         return dlg;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        int msg_id = getArguments().getInt(MESSAGE_ID);
+        String sMessage;
+        if ( msg_id == -1 ) {
+            sMessage = getArguments().getString(MESSAGE);
+        } else {
+            sMessage = getActivity().getString(msg_id);
+        }
         return new AlertDialog.Builder(getActivity(), R.style.AlertDialogStyle)
-                .setMessage(getArguments().getInt(MESSAGE))
+                .setMessage(sMessage)
                 .setCancelable(false)
                 .setPositiveButton(R.string.buttonYes,
                         new DialogInterface.OnClickListener() {

@@ -419,7 +419,6 @@ public class MemoryFragment extends Fragment {
             Log.d(TAG, "Selection: " + sel);
             // Verify the value is within range based on what TYPE is selected
             if (memoryData.get(sel).type == 1 ) {
-//            if (memoryLocationsTypes[sel] == 1) {
                 if ( (v < Globals.INT_MIN) || (v > Globals.INT_MAX) ) {
                     Toast.makeText( getActivity(),
                             getResources().getString( R.string.messageInvalidRangeFormat,
@@ -543,20 +542,6 @@ public class MemoryFragment extends Fragment {
                             fInt);
                 }
             } );
-            locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                public void onItemSelected(
-                        AdapterView<?> parent,
-                        View v,
-                        int position,
-                        long id) {
-                    // TODO save the current selected item
-//                    currentSelection = id;
-                }
-
-                public void onNothingSelected(AdapterView<?> arg0) {
-                }
-            });
 
             // Need to save the Fragment (this) for the callbacks
             final Fragment f = this;
@@ -581,7 +566,10 @@ public class MemoryFragment extends Fragment {
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    DialogYesNo d3 = DialogYesNo.newInstance(R.string.messageDeleteCurrentUserLocation);
+                    int id = locationSpinner.getSelectedItemPosition();
+                    String sMsg = String.format(getActivity().getString(R.string.messageDeleteCurrentUserLocation),
+                            memoryData.get(id).name);
+                    DialogYesNo d3 = DialogYesNo.newInstance(sMsg);
                     d3.setTargetFragment(f, CONFIRM_DELETE);
                     d3.show(getFragmentManager(), "dlgyesno");
                 }
@@ -619,10 +607,11 @@ public class MemoryFragment extends Fragment {
                 int type = cursor.getInt(cursor.getColumnIndexOrThrow(UserMemoryLocationsTable.COL_TYPE));
                 String details = "(" + loc + ", ";
                 if (type == 1) {
-                    details += "int)";
+                    details += context.getString(R.string.radioInt);
                 } else {
-                    details += "byte)";
+                    details += context.getString(R.string.radioByte);
                 }
+                details += ")";
                 tvDetails.setText(details);
             }
         }

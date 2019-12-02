@@ -266,7 +266,7 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="messageReadingMemory">Reading memory…</string>
     <string name="messageWritingMemory">Writing to memory…</string>
     <string name="messageDeleteAllPrompt">Delete all history?</string>
-    <string name="messageDeleteCurrentUserLocation">Delete current user location?</string>
+    <string name="messageDeleteCurrentUserLocation">Delete \'%1$s\' location?</string>
     <string name="messageNoUserMemoryLocationsCreated">None Created</string>
     <string name="messageDeleted">Deleted</string>
     <string name="messageNotController">Not a controller</string>
