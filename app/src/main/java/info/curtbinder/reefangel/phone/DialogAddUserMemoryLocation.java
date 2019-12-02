@@ -28,6 +28,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -48,11 +49,12 @@ import java.net.URI;
 import info.curtbinder.reefangel.db.StatusProvider;
 import info.curtbinder.reefangel.db.UserMemoryLocationsTable;
 
+import static info.curtbinder.reefangel.phone.MemoryFragment.TabUserFrag.CONFIRM_DELETE;
+
 public class DialogAddUserMemoryLocation extends DialogFragment {
 
     private static final String TAG = DialogAddUserMemoryLocation.class.getSimpleName();
 
-    public static final Uri USER_MEMORY_URI = Uri.parse(StatusProvider.CONTENT_URI + "/" + StatusProvider.PATH_USER_MEMORY);
     // TODO add in widgets for the layout
     private EditText name;
     private EditText location;
@@ -60,7 +62,7 @@ public class DialogAddUserMemoryLocation extends DialogFragment {
     private RadioButton byteButton;
 
     private long id;
-    private Uri uri = null;
+//    private Uri uri = null;
 
     public DialogAddUserMemoryLocation() {
 
@@ -93,7 +95,7 @@ public class DialogAddUserMemoryLocation extends DialogFragment {
         View root = inflater.inflate(R.layout.dlg_add_user_memory, null);
         findViews(root);
         Bundle args = getArguments();
-        uri = USER_MEMORY_URI;
+//        uri = USER_MEMORY_URI;
         if (args != null) {
 //            uri = args.getParcelable(StatusProvider.USER_MEMORY_ID_MIME_TYPE);
 //            id = Long.parseLong(uri.getLastPathSegment());
@@ -105,15 +107,11 @@ public class DialogAddUserMemoryLocation extends DialogFragment {
         builder.setPositiveButton(R.string.buttonSave, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                //Intent intent = new Intent();
-                // Bundle extras = new Bundle();
-                // extras.put(...)
-                // intent.putExtras(extras);
-                // change null to intent in onActivityResult call
-                getTargetFragment().onActivityResult(getTargetRequestCode(),
-                        Activity.RESULT_OK, null);
-                // remove this function
-                saveUserMemoryLocation();
+                if ( ! canSave() ) {
+                    return;
+                }
+                Intent intent = saveUserMemoryLocation();
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
             }
         });
         if (isUpdate()) {
@@ -122,8 +120,13 @@ public class DialogAddUserMemoryLocation extends DialogFragment {
             builder.setNegativeButton(R.string.buttonDelete, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+
+                    Intent intent = new Intent();
+                    Bundle extras = new Bundle();
+                    extras.putLong(UserMemoryLocationsTable.COL_ID, id);
+                    intent.putExtras(extras);
                     getTargetFragment().onActivityResult(getTargetRequestCode(),
-                            Activity.RESULT_CANCELED, null);
+                            CONFIRM_DELETE, intent);
                     //deleteUserMemoryLocation();
                 }
             });
@@ -179,39 +182,50 @@ public class DialogAddUserMemoryLocation extends DialogFragment {
         }
     }
 
-    protected void saveUserMemoryLocation() {
+    protected boolean canSave() {
+        int iLocation = Integer.parseInt(location.getText().toString());
+        if (TextUtils.isEmpty(name.getText().toString())) {
+            Toast.makeText(getActivity(), "Name cannot be empty", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        // TODO check memory locations, locations can be between 1 and 1023, bytes take 1 space, 2 for int
+        if (iLocation < 1) {
+            Toast.makeText(getActivity(), "Location must be between 1 and 1023", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    protected Intent saveUserMemoryLocation() {
 
         // TODO move to MemoryFragment - pass CV
         Log.d(TAG, "Save user location");
         String sName = name.getText().toString();
         int iLocation = Integer.parseInt(location.getText().toString());
         boolean fInt = intButton.isChecked();
-        if (TextUtils.isEmpty(sName)) {
-            Toast.makeText(getActivity(), "Name cannot be empty", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        // TODO check memory locations, locations can be between 1 and 1023, bytes take 1 space, 2 for int
-        if (iLocation < 1) {
-            Toast.makeText(getActivity(), "Location must be between 1 and 1023", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         Log.d(TAG, "Save: " + sName + ", " + iLocation + ", " + fInt);
-        ContentValues cv = new ContentValues();
-        cv.put(UserMemoryLocationsTable.COL_NAME, sName);
-        cv.put(UserMemoryLocationsTable.COL_LOCATION, iLocation);
-        cv.put(UserMemoryLocationsTable.COL_TYPE, fInt);
+        Bundle extras = new Bundle();
+        extras.putLong(UserMemoryLocationsTable.COL_ID, id);
+        extras.putString(UserMemoryLocationsTable.COL_NAME, sName);
+        extras.putInt(UserMemoryLocationsTable.COL_LOCATION, iLocation);
+        extras.putBoolean(UserMemoryLocationsTable.COL_TYPE, fInt);
+        return new Intent().putExtras(extras);
+//        ContentValues cv = new ContentValues();
+//        cv.put(UserMemoryLocationsTable.COL_NAME, sName);
+//        cv.put(UserMemoryLocationsTable.COL_LOCATION, iLocation);
+//        cv.put(UserMemoryLocationsTable.COL_TYPE, fInt);
 
-        if (isUpdate()) {
-            Log.d(TAG, "Update: " + uri.toString());
-            Log.d(TAG, "     " + id + " - values: " + cv);
+//        if (isUpdate()) {
+//            Log.d(TAG, "Update: " + uri.toString());
+//            Log.d(TAG, "     " + id + " - values: " + cv);
 //            getActivity().getContentResolver().update(uri, cv,
 //                    UserMemoryLocationsTable.COL_ID + "=?",
 //                    new String[]{Long.toString(id)});
-        } else {
-            getActivity().getContentResolver().insert(uri, cv);
+//        } else {
+//            getActivity().getContentResolver().insert(uri, cv);
 //            Log.d(TAG, "Add: " + uri.toString());
-        }
+//        }
     }
 
 //    protected void deleteUserMemoryLocation() {

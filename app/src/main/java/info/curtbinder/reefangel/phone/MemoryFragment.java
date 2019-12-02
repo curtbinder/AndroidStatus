@@ -26,6 +26,7 @@ package info.curtbinder.reefangel.phone;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -276,21 +277,17 @@ public class MemoryFragment extends Fragment {
         public static final int CONFIRM_SAVE = 1;
         public static final int CONFIRM_DELETE = 2;
 
+        public static final Uri USER_MEMORY_URI = Uri.parse(StatusProvider.CONTENT_URI + "/" + StatusProvider.PATH_USER_MEMORY);
+
         private Spinner locationSpinner;
-//        private EditText locationText;
         private static EditText valueText;
         private Button readButton;
         private Button writeButton;
         private Button addButton;
         private Button editButton;
         private Button deleteButton;
-//        private RadioButton byteButton;
-//        private RadioButton intButton;
         private TextView tvDisabled;
-        //private int[] memoryLocations;
-        //private int[] memoryLocationsTypes;
-        // TODO rename data to another name, but do NOT use refactor
-        ArrayList<MemoryData> data;
+        ArrayList<MemoryData> memoryData;
         private int locationsCount;
         private long currentSelection;
 
@@ -328,15 +325,6 @@ public class MemoryFragment extends Fragment {
         public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
             findViews(view);
-//            setBuiltinAdapters();
-//            getUserMemoryLocationsTypesFromDB();
-
-//            updateButtonsEnabled(((MemoryFragment)getParentFragment()).isController);
-//            if ( locationsCount > 0 ) {
-//                setInitialValues();
-//            } else {
-//                controlsEnableDisable(false);
-//            }
             reloadUserMemoryLocations();
             setOnClickListeners();
             if (((MemoryFragment)getParentFragment()).isController) {
@@ -371,20 +359,23 @@ public class MemoryFragment extends Fragment {
         private void reloadUserMemoryLocations() {
             getUserMemoryLocationsTypesFromDB();
             setBuiltinAdapters();
+            boolean fEnable = false;
             if ( locationsCount > 0 ) {
                 setInitialValues();
-            } else {
+                fEnable = true;
+//                controlsEnableDisable(true);
+//            } else {
                 // TODO add item to spinner that says "No Locations"
-                controlsEnableDisable(false);
+//                controlsEnableDisable(false);
             }
-
+            controlsEnableDisable(fEnable);
         }
 
         private void getUserMemoryLocationsTypesFromDB() {
             // clear the memory locations
 //            memoryLocations = null;
 //            memoryLocationsTypes = null;
-            data = new ArrayList<>();
+            memoryData = new ArrayList<>();
 
             Cursor c = getUserMemoryCursor();
             locationsCount = c.getCount();
@@ -400,15 +391,13 @@ public class MemoryFragment extends Fragment {
                 Log.d(TAG, "Fill:  " + i + ") "+ id + ", " + name + ", " + loc + ", " + type);
 //                memoryLocations[i] = loc;
 //                memoryLocationsTypes[i] = type;
-                data.add(new MemoryData(id, name, loc, type));
+                memoryData.add(new MemoryData(id, name, loc, type));
                 i++;
             }
         }
 
         public Cursor getUserMemoryCursor() {
-//            Uri uri = Uri.parse(StatusProvider.CONTENT_URI + "/" + StatusProvider.PATH_USER_MEMORY);
-            Uri uri = (DialogAddUserMemoryLocation.USER_MEMORY_URI);
-            return getActivity().getContentResolver().query(uri, null, null, null,
+            return getActivity().getContentResolver().query(USER_MEMORY_URI, null, null, null,
                     UserMemoryLocationsTable.COL_ID);
         }
 
@@ -424,25 +413,15 @@ public class MemoryFragment extends Fragment {
 //            }
             readButton.setEnabled(fEnabled);
             writeButton.setEnabled(fEnabled);
-//            byteButton.setEnabled(fEnabled);
-//            intButton.setEnabled(fEnabled);
             locationSpinner.setEnabled(fEnabled);
-//            locationText.setEnabled(fEnabled);
             valueText.setEnabled(fEnabled);
             editButton.setEnabled(fEnabled);
             deleteButton.setEnabled(fEnabled);
         }
 
-//        public void updateButtonsEnabled(boolean isController) {
-//
-//            readButton.setEnabled(isController);
-//            writeButton.setEnabled(isController);
-//            if (isController) {
-//                tvDisabled.setVisibility(View.GONE);
-//            } else {
-//                tvDisabled.setVisibility(View.VISIBLE);
-//            }
-//        }
+        private void setInitialValues ( ) {
+            locationSpinner.setSelection( 0 );
+        }
 
         private boolean checkValueRange ( ) {
             boolean fRet = true;
@@ -459,7 +438,7 @@ public class MemoryFragment extends Fragment {
             int sel = locationSpinner.getSelectedItemPosition();
             Log.d(TAG, "Selection: " + sel);
             // Verify the value is within range based on what TYPE is selected
-            if (data.get(sel).type == 1 ) {
+            if (memoryData.get(sel).type == 1 ) {
 //            if (memoryLocationsTypes[sel] == 1) {
                 if ( (v < Globals.INT_MIN) || (v > Globals.INT_MAX) ) {
                     Toast.makeText( getActivity(),
@@ -485,17 +464,47 @@ public class MemoryFragment extends Fragment {
             switch(requestCode) {
                 case CONFIRM_SAVE: {
                     if ( resultCode == Activity.RESULT_OK ) {
-
-                        // TODO save the data
                         // pull the data from the Intent data
-
-                        // ok to reload
-                        Log.d(TAG, "Ok to reload");
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                        if ( data == null ) {
+                            Log.d(TAG, "No data to save");
+                            return;
                         }
+
+                        long id = data.getLongExtra(UserMemoryLocationsTable.COL_ID, -1);
+
+                        ContentValues cv = new ContentValues();
+                        cv.put(UserMemoryLocationsTable.COL_NAME,
+                                data.getStringExtra(UserMemoryLocationsTable.COL_NAME));
+                        cv.put(UserMemoryLocationsTable.COL_LOCATION,
+                                data.getIntExtra(UserMemoryLocationsTable.COL_LOCATION, 0));
+                        cv.put(UserMemoryLocationsTable.COL_TYPE,
+                                data.getBooleanExtra(UserMemoryLocationsTable.COL_TYPE, false));
+                        if ( id == -1 ) {
+                            // Add
+                            getActivity().getContentResolver().insert(USER_MEMORY_URI, cv);
+                        } else {
+                            // Edit
+                            getActivity().getContentResolver().update(USER_MEMORY_URI, cv,
+                                    UserMemoryLocationsTable.COL_ID + "=?",
+                                    new String[]{Long.toString(id)});
+                            // TODO consider restoring the position in the spinner
+                        }
+                        reloadUserMemoryLocations();
+                    } else if ( resultCode == CONFIRM_DELETE ) {
+                        Log.d(TAG, "Deleted, reload");
+                        if (data == null) {
+                            Log.d(TAG, "No data returned, unable to delete");
+                            return;
+                        }
+
+                        long id = data.getLongExtra(UserMemoryLocationsTable.COL_ID, -1);
+                        if ( id == -1 ) {
+                            Log.d(TAG, "Given default ID value, unable to delete");
+                            return;
+                        }
+                        Log.d(TAG, "Delete location by ID " + id + ", position: " + locationSpinner.getSelectedItemPosition());
+                        Uri deleteUri = Uri.withAppendedPath(USER_MEMORY_URI, Long.toString(id));
+                        getActivity().getContentResolver().delete(deleteUri, null, null);
                         reloadUserMemoryLocations();
                     }
                     break;
@@ -503,16 +512,13 @@ public class MemoryFragment extends Fragment {
                 case CONFIRM_DELETE: {
                     if ( resultCode == Activity.RESULT_OK) {
                         Log.d(TAG, "Deleted, reload");
-//                                Uri deleteUri = Uri.withAppendedPath(uri, Long.toString(id));
-//        Log.d(TAG, "Delete user location: " + deleteUri.toString());
-//        getActivity().getContentResolver().delete(deleteUri, null, null);
-                        int id = locationSpinner.getSelectedItemPosition();
-//                        Log.d(TAG, "Delete Pos: " + id + ") - " + data.get(id).id + ", " + data.get(id).location);
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        // get the currently selected item from the list
+                        int index = locationSpinner.getSelectedItemPosition();
+                        // get the database id from the memory list
+                        long id = memoryData.get(index).id;
+                        Log.d(TAG, "Delete location by Index: " + index + ", col_id: " + id);
+                        Uri deleteUri = Uri.withAppendedPath(USER_MEMORY_URI, Long.toString(id));
+                        getActivity().getContentResolver().delete(deleteUri, null, null);
                         reloadUserMemoryLocations();
                     }
                     break;
@@ -531,13 +537,13 @@ public class MemoryFragment extends Fragment {
 //                        return;
 //                    }
                     // good location, proceed
-                    Log.d(TAG, "Read Memory: " + id + ": " + data.get(id).location + ", " + data.get(id).type);
+                    Log.d(TAG, "Read Memory: " + id + ": " + memoryData.get(id).location + ", " + memoryData.get(id).type);
                     boolean fInt = false;
-                    if ( data.get(id).type == 1) {
+                    if ( memoryData.get(id).type == 1) {
                         fInt = true;
                     }
                     mf.sendMessage(false,
-                            data.get(id).location,
+                            memoryData.get(id).location,
                             -1,
                             fInt);
                 }
@@ -551,15 +557,15 @@ public class MemoryFragment extends Fragment {
                         return;
                     }
                     int id = locationSpinner.getSelectedItemPosition();
-                    Log.d(TAG, "Write Memory: " + id + ": " + data.get(id).location + ", "
-                            + data.get(id).type + ", " + valueText.getText().toString());
+                    Log.d(TAG, "Write Memory: " + id + ": " + memoryData.get(id).location + ", "
+                            + memoryData.get(id).type + ", " + valueText.getText().toString());
                     // good value, proceed
                     boolean fInt = false;
-                    if ( data.get(id).type == 1) {
+                    if ( memoryData.get(id).type == 1) {
                         fInt = true;
                     }
                     mf.sendMessage(true,
-                            data.get(id).location,
+                            memoryData.get(id).location,
                             (int) Integer.parseInt( valueText.getText().toString() ),
                             fInt);
                 }
@@ -571,7 +577,6 @@ public class MemoryFragment extends Fragment {
                         View v,
                         int position,
                         long id) {
-//                    setItemSelected((int) id);
                     // TODO save the current selected item
                     currentSelection = id;
                 }
@@ -594,8 +599,8 @@ public class MemoryFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     int id = locationSpinner.getSelectedItemPosition();
-                    Log.d(TAG, "Edit: pos: " + id + ") - " + data.get(id).name + ", " + data.get(id).location);
-                    DialogAddUserMemoryLocation d2 = DialogAddUserMemoryLocation.newInstance(data.get(id));
+                    Log.d(TAG, "Edit: pos: " + id + ") - " + memoryData.get(id).name + ", " + memoryData.get(id).location);
+                    DialogAddUserMemoryLocation d2 = DialogAddUserMemoryLocation.newInstance(memoryData.get(id));
                     d2.setTargetFragment(f, CONFIRM_SAVE);
                     d2.show(getFragmentManager(), "dlgedit");
                 }
@@ -603,52 +608,11 @@ public class MemoryFragment extends Fragment {
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    DialogYesNo d2 = DialogYesNo.newInstance(R.string.messageDeleteCurrentUserLocation);
-                    d2.setTargetFragment(f, CONFIRM_DELETE);
-                    d2.show(getFragmentManager(), "dlgyesno");
+                    DialogYesNo d3 = DialogYesNo.newInstance(R.string.messageDeleteCurrentUserLocation);
+                    d3.setTargetFragment(f, CONFIRM_DELETE);
+                    d3.show(getFragmentManager(), "dlgyesno");
                 }
             });
-        }
-
-//        private void setItemSelected ( int id ) {
-////            boolean enable = false;
-//
-//            // TODO determine how to adapt the values
-//            String s = String.format( "%d", memoryLocations[id] );
-//            locationText.setText( s );
-//            // update the radio button
-//            if ( memoryLocationsTypes[id] == TYPE_BYTE ) {
-//                byteButton.setChecked( true );
-//                intButton.setChecked( false );
-//            } else {
-//                byteButton.setChecked( false );
-//                intButton.setChecked( true );
-//            }
-//
-////            if ( id == 0 ) {
-////                enable = true;
-////            }
-////            updateLocationEditability( enable );
-//            valueText.requestFocus();
-//        }
-
-        private void updateLocationEditability ( boolean enable ) {
-            // TODO check updateLocationEditability use and focusing
-            // updates the enabling/disabling of the location & radio buttons based
-            // on the location drop down menu
-//            byteButton.setEnabled( enable );
-//            intButton.setEnabled( enable );
-//            locationText.setEnabled( enable );
-//            if ( enable ) {
-//                locationText.requestFocus();
-//            } else {
-                valueText.requestFocus();
-//            }
-        }
-
-        private void setInitialValues ( ) {
-            locationSpinner.setSelection( 0 );
-//            setItemSelected( 0 );
         }
 
         public void updateValue ( String value ) {
@@ -666,7 +630,6 @@ public class MemoryFragment extends Fragment {
             @Override
             public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
                 // inflate thew view, but don't bind data to it
-//                return null;
                 return LayoutInflater.from(context).inflate(R.layout.cursor_user_memory, viewGroup, false);
             }
 
@@ -984,6 +947,5 @@ public class MemoryFragment extends Fragment {
 
     public interface TabMemoryInterface {
         public void updateValue( String value );
-//        public void updateButtonsEnabled(boolean isController);
     }
 }

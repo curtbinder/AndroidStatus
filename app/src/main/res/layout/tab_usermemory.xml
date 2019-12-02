@@ -72,54 +72,6 @@
 
         <Spinner android:id="@+id/spinMemoryLocation" />
 
-        <!-- Location edit box, disabled unless CUSTOM location -->
-        <!--
-        <TableRow android:id="@+id/locationRow">
-
-            <TextView
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:text="@string/labelLocation"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <EditText
-                android:id="@+id/locationText"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:inputType="number"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </TableRow>
-
-        <TableRow android:id="@+id/typeRow">
-
-            <TextView
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:text="@string/labelType"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <RadioGroup
-                android:layout_width="fill_parent"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/radioButtonByte"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/radioByte"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <RadioButton
-                    android:id="@+id/radioButtonInt"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/radioInt"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </RadioGroup>
-        </TableRow>
-        -->
-
         <!-- Value edit box -->
         <TableRow android:layout_marginTop="@dimen/activity_vertical_margin">
 
