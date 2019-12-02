@@ -51,24 +51,6 @@
                 android:orientation="horizontal"
                 android:layout_gravity="end"
                 >
-
-<!--                <Button-->
-<!--                    android:id="@+id/buttonAdd"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Add" />-->
-
-<!--                <Button-->
-<!--                    android:id="@+id/buttonEdit"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Edit" />-->
-<!--                <Button-->
-<!--                    android:id="@+id/buttonDelete"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Delete" />-->
-
                 <ImageButton
                     android:id="@+id/buttonAdd"
                     android:layout_width="wrap_content"

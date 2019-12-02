@@ -25,6 +25,7 @@
 
 <changelog bulletedList="true">
     <changelogversion versionName="2.3.0" changeDate="?">
+        <chagnelogtext>Added saving of Custom Memory locations</chagnelogtext>
         <changelogtext>Changed stored logdate to ISO8601 standard</changelogtext>
         <changelogtext>Added conversion function to convert all stored logdates to ISO8601 format</changelogtext>
         <changelogtext>Updated library versions</changelogtext>
