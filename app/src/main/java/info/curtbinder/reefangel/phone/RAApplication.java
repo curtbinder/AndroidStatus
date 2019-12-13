@@ -135,7 +135,7 @@ public class RAApplication extends Application {
         // setup alarm service to wake up and start the service periodically
         AlarmManager am =
                 (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        am.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis(),
+        am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
                 interval, pi);
     }
 

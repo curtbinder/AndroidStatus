@@ -24,6 +24,9 @@
   -->
 
 <changelog bulletedList="true">
+    <changelogversion versionName="2.4.0" changeDate="Not Released">
+        <changelogtext>Update service "wakes" device to do update</changelogtext>
+    </changelogversion>
     <changelogversion versionName="2.3.0" changeDate="December 7, 2019">
         <chagnelogtext>Added saving of Custom Memory locations</chagnelogtext>
         <changelogtext>Changed stored logdate to ISO8601 standard</changelogtext>

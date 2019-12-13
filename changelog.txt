@@ -263,3 +263,6 @@ Changelog of all the versions of AndroidStatus
  * Changed date storing format to ISO standard
  * Added conversion of existing logdates from generic formatted date to ISO standard
  * Updated library versions
+
+2.4 - ??
+ * Changed auto update service to wake the device up from sleep to trigger the update
