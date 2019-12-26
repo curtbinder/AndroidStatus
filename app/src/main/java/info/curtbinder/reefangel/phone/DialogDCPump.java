@@ -270,7 +270,7 @@ public class DialogDCPump extends DialogFragment
         i.putExtra(MessageCommands.MEMORY_SEND_VALUE_INT, value);
         Log.d(TAG, "Update DC Pump:  " + RequestCommands.MemoryByte + locations[popupType] + "," + value);
         // send the memory command
-        getActivity().startService(i);
+        UpdateService.enqueueWork(getActivity(), i);
     }
 
     @Override

@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2015 Curt Binder
+ * Copyright (c) 2019 Curt Binder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,40 +22,34 @@
  * SOFTWARE.
  */
 
-apply plugin: 'com.android.application'
+package info.curtbinder.reefangel.phone;
 
-android {
-    compileSdkVersion 28
-    buildToolsVersion '29.0.2'
-    defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 28
-        versionCode 243
-        versionName '2.4.0'
-    }
-    buildTypes {
-        debug {
-            applicationIdSuffix '.debug'
-            versionNameSuffix '-DEBUG'
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+
+import info.curtbinder.reefangel.service.NotificationService;
+import info.curtbinder.reefangel.service.UpdateService;
+
+public class AlarmReceiver extends BroadcastReceiver {
+
+    public static final String ALARM_TYPE = "alarm_type";
+    public static final int UPDATE = 10;
+    public static final int NOTIFICATION = 20;
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        Log.d("AlarmReceiver", "onReceive");
+        int type = intent.getIntExtra(ALARM_TYPE, UPDATE);
+        if ( type == NOTIFICATION ) {
+            Log.d("AlarmReceiver", "NotificationService");
+            intent.setClass(context, NotificationService.class);
+            NotificationService.enqueueWork(context, intent);
+        } else {
+            Log.d("AlarmReceiver", "UpdateService");
+            intent.setClass(context, UpdateService.class);
+            UpdateService.enqueueWork(context, intent);
         }
-
-        release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
     }
-    productFlavors {
-    }
-}
-
-dependencies {
-    implementation 'com.android.support:support-v4:28.0.0'
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.squareup.okio:okio:2.4.1'
-    implementation 'com.squareup.okhttp3:okhttp:4.2.2'
-    //implementation 'com.github.gabrielemariotti.changeloglib:changelog:2.1.0'
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(path: ':ChangeLogLibrary')
 }

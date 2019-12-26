@@ -307,7 +307,7 @@ public class SetupWizardActivity extends AppCompatActivity
         if (isDownloadLabelsChecked()) {
             Intent i = new Intent(this, UpdateService.class);
             i.setAction(MessageCommands.LABEL_QUERY_INTENT);
-            startService(i);
+            UpdateService.enqueueWork(this, i);
         }
     }
 

@@ -140,14 +140,13 @@ public class RAApplication extends Application {
     }
 
     private PendingIntent getUpdateIntent() {
-        Intent i = new Intent(this, UpdateService.class);
+        Intent i = new Intent(this, AlarmReceiver.class);
         i.setAction(MessageCommands.QUERY_STATUS_INTENT);
+        i.putExtra(AlarmReceiver.ALARM_TYPE, AlarmReceiver.UPDATE);
         i.putExtra(MessageCommands.AUTO_UPDATE_PROFILE_INT,
                 raprefs.getUpdateProfile());
-        PendingIntent pi =
-                PendingIntent.getService(this, -1, i,
-                        PendingIntent.FLAG_CANCEL_CURRENT);
-        return pi;
+        return PendingIntent.getBroadcast(this, -1, i,
+                PendingIntent.FLAG_CANCEL_CURRENT);
     }
 
     // Error Logging

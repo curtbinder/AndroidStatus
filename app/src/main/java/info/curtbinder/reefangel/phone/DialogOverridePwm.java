@@ -131,7 +131,7 @@ public class DialogOverridePwm extends DialogFragment
         i.putExtra(MessageCommands.OVERRIDE_SEND_LOCATION_INT, pwmChannel);
         i.putExtra(MessageCommands.OVERRIDE_SEND_VALUE_INT, value);
         Log.d(TAG, "updateOverride: channel: " + pwmChannel + ", value: " + value);
-        getActivity().startService(i);
+        UpdateService.enqueueWork(getActivity(), i);
     }
 
     @Override

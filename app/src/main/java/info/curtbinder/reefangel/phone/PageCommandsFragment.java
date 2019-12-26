@@ -164,7 +164,7 @@ public class PageCommandsFragment extends Fragment
         }
         i.setAction( action );
         i.putExtra( command, s );
-        getActivity().startService(i);
+        UpdateService.enqueueWork(getActivity(), i);
     }
 
     public void setButtonVersion(String msg) {

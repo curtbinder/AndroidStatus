@@ -74,7 +74,7 @@ public class PrefDialogDownloadLabels extends DialogPreference {
     private void downloadLabels() {
         Intent i = new Intent(ctx, UpdateService.class);
         i.setAction(MessageCommands.LABEL_QUERY_INTENT);
-        ctx.startService(i);
+        UpdateService.enqueueWork(ctx, i);
         Toast.makeText(ctx, ctx.getString(R.string.messageDownloadLabels),
                 Toast.LENGTH_SHORT).show();
     }

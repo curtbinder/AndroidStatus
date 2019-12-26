@@ -25,41 +25,12 @@
 
 <changelog bulletedList="true">
     <changelogversion versionName="2.4.0" changeDate="Not Released">
-        <changelogtext>Update service "wakes" device to do update</changelogtext>
+        <changelogtext>Fixed background update service to run in Android O and later</changelogtext>
     </changelogversion>
     <changelogversion versionName="2.3.0" changeDate="December 7, 2019">
         <chagnelogtext>Added saving of Custom Memory locations</chagnelogtext>
         <changelogtext>Changed stored logdate to ISO8601 standard</changelogtext>
         <changelogtext>Added conversion function to convert all stored logdates to ISO8601 format</changelogtext>
         <changelogtext>Updated library versions</changelogtext>
-    </changelogversion>
-    <changelogversion versionName="2.2.0" changeDate="March 4, 2018">
-        <changelogtext>Changed the way the Back button works</changelogtext>
-        <changelogtext>Improved XML processing of labels and values</changelogtext>
-        <changelogtext>Added initial graphing/chart support (Date range does not work currently)</changelogtext>
-        <changelogtext>Added ability to export the raw history sqlite3 database</changelogtext>
-    </changelogversion>
-    <changelogversion versionName="2.1.0" changeDate="November 26, 2017">
-        <changelogtext>Added initial RA Star support</changelogtext>
-        <changelogtext>Added support for PAR expansion module</changelogtext>
-        <changelogtext>Updated code libraries</changelogtext>
-        <changelogtext>Code cleanup</changelogtext>
-    </changelogversion>
-    <changelogversion versionName="2.0.0" changeDate="June 5, 2015">
-        <changelogtext>Added Custom Variable value updating</changelogtext>
-        <changelogtext>Fixed AI display bug and channel swap</changelogtext>
-        <changelogtext>Migrated to Toolbar from Actionbar</changelogtext>
-        <changelogtext>Added in DC Pump page</changelogtext>
-        <changelogtext>Added in a Navigation drawer</changelogtext>
-        <changelogtext>Fixed RA DDNS communication error</changelogtext>
-        <changelogtext>Changed app theme to be a light theme</changelogtext>
-        <changelogtext>Improved material theme</changelogtext>
-        <changelogtext>Changed minsdk to 15</changelogtext>
-        <changelogtext>Updated the app logo</changelogtext>
-        <changelogtext>Added a Setup Wizard to help configure the app</changelogtext>
-        <changelogtext>Migrated from Eclipse to Android Studio</changelogtext>
-        <changelogtext>Switched to using Fragments</changelogtext>
-        <changelogtext>Improved displaying changelog</changelogtext>
-        <changelogtext>Code cleanup</changelogtext>
     </changelogversion>
 </changelog>

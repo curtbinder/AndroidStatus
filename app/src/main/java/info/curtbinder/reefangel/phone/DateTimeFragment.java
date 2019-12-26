@@ -180,7 +180,7 @@ public class DateTimeFragment extends Fragment
                 return;
         }
         if (fSend) {
-            getActivity().startService(i);
+            UpdateService.enqueueWork(getActivity(), i);
         }
     }
 

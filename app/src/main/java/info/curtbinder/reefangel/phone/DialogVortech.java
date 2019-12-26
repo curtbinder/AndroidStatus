@@ -252,7 +252,7 @@ public class DialogVortech extends DialogFragment
         i.putExtra(MessageCommands.MEMORY_SEND_VALUE_INT, value);
         Log.d(TAG, "Update Vortech:  " + RequestCommands.MemoryByte + location + "," + value);
         // send the memory command
-        getActivity().startService(i);
+        UpdateService.enqueueWork(getActivity(), i);
     }
 
     @Override

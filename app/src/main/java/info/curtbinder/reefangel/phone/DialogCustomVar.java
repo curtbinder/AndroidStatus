@@ -140,6 +140,6 @@ public class DialogCustomVar extends DialogFragment {
         i.putExtra(MessageCommands.CUSTOMVAR_SEND_CHANNEL_INT, varChannel);
         i.putExtra(MessageCommands.CUSTOMVAR_SEND_VALUE_INT, value);
         Log.d(TAG, "updateCustomVar: channel: " + varChannel + ", value: " + value);
-        getActivity().startService(i);
+        UpdateService.enqueueWork(getActivity(), i);
     }
 }

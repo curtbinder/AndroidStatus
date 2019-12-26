@@ -524,7 +524,7 @@ public class StatusFragment extends Fragment {
     private void launchStatusTask() {
         Intent i = new Intent(getActivity(), UpdateService.class);
         i.setAction(MessageCommands.QUERY_STATUS_INTENT);
-        getActivity().startService(i);
+        UpdateService.enqueueWork(getActivity(), i);
     }
 
     @Override

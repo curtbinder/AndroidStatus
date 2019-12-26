@@ -207,7 +207,7 @@ public class MemoryFragment extends Fragment {
         i.putExtra( MessageCommands.MEMORY_SEND_TYPE_STRING, type );
         i.putExtra( MessageCommands.MEMORY_SEND_LOCATION_INT, location );
         i.putExtra( MessageCommands.MEMORY_SEND_VALUE_INT, value );
-        getActivity().startService(i);
+        UpdateService.enqueueWork(getActivity(), i);
         Toast.makeText( getActivity(), getResources().getString( id ),
                 Toast.LENGTH_SHORT ).show();
     }

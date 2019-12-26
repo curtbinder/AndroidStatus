@@ -564,7 +564,7 @@ public class ControllerTask implements Runnable {
             // launch the notification check service
             Intent n = new Intent(rapp, NotificationService.class);
             n.setAction(MessageCommands.NOTIFICATION_INTENT);
-            rapp.startService(n);
+            NotificationService.enqueueWork(rapp, n);
         }
 
         Intent u = new Intent(MessageCommands.UPDATE_DISPLAY_DATA_INTENT);
@@ -580,6 +580,6 @@ public class ControllerTask implements Runnable {
     private void broadcastErrorMessage() {
         Intent i = new Intent(rapp, NotificationService.class);
         i.setAction(MessageCommands.NOTIFICATION_ERROR_INTENT);
-        rapp.startService(i);
+        NotificationService.enqueueWork(rapp, i);
     }
 }

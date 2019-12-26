@@ -28,23 +28,23 @@ import info.curtbinder.reefangel.phone.Globals;
 import info.curtbinder.reefangel.phone.R;
 import info.curtbinder.reefangel.phone.RAApplication;
 import info.curtbinder.reefangel.phone.RAPreferences;
-import android.app.IntentService;
+
+import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.NonNull;
+import android.support.v4.app.JobIntentService;
 import android.util.Log;
 import android.widget.Toast;
 
-public class UpdateService extends IntentService {
+public class UpdateService extends JobIntentService {
 
 	private static final String TAG = UpdateService.class.getSimpleName();
 	private static RAApplication rapp;
+	static final int JOB_ID = 1000;
 
-	public UpdateService () {
-		super( TAG );
-	}
-
-	private void notControllerMessage ( ) {
+    private void notControllerMessage ( ) {
 		// TODO update this for portal
 		Toast.makeText( rapp.getBaseContext(), R.string.messageNotController,
 						Toast.LENGTH_LONG ).show();
@@ -64,20 +64,25 @@ public class UpdateService extends IntentService {
 		return fAvailable;
 	}
 
-	protected void onHandleIntent ( Intent intent ) {
-		// create new ControllerTask based on values received
-		// run the task
-		rapp = (RAApplication) getApplication();
-		String action = intent.getAction();
-		int profile_update =
-				intent.getIntExtra( MessageCommands.AUTO_UPDATE_PROFILE_INT, -1 );
-		if ( action.equals( MessageCommands.QUERY_STATUS_INTENT )
-				&& (profile_update > -1) ) {
-			processAutoUpdate( profile_update );
-			return;
-		}
-		processRACommand( intent );
-	}
+	public static void enqueueWork(Context context, Intent work) {
+        enqueueWork(context, UpdateService.class, JOB_ID, work);
+    }
+
+    @Override
+    protected void onHandleWork(@NonNull Intent intent) {
+        // create new ControllerTask based on values received
+        // run the task
+        rapp = (RAApplication) getApplication();
+        String action = intent.getAction();
+        int profile_update =
+                intent.getIntExtra( MessageCommands.AUTO_UPDATE_PROFILE_INT, -1 );
+        if ( action.equals( MessageCommands.QUERY_STATUS_INTENT )
+                && (profile_update > -1) ) {
+            processAutoUpdate( profile_update );
+            return;
+        }
+        processRACommand( intent );
+    }
 
 	private void processAutoUpdate ( int profile_update ) {
 		final RAPreferences raprefs = rapp.raprefs;
@@ -253,11 +258,11 @@ public class UpdateService extends IntentService {
 		if ( isNetworkAvailable() ) {
 			ControllerTask ct = new ControllerTask( rapp, h );
 			ct.run();
-		} else {
+//		} else {
 			// TODO remove Toast
-			Toast.makeText( rapp.getBaseContext(),
-							R.string.messageNetworkOffline, Toast.LENGTH_LONG )
-					.show();
+//			Toast.makeText( rapp.getBaseContext(),
+//							R.string.messageNetworkOffline, Toast.LENGTH_LONG )
+//					.show();
 		}
 	}
 }

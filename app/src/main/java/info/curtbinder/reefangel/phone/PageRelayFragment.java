@@ -351,6 +351,6 @@ public class PageRelayFragment extends Fragment
         i.setAction( MessageCommands.TOGGLE_RELAY_INTENT );
         i.putExtra( MessageCommands.TOGGLE_RELAY_PORT_INT, relay );
         i.putExtra( MessageCommands.TOGGLE_RELAY_MODE_INT, status );
-        getActivity().startService(i);
+        UpdateService.enqueueWork(getActivity(), i);
     }
 }

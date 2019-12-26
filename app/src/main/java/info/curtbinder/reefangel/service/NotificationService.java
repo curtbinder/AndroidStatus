@@ -29,6 +29,7 @@ import info.curtbinder.reefangel.db.ErrorTable;
 import info.curtbinder.reefangel.db.NotificationTable;
 import info.curtbinder.reefangel.db.StatusProvider;
 import info.curtbinder.reefangel.db.StatusTable;
+import info.curtbinder.reefangel.phone.AlarmReceiver;
 import info.curtbinder.reefangel.phone.Globals;
 import info.curtbinder.reefangel.phone.Permissions;
 import info.curtbinder.reefangel.phone.R;
@@ -38,7 +39,6 @@ import info.curtbinder.reefangel.phone.Utils;
 
 import java.util.Locale;
 
-import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentValues;
@@ -49,24 +49,26 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.v4.app.JobIntentService;
 import android.support.v4.app.NotificationCompat;
 
-// TODO update notification service
-public class NotificationService extends IntentService {
+public class NotificationService extends JobIntentService {
 
 	private static final String TAG = NotificationService.class.getSimpleName();
+	static final int JOB_ID = 1001;
 
 	private static RAApplication rapp;
 	private String errorMessage;
 	private String paramPrecision;
 	private String[] parameters;
 
-	public NotificationService () {
-		super( TAG );
+	public static void enqueueWork(Context context, Intent work) {
+		enqueueWork(context, NotificationService.class, JOB_ID, work);
 	}
 
 	@Override
-	protected void onHandleIntent ( Intent intent ) {
+	protected void onHandleWork(@NonNull Intent intent) {
 		rapp = (RAApplication) getApplication();
 		String action = intent.getAction();
 		if ( action.equals( MessageCommands.NOTIFICATION_CLEAR_INTENT ) ) {
@@ -109,7 +111,7 @@ public class NotificationService extends IntentService {
 					}
 					Intent i = new Intent( rapp, UpdateService.class );
 					i.setAction( MessageCommands.QUERY_STATUS_INTENT );
-					startService( i );
+					UpdateService.enqueueWork(rapp, i);
 				}
 				// otherwise if we have exceeded the max count, then we
 				// display the error
@@ -463,14 +465,14 @@ public class NotificationService extends IntentService {
 		// Create notification intent
 		// Will launch the service to clear the notifications
 		// and launch the main activity unless clear only is set
-		Intent i = new Intent( this, NotificationService.class );
+		Intent i = new Intent(this, AlarmReceiver.class);
+		i.putExtra(AlarmReceiver.ALARM_TYPE, AlarmReceiver.NOTIFICATION);
 		if ( fClearOnly ) {
 			i.setAction( MessageCommands.NOTIFICATION_CLEAR_INTENT );
 		} else {
 			i.setAction( MessageCommands.NOTIFICATION_LAUNCH_INTENT );
 		}
-		PendingIntent pi = PendingIntent.getService( this, -1, i, 0 );
-		return pi;
+		return PendingIntent.getBroadcast(this, -1, i, 0);
 	}
 
 	private NotificationCompat.Builder buildNormalNotification (

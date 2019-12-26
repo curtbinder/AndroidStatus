@@ -265,4 +265,4 @@ Changelog of all the versions of AndroidStatus
  * Updated library versions
 
 2.4 - ??
- * Changed auto update service to wake the device up from sleep to trigger the update
+ * Fixed background update service to run in Android O and later
