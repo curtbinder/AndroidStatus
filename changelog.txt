@@ -264,5 +264,6 @@ Changelog of all the versions of AndroidStatus
  * Added conversion of existing logdates from generic formatted date to ISO standard
  * Updated library versions
 
-2.4 - ??
+2.4 - December 27, 2019
  * Fixed background update service to run in Android O and later
+ * Fixed notifications not displaying since library update
