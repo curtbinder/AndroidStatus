@@ -26,11 +26,16 @@ package info.curtbinder.reefangel.phone;
 
 import android.app.AlarmManager;
 import android.app.Application;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Build;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -44,11 +49,16 @@ import java.io.PrintWriter;
 import java.nio.channels.FileChannel;
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
 
 import info.curtbinder.reefangel.db.RADbHelper;
 import info.curtbinder.reefangel.service.MessageCommands;
+import info.curtbinder.reefangel.service.NotificationService;
 import info.curtbinder.reefangel.service.UpdateService;
 import info.curtbinder.reefangel.service.XMLReadException;
 
@@ -83,6 +93,9 @@ public class RAApplication extends Application {
 
         // initialize the error count
         errorCount = 0;
+
+        // create the notification channels for Android O and later
+        createNotificationChannels();
     }
 
     public void onTerminate() {
@@ -133,10 +146,8 @@ public class RAApplication extends Application {
         // create a status query message
         PendingIntent pi = getUpdateIntent();
         // setup alarm service to wake up and start the service periodically
-        AlarmManager am =
-                (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
-                interval, pi);
+        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pi);
     }
 
     private PendingIntent getUpdateIntent() {
@@ -147,6 +158,28 @@ public class RAApplication extends Application {
                 raprefs.getUpdateProfile());
         return PendingIntent.getBroadcast(this, -1, i,
                 PendingIntent.FLAG_CANCEL_CURRENT);
+    }
+
+    public void createNotificationChannels() {
+        // This is for Android O and later
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Setup the channels
+            // 2 channels:  Notifications and Errors
+            CharSequence ch1_name = getString(R.string.menuMainNotifications);
+            String ch1_desc = getString(R.string.descriptionNotificationChannel);
+            NotificationChannel ch1 = new NotificationChannel(NotificationService.NOTIFICATION_CHANNEL_ID,
+                    ch1_name, NotificationManager.IMPORTANCE_HIGH);
+            ch1.setDescription(ch1_desc);
+//            CharSequence ch2_name = getString(R.string.menuMainErrors);
+//            String ch2_desc = getString(R.string.descriptionErrorChannel);
+//            NotificationChannel ch2 = new NotificationChannel(NotificationService.ERROR_CHANNEL_ID,
+//                    ch1_name, NotificationManager.IMPORTANCE_DEFAULT);
+//            ch2.setDescription(ch2_desc);
+
+            NotificationManager nm =  getSystemService(NotificationManager.class);
+            nm.createNotificationChannel(ch1);
+//            nm.createNotificationChannel(ch2);
+        }
     }
 
     // Error Logging

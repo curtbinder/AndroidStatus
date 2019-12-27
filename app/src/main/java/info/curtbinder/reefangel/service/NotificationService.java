@@ -58,6 +58,9 @@ public class NotificationService extends JobIntentService {
 	private static final String TAG = NotificationService.class.getSimpleName();
 	static final int JOB_ID = 1001;
 
+	public static final String NOTIFICATION_CHANNEL_ID = "ra_notify_channel_01";
+	public static final String ERROR_CHANNEL_ID = "ra_error_channel_02";
+
 	private static RAApplication rapp;
 	private String errorMessage;
 	private String paramPrecision;
@@ -475,51 +478,35 @@ public class NotificationService extends JobIntentService {
 		return PendingIntent.getBroadcast(this, -1, i, 0);
 	}
 
-	private NotificationCompat.Builder buildNormalNotification (
-			String msg,
-			long when,
-			int count ) {
-		Bitmap icon =
-				BitmapFactory.decodeResource(	getResources(),
-												R.drawable.ic_launcher );
-		NotificationCompat.Builder b =
-				new NotificationCompat.Builder( this )
-						.setAutoCancel( true )
-						.setSmallIcon( R.drawable.st_notify )
-						.setLargeIcon( icon )
-						.setContentTitle( getString( R.string.app_name ) )
-						.setContentText( msg )
-						.setTicker( msg )
-						.setWhen( when )
-						.setSound( rapp.raprefs.getNotificationSound() )
-						.setDeleteIntent( getNotificationLaunchIntent( true ) )
-						.setContentIntent( getNotificationLaunchIntent( false ) );
+	private NotificationCompat.Builder buildNormalNotification (String msg, long when, int count ) {
+		Bitmap icon = BitmapFactory.decodeResource(	getResources(), R.drawable.ic_launcher );
+		NotificationCompat.Builder b = new NotificationCompat.Builder( this, NOTIFICATION_CHANNEL_ID )
+				.setAutoCancel( true )
+				.setSmallIcon( R.drawable.st_notify )
+				.setLargeIcon( icon )
+				.setContentTitle( getString( R.string.app_name ) )
+				.setContentText( msg )
+				.setTicker( msg )
+				.setWhen( when )
+				.setPriority(NotificationCompat.PRIORITY_HIGH)
+				.setSound( rapp.raprefs.getNotificationSound() )
+				.setDeleteIntent( getNotificationLaunchIntent( true ) )
+				.setContentIntent( getNotificationLaunchIntent( false ) );
 		if ( count > 1 ) {
 			b.setNumber( count );
-			if ( Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1 ) {
-				String msgGB =
-						String.format(	Locale.US,
-										getString( R.string.messageGBMoreErrors ),
-										msg, count );
-				b.setContentText( msgGB );
-			}
 		}
 		return b;
 	}
 
 	private String getInboxStyleMessage ( String msg, long when ) {
-		String extraMessage =
-				String.format(	Locale.getDefault(), "%s - %s", msg,
+		String extraMessage = String.format(	Locale.getDefault(), "%s - %s", msg,
 						Utils.getNotificationDateFormatString(when));
 		return extraMessage;
 	}
 
 	public void notifyUser ( ) {
-		Uri uri =
-				Uri.parse( StatusProvider.CONTENT_URI + "/"
-							+ StatusProvider.PATH_ERROR );
-		Cursor c =
-				getContentResolver().query( uri, null,
+		Uri uri = Uri.parse( StatusProvider.CONTENT_URI + "/" + StatusProvider.PATH_ERROR );
+		Cursor c = getContentResolver().query( uri, null,
 											ErrorTable.COL_READ + "=?",
 											new String[] { "0" },
 											ErrorTable.COL_ID + " DESC" );
@@ -527,7 +514,7 @@ public class NotificationService extends JobIntentService {
 		String firstMessage = null;
 		long firstWhen = 0;
 		int numCount = 0;
-		String[] summaryLines = new String[5];
+		String[] summaryLines = new String[6];
 		String summaryText = "";
 		if ( c.moveToFirst() ) {
 			int msgIndex = c.getColumnIndex( ErrorTable.COL_MESSAGE );
@@ -538,12 +525,11 @@ public class NotificationService extends JobIntentService {
 			numCount = c.getCount();
 			// handle looping through the rest of the messages
 			// in order to create the big notification
-			// InboxStyle only allows for up to 5 lines
+			// InboxStyle only allows for up to 6 lines
 			int extraCount = 1;
 			summaryLines[0] = getInboxStyleMessage( firstMessage, firstWhen );
-			while ( c.moveToNext() && extraCount < 5 ) {
-				summaryLines[extraCount] =
-						getInboxStyleMessage(	c.getString( msgIndex ),
+			while ( c.moveToNext() && extraCount < 6 ) {
+				summaryLines[extraCount] = getInboxStyleMessage(c.getString( msgIndex ),
 												c.getLong( whenIndex ) );
 				extraCount++;
 			}
@@ -551,23 +537,19 @@ public class NotificationService extends JobIntentService {
 			// so a max of items can be shown (content title plus 5 extra
 			// lines)
 			if ( extraCount < numCount ) {
-				summaryText =
-						String.format(	Locale.US,
+				summaryText = String.format(	Locale.US,
 										getString( R.string.messageMoreErrors ),
 										numCount - extraCount );
 			}
 		}
 		c.close();
 
-		NotificationManager nm =
-				(NotificationManager) getSystemService( Context.NOTIFICATION_SERVICE );
+		NotificationManager nm = (NotificationManager) getSystemService( Context.NOTIFICATION_SERVICE );
 		int mNotificationId = 001;
 
-		NotificationCompat.Builder normal =
-				buildNormalNotification( firstMessage, firstWhen, numCount );
+		NotificationCompat.Builder normal = buildNormalNotification( firstMessage, firstWhen, numCount );
 		if ( numCount > 1 ) {
-			NotificationCompat.InboxStyle inbox =
-					new NotificationCompat.InboxStyle( normal );
+			NotificationCompat.InboxStyle inbox = new NotificationCompat.InboxStyle( normal );
 			// inbox.setBigContentTitle( firstMessage );
 			for ( String s : summaryLines ) {
 				inbox.addLine( s );

@@ -104,6 +104,9 @@ your controller or have a ReefAngel UserID to use this app.</string>
     <string name="descriptionDuration">Change the Duration</string>
     <string name="descriptionThreshold">Change the Threshold</string>
     <string name="descriptionReefAngelLogo">Reef Angel Logo</string>
+    <!-- Notification Channel Descriptions -->
+    <string name="descriptionNotificationChannel">User created notifications based on controller values</string>
+    <string name="descriptionErrorChannel">Errors related to the app</string>
 
     <!-- Extra Connection Errors -->
     <string name="errorAuthentication">Device Authentication Error, check your user/password settings.</string>
